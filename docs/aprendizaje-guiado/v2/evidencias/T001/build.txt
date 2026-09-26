@@ -1,0 +1,132 @@
+command: pnpm.cmd build
+startedUtc: 2026-09-26T18:46:41.9436859Z
+finishedUtc: 2026-09-26T18:48:46.6982341Z
+exitCode: 0
+
+$ pnpm -r --if-present build
+No projects matched the filters "D:\Jose (Datos)\Medicina\CEDIAH\Web" in "D:\Jose (Datos)\Medicina\CEDIAH\Web"
+Scope: all 4 workspace projects
+packages/contracts build$ tsc -p tsconfig.json
+packages/contracts build: Done
+apps/web build$ next build
+apps/api build$ tsc -p tsconfig.build.json
+apps/web build: ▲ Next.js 16.3.5 (Turbopack)
+apps/web build: ✓ Running next.config.ts took 2.3s
+apps/web build:   Creating an optimized production build ...
+apps/api build: Done
+apps/web build: ✓ Compiled successfully in 52s
+apps/web build:   Running TypeScript ...
+apps/web build:   Finished TypeScript in 14.9s ...
+apps/web build:   Collecting page data using 5 workers ...
+apps/web build:   Generating static pages using 5 workers (0/21) ...
+apps/web build:   Generating static pages using 5 workers (5/21) 
+apps/web build:   Generating static pages using 5 workers (10/21) 
+apps/web build:   Generating static pages using 5 workers (15/21) 
+apps/web build: ✓ Generating static pages using 5 workers (21/21) in 2.9s
+apps/web build: Turbopack build encountered 1 warning:
+apps/web build: ./apps/web/src/app/interactive-term-polish.css:19:13
+apps/web build: Warning: Parsing CSS source code failed
+apps/web build:   [90m17 |[0m }
+apps/web build:   [90m18 |[0m
+apps/web build: [33m[1m>[0m [90m19 |[0m ::highlight(koraz-editor-interactive-terms) {
+apps/web build:   [90m   |[0m             [33m[1m^[0m
+apps/web build:   [90m20 |[0m   color: inherit;
+apps/web build:   [90m21 |[0m   background-color: color-mix([36min[0m srgb, [36mvar[0m(--koraz-mint) [35m18[0m%, transparent);
+apps/web build:   [90m22 |[0m   text-decoration-line: underline;
+apps/web build: 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+apps/web build: Generated code of PostCSS transform of file content of apps/web/src/app/interactive-term-polish.css:
+apps/web build: ./apps/web/src/app/interactive-term-polish.css:19:13
+apps/web build:   [90m17 |[0m }
+apps/web build:   [90m18 |[0m
+apps/web build: [33m[1m>[0m [90m19 |[0m ::highlight(koraz-editor-interactive-terms) {
+apps/web build:   [90m   |[0m             [33m[1m^[0m
+apps/web build:   [90m20 |[0m   color: inherit;
+apps/web build:   [90m21 |[0m   background-color: color-mix([36min[0m srgb, [36mvar[0m(--koraz-mint) [35m18[0m%, transparent);
+apps/web build:   [90m22 |[0m   text-decoration-line: underline;
+apps/web build: Import trace:
+apps/web build:   Client Component Browser:
+apps/web build:     ./apps/web/src/app/interactive-term-polish.css [Client Component Browser]
+apps/web build:     ./apps/web/src/app/layout.tsx [Server Component]
+apps/web build:   Finalizing page optimization ...
+apps/web build: Route (app)
+apps/web build: ┌ ƒ /
+apps/web build: ├ ○ /_not-found
+apps/web build: ├ ƒ /acceder
+apps/web build: ├ ƒ /api/admin/interactive-terms
+apps/web build: ├ ƒ /api/admin/interactive-terms/[termId]
+apps/web build: ├ ƒ /api/admin/interactive-terms/preview
+apps/web build: ├ ƒ /api/admin/interactive-terms/suggestions
+apps/web build: ├ ƒ /api/admin/roles
+apps/web build: ├ ƒ /api/auth/[...path]
+apps/web build: ├ ƒ /api/content-order
+apps/web build: ├ ƒ /api/content/[contentId]/reaction
+apps/web build: ├ ƒ /api/content/[contentId]/views
+apps/web build: ├ ƒ /api/editor/assets/[assetId]
+apps/web build: ├ ƒ /api/editor/assets/[assetId]/finalize
+apps/web build: ├ ƒ /api/editor/content
+apps/web build: ├ ƒ /api/editor/content-index
+apps/web build: ├ ƒ /api/editor/content-order
+apps/web build: ├ ƒ /api/editor/content/[contentId]
+apps/web build: ├ ƒ /api/editor/content/[contentId]/assets
+apps/web build: ├ ƒ /api/editor/content/[contentId]/subjects
+apps/web build: ├ ƒ /api/editor/content/[contentId]/transition
+apps/web build: ├ ƒ /api/editor/learning-paths
+apps/web build: ├ ƒ /api/editor/learning-paths/[...path]
+apps/web build: ├ ƒ /api/editor/learning-resources
+apps/web build: ├ ƒ /api/editor/learning-resources/[contentId]
+apps/web build: ├ ƒ /api/editor/subjects
+apps/web build: ├ ƒ /api/editor/subjects/[subjectId]
+apps/web build: ├ ƒ /api/editor/topic-items
+apps/web build: ├ ƒ /api/editor/topic-list-order
+apps/web build: ├ ƒ /api/editor/topics
+apps/web build: ├ ƒ /api/guided-learning/[...path]
+apps/web build: ├ ƒ /api/search
+apps/web build: ├ ƒ /api/system-health
+apps/web build: ├ ƒ /api/video-tests/[videoId]
+apps/web build: ├ ƒ /api/video-tests/uploads
+apps/web build: ├ ƒ /aprendizaje
+apps/web build: ├ ƒ /aprendizaje/mapa
+apps/web build: ├ ƒ /aprendizaje/repaso
+apps/web build: ├ ƒ /aprendizaje/rutas/[slug]
+apps/web build: ├ ƒ /aprendizaje/rutas/[slug]/actividades/[stepId]
+apps/web build: ├ ƒ /aprendizaje/sesiones/[attemptId]
+apps/web build: ├ ƒ /asignaturas
+apps/web build: ├ ƒ /asignaturas/[slug]
+apps/web build: ├ ƒ /auth/actualizar-contrasena
+apps/web build: ├ ƒ /auth/callback
+apps/web build: ├ ƒ /biblioteca
+apps/web build: ├ ƒ /biblioteca/[slug]
+apps/web build: ├ ƒ /clases/reproductor
+apps/web build: ├ ƒ /contenido/[slug]
+apps/web build: ├ ƒ /cursos
+apps/web build: ├   /cursos/[slug]
+apps/web build: │ ├ ● /cursos/cuello
+apps/web build: │ ├ ● /cursos/torax
+apps/web build: │ ├ ● /cursos/abdomen
+apps/web build: │ └ ● [+5 more paths]
+apps/web build: ├   /cursos/[slug]/lecciones/[lessonSlug]
+apps/web build: │ ├ ● /cursos/cuello/lecciones/introduccion
+apps/web build: │ ├ ● /cursos/torax/lecciones/introduccion
+apps/web build: │ ├ ● /cursos/abdomen/lecciones/introduccion
+apps/web build: │ └ ● [+5 more paths]
+apps/web build: ├ ƒ /dashboard
+apps/web build: ├ ƒ /guias
+apps/web build: ├ ƒ /guias/[slug]
+apps/web build: ├ ƒ /guias/musculos-compartimento-anterior
+apps/web build: ├ ƒ /panel
+apps/web build: ├ ƒ /panel/administracion/roles
+apps/web build: ├ ƒ /panel/administracion/terminos
+apps/web build: ├ ƒ /panel/contenido
+apps/web build: ├ ƒ /panel/rutas
+apps/web build: ├ ƒ /panel/rutas/[pathId]
+apps/web build: ├ ƒ /panel/rutas/nueva
+apps/web build: ├ ƒ /pruebas/video
+apps/web build: ├ ƒ /recuperar-acceso
+apps/web build: ├ ƒ /visual-fixtures/aprendizaje
+apps/web build: ├ ƒ /visual-fixtures/editor-rutas
+apps/web build: └ ƒ /visual-fixtures/mapa
+apps/web build: ƒ Proxy (Middleware)
+apps/web build: ○  (Static)   prerendered as static content
+apps/web build: ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+apps/web build: ƒ  (Dynamic)  server-rendered on demand
+apps/web build: Done

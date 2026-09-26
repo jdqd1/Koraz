@@ -1,0 +1,65 @@
+[
+  {
+    "id": "contracts-build",
+    "command": "pnpm.cmd --filter @cediah/contracts build",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:36:41.6343231Z",
+    "finishedUtc": "2026-09-26T18:36:52.6060658Z",
+    "durationSeconds": 10.97,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt"
+  },
+  {
+    "id": "api-test",
+    "command": "pnpm.cmd --filter @cediah/api test",
+    "exitCode": 1,
+    "startedUtc": "2026-09-26T18:36:52.7879048Z",
+    "finishedUtc": "2026-09-26T18:38:59.8414019Z",
+    "durationSeconds": 127.05,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt"
+  },
+  {
+    "id": "web-test",
+    "command": "pnpm.cmd --filter @cediah/web test",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:38:59.8554161Z",
+    "finishedUtc": "2026-09-26T18:41:05.7756572Z",
+    "durationSeconds": 125.92,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt"
+  },
+  {
+    "id": "typecheck",
+    "command": "pnpm.cmd typecheck",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:41:05.7829583Z",
+    "finishedUtc": "2026-09-26T18:44:41.4632796Z",
+    "durationSeconds": 215.68,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt"
+  },
+  {
+    "id": "lint",
+    "command": "pnpm.cmd lint",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:44:41.4801414Z",
+    "finishedUtc": "2026-09-26T18:46:41.9378393Z",
+    "durationSeconds": 120.46,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt"
+  },
+  {
+    "id": "build",
+    "command": "pnpm.cmd build",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:46:41.9436859Z",
+    "finishedUtc": "2026-09-26T18:48:46.6982341Z",
+    "durationSeconds": 124.75,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt"
+  },
+  {
+    "id": "api-timeout-focused",
+    "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-routes.test.ts -t \"does not register or call guided modules while the feature is disabled\"",
+    "exitCode": 0,
+    "startedUtc": "2026-09-26T18:49:02.6670843Z",
+    "finishedUtc": "2026-09-26T18:49:10.1808657Z",
+    "durationSeconds": 7.51,
+    "log": "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt"
+  }
+]

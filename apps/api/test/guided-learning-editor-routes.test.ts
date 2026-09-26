@@ -450,6 +450,21 @@ describe("guided-learning editor Fastify routes", () => {
       pathId,
       status: "published",
     });
+    const restored = await app.inject({
+      headers: { authorization: "Bearer coordinator" },
+      method: "POST",
+      payload: { expectedVersion: 1, status: "restored" },
+      url: `/v1/editor/learning-paths/${pathId}/transition`,
+    });
+    expect(restored.statusCode).toBe(200);
+    expect(fixture.provider.transitionPath).toHaveBeenLastCalledWith({
+      actorUserId: coordinatorId,
+      canPublish: true,
+      canReview: true,
+      expectedVersion: 1,
+      pathId,
+      status: "restored",
+    });
     await app.close();
   });
 });

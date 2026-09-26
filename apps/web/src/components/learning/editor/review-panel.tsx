@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Archive, CaretDown, CheckCircle } from "@phosphor-icons/react";
+import { Archive, ArrowCounterClockwise, CaretDown, CheckCircle } from "@phosphor-icons/react";
 import { AlertDialog, Collapsible } from "radix-ui";
 import type { LearningPathDetail } from "@cediah/contracts";
 import type { EditorDraft, ValidationStamp } from "./editor-model";
@@ -78,6 +78,7 @@ export function ReviewPanel({
           {actions.includes("publish") ? <button className={styles.primaryAction} disabled={busy} onClick={() => setPublishOpen(true)} type="button">Publicar versión</button> : null}
           {actions.includes("create-version") ? <button className={styles.primaryAction} disabled={busy} onClick={() => void onCreateVersion(draft.definition.releaseNotes)} type="button">Crear nueva versión para editar</button> : null}
           {actions.includes("archive") ? <button className={styles.dangerButton} disabled={busy} onClick={() => setArchiveOpen(true)} type="button"><Archive aria-hidden size={18} /> Archivar ruta</button> : null}
+          {actions.includes("restore") ? <button className={styles.primaryAction} disabled={busy} onClick={() => void onTransition("restore")} type="button"><ArrowCounterClockwise aria-hidden size={18} /> Desarchivar ruta</button> : null}
         </div>
       </div>
 
@@ -132,7 +133,7 @@ export function ReviewPanel({
 }
 
 function workflowExplanation(detail: LearningPathDetail | null, actions: EditorWorkflowAction[]) {
-  if (detail?.archivedAt || detail?.version.status === "archived") return "Esta ruta está archivada. No admite edición ni publicación.";
+  if (detail?.archivedAt || detail?.version.status === "archived") return "Esta ruta está archivada. No admite edición ni publicación hasta desarchivarla.";
   if (!detail || detail.version.status === "draft" || detail.version.status === "changes_requested") return "Enviar guarda y comprueba la versión actual; solo continúa si no hay problemas bloqueantes.";
   if (detail.version.status === "in_review") return actions.length > 0 ? "Revisa los avisos antes de aprobar o solicita cambios al autor." : "Esta ruta está en revisión.";
   if (detail.version.status === "approved") return actions.length > 0 ? "La versión aprobada puede hacerse visible para estudiantes." : "Esta versión está aprobada y espera a una persona con permiso de publicación.";

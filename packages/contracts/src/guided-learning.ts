@@ -142,7 +142,7 @@ export const LearningPathDeleteResponseSchema = z.strictObject({
 
 export const LearningPathTransitionRequestSchema = z.strictObject({
   expectedVersion: z.number().int().min(1),
-  status: z.enum(["in_review", "changes_requested", "approved", "published", "archived"]),
+  status: z.enum(["in_review", "changes_requested", "approved", "published", "archived", "restored"]),
 });
 
 export const LearningPathCreateVersionRequestSchema = z.strictObject({
@@ -1003,7 +1003,7 @@ export interface GuidedLearningProvider {
     canReview: boolean;
     expectedVersion: number;
     pathId: string;
-    status: "in_review" | "changes_requested" | "approved" | "published" | "archived";
+    status: "in_review" | "changes_requested" | "approved" | "published" | "archived" | "restored";
   }): Promise<GuidedLearningResult<LearningPathDetail>>;
   updatePreferences(input: {
     idempotencyKey: string;

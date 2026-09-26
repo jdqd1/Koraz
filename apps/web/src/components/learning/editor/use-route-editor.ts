@@ -299,7 +299,7 @@ export function useRouteEditor(input: {
   }, [beginOperation, commitInternal, handleFailure, persistWithinLock, setOperation, transport.validate]);
 
   const transition = useCallback(async (
-    status: Exclude<LearningPathStatus, "draft">,
+    status: Exclude<LearningPathStatus, "draft"> | "restored",
   ): Promise<EditorCommandResult<LearningPathDetail>> => {
     if (!beginOperation(status === "in_review" ? "saving" : "transitioning")) return { ok: false, reason: "busy" };
     try {

@@ -441,7 +441,9 @@ export function createEditorFixtureRuntime(mode: EditorFixtureMode, failure: Edi
         const issues = validateDetail(stored);
         if (issues.some((entry) => entry.severity === "error")) return { errorCode: "not_ready", issues, ok: false, status: 422 };
       }
-      stored = status === "archived"
+      stored = status === "restored"
+        ? { ...stored, archivedAt: null }
+        : status === "archived"
         ? { ...stored, archivedAt: new Date(0).toISOString() }
         : { ...stored, version: { ...stored.version, editVersion: stored.version.editVersion + 1, publishedAt: status === "published" ? new Date(0).toISOString() : stored.version.publishedAt, status } };
       return ok(structuredClone(stored));

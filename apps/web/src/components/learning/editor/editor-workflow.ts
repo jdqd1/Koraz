@@ -9,13 +9,14 @@ export const editorStatusLabels: Record<LearningPathStatus, string> = {
   published: "Publicada",
 };
 
-export type EditorWorkflowAction = "approve" | "archive" | "changes-requested" | "create-version" | "publish" | "send-review";
+export type EditorWorkflowAction = "approve" | "archive" | "changes-requested" | "create-version" | "publish" | "restore" | "send-review";
 
 export function editorWorkflowActions(
   detail: LearningPathDetail | null,
   capabilities: { canPublish: boolean; canReview: boolean },
 ): EditorWorkflowAction[] {
-  if (detail?.archivedAt || detail?.version.status === "archived") return [];
+  if (detail?.archivedAt) return capabilities.canPublish ? ["restore"] : [];
+  if (detail?.version.status === "archived") return [];
   const status = detail?.version.status;
   const canArchive = Boolean(detail && capabilities.canPublish
     && (status === "published" || detail.version.number > 1));

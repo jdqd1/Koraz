@@ -1,0 +1,86 @@
+{
+  "taskId": "T002",
+  "status": "PASS",
+  "baseSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+  "recordedUtc": "2026-09-26T19:02:36.505192+00:00",
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/ADR-v2.md",
+    "docs/aprendizaje-guiado/v2/policy-spec.md",
+    "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T002/verify_t002.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T002/verification.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T002/result.json"
+  ],
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T002/verification.json"
+    },
+    {
+      "command": "git status --short; git diff --name-only HEAD",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T002/verification.json"
+    },
+    {
+      "command": "python docs/aprendizaje-guiado/v2/evidencias/T002/verify_t002.py",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T002/verification.json"
+    }
+  ],
+  "referenceChecksSource": "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json",
+  "referenceChecks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "exitCode": 1,
+      "result": "FAIL",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web test",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt"
+    },
+    {
+      "command": "pnpm.cmd typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt"
+    },
+    {
+      "command": "pnpm.cmd build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-routes.test.ts -t \"does not register or call guided modules while the feature is disabled\"",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt"
+    }
+  ],
+  "issues": [
+    "Suite API base T001: 230/231; 1 timeout de 5000 ms. El caso aislado pasó. No se cambió el timeout ni se marca la suite completa como PASS."
+  ],
+  "nextTaskIds": [
+    "T003"
+  ],
+  "scope": "Solo documentación y evidencia dentro de docs/aprendizaje-guiado/v2/. No se ejecutó T003 ni se modificó runtime, DB o producción."
+}

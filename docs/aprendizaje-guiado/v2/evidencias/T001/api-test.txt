@@ -1,0 +1,36 @@
+command: pnpm.cmd --filter @cediah/api test
+startedUtc: 2026-09-26T18:36:52.7879048Z
+finishedUtc: 2026-09-26T18:38:59.8414019Z
+exitCode: 1
+
+$ vitest run
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-learning-routes.test.ts (13 tests | 1 failed) 5706ms
+     × does not register or call guided modules while the feature is disabled 5131ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-learning-routes.test.ts > guided-learning route registration > does not register or call guided modules while the feature is disabled
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-learning-routes.test.ts:153:3
+    151|
+    152| describe("guided-learning route registration", () => {
+    153|   it("does not register or call guided modules while the feature is di…
+       |   ^
+    154|     const provider = fakeProvider();
+    155|     const observer = vi.fn();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 35 passed (36)
+      Tests  1 failed | 230 passed (231)
+   Start at  14:37:01
+   Duration  118.38s (transform 6.12s, setup 0ms, import 108.72s, tests 109.61s, environment 7ms)
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 test: `vitest run`
+Exit status 1

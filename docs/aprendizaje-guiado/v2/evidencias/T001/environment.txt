@@ -1,0 +1,19 @@
+T001 environment and repository checks
+recordedUtc: 2026-09-26T18:50:44.5394670Z
+initial command: git status --short
+initial result: (empty; clean tree)
+command: git rev-parse HEAD
+result: 774b60d2d0d3bd0bceefe3612a2108f684f01048
+command: node --version (default PATH)
+result: v22.22.0
+command: node --version (Node 24 prepended for baseline)
+result: v24.19.0
+command: pnpm.cmd --version
+result: 11.19.0
+declared packageManager: pnpm@11.9.0
+dependencies: node_modules present in root, contracts, api, web
+migration chain: database/migrations; files=30; highest=0029_recent_guide_reading.sql; duplicate prefix=0017
+AGENTS discovery: only apps/web/AGENTS.md present; it requires Next local docs before frontend code edits, which T001 did not perform.
+No db:migrate or production DB command executed.
+final command: git diff --name-only
+final result: (empty; no tracked product changes)

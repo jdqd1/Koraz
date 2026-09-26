@@ -43,7 +43,8 @@ describe("editor workflow capabilities", () => {
   it("allows a new version only from a non-archived published route", () => {
     expect(editorWorkflowActions(detail("published"), { canPublish: false, canReview: false })).toEqual(["create-version"]);
     expect(editorWorkflowActions(detail("published"), { canPublish: true, canReview: true })).toEqual(["create-version", "archive"]);
-    expect(editorWorkflowActions(detail("published", "2026-09-19T12:00:00.000Z"), { canPublish: true, canReview: true })).toEqual([]);
+    expect(editorWorkflowActions(detail("published", "2026-09-19T12:00:00.000Z"), { canPublish: true, canReview: true })).toEqual(["restore"]);
+    expect(editorWorkflowActions(detail("published", "2026-09-19T12:00:00.000Z"), { canPublish: false, canReview: true })).toEqual([]);
     expect(editorWorkflowActions(detail("archived"), { canPublish: true, canReview: true })).toEqual([]);
   });
 

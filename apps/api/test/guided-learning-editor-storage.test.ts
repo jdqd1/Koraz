@@ -368,6 +368,45 @@ describe("guided-learning editor snapshot storage", () => {
     expect((await pg.query("select id from learning_enrollments where path_id = $1", [published.id])).rows).toEqual([]);
   });
 
+  it("restores an archived route without changing its published version or enrollments", async () => {
+    const published = await publish(await createReadyPath("storage-restore-published"));
+    const enrollment = await provider.createEnrollment({ pathId: published.id, userId: otherCreatorId });
+    expect(enrollment.status).toBe("success");
+    const archived = await provider.transitionPath({
+      actorUserId: creatorId, canPublish: true, canReview: true,
+      expectedVersion: published.version.editVersion, pathId: published.id, status: "archived",
+    });
+    expect(archived.status).toBe("success");
+    if (archived.status !== "success") return;
+    expect((await provider.listPublishedPaths({ limit: 20, userId: otherCreatorId })).items.some((path) => path.id === published.id)).toBe(false);
+    expect(await provider.transitionPath({
+      actorUserId: creatorId, canPublish: false, canReview: false,
+      expectedVersion: archived.value.version.editVersion, pathId: published.id, status: "restored",
+    })).toEqual({ status: "forbidden" });
+    expect(await provider.transitionPath({
+      actorUserId: creatorId, canPublish: true, canReview: true,
+      expectedVersion: archived.value.version.editVersion + 1, pathId: published.id, status: "restored",
+    })).toEqual({ status: "version_conflict" });
+    const restored = await provider.transitionPath({
+      actorUserId: creatorId, canPublish: true, canReview: true,
+      expectedVersion: archived.value.version.editVersion, pathId: published.id, status: "restored",
+    });
+    expect(restored).toMatchObject({
+      status: "success",
+      value: { archivedAt: null, version: { id: published.version.id, editVersion: published.version.editVersion, status: "published" } },
+    });
+    expect((await provider.listPublishedPaths({ limit: 20, userId: otherCreatorId })).items.find((path) => path.id === published.id))
+      .toMatchObject({ enrollment: { id: enrollment.status === "success" ? enrollment.value.enrollment.id : "" }, id: published.id });
+    expect(await provider.transitionPath({
+      actorUserId: creatorId, canPublish: true, canReview: true,
+      expectedVersion: published.version.editVersion, pathId: published.id, status: "restored",
+    })).toEqual({ status: "conflict" });
+    expect((await pg.query<{ action: string }>(
+      "select action from audit_log where target_id = $1 order by occurred_at desc limit 1",
+      [published.id],
+    )).rows[0]!.action).toBe("learning_path_restored");
+  }, 30_000);
+
   it("deletes a published route from an enrolled user's map, progress, attempts and rewards", async () => {
     const published = await publish(await createReadyPath("storage-delete-enrolled"));
     await expect(pg.query(

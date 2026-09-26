@@ -68,6 +68,16 @@ async function auditEditor(page: Page, testInfo: TestInfo, state: string) {
 }
 
 test.describe("editor cotidiano con transporte fixture en memoria", () => {
+  test("desarchiva una ruta desde el índice y recupera su estado publicado", async ({ page }) => {
+    await page.goto("/visual-fixtures/editor-rutas?estado=archived&vista=indice");
+    await expect(page.getByText("Archivada", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: /Desarchivar ruta/ }).click();
+    await expect(page.getByRole("alertdialog")).toContainText("última versión publicada");
+    await page.getByRole("alertdialog").getByRole("button", { name: "Desarchivar ruta" }).click();
+    await expect(page.getByText("Publicada", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Archivar ruta/ })).toBeVisible();
+  });
+
   test("el índice distingue un borrador nuevo de una ruta con publicación previa", async ({ page }) => {
     await page.goto("/visual-fixtures/editor-rutas?estado=legacy&vista=indice");
     await expect(page.getByRole("heading", { name: "Rutas de aprendizaje" })).toBeVisible();
@@ -325,7 +335,9 @@ test.describe("editor cotidiano con transporte fixture en memoria", () => {
     await expect(page.getByLabel("Título de la ruta")).toBeDisabled();
     await selectSection(page, "Revisión");
     await expect(page.getByRole("button", { name: "Crear nueva versión para editar" })).toHaveCount(0);
-    await expect(page.getByText("Esta ruta está archivada. No admite edición ni publicación.")).toBeVisible();
+    await expect(page.getByText("Esta ruta está archivada. No admite edición ni publicación hasta desarchivarla.")).toBeVisible();
+    await page.getByRole("button", { name: "Desarchivar ruta" }).click();
+    await expect(page.getByRole("button", { name: "Crear nueva versión para editar" })).toBeVisible();
   });
 
   test("contenido heredado conserva dos objetivos, cuatro formatos y alternativas", async ({ page }) => {

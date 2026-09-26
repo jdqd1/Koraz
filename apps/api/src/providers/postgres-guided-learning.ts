@@ -1114,8 +1114,11 @@ export function createPostgresGuidedLearningProvider(
         pathId: input.pathId,
       });
       if (access.status !== "success") return access;
-      if (access.value.archivedAt) return { status: "conflict" };
-      if (!canTransitionLearningPath({
+      if (input.status === "restored") {
+        if (!access.value.archivedAt) return { status: "conflict" };
+        if (!input.canPublish) return { status: "forbidden" };
+      } else if (access.value.archivedAt) return { status: "conflict" };
+      else if (!canTransitionLearningPath({
         actorUserId: input.actorUserId,
         canPublish: input.canPublish,
         canReview: input.canReview,
@@ -1142,6 +1145,18 @@ export function createPostgresGuidedLearningProvider(
           if (!version) return null;
           const path = await transaction.selectFrom("learning_paths").selectAll()
             .where("id", "=", input.pathId).forUpdate().executeTakeFirstOrThrow();
+          if (input.status === "restored") {
+            if (!path.archived_at || !path.published_version_id) return null;
+            const restoredPath = await transaction.updateTable("learning_paths")
+              .set({ archived_at: null }).where("id", "=", path.id)
+              .returningAll().executeTakeFirstOrThrow();
+            await writeAudit(transaction, {
+              action: "learning_path_restored",
+              actorUserId: input.actorUserId,
+              pathId: path.id,
+            });
+            return { path: restoredPath, version };
+          }
           if (path.archived_at) return null;
           if (input.status === "archived") {
             const archivedPath = await transaction.updateTable("learning_paths")

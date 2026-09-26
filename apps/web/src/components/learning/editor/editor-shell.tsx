@@ -177,6 +177,7 @@ export function EditorShell({
     if (action === "changes-requested") return editor.transition("changes_requested");
     if (action === "approve") return editor.transition("approved");
     if (action === "archive") return editor.transition("archived");
+    if (action === "restore") return editor.transition("restored");
     return editor.transition("published");
   }
 

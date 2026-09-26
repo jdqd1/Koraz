@@ -29,12 +29,14 @@ describe("learning paths editor index", () => {
     expect(html).toContain(`aria-label="Eliminar ruta ${path.title}"`);
   });
 
-  it("labels archived routes from archivedAt even when their version remains published", () => {
+  it("offers restoration for archived routes with publication permission", () => {
     const path = editorFixture("archived").initialPath!;
     const html = renderToStaticMarkup(<LearningPathsEditorIndex canArchive paths={[path]} />);
 
     expect(html).toContain("Archivada");
+    expect(html).toContain(`aria-label="Desarchivar ruta ${path.title}"`);
     expect(html).toContain(`aria-label="Eliminar ruta ${path.title}"`);
     expect(html).not.toContain(`aria-label="Archivar ruta ${path.title}"`);
+    expect(renderToStaticMarkup(<LearningPathsEditorIndex paths={[path]} />)).not.toContain(`aria-label="Desarchivar ruta ${path.title}"`);
   });
 });

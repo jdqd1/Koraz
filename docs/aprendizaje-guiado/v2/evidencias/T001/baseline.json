@@ -1,0 +1,175 @@
+{
+  "taskId": "T001",
+  "status": "PASS",
+  "baseSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+  "recordedUtc": "2026-09-26T18:50:44.5394670Z",
+  "repository": {
+    "path": "D:/Jose (Datos)/Medicina/CEDIAH/Web",
+    "identity": "CEDIAH platform with Koraz database as documented in README.md",
+    "initialStatusShort": "",
+    "finalTrackedDiff": "",
+    "handoffSha256": "b9c2fb34fb592175d3eeac80cd4169ce0abc15c3e2292f459f998196842f0124"
+  },
+  "runtime": {
+    "requiredNode": "24.x",
+    "defaultNode": "v22.22.0",
+    "usedNode": "v24.19.0",
+    "declaredPnpm": "pnpm@11.9.0",
+    "availablePnpm": "11.19.0",
+    "nodeModulesPresent": true,
+    "contractsNodeModulesPresent": true,
+    "apiNodeModulesPresent": true,
+    "webNodeModulesPresent": true
+  },
+  "project": {
+    "workspacePackages": [
+      "@cediah/contracts",
+      "@cediah/api",
+      "@cediah/web"
+    ],
+    "rootScripts": {
+      "build": "pnpm -r --if-present build",
+      "db:migrate": "pnpm --filter @cediah/api migrate",
+      "dev": "pnpm --filter @cediah/contracts build && pnpm --parallel --filter @cediah/api --filter @cediah/web dev",
+      "dev:api": "pnpm --filter @cediah/contracts build && pnpm --filter @cediah/api dev",
+      "dev:web": "pnpm --filter @cediah/contracts build && pnpm --filter @cediah/web dev",
+      "lint": "pnpm -r --if-present lint",
+      "test": "pnpm -r --if-present test",
+      "typecheck": "pnpm -r --if-present typecheck"
+    },
+    "packageScripts": {
+      "contracts": {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc --noEmit"
+      },
+      "api": {
+        "build": "tsc -p tsconfig.build.json",
+        "dev": "tsx watch src/server.ts",
+        "lint": "eslint . --max-warnings=0",
+        "migrate": "tsx src/db/run-migrations.ts",
+        "start": "node dist/server.js",
+        "test": "vitest run",
+        "test:map-server": "tsx test/helpers/learning-map-server.ts",
+        "typecheck": "tsc --noEmit"
+      },
+      "web": {
+        "build": "next build",
+        "dev": "next dev --hostname 0.0.0.0 --port 3000",
+        "lint": "eslint . --max-warnings=0",
+        "start": "next start --hostname 0.0.0.0 --port 3000",
+        "test": "vitest run",
+        "test:e2e": "playwright test",
+        "typecheck": "tsc --noEmit"
+      }
+    },
+    "migrationChain": "database/migrations",
+    "migrationFileCount": 30,
+    "highestMigrationPrefix": "0029",
+    "highestMigrationFile": "0029_recent_guide_reading.sql",
+    "duplicatePrefix0017": [
+      "0017_delete_guided_learning_paths.sql",
+      "0017_editorial_topics_and_drafts.sql"
+    ]
+  },
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt",
+      "startedUtc": "2026-09-26T18:36:41.6343231Z",
+      "finishedUtc": "2026-09-26T18:36:52.6060658Z",
+      "durationSeconds": 10.97
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "exitCode": 1,
+      "result": "FAIL",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt",
+      "startedUtc": "2026-09-26T18:36:52.7879048Z",
+      "finishedUtc": "2026-09-26T18:38:59.8414019Z",
+      "durationSeconds": 127.05
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web test",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt",
+      "startedUtc": "2026-09-26T18:38:59.8554161Z",
+      "finishedUtc": "2026-09-26T18:41:05.7756572Z",
+      "durationSeconds": 125.92
+    },
+    {
+      "command": "pnpm.cmd typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt",
+      "startedUtc": "2026-09-26T18:41:05.7829583Z",
+      "finishedUtc": "2026-09-26T18:44:41.4632796Z",
+      "durationSeconds": 215.68
+    },
+    {
+      "command": "pnpm.cmd lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt",
+      "startedUtc": "2026-09-26T18:44:41.4801414Z",
+      "finishedUtc": "2026-09-26T18:46:41.9378393Z",
+      "durationSeconds": 120.46
+    },
+    {
+      "command": "pnpm.cmd build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt",
+      "startedUtc": "2026-09-26T18:46:41.9436859Z",
+      "finishedUtc": "2026-09-26T18:48:46.6982341Z",
+      "durationSeconds": 124.75
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-routes.test.ts -t \"does not register or call guided modules while the feature is disabled\"",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt",
+      "startedUtc": "2026-09-26T18:49:02.6670843Z",
+      "finishedUtc": "2026-09-26T18:49:10.1808657Z",
+      "durationSeconds": 7.51
+    }
+  ],
+  "testSummary": {
+    "apiInitial": {
+      "passed": 230,
+      "failed": 1,
+      "total": 231,
+      "failingTest": "test/guided-learning-routes.test.ts > guided-learning route registration > does not register or call guided modules while the feature is disabled",
+      "failure": "5000 ms timeout",
+      "focusedRetest": "PASS (1 passed, 12 skipped; test 858 ms)"
+    },
+    "web": {
+      "testFilesPassed": 41,
+      "testsPassed": 236
+    }
+  },
+  "issues": [
+    "API baseline suite has one 5000 ms timeout; isolated retest passed, so load sensitivity is plausible but not proven.",
+    "Available pnpm 11.19.0 differs from packageManager pnpm@11.9.0; no installation or upgrade performed.",
+    "Default PATH uses Node 22.22.0; checks ran with locally available Node 24.19.0.",
+    "Next build regenerated apps/web/next-env.d.ts; restored the two generated import paths to their clean initial content."
+  ],
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/environment.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/check-results.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt"
+  ],
+  "nextTaskIds": [
+    "T002"
+  ],
+  "scope": "Only T001 executed. No migrations, database writes, deployment, application code edits, or T002 work."
+}

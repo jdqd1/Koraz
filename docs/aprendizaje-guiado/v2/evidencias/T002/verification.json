@@ -1,0 +1,107 @@
+{
+  "taskId": "T002",
+  "result": "PASS",
+  "baseSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+  "statusShort": "?? docs/aprendizaje-guiado/v2/",
+  "trackedDiff": "",
+  "handoffSha256": "b9c2fb34fb592175d3eeac80cd4169ce0abc15c3e2292f459f998196842f0124",
+  "tasksSourceSha256": "4d3a78da2bbd837f3fd69232d66604e1fea1bd2dfd058c6e2f90767b77a13fd4",
+  "taskCount": 46,
+  "dependencyGraph": "acyclic",
+  "topologicalOrder": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T013",
+    "T009",
+    "T014",
+    "T010",
+    "T015",
+    "T023",
+    "T011",
+    "T016",
+    "T024",
+    "T012",
+    "T017",
+    "T018",
+    "T025",
+    "T019",
+    "T026",
+    "T020",
+    "T027",
+    "T021",
+    "T022",
+    "T028",
+    "T029",
+    "T034",
+    "T030",
+    "T031",
+    "T032",
+    "T033",
+    "T035",
+    "T039",
+    "T036",
+    "T037",
+    "T038",
+    "T040",
+    "T041",
+    "T042",
+    "T043",
+    "T044",
+    "T045",
+    "T046"
+  ],
+  "decisionCount": 17,
+  "requirementCount": 20,
+  "pendingInputCount": 7,
+  "baselineChecks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "exitCode": 1,
+      "result": "FAIL",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web test",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt"
+    },
+    {
+      "command": "pnpm.cmd typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt"
+    },
+    {
+      "command": "pnpm.cmd build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-routes.test.ts -t \"does not register or call guided modules while the feature is disabled\"",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt"
+    }
+  ],
+  "caveat": "T001 full API suite had 1/231 timeout; focused retest passed. T002 does not rerun the global baseline suites."
+}

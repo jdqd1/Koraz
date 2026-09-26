@@ -175,7 +175,7 @@ export function createEditorApi(fetcher: EditorFetch = fetch) {
     transition(
       pathId: string,
       expectedVersion: number,
-      status: "approved" | "archived" | "changes_requested" | "in_review" | "published",
+      status: "approved" | "archived" | "changes_requested" | "in_review" | "published" | "restored",
     ) {
       return request({
         body: { expectedVersion, status },
