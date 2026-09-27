@@ -1,6 +1,26 @@
 /* Dashboard based on proposal 2 with staggered desktop card widths. */
 .mobile-primary-nav { display: none; }
 
+.app-shell .app-topbar-simplified .profile-popover {
+  border-color: rgb(219 228 242 / 90%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 95%);
+  box-shadow: 0 16px 40px rgb(26 50 98 / 14%), 0 2px 8px rgb(26 50 98 / 5%);
+  backdrop-filter: blur(18px) saturate(1.15);
+  transform-origin: top right;
+  animation: profile-popover-enter 260ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes profile-popover-enter {
+  from { opacity: 0; transform: translateY(-7px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mobile-materials-enter {
+  from { opacity: 0; transform: translate(-50%, 8px) scale(.96); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
 .app-shell.dashboard-shell {
   --app-chrome: #f1f7fc;
   --app-workspace: #f1f7fc;
@@ -290,7 +310,7 @@
   .app-shell .app-topbar-simplified .profile-avatar { background: #e9f0ff; border-color: #dae8ff; color: #0a32a4; }
   .app-shell .app-topbar-simplified .global-content-search-form { border-radius: 99px; background: #e9eff9; }
   .app-shell .app-topbar-simplified .notification-trigger { color: #0c2fa4; }
-  .app-shell .app-topbar-simplified .profile-popover { right: auto; left: 0; }
+  .app-shell .app-topbar-simplified .profile-popover { right: auto; left: 0; transform-origin: top left; }
   .app-shell .profile-popover > a { display: block; padding: 8px 10px; color: #173785; font-size: .8rem; }
   .mobile-primary-nav {
     position: fixed;
@@ -341,12 +361,15 @@
     bottom: calc(100% + 14px);
     left: 50%;
     width: 205px;
-    border: 1px solid #e5ebf5;
+    border: 1px solid rgb(220 229 244 / 90%);
     border-radius: 19px;
-    background: #fff;
+    background: rgb(255 255 255 / 95%);
     padding: 7px 13px;
-    box-shadow: 0 12px 32px rgb(30 50 91 / 20%);
+    box-shadow: 0 16px 40px rgb(30 50 91 / 18%), 0 2px 8px rgb(30 50 91 / 5%);
+    backdrop-filter: blur(18px) saturate(1.15);
     transform: translateX(-50%);
+    transform-origin: bottom center;
+    animation: mobile-materials-enter 280ms cubic-bezier(.22, 1, .36, 1) both;
   }
   .mobile-materials-menu a { display: flex; min-height: 42px; align-items: center; gap: 12px; border-bottom: 1px solid #edf1f8; color: #263d7f; font-size: .82rem; text-decoration: none; }
   .mobile-materials-menu a:last-child { border-bottom: 0; }
@@ -435,4 +458,9 @@
   .mobile-materials-nav > button { font-size: .61rem; }
   .dashboard-reference-grid .dashboard-review-card { gap: 5px; }
   .dashboard-reference-grid :is(.dashboard-review-button, .dashboard-review-clear-link) { min-width: 105px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .app-topbar-simplified .profile-popover,
+  .mobile-materials-menu { animation: none; }
 }
