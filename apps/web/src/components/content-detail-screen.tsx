@@ -18,7 +18,6 @@ import {
   Compass,
   DownloadSimple,
   Highlighter,
-  House,
   Lightbulb,
   ListBullets,
   Minus,
@@ -114,11 +113,6 @@ export function ContentDetailScreen({
           <div className="published-guide-title-row">
             <h2>{item.title}</h2>
           </div>
-          {isGuideView && (
-            <Link className="published-guide-home" href="/dashboard" aria-label="Ir al inicio" title="Ir al inicio">
-              <House aria-hidden="true" size={21} />
-            </Link>
-          )}
         </header>
         {guidedActivities.length > 0 ? (
           <aside aria-label="Práctica con seguimiento" className="guided-library-options">
@@ -526,7 +520,7 @@ export function PublishedGuideReader({
               type="button"
             ><CaretDown aria-hidden="true" size={16} /></button>}
           </div>
-          {hasChildren && <div hidden={!expanded} id={`outline-children-${item.id}`} className="outline-node-children">{renderOutlineNodes(children)}</div>}
+          {hasChildren && <div aria-hidden={!expanded} inert={!expanded} id={`outline-children-${item.id}`} className={"outline-node-children" + (expanded ? " is-expanded" : "")}>{renderOutlineNodes(children)}</div>}
         </li>;
       })}
     </ul>;
@@ -638,7 +632,7 @@ export function PublishedGuideReader({
             }}
           >
             <ListBullets aria-hidden="true" size={19} />
-            <span className="sr-only">Índice</span>
+            <span>Índice</span>
           </button>
           <div className="published-reader-mobile-main-tools">
             <button
@@ -686,7 +680,7 @@ export function PublishedGuideReader({
             }}
           >
             <BookOpen aria-hidden="true" size={19} />
-            <span className="sr-only">Recursos de estudio</span>
+            <span>Recursos</span>
           </button>
         </div>
       </section>

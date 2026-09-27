@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import type { ContentItem, RichTextDocument } from "@cediah/contracts";
+import type { ContentItem, RichTextDocument, Subject } from "@cediah/contracts";
 import { AppShell } from "@/components/app-shell";
 import { DashboardScreen } from "@/components/dashboard-screen";
 import { ContentDetailScreen } from "@/components/content-detail-screen";
@@ -22,6 +22,13 @@ import {
 
 export const dynamic = "force-dynamic";
 
+const visualSubjects: Subject[] = ["Fisiología", "Anatomía", "Histología", "Cardiología"].map((name, index) => ({
+  contentCount: 0,
+  id: `a1000000-0000-4000-8000-${String(201 + index).padStart(12, "0")}`,
+  name,
+  slug: name.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+}));
+
 const dashboardGuides: ContentItem[] = [
   ["Ventilación alveolar", "Fisiología", "Comprende el intercambio de gases y los factores que modifican la ventilación."],
   ["Músculos del compartimento anterior", "Anatomía", "Origen, inserción y relaciones anatómicas para un repaso claro."],
@@ -40,7 +47,7 @@ const dashboardGuides: ContentItem[] = [
   publishedAt: `2026-09-${String(20 + index).padStart(2, "0")}T12:00:00.000Z`,
   slug: `guia-visual-${index + 1}`,
   status: "published" as const,
-  subjectIds: [],
+  subjectIds: visualSubjects.filter((subject) => subject.name === topic).map((subject) => subject.id),
   summary: summary!,
   title: title!,
   topic: topic!,
@@ -62,6 +69,7 @@ const readerDocument = {
     readerParagraph("La **columna vertebral o raquis** constituye el eje óseo del cuello y del tronco. Está formada por una sucesión de vértebras que combina dos propiedades aparentemente opuestas: **resistencia**, necesaria para sostener y transmitir cargas, y **movilidad**, indispensable para orientar la cabeza y el tronco. Además, la superposición de los forámenes vertebrales forma el **conducto vertebral**, que protege las estructuras nerviosas contenidas en su interior. En la disposición más frecuente se reconocen **7 vértebras cervicales, 12 torácicas, 5 lumbares y una porción pélvica formada por el sacro y el cóccix**; las piezas sacras y coccígeas se fusionan en grado variable con la edad."),
     { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Organización general y vértebra tipo" }] },
     readerParagraph("Las vértebras libres presentan caracteres regionales muy marcados, pero conservan un plan estructural común. Cada vértebra posee un **cuerpo vertebral**, situado anteriormente, y un **arco vertebral**, situado posteriormente. Ambos delimitan el **foramen vertebral**. El cuerpo es el principal elemento de sustentación y aumenta progresivamente de volumen hacia las regiones inferiores de la columna, donde debe soportar cargas mayores. El arco vertebral se une al cuerpo mediante los **pedículos** y se completa posteriormente por las **láminas**."),
+    { type: "heading", attrs: { level: 3 }, content: [{ type: "text", text: "Partes de la vértebra" }] },
     readerParagraph("La relación entre el cuerpo y el arco vertebral permite reconocer las estructuras de una vértebra típica. [1]"),
     { type: "blockquote", content: [readerParagraph("Punto clave: el foramen vertebral está delimitado por el cuerpo y el arco vertebral.")] },
     { type: "table", content: [
@@ -132,6 +140,7 @@ export default async function LearningVisualFixturePage({ searchParams }: {
         guidedLearningEnabled
         lastReadGuide={mode === "dashboard-no-guide" ? null : dashboardGuides[1]}
         recentItems={dashboardGuides}
+        subjects={visualSubjects}
         learningHome={mode === "dashboard-empty" ? learningVisualNewHome : mode === "dashboard-error" ? null : learningVisualHome}
         learningHomeAvailable={mode !== "dashboard-error"}
         viewer={{ email: "estudiante.visual@example.test" }}

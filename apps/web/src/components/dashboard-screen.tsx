@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen } from "@phosphor-icons/react/dist/ssr";
-import type { ContentItem, LearningHome } from "@cediah/contracts";
+import type { ContentItem, LearningHome, Subject } from "@cediah/contracts";
 import { publishedContentHref } from "@/lib/content-navigation";
 import { newestContentFirst } from "@/lib/content-order";
 import { AppShell } from "./app-shell";
@@ -9,16 +9,20 @@ import { LearningDashboardSummary } from "./learning/learning-dashboard-summary"
 
 type Guide = Extract<ContentItem, { kind: "guide" }>;
 
-function GuideCard({ guide }: { guide: Guide }) {
+function guideSubject(guide: Guide, subjects: Subject[]) {
+  return subjects.find((subject) => guide.subjectIds.includes(subject.id))?.name ?? "Sin materia";
+}
+
+function GuideCard({ guide, subject }: { guide: Guide; subject: string }) {
   return (
     <li>
       <Link className="dashboard-guide-card" href={publishedContentHref(guide)}>
         <span className="dashboard-guide-card-icon" aria-hidden="true"><BookOpen size={23} /></span>
         <span className="dashboard-guide-card-copy">
-          <small>{guide.topic || "Guía de estudio"}</small>
+          <small className="dashboard-guide-subject">{subject}</small>
           <strong>{guide.title}</strong>
         </span>
-        <span className="dashboard-guide-card-action" aria-hidden="true">Guía de estudio <ArrowRight size={16} /></span>
+        <span className="dashboard-guide-card-action" aria-hidden="true">Guía de estudio <ArrowRight size={22} /></span>
       </Link>
     </li>
   );
@@ -27,6 +31,7 @@ function GuideCard({ guide }: { guide: Guide }) {
 export function DashboardScreen({
   available,
   recentItems = [],
+  subjects = [],
   lastReadGuide = null,
   isAdministrator = false,
   guidedLearningEnabled = false,
@@ -36,6 +41,7 @@ export function DashboardScreen({
 }: {
   available: boolean;
   recentItems?: ContentItem[];
+  subjects?: Subject[];
   lastReadGuide?: ContentItem | null;
   lastReadAvailable?: boolean;
   isAdministrator?: boolean;
@@ -67,7 +73,7 @@ export function DashboardScreen({
             <Link className="dashboard-resume-card" href={publishedContentHref(resumeGuide)}>
               <span className="dashboard-resume-art" aria-hidden="true"><BookOpen size={31} /></span>
               <span className="dashboard-resume-copy">
-                <span className="dashboard-resume-kicker">{resumeGuide.topic || "Guía de estudio"}</span>
+                <span className="dashboard-resume-kicker">{guideSubject(resumeGuide, subjects)}</span>
                 <strong>{resumeGuide.title}</strong>
                 <span className="dashboard-resume-action">Continuar lectura <ArrowRight size={18} /></span>
               </span>
@@ -89,7 +95,7 @@ export function DashboardScreen({
         </div>
         {recentGuides.length > 0 ? (
           <ol className="dashboard-guide-grid">
-            {recentGuides.map((guide) => <GuideCard key={guide.id} guide={guide} />)}
+            {recentGuides.map((guide) => <GuideCard key={guide.id} guide={guide} subject={guideSubject(guide, subjects)} />)}
           </ol>
         ) : (
           <div className="dynamic-empty-state" role="status">

@@ -2,7 +2,13 @@
 .app-shell,
 .app-shell.dashboard-shell {
   --app-chrome: #f7f9fc;
-  --app-workspace: #f7f9fc;
+  --app-workspace: #fff;
+}
+
+.app-shell.dashboard-shell { --app-workspace: #f7f9fc; }
+.app-shell:has(.published-rich-guide-reader) {
+  --app-chrome: #f7f9fc;
+  --app-workspace: #fff;
 }
 
 .app-shell.dashboard-shell .app-sidebar { background: #f7f9fc; }
@@ -10,9 +16,17 @@
 .app-shell.dashboard-shell .app-topbar.app-topbar-simplified,
 .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
   border-bottom: 1px solid rgb(218 227 241 / 65%);
-  background: rgb(247 249 252 / 82%);
+  background: rgb(255 255 255 / 96%);
   box-shadow: 0 6px 22px rgb(33 55 94 / 7%);
-  backdrop-filter: blur(18px) saturate(1.12);
+  backdrop-filter: none;
+}
+.app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
+  gap: 16px;
+  padding: 12px 20px;
+}
+.app-shell:has(.published-rich-guide-reader) .app-topbar-simplified .profile-avatar {
+  width: 36px;
+  height: 36px;
 }
 
 .route-loading-screen,
@@ -37,8 +51,42 @@
   overflow: visible;
 }
 
+.dashboard-reference-grid .dashboard-guide-card-copy .dashboard-guide-subject,
+.dashboard-reference-grid .dashboard-resume-kicker {
+  display: inline-flex;
+  max-width: 100%;
+  align-self: flex-start;
+  align-items: center;
+  width: max-content;
+  border-radius: 999px;
+  background: #eaf2ff;
+  padding: 4px 9px;
+  color: #2455ae;
+  font-size: .68rem;
+  font-weight: 680;
+  line-height: 1.2;
+}
+.dashboard-reference-grid .dashboard-guide-card-action svg {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: #eaf2ff;
+  padding: 6px;
+  color: #075df0;
+}
+.dashboard-learning .dashboard-learning-stepper-scroll {
+  overflow-y: hidden;
+  overscroll-behavior-x: auto;
+  touch-action: auto;
+}
+
 /* The selection glides between destinations while the links stay still. */
 @media (max-width: 960px) {
+  .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
+    gap: 10px;
+    padding: 12px;
+  }
   .mobile-primary-nav {
     --nav-count: 4;
     --nav-active-index: 0;
@@ -123,21 +171,37 @@
 }
 
 /* Guide navigation and study resources. */
-.published-guide-home {
+.topbar-guide-home { display: none; }
+.app-shell:has(.published-rich-guide-reader) .topbar-guide-home {
   display: grid;
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
   place-items: center;
-  border: 1px solid #dfe6f2;
-  border-radius: 13px;
-  background: #f6f8fc;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
   color: #304f91;
   text-decoration: none;
-  transition: background 160ms ease, border-color 160ms ease;
+  transition: background 160ms ease, color 160ms ease;
 }
-.published-guide-home:hover { border-color: #c7d5ed; background: #ecf2fb; }
-.published-guide-home:focus-visible { outline: 2px solid #2a61c7; outline-offset: 2px; }
+.app-shell:has(.published-rich-guide-reader) .topbar-guide-home:hover { background: #edf3fc; color: #075df0; }
+.topbar-guide-home:focus-visible { outline: 2px solid #2a61c7; outline-offset: 2px; }
+
+.published-rich-guide-outline-links .outline-node-children {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  border-left-color: transparent;
+  transition: grid-template-rows 300ms cubic-bezier(.22, 1, .36, 1), opacity 220ms ease, border-color 220ms ease;
+}
+.published-rich-guide-outline-links .outline-node-children > .outline-tree { min-height: 0; overflow: hidden; }
+.published-rich-guide-outline-links .outline-node-children.is-expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  border-left-color: #d7e0ee;
+}
 
 .published-rich-guide-outline-links .outline-node-row > a,
 .published-rich-guide-outline-links .outline-node-row > a > span { text-align: left; }
@@ -174,10 +238,9 @@
 
 .published-rich-guide-article .rich-guide-blockquote.is-key-point {
   margin: 1.35rem 0;
-  border: 1px solid #dbe4f2;
-  border-left: 3px solid #4269b9;
-  border-radius: 10px;
-  background: #f8faff;
+  border: 1px solid #e0e7f2;
+  border-radius: 14px;
+  background: #f1f5fb;
   padding: 1rem 1.15rem;
   color: #273651;
   box-shadow: none;
@@ -204,6 +267,52 @@
 .published-rich-guide-article .rich-guide-table tr > :first-child { min-width: 7rem; width: 1%; }
 
 @media (max-width: 760px) {
+  .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
+    grid-template-columns: 40px minmax(0, 1fr) 40px 40px;
+    gap: 10px;
+    padding: 10px 20px;
+  }
+  .app-shell:has(.published-rich-guide-reader) .topbar-guide-home { grid-column: 3; grid-row: 1; width: 40px; height: 40px; }
+  .app-shell:has(.published-rich-guide-reader) .topbar-notification-wrap { grid-column: 4; grid-row: 1; }
+  .app-shell:has(.published-rich-guide-reader) .app-topbar-simplified .profile-avatar { width: 34px; height: 34px; }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-toolbar-row {
+    min-height: 74px;
+    gap: 0;
+    border: 1px solid rgb(227 234 246 / 85%);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 96%);
+    padding: 5px 7px;
+    box-shadow: 0 10px 30px rgb(28 54 102 / 16%);
+    backdrop-filter: blur(18px);
+  }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-toolbar-row > :is(button, .published-reader-mobile-main-tools) + :is(button, .published-reader-mobile-main-tools) { border-left: 0; }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-side-button,
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-tool {
+    display: flex;
+    width: 100%;
+    min-height: 62px;
+    height: 62px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #7380a7;
+    font-size: .68rem;
+    font-weight: 600;
+    line-height: 1.05;
+    box-shadow: none;
+  }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-side-button[aria-expanded="true"],
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-tool.is-active {
+    border: 0;
+    background: #eaf3ff;
+    color: #075df0;
+    box-shadow: none;
+  }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-side-button span { white-space: nowrap; }
   .app-shell:has(.published-rich-guide-reader) .published-rich-guide-outline,
   .app-shell:has(.published-rich-guide-reader) .published-rich-guide-support,
   .app-shell:has(.published-rich-guide-reader) .published-rich-guide-outline.is-collapsed,
@@ -223,6 +332,16 @@
   .published-rich-guide-article .rich-guide-table { font-size: 1em; }
 }
 
+@media (max-width: 600px) {
+  .dashboard-reference-grid .dashboard-guide-card { grid-template-columns: 46px minmax(0, 1fr) 36px; }
+}
+
+@media (max-width: 420px) {
+  .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified { gap: 7px; padding-inline: 12px; }
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-side-button,
+  .app-shell:has(.published-rich-guide-reader) .published-reader-mobile-tool { font-size: .61rem; }
+}
+
 @media (hover: none) {
   .published-rich-guide-outline-heading:hover,
   .published-rich-guide-support-heading:hover,
@@ -232,5 +351,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mobile-primary-nav::before,
-  .published-guide-home { transition: none; }
+  .topbar-guide-home,
+  .published-rich-guide-outline-links .outline-node-children { transition: none; }
 }

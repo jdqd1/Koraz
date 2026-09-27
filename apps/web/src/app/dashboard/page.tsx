@@ -1,5 +1,5 @@
 import { DashboardScreen } from "@/components/dashboard-screen";
-import { getLastReadGuide, getPublishedContent } from "@/lib/server/content-api";
+import { getLastReadGuide, getPublishedContent, getSubjects } from "@/lib/server/content-api";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getLearningHome } from "@/lib/server/guided-learning-api";
 
@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const recentPromise = getPublishedContent({ kind: "guide", limit: 5 });
+  const subjectsPromise = getSubjects();
   const current = await getCurrentUser();
   const lastReadPromise = current.status === "authenticated"
     ? getLastReadGuide()
@@ -14,10 +15,11 @@ export default async function DashboardPage() {
   const learningPromise = current.status === "authenticated" && current.features.guidedLearning
     ? getLearningHome()
     : Promise.resolve(null);
-  const [recent, lastRead, learning] = await Promise.all([
+  const [recent, lastRead, learning, subjects] = await Promise.all([
     recentPromise,
     lastReadPromise,
     learningPromise,
+    subjectsPromise,
   ]);
   let isAdministrator = false;
   if (current.status === "authenticated") {
@@ -28,6 +30,7 @@ export default async function DashboardPage() {
     <DashboardScreen
       available={recent.status === "ready"}
       recentItems={recent.status === "ready" ? recent.catalog.items : []}
+      subjects={subjects.status === "ready" ? subjects.subjects : []}
       lastReadGuide={lastRead.status === "ready" ? lastRead.guide : null}
       lastReadAvailable={lastRead.status === "ready"}
       guidedLearningEnabled={current.status === "authenticated" && current.features.guidedLearning}

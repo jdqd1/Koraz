@@ -232,6 +232,7 @@ function ShellChrome({
   const sidebarMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMaterialsRef = useRef<HTMLDivElement>(null);
   useNavigationIntent();
 
   const drawerOpen = !isDesktopSidebar && sidebarOpen;
@@ -342,6 +343,24 @@ function ShellChrome({
       document.removeEventListener("keydown", closeOnEscape);
     };
   }, [profileOpen]);
+
+  useEffect(() => {
+    if (!mobileMaterialsOpen) return;
+    const closeOutsideMaterials = (event: PointerEvent) => {
+      if (event.target instanceof Node && !mobileMaterialsRef.current?.contains(event.target)) {
+        setMobileMaterialsOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMaterialsOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutsideMaterials);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutsideMaterials);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [mobileMaterialsOpen]);
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -481,6 +500,9 @@ function ShellChrome({
             {showBreadcrumbs && <p>Ruta actual: {breadcrumbs?.join(" / ")}</p>}
           </div>
           <div className="topbar-actions">
+            <Link className="topbar-guide-home" href="/dashboard" aria-label="Ir al inicio" title="Ir al inicio">
+              <House aria-hidden="true" size={22} />
+            </Link>
             <div className="topbar-popover-wrap topbar-notification-wrap">
               <button
                 aria-expanded={notificationsOpen}
@@ -565,7 +587,7 @@ function ShellChrome({
           <Link className={activeKey === "guides" ? "is-active" : ""} href="/guias" aria-current={activeKey === "guides" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
             <BookOpen aria-hidden="true" size={24} weight={activeKey === "guides" ? "fill" : "regular"} /><span>Guías</span>
           </Link>
-          <div className="mobile-materials-nav">
+          <div className="mobile-materials-nav" ref={mobileMaterialsRef}>
             <button className={materialsActive || mobileMaterialsOpen ? "is-active" : ""} type="button" aria-expanded={mobileMaterialsOpen} aria-controls={mobileMaterialsOpen ? "mobile-materials-menu" : undefined} onClick={() => setMobileMaterialsOpen((open) => !open)}>
               <GraduationCap aria-hidden="true" size={25} weight={materialsActive || mobileMaterialsOpen ? "fill" : "regular"} /><span>Materiales</span>
             </button>
