@@ -18,6 +18,7 @@ import {
   Compass,
   DownloadSimple,
   Highlighter,
+  House,
   Lightbulb,
   ListBullets,
   Minus,
@@ -113,6 +114,11 @@ export function ContentDetailScreen({
           <div className="published-guide-title-row">
             <h2>{item.title}</h2>
           </div>
+          {isGuideView && (
+            <Link className="published-guide-home" href="/dashboard" aria-label="Ir al inicio" title="Ir al inicio">
+              <House aria-hidden="true" size={21} />
+            </Link>
+          )}
         </header>
         {guidedActivities.length > 0 ? (
           <aside aria-label="Práctica con seguimiento" className="guided-library-options">

@@ -20,10 +20,10 @@ export async function generateMetadata({ params }: LessonPageProps): Promise<Met
   const { lessonSlug, slug } = await params;
   const lesson = getDemoLesson(slug, lessonSlug);
 
-  if (!lesson) return { title: "Lección no encontrada | Koras" };
+  if (!lesson) return { title: "Koraz | Plataforma Médica educativa" };
 
   return {
-    title: `${lesson.title} - Demo | Koras`,
+    title: "Koraz | Plataforma Médica educativa",
     description: lesson.summary,
   };
 }

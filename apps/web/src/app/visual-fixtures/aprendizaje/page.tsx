@@ -62,6 +62,27 @@ const readerDocument = {
     readerParagraph("La **columna vertebral o raquis** constituye el eje óseo del cuello y del tronco. Está formada por una sucesión de vértebras que combina dos propiedades aparentemente opuestas: **resistencia**, necesaria para sostener y transmitir cargas, y **movilidad**, indispensable para orientar la cabeza y el tronco. Además, la superposición de los forámenes vertebrales forma el **conducto vertebral**, que protege las estructuras nerviosas contenidas en su interior. En la disposición más frecuente se reconocen **7 vértebras cervicales, 12 torácicas, 5 lumbares y una porción pélvica formada por el sacro y el cóccix**; las piezas sacras y coccígeas se fusionan en grado variable con la edad."),
     { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Organización general y vértebra tipo" }] },
     readerParagraph("Las vértebras libres presentan caracteres regionales muy marcados, pero conservan un plan estructural común. Cada vértebra posee un **cuerpo vertebral**, situado anteriormente, y un **arco vertebral**, situado posteriormente. Ambos delimitan el **foramen vertebral**. El cuerpo es el principal elemento de sustentación y aumenta progresivamente de volumen hacia las regiones inferiores de la columna, donde debe soportar cargas mayores. El arco vertebral se une al cuerpo mediante los **pedículos** y se completa posteriormente por las **láminas**."),
+    readerParagraph("La relación entre el cuerpo y el arco vertebral permite reconocer las estructuras de una vértebra típica. [1]"),
+    { type: "blockquote", content: [readerParagraph("Punto clave: el foramen vertebral está delimitado por el cuerpo y el arco vertebral.")] },
+    { type: "table", content: [
+      { type: "tableRow", content: [
+        { type: "tableHeader", content: [readerParagraph("Elemento")] },
+        { type: "tableHeader", content: [readerParagraph("Características generales")] },
+        { type: "tableHeader", content: [readerParagraph("Papel principal")] },
+      ] },
+      { type: "tableRow", content: [
+        { type: "tableCell", content: [readerParagraph("Cuerpo vertebral")] },
+        { type: "tableCell", content: [readerParagraph("Masa ósea anterior con caras superior e inferior para los discos")] },
+        { type: "tableCell", content: [readerParagraph("Sustentación y transmisión de cargas")] },
+      ] },
+      { type: "tableRow", content: [
+        { type: "tableCell", content: [readerParagraph("Pedículos")] },
+        { type: "tableCell", content: [readerParagraph("Unen el cuerpo y el arco vertebral")] },
+        { type: "tableCell", content: [readerParagraph("Forman las paredes del conducto vertebral")] },
+      ] },
+    ] },
+    { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Referencias" }] },
+    { type: "orderedList", content: [{ type: "listItem", content: [readerParagraph("[1] Atlas de anatomía de la columna vertebral.")] }] },
   ],
 } as RichTextDocument;
 
@@ -126,6 +147,11 @@ export default async function LearningVisualFixturePage({ searchParams }: {
       content: {
         ...guide.content,
         document: readerDocument,
+        keyPoints: [
+          "Las vértebras libres presentan caracteres regionales muy marcados",
+          "El foramen vertebral está delimitado por el cuerpo y el arco vertebral",
+          "El arco vertebral se une al cuerpo mediante los pedículos",
+        ],
         sections: [],
       },
     }} />;

@@ -231,6 +231,7 @@ function ShellChrome({
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const sidebarMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
   useNavigationIntent();
 
   const drawerOpen = !isDesktopSidebar && sidebarOpen;
@@ -323,6 +324,24 @@ function ShellChrome({
     desktopMedia.addEventListener("change", synchronizeViewport);
     return () => desktopMedia.removeEventListener("change", synchronizeViewport);
   }, []);
+
+  useEffect(() => {
+    if (!profileOpen) return;
+    const closeOutsideProfile = (event: PointerEvent) => {
+      if (event.target instanceof Node && !profileMenuRef.current?.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setProfileOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutsideProfile);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutsideProfile);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [profileOpen]);
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -482,7 +501,7 @@ function ShellChrome({
                 </div>
               )}
             </div>
-            <div className="topbar-popover-wrap">
+            <div className="topbar-popover-wrap" ref={profileMenuRef}>
               {viewer ? (
                 <>
                   <button
@@ -499,14 +518,19 @@ function ShellChrome({
                     <CaretDown size={17} weight="bold" />
                   </button>
                   {profileOpen && (
-                    <div className="topbar-popover profile-popover">
-                      <strong>{viewer.email}</strong>
-                      {profileRole && (
-                        <span className="dashboard-admin-badge profile-role-badge">
-                          <ShieldCheck size={14} weight="fill" />
-                          {profileRoleLabels[profileRole]}
+                    <div className="topbar-popover profile-popover" role="group" aria-label="Información del usuario">
+                      <div className="profile-popover-identity">
+                        <span className="profile-avatar" aria-hidden="true">{getProfileInitials(viewer.email)}</span>
+                        <span className="profile-popover-details">
+                          <strong>{viewer.email}</strong>
+                          {profileRole && (
+                            <span className="dashboard-admin-badge profile-role-badge">
+                              <ShieldCheck size={14} weight="fill" />
+                              {profileRoleLabels[profileRole]}
+                            </span>
+                          )}
                         </span>
-                      )}
+                      </div>
                       {showContentManagement && <Link href="/panel/contenido" onClick={() => setProfileOpen(false)}>Administrar contenido</Link>}
                       {showRoleManagement && <Link href="/panel/administracion/roles" onClick={() => setProfileOpen(false)}>Administrar roles</Link>}
                       <button

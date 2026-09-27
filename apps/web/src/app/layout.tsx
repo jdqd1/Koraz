@@ -18,6 +18,7 @@ import "./admin-section-tabs.css";
 import "./dashboard-home.css";
 import "./drive-study-polish.css";
 import "./reference-dashboard.css";
+import "./interface-polish.css";
 
 const plusJakartaSans = localFont({
   src: [
@@ -32,7 +33,7 @@ const plusJakartaSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "KORAS | Conocimiento que se convierte en vocación",
+  title: "Koraz | Plataforma Médica educativa",
   description:
     "Plataforma educativa para aprender con guías, cuestionarios, flashcards y rutas por materia.",
   icons: {

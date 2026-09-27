@@ -241,10 +241,7 @@ export function GuideCitation({
     <span
       className="guide-citation"
       ref={rootRef}
-      onMouseEnter={() => {
-        clearCloseTimer();
-        setOpen(true);
-      }}
+      onMouseEnter={clearCloseTimer}
       onMouseLeave={scheduleClose}
     >
       <button
@@ -258,10 +255,7 @@ export function GuideCitation({
           event.stopPropagation();
           setOpen((current) => !current);
         }}
-        onFocus={() => {
-          clearCloseTimer();
-          setOpen(true);
-        }}
+        onFocus={clearCloseTimer}
       >
         <BookOpenText aria-hidden="true" size={12} weight="bold" />
         <span>{label}</span>

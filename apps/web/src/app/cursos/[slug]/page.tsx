@@ -36,11 +36,11 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
   const course = getDemoCourse(slug);
 
   if (!course) {
-    return { title: "Curso no encontrado | Koras" };
+    return { title: "Koraz | Plataforma Médica educativa" };
   }
 
   return {
-    title: `${course.title} - Catálogo demo | Koras`,
+    title: "Koraz | Plataforma Médica educativa",
     description: `Ficha de demostración del recorrido de ${course.title} en Koras.`,
   };
 }
