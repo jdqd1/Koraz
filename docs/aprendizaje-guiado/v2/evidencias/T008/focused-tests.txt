@@ -1,0 +1,21 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > M01 installs the schema chain on an empty database, excluding guarded legacy data restoration 8ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > M01 preserves v1 versions, enrollment and attempt while rejecting a v1 definition 10ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > requires a v2 object only for guided-v2.0 3ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > validates binding shape, FKs and matching route topic 33ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > M02 prevents edits, deletes and additions to published bindings 4ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > S06 denies browser roles and permits restricted runtime operations on drafts 10ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 editorial migration > keeps explicit route deletion compatible with published binding cleanup 5ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 runtime migration > installs all six runtime tables with RLS, and keeps v1 rows usable 4ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 runtime migration > rejects mismatched user, unadopted version, v1 version and duplicate client attempt 4ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 runtime migration > deduplicates by attempt and activity, binds responses to their owner, and rolls back atomically 6ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 runtime migration > enforces owner/version on derived states and indexes due review lookup 27ms
+ ✓ test/guided-v2-migrations.test.ts > guided v2 runtime migration > deduplicates private imports and limits table rights to the server role 11ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  21:11:57
+   Duration  6.36s (transform 67ms, setup 0ms, import 127ms, tests 6.00s, environment 0ms)
+

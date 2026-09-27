@@ -29,7 +29,7 @@ export function LearningDashboardReview({
   return (
     <section aria-labelledby="dashboard-review-title" className="dashboard-review-section">
       <div className="section-heading-row">
-        <h2 id="dashboard-review-title">Repaso pendiente</h2>
+        <h2 id="dashboard-review-title">Repaso</h2>
       </div>
       <article className="dashboard-review-card" data-tone={reviewTone}>
         <header className="dashboard-review-heading">

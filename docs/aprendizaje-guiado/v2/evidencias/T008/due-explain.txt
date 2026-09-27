@@ -1,0 +1,11 @@
+[
+  {
+    "QUERY PLAN": "Limit  (cost=0.28..6.04 rows=1 width=18)"
+  },
+  {
+    "QUERY PLAN": "  ->  Index Only Scan using learning_v2_review_state_due_index on learning_v2_review_state  (cost=0.28..6.04 rows=1 width=18)"
+  },
+  {
+    "QUERY PLAN": "        Index Cond: ((user_id = '71000000-0000-4000-8000-000000000001'::uuid) AND (due_at <= now()))"
+  }
+]

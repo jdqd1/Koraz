@@ -1,0 +1,66 @@
+{
+  "taskId": "T004",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T00:11:45Z",
+  "dependency": {
+    "taskId": "T003",
+    "status": "PASS",
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/result.json"
+  },
+  "changedFiles": [
+    "packages/contracts/src/guided-learning-v2.ts",
+    "packages/contracts/src/index.ts",
+    "apps/api/test/guided-v2-contract.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T004/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T004/contract-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T004/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T004/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T004/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T004/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-contract.test.ts test/guided-learning-editor-contract.test.ts",
+      "exitCode": 0,
+      "result": "PASS (12/12; incluye regresión de contrato v1)",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T004/contract-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T004/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T004/api-lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T004/result.json"
+    }
+  ],
+  "acceptance": {
+    "httpRoutesTyped": 23,
+    "publicProjection": "Allowlist explícita para ocho familias y ruta; prueba de no filtración de soluciones, rúbricas, polígonos y etapas futuras",
+    "v1Contract": "El test guided-learning-editor-contract.test.ts pasó sin cambios de esquema v1",
+    "brandedIds": "Path, pathVersion, enrollment, attempt, import y response v2",
+    "policyVersion": "guided-v2.0 en contrato vinculado, manifiesto y estado; snapshot de política versionado"
+  },
+  "issues": [
+    "T004 define contratos y proyecciones; la integración HTTP, persistencia, permisos y selección de etapas corresponden a tareas posteriores y no se acreditan aquí.",
+    "Los cambios previos de T003 y la reparación de concurrencia API permanecen en el árbol de trabajo; T004 no los sobrescribió."
+  ],
+  "nextTaskIds": ["T005"],
+  "scope": "Solo archivos permitidos por la ficha T004 y su carpeta de evidencia. No se inició T005."
+}

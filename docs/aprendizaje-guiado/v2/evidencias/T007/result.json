@@ -1,0 +1,63 @@
+{
+  "taskId": "T007",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T00:55:25Z",
+  "changedFiles": [
+    "database/migrations/0030_guided_v2_definition.sql",
+    "apps/api/src/db/database.ts",
+    "apps/api/test/guided-v2-migrations.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/m01-scope.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T007/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T007/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-migrations.test.ts test/guided-v2-validation.test.ts test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-v2-contract.test.ts test/guided-learning-editor-storage.test.ts",
+      "exitCode": 0,
+      "result": "PASS (6 archivos, 48/48 pruebas; M01 parcial, M02, S06 y regresión v1)",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T007/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T007/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T007/api-lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T007/result.json"
+    }
+  ],
+  "acceptance": {
+    "v1Intact": "La columna v2 queda NULL en la versión v1; la prueba compara versión, matrícula e intento antes y después de la migración y ejecuta regresión del provider v1.",
+    "v2Definition": "guided-v2.0 exige definition_v2_json objeto con schemaVersion 2.0; otras políticas exigen NULL.",
+    "bindings": "PK por versión, clave y tipo; FKs, índices, hashes, forma por tipo, derechos y coherencia entre tema, guía y revisión.",
+    "immutability": "INSERT, UPDATE y DELETE de bindings de una versión publicada se rechazan; el borrado explícito de la ruta conserva su excepción existente.",
+    "access": "RLS habilitada; anon y authenticated sin SELECT/INSERT/UPDATE/DELETE; cediah_runtime puede leer y modificar bindings de borradores sin privilegios de propietario."
+  },
+  "limits": [
+    "M01 es parcial: 0005_restore_legacy_content.sql exige una cuenta administradora histórica concreta y falla en una DB vacía con legacy_administrator_account_not_found. La prueba aplica los otros 29 archivos previos en orden y luego 0030 sobre DB vacía y fixture v1; no ejecuta el runner de checksums ni una DB cloud. Ver m01-scope.txt.",
+    "La invalidación de revisión editorial y los conflictos de publicación pertenecen al flujo posterior; T007 comprueba la inmutabilidad SQL de definiciones y bindings publicados.",
+    "Los cambios previos de T003–T006 y la reparación del runner API permanecen sin commit; T007 solo modificó sus tres archivos autorizados y evidencias/T007/."
+  ],
+  "nextTaskIds": ["T008"],
+  "scope": "Solo los tres archivos de la ficha T007 y evidencias/T007/. No se inició T008."
+}

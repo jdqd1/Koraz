@@ -218,6 +218,7 @@ function ShellChrome({
   const [isDesktopSidebar, setIsDesktopSidebar] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileMaterialsOpen, setMobileMaterialsOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const accessRoles = useAccessRoles();
   const sidebarCollapsed = useSidebarCollapsedPreference();
@@ -245,6 +246,7 @@ function ShellChrome({
     accessRoles.includes("coordinator") ||
     accessRoles.includes("content_creator");
   const showRoleManagement = effectiveIsAdministrator;
+  const materialsActive = ["subjects", "flashcards", "quiz"].includes(activeKey);
   const profileRole = (["administrator", "coordinator", "content_creator", "student"] as const)
     .find((role) => accessRoles.includes(role));
   const administrationItems: NavItem[] = [
@@ -505,6 +507,8 @@ function ShellChrome({
                           {profileRoleLabels[profileRole]}
                         </span>
                       )}
+                      {showContentManagement && <Link href="/panel/contenido" onClick={() => setProfileOpen(false)}>Administrar contenido</Link>}
+                      {showRoleManagement && <Link href="/panel/administracion/roles" onClick={() => setProfileOpen(false)}>Administrar roles</Link>}
                       <button
                         className="profile-sign-out"
                         disabled={isSigningOut}
@@ -530,6 +534,28 @@ function ShellChrome({
           </div>
         </header>
         {children}
+        <nav className="mobile-primary-nav" aria-label="Navegación móvil">
+          <Link className={activeKey === "dashboard" ? "is-active" : ""} href="/dashboard" aria-current={activeKey === "dashboard" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+            <House aria-hidden="true" size={24} weight={activeKey === "dashboard" ? "fill" : "regular"} /><span>Inicio</span>
+          </Link>
+          <Link className={activeKey === "guides" ? "is-active" : ""} href="/guias" aria-current={activeKey === "guides" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+            <BookOpen aria-hidden="true" size={24} weight={activeKey === "guides" ? "fill" : "regular"} /><span>Guías</span>
+          </Link>
+          <div className="mobile-materials-nav">
+            <button className={materialsActive || mobileMaterialsOpen ? "is-active" : ""} type="button" aria-expanded={mobileMaterialsOpen} aria-controls={mobileMaterialsOpen ? "mobile-materials-menu" : undefined} onClick={() => setMobileMaterialsOpen((open) => !open)}>
+              <GraduationCap aria-hidden="true" size={25} weight={materialsActive || mobileMaterialsOpen ? "fill" : "regular"} /><span>Materiales</span>
+            </button>
+            {mobileMaterialsOpen && <div className="mobile-materials-menu" id="mobile-materials-menu">
+              <Link href="/asignaturas" onClick={() => setMobileMaterialsOpen(false)}><GraduationCap size={21} aria-hidden="true" />Materias</Link>
+              <Link href="/guias" onClick={() => setMobileMaterialsOpen(false)}><BookOpen size={21} aria-hidden="true" />Guías</Link>
+              <Link href="/asignaturas?tipo=quiz" onClick={() => setMobileMaterialsOpen(false)}><ClipboardText size={21} aria-hidden="true" />Cuestionarios</Link>
+              <Link href="/asignaturas?tipo=flashcards" onClick={() => setMobileMaterialsOpen(false)}><CardsThree size={21} aria-hidden="true" />Flashcards</Link>
+            </div>}
+          </div>
+          {guidedLearningEnabled && <Link className={activeKey === "learning" ? "is-active" : ""} href="/aprendizaje" aria-current={activeKey === "learning" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+            <Path aria-hidden="true" size={25} weight={activeKey === "learning" ? "fill" : "regular"} /><span>Rutas de<br />aprendizaje</span>
+          </Link>}
+        </nav>
       </div>
     </div>
   );

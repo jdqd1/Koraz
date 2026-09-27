@@ -1,0 +1,59 @@
+{
+  "taskId": "T010",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T16:06:29Z",
+  "predecessor": "docs/aprendizaje-guiado/v2/evidencias/T009/result.json: PASS",
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/import.ts",
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-import.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T010/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T010/typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T010/lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T010/state.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T010/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-import.test.ts test/guided-v2-editor-storage.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 17/17; T010 10/10 y regresión T009 7/7",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T010/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T010/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T010/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T010/state.txt"
+    }
+  ],
+  "acceptance": {
+    "I01": "El dry-run acepta un paquete estructuralmente válido, informa bindings ausentes, guarda una sesión privada de 24 h y no crea ni modifica learning_paths; el diff usa claves locales.",
+    "S05": "Rechaza paquete >10 MiB, campos de privilegio ajenos al contrato, URL file:// y marcado ejecutable; no descarga URLs.",
+    "catalog": "Comprueba tema, guía/revisión y permisos por identificadores explícitos; compara documentSha256 con el digest de snapshot de la revisión vigente. Los assets con hash declarado quedan no listos cuando el catálogo carece de digest verificable.",
+    "endpoint": "El módulo POST /v2/editor/learning-paths/imports/validate se probó con autenticación, capacidad, 413 y Cache-Control privado; aplica Idempotency-Key y traduce rate_limited a 429."
+  },
+  "limits": [
+    "El endpoint está exportado y probado mediante registro explícito; aún no está montado en app.ts. Ese archivo queda fuera de la allowlist T010 y el registro general v2 corresponde a una fase posterior.",
+    "content_assets no tiene columna de digest ni prueba de licencia. Un asset con sha256 declarado recibe VALIDATION_PENDING y readyToImport=false; no se afirma verificación del archivo.",
+    "La comprobación de guía usa learning_resource_revisions.payload_hash del snapshot proyectado, que es el digest disponible en el catálogo; no se descargó ni verificó un documento externo.",
+    "Las pruebas usan PGlite aislada y omiten 0005_restore_legacy_content.sql por su identidad histórica requerida. No se verificó staging/producción ni el runner completo M01.",
+    "No se implementó commit ni exportación; pertenecen a T011."
+  ],
+  "nextTaskIds": ["T011"],
+  "scope": "Solo archivos de la ficha T010 y evidencias/T010; T011 no iniciado."
+}

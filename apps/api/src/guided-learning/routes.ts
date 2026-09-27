@@ -51,7 +51,8 @@ function idempotencyKey(value: string | string[] | undefined) {
   return LearningIdempotencyKeySchema.safeParse(Array.isArray(value) ? value[0] : value);
 }
 
-function sendFailure(error: GuidedLearningFailure | "not_ready", reply: FastifyReply) {
+function sendFailure(error: GuidedLearningFailure | "not_ready", reply: FastifyReply, reason?: unknown) {
+  if (error === "conflict" && reason === "engine_version_mismatch") return reply.status(409).send({ error: "engine_version_mismatch" });
   if (error === "not_found") return reply.status(404).send({ error: "not_found" });
   if (error === "forbidden") return reply.status(403).send({ error: "forbidden" });
   if (error === "version_conflict") return reply.status(409).send({ error: "version_conflict" });
@@ -259,7 +260,9 @@ export async function registerGuidedLearningRoutes(
         pathId: body.data.pathId,
         userId: user.user.id,
       });
-      if (result.status !== "success") return sendFailure(result.status, reply);
+      if (result.status !== "success") return sendFailure(
+        result.status, reply, "reason" in result ? result.reason : undefined,
+      );
       return reply.status(201).header("Cache-Control", "private, no-store")
         .send(LearningEnrollmentResponseSchema.parse(result.value));
     } catch {

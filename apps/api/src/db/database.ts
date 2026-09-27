@@ -295,6 +295,7 @@ export interface LearningPathTable {
 
 export interface LearningPathVersionTable {
   created_at: GeneratedTimestamp;
+  definition_v2_json: ColumnType<JsonValue | null, JsonValue | null | undefined, JsonValue | null>;
   edit_version: Generated<number>;
   id: Generated<string>;
   path_id: string;
@@ -306,6 +307,128 @@ export interface LearningPathVersionTable {
   status: Generated<LearningPathStatus>;
   updated_at: GeneratedTimestamp;
   version_number: number;
+}
+
+export interface LearningV2BindingTable {
+  path_version_id: string;
+  local_key: string;
+  kind: "topic" | "source" | "asset";
+  topic_content_id: string | null;
+  source_content_id: string | null;
+  resource_revision_id: string | null;
+  asset_id: string | null;
+  document_sha256: string | null;
+  asset_sha256: string | null;
+  rights_status: "owned" | "licensed" | "public_domain" | "unverified" | null;
+  rights_credit: string | null;
+  created_at: GeneratedTimestamp;
+}
+
+export interface LearningV2AttemptTable {
+  id: Generated<string>;
+  user_id: string;
+  enrollment_id: string;
+  path_version_id: string;
+  client_attempt_id: string;
+  purpose: "activity" | "assessment" | "review";
+  snapshot_json: JsonValue;
+  resume_json: GeneratedJsonDocument;
+  outcome_json: ColumnType<JsonValue | null, JsonValue | null | undefined, JsonValue | null>;
+  status: Generated<"in_progress" | "paused" | "completed" | "abandoned">;
+  row_version: Generated<number>;
+  started_at: GeneratedTimestamp;
+  submitted_at: NullableTimestamp;
+  created_at: GeneratedTimestamp;
+  updated_at: GeneratedTimestamp;
+}
+
+export interface LearningV2ResponseTable {
+  id: Generated<string>;
+  attempt_id: string;
+  user_id: string;
+  enrollment_id: string;
+  path_version_id: string;
+  activity_key: string;
+  objective_key: string;
+  equivalence_key: string;
+  item_revision_hash: string;
+  modality: "text" | "image" | "table" | "diagram" | "case" | "video";
+  purpose: "learning" | "diagnostic" | "gate" | "final" | "retention7" | "retention30" | "review";
+  policy_version: Generated<"guided-v2.0">;
+  answer_json: JsonValue;
+  grading_json: JsonValue;
+  grading_source: "server" | "self" | "none";
+  confidence: "sure" | "unsure" | "guessed" | null;
+  assisted: Generated<boolean>;
+  novel_at_presentation: Generated<boolean>;
+  score01: number | null;
+  accepted_at: GeneratedTimestamp;
+}
+
+export interface LearningV2ObjectiveStateTable {
+  enrollment_id: string;
+  user_id: string;
+  path_version_id: string;
+  objective_key: string;
+  evidence_json: GeneratedJsonDocument;
+  error_json: GeneratedJsonDocument;
+  first_mastered_at: NullableTimestamp;
+  first_consolidated_at: NullableTimestamp;
+  row_version: Generated<number>;
+  updated_at: GeneratedTimestamp;
+}
+
+export interface LearningV2ActivityStateTable {
+  enrollment_id: string;
+  user_id: string;
+  path_version_id: string;
+  activity_key: string;
+  state: Generated<"not_started" | "dispensed" | "completed">;
+  dispensed_reason: string | null;
+  evidence_attempt_id: string | null;
+  row_version: Generated<number>;
+  updated_at: GeneratedTimestamp;
+}
+
+export interface LearningV2ReviewStateTable {
+  user_id: string;
+  enrollment_id: string;
+  path_version_id: string;
+  objective_key: string;
+  stage: Generated<number>;
+  lapses: Generated<number>;
+  due_at: ColumnType<Date, Date | string, Date | string>;
+  last_applied_response_id: string | null;
+  last_extended_at: NullableTimestamp;
+  retention7_due_at: NullableTimestamp;
+  retention7_accepted_at: NullableTimestamp;
+  retention30_due_at: NullableTimestamp;
+  retention30_accepted_at: NullableTimestamp;
+  row_version: Generated<number>;
+  created_at: GeneratedTimestamp;
+  updated_at: GeneratedTimestamp;
+}
+
+export interface LearningV2ImportTable {
+  id: Generated<string>;
+  actor_user_id: string;
+  idempotency_key: string;
+  package_key: string;
+  revision: number;
+  content_hash: string;
+  bindings_hash: string;
+  normalized_json: JsonValue;
+  bindings_json: JsonValue;
+  issues_json: ColumnType<JsonValue, JsonValue | undefined, JsonValue>;
+  target_path_id: string | null;
+  target_version_id: string | null;
+  expected_version: number | null;
+  expires_at: ColumnType<Date, Date | string, Date | string>;
+  state: Generated<"validated" | "committed" | "expired">;
+  committed_path_id: string | null;
+  committed_version_id: string | null;
+  created_at: GeneratedTimestamp;
+  updated_at: GeneratedTimestamp;
 }
 
 export interface LearningPathUnitTable {
@@ -531,6 +654,13 @@ export interface LearningMapLayoutTable {
   positions_json: GeneratedJsonDocument; updated_at: GeneratedTimestamp;
 }
 export interface CediahDatabase {
+  learning_v2_bindings: LearningV2BindingTable;
+  learning_v2_attempts: LearningV2AttemptTable;
+  learning_v2_responses: LearningV2ResponseTable;
+  learning_v2_objective_state: LearningV2ObjectiveStateTable;
+  learning_v2_activity_state: LearningV2ActivityStateTable;
+  learning_v2_review_state: LearningV2ReviewStateTable;
+  learning_v2_imports: LearningV2ImportTable;
   learning_maps: LearningMapTable;
   learning_map_nodes: LearningMapNodeTable;
   learning_map_entries: LearningMapEntryTable;

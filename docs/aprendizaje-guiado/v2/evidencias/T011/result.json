@@ -1,0 +1,61 @@
+{
+  "taskId": "T011",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T16:23:26Z",
+  "predecessors": [
+    "docs/aprendizaje-guiado/v2/evidencias/T010/result.json: PASS",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/result.json: PASS"
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-import.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T011/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T011/typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T011/lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T011/state.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T011/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-import.test.ts test/guided-v2-editor-storage.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 25/25; T011 commit/export, I01-I03 y regresión editorial T009",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T011/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T011/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T011/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T011/state.txt"
+    }
+  ],
+  "acceptance": {
+    "commit": "Revalida sesión, TTL, actor, hash de paquete/bindings, permisos de catálogo y CAS dentro de una transacción; crea o actualiza solo draft.",
+    "idempotency": "Reenvío de la misma sesión y reimportación equivalente devuelven el recibo previo; reutilizar Idempotency-Key para otra sesión o packageKey/revision con contenido o bindings distintos da conflicto.",
+    "rollback": "Un trigger de prueba falla al cerrar el import después de insertar ruta, versión y bindings; la transacción revierte todo y la sesión sigue validated.",
+    "export": "GET export entrega solo paquete portable y bindings separados; exportar e importar en otra DB con UUID de catálogo distintos conserva exactamente el paquete y el hash portable.",
+    "http": "POST commit y GET export probados como rutas Fastify con identidad/capacidad, respuesta privada, reenvío y 409 por hash incorrecto."
+  },
+  "limits": [
+    "Los endpoints v2 están exportados y probados mediante registro explícito, pero todavía no están montados en app.ts; ese archivo queda fuera de la allowlist de T011.",
+    "El catálogo no ofrece digest verificable de archivos content_assets; un asset con sha256 declarado permanece VALIDATION_PENDING y no puede comprometerse como listo.",
+    "Pruebas sobre PGlite aislada; no se verificó PostgreSQL de staging/producción ni una carrera real entre conexiones. M01 completo sigue pendiente por 0005_restore_legacy_content.sql.",
+    "No se modificó el workflow de publicación ni los metadatos de usuarios; pertenecen a tareas posteriores."
+  ],
+  "nextTaskIds": ["T012"],
+  "scope": "Solo archivos de la ficha T011 y evidencias/T011; T012 no iniciado."
+}

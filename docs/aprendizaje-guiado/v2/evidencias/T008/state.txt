@@ -1,0 +1,54 @@
+taskId: T008
+baseSha: a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b
+initialStatus (git status --short before T008):
+ M apps/api/src/db/database.ts
+ M apps/api/vitest.config.ts
+ M packages/contracts/package.json
+ M packages/contracts/src/index.ts
+?? apps/api/src/guided-learning/v2/
+?? apps/api/test/guided-v2-contract.test.ts
+?? apps/api/test/guided-v2-graph.test.ts
+?? apps/api/test/guided-v2-migrations.test.ts
+?? apps/api/test/guided-v2-package.test.ts
+?? apps/api/test/guided-v2-validation.test.ts
+?? database/migrations/0030_guided_v2_definition.sql
+?? docs/aprendizaje-guiado/v2/evidencias/T003/
+?? docs/aprendizaje-guiado/v2/evidencias/T004/
+?? docs/aprendizaje-guiado/v2/evidencias/T005/
+?? docs/aprendizaje-guiado/v2/evidencias/T006/
+?? docs/aprendizaje-guiado/v2/evidencias/T007/
+?? packages/contracts/bin/
+?? packages/contracts/schemas/
+?? packages/contracts/src/guided-learning-v2.ts
+?? packages/contracts/src/learning-route-package.ts
+?? packages/contracts/src/learning-route-validation.ts
+reference: T001 baseline.json (API 230/231, one timeout; focused retest PASS; web 236/236; typecheck/lint/build PASS)
+referenceBeforeEdit: guided-v2-migrations.test.ts 7/7 PASS on Node v24.19.0
+currentStatus:
+ M apps/api/src/db/database.ts
+ M apps/api/vitest.config.ts
+ M packages/contracts/package.json
+ M packages/contracts/src/index.ts
+?? apps/api/src/guided-learning/v2/
+?? apps/api/test/guided-v2-contract.test.ts
+?? apps/api/test/guided-v2-graph.test.ts
+?? apps/api/test/guided-v2-migrations.test.ts
+?? apps/api/test/guided-v2-package.test.ts
+?? apps/api/test/guided-v2-validation.test.ts
+?? apps/api/test/helpers/guided-v2-db.ts
+?? database/migrations/0030_guided_v2_definition.sql
+?? database/migrations/0031_guided_v2_runtime.sql
+?? docs/aprendizaje-guiado/v2/evidencias/T003/
+?? docs/aprendizaje-guiado/v2/evidencias/T004/
+?? docs/aprendizaje-guiado/v2/evidencias/T005/
+?? docs/aprendizaje-guiado/v2/evidencias/T006/
+?? docs/aprendizaje-guiado/v2/evidencias/T007/
+?? docs/aprendizaje-guiado/v2/evidencias/T008/
+?? packages/contracts/bin/
+?? packages/contracts/schemas/
+?? packages/contracts/src/guided-learning-v2.ts
+?? packages/contracts/src/learning-route-package.ts
+?? packages/contracts/src/learning-route-validation.ts
+git diff --check:
+git diff --check exitCode: 0
+migrationSha256: FE693DB38C5EA818561AC6F0A302C3BE87DD058DC63599FEFFEC3E81FD1525E7

@@ -1,0 +1,14 @@
+M01 parcial — alcance de la prueba aislada
+
+La primera ejecución de la cadena completa sobre PGlite vacío se detuvo en
+0005_restore_legacy_content.sql con legacy_administrator_account_not_found.
+Esa migración histórica exige un usuario administrador de identidad y huella
+de correo concretas. No se modificó ni se simuló esa identidad.
+
+La prueba final aplica en orden los otros 29 archivos previos a T007 y luego
+0030_guided_v2_definition.sql en dos bases aisladas: una sin datos y otra con
+una versión v1, una matrícula adoptada y un intento v1. Comprueba que las
+filas v1 seleccionadas conservan exactamente sus valores antes y después.
+
+No se verificó el arranque desde una base literalmente vacía con 0005 ni la
+ejecución del runner con su tabla de checksums. No se aplicó SQL en cloud.

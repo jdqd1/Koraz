@@ -38,7 +38,7 @@ function validationFieldErrors(error: z.ZodError) {
 }
 
 function sendFailure(
-  result: { issues?: unknown; status: GuidedLearningFailure | "not_ready" },
+  result: { issues?: unknown; reason?: string; status: GuidedLearningFailure | "not_ready" },
   reply: FastifyReply,
 ) {
   if (result.status === "not_found") return reply.status(404).send({ error: "not_found" });
@@ -46,6 +46,7 @@ function sendFailure(
   if (result.status === "not_ready") {
     return reply.status(422).send({ error: "route_not_ready", issues: result.issues ?? [] });
   }
+  if (result.reason === "engine_version_mismatch") return reply.status(409).send({ error: "engine_version_mismatch" });
   return reply.status(409).send({
     error: result.status === "version_conflict" ? "version_conflict"
       : result.status === "resource_changed" ? "resource_changed" : "conflict",

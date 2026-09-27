@@ -1,0 +1,64 @@
+{
+  "taskId": "T006",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T00:34:08Z",
+  "changedFiles": [
+    "packages/contracts/src/learning-route-validation.ts",
+    "apps/api/src/guided-learning/v2/validation.ts",
+    "apps/api/test/guided-v2-validation.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-validation.test.ts test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-v2-contract.test.ts test/guided-learning-editor-contract.test.ts",
+      "exitCode": 0,
+      "result": "PASS (5 archivos, 34/34 pruebas; incluye P04, C02, CLI de desarrollo y regresión T003–T005)",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/api-lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/result.json"
+    }
+  ],
+  "acceptance": {
+    "draftVersusPublish": "Un borrador con estructura válida conserva valid=true aunque falten cobertura o referencias; publishable=false hasta corregir errores. Los warnings no bloquean.",
+    "pedagogicalCoverage": "Se exigen explicación, recuperación, elaboración y aplicación, cinco familias objetivas distintas para objetivos requeridos, dos recuperaciones, aplicación en otra representación y verificación objetiva de respuestas autorreportadas.",
+    "reservedBanks": "Final, retención7 y retención30 requieren familias exclusivas, distintas del aprendizaje, diagnóstico y otros objetivos; equivalenceKey se cuenta una vez.",
+    "assessments": "Gate por unidad y por objetivo requerido, checkpoint por cadencia, diagnóstico de CORE raíz y reservas con cobertura por objetivo.",
+    "sourcesAssetsCases": "Fragmentos y feedback con fuente, marcador bibliográfico roto, TODO, derechos y dimensiones de imagen, reconocimiento espacial, secuencia e hijos de casos.",
+    "serverBindingsReview": "Hash canónico del paquete, revisión del hash exacto, permisos, tema, revisión de guía y estado/hash/derechos del asset verificados con contexto de servidor.",
+    "fixtures": "P04 retira aplicación, fuente y reserva; C02 prueba marcador de cita roto, fuente no verificada y asset sin derechos. Cada incidencia incluye JSON pointer, mensaje y corrección concreta."
+  },
+  "limits": [
+    "La CLI portátil solo comprueba la estructura editorial; la validez clínica y la disponibilidad real del catálogo requieren revisión y contexto de servidor. La función bound debe ejecutarse dentro de la transacción de publicación cuando se implemente el flujo posterior.",
+    "El bundle autónomo generado en T003 no se regeneró porque packages/contracts/bin/ está fuera de los archivos permitidos de T006. La prueba de publicación usa la CLI no empaquetada y el dist actualizado.",
+    "Los cambios previos de T003, T004, T005 y la reparación del runner API permanecen en el árbol sin commit; T006 solo modificó sus tres archivos autorizados y esta carpeta de evidencia."
+  ],
+  "nextTaskIds": ["T007"],
+  "scope": "Solo los tres archivos de la ficha T006 y evidencias/T006/. No se inició T007."
+}

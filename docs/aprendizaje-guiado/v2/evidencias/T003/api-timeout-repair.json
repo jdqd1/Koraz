@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "recordedUtc": "2026-09-26T23:59:21Z",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "failure": {
+    "source": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt",
+    "result": "230/231; un timeout de 5000 ms en guided-learning-routes.test.ts durante la suite completa",
+    "isolatedRetest": "PASS según baseline T001"
+  },
+  "diagnosis": "El fallo es sensible a la concurrencia de la suite: cada prueba de integración PGlite inicializa PostgreSQL WASM, y el caso aislado no reproduce el timeout. La corrida base tardó 118.38 s, frente a 47.67 s en el primer recheck con dos workers. No se observó un fallo funcional de la ruta.",
+  "change": {
+    "file": "apps/api/vitest.config.ts",
+    "detail": "maxWorkers 2 -> 1; el timeout y las aserciones quedan intactos"
+  },
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "beforeChange": true,
+      "exitCode": 0,
+      "result": "PASS 238/238",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-suite-recheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run --maxWorkers=1",
+      "beforeChange": true,
+      "exitCode": 0,
+      "result": "PASS 238/238",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-suite-single-worker.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "beforeChange": false,
+      "exitCode": 0,
+      "result": "PASS 238/238",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-suite-after-fix.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "beforeChange": false,
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-typecheck-after-fix.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "beforeChange": false,
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-lint-after-fix.txt"
+    },
+    {
+      "command": "git diff --check",
+      "beforeChange": false,
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-timeout-repair.json"
+    }
+  ],
+  "limits": "El timeout original fue intermitente y no se reprodujo en las mediciones actuales; las corridas documentadas verifican el ajuste local, no garantizan ausencia de fallos temporales en cualquier máquina. T004 no se inició."
+}

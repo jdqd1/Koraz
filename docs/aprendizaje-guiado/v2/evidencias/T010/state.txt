@@ -1,0 +1,37 @@
+T010 / estado de cierre
+UTC: 2026-09-27 16:06:29 UTC
+Base SHA: a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b
+T009 PASS verificado en evidencias/T009/result.json.
+Cambios previos T003-T009 conservados.
+Archivos editados por T010: apps/api/src/guided-learning/v2/import.ts; apps/api/src/guided-learning/v2/editor-routes.ts; apps/api/src/providers/postgres-guided-learning-v2.ts; apps/api/test/guided-v2-import.test.ts; evidencias/T010/.
+git diff --check: PASS (exit 0).
+Estado git:
+ M apps/api/src/db/database.ts
+ M apps/api/vitest.config.ts
+ M packages/contracts/package.json
+ M packages/contracts/src/index.ts
+?? apps/api/src/guided-learning/v2/
+?? apps/api/src/providers/postgres-guided-learning-v2.ts
+?? apps/api/test/guided-v2-contract.test.ts
+?? apps/api/test/guided-v2-editor-storage.test.ts
+?? apps/api/test/guided-v2-graph.test.ts
+?? apps/api/test/guided-v2-import.test.ts
+?? apps/api/test/guided-v2-migrations.test.ts
+?? apps/api/test/guided-v2-package.test.ts
+?? apps/api/test/guided-v2-validation.test.ts
+?? apps/api/test/helpers/guided-v2-db.ts
+?? database/migrations/0030_guided_v2_definition.sql
+?? database/migrations/0031_guided_v2_runtime.sql
+?? docs/aprendizaje-guiado/v2/evidencias/T003/
+?? docs/aprendizaje-guiado/v2/evidencias/T004/
+?? docs/aprendizaje-guiado/v2/evidencias/T005/
+?? docs/aprendizaje-guiado/v2/evidencias/T006/
+?? docs/aprendizaje-guiado/v2/evidencias/T007/
+?? docs/aprendizaje-guiado/v2/evidencias/T008/
+?? docs/aprendizaje-guiado/v2/evidencias/T009/
+?? docs/aprendizaje-guiado/v2/evidencias/T010/
+?? packages/contracts/bin/
+?? packages/contracts/schemas/
+?? packages/contracts/src/guided-learning-v2.ts
+?? packages/contracts/src/learning-route-package.ts
+?? packages/contracts/src/learning-route-validation.ts

@@ -1,0 +1,26 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > creates one canonical draft, reads it back and leaves v1 step tables empty 55ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > saves and rereads one version with CAS; stale writes do not change metadata 44ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > hashes canonical object keys but preserves source array order 18ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > enforces editor ownership and never trusts imported status or actor 25ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rolls back route metadata and version when a binding FK fails 24ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rejects writes to published versions 12ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > I02 keeps portable semantics when reimported with different catalog bindings 1488ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01 stores a private 24h session without creating or changing a learning path 27ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reports a missing guide binding precisely and leaves the session unready 6ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > detects a changed guide digest and never auto-links by title 15ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > computes key-based target diff and enforces owner/CAS without mutating the target 35ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > S05 rejects >10 MiB, unknown privileged fields and file URLs 13ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > uses array order and local keys in diffs 1ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > marks an asset digest as unverified when the catalog has no trusted file hash 9ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reuses an idempotency key only for the same package and bindings 26ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > exposes a validated endpoint with auth, capability and private no-store 181ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > limits validate to 10 sessions per actor per ten minutes 69ms
+
+ Test Files  2 passed (2)
+      Tests  17 passed (17)
+   Start at  12:05:36
+   Duration  8.22s (transform 212ms, setup 0ms, import 1.22s, tests 6.56s, environment 0ms)
+

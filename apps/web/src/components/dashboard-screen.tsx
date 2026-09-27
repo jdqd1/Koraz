@@ -1,21 +1,13 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, CardsThree, ClipboardText, Notebook, Path } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, BookOpen } from "@phosphor-icons/react/dist/ssr";
 import type { ContentItem, LearningHome } from "@cediah/contracts";
 import { publishedContentHref } from "@/lib/content-navigation";
 import { newestContentFirst } from "@/lib/content-order";
 import { AppShell } from "./app-shell";
-import { BrandFooter } from "./brand-footer";
 import { LearningDashboardReview } from "./learning/learning-dashboard-review";
 import { LearningDashboardSummary } from "./learning/learning-dashboard-summary";
-import { DashboardRecentCarousel } from "./dashboard-recent-carousel";
 
 type Guide = Extract<ContentItem, { kind: "guide" }>;
-
-const materialDefinitions = [
-  { href: "/guias", icon: Notebook, kind: "guide", title: "Guías" },
-  { href: "/asignaturas?tipo=flashcards", icon: CardsThree, kind: "flashcards", title: "Flashcards" },
-  { href: "/asignaturas?tipo=quiz", icon: ClipboardText, kind: "quiz", title: "Cuestionarios" },
-] as const;
 
 function GuideCard({ guide }: { guide: Guide }) {
   return (
@@ -26,7 +18,7 @@ function GuideCard({ guide }: { guide: Guide }) {
           <small>{guide.topic || "Guía de estudio"}</small>
           <strong>{guide.title}</strong>
         </span>
-        <span className="dashboard-guide-card-action" aria-hidden="true">Abrir <ArrowRight size={16} /></span>
+        <span className="dashboard-guide-card-action" aria-hidden="true">Guía de estudio <ArrowRight size={16} /></span>
       </Link>
     </li>
   );
@@ -68,15 +60,14 @@ export function DashboardScreen({
       mainClassName="dashboard-main dashboard-study-home"
     >
       <h1 className="sr-only">Inicio</h1>
-      <div className={"dashboard-focus-grid" + (guidedLearningEnabled ? " has-routes" : "")}>
-        <LearningDashboardSummary available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
+      <div className={"dashboard-reference-grid" + (guidedLearningEnabled ? " has-routes" : "")}>
         <section className="dashboard-resume-section" aria-labelledby="dashboard-resume-title">
           <div className="section-heading-row"><h2 id="dashboard-resume-title">Seguir leyendo</h2></div>
           {resumeGuide ? (
             <Link className="dashboard-resume-card" href={publishedContentHref(resumeGuide)}>
               <span className="dashboard-resume-art" aria-hidden="true"><BookOpen size={31} /></span>
               <span className="dashboard-resume-copy">
-                <span className="dashboard-resume-kicker"><BookOpen size={16} /> Tu última guía</span>
+                <span className="dashboard-resume-kicker">{resumeGuide.topic || "Guía de estudio"}</span>
                 <strong>{resumeGuide.title}</strong>
                 <span className="dashboard-resume-action">Continuar lectura <ArrowRight size={18} /></span>
               </span>
@@ -89,19 +80,17 @@ export function DashboardScreen({
             </Link>
           )}
         </section>
-      </div>
-
-      <LearningDashboardReview available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
-
-      <section className="dashboard-section dashboard-recent" aria-labelledby="recent-title">
+        <LearningDashboardSummary available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
+        <LearningDashboardReview available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
+        <section className="dashboard-section dashboard-recent" aria-labelledby="recent-title">
         <div className="section-heading-row">
           <h2 id="recent-title">Agregadas recientemente</h2>
           <Link href="/guias">Ver todas <ArrowRight aria-hidden="true" size={17} /></Link>
         </div>
         {recentGuides.length > 0 ? (
-          <DashboardRecentCarousel><ol className="dashboard-guide-grid">
+          <ol className="dashboard-guide-grid">
             {recentGuides.map((guide) => <GuideCard key={guide.id} guide={guide} />)}
-          </ol></DashboardRecentCarousel>
+          </ol>
         ) : (
           <div className="dynamic-empty-state" role="status">
             <BookOpen size={30} aria-hidden="true" />
@@ -111,29 +100,9 @@ export function DashboardScreen({
             </div>
           </div>
         )}
-      </section>
+        </section>
+      </div>
 
-      <section className="dashboard-section dashboard-materials" aria-labelledby="dashboard-materials-title">
-        <div className="section-heading-row"><h2 id="dashboard-materials-title">Explora tu material</h2></div>
-        <nav className="study-material-grid dashboard-shortcuts" aria-label="Accesos directos de estudio">
-          {guidedLearningEnabled && (
-            <Link className="study-material-card" data-kind="learning" href="/aprendizaje">
-              <span className="study-material-icon" aria-hidden="true"><Path size={23} weight="regular" /></span>
-              <span className="study-material-copy"><strong>Rutas de aprendizaje</strong></span>
-              <ArrowRight className="dashboard-shortcut-arrow" aria-hidden="true" size={18} />
-            </Link>
-          )}
-          {materialDefinitions.map(({ title, icon: Icon, kind, href }) => (
-            <Link className="study-material-card" data-kind={kind} href={href} key={kind}>
-              <span className="study-material-icon" aria-hidden="true"><Icon size={23} weight="regular" /></span>
-              <span className="study-material-copy"><strong>{title}</strong></span>
-              <ArrowRight className="dashboard-shortcut-arrow" aria-hidden="true" size={18} />
-            </Link>
-          ))}
-        </nav>
-      </section>
-
-      <BrandFooter />
     </AppShell>
   );
 }

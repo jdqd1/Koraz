@@ -1,0 +1,62 @@
+{
+  "taskId": "T009",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T15:37:53Z",
+  "changedFiles": [
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/src/guided-learning/v2/service.ts",
+    "apps/api/test/guided-v2-editor-storage.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/legacy-editor-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/state.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-editor-storage.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 7/7; read-save-read, CAS, canonical hash, auth/actor/status, rollback, published immutability, I02 con bindings diferentes",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T009/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-editor-storage.test.ts",
+      "exitCode": 0,
+      "result": "PASS: 14/14 pruebas del editor v1",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T009/legacy-editor-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T009/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T009/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T009/state.txt"
+    }
+  ],
+  "acceptance": {
+    "canonicalDefinition": "La definición validada se guarda como un solo JSON v2; el hash SHA-256 usa claves de objeto ordenadas y conserva el orden de arrays. No se crean unidades, pasos ni opciones v1.",
+    "editorPersistence": "Creación, lectura y patch transaccional conservan la semántica; edit_version usa expectedVersion y devuelve version_conflict ante un CAS obsoleto.",
+    "serverFields": "created_by procede del actor del servidor; el paquete no acepta campos actor/status y las versiones publicadas no se editan.",
+    "I02": "El mismo paquete importado en una segunda DB aislada conserva el hash portable aunque cambien los UUID de bindings."
+  },
+  "limits": [
+    "Pruebas de storage en PGlite aislada; no se verificó PostgreSQL de staging/producción ni concurrencia real entre conexiones.",
+    "La cadena de migraciones del fixture omite 0005_restore_legacy_content.sql por su identidad histórica requerida, como consta en T007/T008; M01 completo sigue pendiente.",
+    "El provider v2 aún no está conectado a rutas HTTP ni a importación dry-run; eso corresponde a tareas posteriores."
+  ],
+  "nextTaskIds": ["T010"],
+  "scope": "Solo archivos de la ficha T009 y evidencias/T009; T010 no iniciado."
+}

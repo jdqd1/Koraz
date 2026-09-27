@@ -1,0 +1,63 @@
+{
+  "taskId": "T005",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T00:18:24Z",
+  "changedFiles": [
+    "packages/contracts/src/learning-route-validation.ts",
+    "apps/api/src/guided-learning/v2/graph.ts",
+    "apps/api/test/guided-v2-graph.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T005/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T005/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T005/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T005/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T005/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T005/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-v2-contract.test.ts test/guided-learning-editor-contract.test.ts",
+      "exitCode": 0,
+      "result": "PASS (4 archivos, 24/24 pruebas; incluye P01–P03, contrato v1 y 200 objetivos)",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T005/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T005/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T005/api-lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T005/result.json"
+    }
+  ],
+  "acceptance": {
+    "cycleAndSelfLoop": "DAG_CYCLE con recorrido y JSON pointer a la arista que cierra el ciclo",
+    "missingAndDuplicateReferences": "REFERENCE_MISSING y DUPLICATE_KEY con JSON pointer específico",
+    "membership": "Cada objetivo y actividad aparece exactamente en una unidad; la actividad comparte unidad con su objetivo principal",
+    "ordering": "Kahn determinista con desempate por unidad, posición del objetivo y clave",
+    "independentBranches": "Raíces y ramas independientes siguen disponibles",
+    "scale": "Prueba de 200 objetivos válida"
+  },
+  "issues": [
+    "La publicación sigue en publishable=false hasta implementar cobertura pedagógica y reservas en T006.",
+    "El bundle autónomo generado en T003 no se regeneró: packages/contracts/bin/ no está en la lista de archivos permitidos de T005. La CLI no empaquetada usa el dist actualizado; antes de aceptar el paquete autónomo será necesario regenerar el bundle en una tarea que lo autorice.",
+    "Permanecen en el árbol los cambios previos de T003, T004 y la reparación del runner API; T005 no los sobrescribió."
+  ],
+  "nextTaskIds": ["T006"],
+  "scope": "Solo los tres archivos de la ficha T005 y evidencias/T005/. No se inició T006."
+}

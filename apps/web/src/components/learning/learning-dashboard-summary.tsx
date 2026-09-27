@@ -89,7 +89,7 @@ export function LearningDashboardSummary({
     <div aria-label="Aprendizaje guiado" className="dashboard-learning">
       <section aria-labelledby="dashboard-learning-title" className="dashboard-learning-block dashboard-learning-path-block">
         <div className="dashboard-learning-section-heading section-heading-row">
-          <h2 id="dashboard-learning-title">Rutas de aprendizaje</h2>
+          <h2 id="dashboard-learning-title">Ruta de aprendizaje</h2>
           <Link href="/aprendizaje?tab=rutas">Ver todas <ArrowRight aria-hidden="true" size={17} /></Link>
         </div>
 
@@ -150,7 +150,7 @@ export function LearningDashboardSummary({
                             : null}
                       </span>
                       <small aria-hidden="true">{index + 1}</small>
-                      <em aria-hidden="true">{isGoal ? "Meta" : state === "current" ? "Ahora" : `Actividad ${index + 1}`}</em>
+                      <em aria-hidden="true">{isGoal ? "Meta" : state === "current" ? "Ahora" : `Act. ${index + 1}`}</em>
                       <span className="sr-only">Actividad {index + 1}{isGoal ? ", meta de la ruta" : ""}: {stateLabel}</span>
                     </li>
                   );

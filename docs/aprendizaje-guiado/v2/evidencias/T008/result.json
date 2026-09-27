@@ -1,0 +1,98 @@
+{
+  "taskId": "T008",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T01:12:58Z",
+  "runtime": {
+    "nodeUsed": "v24.19.0",
+    "pnpmAvailable": "11.19.0",
+    "pnpmDeclared": "11.9.0",
+    "database": "PGlite aislada en memoria; no se conectó a producción ni se ejecutó db:migrate"
+  },
+  "reference": {
+    "source": "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json",
+    "initialRepositoryState": "Había cambios sin commit de T003–T007; se conservaron. Detalle en state.txt.",
+    "beforeEdit": "La prueba de migración editorial pasó 7/7 en T008/reference-before.txt.",
+    "t001Api": "230/231; un timeout de 5000 ms en guided-learning-routes; repetición focalizada PASS.",
+    "t001Web": "236/236; no se repitió en T008 porque no se modificó frontend.",
+    "t001Other": "Build contratos, typecheck, lint y build global PASS en T001; no se repitió build global reservado para T040."
+  },
+  "changedFiles": [
+    "database/migrations/0031_guided_v2_runtime.sql",
+    "apps/api/src/db/database.ts",
+    "apps/api/test/guided-v2-migrations.test.ts",
+    "apps/api/test/helpers/guided-v2-db.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/reference-before.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/focused-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/api-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/due-explain.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/state.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T008/result.json"
+  ],
+  "checks": [
+    {
+      "command": "git status --short; git rev-parse HEAD; node --version; pnpm.cmd --version",
+      "exitCode": 0,
+      "result": "PASS: estado inicial y herramientas registrados",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/state.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-migrations.test.ts",
+      "exitCode": 0,
+      "result": "PASS: 7/7 antes de editar",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/reference-before.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-migrations.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 12/12; FK usuario/matrícula/versión, duplicados, rollback, roles e índice due",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api test",
+      "exitCode": 0,
+      "result": "PASS: 41 archivos, 271/271 pruebas",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/api-regression.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/api-lint.txt"
+    },
+    {
+      "command": "EXPLAIN SELECT objective_key FROM learning_v2_review_state WHERE user_id = <fixture> AND due_at <= now() ORDER BY due_at LIMIT 10, tras ANALYZE con 300 filas futuras",
+      "exitCode": 0,
+      "result": "PASS: Index Only Scan using learning_v2_review_state_due_index, sin forzar enable_seqscan",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/due-explain.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T008/state.txt"
+    }
+  ],
+  "migrationSha256": "fe693db38c5ea818561ac6f0a302c3be87dd058dc63599feffec3e81fd1525e7",
+  "acceptance": {
+    "tables": "attempts, responses, objective_state, activity_state, review_state e imports creadas por 0031; tipos Kysely añadidos.",
+    "integrity": "FK compuestas de usuario, matrícula, versión e intento; claves únicas por client_attempt_id e intento+actividad; respuesta de rol runtime sin UPDATE/DELETE.",
+    "rollback": "Una inserción seguida por duplicado falla y no conserva la primera fila de la transacción.",
+    "dueLookup": "Índice utilizado en EXPLAIN con fixture de PGlite analizada."
+  },
+  "issues": [
+    "M01 sigue parcial por 0005_restore_legacy_content.sql, que requiere una identidad histórica; el fixture de T008 omite ese archivo como T007. No se verificó el runner de checksums.",
+    "No hay PostgreSQL local disponible; locks concurrentes, grants en servidor real y comportamiento en staging/producción quedan NO VERIFICADO para T015/T035/T036.",
+    "El PATH por defecto usa Node 22.22.0; las pruebas se ejecutaron con Node 24.19.0 disponible localmente. pnpm 11.19.0 difiere del packageManager declarado 11.9.0."
+  ],
+  "nextTaskIds": ["T009"],
+  "scope": "Solo archivos de la ficha T008 y evidencias/T008; T009 no iniciado."
+}

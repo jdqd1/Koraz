@@ -1,0 +1,63 @@
+{
+  "taskId": "T012",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T17:07:50Z",
+  "predecessors": [
+    "docs/aprendizaje-guiado/v2/evidencias/T011/result.json: PASS"
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/src/guided-learning/editor-routes.ts",
+    "apps/api/src/guided-learning/routes.ts",
+    "apps/api/src/providers/postgres-guided-learning.ts",
+    "apps/api/test/guided-v2-workflow.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T012/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-workflow.test.ts test/guided-learning-editor-routes.test.ts test/guided-learning-editor-storage.test.ts",
+      "exitCode": 0,
+      "result": "PASS: 25/25",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T012/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run",
+      "exitCode": 0,
+      "result": "PASS: 302/302",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T012/full-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T012/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T012/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T012/state.txt"
+    }
+  ],
+  "acceptance": {
+    "S01": "PASS en provider y rutas registradas en prueba: transición con roles/ownership, aprobación ligada al hash, CAS, revalidación de catálogo y publicación transaccional; dos editores no publican la revisión anterior.",
+    "M02": "PASS en PGlite aislada: edición después de cambios solicitados vuelve a draft sin aprobación, draft aprobado no admite save, versión publicada y bindings históricos quedan inmutables, versión nueva conserva matriz y matrícula anterior.",
+    "S08": "PASS en pruebas aisladas: editor y matrícula v1 responden 409 engine_version_mismatch con ID de ruta v2; delete v1 no elimina ruta ni matrícula; el mapa v1 proyecta un bloque v2 sin acreditar progreso. La nueva prueba HTTP verifica el error explícito y el conteo de matrículas."
+  },
+  "limits": [
+    "Los endpoints v2 de esta ficha están implementados y probados al registrarlos explícitamente, pero app.ts sigue sin montarlos; app.ts está fuera de la allowlist T012.",
+    "PGlite aislada y pruebas de una conexión: no se verificaron staging/producción ni carrera simultánea entre conexiones reales.",
+    "M01 completo sigue pendiente por la migración histórica 0005_restore_legacy_content.sql."
+  ],
+  "authorization": "El usuario autorizó explícitamente resolver el fallo para dejar T012 en PASS después de conocer que guided-learning/routes.ts estaba fuera de la allowlist original; la excepción se limitó al mapeo de este error.",
+  "nextTaskIds": ["T013"],
+  "scope": "Solo T012; T013 no iniciado. Esperar instrucción del usuario antes de continuar."
+}

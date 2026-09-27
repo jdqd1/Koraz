@@ -12,8 +12,10 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc --noEmit"
+    "build": "tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs",
+    "bundle:route": "node bin/bundle-learning-route.mjs",
+    "typecheck": "tsc --noEmit",
+    "validate:route": "node bin/validate-learning-route.mjs"
   },
   "dependencies": {
     "zod": "4.4.3"

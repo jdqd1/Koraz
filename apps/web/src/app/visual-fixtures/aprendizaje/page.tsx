@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import type { ContentItem } from "@cediah/contracts";
+import type { ContentItem, RichTextDocument } from "@cediah/contracts";
 import { AppShell } from "@/components/app-shell";
 import { DashboardScreen } from "@/components/dashboard-screen";
+import { ContentDetailScreen } from "@/components/content-detail-screen";
 import { LearningCompletionPanel } from "@/components/learning/activities/learning-completion-panel";
 import { LearningHomeScreen } from "@/components/learning/learning-home-screen";
 import { LearningPathScreen } from "@/components/learning/learning-path-screen";
@@ -46,6 +47,24 @@ const dashboardGuides: ContentItem[] = [
   updatedAt: `2026-09-${String(20 + index).padStart(2, "0")}T12:00:00.000Z`,
 }));
 
+function readerParagraph(text: string) {
+  return {
+    type: "paragraph",
+    content: text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part) => part.startsWith("**")
+      ? { type: "text", text: part.slice(2, -2), marks: [{ type: "bold" }] }
+      : { type: "text", text: part }),
+  };
+}
+
+const readerDocument = {
+  type: "doc",
+  content: [
+    readerParagraph("La **columna vertebral o raquis** constituye el eje óseo del cuello y del tronco. Está formada por una sucesión de vértebras que combina dos propiedades aparentemente opuestas: **resistencia**, necesaria para sostener y transmitir cargas, y **movilidad**, indispensable para orientar la cabeza y el tronco. Además, la superposición de los forámenes vertebrales forma el **conducto vertebral**, que protege las estructuras nerviosas contenidas en su interior. En la disposición más frecuente se reconocen **7 vértebras cervicales, 12 torácicas, 5 lumbares y una porción pélvica formada por el sacro y el cóccix**; las piezas sacras y coccígeas se fusionan en grado variable con la edad."),
+    { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Organización general y vértebra tipo" }] },
+    readerParagraph("Las vértebras libres presentan caracteres regionales muy marcados, pero conservan un plan estructural común. Cada vértebra posee un **cuerpo vertebral**, situado anteriormente, y un **arco vertebral**, situado posteriormente. Ambos delimitan el **foramen vertebral**. El cuerpo es el principal elemento de sustentación y aumenta progresivamente de volumen hacia las regiones inferiores de la columna, donde debe soportar cargas mayores. El arco vertebral se une al cuerpo mediante los **pedículos** y se completa posteriormente por las **láminas**."),
+  ],
+} as RichTextDocument;
+
 const supportedModes = new Set([
   "complete",
   "completion",
@@ -60,6 +79,7 @@ const supportedModes = new Set([
   "path-upgrade",
   "path-upgrade-blocked",
   "progress",
+  "reader",
   "routes",
   "today",
 ]);
@@ -96,6 +116,19 @@ export default async function LearningVisualFixturePage({ searchParams }: {
         viewer={{ email: "estudiante.visual@example.test" }}
       />
     );
+  }
+
+  if (mode === "reader") {
+    const guide = dashboardGuides[1] as Extract<ContentItem, { kind: "guide" }>;
+    return <ContentDetailScreen trackView={false} item={{
+      ...guide,
+      title: "Columna vertebral",
+      content: {
+        ...guide.content,
+        document: readerDocument,
+        sections: [],
+      },
+    }} />;
   }
 
   if (mode === "path" || mode === "path-upgrade" || mode === "path-upgrade-blocked") {

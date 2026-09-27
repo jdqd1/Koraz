@@ -1,0 +1,80 @@
+{
+  "taskId": "T003",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-26T23:53:10Z",
+  "changedFiles": [
+    "packages/contracts/src/learning-route-package.ts",
+    "packages/contracts/src/learning-route-validation.ts",
+    "packages/contracts/src/index.ts",
+    "packages/contracts/package.json",
+    "packages/contracts/schemas/koraz-route-2.0.schema.json",
+    "packages/contracts/bin/generate-learning-route-schema.mjs",
+    "packages/contracts/bin/bundle-learning-route.mjs",
+    "packages/contracts/bin/validate-learning-route.mjs",
+    "packages/contracts/bin/validate-learning-route.bundle.mjs",
+    "apps/api/test/guided-v2-package.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/bundle.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/contract-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/state.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T003/result.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts bundle:route",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/bundle.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-package.test.ts test/guided-learning-editor-contract.test.ts",
+      "exitCode": 0,
+      "result": "PASS (13/13; el bundle se copió a una carpeta temporal y se ejecutó allí)",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/contract-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/api-lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T003/state.txt"
+    }
+  ],
+  "referenceChecksSource": "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json",
+  "referenceChecks": {
+    "contractsBuild": "PASS",
+    "webTests": "PASS (236/236)",
+    "apiTests": "FAIL (230/231; timeout de 5000 ms en un caso, retest focalizado PASS)",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS"
+  },
+  "schemaSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+  "issues": [
+    "La suite API global de T001 tiene un timeout preexistente; no se volvió a ejecutar toda la suite ni se alteró el timeout.",
+    "La publicación portable permanece no verificada: las reglas completas de DAG y cobertura pertenecen a T005/T006. La CLI informa publishable=false y --publish termina con código 1 hasta entonces.",
+    "El PATH predeterminado usa Node 22.22.0; las comprobaciones de T003 usaron Node 24.19.0. pnpm disponible es 11.19.0 frente a packageManager 11.9.0."
+  ],
+  "nextTaskIds": ["T004", "T005"],
+  "scope": "Solo T003. No se modificaron frontend, base de datos, migraciones, esquemas v1 ni producción. El registro global de T002 no se editó porque no figura en la lista permitida de T003."
+}

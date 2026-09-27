@@ -61,6 +61,10 @@ type PathRow = Selectable<LearningPathTable>;
 type VersionRow = Selectable<LearningPathVersionTable>;
 type EnrollmentRow = Selectable<LearningEnrollmentTable>;
 
+function v1EngineMismatch<T>(): GuidedLearningResult<T> & { reason: "engine_version_mismatch" } {
+  return { status: "conflict", reason: "engine_version_mismatch" };
+}
+
 function jsonbArray(value: readonly unknown[]): JsonValue {
   // node-postgres serializes JavaScript arrays as PostgreSQL arrays. JSON text lets
   // the jsonb column parse the intended top-level JSON array instead.
@@ -638,6 +642,7 @@ export function createPostgresGuidedLearningProvider(
       return { status: "not_found" };
     }
     const version = await latestVersion(database, path.id);
+    if (version?.policy_version === "guided-v2.0") return v1EngineMismatch();
     return version
       ? { status: "success", value: await readPathDetail(database, path, version) }
       : { status: "not_found" };
@@ -658,6 +663,9 @@ export function createPostgresGuidedLearningProvider(
           .forShare()
           .executeTakeFirst();
         if (!path?.published_version_id) return { status: "not_found" };
+        const publishedVersion = await transaction.selectFrom("learning_path_versions")
+          .select("policy_version").where("id", "=", path.published_version_id).executeTakeFirst();
+        if (publishedVersion?.policy_version === "guided-v2.0") return v1EngineMismatch();
 
         let enrollment = await transaction.insertInto("learning_enrollments").values({
           path_id: path.id,
@@ -745,6 +753,7 @@ export function createPostgresGuidedLearningProvider(
           }
           const version = await latestVersion(transaction, path.id);
           if (!version) return { kind: "not_found" as const };
+          if (version.policy_version === "guided-v2.0") return { kind: "engine_version_mismatch" as const };
           if (version.edit_version !== input.expectedVersion) {
             return { kind: "version_conflict" as const };
           }
@@ -792,6 +801,7 @@ export function createPostgresGuidedLearningProvider(
             ? { id: removedPath.id, kind: "success" as const }
             : { kind: "version_conflict" as const };
         });
+        if (deleted.kind === "engine_version_mismatch") return v1EngineMismatch();
         return deleted.kind === "success"
           ? { status: "success", value: { id: deleted.id } }
           : { status: deleted.kind };
@@ -901,6 +911,7 @@ export function createPostgresGuidedLearningProvider(
       if (!versionId) return null;
       const version = await database.selectFrom("learning_path_versions").selectAll()
         .where("id", "=", versionId).where("path_id", "=", path.id).executeTakeFirst();
+      if (version?.policy_version === "guided-v2.0") return null;
       return version ? readPathDetail(database, path, version, input.userId) : null;
     },
 
@@ -911,7 +922,7 @@ export function createPostgresGuidedLearningProvider(
       const paths: LearningPathDetail[] = [];
       for (const path of rows) {
         const version = await latestVersion(database, path.id);
-        if (version) paths.push(await readPathDetail(database, path, version));
+        if (version && version.policy_version !== "guided-v2.0") paths.push(await readPathDetail(database, path, version));
       }
       return paths;
     },
@@ -1014,6 +1025,7 @@ export function createPostgresGuidedLearningProvider(
         .where("learning_enrollments.status", "=", "active")
         .where("learning_path_versions.status", "=", "published")
         .where("learning_paths.archived_at", "is", null)
+        .where("learning_path_versions.policy_version", "!=", "guided-v2.0")
         .where("learning_resources.retired_at", "is", null)
         .where("content_items.status", "=", "published")
         .where("learning_step_options.source_content_id", "=", input.sourceContentId)
@@ -1061,6 +1073,7 @@ export function createPostgresGuidedLearningProvider(
           "learning_enrollments.status as enrollment_status",
         ])
         .where("learning_paths.archived_at", "is", null)
+        .where("learning_path_versions.policy_version", "!=", "guided-v2.0")
         .$if(Boolean(input.topicId), (query) => query.where("learning_paths.topic_content_id", "=", input.topicId ?? ""))
         .$if(Boolean(input.cursor), (query) => query.where("learning_paths.id", ">", input.cursor ?? ""))
         .orderBy("learning_paths.id", "asc")

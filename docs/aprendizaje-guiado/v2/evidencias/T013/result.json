@@ -1,0 +1,54 @@
+{
+  "taskId": "T013",
+  "status": "PASS",
+  "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+  "recordedUtc": "2026-09-27T17:14:53Z",
+  "predecessors": [
+    "docs/aprendizaje-guiado/v2/evidencias/T004/result.json: PASS",
+    "docs/aprendizaje-guiado/v2/evidencias/T006/result.json: PASS",
+    "docs/aprendizaje-guiado/v2/evidencias/T012/result.json: PASS"
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/grading.ts",
+    "apps/api/test/guided-v2-grading.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T013/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-grading.test.ts",
+      "exitCode": 0,
+      "result": "PASS: 7/7",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T013/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T013/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T013/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T013/state.txt"
+    }
+  ],
+  "acceptance": {
+    "P05": "PASS: normalización NFKC, trim, minúsculas españolas y colapso de espacios; coincidencia completa solo con alias explícitos, sin eliminar acentos, negación, unidades ni texto adicional.",
+    "P06": "PASS: constructed_response devuelve el texto enviado, exige reveal para autorreporte, verifica que el autorreporte corresponde al mismo texto y conserva score01 null/gradingSource self incluso ante palabras causales invertidas.",
+    "feedback": "PASS: choice usa el feedback del distractor seleccionado; los tres tipos devuelven sourceKeys del feedback tras la respuesta autorizada; antes del reveal de constructed no se entrega modelo ni rúbrica.",
+    "stability": "PASS: elección y short devuelven puntuación binaria del servidor; confidence no altera el resultado y el evaluador no muta la actividad. Claves ajenas y respuestas mal formadas se rechazan."
+  },
+  "limits": [
+    "Funciones puras solamente: persistencia de texto, revelado y respuestas corresponde a T015; no se modificaron intentos, dominio, UI ni fuentes reales.",
+    "Match, sequence, image_target y case quedan para T014."
+  ],
+  "nextTaskIds": ["T014"],
+  "scope": "Solo archivos de la ficha T013 y evidencias/T013; T014 no iniciado. Esperar instrucción del usuario."
+}

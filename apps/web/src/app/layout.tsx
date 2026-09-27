@@ -17,6 +17,7 @@ import "./interactive-term-admin.css";
 import "./admin-section-tabs.css";
 import "./dashboard-home.css";
 import "./drive-study-polish.css";
+import "./reference-dashboard.css";
 
 const plusJakartaSans = localFont({
   src: [
