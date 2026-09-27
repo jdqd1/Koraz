@@ -11,7 +11,7 @@
   --app-workspace: #fff;
 }
 
-.app-shell.dashboard-shell .app-sidebar { background: #f7f9fc; }
+.app-shell.dashboard-shell .app-sidebar { background: var(--app-chrome); }
 .app-shell .app-topbar.app-topbar-simplified,
 .app-shell.dashboard-shell .app-topbar.app-topbar-simplified,
 .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
@@ -49,6 +49,40 @@
   max-height: none;
   min-height: 0;
   overflow: visible;
+}
+
+.dashboard-reference-grid :is(.dashboard-resume-card, .dashboard-guide-card) {
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+.dashboard-reference-grid :is(.dashboard-resume-card, .dashboard-guide-card):hover {
+  transform: none;
+}
+
+@media (min-width: 961px) {
+  .app-shell,
+  .app-shell.dashboard-shell,
+  .app-shell:has(.published-rich-guide-reader) { --app-chrome: #edf0f7; }
+
+  .app-shell .app-topbar.app-topbar-simplified,
+  .app-shell.dashboard-shell .app-topbar.app-topbar-simplified,
+  .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
+    border-bottom: 0;
+    background: var(--app-chrome);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .app-shell.dashboard-shell .app-body > .dashboard-main {
+    height: calc(100svh - var(--topbar-height) - 10px);
+    min-height: 0;
+    flex: 0 0 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0 10px 10px 0;
+    border-radius: var(--app-main-radius);
+    background: var(--app-workspace);
+    padding: 18px 20px 30px;
+  }
 }
 
 .dashboard-reference-grid .dashboard-guide-card-copy .dashboard-guide-subject,
