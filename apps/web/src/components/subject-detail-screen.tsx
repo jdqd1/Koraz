@@ -7,6 +7,7 @@ import {
   CardsThree,
   ClipboardText,
   Compass,
+  Folder,
   MagnifyingGlass,
   Notebook,
   X,
@@ -317,7 +318,7 @@ export function SubjectDetailScreen({
                         return (
                           <li key={group.name}>
                             <Link href={href} onClick={(event) => navigate(event, href)}>
-                              <span className="subject-topic-icon" aria-hidden="true"><KindIcon size={20} /></span>
+                              <span className="subject-topic-icon" aria-hidden="true"><Folder size={20} /></span>
                               <span>
                                 <strong>{group.name}</strong>
                                 <small>{group.items.length === 1 ? "1 recurso" : `${group.items.length} recursos`}</small>

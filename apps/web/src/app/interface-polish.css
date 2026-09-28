@@ -388,3 +388,43 @@
   .topbar-guide-home,
   .published-rich-guide-outline-links .outline-node-children { transition: none; }
 }
+
+@media (max-width: 960px) {
+  /* The mobile header shares the dock's glass effect and lets the page show through. */
+  .app-shell .app-topbar.app-topbar-simplified,
+  .app-shell.dashboard-shell .app-topbar.app-topbar-simplified,
+  .app-shell:has(.published-rich-guide-reader) .app-topbar.app-topbar-simplified {
+    position: sticky;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: blur(18px);
+  }
+  .app-shell .app-topbar.app-topbar-simplified::after {
+    position: absolute;
+    right: 0;
+    bottom: -12px;
+    left: 0;
+    height: 12px;
+    background: linear-gradient(to bottom, rgb(28 54 102 / 8%), transparent);
+    content: "";
+    pointer-events: none;
+  }
+  .app-shell .app-topbar-simplified .notification-trigger { background: #e9f0ff; }
+}
+
+@media (max-width: 600px) {
+  .dashboard-reference-grid .dashboard-guide-card-copy .dashboard-guide-subject {
+    padding: 3px 7px;
+    font-size: .57rem;
+    line-height: 1.15;
+  }
+  .dashboard-reference-grid .dashboard-guide-card-action {
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+  .dashboard-reference-grid .dashboard-guide-card-action svg { margin: auto; }
+}

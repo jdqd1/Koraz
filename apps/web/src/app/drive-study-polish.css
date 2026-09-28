@@ -109,7 +109,8 @@
 .guide-directory-list > li + li { border-top: 1px solid var(--drive-line); }
 .guide-subject-browser a,
 .guide-topic-browser .subject-topic-list a,
-.guide-directory-list .content-resource-item {
+.guide-directory-list .content-resource-item,
+.subject-resource-list .content-resource-item {
   min-height: 64px;
   grid-template-columns: 40px minmax(0, 1fr) 20px;
   gap: 12px;
@@ -118,7 +119,8 @@
 }
 .guide-subject-browser a:hover,
 .guide-topic-browser .subject-topic-list a:hover,
-.guide-directory-list .content-resource-item:hover { background: #edf2fa; }
+.guide-directory-list .content-resource-item:hover,
+.subject-resource-list .content-resource-item:hover { background: #edf2fa; }
 .guide-subject-icon,
 .app-main .subject-topic-list-guide .subject-topic-icon {
   display: grid;
@@ -131,7 +133,8 @@
   color: #697485;
   box-shadow: none;
 }
-.guide-directory-list .content-type-cover {
+.guide-directory-list .content-type-cover,
+.subject-resource-list .content-type-cover {
   display: grid;
   width: 40px;
   height: 40px;
@@ -142,10 +145,18 @@
   color: #2555b8;
   box-shadow: none;
 }
+.subject-resource-list .content-type-cover:not(.content-type-cover-guide) {
+  background: var(--cover-background);
+  color: var(--cover-color);
+}
 .guide-directory-list .content-type-cover::before,
 .guide-directory-list .content-type-cover::after,
-.guide-directory-list .content-type-cover-accent { display: none; }
-.guide-directory-list .content-type-cover-glyph {
+.guide-directory-list .content-type-cover-accent,
+.subject-resource-list .content-type-cover::before,
+.subject-resource-list .content-type-cover::after,
+.subject-resource-list .content-type-cover-accent { display: none; }
+.guide-directory-list .content-type-cover-glyph,
+.subject-resource-list .content-type-cover-glyph {
   width: 40px;
   height: 40px;
   border: 0;
@@ -153,10 +164,12 @@
   background: transparent;
   box-shadow: none;
 }
-.guide-directory-list .content-type-cover-glyph svg { width: 21px; height: 21px; }
+.guide-directory-list .content-type-cover-glyph svg,
+.subject-resource-list .content-type-cover-glyph svg { width: 21px; height: 21px; }
 .guide-subject-browser strong,
 .guide-topic-browser .subject-topic-list strong,
-.guide-directory-list .content-resource-copy strong { color: var(--drive-ink); font-size: .85rem; font-weight: 650; }
+.guide-directory-list .content-resource-copy strong,
+.subject-resource-list .content-resource-copy strong { color: var(--drive-ink); font-size: .85rem; font-weight: 650; }
 .guide-subject-browser small,
 .guide-topic-browser .subject-topic-list small { color: var(--drive-muted); }
 
@@ -603,8 +616,19 @@
   margin: 0;
   padding: 0;
   border: 0;
+  animation: guide-back-slot-open 280ms cubic-bezier(.22, 1, .36, 1) both;
 }
-.guide-directory-filters .guide-directory-context.is-placeholder { visibility: hidden; }
+@keyframes guide-back-slot-open {
+  from { width: 0; min-width: 0; margin-left: -10px; }
+  to { width: 44px; min-width: 44px; margin-left: 0; }
+}
+.guide-directory-filters .guide-directory-context .icon-back-link {
+  animation: guide-back-detach 280ms cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes guide-back-detach {
+  from { opacity: 0; transform: translateX(18px) scale(.78); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
 .guide-directory-search,
 .app-main .guide-directory-search {
   border-radius: 24px;
@@ -614,6 +638,61 @@
 .guide-directory-filters:focus-within,
 .app-main .guide-directory-filters:focus-within { outline: 0; }
 .guide-directory-search:focus-within { outline: 2px solid #aabaf0; outline-offset: 1px; }
+
+.guide-directory-filters .icon-back-link:focus:not(:focus-visible),
+.guide-directory-filters .icon-back-link:active {
+  outline: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+@media (hover: none) {
+  .guide-directory-filters .icon-back-link:hover,
+  .app-main .guide-directory-filters a.icon-back-link:hover {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+/* The subject browser uses the same folder and file rows as the guide catalog. */
+.app-main .subject-resource-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.subject-resource-list > li + li { border-top: 1px solid var(--drive-line); }
+.app-main .subject-topic-list .subject-topic-icon {
+  border: 0;
+  background: #e6e9ef;
+  color: #697485;
+  box-shadow: none;
+}
+.app-main .subject-detail-back,
+.app-main a.icon-back-link.subject-detail-back {
+  border: 0;
+  background: transparent;
+  color: #435673;
+  box-shadow: none;
+}
+.app-main .subject-detail-back:hover,
+.app-main a.icon-back-link.subject-detail-back:hover {
+  border: 0;
+  background: #e7edf7;
+  color: #294b9d;
+  text-decoration: none;
+  transform: none;
+}
+.app-main a.icon-back-link.subject-detail-back:focus:not(:focus-visible) {
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide-directory-filters .guide-directory-context,
+  .guide-directory-filters .guide-directory-context .icon-back-link { animation: none; }
+}
 
 .app-shell .sidebar-submenu .sidebar-link,
 .app-shell .sidebar-submenu .sidebar-link.is-active {
