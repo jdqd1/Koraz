@@ -85,6 +85,7 @@ function Workspace() {
       key: string;
     } | null>(null),
     mutateLock = useRef(false);
+  const backToParent = useCallback(() => { setInfo(null); back(); }, [back]);
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -540,7 +541,7 @@ function Workspace() {
               <button
                 className={`${styles.iconButton} ${styles.backButton}`}
                 aria-label="Atrás en el mapa"
-                onClick={() => { setInfo(null); back(); }}
+                onClick={backToParent}
               >
                 <ArrowLeft size={20} />
               </button>
@@ -725,6 +726,7 @@ function Workspace() {
               direction={direction}
               movingId={movingId}
               onMoveFinished={moveFinished}
+              onBack={backToParent}
             />
           )}
           {wide ? panel : null}

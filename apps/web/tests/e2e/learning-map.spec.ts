@@ -64,6 +64,35 @@ test("routes use a horizontal row on desktop and a vertical scroll on mobile", a
   expect(await page.locator(".react-flow__edge path[marker-end]").count()).toBe(0);
   expect(await page.locator(".react-flow__edge").count()).toBeGreaterThan(0);
 });
+test("each opened level stays connected to its parent card", async ({ page }) => {
+  await page.goto(root);
+  const forwardAnimation = page.waitForFunction(() => {
+    const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-lineage .react-flow__edge-path');
+    return line && getComputedStyle(line).animationName.includes("diagram-line-draw");
+  });
+  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
+  await forwardAnimation;
+  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
+  await expect(page.locator(".react-flow__edge-lineage path[pathLength='1']")).toHaveCount(8);
+
+  await page.getByRole("button", { name: "Abrir Tórax" }).click();
+  await expect(page.getByRole("button", { name: "Volver a Tórax" })).toBeVisible();
+  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
+  const backAnimation = page.waitForFunction(() => {
+    const line = document.querySelector('[data-phase="entering"][data-direction="back"] .react-flow__edge-lineage .react-flow__edge-path');
+    return line && getComputedStyle(line).animationName.includes("diagram-line-return");
+  });
+  await page.getByRole("button", { name: "Volver a Tórax" }).click();
+  await backAnimation;
+  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.getByRole("button", { name: "Volver a Anatomía" }).click();
+  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
+  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+});
 test("six visual states and responsive widths remain readable", async ({
   page,
 }, testInfo) => {

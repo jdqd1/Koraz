@@ -1257,3 +1257,103 @@
   .tabs { padding: 0 14px; }
   .panelScroll { padding: 36px 14px 24px; }
 }
+
+/* Each opened level keeps its parent in the React Flow diagram. */
+.originCard {
+  position: relative;
+  box-sizing: border-box;
+  width: 200px;
+  height: 108px;
+  border: 1px solid #cbdcf9;
+  border-radius: 16px;
+  background: #f5f9ff;
+  box-shadow: 0 5px 18px rgb(25 54 112 / 5%);
+  color: #0c185b;
+}
+.originButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.originButton:hover { background: #edf4ff; }
+.originButton:focus-visible { outline: 3px solid #0a52ee; outline-offset: 3px; }
+.originIcon {
+  display: grid;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: #e4edff;
+  color: #0a52ee;
+}
+.originText { display: flex; flex: 1; flex-direction: column; gap: 3px; min-width: 0; }
+.originEyebrow { color: #657ba7; font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .06em; }
+.originText strong { overflow: hidden; color: #0c185b; font-size: 14px; line-height: 18px; text-overflow: ellipsis; white-space: nowrap; }
+.originText small { color: #6073a0; font-size: 11px; }
+.originBack { flex: none; color: #6681af; }
+.lineagePath { stroke: #b6c9e9; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
+.flow[data-phase="entering"],
+.flow[data-direction="back"][data-phase="entering"] { animation: none; }
+.flow[data-phase="exiting"] { opacity: 1; transform: none; pointer-events: none; }
+.flow[data-phase="entering"] .originCard { animation: origin-appear 280ms ease-out both; }
+.flow[data-phase="entering"] .diagramChild .card {
+  animation: diagram-child-appear 360ms cubic-bezier(.2,.75,.25,1) both;
+  animation-delay: var(--appear-delay, 135ms);
+}
+.flow[data-direction="back"][data-phase="entering"] .diagramChild .card { animation-name: diagram-child-return; }
+.flow[data-phase="entering"] .lineagePath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: diagram-line-draw 450ms ease-out both;
+  animation-delay: var(--line-delay, 70ms);
+}
+.flow[data-direction="back"][data-phase="entering"] .lineagePath { animation-name: diagram-line-return; }
+.flow[data-phase="exiting"] .diagramChild .card { animation: diagram-child-leave 190ms ease-in both; }
+.flow[data-direction="back"][data-phase="exiting"] .diagramChild .card { animation-name: diagram-child-collapse; }
+.flow[data-phase="exiting"] .lineagePath { stroke-dasharray: 1; animation: diagram-line-retract 190ms ease-in both; }
+.flow[data-phase="exiting"] .originCard { animation: origin-leave 190ms ease-in both; }
+@keyframes origin-appear { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes diagram-child-appear { from { opacity: 0; transform: translateY(-15px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes diagram-child-return { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes diagram-line-draw { from { stroke-dashoffset: 1; opacity: .25; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes diagram-line-return { from { stroke-dashoffset: -1; opacity: .25; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes diagram-child-leave { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: .2; transform: translateY(-12px) scale(.97); } }
+@keyframes diagram-child-collapse { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: .15; transform: translateY(-18px) scale(.94); } }
+@keyframes diagram-line-retract { from { stroke-dashoffset: 0; opacity: 1; } to { stroke-dashoffset: 1; opacity: .1; } }
+@keyframes origin-leave { from { opacity: 1; } to { opacity: .25; } }
+
+@container (max-width: 767px) {
+  .originCard { width: min(300px, calc(100vw - 84px)); height: 108px; }
+  .originCard::before {
+    position: absolute;
+    top: 43px;
+    left: -47px;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 3px solid #0a52ee;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 3px #fbfdff;
+    content: "";
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow[data-phase="entering"] .originCard,
+  .flow[data-phase="entering"] .diagramChild .card,
+  .flow[data-phase="entering"] .lineagePath,
+  .flow[data-phase="exiting"] .originCard,
+  .flow[data-phase="exiting"] .diagramChild .card,
+  .flow[data-phase="exiting"] .lineagePath { animation: none; }
+}

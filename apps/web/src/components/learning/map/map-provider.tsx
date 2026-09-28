@@ -42,6 +42,8 @@ function useWorkspace(account: string, client: MapClient) {
   const token = useRef(0),
     prefetchCount = useRef(0),
     history = useRef<string[]>([]);
+  const navigationTimer = useRef<number | null>(null);
+  const enteringTimer = useRef<number | null>(null);
   const ensureKey = useRef<string | null>(null);
   const cacheGeneration = useRef(0);
   const levelRef = useRef(level);
@@ -92,6 +94,12 @@ function useWorkspace(account: string, client: MapClient) {
           levelRef.current &&
           data.levelKey !== levelRef.current.levelKey &&
           !matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (animate && levelRef.current) {
+          const returning = levelRef.current.ancestry.some(
+            (ancestor) => buildMapHref(ancestor.route) === buildMapHref(data.route),
+          );
+          setDirection(returning ? "back" : "forward");
+        }
         queue.routes.set(data.levelKey, data.route);
         queue.seed(data.levelKey, data.layout.rowVersion);
         setLevel(data);
@@ -99,10 +107,15 @@ function useWorkspace(account: string, client: MapClient) {
         setPhase(animate ? "entering" : "idle");
         if (animate) {
           const timer = window.setTimeout(() => {
+            if (enteringTimer.current === timer) enteringTimer.current = null;
             if (!controller.signal.aborted && current === token.current)
               setPhase("idle");
-          }, 180);
-          controller.signal.addEventListener("abort", () => clearTimeout(timer), { once: true });
+          }, 950);
+          enteringTimer.current = timer;
+          controller.signal.addEventListener("abort", () => {
+            clearTimeout(timer);
+            if (enteringTimer.current === timer) enteringTimer.current = null;
+          }, { once: true });
         }
       } catch (e) {
         if (!controller.signal.aborted && current === token.current) {
@@ -161,6 +174,27 @@ function useWorkspace(account: string, client: MapClient) {
     window.addEventListener("focus", focus);
     return () => window.removeEventListener("focus", focus);
   }, [refresh]);
+  useEffect(() => () => {
+    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+    if (enteringTimer.current !== null) window.clearTimeout(enteringTimer.current);
+  }, []);
+  const withExit = useCallback((commit: () => void, animate: boolean) => {
+    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+    if (enteringTimer.current !== null) {
+      window.clearTimeout(enteringTimer.current);
+      enteringTimer.current = null;
+    }
+    if (!animate) {
+      setPhase("idle");
+      commit();
+      return;
+    }
+    setPhase("exiting");
+    navigationTimer.current = window.setTimeout(() => {
+      navigationTimer.current = null;
+      commit();
+    }, 190);
+  }, []);
   const navigate = useCallback((route: MapRoute, detail = false) => {
     const href = buildMapHref(route, detail);
     const previous = levelRef.current;
@@ -173,13 +207,15 @@ function useWorkspace(account: string, client: MapClient) {
         previous.items.some(
           (i) => i.kind === "lesson" && i.occurrenceId === route.entryId,
         ));
-    if (replacingLesson || detail)
-      window.history.replaceState(null, "", mapNavigationHref(href));
-    else {
-      history.current.push(buildMapHref(previous?.route ?? ROOT_MAP_ROUTE));
-      window.history.pushState(null, "", mapNavigationHref(href));
-    }
-  }, []);
+    withExit(() => {
+      if (replacingLesson || detail)
+        window.history.replaceState(null, "", mapNavigationHref(href));
+      else {
+        history.current.push(buildMapHref(previous?.route ?? ROOT_MAP_ROUTE));
+        window.history.pushState(null, "", mapNavigationHref(href));
+      }
+    }, Boolean(previous && !replacingLesson && !detail && buildMapHref(previous.route) !== buildMapHref(route) && !matchMedia("(prefers-reduced-motion: reduce)").matches));
+  }, [withExit]);
   const back = useCallback(() => {
     setDirection("back");
     const r =
@@ -188,11 +224,13 @@ function useWorkspace(account: string, client: MapClient) {
       ROOT_MAP_ROUTE;
     const parent = parentMapRoute(r),
       href = buildMapHref(parent);
-    if (history.current.at(-1) === href) {
-      history.current.pop();
-      window.history.back();
-    } else window.history.replaceState(null, "", mapNavigationHref(href));
-  }, []);
+    withExit(() => {
+      if (history.current.at(-1) === href) {
+        history.current.pop();
+        window.history.back();
+      } else window.history.replaceState(null, "", mapNavigationHref(href));
+    }, Boolean(levelRef.current && !levelRef.current.selectedLesson && buildMapHref(levelRef.current.route) !== href && !matchMedia("(prefers-reduced-motion: reduce)").matches));
+  }, [withExit]);
   const prefetch = useCallback(
     (route: MapRoute) => {
       if (prefetchCount.current >= 2) return () => {};
