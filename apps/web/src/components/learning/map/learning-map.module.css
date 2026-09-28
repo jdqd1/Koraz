@@ -1090,3 +1090,170 @@
 .controls .button { min-height: 32px; padding: 5px 6px; border-radius: 7px; background: transparent; color: #57627b; font-size: 12px; }
 .controls button:hover { background: #f2f4f8; }
 @container (max-width: 767px) { .quickPanel { width: 100%; } }
+
+/* Route cards share one visual language in the map and list views. */
+.workspace {
+  --map-canvas: #f8fbff;
+  --map-ink: #0c185b;
+  --map-muted: #6174a5;
+  --map-primary: #0a52ee;
+  --map-line: #e6ecf5;
+  --map-icon-well: #edf4ff;
+  --map-accent: #0a5bff;
+  --map-card-shadow: 0 7px 22px rgb(25 54 112 / 5%);
+}
+.header { border-bottom-color: #e8eef8; }
+.header h1 { color: #081451; font-weight: 800; letter-spacing: -.035em; }
+.headerText .status { color: #6174a5; font-weight: 600; }
+.headerActions .primary { background: #0758ff; border-color: #0758ff; box-shadow: 0 3px 10px rgb(10 82 238 / 15%); }
+.headerActions .viewToggle, .headerActions .summaryToggle { background: #f2f6ff; border-color: #edf2fb; color: #0a52ee; }
+.card { width: 200px; border-color: #e7edf6; border-radius: 16px; }
+.card[data-kind="node"] { width: 208px; border-color: #e7edf6; border-radius: 16px; }
+.canvas[data-long-titles="true"] .card { height: 210px; }
+.canvas .openButton { justify-content: center; }
+.canvas[data-long-titles="true"] .openButton strong { min-height: 0; }
+.openButton { border-radius: 16px; }
+.cardContent { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; width: 100%; }
+.cardHeading { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; width: 100%; }
+.cardHeading strong { display: block; max-width: 100%; overflow-wrap: anywhere; font-size: 13px; line-height: 18px; }
+.cardMetric { display: flex; align-items: baseline; justify-content: center; gap: 6px; color: #6073a0; font-size: 11px; }
+.cardMetric small { font-size: 11px; }
+.cardMetric .percentage { color: #27447e; font-size: 12px; font-weight: 700; }
+.progressTrack { display: block; width: 100%; height: 6px; overflow: hidden; border-radius: 999px; background: #e9edf5; }
+.progressTrack > span { display: block; height: 100%; border-radius: inherit; background: #a6b5cf; }
+.progressTrack > span[data-status="completed"] { background: #10b75b; }
+.progressTrack > span[data-status="in_progress"] { background: #ff9941; }
+.badge[data-status="completed"] { color: #078943; background: #e8f9ed; }
+.badge[data-status="in_progress"] { color: #df6800; background: #fff2e6; }
+.iconWell { background: #eef4ff; color: #0758ff; }
+.card:has(.badge[data-status="completed"]) .iconWell { background: #e9faef; color: #08a751; }
+.card:has(.badge[data-status="not_started"]) .iconWell { background: #f1f4f8; color: #7081a5; }
+.roadmapMarker { display: none; }
+.roadmapHandle { top: 55px !important; bottom: auto !important; left: -34px !important; }
+
+/* The phone layout is a vertical roadmap while React Flow still owns its nodes and edges. */
+@container (max-width: 767px) {
+  .workspace { --map-canvas: #fbfdff; }
+  .header { padding: 14px 16px 12px; gap: 10px; background: #fff; }
+  .headerIdentity { align-items: flex-start; }
+  .header h1 { font-size: 20px; line-height: 26px; }
+  .headerText .status { margin-top: 3px; font-size: 12px; }
+  .headerActions { gap: 7px; overflow-x: auto; }
+  .headerActions .primary { min-width: 80px; min-height: 36px; }
+  .headerActions .viewToggle, .mobileViewsMenu { min-height: 36px; border-color: #edf2fb; background: #f2f6ff; color: #0758ff; }
+  .canvas { padding: 0; }
+  .card, .card[data-kind="node"], .canvas[data-long-titles="true"] .card {
+    width: min(300px, calc(100vw - 84px));
+    height: 118px;
+    min-height: 118px;
+    border-radius: 16px;
+  }
+  .openButton, .canvas[data-long-titles="true"] .openButton {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: 15px 14px 15px 11px;
+    text-align: left;
+  }
+  .card .iconWell { width: 54px; height: 54px; border-radius: 14px; }
+  .card .iconWell svg { width: 31px; height: 31px; }
+  .cardContent, .cardHeading { align-items: flex-start; }
+  .cardContent { gap: 8px; padding-right: 3px; }
+  .cardHeading { gap: 3px; padding-right: 14px; }
+  .cardHeading strong, .canvas[data-long-titles="true"] .openButton strong {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    min-height: 0;
+    max-height: 35px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 750;
+  }
+  .cardHeading .badge { min-height: 20px; padding: 1px 7px; font-size: 11px; line-height: 16px; }
+  .cardMetric { gap: 6px; justify-content: flex-start; font-size: 10px; }
+  .cardMetric .percentage { font-size: 12px; }
+  .cardMetric small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+  .progressTrack { height: 5px; }
+  .menu { z-index: 8; }
+  .menu summary { width: 34px; height: 34px; }
+  .roadmapMarker {
+    position: absolute;
+    left: -47px;
+    top: 43px;
+    z-index: 2;
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border: 3px solid #aebbd4;
+    border-radius: 50%;
+    background: #fff;
+    color: #fff;
+    box-shadow: 0 0 0 3px #fbfdff;
+  }
+  .roadmapMarker[data-status="completed"] { border-color: #0ab356; background: #0ab356; }
+  .roadmapMarker[data-status="in_progress"] { border-color: #0b5cff; box-shadow: 0 0 0 3px #fbfdff, inset 0 0 0 3px white; background: #0b5cff; }
+  .roadmapMarker[data-status="not_started"] { border-color: #aab8d4; }
+  .roadmapHandle { top: 55px !important; bottom: auto !important; left: -32px !important; }
+  .list { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 18px 12px 80px 52px; }
+  .list .card, .list .card[data-kind="node"] { width: min(300px, calc(100vw - 84px)); min-height: 118px; height: 118px; }
+}
+
+/* Detail sheet: clear progress, tabs, and a readable activity timeline. */
+.panel { width: min(400px, 42%); border-left-color: #e8eef8; }
+.panelHeader:has(.panelIdentity) { position: relative; padding: 24px 22px 18px; border-bottom: 0; }
+.panelHeader:has(.panelIdentity) .iconButton { align-self: flex-start; flex: none; border: 0; border-radius: 50%; background: transparent; color: #38568e; }
+.panelHeader:has(.panelIdentity) .iconButton:hover { background: #f1f5fc; }
+.panelHeader:has(.panelIdentity) .panelTitle { display: flex; flex-direction: column; gap: 16px; }
+.panelIdentity { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.panelIdentity .iconWell { width: 72px; height: 72px; border-radius: 18px; color: #0758ff; }
+.panelIdentity .iconWell svg { width: 38px; height: 38px; }
+.panelIdentityText { display: flex; flex: 1; flex-direction: column; gap: 5px; min-width: 0; }
+.panelIdentityText h2 { margin: 0; color: #081451; font-size: 23px; line-height: 1.2; font-weight: 800; letter-spacing: -.03em; }
+.panelIdentityText .percentage { color: #4e6497; font-size: 14px; }
+.panelIdentityText .progressTrack { height: 8px; margin-top: 3px; }
+.panelHeader:has(.panelIdentity) p { margin: 0; padding: 0; color: #5d73a5; font-size: 13px; line-height: 1.55; }
+.sheetHandle { display: none; }
+.tabs { gap: 0; padding: 0 18px; border-bottom-color: #e4ebf6; }
+.tabs button { flex: 1; color: #526a9f; font-size: 13px; font-weight: 650; }
+.tabs button[aria-selected="true"] { color: #0758ff; border-bottom: 2px solid #0758ff; }
+.panelScroll { padding: 18px 18px 24px; }
+.roadmap { position: relative; padding-left: 38px; }
+.roadmap::before { position: absolute; top: 23px; bottom: 30px; left: 12px; width: 2px; content: ""; background: #d6e2f4; }
+.roadmap li { position: relative; display: block; min-height: 0; margin: 0 0 12px; padding: 0; border: 0; }
+.stepNumber { position: absolute; top: 15px; left: -38px; z-index: 1; width: 26px; height: 26px; border: 2px solid #9fb3d4; background: #fff; color: #6e82a9; font-weight: 750; }
+.stepNumber[data-status="completed"] { border-color: #0aaf57; background: #0aaf57; color: #fff; }
+.stepNumber[data-status="in_progress"] { border-color: #ff920f; color: #ff920f; }
+.stepBody { padding: 13px 13px 12px; border: 1px solid #e9eff7; border-radius: 15px; background: #fff; box-shadow: 0 3px 14px rgb(25 54 112 / 4%); }
+.stepBody strong { color: #0c185b; font-size: 14px; line-height: 20px; }
+.stepStatus { display: table !important; width: fit-content; margin: 6px 0 4px; padding: 2px 9px; border-radius: 999px; background: #eef2f7; color: #66799f !important; font-size: 12px !important; font-weight: 650; }
+.stepStatus[data-status="completed"] { background: #e7f8ed; color: #068e45 !important; }
+.stepStatus[data-status="in_progress"] { background: #fff0e0; color: #df6a00 !important; }
+.stepBody .activityOption { justify-content: flex-start; width: 100%; min-height: 34px; margin-top: 7px; padding: 6px 8px; border: 0; border-radius: 9px; background: #f3f7ff; color: #58709e; font-size: 12px; text-align: left; }
+.activityOption > svg:first-child { flex: none; color: #0758ff; }
+.activityOption > span { flex: 1; min-width: 0; }
+.activityOption > svg:last-child { flex: none; color: #5973a3; }
+.stepBody .activityOption:hover { background: #e8f0ff; color: #0b4cdf; }
+.panelFooter { border-top-color: #e8eef8; background: #fff; }
+.panelFooter .primary { background: #0758ff; border-color: #0758ff; }
+.panelScroll .suggestion { margin: 0 0 10px; padding: 12px; border: 1px solid #e9eff7; border-radius: 13px; box-shadow: 0 3px 14px rgb(25 54 112 / 3%); }
+.panelScroll .suggestion strong { color: #0c185b; font-size: 13px; }
+
+@container (max-width: 767px) {
+  .modalPanel { z-index: 181; height: min(88dvh, 790px); max-height: 88dvh; border-radius: 24px 24px 0 0; box-shadow: 0 -12px 34px rgb(18 35 80 / 16%); }
+  .panelBackdrop { z-index: 180; }
+  .panel { width: 100%; }
+  .panelHeader:has(.panelIdentity) { padding: 79px 18px 16px; }
+  .panelIdentity .iconWell { width: 68px; height: 68px; }
+  .panelIdentityText h2 { font-size: 22px; }
+  .sheetHandle { position: absolute; top: 10px; left: calc(50% - 24px); display: block; width: 48px; height: 4px; border-radius: 999px; background: #a9b8d2; }
+  .panelHeader:has(.panelIdentity) .iconButton { min-width: 34px; min-height: 34px; padding: 6px; }
+  .tabs { padding: 0 14px; }
+  .panelScroll { padding: 36px 14px 24px; }
+}

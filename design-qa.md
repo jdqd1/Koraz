@@ -1,3 +1,44 @@
+# QA visual · mapa de aprendizaje
+
+final result: passed
+
+## Evidencia
+
+- Referencia: `C:/Users/josed/AppData/Local/Temp/codex-clipboard-f62ab430-03a0-49a1-bf22-d4cfe0e49a49.png` (1672 × 941 px). Se compararon las dos pantallas interiores de los teléfonos; los marcos y la lámina explicativa no forman parte de la interfaz.
+- Implementación: `tmp/design-qa/map-redesign-mobile-crop.png` y `tmp/design-qa/map-redesign-detail-crop.png` (390 × 844 px), capturadas desde `http://localhost:3000/visual-fixtures/mapa` en el navegador integrado. Las capturas completas originales son de 488 × 1055 px por la escala de la ventana; se recortó el área visible de 390 × 844 px.
+- Comparación conjunta: `tmp/design-qa/map-redesign-comparison.png`. Los recortes de referencia (344 × 710 px y 348 × 710 px) se normalizaron a 390 × 844 px. La comparación incluye mapa y panel de actividades en el mismo estado funcional. Los títulos, cantidades y avances son datos propios del fixture y difieren del contenido ilustrativo de la propuesta.
+- Se comprobaron también un ancho CSS de 320 px y el escritorio (`tmp/design-qa/map-redesign-desktop.png`, viewport CSS de 1440 × 900 px). No hubo desbordamiento horizontal a 320, 390 ni 1440 px; el botón principal del panel quedó visible. La vista de lista, la navegación por nodos, el cierre del panel y la pestaña Recursos respondieron correctamente. La consola del navegador no mostró errores.
+
+## Comparación final
+
+- **Tipografía:** títulos, métricas y estados tienen una jerarquía comparable a la referencia. Se conserva la fuente de Koraz y sus iconos Phosphor.
+- **Distribución:** tarjetas horizontales dentro de la secuencia vertical de React Flow, marcadores de progreso, conexiones, barras y menú de cada nodo. El panel móvil usa cabecera, descripción, progreso, pestañas y tarjetas de actividad con la misma estructura general de la propuesta.
+- **Color:** azul de acciones y selección, verde de completado, naranja de avance y gris de pendiente se mantienen consistentes entre mapa y detalle.
+- **Iconos y recursos:** los iconos son vectores de la biblioteca existente; la referencia no incorpora ilustraciones o fotografías dentro del contenido de la app que deban generarse. El marco de teléfono y la barra de estado del mock no se reproducen como parte de la app.
+- **Texto:** el fixture muestra Anatomía/Tórax/Mediastino en vez de las unidades de ejemplo. La cabecera global de Koraz y el botón de continuación se conservaron porque son parte del flujo real.
+
+## Historial de ajustes
+
+1. **P2, primera captura:** tarjetas y etiquetas demasiado pequeñas frente a la referencia; se aumentó la tipografía y se ajustó el ancho de las tarjetas. Evidencia posterior: `tmp/design-qa/map-redesign-mobile-crop.png`.
+2. **P2, primera captura:** la navegación inferior quedaba por encima del botón de continuación del panel; se corrigieron las capas del desplegable y su fondo. Evidencia posterior: `tmp/design-qa/map-redesign-detail-crop.png`.
+3. **P2, comparación intermedia:** la posición vertical del detalle y sus pestañas no coincidía con el teléfono de referencia; se ajustó la altura del panel y el espacio de la cabecera. Evidencia posterior: `tmp/design-qa/map-redesign-comparison.png`.
+
+## Diferencias aceptadas
+
+- La propuesta es un mock móvil; Koraz mantiene su cabecera, navegación y datos reales. En escritorio se conserva el mapa panorámico de React Flow con controles de zoom y el panel lateral.
+- El pie de continuación ocupa parte de la altura del panel. Se mantiene visible para que el usuario pueda comenzar o reanudar una actividad; la lista interior se desplaza.
+
+## Comprobación de implementación
+
+- `pnpm --filter @cediah/web typecheck`: PASS.
+- `pnpm --filter @cediah/web lint`: PASS.
+- `pnpm --filter @cediah/web test -- src/components/learning/map/map-helpers.test.ts`: PASS (41 archivos, 236 pruebas; Vitest ejecutó la suite web completa).
+- `git diff --check`: PASS.
+
+---
+
+## Informe anterior conservado (2026-09-13)
+
 # Design QA — App shell inspirado en Google Drive
 
 Fecha: 2026-09-13

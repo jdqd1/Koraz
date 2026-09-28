@@ -64,15 +64,16 @@ export default function LearningMapCanvas({
 }) {
   const flow = useReactFlow<FlowMapNode>();
   const longTitles = level.items.some((item) => item.title.length > 20);
-  const cardHeight = longTitles ? 260 : level.levelKey === "root" ? 184 : 172;
   const wrapper = useRef<HTMLDivElement>(null),
     levelKey = useRef("");
   const layoutVersion = useRef(-1);
+  const lastMobile = useRef<boolean | null>(null);
   const initialized = useRef(new Set<string>());
   const [nodes, setNodes] = useState<FlowMapNode[]>([]),
     [zoom, setZoom] = useState(1),
     [mini, setMini] = useState(false);
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
+  const cardHeight = mobile ? 118 : longTitles ? 210 : level.levelKey === "root" ? 184 : 172;
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   useEffect(() => {
     const box = wrapper.current;
@@ -99,7 +100,7 @@ export default function LearningMapCanvas({
         wrapper.current?.scrollTo({ top: 0, behavior: "smooth" });
         return flow.setViewport({ x: 0, y: 0, zoom: 1 });
       }
-      const width = level.levelKey === "root" ? 168 : 156;
+      const width = level.levelKey === "root" ? 208 : 200;
       const height = Math.max(220, cardHeight);
       const extentX =
         Math.max(...positions.map((p) => p.x)) -
@@ -122,7 +123,7 @@ export default function LearningMapCanvas({
         const point = next && points.current[next.occurrenceId];
         if (point)
           return flow.setCenter(point.x + width / 2, point.y + height / 2, {
-            zoom: 0.65,
+            zoom: 1,
           });
       }
       return flow.fitView({ padding: 0.18, minZoom: 0.65, maxZoom });
@@ -159,19 +160,21 @@ export default function LearningMapCanvas({
           (p) =>
             p.x * v.zoom + v.x < 0 ||
             p.y * v.zoom + v.y < 0 ||
-            (p.x + 168) * v.zoom + v.x > box.clientWidth ||
+            (p.x + (level.levelKey === "root" ? 208 : 200)) * v.zoom + v.x > box.clientWidth ||
             (p.y + 220) * v.zoom + v.y > box.clientHeight,
         ),
       );
     },
-    [level.ancestry, selected, snapshotKey],
+    [level.ancestry, level.levelKey, selected, snapshotKey],
   );
   useEffect(() => {
     const changed = levelKey.current !== level.levelKey;
+    const changedViewport = lastMobile.current !== null && lastMobile.current !== mobile;
+    lastMobile.current = mobile;
     const root = level.levelKey === "root",
       width = wrapper.current?.clientWidth ?? 900;
     const saved =
-      changed || layoutVersion.current !== level.layout.rowVersion
+      changed || changedViewport || layoutVersion.current !== level.layout.rowVersion
         ? level.layout.positions
         : { ...level.layout.positions, ...points.current };
     const positions = reconcileLayout(
@@ -220,9 +223,9 @@ export default function LearningMapCanvas({
         },
       })),
     );
-    if (changed) {
+    if (changed || changedViewport) {
       if (mobile) wrapper.current?.scrollTo(0, 0);
-      const snapshot = readSpatialSnapshot(snapshotKey());
+      const snapshot = changedViewport ? null : readSpatialSnapshot(snapshotKey());
       requestAnimationFrame(() => {
         if (mobile) void flow.setViewport({ x: 0, y: 0, zoom: 1 });
         else if (snapshot && Math.abs(width / snapshot.containerWidth - 1) <= 0.2)
@@ -232,7 +235,7 @@ export default function LearningMapCanvas({
             positions[snapshot.selectedOccurrenceId ?? ""] ??
             Object.values(positions)[0];
           if (p)
-            void flow.setCenter(p.x + 80, p.y + 95, {
+            void flow.setCenter(p.x + (level.levelKey === "root" ? 104 : 100), p.y + 95, {
               zoom: snapshot.viewport.zoom,
             });
         } else void fitLevel();
@@ -344,26 +347,26 @@ export default function LearningMapCanvas({
         source: e.sourceOccurrenceId,
         target: e.targetOccurrenceId,
         type: "straight",
-        style: { stroke: "#b9c2d9", strokeWidth: 1.5 },
+        style: { stroke: "#b8c7e5", strokeWidth: mobile ? 2 : 1.5 },
         focusable: false,
         selectable: false,
       }));
     },
-    [level.edges, level.items],
+    [level.edges, level.items, mobile],
   );
   const contentHeight = mobile
     ? Math.max(canvasSize.height, ...nodes.map((n) => n.position.y + cardHeight + 60))
     : undefined;
   const horizontalPositions = nodes.map((n) => n.position);
   const horizontalOverflow = horizontalPositions.length > 1 &&
-    (Math.max(...horizontalPositions.map((p) => p.x + (level.levelKey === "root" ? 168 : 156))) -
+    (Math.max(...horizontalPositions.map((p) => p.x + (level.levelKey === "root" ? 208 : 200))) -
       Math.min(...horizontalPositions.map((p) => p.x))) * zoom >
       canvasSize.width - 48;
   const panRoute = (step: -1 | 1) => {
     const box = wrapper.current;
     if (!box) return;
     const viewport = flow.getViewport();
-    const end = Math.max(0, ...Object.values(points.current).map((p) => p.x + (level.levelKey === "root" ? 168 : 156)));
+    const end = Math.max(0, ...Object.values(points.current).map((p) => p.x + (level.levelKey === "root" ? 208 : 200)));
     const minX = Math.min(24, box.clientWidth - end * viewport.zoom - 32);
     const x = Math.max(minX, Math.min(24, viewport.x - step * box.clientWidth * 0.72));
     void flow.setViewport({ ...viewport, x }, { duration: 170 });

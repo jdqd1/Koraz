@@ -1,7 +1,7 @@
 "use client";
 import { memo, useEffect, useRef } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { DotsThree, DotsSixVertical } from "@phosphor-icons/react";
+import { Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
 import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
@@ -65,12 +65,14 @@ export const LearningMapItem = memo(function LearningMapItem({
             type="target"
             position={data.mobile ? Position.Top : Position.Left}
             isConnectable={false}
+            className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
           <Handle
             type="source"
             position={data.mobile ? Position.Bottom : Position.Right}
             isConnectable={false}
+            className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
         </>
@@ -145,21 +147,31 @@ export const LearningMapItem = memo(function LearningMapItem({
         aria-pressed={data.selecting ? data.selected : undefined}
         aria-label={`${data.selecting ? "Seleccionar" : "Abrir"} ${item.title}`}
       >
+        <span className={styles.roadmapMarker} data-status={item.progress.status} aria-hidden="true">
+          {item.progress.status === "completed" ? <Check size={13} weight="bold" /> : null}
+        </span>
         {data.selecting ? (
           <span aria-hidden="true">{data.selected ? "☑" : "☐"}</span>
         ) : null}
         <span className={styles.iconWell} style={data.iconColor ? { color: data.iconColor } : undefined}>
           <MedicalMapIcon iconKey={item.iconKey} />
         </span>
-        <strong title={item.title}>{item.title}</strong>
-        <span className={styles.percentage}>
-          {item.progress.percentage === null
-            ? "—"
-            : `${item.progress.percentage} %`}
-        </span>
-        {item.kind !== "lesson" ? <small>{item.childCountLabel}</small> : null}
-        <span className={styles.badge} data-status={item.progress.status}>
-          {statusLabels[item.progress.status]}
+        <span className={styles.cardContent}>
+          <span className={styles.cardHeading}>
+            <strong title={item.title}>{item.title}</strong>
+            <span className={styles.badge} data-status={item.progress.status}>
+              {statusLabels[item.progress.status]}
+            </span>
+          </span>
+          <span className={styles.cardMetric}>
+            <span className={styles.percentage}>
+              {item.progress.percentage === null ? "—" : `${item.progress.percentage} %`}
+            </span>
+            {item.kind !== "lesson" ? <small>{item.childCountLabel}</small> : null}
+          </span>
+          <span className={styles.progressTrack} aria-hidden="true">
+            <span data-status={item.progress.status} style={{ width: `${item.progress.percentage ?? 0}%` }} />
+          </span>
         </span>
       </button>
     </article>

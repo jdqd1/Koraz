@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { X, ArrowRight } from "@phosphor-icons/react";
+import { X, ArrowRight, CaretRight, Check, FileText } from "@phosphor-icons/react";
 import {
   LearningEnrollmentResponseSchema,
   type MapLesson,
@@ -112,17 +112,25 @@ export function LessonDetailPanel({
   return (
     <aside className={styles.panel} aria-label={`Lección ${lesson.title}`}>
       <header className={styles.panelHeader}>
+        <span className={styles.sheetHandle} aria-hidden="true" />
         <div className={styles.panelTitle}>
-          <span className={styles.iconWell}>
-            <MedicalMapIcon iconKey="folder" />
-          </span>
-          <h2>{lesson.title}</h2>
-          <span className={styles.percentage}>
-            {lesson.progress.percentage ?? "—"} % ·{" "}
-            {lesson.progress.completedEssentialSteps ?? "—"}/
-            {lesson.progress.totalEssentialSteps ?? "—"} esenciales
-          </span>
-          <p>{lesson.description}</p>
+          <div className={styles.panelIdentity}>
+            <span className={styles.iconWell}>
+              <MedicalMapIcon iconKey="folder" />
+            </span>
+            <div className={styles.panelIdentityText}>
+              <h2>{lesson.title}</h2>
+              <span className={styles.percentage}>
+                {lesson.progress.percentage ?? "—"} % ·{" "}
+                {lesson.progress.completedEssentialSteps ?? "—"}/
+                {lesson.progress.totalEssentialSteps ?? "—"} esenciales
+              </span>
+              <span className={styles.progressTrack} aria-hidden="true">
+                <span data-status={lesson.progress.status} style={{ width: `${lesson.progress.percentage ?? 0}%` }} />
+              </span>
+            </div>
+          </div>
+          {lesson.description ? <p>{lesson.description}</p> : null}
         </div>
         <button
           className={styles.iconButton}
@@ -157,12 +165,12 @@ export function LessonDetailPanel({
           <ol className={styles.roadmap}>
             {visibleActivities.map((a, i) => (
               <li key={a.id}>
-                <span className={styles.stepNumber}>
-                  {a.state === "completed" ? "✓" : i + 1}
+                <span className={styles.stepNumber} data-status={a.state}>
+                  {a.state === "completed" ? <Check size={14} weight="bold" /> : i + 1}
                 </span>
                 <div className={styles.stepBody}>
                   <strong>{a.title}</strong>
-                  <small>
+                  <small className={styles.stepStatus} data-status={a.state}>
                     {a.state === "completed"
                       ? "Completada"
                       : a.state === "skipped"
@@ -177,13 +185,14 @@ export function LessonDetailPanel({
                     <button
                       key={o.id}
                       disabled={busy || launcher.busy}
-                      className={styles.button}
+                      className={`${styles.button} ${styles.activityOption}`}
                       onClick={() => void start(a.id, o.id)}
                     >
-                      {o.label} · {formats[o.projection]}
-                      {o.estimatedMinutes !== null
-                        ? ` · ${o.estimatedMinutes} min`
-                        : ""}
+                      <FileText size={17} aria-hidden="true" />
+                      <span>{o.label} · {formats[o.projection]}
+                        {o.estimatedMinutes !== null ? ` · ${o.estimatedMinutes} min` : ""}
+                      </span>
+                      <CaretRight size={15} aria-hidden="true" />
                     </button>
                   ))}
                   {!a.options.length ? (

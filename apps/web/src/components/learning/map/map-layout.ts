@@ -6,20 +6,22 @@ export function initialLayout(
   root = false,
   cardHeight = root ? 184 : 172,
 ): Positions {
-  const w = root ? 168 : 156,
+  const w = root ? 208 : 200,
     h = cardHeight;
-  if (width < 768)
+  if (width < 768) {
+    const mobileCardWidth = Math.min(300, Math.max(196, width - 84));
     return Object.fromEntries(ids.map((id, i) => [
       id,
-      { x: Math.max(16, (width - w) / 2), y: 24 + i * (h + 36) },
+      { x: Math.max(56, (width - mobileCardWidth) / 2 + 20), y: 18 + i * (h + 12) },
     ]));
+  }
   return Object.fromEntries(
     ids.map((id, i) => [id, { x: 48 + i * (w + 56), y: 64 }]),
   );
 }
 function overlaps(a: Position, b: Position, root: boolean, cardHeight: number) {
   return (
-    Math.abs(a.x - b.x) < (root ? 168 : 156) + 24 &&
+    Math.abs(a.x - b.x) < (root ? 208 : 200) + 12 &&
     Math.abs(a.y - b.y) < cardHeight + 24
   );
 }
@@ -30,7 +32,7 @@ export function findFreePosition(
   cardHeight = root ? 184 : 172,
 ): Position {
   const occupied = Object.values(positions),
-    w = (root ? 168 : 156) + 56,
+    w = (root ? 208 : 200) + 56,
     h = cardHeight + 64;
   if (!occupied.some((p) => overlaps(anchor, p, root, cardHeight)))
     return anchor;
@@ -67,7 +69,7 @@ export function reconcileLayout(
     if (!positions[id]) {
       const existing = Object.values(positions);
       const anchor = existing.length
-        ? { x: Math.max(...existing.map((p) => p.x)) + (root ? 168 : 156) + 56, y: Math.min(...existing.map((p) => p.y)) }
+        ? { x: Math.max(...existing.map((p) => p.x)) + (root ? 208 : 200) + 56, y: Math.min(...existing.map((p) => p.y)) }
         : initial[id]!;
       positions[id] = findFreePosition(
         anchor,
