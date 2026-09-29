@@ -6,7 +6,6 @@ import "@xyflow/react/dist/style.css";
 import {
   ArrowLeft,
   CaretRight,
-  Plus,
   ListBullets,
   MapTrifold,
   X,
@@ -14,11 +13,6 @@ import {
 import type {
   MapItem,
   MapRoute,
-  MapCatalogItem,
-  MapIconKey,
-  LearningMapSuggestionsResponse,
-  LearningMapMutationResponse,
-  LearningMapSummaryResponse,
 } from "@cediah/contracts";
 import { MapWorkspaceProvider, useMapWorkspace } from "./map-provider";
 import type { MapClient } from "./map-client";
@@ -27,21 +21,12 @@ import { LearningMapItem, type MapItemAction } from "./nodes/learning-map-item";
 import { MedicalMapIcon } from "./medical-map-icon";
 import { LessonDetailPanel } from "./lesson-detail-panel";
 import { MapMobileSheet } from "./map-mobile-sheet";
-import { MapEditDialog } from "./add-content-dialog";
 import { MapIconColorDialog } from "./map-icon-color-dialog";
-import { MapQuickPanel } from "./map-quick-panel";
 import styles from "./learning-map.module.css";
 const Canvas = dynamic(() => import("./learning-map-canvas"), {
   ssr: false,
   loading: () => <p className={styles.empty}>Preparando mapa…</p>,
 });
-type Dialog = {
-  mode: "add" | "create" | "rename" | "group" | "remove";
-  item?: MapItem;
-  initialTab?: "existing" | "node";
-};
-type QuickTab = "hoy" | "rutas" | "progreso";
-
 function Workspace() {
   const {
     account,
@@ -61,30 +46,15 @@ function Workspace() {
   const root = useRef<HTMLDivElement>(null),
     heading = useRef<HTMLHeadingElement>(null);
   const [wide, setWide] = useState(false),
-    [list, setList] = useState(false),
-    [organizing, setOrganizing] = useState(false),
-    [movingId, setMovingId] = useState<string | null>(null);
-  const [selecting, setSelecting] = useState(false),
-    [selection, setSelection] = useState<string[]>([]),
-    [dialog, setDialog] = useState<Dialog | null>(null),
+    [list, setList] = useState(false);
+  const organizing = false,
+    movingId = null,
+    selecting = false;
+  const
     [info, setInfo] = useState<MapItem | "container" | null>(null),
-    [quickTab, setQuickTab] = useState<QuickTab | null>(null),
-    [quickSummary, setQuickSummary] = useState<LearningMapSummaryResponse | null>(null),
-    [quickError, setQuickError] = useState(false),
     [colorItem, setColorItem] = useState<MapItem | null>(null),
     [iconColors, setIconColors] = useState<Record<string, string>>({});
-  const [suggestions, setSuggestions] =
-      useState<LearningMapSuggestionsResponse | null>(null),
-    [suggestionError, setSuggestionError] = useState(false),
-    [message, setMessage] = useState("");
-  const [undo, setUndo] = useState<LearningMapMutationResponse["undo"]>(null),
-    [busy, setBusy] = useState(false);
-  const mutation = useRef<{
-      operation: string;
-      payload: string;
-      key: string;
-    } | null>(null),
-    mutateLock = useRef(false);
+  const [message, setMessage] = useState("");
   const backToParent = useCallback(() => { setInfo(null); back(); }, [back]);
   useEffect(() => {
     const el = root.current;
@@ -123,54 +93,15 @@ function Workspace() {
     }, 0);
     return () => clearTimeout(timer);
   }, [account, mapId]);
-  const rootSummary: LearningMapSummaryResponse | null = level?.levelKey === "root"
-    ? {
-      map: { id: level.mapId },
-      nodes: level.items,
-      progress: level.containerSummary.progress,
-      structuralVersion: level.structuralVersion,
-    } : null;
-  const displayedSummary = rootSummary ?? quickSummary;
-  const quickLoading = Boolean(quickTab && !displayedSummary && !quickError);
-  useEffect(() => {
-    if (!quickTab || displayedSummary || quickError || !level) return;
-    const controller = new AbortController();
-    void client.summary().then((summary) => {
-      if (!controller.signal.aborted) setQuickSummary(summary);
-    }).catch(() => {
-      if (!controller.signal.aborted) setQuickError(true);
-    });
-    return () => controller.abort();
-  }, [client, displayedSummary, level, quickError, quickTab]);
   useEffect(() => {
     if (currentLevelKey) heading.current?.focus({ preventScroll: true });
   }, [currentLevelKey]);
-  useEffect(() => {
-    if (!level) return;
-    const c = new AbortController();
-    void client
-      .suggestions(level.route, c.signal)
-      .then((result) => {
-        setSuggestions(result);
-        setSuggestionError(false);
-      })
-      .catch(() => {
-        if (!c.signal.aborted) setSuggestionError(true);
-      });
-    return () => c.abort();
-  }, [client, level]);
-  useEffect(() => {
-    if (!undo) return;
-    const timer = setTimeout(
-      () => setUndo(null),
-      Math.max(0, Date.parse(undo.expiresAt) - Date.now()),
-    );
-    return () => clearTimeout(timer);
-  }, [undo]);
   const routeFor = useCallback(
     (item: MapItem): MapRoute => {
       if (!level) return ROOT_MAP_ROUTE;
-      return item.kind === "node"
+      return level.levelKey === "root" && item.kind === "block" && item.pathId
+        ? { nodeId: item.pathId, entryId: item.pathId, unitStableKey: null }
+        : item.kind === "node"
         ? { nodeId: item.occurrenceId, entryId: null, unitStableKey: null }
         : level.levelKey.startsWith("block:")
           ? { ...level.route, unitStableKey: item.unitStableKey }
@@ -184,72 +115,29 @@ function Workspace() {
   );
   const open = useCallback(
     (item: MapItem) => {
-      if (selecting) {
-        setSelection((current) =>
-          current.includes(item.occurrenceId)
-            ? current.filter((id) => id !== item.occurrenceId)
-            : [...current, item.occurrenceId],
-        );
-        return;
-      }
       setInfo(null);
-      setQuickTab(null);
       navigate(routeFor(item));
     },
-    [navigate, routeFor, selecting],
+    [navigate, routeFor],
   );
   const action = useCallback((item: MapItem, action: MapItemAction) => {
-    if (action === "select") {
-      setSelecting(true);
-      setSelection((current) => current.includes(item.occurrenceId)
-        ? current.filter((id) => id !== item.occurrenceId)
-        : [...current, item.occurrenceId]);
-      return;
-    }
-    if (action === "move") {
-      setList(false);
-      setOrganizing(true);
-      setMovingId(item.occurrenceId);
-      return;
-    }
     if (action === "info") {
-      setQuickTab(null);
       setInfo(item);
-      return;
     }
     if (action === "color") {
       setColorItem(item);
-      return;
     }
-    setDialog({
-      mode:
-        action === "add" ? "add" : action === "remove" ? "remove" : "rename",
-      item,
-    });
   }, []);
   const intention = useCallback(
     (item: MapItem) => prefetch(routeFor(item)),
     [prefetch, routeFor],
   );
-  const moveFinished = useCallback(() => {
-    setMovingId(null);
-    setOrganizing(false);
-  }, []);
   const closePanel = useCallback(() => {
-    if (quickTab) {
-      setQuickTab(null);
-      return;
-    }
     setInfo(null);
     if (level?.selectedLesson) back();
     else if (detail && level)
       window.history.replaceState(null, "", buildMapHref(level.route));
-  }, [back, detail, level, quickTab]);
-  const showTab = (tab: QuickTab) => {
-    setInfo(null);
-    setQuickError(false);
-    setQuickTab((current) => current === tab ? null : tab);
-  };
+  }, [back, detail, level]);
   const saveIconColor = (item: MapItem, color: string | null) => {
     if (!level) return;
     const next = { ...iconColors };
@@ -263,103 +151,13 @@ function Workspace() {
     const escape = (e: KeyboardEvent) => {
       if (
         e.key === "Escape" &&
-        !dialog &&
-        !movingId &&
         !(e.target instanceof HTMLInputElement)
       )
         closePanel();
     };
     window.addEventListener("keydown", escape);
     return () => window.removeEventListener("keydown", escape);
-  }, [closePanel, dialog, movingId]);
-  async function mutate(operation: string, body: Record<string, unknown>) {
-    if (mutateLock.current || !level)
-      throw new Error("Espera a que termine el guardado.");
-    mutateLock.current = true;
-    setBusy(true);
-    setMessage("");
-    const payload = JSON.stringify({
-      expectedVersion: level.structuralVersion,
-      ...body,
-    });
-    if (
-      mutation.current?.operation !== operation ||
-      mutation.current.payload !== payload
-    )
-      mutation.current = { operation, payload, key: crypto.randomUUID() };
-    try {
-      const response = await client.mutate(
-        operation,
-        JSON.parse(payload),
-        mutation.current.key,
-      );
-      mutation.current = null;
-      setUndo(response.undo);
-      await refresh();
-      setMessage("Cambio guardado.");
-      return response;
-    } finally {
-      mutateLock.current = false;
-      setBusy(false);
-    }
-  }
-  async function add(item: MapCatalogItem) {
-    const nodeId =
-      dialog?.item?.kind === "node"
-        ? dialog.item.occurrenceId
-        : level?.route.nodeId;
-    if (item.kind === "topic_template")
-      await mutate("nodes", {
-        title: item.title.slice(0, 80),
-        iconKey: "folder",
-        topicTemplateId: item.topicId,
-      });
-    else if (nodeId) await mutate("entries", { nodeId, ref: item.ref });
-    else
-      await mutate("nodes", {
-        title: item.title.slice(0, 80),
-        iconKey: "folder",
-        items: [item.ref],
-      });
-  }
-  async function submit(title: string, icon: MapIconKey) {
-    if (!dialog || !level) return;
-    if (dialog.mode === "rename")
-      await mutate(`nodes/${dialog.item!.occurrenceId}`, { title });
-    if (dialog.mode === "create")
-      await mutate("nodes", { title, iconKey: icon });
-    if (dialog.mode === "remove") {
-      await mutate("remove", {
-        target: {
-          kind: dialog.item!.kind === "node" ? "node" : "entry",
-          id: dialog.item!.occurrenceId,
-        },
-      });
-      setInfo(null);
-    }
-    if (dialog.mode === "group") {
-      const selections = level.items
-        .filter((i) => selection.includes(i.occurrenceId))
-        .map((i) =>
-          i.kind === "node"
-            ? { rootNodeId: i.occurrenceId }
-            : level.levelKey.startsWith("block:")
-              ? {
-                  blockEntryId: level.route.entryId,
-                  unitStableKey: i.unitStableKey,
-                }
-              : { entryId: i.occurrenceId },
-        );
-      await mutate("group", {
-        title,
-        iconKey: icon,
-        route: level.route,
-        selections,
-      });
-      setSelection([]);
-      setSelecting(false);
-    }
-  }
+  }, [closePanel]);
   async function resolveConflict(mine: boolean) {
     try {
       for (const [key, q] of queue.levels)
@@ -387,9 +185,7 @@ function Workspace() {
       );
     }
   }
-  const selected = selecting
-    ? selection
-    : level?.selectedLesson
+  const selected = level?.selectedLesson
       ? [
           level.route.unitStableKey
             ? `lesson:${level.route.unitStableKey}`
@@ -405,21 +201,7 @@ function Workspace() {
         item.kind === "lesson" &&
         item.availability !== "available",
     );
-  const panel = quickTab ? (
-    <MapQuickPanel
-      tab={quickTab}
-      summary={displayedSummary}
-      loading={quickLoading}
-      error={quickError}
-      onTab={setQuickTab}
-      onClose={() => setQuickTab(null)}
-      onRetry={() => setQuickError(false)}
-      onOpen={(item) => {
-        setQuickTab(null);
-        navigate({ nodeId: item.occurrenceId, entryId: null, unitStableKey: null });
-      }}
-    />
-  ) : unavailableSelection ? (
+  const panel = unavailableSelection ? (
     <aside className={styles.panel} aria-label="Lección no disponible">
       <header className={styles.panelHeader}>
         <h2>Lección no disponible</h2>
@@ -570,40 +352,14 @@ function Workspace() {
             </div>
           </div>
           <div className={styles.headerActions}>
-            <button className={styles.primary} aria-label="Nuevo nodo o agregar contenido" title="Nuevo nodo o agregar contenido" onClick={() => setDialog({ mode: "add", initialTab: "node" })} disabled={!level}>
-              <Plus size={18} />
-              <span>Nodo</span>
-            </button>
-            <button className={`${styles.button} ${styles.summaryToggle}`} aria-label="Abrir resumen de aprendizaje" aria-pressed={Boolean(quickTab)} onClick={() => showTab(quickTab ?? "hoy")}>
-              <MapTrifold size={18} /> <span>Resumen</span>
-            </button>
-            <button className={styles.mobileViewsMenu} aria-label="Abrir resumen de aprendizaje" aria-pressed={Boolean(quickTab)} onClick={() => showTab(quickTab ?? "hoy")}>
-              <MapTrifold size={18} /> <span>Vistas</span>
-            </button>
-            {selecting ? (
-              <>
-                <button className={styles.button} disabled={!selection.length} onClick={() => setDialog({ mode: "group" })}>
-                  Crear nodo ({selection.length})
-                </button>
-                <button className={styles.iconButton} aria-label="Cancelar selección" title="Cancelar selección" onClick={() => { setSelecting(false); setSelection([]); }}>
-                  <X size={18} />
-                </button>
-              </>
-            ) : null}
             <span className={styles.status} role="status">
               {loading ? "Abriendo…" : queue.state === "saving" ? "Guardando…" : queue.state === "saved" ? "" : "Posiciones pendientes"}
             </span>
-            <button className={`${styles.button} ${styles.viewToggle}`} aria-label={list ? "Vista de mapa" : "Vista de lista"} onClick={() => setList(!list)}>
-              {list ? <MapTrifold size={18} /> : <ListBullets size={18} />}
-              <span>{list ? "Mapa" : "Lista"}</span>
+            <button className={`${styles.button} ${styles.viewToggle}`} aria-label={list ? "Vista de mapa" : "Vista de lista"} title={list ? "Mapa" : "Lista"} onClick={() => setList(!list)}>
+              {list ? <MapTrifold size={19} /> : <ListBullets size={19} />}
             </button>
           </div>
         </header>
-        {movingId ? (
-          <div className={styles.notice}>
-            Mover con flechas · Enter guarda · Escape restaura.
-          </div>
-        ) : null}
         {error ? (
           <div className={styles.notice} role="alert">
             {error}
@@ -651,22 +407,9 @@ function Workspace() {
             </button>
           </div>
         ) : null}
-        {message || undo ? (
+        {message ? (
           <div className={styles.notice} role="status">
             {message}
-            {undo ? (
-              <button
-                className={styles.button}
-                disabled={busy}
-                onClick={() =>
-                  void mutate("restore", {
-                    undoReceiptKey: undo.undoReceiptKey,
-                  }).catch((e) => setMessage(e.message))
-                }
-              >
-                Deshacer
-              </button>
-            ) : null}
           </div>
         ) : null}
         <div className={styles.body}>
@@ -680,17 +423,8 @@ function Workspace() {
           ) : !level.items.length ? (
             <div className={styles.empty}>
               <MedicalMapIcon iconKey="folder" size={56} />
-              <h2>Un espacio para tu aprendizaje</h2>
-              <p>
-                Añade un bloque o una lección, o crea tu primer nodo personal.
-              </p>
-              <button
-                className={styles.primary}
-                onClick={() => setDialog({ mode: "add" })}
-              >
-                <Plus size={18} />
-                Añadir al mapa
-              </button>
+              <h2>No hay rutas disponibles</h2>
+              <p>Las rutas publicadas aparecerán aquí cuando estén disponibles.</p>
             </div>
           ) : list ? (
             <div className={styles.list}>
@@ -725,7 +459,7 @@ function Workspace() {
               phase={phase}
               direction={direction}
               movingId={movingId}
-              onMoveFinished={moveFinished}
+              onMoveFinished={() => {}}
             />
           )}
           {wide ? panel : null}
@@ -738,28 +472,6 @@ function Workspace() {
       </div>
       {!wide && panel ? (
         <MapMobileSheet onClose={closePanel}>{panel}</MapMobileSheet>
-      ) : null}
-      {dialog ? (
-        <MapEditDialog
-          key={`${dialog.mode}:${dialog.item?.occurrenceId ?? ""}`}
-          mode={dialog.mode}
-          initialTab={dialog.initialTab}
-          initialTitle={dialog.item?.title}
-          targetNodeId={
-            dialog.item?.kind === "node" ? dialog.item.occurrenceId : undefined
-          }
-          onClose={() => setDialog(null)}
-          onSubmit={submit}
-          onAdd={add}
-          onCreateNode={async (title, iconKey) => {
-            await mutate("nodes", { title, iconKey });
-          }}
-          onCompleteBlock={async (pathId) => {
-            await mutate("complete-block", { nodeId: level?.route.nodeId, pathId });
-          }}
-          suggestions={suggestions}
-          suggestionError={suggestionError}
-        />
       ) : null}
       {colorItem ? (
         <MapIconColorDialog

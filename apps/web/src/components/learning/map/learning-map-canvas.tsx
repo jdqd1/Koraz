@@ -4,26 +4,24 @@ import {
   ReactFlow,
   MiniMap,
   applyNodeChanges,
-  getBezierPath,
+  getStraightPath,
   useReactFlow,
   PanOnScrollMode,
   type EdgeProps,
   type NodeChange,
   type Viewport,
 } from "@xyflow/react";
-import { ArrowsOut, Minus, Plus, MapTrifold, CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { ArrowsOut, Minus, Plus, MapTrifold } from "@phosphor-icons/react";
 import type { LearningMapLevelResponse, MapItem } from "@cediah/contracts";
 import {
   LearningNode,
   BlockNode,
   LessonNode,
-  BranchNode,
   type FlowMapNode,
-  type BranchFlowNode,
   type MapItemAction,
 } from "./nodes/learning-map-item";
 import {
-  reconcileLayout,
+  initialLayout,
   resolveDropOverlap,
   type Positions,
 } from "./map-layout";
@@ -34,25 +32,13 @@ import {
 } from "./map-spatial-state";
 import type { MapLayoutQueue } from "./use-map-layout-save";
 import styles from "./learning-map.module.css";
-type DiagramNode = FlowMapNode | BranchFlowNode;
-const BRANCH_ID = "__level_branch__";
-const nodeTypes = { node: LearningNode, block: BlockNode, lesson: LessonNode, branch: BranchNode };
-function branchPosition(positions: Positions, mobile: boolean, diagramOffset: number, cardHeight: number) {
-  const all = Object.values(positions);
-  if (!all.length) return { x: 0, y: 0 };
-  const left = Math.min(...all.map((point) => point.x));
-  const firstRow = Math.min(...all.map((point) => point.y));
-  const lastRow = Math.max(...all.map((point) => point.y));
-  return {
-    x: mobile ? -12 : left - 136,
-    y: (firstRow + lastRow) / 2 + diagramOffset + cardHeight / 2 - 8,
-  };
+type DiagramNode = FlowMapNode;
+const nodeTypes = { node: LearningNode, block: BlockNode, lesson: LessonNode };
+function ConnectionEdge(props: EdgeProps) {
+  const [path] = getStraightPath(props);
+  return <path id={props.id} className={`react-flow__edge-path ${styles.connectionPath}`} d={path} pathLength={1} fill="none" style={props.style} />;
 }
-function LineageEdge(props: EdgeProps) {
-  const [path] = getBezierPath({ ...props, curvature: 0.34 });
-  return <path id={props.id} className={`react-flow__edge-path ${styles.lineagePath}`} d={path} pathLength={1} fill="none" style={props.style} />;
-}
-const edgeTypes = { lineage: LineageEdge };
+const edgeTypes = { connection: ConnectionEdge };
 export default function LearningMapCanvas({
   level,
   account,
@@ -88,16 +74,13 @@ export default function LearningMapCanvas({
   const longTitles = level.items.some((item) => item.title.length > 20);
   const wrapper = useRef<HTMLDivElement>(null),
     levelKey = useRef("");
-  const layoutVersion = useRef(-1);
   const lastMobile = useRef<boolean | null>(null);
-  const initialized = useRef(new Set<string>());
   const [nodes, setNodes] = useState<DiagramNode[]>([]),
     [zoom, setZoom] = useState(1),
     [mini, setMini] = useState(false);
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
-  const hasBranch = mobile || level.levelKey !== "root";
   const cardHeight = mobile ? 118 : longTitles ? 210 : level.levelKey === "root" ? 184 : 172;
-  const diagramOffset = mobile ? 52 : hasBranch ? 72 : 0;
+  const diagramOffset = 0;
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   useEffect(() => {
     const box = wrapper.current;
@@ -119,8 +102,6 @@ export default function LearningMapCanvas({
     (maxZoom = 1) => {
       const box = wrapper.current?.querySelector(".react-flow");
       const positions = Object.values(points.current).map((point) => ({ ...point, y: point.y + diagramOffset }));
-      if (hasBranch && Object.keys(points.current).length)
-        positions.push(branchPosition(points.current, mobile, diagramOffset, cardHeight));
       if (!box || !positions.length) return;
       if (mobile) {
         wrapper.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -140,12 +121,7 @@ export default function LearningMapCanvas({
         extentX * 0.65 > box.clientWidth ||
         extentY * 0.65 > box.clientHeight
       ) {
-        const next =
-          level.items.find(
-            (item) =>
-              item.availability === "available" &&
-              item.progress.status !== "completed",
-          ) ?? level.items[0];
+        const next = level.items[0];
         const point = next && points.current[next.occurrenceId];
         if (point)
           return flow.setCenter(point.x + width / 2, point.y + diagramOffset + height / 2, {
@@ -154,7 +130,7 @@ export default function LearningMapCanvas({
       }
       return flow.fitView({ padding: 0.18, minZoom: 0.65, maxZoom });
     },
-    [cardHeight, diagramOffset, flow, hasBranch, level.items, level.levelKey, mobile],
+    [cardHeight, diagramOffset, flow, level.items, level.levelKey, mobile],
   );
   const movingOriginal = useRef<Positions | null>(null);
   const snapshotKey = useCallback(
@@ -162,7 +138,7 @@ export default function LearningMapCanvas({
       spatialKey(
         account,
         level.mapId,
-        `${level.levelKey}:side-branch`,
+        `${level.levelKey}:vertical-v2`,
         window.matchMedia("(max-width: 767px)").matches,
       ),
     [account, level.mapId, level.levelKey],
@@ -199,39 +175,20 @@ export default function LearningMapCanvas({
     lastMobile.current = mobile;
     const root = level.levelKey === "root",
       width = wrapper.current?.clientWidth ?? 900;
-    const saved =
-      changed || changedViewport || layoutVersion.current !== level.layout.rowVersion
-        ? level.layout.positions
-        : { ...level.layout.positions, ...points.current };
-    const positions = reconcileLayout(
+    const positions = initialLayout(
       level.items.map((i) => i.occurrenceId),
-      { ...saved, ...queue.positions(level.levelKey) },
       width,
       root,
       cardHeight,
     );
     points.current = positions;
     levelKey.current = level.levelKey;
-    layoutVersion.current = level.layout.rowVersion;
-    const missing = Object.fromEntries(
-      level.items
-        .filter(
-          (i) =>
-            !initialized.current.has(`${level.levelKey}:${i.occurrenceId}`) &&
-            !level.layout.positions[i.occurrenceId] &&
-            !queue.positions(level.levelKey)[i.occurrenceId],
-        )
-        .map((i) => [i.occurrenceId, positions[i.occurrenceId]!]),
-    );
-    for (const item of level.items)
-      initialized.current.add(`${level.levelKey}:${item.occurrenceId}`);
-    if (width >= 768 && Object.keys(missing).length) queue.enqueue(level.levelKey, missing);
     const childNodes: FlowMapNode[] = level.items.map((item, index) => ({
         id: item.occurrenceId,
         type: item.kind,
         position: { ...positions[item.occurrenceId]!, y: positions[item.occurrenceId]!.y + diagramOffset },
         className: styles.diagramChild,
-        style: { pointerEvents: "all", "--appear-delay": `${Math.min(index, 4) * 24 + 36}ms` } as CSSProperties,
+        style: { pointerEvents: "all", "--appear-delay": `${Math.min(index, 4) * 24 + 150}ms` } as CSSProperties,
         draggable: organizing,
         dragHandle: ".map-drag-handle",
         selectable: false,
@@ -248,16 +205,7 @@ export default function LearningMapCanvas({
           onPrefetch,
         },
       }));
-    const branch: BranchFlowNode[] = hasBranch && level.items.length ? [{
-      id: BRANCH_ID,
-      type: "branch",
-      position: branchPosition(positions, mobile, diagramOffset, cardHeight),
-      draggable: false,
-      selectable: false,
-      focusable: false,
-      data: { title: level.containerSummary.title },
-    }] : [];
-    setNodes([...branch, ...childNodes]);
+    setNodes(childNodes);
     if (changed || changedViewport) {
       if (mobile) wrapper.current?.scrollTo(0, 0);
       const snapshot = changedViewport ? null : readSpatialSnapshot(snapshotKey());
@@ -291,8 +239,8 @@ export default function LearningMapCanvas({
     cardHeight,
     diagramOffset,
     fitLevel,
-    hasBranch,
     mobile,
+    canvasSize.width,
   ]);
   useEffect(() => {
     if (!mobile) return;
@@ -305,11 +253,10 @@ export default function LearningMapCanvas({
   const updatePoints = useCallback((next: Positions) => {
     points.current = { ...points.current, ...next };
     setNodes((current) => current.map((node) => {
-      if (node.id === BRANCH_ID) return { ...node, position: branchPosition(points.current, mobile, diagramOffset, cardHeight) };
       const point = points.current[node.id];
       return point ? { ...node, position: { x: point.x, y: point.y + diagramOffset } } : node;
     }));
-  }, [cardHeight, diagramOffset, mobile]);
+  }, [diagramOffset]);
   useEffect(() => {
     if (!movingId) {
       movingOriginal.current = null;
@@ -349,7 +296,8 @@ export default function LearningMapCanvas({
             cardHeight,
           );
           updatePoints({ [movingId]: point });
-          queue.enqueue(level.levelKey, { [movingId]: point });
+          if (level.levelKey !== "root" && level.route.nodeId !== level.route.entryId)
+            queue.enqueue(level.levelKey, { [movingId]: point });
         }
         onMoveFinished();
       }
@@ -359,6 +307,8 @@ export default function LearningMapCanvas({
   }, [
     movingId,
     level.levelKey,
+    level.route.nodeId,
+    level.route.entryId,
     queue,
     updatePoints,
     onMoveFinished,
@@ -371,57 +321,30 @@ export default function LearningMapCanvas({
   );
   const edges = useMemo(
     () => {
-      const connected = new Set(level.edges.map((edge) => `${edge.sourceOccurrenceId}:${edge.targetOccurrenceId}`));
-      const sequence = level.items.slice(0, -1).flatMap((item, index) => {
+      const sequence = level.items.slice(0, -1).map((item, index) => {
         const next = level.items[index + 1]!;
-        return connected.has(`${item.occurrenceId}:${next.occurrenceId}`)
-          ? []
-          : [{ sourceOccurrenceId: item.occurrenceId, targetOccurrenceId: next.occurrenceId }];
+        return { sourceOccurrenceId: item.occurrenceId, targetOccurrenceId: next.occurrenceId };
       });
-      const siblingEdges = (mobile ? [] : [...level.edges, ...sequence]).map((e, index) => ({
+      const siblingEdges = (level.levelKey.startsWith("block:") ? sequence : []).map((e, index) => ({
         id: `${index}:${e.sourceOccurrenceId}:${e.targetOccurrenceId}`,
         source: e.sourceOccurrenceId,
         target: e.targetOccurrenceId,
-        type: "straight",
-        style: { stroke: "#b8c7e5", strokeWidth: mobile ? 2 : 1.5 },
-        focusable: false,
-        selectable: false,
-      }));
-      const lineageEdges = hasBranch ? level.items.map((item, index) => ({
-        id: `branch:${item.occurrenceId}`,
-        source: BRANCH_ID,
-        target: item.occurrenceId,
-        targetHandle: "parent",
-        type: "lineage",
+        type: "connection",
         style: {
-          stroke: "#b6c9e9",
-          strokeWidth: mobile ? 1.6 : 1.5,
-          "--line-delay": `${Math.min(index, 4) * 24 + 18}ms`,
+          stroke: "#8faee0",
+          strokeWidth: 2,
+          "--line-delay": `${Math.min(index, 5) * 65 + 90}ms`,
         } as CSSProperties,
         focusable: false,
         selectable: false,
-      })) : [];
-      return [...siblingEdges, ...lineageEdges];
+      }));
+      return siblingEdges;
     },
-    [hasBranch, level.edges, level.items, mobile],
+    [level.items, level.levelKey],
   );
   const contentHeight = mobile
     ? Math.max(canvasSize.height, ...nodes.map((n) => n.position.y + cardHeight + 60))
     : undefined;
-  const horizontalPositions = nodes.filter((node) => node.id !== BRANCH_ID).map((node) => node.position);
-  const horizontalOverflow = horizontalPositions.length > 1 &&
-    (Math.max(...horizontalPositions.map((p) => p.x + (level.levelKey === "root" ? 208 : 200))) -
-      Math.min(...horizontalPositions.map((p) => p.x))) * zoom >
-      canvasSize.width - 48;
-  const panRoute = (step: -1 | 1) => {
-    const box = wrapper.current;
-    if (!box) return;
-    const viewport = flow.getViewport();
-    const end = Math.max(0, ...Object.values(points.current).map((p) => p.x + (level.levelKey === "root" ? 208 : 200)));
-    const minX = Math.min(24, box.clientWidth - end * viewport.zoom - 32);
-    const x = Math.max(minX, Math.min(24, viewport.x - step * box.clientWidth * 0.72));
-    void flow.setViewport({ ...viewport, x }, { duration: 170 });
-  };
   return (
     <div className={styles.canvas} ref={wrapper} data-long-titles={longTitles} data-mobile={mobile}>
       <div className={styles.flow} data-phase={phase} data-direction={direction} style={contentHeight ? { height: contentHeight } : undefined}>
@@ -432,7 +355,6 @@ export default function LearningMapCanvas({
           edgeTypes={edgeTypes}
           onNodesChange={changes}
           onNodeDragStop={(_e, n) => {
-            if (n.id === BRANCH_ID) return;
             const p = resolveDropOverlap(
               n.id,
               { x: n.position.x, y: n.position.y - diagramOffset },
@@ -441,12 +363,13 @@ export default function LearningMapCanvas({
               cardHeight,
             );
             updatePoints({ [n.id]: p });
-            queue.enqueue(level.levelKey, { [n.id]: p });
+            if (level.levelKey !== "root" && level.route.nodeId !== level.route.entryId)
+              queue.enqueue(level.levelKey, { [n.id]: p });
           }}
           onMoveEnd={(_e, v) => saveViewport(v)}
           panOnDrag={!mobile}
           panOnScroll={!mobile}
-          panOnScrollMode={PanOnScrollMode.Horizontal}
+          panOnScrollMode={PanOnScrollMode.Vertical}
           zoomOnScroll={false}
           zoomOnPinch={!mobile}
           minZoom={0.65}
@@ -472,12 +395,6 @@ export default function LearningMapCanvas({
           ) : null}
         </ReactFlow>
       </div>
-      {!mobile && horizontalOverflow ? (
-        <div className={styles.routeNavigation} aria-label="Desplazar rutas">
-          <button className={styles.iconButton} aria-label="Rutas anteriores" onClick={() => panRoute(-1)}><CaretLeft size={20} /></button>
-          <button className={styles.iconButton} aria-label="Rutas siguientes" onClick={() => panRoute(1)}><CaretRight size={20} /></button>
-        </div>
-      ) : null}
       <div className={styles.controls} aria-label="Controles del mapa">
         <button
           className={styles.iconButton}

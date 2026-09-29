@@ -103,6 +103,31 @@ describe("private persistent map", () => {
     expect(first.status).toBe("success");
     if (first.status !== "success") return;
     state = first.value;
+    const available = await provider.level(user, {
+      nodeId: null,
+      entryId: null,
+      unitStableKey: null,
+    });
+    expect(available?.items).toEqual([
+      expect.objectContaining({ occurrenceId: topic, kind: "node", title: "Tema", childCount: 1 }),
+    ]);
+    expect(available?.items[0]?.enrollmentState).toBe("none");
+    expect(available?.edges).toEqual([]);
+    const subject = await provider.level(user, { nodeId: topic, entryId: null, unitStableKey: null });
+    expect(subject?.items).toEqual([
+      expect.objectContaining({ occurrenceId: path, pathId: path, title: "Bloque prueba" }),
+    ]);
+    const opened = await provider.level(user, {
+      nodeId: path,
+      entryId: path,
+      unitStableKey: null,
+    });
+    expect(opened?.items.map((item) => item.title)).toEqual(["Lección 0", "Lección 1"]);
+    expect((await provider.level(user, {
+      nodeId: path,
+      entryId: path,
+      unitStableKey: "lesson-0",
+    }))?.selectedLesson?.unitStableKey).toBe("lesson-0");
     expect(await mutate({ operation: "ensure", request: {} }, key)).toEqual(
       first,
     );
@@ -195,7 +220,7 @@ describe("private persistent map", () => {
     const request = {
       levelKey: "root",
       expectedVersion: 0,
-      positions: [{ id: nodeId, x: 123.5, y: -42 }],
+      positions: [{ id: topic, x: 123.5, y: -42 }],
     };
     const saved = await mutate({ operation: "layout", request }, key);
     expect(saved.status).toBe("success");
@@ -220,7 +245,7 @@ describe("private persistent map", () => {
       entryId: null,
       unitStableKey: null,
     });
-    expect(root?.layout.positions[nodeId]).toEqual({ x: 123.5, y: -42 });
+    expect(root?.layout.positions[topic]).toEqual({ x: 123.5, y: -42 });
     expect(root?.structuralVersion).toBe(state.structuralVersion);
   });
   it("completes grouping and undoes it without awarding progress", async () => {
@@ -364,7 +389,7 @@ describe("private persistent map", () => {
       state.structuralVersion,
     );
   });
-  it("groups references without changing originals or double-counting global progress", async () => {
+  it("does not group published routes into personal root nodes", async () => {
     const grouped = await mutate({
       operation: "group",
       request: {
@@ -375,12 +400,10 @@ describe("private persistent map", () => {
         selections: [{ rootNodeId: nodeId }],
       },
     });
-    expect(grouped.status).toBe("success");
-    if (grouped.status !== "success") return;
-    state = grouped.value;
+    expect(grouped.status).toBe("not_found");
     const root = await provider.summary(user);
-    expect(root.nodes).toHaveLength(2);
-    expect(root.progress.totalEssentialSteps).toBe(1);
+    expect(root.nodes).toHaveLength(1);
+    expect(root.progress.totalEssentialSteps).toBe(2);
     expect(
       (
         await provider.level(user, {
@@ -390,14 +413,6 @@ describe("private persistent map", () => {
         })
       )?.items[0]?.occurrenceId,
     ).toBe(lessonEntry);
-    const removed = await mutate({
-      operation: "remove",
-      request: {
-        expectedVersion: state.structuralVersion,
-        target: { kind: "node", id: grouped.value.changedIds[0]! },
-      },
-    });
-    if (removed.status === "success") state = removed.value;
   });
   it("keeps v1 map references when an editor removes the unit from v2 and flags it after adoption", async () => {
     const db = harness.database;
@@ -448,7 +463,7 @@ describe("private persistent map", () => {
       })
       .where("enrollment_id", "=", enrollment.id)
       .execute();
-    expect((await provider.summary(user)).progress.percentage).toBe(100);
+    expect((await provider.summary(user)).progress.percentage).toBe(50);
     const nextVersion = randomUUID();
     await db
       .insertInto("learning_path_versions")
@@ -539,7 +554,7 @@ describe("private persistent map", () => {
       ).status,
     ).toBe("invalid_state");
     await mutate({ operation: "ensure", request: {} });
-    expect((await provider.summary(user)).nodes).toHaveLength(0);
+    expect((await provider.summary(user)).nodes).toHaveLength(1);
   });
   it("enables RLS and strips inherited browser grants", async () => {
     const rows = await harness.pg.query<{ relrowsecurity: boolean }>(
@@ -643,8 +658,9 @@ describe("private persistent map", () => {
         timings.push(performance.now() - start);
         counts.push(harness.queryCount - before);
       }
-      expect(level?.items).toHaveLength(200);
-      expect(level?.containerSummary.progress.totalEssentialSteps).toBe(25);
+      expect(level?.items).toHaveLength(1);
+      expect(level?.items[0]?.childCount).toBe(26);
+      expect(level?.containerSummary.progress.totalEssentialSteps).toBe(27);
       expect(JSON.stringify(level)).not.toMatch(
         /manifest_json|signedUrl|correctOptionIndex/,
       );
@@ -662,7 +678,7 @@ describe("private persistent map", () => {
           benchmark: "map-root",
           engine: "PGlite",
           references: 5000,
-          visibleLevel: 200,
+          visibleLevel: 26,
           samples: 30,
           p95Ms: Math.round(p95),
           queriesPerRead: Math.max(...counts),

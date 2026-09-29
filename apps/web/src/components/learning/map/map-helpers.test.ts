@@ -27,6 +27,8 @@ describe("map navigation and layout", () => {
       parseMapRoute(new URLSearchParams(buildMapHref(route).split("?")[1])),
     ).toEqual(route);
     expect(parentMapRoute(route).unitStableKey).toBeNull();
+    const publishedRoute = { nodeId: mapFixtureId(3), entryId: mapFixtureId(3), unitStableKey: null };
+    expect(parentMapRoute(publishedRoute)).toEqual(ROOT_MAP_ROUTE);
     expect(parentMapRoute(ROOT_MAP_ROUTE)).toEqual(ROOT_MAP_ROUTE);
     for (const href of [
       "//evil.test",
@@ -47,8 +49,8 @@ describe("map navigation and layout", () => {
     expect(initialLayout(ids.slice(0, 6), 350, true)["2"]!.y).toBeGreaterThan(
       initialLayout(ids.slice(0, 6), 350, true)["1"]!.y,
     );
-    expect(initialLayout(ids.slice(0, 6), 1200, true)["2"]!.y).toBe(64);
-    expect(initialLayout(ids.slice(0, 6), 1200, true)["2"]!.x).toBeGreaterThan(initialLayout(ids.slice(0, 6), 1200, true)["1"]!.x);
+    expect(initialLayout(ids.slice(0, 6), 1200, true)["2"]!.y).toBeGreaterThan(initialLayout(ids.slice(0, 6), 1200, true)["1"]!.y);
+    expect(initialLayout(ids.slice(0, 6), 1200, true)["2"]!.x).toBe(initialLayout(ids.slice(0, 6), 1200, true)["1"]!.x);
     const extended = reconcileLayout([...ids, "new"], positions, 1200);
     for (const id of ids) expect(extended[id]).toEqual(positions[id]);
     expect(

@@ -812,24 +812,6 @@
 .canvas { padding: 0; }
 .card { border-radius: 14px; }
 .openButton { border-radius: 14px; }
-.routeNavigation {
-  position: absolute;
-  inset: 50% 14px auto;
-  z-index: 6;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
-.routeNavigation button {
-  pointer-events: auto;
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  padding: 0;
-  border-radius: 50%;
-  box-shadow: var(--map-card-shadow);
-}
 .controls { bottom: 16px; left: 16px; }
 .canvas[data-mobile="true"] {
   overflow-y: auto;
@@ -838,7 +820,12 @@
 }
 .canvas[data-mobile="true"] :global(.react-flow__pane),
 .canvas[data-mobile="true"] :global(.react-flow__renderer) { touch-action: pan-y; }
-.canvas[data-mobile="true"] .controls { position: sticky; bottom: 8px; width: max-content; margin: -52px 0 8px 8px; }
+.canvas[data-mobile="true"] .controls {
+  position: sticky;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  width: max-content;
+  margin: -52px 0 calc(96px + env(safe-area-inset-bottom)) 8px;
+}
 .canvas[data-mobile="true"] .flow { min-height: 100%; }
 
 @container (max-width: 767px) {
@@ -945,16 +932,19 @@
   border-radius: 50%;
 }
 .header .backButton:hover { background: #edf1fc; box-shadow: 0 2px 8px rgb(41 53 111 / 11%); }
-.headerActions { overflow: visible; }
-.mobileViewsMenu { display: none; }
-.headerActions .summaryToggle { gap: 6px; background: #f8f9fd; font-weight: 650; }
-.headerActions .summaryToggle:hover { background: #edf0fa; }
+.headerActions { margin-left: auto; overflow: visible; }
 .headerActions .viewToggle {
-  gap: 6px;
   background: #f3f5fc;
   font-weight: 650;
 }
 .headerActions .viewToggle:hover { background: #e9edfa; }
+.headerActions .viewToggle {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  justify-content: center;
+}
 .headerActions > .status:empty { display: none; }
 .dialogModeTabs {
   display: flex;
@@ -995,52 +985,13 @@
   .header h1 { font-size: 16px; }
   .headerActions {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 6px;
     overflow-x: auto;
     scrollbar-width: none;
   }
-  .headerActions .summaryToggle { display: none; }
-  .mobileViewsMenu {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    flex-shrink: 0;
-    min-height: 36px;
-    padding: 6px 9px;
-    border: 1px solid var(--map-line);
-    border-radius: 9px;
-    background: #fff;
-    color: var(--map-primary);
-    cursor: pointer;
-  }
-  .mobileViewsMenu[aria-pressed="true"] { background: #eef0ff; }
-  .headerActions .primary { min-height: 36px; padding: 5px 10px; }
-  .headerActions .viewToggle { width: auto; min-width: auto; padding: 5px 10px; }
+  .headerActions .viewToggle { width: 40px; min-width: 40px; min-height: 40px; padding: 0; }
 }
-
-.quickPanel { width: min(344px, 42%); }
-.quickPanelTop { display: flex; align-items: center; gap: 6px; padding: 12px 12px 11px 16px; border-bottom: 1px solid var(--map-line); }
-.quickPanelTop > .iconButton { min-width: 32px; min-height: 32px; padding: 6px; border: 0; border-radius: 50%; background: transparent; }
-.quickPanelTop > .iconButton:hover { background: #eef1f8; }
-.quickTabs { display: flex; flex: 1; min-width: 0; padding: 3px; gap: 2px; border-radius: 10px; background: #f2f4f9; }
-.quickTabs button { flex: 1; min-width: 0; padding: 7px 4px; border: 0; border-radius: 7px; background: transparent; color: var(--map-muted); font-size: 12px; font-weight: 650; cursor: pointer; }
-.quickTabs button[aria-selected="true"] { background: white; color: var(--map-primary); box-shadow: 0 1px 4px rgb(41 53 111 / 10%); }
-.quickPanel .panelScroll { padding: 20px 16px; }
-.quickPanel h2 { margin: 0 0 14px; font-size: 16px; letter-spacing: -0.015em; }
-.quickCount { color: var(--map-muted); font-size: 12px; font-weight: 500; }
-.quickMuted, .quickFootnote { margin: 8px 0 16px; color: var(--map-muted); font-size: 13px; line-height: 1.5; }
-.quickRoute { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 62px; margin-bottom: 6px; padding: 10px 11px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--map-ink); text-align: left; cursor: pointer; }
-.quickRoute:hover { background: #f2f5fb; }
-.quickRoute span { display: grid; gap: 3px; min-width: 0; }
-.quickRoute strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
-.quickRoute small { color: var(--map-muted); font-size: 11px; }
-.quickRoute svg { flex: none; color: #78839d; }
-.quickMetric { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
-.quickMetric strong { color: var(--map-primary); font-size: 30px; line-height: 1; }
-.quickMetric span { color: var(--map-muted); font-size: 12px; }
-.quickProgressTrack { height: 7px; overflow: hidden; border-radius: 10px; background: #e9edf7; }
-.quickProgressTrack span { display: block; height: 100%; border-radius: inherit; background: #5062bd; }
 
 .colorDialog { width: min(380px, calc(100vw - 32px)); }
 .colorPreview { display: flex; align-items: center; gap: 13px; margin: 18px 0; color: var(--map-ink); font-size: 14px; }
@@ -1054,7 +1005,6 @@
 .controls .iconButton { width: 32px; min-width: 32px; height: 32px; min-height: 32px; padding: 6px; border-radius: 7px; color: #57627b; }
 .controls .button { min-height: 32px; padding: 5px 6px; border-radius: 7px; background: transparent; color: #57627b; font-size: 12px; }
 .controls button:hover { background: #f2f4f8; }
-@container (max-width: 767px) { .quickPanel { width: 100%; } }
 
 /* Route cards share one visual language in the map and list views. */
 .workspace {
@@ -1071,7 +1021,7 @@
 .header h1 { color: #081451; font-weight: 800; letter-spacing: -.035em; }
 .headerText .status { color: #6174a5; font-weight: 600; }
 .headerActions .primary { background: #0758ff; border-color: #0758ff; box-shadow: 0 3px 10px rgb(10 82 238 / 15%); }
-.headerActions .viewToggle, .headerActions .summaryToggle { background: #f2f6ff; border-color: #edf2fb; color: #0a52ee; }
+.headerActions .viewToggle { background: #f2f6ff; border-color: #edf2fb; color: #0a52ee; }
 .card { width: 200px; border-color: #e7edf6; border-radius: 16px; }
 .card[data-kind="node"] { width: 208px; border-color: #e7edf6; border-radius: 16px; }
 .canvas[data-long-titles="true"] .card { height: 210px; }
@@ -1103,9 +1053,9 @@
   .headerIdentity { align-items: flex-start; }
   .header h1 { font-size: 20px; line-height: 26px; }
   .headerText .status { margin-top: 3px; font-size: 12px; }
-  .headerActions { gap: 7px; overflow-x: auto; }
+  .headerActions { gap: 7px; justify-content: flex-end; overflow-x: auto; }
   .headerActions .primary { min-width: 80px; min-height: 36px; }
-  .headerActions .viewToggle, .mobileViewsMenu { min-height: 36px; border-color: #edf2fb; background: #f2f6ff; color: #0758ff; }
+  .headerActions .viewToggle { border-color: #edf2fb; background: #f2f6ff; color: #0758ff; }
   .canvas { padding: 0; }
   .card, .card[data-kind="node"], .canvas[data-long-titles="true"] .card {
     width: min(300px, calc(100vw - 84px));
@@ -1240,22 +1190,24 @@
   background: transparent;
   box-shadow: none;
 }
-.lineagePath { stroke: #b6c9e9; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.flow[data-phase="leaving"] { opacity: .74; transform: translate3d(-10px,0,0); }
-.flow[data-direction="back"][data-phase="leaving"] { transform: translate3d(10px,0,0); }
+.lineagePath, .connectionPath { stroke: #8faee0; stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .flow[data-phase="leaving"] { opacity: .74; transform: translate3d(0,-10px,0); }
+  .flow[data-direction="back"][data-phase="leaving"] { transform: translate3d(0,10px,0); }
 .flow[data-phase="entering"] .branchPoint { animation: diagram-junction 170ms cubic-bezier(.22,1,.36,1) both; }
 .flow[data-phase="entering"] .diagramChild .card {
   animation: diagram-child-appear 240ms cubic-bezier(.22,1,.36,1) both;
   animation-delay: var(--appear-delay, 36ms);
 }
 .flow[data-direction="back"][data-phase="entering"] .diagramChild .card { animation-name: diagram-child-return; }
-.flow[data-phase="entering"] .lineagePath {
+.flow[data-phase="entering"] .lineagePath,
+.flow[data-phase="entering"] .connectionPath {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: diagram-line-draw 250ms cubic-bezier(.22,1,.36,1) both;
-  animation-delay: var(--line-delay, 18ms);
+  animation: diagram-line-draw 330ms cubic-bezier(.22,1,.36,1) both;
+  animation-delay: var(--line-delay, 28ms);
 }
-.flow[data-direction="back"][data-phase="entering"] .lineagePath { animation-name: diagram-line-return; }
+.flow[data-direction="back"][data-phase="entering"] .lineagePath,
+.flow[data-direction="back"][data-phase="entering"] .connectionPath { animation-name: diagram-line-return; }
 @keyframes diagram-junction { from { opacity: .25; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
 @keyframes diagram-child-appear { from { opacity: .3; transform: translateY(-9px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes diagram-child-return { from { opacity: .3; transform: translateY(9px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -1273,5 +1225,6 @@
   .flow { transition: none; }
   .flow[data-phase="entering"] .branchPoint,
   .flow[data-phase="entering"] .diagramChild .card,
-  .flow[data-phase="entering"] .lineagePath { animation: none; }
+  .flow[data-phase="entering"] .lineagePath,
+  .flow[data-phase="entering"] .connectionPath { animation: none; }
 }

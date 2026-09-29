@@ -16,7 +16,7 @@ export function initialLayout(
     ]));
   }
   return Object.fromEntries(
-    ids.map((id, i) => [id, { x: 48 + i * (w + 56), y: 64 }]),
+    ids.map((id, i) => [id, { x: Math.max(56, (width - w) / 2), y: 72 + i * (h + 72) }]),
   );
 }
 function overlaps(a: Position, b: Position, root: boolean, cardHeight: number) {

@@ -307,6 +307,25 @@ export async function readMapLevel(
     .where("user_id", "=", userId)
     .executeTakeFirst();
   if (!map) return null;
+  const published = await db
+    .selectFrom("learning_paths")
+    .innerJoin("content_items as topic", "topic.id", "learning_paths.topic_content_id")
+    .select(["learning_paths.id", "learning_paths.title", "learning_paths.topic_content_id", "topic.title as topic_title"])
+    .where("archived_at", "is", null)
+    .where("published_version_id", "is not", null)
+    .orderBy("topic.title")
+    .orderBy("learning_paths.title")
+    .orderBy("learning_paths.id")
+    .execute();
+  const topics = [...new Map(published.map((path) => [path.topic_content_id, {
+    id: path.topic_content_id,
+    title: path.topic_title,
+  }])).values()];
+  const publishedTopic = topics.find((topic) => topic.id === route.nodeId);
+  const publishedPath = published.find((path) =>
+    path.id === route.entryId &&
+    (path.topic_content_id === route.nodeId || path.id === route.nodeId),
+  );
   const nodes = await db
     .selectFrom("learning_map_nodes")
     .select(["id", "title", "icon_key", "sort_order"])
@@ -326,27 +345,31 @@ export async function readMapLevel(
     (e) => e.id === route.entryId && e.node_id === route.nodeId,
   );
   if (
-    (route.nodeId && !node) ||
-    (route.entryId && !entry) ||
-    (route.unitStableKey && entry?.kind !== "block")
+    (route.nodeId && !node && !publishedPath && !publishedTopic) ||
+    (route.entryId && !entry && !publishedPath) ||
+    (route.unitStableKey && entry?.kind !== "block" && !publishedPath)
   )
     return null;
   const refs = await resolveMapReferences(
     db,
     userId,
-    entries.map((e) => e.path_id),
+    [...entries.map((e) => e.path_id), ...published.map((path) => path.id)],
   );
-  const resolvedEntry = entry ? refs.resolve(entryRef(entry)) : null;
+  const resolvedEntry = entry
+    ? refs.resolve(entryRef(entry))
+    : publishedPath
+      ? refs.resolve({ kind: "block", pathId: publishedPath.id })
+      : null;
   if (
     route.unitStableKey &&
     !resolvedEntry?.units.some((u) => u.stable_key === route.unitStableKey)
   )
     return null;
   const levelKey =
-    entry?.kind === "block"
-      ? `block:${entry.id}`
-      : node
-        ? `node:${node.id}`
+    entry?.kind === "block" || publishedPath
+      ? `block:${entry?.id ?? publishedPath!.id}`
+      : node || publishedTopic
+        ? `node:${(node ?? publishedTopic)!.id}`
         : "root";
   const rawLayout = await db
     .selectFrom("learning_map_layouts")
@@ -354,47 +377,66 @@ export async function readMapLevel(
     .where("map_id", "=", map.id)
     .where("level_key", "=", levelKey)
     .executeTakeFirst();
-  const ancestry = [{ title: "Mi mapa", route: rootRoute }];
+  const ancestry = [{ title: "Rutas de aprendizaje", route: rootRoute }];
   if (node)
     ancestry.push({
       title: node.title,
       route: { nodeId: node.id, entryId: null, unitStableKey: null },
+    });
+  else if (publishedTopic)
+    ancestry.push({
+      title: publishedTopic.title,
+      route: { nodeId: publishedTopic.id, entryId: null, unitStableKey: null },
     });
   if (entry?.kind === "block")
     ancestry.push({
       title: refs.item(entryRef(entry), entry.id).title,
       route: { ...route, unitStableKey: null },
     });
+  if (publishedPath)
+    ancestry.push({ title: publishedPath.title, route: { ...route, unitStableKey: null } });
   const currentEntries = node
     ? entries.filter((e) => e.node_id === node.id)
     : entries;
   const covered =
-    entry?.kind === "block"
-      ? [refs.resolve(entryRef(entry))]
-      : currentEntries.map((e) => refs.resolve(entryRef(e)));
+    entry?.kind === "block" || publishedPath
+      ? [resolvedEntry!]
+      : node
+        ? currentEntries.map((e) => refs.resolve(entryRef(e)))
+        : publishedTopic
+          ? published.filter((path) => path.topic_content_id === publishedTopic.id)
+              .map((path) => refs.resolve({ kind: "block", pathId: path.id }))
+        : published.map((path) => refs.resolve({ kind: "block", pathId: path.id }));
   const progress = aggregateMapProgress(
     covered.flatMap((r) => r.essential),
     covered.some((r) => r.unavailable),
   );
   let items: MapItem[];
-  if (!node)
-    items = nodes.map((n) => {
-      const children = entries.filter((e) => e.node_id === n.id);
-      const resolved = children.map((e) => refs.resolve(entryRef(e)));
+  if (publishedPath)
+    items = (resolvedEntry?.units ?? []).map((unit) =>
+      refs.item(
+        { kind: "lesson", pathId: publishedPath.id, unitStableKey: unit.stable_key },
+        `lesson:${unit.stable_key}`,
+      ),
+    );
+  else if (publishedTopic)
+    items = published.filter((path) => path.topic_content_id === publishedTopic.id)
+      .map((path) => refs.item({ kind: "block", pathId: path.id }, path.id));
+  else if (!node)
+    items = topics.map((topic) => {
+      const paths = published.filter((path) => path.topic_content_id === topic.id);
+      const resolved = paths.map((path) => refs.resolve({ kind: "block", pathId: path.id }));
       return {
-        occurrenceId: n.id,
-        canonicalKey: n.id,
-        kind: "node",
-        title: n.title,
-        iconKey: n.icon_key,
-        progress: aggregateMapProgress(
-          resolved.flatMap((r) => r.essential),
-          resolved.some((r) => r.unavailable),
-        ),
-        childCount: children.length,
-        childCountLabel: `${children.length} contenidos`,
-        availability: "available",
-        enrollmentState: "none",
+        occurrenceId: topic.id,
+        canonicalKey: topic.id,
+        kind: "node" as const,
+        title: topic.title,
+        iconKey: "folder" as const,
+        progress: aggregateMapProgress(resolved.flatMap((r) => r.essential)),
+        childCount: paths.length,
+        childCountLabel: `${paths.length} ${paths.length === 1 ? "ruta" : "rutas"}`,
+        availability: "available" as const,
+        enrollmentState: "none" as const,
         pathId: null,
         pathVersionId: null,
         unitStableKey: null,
@@ -409,7 +451,9 @@ export async function readMapLevel(
     );
   else items = currentEntries.map((e) => refs.item(entryRef(e), e.id));
   const selectedRef: MapContentRef | null =
-    entry?.kind === "lesson"
+    publishedPath && route.unitStableKey
+      ? { kind: "lesson", pathId: publishedPath.id, unitStableKey: route.unitStableKey }
+      : entry?.kind === "lesson"
       ? entryRef(entry)
       : entry && route.unitStableKey
         ? {
@@ -431,7 +475,7 @@ export async function readMapLevel(
     next?.options.find((o) => o.isDefault) ??
     next?.options[0];
   const edges: LearningMapLevelResponse["edges"] =
-    entry?.kind === "block"
+    entry?.kind === "block" || publishedPath
       ? items
           .slice(1)
           .map((i, index) => ({
@@ -442,7 +486,7 @@ export async function readMapLevel(
             label: "Orden recomendado; acceso libre",
           }))
       : [];
-  if (entry?.kind !== "block") {
+  if (node && entry?.kind !== "block" && !publishedPath) {
     const topics = new Map<string, Set<string>>();
     for (const e of currentEntries) {
       const id = node ? e.id : e.node_id;
@@ -493,14 +537,11 @@ export async function readMapLevel(
     edges,
     selectedLesson,
     containerSummary: {
-      title:
-        ancestry.at(-1)!.title === "Mi mapa"
-          ? "Mi mapa de aprendizaje"
-          : ancestry.at(-1)!.title,
+      title: ancestry.at(-1)!.title,
       description:
-        entry?.kind === "block"
+        entry?.kind === "block" || publishedPath
           ? (resolvedEntry?.path?.summary ?? "")
-          : "Organiza tu aprendizaje y elige tu próximo paso.",
+          : "Elige una ruta para empezar o continuar.",
       progress,
     },
     nextActivity:

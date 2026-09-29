@@ -5,7 +5,7 @@ import { Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
 import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
-export type MapItemAction = "info" | "select" | "rename" | "add" | "remove" | "move" | "color";
+export type MapItemAction = "info" | "color";
 export type ItemData = {
   item: MapItem;
   iconColor?: string;
@@ -18,12 +18,11 @@ export type ItemData = {
   onPrefetch: (item: MapItem) => () => void;
 };
 export type FlowMapNode = Node<ItemData>;
-export type BranchFlowNode = Node<{ title: string }, "branch">;
 export const statusLabels = {
   not_started: "No iniciado",
   in_progress: "En progreso",
   completed: "✓ Completado",
-  empty: "Agrega contenido",
+  empty: "Sin actividades",
   unavailable: "Progreso no disponible",
 };
 export const LearningMapItem = memo(function LearningMapItem({
@@ -64,21 +63,14 @@ export const LearningMapItem = memo(function LearningMapItem({
         <>
           <Handle
             type="target"
-            position={data.mobile ? Position.Top : Position.Left}
+            position={Position.Top}
             isConnectable={false}
             className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
           <Handle
-            type="target"
-            id="parent"
-            position={Position.Left}
-            isConnectable={false}
-            style={{ opacity: 0 }}
-          />
-          <Handle
             type="source"
-            position={data.mobile ? Position.Bottom : Position.Right}
+            position={Position.Bottom}
             isConnectable={false}
             className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
@@ -107,11 +99,7 @@ export const LearningMapItem = memo(function LearningMapItem({
           {(
             [
               "info",
-              "select",
               "color",
-              ...(item.kind === "node" ? ["rename", "add"] : []),
-              "move",
-              ...(item.occurrenceId.startsWith("lesson:") ? [] : ["remove"]),
             ] as MapItemAction[]
           ).map((action) => (
             <button
@@ -122,17 +110,7 @@ export const LearningMapItem = memo(function LearningMapItem({
                 data.onAction(item, action);
               }}
             >
-              {
-                {
-                  info: "Ver información",
-                  select: data.selected ? "Deseleccionar" : "Seleccionar",
-                  color: "Cambiar color del icono",
-                  rename: "Renombrar",
-                  add: "Agregar contenido",
-                  remove: "Quitar del mapa",
-                  move: "Mover con teclado",
-                }[action]
-              }
+              {{ info: "Ver información", color: "Cambiar color del icono" }[action]}
             </button>
           ))}
         </div>
@@ -192,10 +170,3 @@ export const LearningNode = memo(function LearningNode({
 });
 export const BlockNode = LearningNode;
 export const LessonNode = LearningNode;
-export const BranchNode = memo(function BranchNode({ data }: NodeProps<BranchFlowNode>) {
-  return (
-    <span className={styles.branchPoint} title={`Conexiones de ${data.title}`} aria-hidden="true">
-      <Handle type="source" position={Position.Right} isConnectable={false} style={{ opacity: 0 }} />
-    </span>
-  );
-});

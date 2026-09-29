@@ -127,17 +127,6 @@ const ensured = await map.mutate({
   idempotencyKey: randomUUID(),
 });
 if (ensured.status !== "success") throw new Error("ensure");
-await map.mutate({
-  operation: "nodes",
-  request: {
-    expectedVersion: ensured.value.structuralVersion,
-    title: "Mi nodo E2E",
-    iconKey: "heart",
-    items: [{ kind: "block", pathId: created.value.id }],
-  },
-  userId: student,
-  idempotencyKey: randomUUID(),
-});
 const app = await buildApp(
   {
     HOST: "127.0.0.1",

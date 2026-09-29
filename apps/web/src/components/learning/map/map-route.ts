@@ -31,6 +31,8 @@ export function buildMapHref(route: MapRoute, detail = false) {
 export function parentMapRoute(r: MapRoute): MapRoute {
   return r.unitStableKey
     ? { ...r, unitStableKey: null }
+    : r.entryId && r.entryId === r.nodeId
+      ? ROOT_MAP_ROUTE
     : r.entryId
       ? { ...r, entryId: null }
       : ROOT_MAP_ROUTE;

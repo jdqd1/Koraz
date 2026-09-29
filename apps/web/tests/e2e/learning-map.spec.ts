@@ -2,33 +2,25 @@ import { test, expect } from "@playwright/test";
 const root = "/visual-fixtures/mapa";
 const node = "b1000000-0000-4000-8000-000000000001",
   block = "b1000000-0000-4000-8000-000000000022";
-test("selecting starts from a card menu", async ({ page }) => {
+test("published routes do not expose personal-node creation", async ({ page }) => {
   await page.goto(root);
   await page.getByLabel("Opciones de Anatomía", { exact: true }).click();
-  await page.getByRole("button", { name: "Seleccionar", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Crear nodo (1)" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Seleccionar contenidos" })).toHaveCount(0);
-  await page.getByRole("button", { name: "Cancelar selección" }).click();
-  await expect(page.getByRole("button", { name: "Crear nodo (1)" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Seleccionar", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /crear nodo|agregar contenido/i })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Abrir vistas de aprendizaje" })).toHaveCount(0);
 });
-test("quick views stay in the map and card colors persist locally", async ({ page }, testInfo) => {
+test("card colors persist locally without a views panel", async ({ page }, testInfo) => {
   await page.goto(root);
   await expect(page.getByRole("button", { name: "Abrir Anatomía" })).toBeVisible();
   const initialUrl = page.url();
-  await page.getByRole("button", { name: "Abrir resumen de aprendizaje" }).click();
-  await expect(page.getByRole("complementary", { name: "Resumen de aprendizaje" })).toBeVisible();
-  await page.getByRole("tab", { name: "Rutas" }).click();
-  await expect(page.getByRole("heading", { name: /Mis rutas/ })).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Resumen de aprendizaje" })).toHaveCount(0);
   if (testInfo.project.name === "desktop") {
     await page.setViewportSize({ width: 1024, height: 900 });
     await expect(page.locator('[data-mobile="false"]')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
-  await page.screenshot({ path: testInfo.outputPath("quick-routes.png"), fullPage: true });
-  await page.getByRole("tab", { name: "Progreso" }).click();
-  await expect(page.getByRole("heading", { name: "Tu progreso" })).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("routes.png"), fullPage: true });
   expect(page.url()).toBe(initialUrl);
-  await page.getByRole("button", { name: "Cerrar resumen" }).click();
   await page.getByLabel("Opciones de Anatomía", { exact: true }).click();
   await page.getByRole("button", { name: "Cambiar color del icono" }).click();
   await page.getByRole("dialog", { name: "Color de Anatomía" }).getByRole("button", { name: "Coral" }).click();
@@ -37,7 +29,7 @@ test("quick views stay in the map and card colors persist locally", async ({ pag
   await page.reload();
   await expect(icon).toHaveCSS("color", "rgb(196, 94, 75)");
 });
-test("routes use a horizontal row on desktop and a vertical scroll on mobile", async ({ page, isMobile }) => {
+test("route cards form a vertical column on desktop and mobile", async ({ page, isMobile }) => {
   await page.goto(`${root}?estado=large`);
   const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
   await expect(cards.first()).toBeVisible();
@@ -52,64 +44,61 @@ test("routes use a horizontal row on desktop and a vertical scroll on mobile", a
   } else {
     const first = await cards.first().boundingBox();
     const second = await cards.nth(1).boundingBox();
-    expect(second!.x).toBeGreaterThan(first!.x);
-    expect(Math.abs(second!.y - first!.y)).toBeLessThan(2);
-    const viewport = page.locator(".react-flow__viewport");
-    const before = await viewport.getAttribute("style");
-    await page.getByRole("button", { name: "Rutas siguientes" }).click();
-    await expect(viewport).not.toHaveAttribute("style", before!);
+    expect(second!.y).toBeGreaterThan(first!.y);
+    expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
+    await expect(page.getByRole("button", { name: "Rutas siguientes" })).toHaveCount(0);
   }
   await page.goto(`${root}?node=${node}&item=${block}`);
   await expect(page.locator(".react-flow__edge-path").first()).toHaveAttribute("d", /M/);
   expect(await page.locator(".react-flow__edge path[marker-end]").count()).toBe(0);
   expect(await page.locator(".react-flow__edge").count()).toBeGreaterThan(0);
 });
-test("each opened level draws its lineage without duplicating the back control", async ({ page, isMobile }) => {
+test("lesson levels draw connections from the first card without an incoming line", async ({ page, isMobile }) => {
   await page.goto(root);
+  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
+  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
+  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
+  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
+  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
+  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
   const forwardAnimation = page.waitForFunction(() => {
-    const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-lineage .react-flow__edge-path');
+    const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-connection .react-flow__edge-path');
     if (!line) return false;
     const style = getComputedStyle(line);
     return style.animationName.includes("diagram-line-draw") && style.animationDuration;
   });
-  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  expect(await (await forwardAnimation).jsonValue()).toBe("0.25s");
+  await page.getByRole("button", { name: "Abrir Tórax" }).click();
+  expect(await (await forwardAnimation).jsonValue()).toBe("0.33s");
+  await expect(page.locator(".react-flow__edge-connection path[pathLength='1']")).toHaveCount(7);
   await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
   await expect(page.getByLabel(/Nivel de origen/)).toHaveCount(0);
-  await expect(page.locator(".react-flow__node-branch")).toHaveCount(1);
-  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
-  await expect(page.locator(".react-flow__edge-lineage path[pathLength='1']")).toHaveCount(8);
+  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
+  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(0);
   const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
   const cardBoxes = await Promise.all((await cards.all()).map((card) => card.boundingBox()));
-  const centers = cardBoxes.map((box) => box!.y + box!.height / 2);
-  const branch = await page.locator(".react-flow__node-branch").boundingBox();
-  const groupCenter = (Math.min(...centers) + Math.max(...centers)) / 2;
-  expect(branch!.x).toBeLessThan(cardBoxes[0]!.x);
-  expect(Math.abs(branch!.y + branch!.height / 2 - groupCenter)).toBeLessThan(isMobile ? 12 : 24);
+  expect(cardBoxes[1]!.y).toBeGreaterThan(cardBoxes[0]!.y);
+  expect(Math.abs(cardBoxes[1]!.x - cardBoxes[0]!.x)).toBeLessThan(2);
   if (isMobile) {
     const first = cardBoxes[0]!;
     const second = cardBoxes[1]!;
     expect(second!.y).toBeGreaterThan(first!.y);
     expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    await expect(page.locator(".react-flow__edge-lineage .react-flow__edge-path").first()).toHaveAttribute("d", /C/);
+    await expect(page.locator(".react-flow__edge-connection .react-flow__edge-path").first()).toHaveAttribute("d", /L/);
   }
 
-  await page.getByRole("button", { name: "Abrir Tórax" }).click();
   await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
-  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
-  const backAnimation = page.waitForFunction(() => {
-    const line = document.querySelector('[data-phase="entering"][data-direction="back"] .react-flow__edge-lineage .react-flow__edge-path');
-    return line && getComputedStyle(line).animationName.includes("diagram-line-return");
-  });
+  await expect(page.locator(".react-flow__edge-connection")).toHaveCount(7);
   await page.getByRole("button", { name: "Atrás en el mapa" }).click();
-  await backAnimation;
   await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
+  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.getByRole("button", { name: "Atrás en el mapa" }).click();
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
   await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Abrir Tórax" }).click();
+  await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });
 test("slow level navigation responds immediately and completes the diagram transition", async ({ page }) => {
@@ -256,9 +245,6 @@ test("hierarchy, deep links, back/forward and lesson panel", async ({
     page.getByText("13 % · 1/8 esenciales", { exact: false }),
   ).toBeVisible();
   if (!isMobile) {
-    await page.getByRole("button", { name: "Abrir resumen de aprendizaje" }).click();
-    await expect(page.getByRole("complementary", { name: "Resumen de aprendizaje" })).toBeVisible();
-    await page.getByRole("button", { name: "Cerrar resumen" }).click();
     await expect(page.getByRole("button", { name: "Cerrar lección" })).toBeVisible();
   }
   await page.screenshot({
@@ -289,28 +275,24 @@ test("hierarchy, deep links, back/forward and lesson panel", async ({
   ).toBeVisible();
   expect(errors).toEqual([]);
 });
-test("list, keyboard dialog and document reflow", async ({
+test("icon-only list control aligns right and list reflows", async ({
   page,
 }, testInfo) => {
   await page.goto(`${root}?node=${node}&item=${block}`);
+  await expect(page.getByRole("button", { name: "Abrir Corazón", exact: true })).toBeVisible();
   await page
     .getByRole("button", { name: "Vista de lista", exact: true })
     .click();
   await expect(
     page.getByRole("button", { name: "Abrir Corazón", exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Nuevo nodo o agregar contenido", exact: true }).click();
-  await expect(page.getByRole("dialog", { name: "Nuevo nodo o agregar contenido" })).toBeVisible();
-  await page.getByRole("tab", { name: "Personalizado" }).click();
-  await expect(
-    page.getByRole("textbox", { name: "Nombre" }),
-  ).toBeFocused();
-  await expect(page.getByRole("combobox", { name: "Icono" })).toHaveCount(0);
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(
-    page.getByRole("button", { name: "Nuevo nodo o agregar contenido", exact: true }),
-  ).toBeFocused();
+  const list = page.getByRole("button", { name: "Vista de mapa" });
+  await expect(list).toBeVisible();
+  await expect(list).toHaveText("");
+  const header = await page.locator("header").filter({ has: list }).boundingBox();
+  const listBox = await list.boundingBox();
+  expect(listBox!.x).toBeGreaterThan(header!.x + header!.width / 2);
+  expect(listBox!.x + listBox!.width).toBeGreaterThan(header!.x + header!.width - 32);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -327,6 +309,7 @@ test("manual zoom keeps hierarchy and reduced motion stays usable", async ({
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(root);
+  await expect(page.getByRole("button", { name: "Abrir Anatomía", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Restablecer zoom al 100 %" }).click();
   await expect(
     page.getByRole("button", { name: "Restablecer zoom al 100 %" }),
@@ -336,13 +319,9 @@ test("manual zoom keeps hierarchy and reduced motion stays usable", async ({
     page.getByRole("button", { name: "Restablecer zoom al 100 %" }),
   ).toContainText("110");
   expect(new URL(page.url()).searchParams.has("node")).toBe(false);
-  if (isMobile)
-    await page
-      .getByRole("button", { name: "Vista de lista", exact: true })
-      .click();
-  await page
-    .getByRole("button", { name: "Abrir Anatomía", exact: true })
-    .click();
+  if (isMobile) await page.getByRole("button", { name: "Vista de lista", exact: true }).click();
+  await page.getByRole("button", { name: "Abrir Anatomía", exact: true }).focus();
+  await page.keyboard.press("Enter");
   await expect(
     page.getByRole("heading", { name: "Anatomía", exact: true }),
   ).toBeVisible();
