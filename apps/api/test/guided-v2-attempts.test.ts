@@ -1,4 +1,7 @@
-import { Kysely, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler,
+import { readdir, readFile } from "node:fs/promises";
+import { setTimeout as delay } from "node:timers/promises";
+import { Pool } from "pg";
+import { Kysely, PostgresDialect, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler,
   type CompiledQuery, type DatabaseConnection, type QueryResult } from "kysely";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { RoutePackageSchema } from "@cediah/contracts";
@@ -60,6 +63,194 @@ const definition = RoutePackageSchema.parse({
       thresholdRationale: "Umbral definido para este caso y comprobación sintética." },
   ],
   reviewPlan: { objectiveKeys: [] }, editorial: { notes: "", unresolvedIssues: [] },
+});
+
+// Opt in only to a dedicated disposable local database. Never read DATABASE_URL.
+const concurrencyUrl = process.env.KORAZ_T015_TEST_DATABASE_URL;
+describe.skipIf(!concurrencyUrl)("guided v2 PostgreSQL independent-connection concurrency", () => {
+  let control: Pool;
+  let leftDatabase: Kysely<CediahDatabase>;
+  let rightDatabase: Kysely<CediahDatabase>;
+  let left: ReturnType<typeof createPostgresGuidedV2AttemptService>;
+  let right: ReturnType<typeof createPostgresGuidedV2AttemptService>;
+
+  beforeAll(async () => {
+    const url = new URL(concurrencyUrl!);
+    if (process.env.KORAZ_TEST_DATABASE !== "true" || url.protocol !== "postgresql:"
+      || url.hostname !== "127.0.0.1" || url.port !== "55415"
+      || url.pathname !== "/koraz_t015_test") {
+      throw new Error("T015 requires KORAZ_TEST_DATABASE=true and the isolated localhost:55415/koraz_t015_test database");
+    }
+    control = new Pool({ connectionString: concurrencyUrl, max: 2, application_name: "koraz-t015-control" });
+    const existing = await control.query("select to_regclass('public.auth_users') as table_name");
+    if (existing.rows[0]?.table_name) throw new Error("T015 requires a fresh disposable database; refusing to overwrite existing tables");
+    await control.query("create role cediah_runtime; create role anon; create role authenticated; alter default privileges in schema public grant all on tables to anon, authenticated;");
+    const directory = new URL("../../../database/migrations/", import.meta.url);
+    const files = (await readdir(directory))
+      .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0031_guided_v2_runtime.sql") <= 0)
+      .sort((a, b) => a.localeCompare(b));
+    for (const file of files) {
+      // Same isolated schema fixture as T008: no fabricated legacy admin identity.
+      // This verifies T015 concurrency, not the complete historical migration chain.
+      if (file === "0005_restore_legacy_content.sql") continue;
+      await control.query(`begin;\n${await readFile(new URL(file, directory), "utf8")}\ncommit;`);
+    }
+    const fixture = await control.connect();
+    try {
+    await fixture.query("begin");
+    await fixture.query(`
+      insert into public.auth_users (id,name,email) values ($1,'Concurrency learner','t015@example.test');
+    `, [userId]);
+    await fixture.query(`insert into public.content_items
+      (id,kind,slug,title,summary,topic,author_user_id,status,catalog_visibility,published_at,published_by)
+      values ($1,'topic','runtime-topic','Runtime topic','Fixture','Runtime',$2,'published','catalog',now(),$2)`, [v2Id(3), userId]);
+    await fixture.query(`insert into public.learning_paths (id,topic_content_id,slug,title,summary,cover_key,created_by)
+      values ($1,$2,'runtime-route','Runtime route','Fixture','heart',$3)`, [v2Id(4), v2Id(3), userId]);
+    await fixture.query(`insert into public.learning_path_versions
+      (id,path_id,version_number,policy_version,policy_json,definition_v2_json)
+      values ($1,$2,2,'guided-v2.0','{}',$3::jsonb)`, [versionId, v2Id(4), JSON.stringify(definition)]);
+    await fixture.query(`insert into public.learning_enrollments (id,user_id,path_id,path_version_id)
+      values ($1,$2,$3,$4)`, [enrollmentId, userId, v2Id(4), versionId]);
+    await fixture.query(`insert into public.learning_enrollment_versions (enrollment_id,path_id,path_version_id)
+      values ($1,$2,$3)`, [enrollmentId, v2Id(4), versionId]);
+    await fixture.query(`insert into public.content_assets
+      (id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at)
+      values ($1,$2,$3,'image','test-assets','v2-diagram','diagram.png','image/png',100,'ready',now())`, [assetId, v2Id(3), userId]);
+    await fixture.query("insert into public.learning_v2_bindings (path_version_id,local_key,kind,topic_content_id) values ($1,'topic','topic',$2)", [versionId, v2Id(3)]);
+    await fixture.query(`insert into public.learning_v2_bindings (path_version_id,local_key,kind,asset_id,rights_status,rights_credit)
+      values ($1,'diagram','asset',$2,'owned','')`, [versionId, assetId]);
+    await fixture.query("update public.learning_path_versions set status = 'published', published_at = now(), published_by = $2 where id = $1", [versionId, userId]);
+    await fixture.query("update public.learning_paths set published_version_id = $1 where id = $2", [versionId, v2Id(4)]);
+    await fixture.query("commit");
+    } catch (error) {
+      await fixture.query("rollback");
+      throw error;
+    } finally {
+      fixture.release();
+    }
+    const makeDatabase = (name: string) => new Kysely<CediahDatabase>({ dialect: new PostgresDialect({
+      pool: new Pool({ connectionString: concurrencyUrl, max: 1, application_name: name,
+        statement_timeout: 10000, connectionTimeoutMillis: 5000 }),
+    }) });
+    leftDatabase = makeDatabase("koraz-t015-left");
+    rightDatabase = makeDatabase("koraz-t015-right");
+    const options = { now: () => new Date("2026-09-28T12:00:00Z") };
+    left = createPostgresGuidedV2AttemptService(leftDatabase, options);
+    right = createPostgresGuidedV2AttemptService(rightDatabase, options);
+    const server = await control.query("select version() as version");
+    console.info(`T015 independent connections: ${server.rows[0].version}`);
+  }, 120000);
+
+  afterAll(async () => {
+    await leftDatabase?.destroy();
+    await rightDatabase?.destroy();
+    await control?.end();
+  });
+
+  // Hold the actor lock until BOTH independent service connections are waiting.
+  // Promise.all alone could otherwise pass with effectively sequential execution.
+  async function overlap<T>(startLeft: () => Promise<T>, startRight: () => Promise<T>): Promise<[T, T]> {
+    const blocker = await control.connect();
+    let pending: Promise<[T, T]> | undefined;
+    let released = false;
+    try {
+      await blocker.query("begin");
+      await blocker.query("select id from public.auth_users where id = $1 for update", [userId]);
+      pending = Promise.all([startLeft(), startRight()]);
+      // Attach a handler immediately so a setup failure never leaves unhandled work.
+      void pending.catch(() => {});
+      const deadline = Date.now() + 5000;
+      let waiting = false;
+      while (Date.now() < deadline) {
+        const sessions = await control.query(`select pid from pg_stat_activity
+          where application_name in ('koraz-t015-left','koraz-t015-right')
+            and wait_event_type = 'Lock' and cardinality(pg_blocking_pids(pid)) > 0`);
+        if (sessions.rows.length === 2 && sessions.rows[0].pid !== sessions.rows[1].pid) {
+          waiting = true;
+          break;
+        }
+        await delay(10);
+      }
+      expect(waiting, "both distinct PostgreSQL backends must contend before releasing the lock").toBe(true);
+      await blocker.query("commit");
+      released = true;
+      return await pending;
+    } finally {
+      if (!released) await blocker.query("rollback");
+      blocker.release();
+      if (pending) await Promise.allSettled([pending]);
+    }
+  }
+
+  const createInput = (n: number) => ({ userId, enrollmentId, clientAttemptId: id(n),
+    idempotencyKey: id(n + 1), target: { kind: "activity" as const, key: "choice" }, expectedEnrollmentVersion: 1 });
+
+  async function assertOneEffect(attemptId: string) {
+    const counts = await control.query(`select
+      (select count(*)::int from public.learning_v2_responses where attempt_id = $1) as responses,
+      (select count(*)::int from public.learning_v2_activity_state where evidence_attempt_id = $1) as progress,
+      (select count(*)::int from public.learning_events where payload_json->>'v2AttemptId' = $1::text) as events,
+      row_version from public.learning_v2_attempts where id = $1`, [attemptId]);
+    expect(counts.rows[0]).toEqual({ responses: 1, progress: 1, events: 2, row_version: 2 });
+  }
+
+  it("concurrent identical creation returns the original receipt and one private snapshot", async () => {
+    const input = createInput(200);
+    const results = await overlap(() => left.create(input), () => right.create(input));
+    expect(results[0].status).toBe("success");
+    expect(results[1]).toEqual(results[0]);
+    const counts = await control.query(`select
+      (select count(*)::int from public.learning_v2_attempts where client_attempt_id = $1) as attempts,
+      (select replay_count from public.learning_mutation_receipts where user_id = $2 and idempotency_key = $3) as replays`,
+    [input.clientAttemptId, userId, input.idempotencyKey]);
+    expect(counts.rows[0]).toEqual({ attempts: 1, replays: 1 });
+  }, 15000);
+
+  it.each([0, 1, 2, 3, 4])("concurrent identical responses have one effect and replay the same receipt (round %i)", async (round) => {
+    const created = await left.create(createInput(300 + round * 10));
+    if (created.status !== "success") throw new Error("create failed");
+    const attemptId = created.value.attemptId;
+    const input = { userId, attemptId, idempotencyKey: id(302 + round * 10), activityKey: "choice",
+      answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 };
+    const results = await overlap(() => left.respond(input), () => right.respond(input));
+    expect(results[0]).toMatchObject({ status: "success", value: { accepted: true } });
+    expect(results[1]).toEqual(results[0]);
+    await assertOneEffect(attemptId);
+    const receipt = await control.query("select response_json, http_status, replay_count from public.learning_mutation_receipts where user_id = $1 and idempotency_key = $2", [userId, input.idempotencyKey]);
+    expect(receipt.rows).toEqual([{ response_json: results[0], http_status: 200, replay_count: 1 }]);
+  }, 15000);
+
+  it.each([0, 1, 2, 3, 4])("concurrent different responses sharing expectedVersion accept only one (round %i)", async (round) => {
+    const created = await left.create(createInput(400 + round * 10));
+    if (created.status !== "success") throw new Error("create failed");
+    const attemptId = created.value.attemptId;
+    const input = { userId, attemptId, idempotencyKey: id(402 + round * 10), activityKey: "choice",
+      answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 };
+    const other = { ...input, idempotencyKey: id(403 + round * 10), answer: { kind: "single_choice", optionKey: "no" } };
+    const results = await overlap(() => left.respond(input), () => right.respond(other));
+    expect(results.map((result) => result.status).sort()).toEqual(["conflict", "success"]);
+    await assertOneEffect(attemptId);
+    const receipts = await control.query("select http_status from public.learning_mutation_receipts where user_id = $1 and idempotency_key = any($2::uuid[]) order by http_status", [userId, [input.idempotencyKey, other.idempotencyKey]]);
+    expect(receipts.rows).toEqual([{ http_status: 200 }, { http_status: 409 }]);
+    const winner = results[0].status === "success" ? input : other;
+    const response = await control.query("select answer_json from public.learning_v2_responses where attempt_id = $1", [attemptId]);
+    expect(response.rows).toEqual([{ answer_json: winner.answer }]);
+    expect(await left.read({ userId, attemptId })).toMatchObject({ status: "success", value: { rowVersion: 2, activeActivity: null } });
+  }, 15000);
+
+  it("concurrent bodies with the same idempotency key conflict without a second effect", async () => {
+    const created = await left.create(createInput(500));
+    if (created.status !== "success") throw new Error("create failed");
+    const attemptId = created.value.attemptId;
+    const input = { userId, attemptId, idempotencyKey: id(502), activityKey: "choice",
+      answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 };
+    const other = { ...input, answer: { kind: "single_choice", optionKey: "no" } };
+    const results = await overlap(() => left.respond(input), () => right.respond(other));
+    expect(results.map((result) => result.status).sort()).toEqual(["idempotency_conflict", "success"]);
+    await assertOneEffect(attemptId);
+    const receipts = await control.query("select count(*)::int as count from public.learning_mutation_receipts where user_id = $1 and idempotency_key = $2", [userId, input.idempotencyKey]);
+    expect(receipts.rows).toEqual([{ count: 1 }]);
+  }, 15000);
 });
 
 function databaseFor(pg: PGlite): Kysely<CediahDatabase> {
