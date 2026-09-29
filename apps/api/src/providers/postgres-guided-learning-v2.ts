@@ -36,6 +36,7 @@ import {
   type GuidedV2AttemptTarget,
 } from "../guided-learning/v2/service.js";
 import { guidedV2AttemptManifest } from "../guided-learning/v2/manifests.js";
+import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceState } from "../guided-learning/v2/evidence.js";
 import { gradeBasicActivity, type BasicGradingResult } from "../guided-learning/v2/grading.js";
 import { hashRoutePackage } from "../guided-learning/v2/validation.js";
 import { validateBoundRoutePackage } from "../guided-learning/v2/validation.js";
@@ -891,10 +892,127 @@ export type GuidedV2ResponseReceipt = {
   attempt: V2AttemptManifest;
 };
 
+/** Source facts are append-only responses and semantic events, never the derived cache. */
+async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: string, pathVersionId: string, now: Date): Promise<GuidedV2EvidenceState> {
+  const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+    .where("id", "=", pathVersionId).executeTakeFirstOrThrow();
+  const definition = RoutePackageSchema.parse(version.definition_v2_json);
+  const attempts = await transaction.selectFrom("learning_v2_attempts").selectAll()
+    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
+    .where("path_version_id", "=", pathVersionId).execute();
+  const responses = await transaction.selectFrom("learning_v2_responses").selectAll()
+    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
+    .where("path_version_id", "=", pathVersionId).execute();
+  const events = await transaction.selectFrom("learning_events").selectAll()
+    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
+    .where("policy_version", "=", "guided-v2.0").orderBy("occurred_at").orderBy("id").execute();
+  const snapshots = new Map(attempts.map((attempt) => [attempt.id, parseGuidedV2AttemptSnapshot(attempt.snapshot_json)]));
+  const responseEvents = new Map<string, typeof events[number]>();
+  const timeline: GuidedV2EvidenceEvent[] = [];
+  for (const event of events) {
+    const payload = event.payload_json;
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) continue;
+    if (event.event_type === "response_accepted" && typeof payload.responseId === "string") responseEvents.set(payload.responseId, event);
+    if (event.event_type === "activity_completed" && payload.state === "dispensed"
+      && payload.pathVersionId === pathVersionId && typeof payload.activityKey === "string" && typeof payload.reason === "string") {
+      timeline.push({ kind: "dispense", id: event.id, semanticKey: event.semantic_key,
+        at: event.occurred_at.toISOString(), activityKey: payload.activityKey, reason: payload.reason });
+    }
+    const snapshot = typeof payload.v2AttemptId === "string" ? snapshots.get(payload.v2AttemptId) : null;
+    if (!snapshot || snapshot.pathVersionId !== pathVersionId) continue;
+    const activityKey = typeof payload.activityKey === "string" ? payload.activityKey : snapshot.orderedKeys[0];
+    if (!activityKey || !snapshot.activities.some((activity) => activity.key === activityKey)) continue;
+    if (event.event_type === "activity_presented" || event.event_type === "help_requested") {
+      timeline.push({ id: event.id, semanticKey: event.semantic_key, at: event.occurred_at.toISOString(), activityKey,
+        ...(event.event_type === "help_requested" && payload.kind === "reveal"
+          ? { kind: "reveal" as const } : { kind: "interaction" as const, assisted: event.event_type === "help_requested" }) });
+    }
+  }
+  for (const response of responses) {
+    const snapshot = snapshots.get(response.attempt_id);
+    const activity = snapshot?.activities.find((item) => item.key === response.activity_key);
+    if (!snapshot || !activity) continue;
+    const assessment = snapshot.target.kind === "assessment"
+      ? definition.assessments.find((item) => item.key === snapshot.target.key) : null;
+    const authorizedUse = snapshot.target.kind === "review"
+      ? ["learning", "gate"].includes(activity.use)
+      : snapshot.target.kind === "assessment" ? Boolean(assessment)
+        : ["learning", "gate"].includes(activity.use);
+    const grading = response.grading_json;
+    const responseKey = grading && typeof grading === "object" && !Array.isArray(grading)
+      && typeof grading.responseKey === "string" ? grading.responseKey : null;
+    const event = responseEvents.get(response.id);
+    timeline.push({ kind: "response", id: event?.id ?? response.id,
+      semanticKey: `v2-response:${response.attempt_id}:${response.activity_key}`, at: response.accepted_at.toISOString(),
+      attemptId: response.attempt_id, activityKey: response.activity_key, objectiveKey: response.objective_key,
+      equivalenceKey: response.equivalence_key, phase: activity.phase, modality: response.modality,
+      purpose: assessment?.kind === "diagnostic" ? "diagnostic" : response.purpose,
+      gradingSource: response.grading_source, score01: response.score01, responseKey, assisted: response.assisted,
+      valid: authorizedUse && snapshot.pathVersionId === pathVersionId
+        && snapshot.orderedKeys.includes(response.activity_key)
+        && response.item_revision_hash === guidedV2ItemRevisionHash(activity) });
+  }
+  for (const attempt of attempts.filter((item) => item.status === "completed" && item.submitted_at)) {
+    const snapshot = snapshots.get(attempt.id);
+    if (!snapshot || snapshot.target.kind !== "assessment") continue;
+    const assessment = definition.assessments.find((item) => item.key === snapshot.target.key && item.kind === "final");
+    if (!assessment) continue;
+    const answers = responses.filter((response) => response.attempt_id === attempt.id);
+    timeline.push({ kind: "final", id: events.find((event) => event.semantic_key === `v2-complete:${attempt.id}`)?.id ?? attempt.id,
+      semanticKey: `v2-complete:${attempt.id}`, at: attempt.submitted_at!.toISOString(),
+      assessmentKey: assessment.key, attemptId: attempt.id,
+      valid: snapshot.pathVersionId === pathVersionId && snapshot.orderedKeys.every((key) => answers.some((response) => response.activity_key === key)),
+      answers: answers.map((response) => ({ objectiveKey: response.objective_key, score01: response.score01,
+        gradingSource: response.grading_source, assisted: response.assisted })) });
+  }
+  const due = await transaction.selectFrom("learning_v2_review_state").select("objective_key")
+    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
+    .where("path_version_id", "=", pathVersionId).where("due_at", "<=", now).execute();
+  const state = rebuildGuidedV2Evidence(definition, timeline, { dueObjectiveKeys: due.map((row) => row.objective_key) });
+  const cached = await transaction.selectFrom("learning_v2_objective_state").selectAll()
+    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
+    .where("path_version_id", "=", pathVersionId).orderBy("objective_key").forUpdate().execute();
+  for (const objective of [...state.objectives].sort((a, b) => a.objectiveKey.localeCompare(b.objectiveKey))) {
+    const existing = cached.find((row) => row.objective_key === objective.objectiveKey);
+    const error = { open: objective.openCriticalErrors };
+    if (existing && hashLearningSnapshot(existing.evidence_json) === hashLearningSnapshot(objective)
+      && hashLearningSnapshot(existing.error_json) === hashLearningSnapshot(error)
+      && (existing.first_mastered_at?.toISOString() ?? null) === objective.firstMasteredAt
+      && (existing.first_consolidated_at?.toISOString() ?? null) === objective.firstConsolidatedAt) continue;
+    await transaction.insertInto("learning_v2_objective_state").values({
+      user_id: userId, enrollment_id: enrollmentId, path_version_id: pathVersionId, objective_key: objective.objectiveKey,
+      evidence_json: objective as JsonValue, error_json: error as JsonValue,
+      first_mastered_at: objective.firstMasteredAt ? new Date(objective.firstMasteredAt) : null,
+      first_consolidated_at: objective.firstConsolidatedAt ? new Date(objective.firstConsolidatedAt) : null,
+      updated_at: now,
+    }).onConflict((conflict) => conflict.columns(["enrollment_id", "path_version_id", "objective_key"]).doUpdateSet({
+      evidence_json: objective as JsonValue, error_json: error as JsonValue,
+      first_mastered_at: objective.firstMasteredAt ? new Date(objective.firstMasteredAt) : null,
+      first_consolidated_at: objective.firstConsolidatedAt ? new Date(objective.firstConsolidatedAt) : null,
+      row_version: sql<number>`learning_v2_objective_state.row_version + 1`, updated_at: now,
+    })).execute();
+  }
+  return state;
+}
+
 /** Runtime mutations are deliberately separate from editorial storage. */
 export function createPostgresGuidedV2AttemptService(database: DatabaseClient, options: { now?: () => Date } = {}) {
   const now = () => options.now?.() ?? new Date();
   return {
+    async readEvidence(input: { userId: string; enrollmentId: string }): Promise<GuidedV2AttemptResult<GuidedV2EvidenceState>> {
+      return database.transaction().execute(async (transaction) => {
+        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        if (!actor) return { status: "forbidden" };
+        const enrollment = await transaction.selectFrom("learning_enrollments").selectAll()
+          .where("id", "=", input.enrollmentId).where("user_id", "=", input.userId).forUpdate().executeTakeFirst();
+        if (!enrollment) return { status: "not_found" };
+        if (enrollment.status !== "active") return { status: "access_revoked" };
+        const version = await transaction.selectFrom("learning_path_versions").select("policy_version")
+          .where("id", "=", enrollment.path_version_id).executeTakeFirst();
+        if (version?.policy_version !== "guided-v2.0") return { status: "conflict" };
+        return { status: "success", value: await v2RebuildEvidence(transaction, input.userId, enrollment.id, enrollment.path_version_id, now()) };
+      });
+    },
     async create(input: { userId: string; idempotencyKey: string; clientAttemptId: string;
       enrollmentId: string; target: GuidedV2AttemptTarget; expectedEnrollmentVersion: number;
     }): Promise<GuidedV2AttemptResult<V2AttemptManifest>> {
@@ -939,7 +1057,9 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               user_id: input.userId, enrollment_id: enrollment.id, attempt_id: null,
               event_type: "activity_presented", semantic_key: `v2-presented:${created.id}`,
               payload_json: { v2AttemptId: created.id, targetKey: input.target.key }, policy_version: "guided-v2.0",
+              occurred_at: now(),
             }).execute();
+            await v2RebuildEvidence(transaction, input.userId, enrollment.id, version.id, now());
             const manifest = await v2AttemptManifestFromRow(transaction, created);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attemptId));
@@ -996,7 +1116,9 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
               event_type: "help_requested", semantic_key: `v2-help:${row.id}:${activity.key}:${input.kind}`,
               payload_json: { v2AttemptId: row.id, activityKey: activity.key, kind: input.kind }, policy_version: "guided-v2.0",
+              occurred_at: now(),
             }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
+            await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, now());
             const manifest = await v2AttemptManifestFromRow(transaction, updated);
             return manifest ? { status: "success", value: { help: { kind: input.kind, text }, attempt: manifest } } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attempt.attemptId));
@@ -1094,6 +1216,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               payload_json: { v2AttemptId: row.id, responseId: response.id, activityKey: activity.key },
               policy_version: "guided-v2.0", occurred_at: serverTime,
             }).execute();
+            await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime);
             const manifest = await v2AttemptManifestFromRow(transaction, updated);
             const feedback = graded.feedback;
             return manifest ? { status: "success", value: { accepted: true, attempt: manifest,
@@ -1136,6 +1259,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               payload_json: { v2AttemptId: row.id, responsesCount: count.count },
               policy_version: "guided-v2.0", occurred_at: serverTime,
             }).execute();
+            await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime);
             const manifest = await v2AttemptManifestFromRow(transaction, updated);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attemptId));

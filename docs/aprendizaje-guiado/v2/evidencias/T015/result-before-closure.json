@@ -1,6 +1,6 @@
 {
   "taskId": "T015",
-  "status": "PASS",
+  "status": "NO VERIFICADO",
   "baseSha": "dc5db6cafd884cdd34aad4b6d4ccfbbbd70045e4",
   "recordedUtc": "2026-09-29T00:32:26Z",
   "predecessors": [
@@ -41,27 +41,15 @@
       "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/state.txt"
     },
     {
-      "exitCode": 0,
-      "result": "PASS: 19/19 (7 PGlite + 12 PostgreSQL 17.11, two independent service connections with observed lock contention)",
-      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/postgres-concurrency-tests.txt",
-      "command": "KORAZ_TEST_DATABASE=true; KORAZ_T015_TEST_DATABASE_URL=local isolated database; pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-attempts.test.ts --reporter=verbose"
-    },
-    {
-      "exitCode": 0,
-      "result": "PASS: fresh isolated cluster, contracts build, 19/19 tests, server stopped",
-      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/postgres-harness-tests.txt",
-      "command": "run-postgres-concurrency.ps1 -PostgresBin portable PostgreSQL bin"
-    },
-    {
-      "exitCode": 0,
-      "result": "PASS",
-      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/closure-state.txt",
-      "command": "git diff --check (closure)"
+      "command": "PostgreSQL independiente: dos solicitudes simultáneas iguales y dos respuestas distintas con expectedVersion común",
+      "exitCode": null,
+      "result": "NO VERIFICADO: sin servidor PostgreSQL, Docker, WSL ni URL de prueba",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/postgres-availability.txt"
     }
   ],
   "acceptance": {
     "I04_basic": "PASS en PGlite secuencial: reenvío de mismo hash devuelve recibo; cuerpo distinto con misma clave da idempotency_conflict; respuesta diferente a la ya aceptada da conflicto sin nuevo efecto.",
-    "I04_concurrent": "PASS en PostgreSQL 17.11: dos PID independientes observados esperando locks; create duplicado, response duplicada (5 rondas), respuestas distintas con expectedVersion comun (5 rondas), misma clave/cuerpo diferente. Un efecto; recibos 200/409 y replay original.",
+    "I04_concurrent": "NO VERIFICADO en conexiones PostgreSQL independientes.",
     "S03_basic": "PASS en manifiesto de servicio: no entrega correctKey, soluciones ni preguntas futuras antes de responder; snapshot privado persiste la selección.",
     "S03_network": "NO VERIFICADO: rutas HTTP/SSR aún no montadas en T015.",
     "S04_basic": "PASS en PGlite: asset retirado pausa el intento, no entrega etapa ni crea respuesta/progreso; restaurarlo reanuda la misma etapa.",
@@ -69,24 +57,10 @@
     "atomicity": "PASS en PGlite: respuesta, progreso, evento y receipt se confirman en una transacción; respuesta append-only y una por actividad/intento."
   },
   "limits": [
-    "La capa de servicio no esta montada en rutas HTTP; contrato de red, SSR y estado de dominio/agenda pertenecen a tareas posteriores.",
-    "No se verifico staging ni produccion.",
-    "El fixture aislado omite 0005_restore_legacy_content.sql igual que T008. No acredita M01 completo ni el runner de checksums."
+    "La prueba de concurrencia PostgreSQL real de la ficha sigue pendiente; PGlite no aporta conexiones independientes.",
+    "La capa de servicio no está montada en rutas HTTP; contrato de red, SSR y estado de dominio/agenda pertenecen a tareas posteriores.",
+    "No se verificó staging ni producción."
   ],
-  "nextTaskIds": [
-    "T016"
-  ],
-  "scope": "Solo archivos permitidos de T015 y evidencias/T015; T016 no iniciado. Esperar instrucción del usuario.",
-  "closedUtc": "2026-09-29T20:00:26.4975321Z",
-  "closureBaseSha": "37803042e27605138be4b95d6e95ddbf685f2508",
-  "previousStatus": "NO VERIFICADO",
-  "closureChangedFiles": [
-    "apps/api/test/guided-v2-attempts.test.ts",
-    "docs/aprendizaje-guiado/v2/evidencias/T015/"
-  ],
-  "closureNotes": [
-    "Fixture corregido: matricula/version adoptada insertadas en una misma transaccion; fallo inicial conservado.",
-    "Harness Windows corregido: redireccion de handles y espera solo de pg_ctl, no del arbol del daemon; logs de intentos conservados.",
-    "No se cambio logica del servicio; T016 no iniciado."
-  ]
+  "nextTaskIds": ["T016"],
+  "scope": "Solo archivos permitidos de T015 y evidencias/T015; T016 no iniciado. Esperar instrucción del usuario."
 }

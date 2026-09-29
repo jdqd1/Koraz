@@ -65,14 +65,12 @@ export const LearningMapItem = memo(function LearningMapItem({
             type="target"
             position={Position.Top}
             isConnectable={false}
-            className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
           <Handle
             type="source"
             position={Position.Bottom}
             isConnectable={false}
-            className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
         </>

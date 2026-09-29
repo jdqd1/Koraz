@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P08 requires two recall families and an application in a different representation 17ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"assisted":true}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"diagnostic"}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"preview"}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"self"}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"none"}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"score01":0.75}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"valid":false}) 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reading and confidence do not grant evidence; empty evidence is null 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > keeps one family and does not reset the eligible window on immediate retries 6ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reuse waits 24h from the last response or reveal, including assisted exposures 4ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > uses only the five latest distinct eligible families and unrounded objective scores 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a latest eligible failure revokes current mastery while retaining its first date 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > critical errors need editorial mapping, completed remediation and objective verification 4ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P09 CORE cannot be compensated by a high average; missing is zero and optional failures do not block 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > blocked descendants leave independent branches available 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P10 completed, mastered and consolidated are separate; dispensations have their own count 8ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a final omitting a required objective scores that objective zero 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > retention requires days 7 and 30, separation of 7 days and distinct families 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > replay and input ordering preserve exact state; semantic duplicates have no effect 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable 218ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > failure rolls back response, progress, event, receipt and evidence together 75ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  16:18:45
+   Duration  4.52s (transform 320ms, setup 0ms, import 879ms, tests 3.35s, environment 0ms)

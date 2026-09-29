@@ -1,0 +1,99 @@
+{
+  "taskId": "T016",
+  "status": "PASS",
+  "baseSha": "37803042e27605138be4b95d6e95ddbf685f2508",
+  "recordedUtc": "2026-09-29T20:28:09.8405588Z",
+  "predecessors": [
+    "T002/verification.json: PASS",
+    "T014/result.json: PASS",
+    "T015/result.json: PASS (including PostgreSQL closure)"
+  ],
+  "changedFilesForT016": [
+    "apps/api/src/guided-learning/v2/evidence.ts",
+    "apps/api/src/guided-learning/v2/policy.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-evidence.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T016/"
+  ],
+  "additionalUserAuthorizedDesignDocs": [
+    "docs/aprendizaje-guiado/v2/DISENO-RUTAS.md",
+    "docs/aprendizaje-guiado/v2/ADR-v2.md",
+    "docs/aprendizaje-guiado/v2/policy-spec.md",
+    "C:/Users/josed/Documents/Codex/2026-09-26/act-a-como-arquitecto-principal-de-2/outputs/koraz-rutas-aprendizaje/PLAN-MAESTRO-KORAZ.md",
+    "C:/Users/josed/Documents/Codex/2026-09-26/act-a-como-arquitecto-principal-de-2/outputs/koraz-rutas-aprendizaje/HANDOFF-EJECUTOR.md",
+    "C:/Users/josed/Documents/Codex/2026-09-26/act-a-como-arquitecto-principal-de-2/outputs/koraz-rutas-aprendizaje/SHA256.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-evidence.test.ts test/guided-v2-attempts.test.ts --reporter=verbose",
+      "result": "PASS: 35 (28 evidence/policy + 7 attempt persistence); 12 PostgreSQL cases skipped here and executed separately",
+      "exitCode": 0,
+      "evidence": "focused-tests.txt"
+    },
+    {
+      "command": "T015 portable PostgreSQL reproduction harness against changed provider",
+      "result": "PASS: 19/19, including 12 independent-connection concurrency cases; server stopped",
+      "exitCode": 0,
+      "evidence": "postgres-regression-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "lint.txt"
+    },
+    {
+      "command": "Design directive and six SHA256 manifest entries",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "design-directive.txt"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "state.txt"
+    }
+  ],
+  "acceptance": {
+    "designDirective": "PASS: owner directive recorded in original master plan and handoff and in repository documentation; current design is the approved base for later UI tasks.",
+    "P10": "PASS: completion, mastery and consolidation independent; dispensed count and reason separate; days 7/30 and 7-day separation, different families, historical achievements retained after a later failure.",
+    "P09": "PASS: required CORE cannot be compensated by average, missing score is zero, optional failures do not block, descendants gated and independent branches remain available.",
+    "reconstruction": "PASS: deterministic semantic replay, cache corruption/deletion repaired from pinned snapshots and append-only responses/events, historical dates reconstructed; unchanged replay preserves cache row_version.",
+    "P08": "PASS: three distinct eligible families, two recalls and application differing from explanation; 24h reuse, five-family window, no rounding; assisted/diagnostic/self/preview/partial/invalid excluded.",
+    "atomicity": "PASS: forced cache write failure rolls back response/progress/event/receipt/evidence; PostgreSQL concurrency regression remains green."
+  },
+  "resolvedIssues": [
+    "Synthetic study fixture initially used incorrect payload field names; repaired to existing contract; first-run log retained.",
+    "Redundant preview comparison triggered TypeScript narrowing error after preview isolation; removed without altering the intended behavior."
+  ],
+  "limits": [
+    "No learner HTTP endpoints/SSR or UI verification: later tasks.",
+    "No scheduler/adaptive selection/reward implementation; T017 not started.",
+    "No global suite, staging or production verification.",
+    "Isolated DB fixture omits historical 0005 as in T008; does not verify M01/checksum runner.",
+    "Dispensation is derived from authorized semantic events with reasons; adaptive creation of those events belongs to later tasks."
+  ],
+  "nextTaskIds": [
+    "T017"
+  ],
+  "scope": "Only T016 allowlist and evidence plus the explicitly requested design-document amendment. Pre-existing T015 working-tree changes preserved.",
+  "sourceSha256": {
+    "apps/api/src/guided-learning/v2/evidence.ts": "d372402650074df454023c4f8268db855c1afb61ae99d158664265e77eada4b5",
+    "apps/api/src/guided-learning/v2/policy.ts": "18412f1df4e78112b27ef71e8759737a7712ca602dbc7969e3de4ce1b7c57180",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts": "6b6091bd4adb3cdedfaf87c5de723b57bf41c831e241487e086d7c41150b577d",
+    "apps/api/test/guided-v2-evidence.test.ts": "ce92c5766b029903b127ef86e51d42752a93b75b26617e57a1fd8a0c99e1c30b"
+  }
+}

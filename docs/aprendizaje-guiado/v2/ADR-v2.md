@@ -9,6 +9,11 @@ Este ADR materializa decisiones del plan sin cambiar contratos ni parámetros. L
 
 ## Decisiones D01–D17
 
+**Actualización autorizada el 29/09/2026:** la adaptación de v2 debe conservar la
+esencia del diseño actual de rutas para alumno y administrador. Aplicar la
+[directriz de diseño](DISENO-RUTAS.md) en las tareas de interfaz; las capacidades
+del plan se integran en esa base, con mejoras graduales de compatibilidad y uso.
+
 | ID | Decisión normativa | Consecuencia y tarea principal |
 |---|---|---|
 | D01 | Extender Koraz y reutilizar identidad, catálogo, permisos y shell. | Sin proyecto ni stack nuevo; T003–T034. |

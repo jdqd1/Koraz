@@ -1,0 +1,56 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P08 requires two recall families and an application in a different representation 37ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"assisted":true}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"diagnostic"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"preview"}) 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"self"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"none"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"score01":0.75}) 7ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"valid":false}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reading and confidence do not grant evidence; empty evidence is null 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > compares application with the explanation, not with a worked example 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > preview cannot change learner state or postpone eligibility of a real response 14ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > keeps one family and does not reset the eligible window on immediate retries 6ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reuse waits 24h from the last response or reveal, including assisted exposures 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > uses only the five latest distinct eligible families and unrounded objective scores 9ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a latest eligible failure revokes current mastery while retaining its first date 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > critical errors need editorial mapping, completed remediation and objective verification 9ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P09 CORE cannot be compensated by a high average; missing is zero and optional failures do not block 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > blocked descendants leave independent branches available 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P10 completed, mastered and consolidated are separate; dispensations have their own count 6ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a final omitting a required objective scores that objective zero 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > retention requires days 7 and 30, separation of 7 days and distinct families 10ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > replay and input ordering preserve exact state; semantic duplicates have no effect 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > recovery keeps the first mastery date and respects the unit's editorial threshold 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a case counts its wrapper once only after all children in the same attempt 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > an empty initial plan is not a completed route 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable 462ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > failure rolls back response, progress, event, receipt and evidence together 215ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists final and deferred evidence, then reconstructs historical consolidation after a later failure 691ms
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical creation returns the original receipt and one private snapshot
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent bodies with the same idempotency key conflict without a second effect
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > fixes a private snapshot and resumes the same stage without exposing future answers 174ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > accepts each response once, blocks future answers, and commits completion with the receipt 351ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > persists help as assisted on the server and rejects stale expectedVersion 160ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps constructed text pending until a persisted reveal and self-rating 164ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > resumes a case at the next child without scoring its wrapper twice 144ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps case completion separate within a longer assessment 156ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > pauses on withdrawn content without revealing the next item or creating progress 111ms
+
+ Test Files  2 passed (2)
+      Tests  35 passed | 12 skipped (47)
+   Start at  16:25:48
+   Duration  17.48s (transform 435ms, setup 0ms, import 2.36s, tests 14.27s, environment 0ms)
+exitCode: 0

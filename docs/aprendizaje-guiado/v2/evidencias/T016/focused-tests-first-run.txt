@@ -1,0 +1,2878 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical creation returns the original receipt and one private snapshot
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent bodies with the same idempotency key conflict without a second effect
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > fixes a private snapshot and resumes the same stage without exposing future answers 148ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > accepts each response once, blocks future answers, and commits completion with the receipt 300ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > persists help as assisted on the server and rejects stale expectedVersion 106ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps constructed text pending until a persisted reveal and self-rating 104ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > resumes a case at the next child without scoring its wrapper twice 89ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps case completion separate within a longer assessment 75ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > pauses on withdrawn content without revealing the next item or creating progress 63ms
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P08 requires two recall families and an application in a different representation 11ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"assisted":true}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"diagnostic"}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"preview"}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"self"}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"none"}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"score01":0.75}) 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"valid":false}) 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reading and confidence do not grant evidence; empty evidence is null 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > keeps one family and does not reset the eligible window on immediate retries 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reuse waits 24h from the last response or reveal, including assisted exposures 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > uses only the five latest distinct eligible families and unrounded objective scores 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a latest eligible failure revokes current mastery while retaining its first date 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > critical errors need editorial mapping, completed remediation and objective verification 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P09 CORE cannot be compensated by a high average; missing is zero and optional failures do not block 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > blocked descendants leave independent branches available 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P10 completed, mastered and consolidated are separate; dispensations have their own count 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a final omitting a required objective scores that objective zero 0ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > retention requires days 7 and 30, separation of 7 days and distinct families 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ × test/guided-v2-evidence.test.ts > guided v2 evidence and policy > replay and input ordering preserve exact state; semantic duplicates have no effect 1ms
+   → [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ↓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable
+ ↓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > failure rolls back response, progress, event, receipt and evidence together
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:215:121
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/21]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P08 requires two recall families and an application in a different representation
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ mastery test/guided-v2-evidence.test.ts:46:24
+ ❯ test/guided-v2-evidence.test.ts:54:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"assisted":true})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"diagnostic"})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"preview"})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"self"})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"none"})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"score01":0.75})
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"valid":false})
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ mastery test/guided-v2-evidence.test.ts:46:24
+ ❯ test/guided-v2-evidence.test.ts:66:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reading and confidence do not grant evidence; empty evidence is null
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ objective test/guided-v2-evidence.test.ts:50:61
+ ❯ test/guided-v2-evidence.test.ts:70:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > keeps one family and does not reset the eligible window on immediate retries
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:75:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reuse waits 24h from the last response or reveal, including assisted exposures
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ test/guided-v2-evidence.test.ts:85:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > uses only the five latest distinct eligible families and unrounded objective scores
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ test/guided-v2-evidence.test.ts:94:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a latest eligible failure revokes current mastery while retaining its first date
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ mastery test/guided-v2-evidence.test.ts:46:24
+ ❯ test/guided-v2-evidence.test.ts:103:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > critical errors need editorial mapping, completed remediation and objective verification
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:110:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P09 CORE cannot be compensated by a high average; missing is zero and optional failures do not block
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:126:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > blocked descendants leave independent branches available
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:141:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P10 completed, mastered and consolidated are separate; dispensations have their own count
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ test/guided-v2-evidence.test.ts:150:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a final omitting a required objective scores that objective zero
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ test/guided-v2-evidence.test.ts:162:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > retention requires days 7 and 30, separation of 7 days and distinct families
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ test/guided-v2-evidence.test.ts:169:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/21]⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence and policy > replay and input ordering preserve exact state; semantic duplicates have no effect
+ZodError: [
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      0,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      0,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "focusSpans"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "activities",
+      7,
+      "payload",
+      "videoRange"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "focus",
+      "videoStartSeconds",
+      "videoEndSeconds"
+    ],
+    "path": [
+      "activities",
+      7,
+      "payload"
+    ],
+    "message": "Unrecognized keys: \"focus\", \"videoStartSeconds\", \"videoEndSeconds\""
+  }
+]
+ ❯ definition test/guided-v2-evidence.test.ts:25:29
+     23|     scaffold: "explanation", videoStartSeconds: null, videoEndSeconds:…
+     24| function definition(): RoutePackage {
+     25|   return RoutePackageSchema.parse({ schemaVersion: "2.0", packageKey: …
+       |                             ^
+     26|     route: { slug: "evidence-route", title: "Evidencia", summary: "Fix…
+     27|     policyVersion: "guided-v2.0", sources: [], assets: [],
+ ❯ response test/guided-v2-evidence.test.ts:39:108
+ ❯ mastery test/guided-v2-evidence.test.ts:46:24
+ ❯ test/guided-v2-evidence.test.ts:183:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { _zod: { def: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], constr: 'Function<ZodError>', traits: { constructor: 'Function<Set>', has: 'Function<has>', add: 'Function<add>', delete: 'Function<delete>', difference: 'Function<difference>', clear: 'Function<clear>', entries: 'Function<entries>', forEach: 'Function<forEach>', intersection: 'Function<intersection>', isSubsetOf: 'Function<isSubsetOf>', isSupersetOf: 'Function<isSupersetOf>', isDisjointFrom: 'Function<isDisjointFrom>', size: 2, symmetricDifference: 'Function<symmetricDifference>', union: 'Function<union>', values: 'Function<values>', keys: 'Function<values>' }, deferred: [] }, issues: [ { expected: 'array', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', +0, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', +0, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' }, { expected: 'array', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'focusSpans' ], message: 'Invalid input: expected array, received undefined' }, { expected: 'object', code: 'invalid_type', path: [ 'activities', 7, 'payload', 'videoRange' ], message: 'Invalid input: expected object, received undefined' }, { code: 'unrecognized_keys', keys: [ 'focus', 'videoStartSeconds', 'videoEndSeconds' ], path: [ 'activities', 7, 'payload' ], message: 'Unrecognized keys: "focus", "videoStartSeconds", "videoEndSeconds"' } ], format: 'Function<value>', flatten: 'Function<value>', addIssue: 'Function<value>', addIssues: 'Function<value>', isEmpty: false }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/21]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  20 failed | 7 passed | 14 skipped (41)
+   Start at  16:17:49
+   Duration  12.63s (transform 324ms, setup 0ms, import 1.52s, tests 10.65s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-evidence.test.ts test/guided-v2-attempts.test.ts "--reporter=verbose"

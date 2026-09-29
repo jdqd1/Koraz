@@ -114,6 +114,12 @@ Errores estables: `SCHEMA_UNSUPPORTED`, `DUPLICATE_KEY`, `REFERENCE_MISSING`, `D
 
 ## Métricas, recompensas, API y experiencia
 
+**Diseño aprobado (29/09/2026):** adaptar el nuevo sistema a la interfaz actual
+de rutas y conservar su esencia. Se permiten elementos nuevos y mejoras de
+compatibilidad, modernidad, claridad y facilidad de uso para alumno y
+administrador. La [directriz de diseño](DISENO-RUTAS.md) prevalece sobre
+propuestas visuales anteriores; no cambia reglas pedagógicas ni parámetros.
+
 - Inmediato: primer final, incluyendo omitidas, con N matriculados/evaluados. Retención7: primer test días 7–14; Retención30: días 30–45; tardíos aparte con N elegibles/respondieron y días reales. Transferencia: primer intento objetivo, sin ayuda, representación nueva y `novelAtPresentation=true`. Eficiencia descriptiva `(final−diagnóstico comparable)/minutos activos`; null si diagnóstico omitido o tiempo 0. Heartbeat cada 30 s, pestaña visible e interacción en últimos 60 s; unir intervalos entre dispositivos. Finalización, dominio y consolidación se informan por separado, sin inferencia causal.
 - XP v2: 0 por abrir/leer/ayuda; +5 primera recuperación objetiva correcta por objetivo (`v2_objective_recalled`), +10 primer dominio (`v2_objective_mastered`), +15 primera consolidación (`v2_objective_consolidated`). Clave única `(user,pathVersion,objective,eventKind)`. No reinterpretar ni restar XP v1.
 - Mutaciones HTTP: `Idempotency-Key: UUID`; edición existente además `expectedVersion`; respuestas devuelven estado confirmado. Importación validate máx. 10/10 min por actor, preview 30/10 min, respuestas 120/min con reenvío idempotente. Sesión de importación 24 h. HTTP 400 estructura, 401 sesión, 403 capacidad, 404 recurso, 409 versión/estado/idempotencia, 413 tamaño, 422 pedagogía, 429 límite, 503 proveedor. `Cache-Control: private, no-store` en usuario/manifiestos.

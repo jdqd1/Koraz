@@ -1,0 +1,12 @@
+T015 closure PASS
+recordedUtc: 2026-09-29T20:00:26.5911011Z
+HEAD: 37803042e27605138be4b95d6e95ddbf685f2508
+Scope: apps/api/test/guided-v2-attempts.test.ts and evidencias/T015 only.
+No service logic, contracts, migrations, UI, general auth or T016 changes.
+Node: v24.19.0; PostgreSQL: 17.11 portable; host: 127.0.0.1; port: 55415; database: koraz_t015_test.
+Binary SHA256: 4B8DB0930C38F6EF845DB919551DEDDA3B6B845AEB0927B3D79A6E8E9E4537CF
+Focused suite: exit 0, 19/19 PASS.
+Reproduction harness: exit 0, 19/19 PASS; server stopped.
+API typecheck: exit 0. API lint: exit 0.
+git diff --check: exit 0.
+Global execution registry not edited: outside the T015 file allowlist.

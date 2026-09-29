@@ -84,7 +84,11 @@ describe.skipIf(!concurrencyUrl)("guided v2 PostgreSQL independent-connection co
     control = new Pool({ connectionString: concurrencyUrl, max: 2, application_name: "koraz-t015-control" });
     const existing = await control.query("select to_regclass('public.auth_users') as table_name");
     if (existing.rows[0]?.table_name) throw new Error("T015 requires a fresh disposable database; refusing to overwrite existing tables");
-    await control.query("create role cediah_runtime; create role anon; create role authenticated; alter default privileges in schema public grant all on tables to anon, authenticated;");
+    for (const role of ["cediah_runtime", "anon", "authenticated"]) {
+      const existingRole = await control.query("select 1 from pg_roles where rolname = $1", [role]);
+      if (existingRole.rows.length === 0) await control.query(`create role ${role}`);
+    }
+    await control.query("alter default privileges in schema public grant all on tables to anon, authenticated;");
     const directory = new URL("../../../database/migrations/", import.meta.url);
     const files = (await readdir(directory))
       .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0031_guided_v2_runtime.sql") <= 0)
@@ -97,31 +101,31 @@ describe.skipIf(!concurrencyUrl)("guided v2 PostgreSQL independent-connection co
     }
     const fixture = await control.connect();
     try {
-    await fixture.query("begin");
-    await fixture.query(`
-      insert into public.auth_users (id,name,email) values ($1,'Concurrency learner','t015@example.test');
-    `, [userId]);
-    await fixture.query(`insert into public.content_items
-      (id,kind,slug,title,summary,topic,author_user_id,status,catalog_visibility,published_at,published_by)
-      values ($1,'topic','runtime-topic','Runtime topic','Fixture','Runtime',$2,'published','catalog',now(),$2)`, [v2Id(3), userId]);
-    await fixture.query(`insert into public.learning_paths (id,topic_content_id,slug,title,summary,cover_key,created_by)
-      values ($1,$2,'runtime-route','Runtime route','Fixture','heart',$3)`, [v2Id(4), v2Id(3), userId]);
-    await fixture.query(`insert into public.learning_path_versions
-      (id,path_id,version_number,policy_version,policy_json,definition_v2_json)
-      values ($1,$2,2,'guided-v2.0','{}',$3::jsonb)`, [versionId, v2Id(4), JSON.stringify(definition)]);
-    await fixture.query(`insert into public.learning_enrollments (id,user_id,path_id,path_version_id)
-      values ($1,$2,$3,$4)`, [enrollmentId, userId, v2Id(4), versionId]);
-    await fixture.query(`insert into public.learning_enrollment_versions (enrollment_id,path_id,path_version_id)
-      values ($1,$2,$3)`, [enrollmentId, v2Id(4), versionId]);
-    await fixture.query(`insert into public.content_assets
-      (id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at)
-      values ($1,$2,$3,'image','test-assets','v2-diagram','diagram.png','image/png',100,'ready',now())`, [assetId, v2Id(3), userId]);
-    await fixture.query("insert into public.learning_v2_bindings (path_version_id,local_key,kind,topic_content_id) values ($1,'topic','topic',$2)", [versionId, v2Id(3)]);
-    await fixture.query(`insert into public.learning_v2_bindings (path_version_id,local_key,kind,asset_id,rights_status,rights_credit)
-      values ($1,'diagram','asset',$2,'owned','')`, [versionId, assetId]);
-    await fixture.query("update public.learning_path_versions set status = 'published', published_at = now(), published_by = $2 where id = $1", [versionId, userId]);
-    await fixture.query("update public.learning_paths set published_version_id = $1 where id = $2", [versionId, v2Id(4)]);
-    await fixture.query("commit");
+      await fixture.query("begin");
+      await fixture.query(`
+        insert into public.auth_users (id,name,email) values ($1,'Concurrency learner','t015@example.test');
+      `, [userId]);
+      await fixture.query(`insert into public.content_items
+        (id,kind,slug,title,summary,topic,author_user_id,status,catalog_visibility,published_at,published_by)
+        values ($1,'topic','runtime-topic','Runtime topic','Fixture','Runtime',$2,'published','catalog',now(),$2)`, [v2Id(3), userId]);
+      await fixture.query(`insert into public.learning_paths (id,topic_content_id,slug,title,summary,cover_key,created_by)
+        values ($1,$2,'runtime-route','Runtime route','Fixture','heart',$3)`, [v2Id(4), v2Id(3), userId]);
+      await fixture.query(`insert into public.learning_path_versions
+        (id,path_id,version_number,policy_version,policy_json,definition_v2_json)
+        values ($1,$2,2,'guided-v2.0','{}',$3::jsonb)`, [versionId, v2Id(4), JSON.stringify(definition)]);
+      await fixture.query(`insert into public.learning_enrollments (id,user_id,path_id,path_version_id)
+        values ($1,$2,$3,$4)`, [enrollmentId, userId, v2Id(4), versionId]);
+      await fixture.query(`insert into public.learning_enrollment_versions (enrollment_id,path_id,path_version_id)
+        values ($1,$2,$3)`, [enrollmentId, v2Id(4), versionId]);
+      await fixture.query(`insert into public.content_assets
+        (id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at)
+        values ($1,$2,$3,'image','test-assets','v2-diagram','diagram.png','image/png',100,'ready',now())`, [assetId, v2Id(3), userId]);
+      await fixture.query("insert into public.learning_v2_bindings (path_version_id,local_key,kind,topic_content_id) values ($1,'topic','topic',$2)", [versionId, v2Id(3)]);
+      await fixture.query(`insert into public.learning_v2_bindings (path_version_id,local_key,kind,asset_id,rights_status,rights_credit)
+        values ($1,'diagram','asset',$2,'owned','')`, [versionId, assetId]);
+      await fixture.query("update public.learning_path_versions set status = 'published', published_at = now(), published_by = $2 where id = $1", [versionId, userId]);
+      await fixture.query("update public.learning_paths set published_version_id = $1 where id = $2", [versionId, v2Id(4)]);
+      await fixture.query("commit");
     } catch (error) {
       await fixture.query("rollback");
       throw error;

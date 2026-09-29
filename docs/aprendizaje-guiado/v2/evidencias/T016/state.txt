@@ -1,0 +1,11 @@
+T016 PASS
+recordedUtc: 2026-09-29T20:28:09.8936311Z
+HEAD: 37803042e27605138be4b95d6e95ddbf685f2508
+Node: v24.19.0; PostgreSQL regression: 17.11 portable, isolated localhost:55415/koraz_t015_test.
+Predecessors T002, T014, T015 PASS verified from current artifacts.
+T016 source allowlist respected. Additional documentation edits explicitly requested by user.
+Pre-existing T015 changes preserved; no apps/web, contracts, migrations, general auth or v1 policies edited.
+Global execution registry unchanged; primary task result is evidencias/T016/result.json.
+T017 not started.
+PostgreSQL stopped: no listener on 55415.
+git diff --check: exit 0.

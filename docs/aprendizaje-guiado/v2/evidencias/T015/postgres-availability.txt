@@ -11,3 +11,7 @@ El fixture PGlite ejecuta PostgreSQL embebido en una sola conexión. Sus pruebas
 de CAS e idempotencia son secuenciales y no sustituyen una integración con dos
 conexiones independientes. La prueba de concurrencia exigida por T015 queda
 NO VERIFICADO; no se conectó a staging ni a producción.
+
+Cierre 2026-09-29: PostgreSQL 17.11 portatil disponible en una carpeta temporal.
+Escucha exclusiva 127.0.0.1:55415, base koraz_t015_test; 12/12 pruebas concurrentes PASS.
+La limitacion original queda resuelta para T015; no se uso staging ni produccion.

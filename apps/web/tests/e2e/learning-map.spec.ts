@@ -101,6 +101,50 @@ test("lesson levels draw connections from the first card without an incoming lin
   await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });
+test("connections meet card boundaries across mobile widths, zoom and resizing", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(`${root}?node=${node}&item=${block}`);
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  const checkEndpoints = async () => {
+    await expect.poll(() => page.locator(".react-flow__edge-connection path").evaluateAll((paths) => {
+      const cards = Array.from(document.querySelectorAll(".react-flow__node article"));
+      if (paths.length !== cards.length - 1 || !paths.length) return Infinity;
+      return Math.max(...paths.flatMap((element, index) => {
+        const path = element as SVGPathElement;
+        const matrix = path.getScreenCTM();
+        if (!matrix) return [Infinity];
+        const start = path.getPointAtLength(0).matrixTransform(matrix);
+        const end = path.getPointAtLength(path.getTotalLength()).matrixTransform(matrix);
+        const source = cards[index]!.getBoundingClientRect();
+        const target = cards[index + 1]!.getBoundingClientRect();
+        return [
+          Math.abs(start.x - (source.left + source.width / 2)),
+          Math.abs(start.y - source.bottom),
+          Math.abs(end.x - (target.left + target.width / 2)),
+          Math.abs(end.y - target.top),
+        ];
+      }));
+    // React Flow places endpoints at the hidden handle's outer border (2px at 100% zoom).
+    })).toBeLessThanOrEqual(3);
+  };
+  for (const width of [320, 390, 540, 767, 1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await expect(page.locator(`[data-mobile="${width < 768}"]`)).toBeVisible();
+    await checkEndpoints();
+  }
+  await page.getByRole("button", { name: "Acercar", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Restablecer zoom al 100 %" })).toContainText("110");
+  await checkEndpoints();
+  const canvas = page.locator('[data-mobile="true"]');
+  await canvas.evaluate((element) => { element.scrollTop = 130; });
+  await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  await checkEndpoints();
+  await page.getByRole("button", { name: "Ajustar vista", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Restablecer zoom al 100 %" })).toContainText("100");
+  await checkEndpoints();
+  await page.screenshot({ path: testInfo.outputPath("mobile-connections.png"), fullPage: true });
+});
 test("slow level navigation responds immediately and completes the diagram transition", async ({ page }) => {
   await page.goto(`${root}?estado=slow`);
   await expect(page.getByRole("button", { name: "Abrir Anatomía" })).toBeVisible();
