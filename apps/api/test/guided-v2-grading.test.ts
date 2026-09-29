@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { RouteActivitySchema, type RouteActivity } from "@cediah/contracts";
 import {
-  gradeBasicActivity, gradeConstructedResponse, gradeShortAnswer, gradeSingleChoice, normalizeShortAnswer,
+  gradeBasicActivity, gradeConstructedResponse, gradeImageTarget, gradeMatch, gradeSequence,
+  gradeShortAnswer, gradeSingleChoice, isValidNormalizedPolygon, normalizeShortAnswer, pointInPolygonInclusive,
 } from "../src/guided-learning/v2/grading.js";
 
 type Choice = Extract<RouteActivity, { kind: "single_choice" }>;
 type Short = Extract<RouteActivity, { kind: "short_answer" }>;
 type Constructed = Extract<RouteActivity, { kind: "constructed_response" }>;
+type Match = Extract<RouteActivity, { kind: "match" }>;
+type Sequence = Extract<RouteActivity, { kind: "sequence" }>;
+type Image = Extract<RouteActivity, { kind: "image_target" }>;
 
 const base = {
   key: "activity", objectiveKey: "objective", relatedObjectiveKeys: [], phase: "retrieve", required: true,
@@ -37,6 +41,41 @@ function constructed(): Constructed {
     rubric: [{ key: "cause", criterion: "Explica la dirección causal", example: "A causa B" }],
     modelAnswer: "A causa B por un mecanismo sintético.", verificationActivityKey: "objective-check",
   } }) as Constructed;
+}
+
+function match(): Match {
+  return RouteActivitySchema.parse({ ...base, kind: "match", representation: "table", payload: {
+    presentation: "comparison_table",
+    prompts: ["a", "b", "c", "d"].map((key) => ({ key, text: `Enunciado ${key}` })),
+    choices: ["one", "two", "three", "four"].map((key) => ({ key, text: `Opción ${key}` })),
+    correctByPrompt: { a: "one", b: "two", c: "three", d: "four" }, allowReuse: false, edges: [],
+  } }) as Match;
+}
+
+function sequence(): Sequence {
+  return RouteActivitySchema.parse({ ...base, kind: "sequence", payload: {
+    items: ["a", "b", "c", "d"].map((key) => ({ key, text: `Paso ${key}` })),
+    acceptedOrders: [["a", "b", "c", "d"], ["b", "a", "c", "d"]], whyActivityKey: null,
+  } }) as Sequence;
+}
+
+const square = [
+  { x: 0.2, y: 0.2 }, { x: 0.8, y: 0.2 }, { x: 0.8, y: 0.8 }, { x: 0.2, y: 0.8 },
+];
+function image(mode: "hotspot" | "labeling", masking: "no_labels" | "partial_labels" = "no_labels"): Image {
+  const targets = mode === "hotspot" ? [{ key: "heart", prompt: "Señala el órgano", polygon: square, label: "Corazón" }]
+    : [
+      { key: "heart", prompt: "Etiqueta el corazón", polygon: square, label: "Corazón" },
+      { key: "lung", prompt: "Etiqueta el pulmón", polygon: [
+        { x: 0.05, y: 0.05 }, { x: 0.15, y: 0.05 }, { x: 0.15, y: 0.15 }, { x: 0.05, y: 0.15 },
+      ], label: "Pulmón" },
+    ];
+  return RouteActivitySchema.parse({ ...base, kind: "image_target", representation: "image", payload: {
+    assetKey: "diagram", mode, targets,
+    labels: mode === "hotspot" ? [] : [{ key: "heart-label", text: "Corazón" }, { key: "lung-label", text: "Pulmón" }],
+    correctLabelByTarget: mode === "hotspot" ? {} : { heart: "heart-label", lung: "lung-label" },
+    accessibleAlternativeKey: "text-alternative", masking,
+  } }) as Image;
 }
 
 describe("guided v2 basic grading", () => {
@@ -124,5 +163,81 @@ describe("guided v2 basic grading", () => {
     expect(gradeConstructedResponse(activity, answer, { revealed: true })).toEqual({ status: "invalid", code: "SUBMISSION_REQUIRED" });
     expect(gradeConstructedResponse(activity, answer, { revealed: true, submittedText: "Texto anterior" })).toEqual({ status: "invalid", code: "SUBMISSION_REQUIRED" });
     expect(gradeBasicActivity(activity, { ...answer, selfRating: null, injectedScore: 1 })).toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+  });
+
+  it("P07 keeps 3/4 match credit binary and reports 0.75 only in feedback", () => {
+    const activity = match();
+    const partial = gradeMatch(activity, { kind: "match", pairs: { a: "one", b: "two", c: "four", d: "three" } });
+    expect(partial).toMatchObject({ status: "graded", score01: 0, gradingSource: "server",
+      feedback: { partialScore01: 0.5, sourceKeys: ["guide", "chapter"] } });
+    const threeOfFour = gradeMatch(activity, { kind: "match", pairs: { a: "one", b: "two", c: "three", d: "one" } });
+    expect(threeOfFour).toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+    activity.payload.allowReuse = true;
+    expect(gradeMatch(activity, { kind: "match", pairs: { a: "one", b: "two", c: "three", d: "one" } }))
+      .toMatchObject({ status: "graded", score01: 0, feedback: { partialScore01: 0.75 } });
+    expect(gradeMatch(activity, { kind: "match", pairs: { a: "one", b: "two", c: "three", d: "four" } }))
+      .toMatchObject({ status: "graded", score01: 1, feedback: { partialScore01: 1 } });
+    expect(gradeMatch(activity, { kind: "match", pairs: { a: "one", b: "two", c: "three", d: "four", extra: "one" } }))
+      .toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+  });
+
+  it("P07 rejects duplicate or foreign sequence keys and accepts alternative exact orders", () => {
+    const activity = sequence();
+    expect(gradeSequence(activity, { kind: "sequence", orderedKeys: ["a", "a", "c", "d"] }))
+      .toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+    expect(gradeSequence(activity, { kind: "sequence", orderedKeys: ["a", "b", "c", "foreign"] }))
+      .toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+    expect(gradeSequence(activity, { kind: "sequence", orderedKeys: ["b", "a", "c", "d"] }))
+      .toMatchObject({ status: "graded", score01: 1, feedback: { partialScore01: 1 } });
+    expect(gradeSequence(activity, { kind: "sequence", orderedKeys: ["a", "b", "d", "c"] }))
+      .toMatchObject({ status: "graded", score01: 0, feedback: { partialScore01: 0.5 } });
+    activity.payload.acceptedOrders = [["a", "b", "b", "d"]];
+    expect(gradeSequence(activity, { kind: "sequence", orderedKeys: ["a", "b", "c", "d"] }))
+      .toEqual({ status: "invalid", code: "INVALID_ACTIVITY" });
+  });
+
+  it("P07 uses normalized coordinates, includes the polygon border and rejects self-intersections", () => {
+    const activity = image("hotspot");
+    expect(isValidNormalizedPolygon(square)).toBe(true);
+    expect(pointInPolygonInclusive({ x: 0.2, y: 0.5 }, square)).toBe(true);
+    expect(gradeImageTarget(activity, { kind: "image_target", mode: "hotspot", targetKey: "heart", point: { x: 0.2, y: 0.5 } }))
+      .toMatchObject({ status: "graded", score01: 1, feedback: { partialScore01: 1 } });
+    expect(gradeImageTarget(activity, { kind: "image_target", mode: "hotspot", targetKey: "heart", point: { x: 0.1, y: 0.5 } }))
+      .toMatchObject({ status: "graded", score01: 0, feedback: { partialScore01: 0 } });
+    expect(gradeImageTarget(activity, { kind: "image_target", mode: "hotspot", targetKey: "unknown", point: { x: 0.5, y: 0.5 } }))
+      .toEqual({ status: "invalid", code: "INVALID_TARGET_KEY" });
+    expect(gradeBasicActivity(activity, { kind: "image_target", mode: "hotspot", targetKey: "heart", point: { x: 50, y: 50 } }))
+      .toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+    const bowTie = [{ x: 0.2, y: 0.2 }, { x: 0.8, y: 0.8 }, { x: 0.2, y: 0.8 }, { x: 0.8, y: 0.2 }];
+    expect(isValidNormalizedPolygon(bowTie)).toBe(false);
+    const pentagon = Array.from({ length: 5 }, (_, index) => ({
+      x: 0.5 + 0.4 * Math.cos(-Math.PI / 2 + 2 * Math.PI * index / 5),
+      y: 0.5 + 0.4 * Math.sin(-Math.PI / 2 + 2 * Math.PI * index / 5),
+    }));
+    expect(isValidNormalizedPolygon([0, 2, 4, 1, 3].map((index) => pentagon[index]!))).toBe(false);
+    activity.payload.targets[0]!.polygon = bowTie;
+    expect(gradeImageTarget(activity, { kind: "image_target", mode: "hotspot", targetKey: "heart", point: { x: 0.5, y: 0.5 } }))
+      .toEqual({ status: "invalid", code: "INVALID_ACTIVITY" });
+  });
+
+  it("labels every target exactly and withholds objective credit while labels are shown", () => {
+    const activity = image("labeling");
+    const partial = { kind: "image_target" as const, mode: "labeling" as const,
+      labelsByTarget: { heart: "heart-label", lung: "heart-label" } };
+    expect(gradeImageTarget(activity, partial)).toMatchObject({ status: "graded", score01: 0,
+      feedback: { partialScore01: 0.5 } });
+    expect(gradeImageTarget(activity, { ...partial, labelsByTarget: { ...partial.labelsByTarget, extra: "lung-label" } }))
+      .toEqual({ status: "invalid", code: "INVALID_ANSWER" });
+    activity.payload.masking = "partial_labels";
+    expect(gradeImageTarget(activity, partial)).toMatchObject({ status: "practice", score01: null,
+      gradingSource: "none", feedback: { partialScore01: 0.5 } });
+  });
+
+  it("acknowledges study without scoring it", () => {
+    const study = RouteActivitySchema.parse({ ...base, kind: "study", payload: {
+      body: "Explicación", focusSpans: [], assetKey: null, scaffold: "explanation", videoRange: null,
+    } });
+    expect(gradeBasicActivity(study, { kind: "study", acknowledged: true }))
+      .toMatchObject({ status: "acknowledged", score01: null, gradingSource: "none" });
   });
 });

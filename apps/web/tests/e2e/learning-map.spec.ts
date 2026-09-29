@@ -39,19 +39,19 @@ test("quick views stay in the map and card colors persist locally", async ({ pag
 });
 test("routes use a horizontal row on desktop and a vertical scroll on mobile", async ({ page, isMobile }) => {
   await page.goto(`${root}?estado=large`);
-  await expect(page.locator(".react-flow__node").first()).toBeVisible();
+  const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
+  await expect(cards.first()).toBeVisible();
   if (isMobile) {
     const canvas = page.locator('[data-mobile="true"]');
-    const first = await page.locator(".react-flow__node").first().boundingBox();
-    const second = await page.locator(".react-flow__node").nth(1).boundingBox();
+    const first = await cards.first().boundingBox();
+    const second = await cards.nth(1).boundingBox();
     expect(second!.y).toBeGreaterThan(first!.y);
     expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
     await canvas.evaluate((element) => { element.scrollTop = 300; });
     await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
   } else {
-    const nodes = page.locator(".react-flow__node");
-    const first = await nodes.first().boundingBox();
-    const second = await nodes.nth(1).boundingBox();
+    const first = await cards.first().boundingBox();
+    const second = await cards.nth(1).boundingBox();
     expect(second!.x).toBeGreaterThan(first!.x);
     expect(Math.abs(second!.y - first!.y)).toBeLessThan(2);
     const viewport = page.locator(".react-flow__viewport");
@@ -64,7 +64,7 @@ test("routes use a horizontal row on desktop and a vertical scroll on mobile", a
   expect(await page.locator(".react-flow__edge path[marker-end]").count()).toBe(0);
   expect(await page.locator(".react-flow__edge").count()).toBeGreaterThan(0);
 });
-test("each opened level stays connected to its parent card", async ({ page }) => {
+test("each opened level draws its lineage without duplicating the back control", async ({ page, isMobile }) => {
   await page.goto(root);
   const forwardAnimation = page.waitForFunction(() => {
     const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-lineage .react-flow__edge-path');
@@ -72,26 +72,52 @@ test("each opened level stays connected to its parent card", async ({ page }) =>
   });
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
   await forwardAnimation;
-  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  const duration = await page.locator(".react-flow__edge-lineage .react-flow__edge-path").first().evaluate((line) => getComputedStyle(line).animationDuration);
+  expect(duration).toBe("0.25s");
+  await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
+  await expect(page.getByLabel(/Nivel de origen/)).toHaveCount(0);
+  await expect(page.locator(".react-flow__node-branch")).toHaveCount(1);
   await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
   await expect(page.locator(".react-flow__edge-lineage path[pathLength='1']")).toHaveCount(8);
+  if (isMobile) {
+    const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
+    const first = await cards.first().boundingBox();
+    const second = await cards.nth(1).boundingBox();
+    const branch = await page.locator(".react-flow__node-branch").boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y);
+    expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
+    expect(branch!.x).toBeLessThan(first!.x);
+    await expect(page.locator(".react-flow__edge-lineage .react-flow__edge-path").first()).toHaveAttribute("d", / V .* H /);
+  }
 
   await page.getByRole("button", { name: "Abrir Tórax" }).click();
-  await expect(page.getByRole("button", { name: "Volver a Tórax" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
   await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
   const backAnimation = page.waitForFunction(() => {
     const line = document.querySelector('[data-phase="entering"][data-direction="back"] .react-flow__edge-lineage .react-flow__edge-path');
     return line && getComputedStyle(line).animationName.includes("diagram-line-return");
   });
-  await page.getByRole("button", { name: "Volver a Tórax" }).click();
+  await page.getByRole("button", { name: "Atrás en el mapa" }).click();
   await backAnimation;
-  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.getByRole("button", { name: "Volver a Anatomía" }).click();
+  await page.getByRole("button", { name: "Atrás en el mapa" }).click();
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  await expect(page.getByRole("button", { name: "Volver a Anatomía" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+});
+test("opening unit activities leaves the map still", async ({ page }) => {
+  await page.goto(`${root}?node=${node}&item=${block}`);
+  await expect(page.getByRole("button", { name: "Abrir Corazón", exact: true })).toBeVisible();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  await page.getByRole("button", { name: "Abrir Corazón", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Cerrar lección" })).toBeVisible();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  await page.getByRole("button", { name: "Cerrar lección" }).click();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  await expect(page.getByRole("button", { name: "Abrir Corazón", exact: true })).toBeVisible();
 });
 test("six visual states and responsive widths remain readable", async ({
   page,

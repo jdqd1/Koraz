@@ -33,7 +33,7 @@ function useWorkspace(account: string, client: MapClient) {
   const [level, setLevel] = useState<LearningMapLevelResponse | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [phase, setPhase] = useState<"idle" | "exiting" | "entering">("idle");
+  const [phase, setPhase] = useState<"idle" | "entering">("idle");
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const [, render] = useReducer((n) => n + 1, 0);
   const cache = useMemo(() => new MapLevelCache(), []);
@@ -42,7 +42,6 @@ function useWorkspace(account: string, client: MapClient) {
   const token = useRef(0),
     prefetchCount = useRef(0),
     history = useRef<string[]>([]);
-  const navigationTimer = useRef<number | null>(null);
   const enteringTimer = useRef<number | null>(null);
   const ensureKey = useRef<string | null>(null);
   const cacheGeneration = useRef(0);
@@ -76,8 +75,13 @@ function useWorkspace(account: string, client: MapClient) {
     const controller = new AbortController(),
       current = ++token.current;
     const route = parseMapRoute(new URLSearchParams(routeKey.split("?")[1]));
+    const loadingTimer = levelRef.current
+      ? window.setTimeout(() => {
+          if (!controller.signal.aborted && current === token.current) setLoading(true);
+        }, 120)
+      : null;
+    if (!levelRef.current) setLoading(true);
     void (async () => {
-      setLoading(true);
       setError("");
       try {
         if (!levelRef.current) {
@@ -90,6 +94,7 @@ function useWorkspace(account: string, client: MapClient) {
         if (!route) throw new Error("El enlace del mapa no es válido.");
         const data = await load(route, controller.signal);
         if (controller.signal.aborted || current !== token.current) return;
+        if (loadingTimer !== null) window.clearTimeout(loadingTimer);
         const animate =
           levelRef.current &&
           data.levelKey !== levelRef.current.levelKey &&
@@ -110,7 +115,7 @@ function useWorkspace(account: string, client: MapClient) {
             if (enteringTimer.current === timer) enteringTimer.current = null;
             if (!controller.signal.aborted && current === token.current)
               setPhase("idle");
-          }, 950);
+          }, 390);
           enteringTimer.current = timer;
           controller.signal.addEventListener("abort", () => {
             clearTimeout(timer);
@@ -119,6 +124,7 @@ function useWorkspace(account: string, client: MapClient) {
         }
       } catch (e) {
         if (!controller.signal.aborted && current === token.current) {
+          if (loadingTimer !== null) window.clearTimeout(loadingTimer);
           setError(
             e instanceof Error ? e.message : "No pudimos abrir el mapa.",
           );
@@ -129,6 +135,7 @@ function useWorkspace(account: string, client: MapClient) {
     })();
     return () => {
       controller.abort();
+      if (loadingTimer !== null) window.clearTimeout(loadingTimer);
     };
   }, [account, client, load, queue, routeKey]);
   useEffect(() => {
@@ -175,25 +182,14 @@ function useWorkspace(account: string, client: MapClient) {
     return () => window.removeEventListener("focus", focus);
   }, [refresh]);
   useEffect(() => () => {
-    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
     if (enteringTimer.current !== null) window.clearTimeout(enteringTimer.current);
   }, []);
-  const withExit = useCallback((commit: () => void, animate: boolean) => {
-    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+  const stopMotion = useCallback(() => {
     if (enteringTimer.current !== null) {
       window.clearTimeout(enteringTimer.current);
       enteringTimer.current = null;
     }
-    if (!animate) {
-      setPhase("idle");
-      commit();
-      return;
-    }
-    setPhase("exiting");
-    navigationTimer.current = window.setTimeout(() => {
-      navigationTimer.current = null;
-      commit();
-    }, 190);
+    setPhase("idle");
   }, []);
   const navigate = useCallback((route: MapRoute, detail = false) => {
     const href = buildMapHref(route, detail);
@@ -207,15 +203,14 @@ function useWorkspace(account: string, client: MapClient) {
         previous.items.some(
           (i) => i.kind === "lesson" && i.occurrenceId === route.entryId,
         ));
-    withExit(() => {
-      if (replacingLesson || detail)
-        window.history.replaceState(null, "", mapNavigationHref(href));
-      else {
-        history.current.push(buildMapHref(previous?.route ?? ROOT_MAP_ROUTE));
-        window.history.pushState(null, "", mapNavigationHref(href));
-      }
-    }, Boolean(previous && !replacingLesson && !detail && buildMapHref(previous.route) !== buildMapHref(route) && !matchMedia("(prefers-reduced-motion: reduce)").matches));
-  }, [withExit]);
+    stopMotion();
+    if (replacingLesson || detail)
+      window.history.replaceState(null, "", mapNavigationHref(href));
+    else {
+      history.current.push(buildMapHref(previous?.route ?? ROOT_MAP_ROUTE));
+      window.history.pushState(null, "", mapNavigationHref(href));
+    }
+  }, [stopMotion]);
   const back = useCallback(() => {
     setDirection("back");
     const r =
@@ -224,13 +219,12 @@ function useWorkspace(account: string, client: MapClient) {
       ROOT_MAP_ROUTE;
     const parent = parentMapRoute(r),
       href = buildMapHref(parent);
-    withExit(() => {
-      if (history.current.at(-1) === href) {
-        history.current.pop();
-        window.history.back();
-      } else window.history.replaceState(null, "", mapNavigationHref(href));
-    }, Boolean(levelRef.current && !levelRef.current.selectedLesson && buildMapHref(levelRef.current.route) !== href && !matchMedia("(prefers-reduced-motion: reduce)").matches));
-  }, [withExit]);
+    stopMotion();
+    if (history.current.at(-1) === href) {
+      history.current.pop();
+      window.history.back();
+    } else window.history.replaceState(null, "", mapNavigationHref(href));
+  }, [stopMotion]);
   const prefetch = useCallback(
     (route: MapRoute) => {
       if (prefetchCount.current >= 2) return () => {};

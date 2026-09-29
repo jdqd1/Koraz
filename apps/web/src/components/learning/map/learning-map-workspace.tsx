@@ -726,7 +726,6 @@ function Workspace() {
               direction={direction}
               movingId={movingId}
               onMoveFinished={moveFinished}
-              onBack={backToParent}
             />
           )}
           {wide ? panel : null}

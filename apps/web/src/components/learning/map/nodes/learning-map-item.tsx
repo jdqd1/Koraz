@@ -1,8 +1,8 @@
 "use client";
 import { memo, useEffect, useRef } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { ArrowLeft, Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
-import type { MapItem, MapProgress } from "@cediah/contracts";
+import { Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
+import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
 export type MapItemAction = "info" | "select" | "rename" | "add" | "remove" | "move" | "color";
@@ -18,12 +18,7 @@ export type ItemData = {
   onPrefetch: (item: MapItem) => () => void;
 };
 export type FlowMapNode = Node<ItemData>;
-export type OriginFlowNode = Node<{
-  title: string;
-  progress: MapProgress;
-  mobile: boolean;
-  onBack: () => void;
-}, "origin">;
+export type BranchFlowNode = Node<{ title: string }, "branch">;
 export const statusLabels = {
   not_started: "No iniciado",
   in_progress: "En progreso",
@@ -77,9 +72,8 @@ export const LearningMapItem = memo(function LearningMapItem({
           <Handle
             type="target"
             id="parent"
-            position={Position.Top}
+            position={data.mobile ? Position.Left : Position.Top}
             isConnectable={false}
-            className={data.mobile ? styles.roadmapHandle : undefined}
             style={{ opacity: 0 }}
           />
           <Handle
@@ -198,25 +192,10 @@ export const LearningNode = memo(function LearningNode({
 });
 export const BlockNode = LearningNode;
 export const LessonNode = LearningNode;
-export const OriginNode = memo(function OriginNode({ data }: NodeProps<OriginFlowNode>) {
+export const BranchNode = memo(function BranchNode({ data }: NodeProps<BranchFlowNode>) {
   return (
-    <article className={styles.originCard} aria-label={`Nivel de origen: ${data.title}`}>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        isConnectable={false}
-        className={data.mobile ? styles.roadmapHandle : undefined}
-        style={{ opacity: 0 }}
-      />
-      <button type="button" className={`${styles.originButton} nodrag nopan`} onClick={data.onBack} aria-label={`Volver a ${data.title}`}>
-        <span className={styles.originIcon} aria-hidden="true"><MedicalMapIcon iconKey="folder" size={25} /></span>
-        <span className={styles.originText}>
-          <span className={styles.originEyebrow}>Nivel de origen</span>
-          <strong title={data.title}>{data.title}</strong>
-          {data.progress.percentage !== null ? <small>{data.progress.percentage} % completado</small> : null}
-        </span>
-        <ArrowLeft className={styles.originBack} size={17} aria-hidden="true" />
-      </button>
-    </article>
+    <span className={styles.branchPoint} title={`Conexiones de ${data.title}`} aria-hidden="true">
+      <Handle type="source" position={Position.Bottom} isConnectable={false} style={{ opacity: 0 }} />
+    </span>
   );
 });
