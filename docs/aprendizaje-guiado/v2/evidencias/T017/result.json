@@ -1,0 +1,71 @@
+{
+  "taskId": "T017",
+  "status": "PASS",
+  "baseSha": "721bfdeb88bb22dafab30d9e9a254c9428b47a49",
+  "recordedUtc": "2026-09-29T20:58:32.0447698Z",
+  "predecessors": [
+    "T016/result.json: PASS; source hashes verified",
+    "T005/result.json: PASS; graph regression PASS"
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/selection.ts",
+    "apps/api/src/guided-learning/v2/service.ts",
+    "apps/api/test/guided-v2-selection.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T017/"
+  ],
+  "checks": [
+    {
+      "exitCode": 0,
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "status": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "status": "PASS",
+      "selectionTests": 29,
+      "exitCode": 0,
+      "passed": 70,
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-selection.test.ts test/guided-v2-evidence.test.ts test/guided-v2-graph.test.ts test/guided-v2-attempts.test.ts",
+      "skipped": 12,
+      "evidence": "tests.txt"
+    },
+    {
+      "exitCode": 0,
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "status": "PASS",
+      "evidence": "typecheck.txt"
+    },
+    {
+      "exitCode": 0,
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "status": "PASS",
+      "evidence": "lint.txt"
+    }
+  ],
+  "acceptance": {
+    "P11": "PASS: optional diagnosis; support/check offer only; no mastery or progress penalty",
+    "P09": "PASS: failed CORE blocks descendants; optional failure does not close demonstrated gate; exhaustion never unlocks",
+    "retries": "PASS: reinforced support after 2 failures, pause after initial failure plus 2 retries; accepted session facts only",
+    "exhaustedBank": "PASS: explicit bankExhausted/editorIncident/availableAfter; reserved items excluded; immutable snapshot",
+    "P03": "PASS: independent roots/optional branch; deterministic topological/editorial order"
+  },
+  "issues": [
+    "Initial tests exposed remediation example included in ordinary scaffold list; corrected. First-run output retained.",
+    "Array match assertion corrected to target the objective under test; no behavioral acceptance weakened."
+  ],
+  "limits": [
+    "12 PostgreSQL concurrency tests skipped: KORAZ_T015_TEST_DATABASE_URL not supplied; no new real PostgreSQL PASS claim.",
+    "Pure authorized-snapshot selection only; no new HTTP/UI integration or writes.",
+    "Scheduler dates supplied as inputs; T018 not implemented.",
+    "No global-suite, browser, staging or production verification."
+  ],
+  "scope": "Only T017 allowlist and evidence. Existing route design directive retained; concurrent frontend edits preserved.",
+  "nextTaskIds": [
+    "T018"
+  ],
+  "sourceSha256": {
+    "apps/api/test/guided-v2-selection.test.ts": "0b27013f5ff99795ba00cd3398b643230dbee597176af930b6ce80f6cc582673",
+    "apps/api/src/guided-learning/v2/service.ts": "c7699b6b0b3547d19b2024035f508126999a0622a24bb5e14621e5e9a812f382",
+    "apps/api/src/guided-learning/v2/selection.ts": "ae950e1ca7f9ca389de142db567896620b0210f50896a718f8b735c0a30fd3b2"
+  }
+}

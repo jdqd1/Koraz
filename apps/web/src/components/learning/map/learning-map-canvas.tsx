@@ -4,7 +4,6 @@ import {
   ReactFlow,
   MiniMap,
   applyNodeChanges,
-  getStraightPath,
   useReactFlow,
   PanOnScrollMode,
   type EdgeProps,
@@ -35,7 +34,18 @@ import styles from "./learning-map.module.css";
 type DiagramNode = FlowMapNode;
 const nodeTypes = { node: LearningNode, block: BlockNode, lesson: LessonNode };
 function ConnectionEdge(props: EdgeProps) {
-  const [path] = getStraightPath(props);
+  const trunkOffset = typeof props.data?.trunkOffset === "number" ? props.data.trunkOffset : 48;
+  const trunkX = Math.min(props.sourceX, props.targetX) - trunkOffset;
+  const direction = Math.sign(props.targetY - props.sourceY) || 1;
+  const radius = Math.min(12, Math.abs(props.targetY - props.sourceY) / 2);
+  const path = [
+    `M ${props.sourceX} ${props.sourceY}`,
+    `H ${trunkX + radius}`,
+    `Q ${trunkX} ${props.sourceY} ${trunkX} ${props.sourceY + direction * radius}`,
+    `V ${props.targetY - direction * radius}`,
+    `Q ${trunkX} ${props.targetY} ${trunkX + radius} ${props.targetY}`,
+    `H ${props.targetX}`,
+  ].join(" ");
   return <path id={props.id} className={`react-flow__edge-path ${styles.connectionPath}`} d={path} pathLength={1} fill="none" style={props.style} />;
 }
 const edgeTypes = { connection: ConnectionEdge };
@@ -330,6 +340,7 @@ export default function LearningMapCanvas({
         source: e.sourceOccurrenceId,
         target: e.targetOccurrenceId,
         type: "connection",
+        data: { trunkOffset: mobile ? 34 : 68 },
         style: {
           stroke: "#8faee0",
           strokeWidth: 2,
@@ -340,7 +351,7 @@ export default function LearningMapCanvas({
       }));
       return siblingEdges;
     },
-    [level.items, level.levelKey],
+    [level.items, level.levelKey, mobile],
   );
   const contentHeight = mobile
     ? Math.max(canvasSize.height, ...nodes.map((n) => n.position.y + cardHeight + 60))

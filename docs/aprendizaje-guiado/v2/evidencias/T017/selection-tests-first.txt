@@ -1,0 +1,132 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-selection.test.ts (24 tests | 2 failed) 205ms
+     × omitting diagnosis retains full support and does not reduce progress 18ms
+     × two consecutive failures reinforce explanation; two retries then offer pause 35ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > omitting diagnosis retains full support and does not reduce progress
+AssertionError: expected [ Array(4) ] to deeply equal [ Array(3) ]
+
+- Expected
++ Received
+
+  [
+    "core-explain",
+    "core-example",
++   "core-remedy",
+    "core-partial",
+  ]
+
+ ❯ test/guided-v2-selection.test.ts:94:60
+     92|     const input = snapshot(undefined, [], { diagnosticStatus: "omitted…
+     93|     expect(select(input).nextAction).toEqual(select(snapshot()).nextAc…
+     94|     expect(select(input).support[0]!.scaffoldActivityKeys).toEqual(["c…
+       |                                                            ^
+     95|     expect(input.evidence.route.progressPercent).toBe(0);
+     96|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > two consecutive failures reinforce explanation; two retries then offer pause
+AssertionError: expected { nextAction: { …(3) }, …(7) } to match object { …(2) }
+(13 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -2,10 +2,72 @@
+    "nextAction": {
+      "key": "core-explain",
+    },
+    "support": [
+      {
++       "checkActivityKey": null,
++       "consecutiveFailures": 2,
++       "independentActivityKeys": [
++         "core-recall",
++         "core-recall-b",
++         "core-apply",
++         "core-verify",
++         "core-verify-b",
++       ],
++       "mode": "full",
++       "objectiveKey": "core",
+        "reinforced": true,
++       "reinforcedExplanationKey": "core-explain",
++       "retryLimitReached": false,
++       "scaffoldActivityKeys": [
++         "core-explain",
++         "core-example",
++         "core-remedy",
++         "core-partial",
++       ],
++     },
++     {
++       "checkActivityKey": null,
++       "consecutiveFailures": 0,
++       "independentActivityKeys": [
++         "other-recall",
++         "other-recall-b",
++         "other-apply",
++         "other-verify",
++         "other-verify-b",
++       ],
++       "mode": "full",
++       "objectiveKey": "other",
++       "reinforced": false,
++       "reinforcedExplanationKey": null,
++       "retryLimitReached": false,
++       "scaffoldActivityKeys": [
++         "other-explain",
++         "other-example",
++         "other-remedy",
++         "other-partial",
++       ],
++     },
++     {
++       "checkActivityKey": null,
++       "consecutiveFailures": 0,
++       "independentActivityKeys": [
++         "child-recall",
++         "child-recall-b",
++         "child-apply",
++         "child-verify",
++         "child-verify-b",
++       ],
++       "mode": "full",
++       "objectiveKey": "child",
++       "reinforced": false,
++       "reinforcedExplanationKey": null,
+        "retryLimitReached": false,
++       "scaffoldActivityKeys": [
++         "child-explain",
++         "child-example",
++         "child-remedy",
++         "child-partial",
++       ],
+      },
+    ],
+  }
+
+ ❯ test/guided-v2-selection.test.ts:167:27
+    165|     const events = [response(definition, "core-recall", 1, { score01: …
+    166|     const input = snapshot(definition, events, { completedActivityKeys…
+    167|     expect(select(input)).toMatchObject({ nextAction: { key: "core-exp…
+       |                           ^
+    168|     const third = response(definition, "core-apply", 3, { score01: 0, …
+    169|     const paused = select(snapshot(definition, [...events, third], { s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 22 passed (24)
+   Start at  16:51:39
+   Duration  1.36s (transform 330ms, setup 0ms, import 719ms, tests 205ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-selection.test.ts

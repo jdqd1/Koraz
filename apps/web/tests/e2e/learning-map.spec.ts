@@ -83,7 +83,7 @@ test("lesson levels draw connections from the first card without an incoming lin
     const second = cardBoxes[1]!;
     expect(second!.y).toBeGreaterThan(first!.y);
     expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    await expect(page.locator(".react-flow__edge-connection .react-flow__edge-path").first()).toHaveAttribute("d", /L/);
+    await expect(page.locator(".react-flow__edge-connection .react-flow__edge-path").first()).toHaveAttribute("d", /H .*Q .*V .*Q .*H /);
   }
 
   await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
@@ -101,7 +101,7 @@ test("lesson levels draw connections from the first card without an incoming lin
   await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });
-test("connections meet card boundaries across mobile widths, zoom and resizing", async ({ page }, testInfo) => {
+test("flowchart connections meet card sides across mobile widths, zoom and resizing", async ({ page }, testInfo) => {
   test.setTimeout(90_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${root}?node=${node}&item=${block}`);
@@ -119,10 +119,10 @@ test("connections meet card boundaries across mobile widths, zoom and resizing",
         const source = cards[index]!.getBoundingClientRect();
         const target = cards[index + 1]!.getBoundingClientRect();
         return [
-          Math.abs(start.x - (source.left + source.width / 2)),
-          Math.abs(start.y - source.bottom),
-          Math.abs(end.x - (target.left + target.width / 2)),
-          Math.abs(end.y - target.top),
+          Math.abs(start.x - source.left),
+          Math.abs(start.y - (source.top + source.height / 2)),
+          Math.abs(end.x - target.left),
+          Math.abs(end.y - (target.top + target.height / 2)),
         ];
       }));
     // React Flow places endpoints at the hidden handle's outer border (2px at 100% zoom).

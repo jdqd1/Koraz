@@ -10,6 +10,10 @@ import {
 import { hashRoutePackage } from "./validation.js";
 import { hashLearningSnapshot } from "../snapshot-hash.js";
 
+// Selection consumes an authorized snapshot; scheduling and persistence remain separate.
+export { selectGuidedV2NextAction as prepareGuidedV2NextAction, selectGuidedV2Diagnostic } from "./selection.js";
+export type { GuidedV2SelectionSnapshot } from "./selection.js";
+
 export type GuidedV2Bindings = typeof V2BindingsSchema._output;
 
 export const guidedV2PolicySnapshot = V2PolicySnapshotSchema.parse({
