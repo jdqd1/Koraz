@@ -72,7 +72,7 @@ export const LearningMapItem = memo(function LearningMapItem({
           <Handle
             type="target"
             id="parent"
-            position={data.mobile ? Position.Left : Position.Top}
+            position={Position.Left}
             isConnectable={false}
             style={{ opacity: 0 }}
           />
@@ -195,7 +195,7 @@ export const LessonNode = LearningNode;
 export const BranchNode = memo(function BranchNode({ data }: NodeProps<BranchFlowNode>) {
   return (
     <span className={styles.branchPoint} title={`Conexiones de ${data.title}`} aria-hidden="true">
-      <Handle type="source" position={Position.Bottom} isConnectable={false} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Right} isConnectable={false} style={{ opacity: 0 }} />
     </span>
   );
 });

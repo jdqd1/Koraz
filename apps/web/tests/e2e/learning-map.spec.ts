@@ -68,26 +68,30 @@ test("each opened level draws its lineage without duplicating the back control",
   await page.goto(root);
   const forwardAnimation = page.waitForFunction(() => {
     const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-lineage .react-flow__edge-path');
-    return line && getComputedStyle(line).animationName.includes("diagram-line-draw");
+    if (!line) return false;
+    const style = getComputedStyle(line);
+    return style.animationName.includes("diagram-line-draw") && style.animationDuration;
   });
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  await forwardAnimation;
-  const duration = await page.locator(".react-flow__edge-lineage .react-flow__edge-path").first().evaluate((line) => getComputedStyle(line).animationDuration);
-  expect(duration).toBe("0.25s");
+  expect(await (await forwardAnimation).jsonValue()).toBe("0.25s");
   await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
   await expect(page.getByLabel(/Nivel de origen/)).toHaveCount(0);
   await expect(page.locator(".react-flow__node-branch")).toHaveCount(1);
   await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(8);
   await expect(page.locator(".react-flow__edge-lineage path[pathLength='1']")).toHaveCount(8);
+  const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
+  const cardBoxes = await Promise.all((await cards.all()).map((card) => card.boundingBox()));
+  const centers = cardBoxes.map((box) => box!.y + box!.height / 2);
+  const branch = await page.locator(".react-flow__node-branch").boundingBox();
+  const groupCenter = (Math.min(...centers) + Math.max(...centers)) / 2;
+  expect(branch!.x).toBeLessThan(cardBoxes[0]!.x);
+  expect(Math.abs(branch!.y + branch!.height / 2 - groupCenter)).toBeLessThan(isMobile ? 12 : 24);
   if (isMobile) {
-    const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
-    const first = await cards.first().boundingBox();
-    const second = await cards.nth(1).boundingBox();
-    const branch = await page.locator(".react-flow__node-branch").boundingBox();
+    const first = cardBoxes[0]!;
+    const second = cardBoxes[1]!;
     expect(second!.y).toBeGreaterThan(first!.y);
     expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    expect(branch!.x).toBeLessThan(first!.x);
-    await expect(page.locator(".react-flow__edge-lineage .react-flow__edge-path").first()).toHaveAttribute("d", / V .* H /);
+    await expect(page.locator(".react-flow__edge-lineage .react-flow__edge-path").first()).toHaveAttribute("d", /C/);
   }
 
   await page.getByRole("button", { name: "Abrir Tórax" }).click();
@@ -105,6 +109,16 @@ test("each opened level draws its lineage without duplicating the back control",
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.getByRole("button", { name: "Atrás en el mapa" }).click();
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
+  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
+  await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+});
+test("slow level navigation responds immediately and completes the diagram transition", async ({ page }) => {
+  await page.goto(`${root}?estado=slow`);
+  await expect(page.getByRole("button", { name: "Abrir Anatomía" })).toBeVisible();
+  const leaving = page.waitForFunction(() => document.querySelector('[data-phase="leaving"]'));
+  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
+  await leaving;
+  await expect(page).toHaveURL(/node=/);
   await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });

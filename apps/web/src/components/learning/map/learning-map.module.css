@@ -151,6 +151,7 @@
 .flow {
   width: 100%;
   height: 100%;
+  transition: opacity 160ms cubic-bezier(.22,1,.36,1), transform 160ms cubic-bezier(.22,1,.36,1);
 }
 .card {
   position: relative;
@@ -1234,7 +1235,14 @@
   background: #fff;
   box-shadow: 0 0 0 4px var(--map-canvas);
 }
+.canvas[data-mobile="true"] .branchPoint {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
 .lineagePath { stroke: #b6c9e9; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.flow[data-phase="leaving"] { opacity: .74; transform: translate3d(-10px,0,0); }
+.flow[data-direction="back"][data-phase="leaving"] { transform: translate3d(10px,0,0); }
 .flow[data-phase="entering"] .branchPoint { animation: diagram-junction 170ms cubic-bezier(.22,1,.36,1) both; }
 .flow[data-phase="entering"] .diagramChild .card {
   animation: diagram-child-appear 240ms cubic-bezier(.22,1,.36,1) both;
@@ -1262,6 +1270,7 @@
   .canvas[data-mobile="true"] .flow[data-direction="back"][data-phase="entering"] .diagramChild .card { animation-name: diagram-child-slide-back; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .flow { transition: none; }
   .flow[data-phase="entering"] .branchPoint,
   .flow[data-phase="entering"] .diagramChild .card,
   .flow[data-phase="entering"] .lineagePath { animation: none; }

@@ -33,7 +33,7 @@ function useWorkspace(account: string, client: MapClient) {
   const [level, setLevel] = useState<LearningMapLevelResponse | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [phase, setPhase] = useState<"idle" | "entering">("idle");
+  const [phase, setPhase] = useState<"idle" | "leaving" | "entering">("idle");
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const [, render] = useReducer((n) => n + 1, 0);
   const cache = useMemo(() => new MapLevelCache(), []);
@@ -194,6 +194,10 @@ function useWorkspace(account: string, client: MapClient) {
   const navigate = useCallback((route: MapRoute, detail = false) => {
     const href = buildMapHref(route, detail);
     const previous = levelRef.current;
+    const changingLevel = Boolean(previous && buildMapHref(previous.route) !== buildMapHref(route));
+    const openingPanel = Boolean(detail || route.unitStableKey || previous?.items.some(
+      (item) => item.kind === "lesson" && item.occurrenceId === route.entryId,
+    ));
     setDirection(previous?.ancestry.some((ancestor) => buildMapHref(ancestor.route) === buildMapHref(route))
       && buildMapHref(previous.route) !== buildMapHref(route) ? "back" : "forward");
     const replacingLesson =
@@ -204,13 +208,16 @@ function useWorkspace(account: string, client: MapClient) {
           (i) => i.kind === "lesson" && i.occurrenceId === route.entryId,
         ));
     stopMotion();
+    if (changingLevel && !openingPanel && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      setPhase("leaving");
+    void load(route).catch(() => {});
     if (replacingLesson || detail)
       window.history.replaceState(null, "", mapNavigationHref(href));
     else {
       history.current.push(buildMapHref(previous?.route ?? ROOT_MAP_ROUTE));
       window.history.pushState(null, "", mapNavigationHref(href));
     }
-  }, [stopMotion]);
+  }, [load, stopMotion]);
   const back = useCallback(() => {
     setDirection("back");
     const r =
@@ -219,12 +226,19 @@ function useWorkspace(account: string, client: MapClient) {
       ROOT_MAP_ROUTE;
     const parent = parentMapRoute(r),
       href = buildMapHref(parent);
+    const previous = levelRef.current;
+    const closingPanel = Boolean(previous?.selectedLesson || previous?.route.unitStableKey || previous?.items.some(
+      (item) => item.kind === "lesson" && item.occurrenceId === r.entryId,
+    ));
     stopMotion();
+    if (previous && buildMapHref(previous.route) !== href && !closingPanel && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      setPhase("leaving");
+    void load(parent).catch(() => {});
     if (history.current.at(-1) === href) {
       history.current.pop();
       window.history.back();
     } else window.history.replaceState(null, "", mapNavigationHref(href));
-  }, [stopMotion]);
+  }, [load, stopMotion]);
   const prefetch = useCallback(
     (route: MapRoute) => {
       if (prefetchCount.current >= 2) return () => {};

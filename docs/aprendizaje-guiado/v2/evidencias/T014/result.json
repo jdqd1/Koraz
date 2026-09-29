@@ -1,0 +1,56 @@
+{
+  "taskId": "T014",
+  "status": "PASS",
+  "baseSha": "101b24b044a6003935d43c6c1925b94c481b0f0e",
+  "headAtVerification": "dc5db6cafd884cdd34aad4b6d4ccfbbbd70045e4",
+  "recordedUtc": "2026-09-29T00:04:55Z",
+  "predecessors": [
+    "docs/aprendizaje-guiado/v2/evidencias/T013/result.json: PASS"
+  ],
+  "changedFilesForT014": [
+    "apps/api/src/guided-learning/v2/grading.ts",
+    "apps/api/src/guided-learning/v2/manifests.ts",
+    "apps/api/test/guided-v2-grading.test.ts",
+    "apps/api/test/guided-v2-case.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T014/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-grading.test.ts test/guided-v2-case.test.ts",
+      "exitCode": 0,
+      "result": "PASS: 2/2 files, 15/15 tests",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T014/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T014/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T014/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS after removing an extra final blank line from focused-tests.txt",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T014/state.txt"
+    }
+  ],
+  "acceptance": {
+    "P07": "PASS: match 3/4 yields feedback.partialScore01=0.75 and binary score01=0; sequence rejects repeated and foreign keys; hotspot includes the polygon border and rejects outside points.",
+    "geometry": "PASS: normalized coordinates, minimum distinct vertices, nonzero area and self-intersections checked server-side.",
+    "case": "PASS: only the active stage and child are projected; wrapper score is always null; duplicate, missing or nested children and replay are rejected.",
+    "families": "PASS: all eight activity families are handled by pure grading or case stage composition."
+  },
+  "limits": [
+    "Pure evaluation only; persistence, reload, transactionality and HTTP integration belong to T015 and were not verified here.",
+    "HEAD advanced during verification and includes pre-existing apps/web map changes; see state.txt. No T014 edits were made to those files.",
+    "The historical HEAD commit has an extra final blank line in focused-tests.txt; the working-tree evidence file is corrected."
+  ],
+  "nextTaskIds": ["T015"],
+  "scope": "Only T014 implementation files and evidencias/T014 were edited for this task. T015 not started; await user instruction."
+}

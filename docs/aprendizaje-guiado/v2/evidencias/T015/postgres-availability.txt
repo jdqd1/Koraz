@@ -1,0 +1,13 @@
+T015 - comprobación de PostgreSQL independiente (2026-09-29 UTC)
+
+Get-Command psql,pg_ctl,postgres,docker,podman,initdb: sin ejecutables disponibles.
+Get-Service *postgres*: sin servicio disponible.
+DATABASE_URL: ausente.
+TEST_DATABASE_URL: ausente.
+Get-NetTCPConnection -LocalPort 5432 -State Listen: sin listener.
+wsl.exe --list --quiet: WSL no está instalado.
+
+El fixture PGlite ejecuta PostgreSQL embebido en una sola conexión. Sus pruebas
+de CAS e idempotencia son secuenciales y no sustituyen una integración con dos
+conexiones independientes. La prueba de concurrencia exigida por T015 queda
+NO VERIFICADO; no se conectó a staging ni a producción.

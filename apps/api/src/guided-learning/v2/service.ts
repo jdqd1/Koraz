@@ -4,9 +4,11 @@ import {
   V2PolicySnapshotSchema,
   validateRoutePackage,
   type RoutePackage,
+  type RouteActivity,
   type RouteValidationIssue,
 } from "@cediah/contracts";
 import { hashRoutePackage } from "./validation.js";
+import { hashLearningSnapshot } from "../snapshot-hash.js";
 
 export type GuidedV2Bindings = typeof V2BindingsSchema._output;
 
@@ -111,4 +113,95 @@ export function prepareGuidedV2Draft(packageInput: unknown, bindingsInput: unkno
     canonicalJson: canonicalJson(definition.data),
     contentHash: hashRoutePackage(definition.data),
   } };
+}
+
+export type GuidedV2AttemptTarget = { kind: "activity" | "assessment" | "review"; key: string };
+export type GuidedV2AttemptSnapshot = {
+  target: GuidedV2AttemptTarget;
+  pathVersionId: string;
+  contentHash: string;
+  activities: RouteActivity[];
+  orderedKeys: string[];
+};
+export type GuidedV2AttemptResume = {
+  activeIndex: number;
+  assistedKeys: string[];
+  revealedKeys: string[];
+  submittedTextByActivity: Record<string, string>;
+};
+
+/** A private immutable copy of the selected questions; selection never depends on a later publication. */
+export function prepareGuidedV2AttemptSnapshot(
+  definition: RoutePackage, pathVersionId: string, target: GuidedV2AttemptTarget,
+): GuidedV2AttemptSnapshot | null {
+  const byKey = new Map(definition.activities.map((activity) => [activity.key, activity]));
+  let selected: RouteActivity[];
+  if (target.kind === "assessment") {
+    const assessment = definition.assessments.find((item) => item.key === target.key);
+    if (!assessment || assessment.candidateActivityKeys.length === 0) return null;
+    selected = assessment.candidateActivityKeys.map((key) => byKey.get(key)).filter((item): item is RouteActivity => Boolean(item));
+    if (selected.length !== assessment.candidateActivityKeys.length) return null;
+  } else {
+    const activity = byKey.get(target.key);
+    if (!activity) return null;
+    selected = [activity];
+  }
+  const activities: RouteActivity[] = [];
+  const orderedKeys: string[] = [];
+  for (const activity of selected) {
+    activities.push(activity);
+    if (activity.kind === "case") {
+      const children = activity.payload.stages.map((stage) => byKey.get(stage.childActivityKey));
+      if (children.some((child) => !child || child.kind === "case")
+        || new Set(children.map((child) => child!.key)).size !== children.length) return null;
+      for (const child of children as RouteActivity[]) {
+        activities.push(child);
+        orderedKeys.push(child.key);
+      }
+    } else orderedKeys.push(activity.key);
+  }
+  if (new Set(activities.map((activity) => activity.key)).size !== activities.length
+    || new Set(orderedKeys).size !== orderedKeys.length) return null;
+  return { target, pathVersionId, contentHash: hashRoutePackage(definition), activities, orderedKeys };
+}
+
+export function parseGuidedV2AttemptSnapshot(input: unknown): GuidedV2AttemptSnapshot | null {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return null;
+  const value = input as Record<string, unknown>;
+  const target = value.target as GuidedV2AttemptTarget | undefined;
+  if (!target || !["activity", "assessment", "review"].includes(target.kind)
+    || typeof target.key !== "string" || typeof value.pathVersionId !== "string"
+    || typeof value.contentHash !== "string" || !Array.isArray(value.activities)
+    || !Array.isArray(value.orderedKeys) || !value.orderedKeys.every((key) => typeof key === "string")) return null;
+  const activities = RoutePackageSchema.shape.activities.safeParse(value.activities);
+  if (!activities.success) return null;
+  const keys = new Set(activities.data.map((activity) => activity.key));
+  if (value.orderedKeys.length === 0 || new Set(value.orderedKeys).size !== value.orderedKeys.length
+    || value.orderedKeys.some((key) => !keys.has(key))) return null;
+  return { target, pathVersionId: value.pathVersionId, contentHash: value.contentHash,
+    activities: activities.data, orderedKeys: value.orderedKeys as string[] };
+}
+
+export function initialGuidedV2AttemptResume(): GuidedV2AttemptResume {
+  return { activeIndex: 0, assistedKeys: [], revealedKeys: [], submittedTextByActivity: {} };
+}
+
+export function parseGuidedV2AttemptResume(input: unknown, snapshot: GuidedV2AttemptSnapshot): GuidedV2AttemptResume | null {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return null;
+  const value = input as Record<string, unknown>;
+  if (!Number.isInteger(value.activeIndex) || (value.activeIndex as number) < 0
+    || (value.activeIndex as number) > snapshot.orderedKeys.length
+    || !Array.isArray(value.assistedKeys) || !Array.isArray(value.revealedKeys)
+    || !value.assistedKeys.every((key) => typeof key === "string" && snapshot.orderedKeys.includes(key))
+    || !value.revealedKeys.every((key) => typeof key === "string" && snapshot.orderedKeys.includes(key))
+    || !value.submittedTextByActivity || typeof value.submittedTextByActivity !== "object"
+    || Array.isArray(value.submittedTextByActivity)) return null;
+  const submittedTextByActivity = value.submittedTextByActivity as Record<string, unknown>;
+  if (Object.entries(submittedTextByActivity).some(([key, text]) => !snapshot.orderedKeys.includes(key) || typeof text !== "string")) return null;
+  return { activeIndex: value.activeIndex as number, assistedKeys: value.assistedKeys as string[],
+    revealedKeys: value.revealedKeys as string[], submittedTextByActivity: submittedTextByActivity as Record<string, string> };
+}
+
+export function guidedV2ItemRevisionHash(activity: RouteActivity): string {
+  return hashLearningSnapshot(activity);
 }

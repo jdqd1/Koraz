@@ -1,0 +1,66 @@
+{
+  "taskId": "T015",
+  "status": "NO VERIFICADO",
+  "baseSha": "dc5db6cafd884cdd34aad4b6d4ccfbbbd70045e4",
+  "recordedUtc": "2026-09-29T00:32:26Z",
+  "predecessors": [
+    "docs/aprendizaje-guiado/v2/evidencias/T008/result.json: PASS",
+    "docs/aprendizaje-guiado/v2/evidencias/T009/result.json: PASS",
+    "docs/aprendizaje-guiado/v2/evidencias/T014/result.json: PASS"
+  ],
+  "changedFilesForT015": [
+    "apps/api/src/guided-learning/v2/service.ts",
+    "apps/api/src/guided-learning/v2/manifests.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T015/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-attempts.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 7/7 en PGlite aislada",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/focused-tests.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/typecheck.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/lint.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/state.txt"
+    },
+    {
+      "command": "PostgreSQL independiente: dos solicitudes simultáneas iguales y dos respuestas distintas con expectedVersion común",
+      "exitCode": null,
+      "result": "NO VERIFICADO: sin servidor PostgreSQL, Docker, WSL ni URL de prueba",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T015/postgres-availability.txt"
+    }
+  ],
+  "acceptance": {
+    "I04_basic": "PASS en PGlite secuencial: reenvío de mismo hash devuelve recibo; cuerpo distinto con misma clave da idempotency_conflict; respuesta diferente a la ya aceptada da conflicto sin nuevo efecto.",
+    "I04_concurrent": "NO VERIFICADO en conexiones PostgreSQL independientes.",
+    "S03_basic": "PASS en manifiesto de servicio: no entrega correctKey, soluciones ni preguntas futuras antes de responder; snapshot privado persiste la selección.",
+    "S03_network": "NO VERIFICADO: rutas HTTP/SSR aún no montadas en T015.",
+    "S04_basic": "PASS en PGlite: asset retirado pausa el intento, no entrega etapa ni crea respuesta/progreso; restaurarlo reanuda la misma etapa.",
+    "resume": "PASS: recarga devuelve la etapa activa; case avanza al hijo siguiente sin respuesta del wrapper, incluso dentro de una evaluación más larga; texto constructed queda pendiente hasta reveal y autorreporte persistidos.",
+    "atomicity": "PASS en PGlite: respuesta, progreso, evento y receipt se confirman en una transacción; respuesta append-only y una por actividad/intento."
+  },
+  "limits": [
+    "La prueba de concurrencia PostgreSQL real de la ficha sigue pendiente; PGlite no aporta conexiones independientes.",
+    "La capa de servicio no está montada en rutas HTTP; contrato de red, SSR y estado de dominio/agenda pertenecen a tareas posteriores.",
+    "No se verificó staging ni producción."
+  ],
+  "nextTaskIds": ["T016"],
+  "scope": "Solo archivos permitidos de T015 y evidencias/T015; T016 no iniciado. Esperar instrucción del usuario."
+}

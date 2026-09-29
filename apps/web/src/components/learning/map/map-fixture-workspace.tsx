@@ -25,6 +25,7 @@ export function MapFixtureWorkspace({ mode }: { mode: string }) {
             503,
             "No pudimos recuperar el mapa de prueba.",
           );
+        if (mode === "slow") await new Promise((resolve) => setTimeout(resolve, 320));
         const level = mapVisualLevel(route, mode);
         if (layouts.has(level.levelKey))
           level.layout = layouts.get(level.levelKey)!;

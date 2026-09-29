@@ -1,0 +1,22 @@
+T014 - estado de verificación (2026-09-29 00:04:55 UTC)
+
+Predecesor: evidencias/T013/result.json = PASS.
+Base anterior al commit observado: 101b24b044a6003935d43c6c1925b94c481b0f0e.
+HEAD observado al cierre: dc5db6cafd884cdd34aad4b6d4ccfbbbd70045e4.
+
+Archivos de implementación de T014:
+- apps/api/src/guided-learning/v2/grading.ts
+- apps/api/src/guided-learning/v2/manifests.ts
+- apps/api/test/guided-v2-grading.test.ts
+- apps/api/test/guided-v2-case.test.ts
+
+Durante las comprobaciones, el checkout avanzó al commit dc5db6c. Ese commit incluyó
+también seis archivos de apps/web relacionados con el mapa de aprendizaje que ya
+aparecían modificados en el estado previo. No se editaron como parte de T014.
+
+git show --check --oneline HEAD: exit 1 por una línea en blanco final en
+evidencias/T014/focused-tests.txt. Se retiró esa línea del archivo de evidencia
+en el árbol de trabajo; git diff --check: exit 0. La corrección no modifica el
+resultado de las pruebas.
+
+No se inició T015 ni se modificaron contratos, CSS o persistencia para T014.
