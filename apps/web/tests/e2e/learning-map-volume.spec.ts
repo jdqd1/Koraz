@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 
-test("renders a bounded canvas, pans without changing levels and measures warm navigation", async ({
+test("renders a bounded canvas, scrolls without changing levels and measures warm navigation", async ({
   page,
   isMobile,
 }, testInfo) => {
@@ -13,14 +13,11 @@ test("renders a bounded canvas, pans without changing levels and measures warm n
   await page.goto("/visual-fixtures/mapa?estado=large");
   await expect(page.locator(".react-flow__node").first()).toBeVisible();
   expect(await page.locator(".react-flow__node").count()).toBeLessThan(200);
-  const viewport = page.locator(".react-flow__viewport");
-  const before = await viewport.getAttribute("style");
-  const pane = await page.locator(".react-flow__pane").boundingBox();
-  await page.mouse.move(pane!.x + 8, pane!.y + 8);
-  await page.mouse.down();
-  await page.mouse.move(pane!.x + 88, pane!.y + 48, { steps: 10 });
-  await page.mouse.up();
-  await expect(viewport).not.toHaveAttribute("style", before!);
+  const canvas = page.getByRole("region", { name: "Mapa del nivel Mi mapa de aprendizaje" });
+  const before = await canvas.evaluate((element) => element.scrollTop);
+  await canvas.hover();
+  await page.mouse.wheel(0, 400);
+  await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(before);
   expect(new URL(page.url()).searchParams.has("node")).toBe(false);
   await page
     .getByRole("button", { name: "Vista de lista", exact: true })

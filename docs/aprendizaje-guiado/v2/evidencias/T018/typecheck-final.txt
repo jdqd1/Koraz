@@ -1,0 +1,8 @@
+$ tsc --noEmit
+test/guided-v2-scheduler.test.ts(189,29): error TS2345: Argument of type '{ key: string; phase: "retrieve"; representation: "text"; kind: "constructed_response"; payload: { rubric: { key: string; criterion: string; example: string; }[]; modelAnswer: string; verificationActivityKey: string; }; ... 10 more ...; alternativeActivityKey: null; }' is not assignable to parameter of type '{ key: string; objectiveKey: string; relatedObjectiveKeys: string[]; phase: "apply" | "activate" | "learn" | "retrieve" | "elaborate" | "remediate"; required: boolean; sourceKeys: string[]; ... 9 more ...; payload: { ...; }; } | ... 6 more ... | { ...; }'.
+  Type '{ key: string; phase: "retrieve"; representation: "text"; kind: "constructed_response"; payload: { rubric: { key: string; criterion: string; example: string; }[]; modelAnswer: string; verificationActivityKey: string; }; ... 10 more ...; alternativeActivityKey: null; }' is not assignable to type '{ key: string; objectiveKey: string; relatedObjectiveKeys: string[]; phase: "apply" | "activate" | "learn" | "retrieve" | "elaborate" | "remediate"; required: boolean; sourceKeys: string[]; ... 9 more ...; payload: { ...; }; }'.
+    Types of property 'use' are incompatible.
+      Type 'string' is not assignable to type '"learning" | "diagnostic" | "gate" | "final" | "retention7" | "retention30"'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

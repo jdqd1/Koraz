@@ -1,0 +1,28 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical creation returns the original receipt and one private snapshot
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent bodies with the same idempotency key conflict without a second effect
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > fixes a private snapshot and resumes the same stage without exposing future answers 151ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > accepts each response once, blocks future answers, and commits completion with the receipt 288ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > persists help as assisted on the server and rejects stale expectedVersion 118ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps constructed text pending until a persisted reveal and self-rating 131ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > resumes a case at the next child without scoring its wrapper twice 105ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps case completion separate within a longer assessment 118ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > pauses on withdrawn content without revealing the next item or creating progress 97ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed | 12 skipped (19)
+   Start at  17:12:08
+   Duration  8.65s (transform 490ms, setup 0ms, import 1.84s, tests 6.30s, environment 0ms)
+

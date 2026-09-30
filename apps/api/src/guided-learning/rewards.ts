@@ -4,6 +4,9 @@ import {
   LEARNING_VIDEO_SKIPPED_XP,
   LearningMilestoneSchema,
   LearningRewardSchema,
+  V2ObjectiveRewardSchema,
+  V2RewardSchema,
+  type V2ObjectiveRewardKind,
   type LearningMilestone,
   type LearningProjection,
   type LearningReward,
@@ -18,6 +21,48 @@ import type {
 
 type RewardRow = Selectable<LearningRewardTable>;
 type RewardDatabase = DatabaseClient | Transaction<CediahDatabase>;
+
+const v2Awards = {
+  v2_objective_recalled: { xp: 5, title: "Primera recuperación objetiva" },
+  v2_objective_mastered: { xp: 10, title: "Primer dominio del objetivo" },
+  v2_objective_consolidated: { xp: 15, title: "Primera consolidación del objetivo" },
+} as const;
+
+/** Called only with evidence reconstructed from accepted server facts. No v1 attempt FK. */
+export async function awardObjectiveV2(transaction: Transaction<CediahDatabase>, input: {
+  userId: string; enrollmentId: string; pathVersionId: string; objectiveKey: string;
+  kind: V2ObjectiveRewardKind; acceptedAt: Date;
+}) {
+  const awardKey = `v2:${input.pathVersionId}:${input.objectiveKey}:${input.kind}`;
+  const timezone = await rewardTimezone(transaction, input.userId);
+  const date = localDate(input.acceptedAt, timezone);
+  const payload = { pathVersionId: input.pathVersionId, objectiveKey: input.objectiveKey };
+  const event = await transaction.insertInto("learning_events").values({
+    user_id: input.userId, enrollment_id: input.enrollmentId, attempt_id: null,
+    event_type: input.kind, semantic_key: awardKey, payload_json: payload,
+    policy_version: "guided-v2.0", occurred_at: input.acceptedAt, local_date: date, timezone,
+  }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).returning("id").executeTakeFirst();
+  const eventId = event?.id ?? (await transaction.selectFrom("learning_events").select("id")
+    .where("user_id", "=", input.userId).where("semantic_key", "=", awardKey).executeTakeFirstOrThrow()).id;
+  // SQL retains the existing narrow v1 Kysely kind; the new DTO has an explicit v1/v2 union.
+  const inserted = await sql<{ award_key: string; reward_kind: V2ObjectiveRewardKind; created_at: Date; xp: number }>`
+    insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date,created_at)
+    values (${input.userId},${awardKey},${input.kind},${v2Awards[input.kind].xp},${eventId},${date}::date,${input.acceptedAt})
+    on conflict (user_id,award_key) do nothing returning award_key,reward_kind,created_at,xp`.execute(transaction);
+  const row = inserted.rows[0];
+  return row ? V2ObjectiveRewardSchema.parse({ awardKey: row.award_key, awardedAt: toIso(row.created_at),
+    kind: row.reward_kind, title: v2Awards[row.reward_kind].title, xp: row.xp }) : null;
+}
+
+export async function readLearningRewardsV2(database: RewardDatabase, userId: string) {
+  const rows = await database.selectFrom("learning_rewards").selectAll().where("user_id", "=", userId)
+    .orderBy("created_at").orderBy("id").execute();
+  return rows.map((row) => {
+    const kind = row.reward_kind as LearningRewardKind | V2ObjectiveRewardKind;
+    return V2RewardSchema.parse({ awardKey: row.award_key, awardedAt: toIso(row.created_at), kind,
+      title: kind in v2Awards ? v2Awards[kind as V2ObjectiveRewardKind].title : rewardTitles[kind as LearningRewardKind], xp: row.xp });
+  });
+}
 
 const rewardTitles: Record<LearningRewardKind, string> = {
   activity_check: "Comprobación completada",

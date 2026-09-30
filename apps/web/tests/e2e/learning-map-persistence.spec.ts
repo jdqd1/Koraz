@@ -18,7 +18,7 @@ test.describe("disposable API/SQL persistence", () => {
     await page.goto(map);
     const subject = page.getByRole("button", { name: "Abrir Tema E2E", exact: true });
     await expect(subject).toBeVisible();
-    await expect(page.locator(".react-flow__edge")).toHaveCount(0);
+    await expect(page.getByLabel("Conexión con el nivel anterior")).toHaveCount(0);
     await subject.click();
     const route = page.getByRole("button", { name: "Abrir Bloque E2E", exact: true });
     await expect(route).toBeVisible();
@@ -26,7 +26,7 @@ test.describe("disposable API/SQL persistence", () => {
     await route.click();
     await expect(page.getByRole("heading", { name: "Bloque E2E", exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Abrir Lección E2E 1", exact: true })).toBeVisible();
-    await expect(page.locator(".react-flow__edge-connection")).toHaveCount(1);
+    await expect(page.locator(".react-flow__edge-connection")).toHaveCount(2);
     await page.reload();
     await expect(page.getByRole("heading", { name: "Bloque E2E", exact: true })).toBeVisible();
   });

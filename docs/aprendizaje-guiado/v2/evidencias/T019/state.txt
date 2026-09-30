@@ -1,0 +1,25 @@
+Base SHA: c6dfa69466ee9cb61cf28d8b78177f6e7dd7ca84
+Node used: v24.19.0; pnpm available: 11.19.0; packageManager declared 11.9.0.
+Initial working tree included T018 and external map changes; all preserved.
+Predecessor status and source hashes: PASS.
+Scoped T019 diff check and trailing whitespace inspection: PASS.
+Global diff check observed: apps/web/src/components/learning/map/learning-map-canvas.tsx:179: new blank line at EOF. Unrelated file untouched.
+ M apps/api/src/guided-learning/v2/manifests.ts
+ M apps/api/src/providers/postgres-guided-learning-v2.ts
+ M apps/api/test/guided-v2-attempts.test.ts
+ M apps/web/src/components/learning/map/learning-map-canvas.tsx
+ M apps/web/src/components/learning/map/learning-map-workspace.tsx
+ M apps/web/src/components/learning/map/learning-map.module.css
+ M apps/web/src/components/learning/map/nodes/learning-map-item.tsx
+ M apps/web/tests/e2e/learning-map-persistence.spec.ts
+ M apps/web/tests/e2e/learning-map-volume.spec.ts
+ M apps/web/tests/e2e/learning-map.spec.ts
+?? apps/api/src/guided-learning/v2/assessments.ts
+?? apps/api/src/guided-learning/v2/scheduler.ts
+?? apps/api/test/guided-v2-assessments.test.ts
+?? apps/api/test/guided-v2-scheduler.test.ts
+?? apps/web/src/components/learning/map/map-horizontal-layout.test.ts
+?? apps/web/src/components/learning/map/map-horizontal-layout.ts
+?? docs/aprendizaje-guiado/evidencias-mapa-horizontal/
+?? docs/aprendizaje-guiado/v2/evidencias/T018/
+?? docs/aprendizaje-guiado/v2/evidencias/T019/

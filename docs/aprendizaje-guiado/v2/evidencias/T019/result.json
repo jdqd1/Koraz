@@ -1,0 +1,96 @@
+{
+  "predecessors": [
+    "T017: PASS",
+    "T018: PASS",
+    "T006: PASS"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "result": "PASS",
+      "evidence": "contracts-build.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-assessments.test.ts --reporter=verbose",
+      "result": "PASS: 26/26",
+      "evidence": "focused-retention.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-assessments.test.ts test/guided-v2-scheduler.test.ts --reporter=verbose",
+      "result": "PASS: 49 executed; 10 PostgreSQL cases intentionally skipped without dedicated harness",
+      "evidence": "acceptance-tests.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-attempts.test.ts test/guided-v2-evidence.test.ts test/guided-v2-case.test.ts test/guided-v2-selection.test.ts test/guided-v2-validation.test.ts --reporter=verbose",
+      "result": "PASS: 77 executed; 12 PostgreSQL cases intentionally skipped",
+      "evidence": "regression.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "result": "PASS",
+      "evidence": "typecheck-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "result": "PASS",
+      "evidence": "lint-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check -- <three T019 files> and trailing whitespace inspection",
+      "result": "PASS: T019 scope only",
+      "evidence": "scoped-diff.txt",
+      "exitCode": 0
+    }
+  ],
+  "recordedUtc": "2026-09-29T21:38:23.7468011Z",
+  "baseSha": "c6dfa69466ee9cb61cf28d8b78177f6e7dd7ca84",
+  "taskId": "T019",
+  "issues": [
+    "Global diff check encountered a trailing blank line in a concurrently modified map file; scoped T019 check PASS and unrelated files untouched."
+  ],
+  "nextTaskIds": [
+    "T020"
+  ],
+  "limits": [
+    "No HTTP/end-to-end/UI/staging/production validation or deployment. T021 connects selection plans, presentation exposure recording, response authorization and feedback receipts to learner endpoints.",
+    "Frozen selection metadata is returned as a private plan; its new persistence wiring is not claimed by T019.",
+    "No PostgreSQL concurrency harness run in T019; storage/locks/scheduler unchanged. Skipped cases are not reported as new passes.",
+    "No full-suite verification reserved for T040."
+  ],
+  "status": "PASS",
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/assessments.ts",
+    "apps/api/src/guided-learning/v2/manifests.ts",
+    "apps/api/test/guided-v2-assessments.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T019/"
+  ],
+  "interpretations": [
+    "Recent means the checkpoint afterUnitKey unit; previous means other already introduced units. CORE priority takes precedence when it competes with an approximate 50/50 mix.",
+    "Retention coverage denominator is the required objectives currently due; final denominator is every required objective in the route.",
+    "Transfer candidature is distinct from actual first unassisted objectively graded transfer, whose metrics belong to T020."
+  ],
+  "sourceSha256": {
+    "apps/api/test/guided-v2-assessments.test.ts": "beac9e06dbba9705846733133f27a77e9f78705bf6ed26c4dc1c38e7af7c8115",
+    "apps/api/src/guided-learning/v2/manifests.ts": "73f2d3cfd5bf9690f59c4383886d57d6169a791b0f9a817239a0cbc8623c6f67",
+    "apps/api/src/guided-learning/v2/assessments.ts": "2aa6b508f2350101e32a097a4e040edc7d3b26e20c0058fc8ab9002b29e12b3b"
+  },
+  "scope": "Only the three T019 source/test files and evidence; prior T018 changes and concurrent map work preserved.",
+  "acceptance": {
+    "P15": "PASS: disjoint final/retention7/retention30 families; 24 objectives segmented 10+10+4; no reserved projection in practice/student preview; repeated final and changed ID within same family novel=false",
+    "freeze": "PASS: immutable private plan detached from editorial mutations and exposure changes, semantic dedupe and deterministic hash",
+    "P14": "PASS: recent/prior introduced units, unresolved CORE priority, rotation, 18-objective checkpoint segmented 10+8, future unit excluded, comparable groups introduced only",
+    "retention": "PASS: consumes scheduler UTC due state, due objectives eligible before completing route, actual elapsed days, overdue windows, late day7 pushes day30 by seven days, absence does not mutate lapses",
+    "coverage": "PASS: complete only after all segments submitted; omissions zero over full eligible denominator; assisted/self excluded",
+    "privacy": "PASS at module/manifest boundary: active item only, no private solutions/hints/equivalence keys/future prompts; feedback after confirmed segment submission"
+  },
+  "resolvedIssues": [
+    "Synthetic fixture initially omitted reserved activities from unit membership; corrected the fixture to the current graph invariant.",
+    "Explicit typing for the segment array corrected TypeScript inference."
+  ]
+}

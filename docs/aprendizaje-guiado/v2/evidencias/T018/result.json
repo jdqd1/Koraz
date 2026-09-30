@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "unrelatedChangesPreserved": [
+    "apps/web/src/components/learning/map/map-horizontal-layout.ts appeared during this run; not created, read or modified by T018."
+  ],
+  "predecessors": [
+    "T008/result.json: PASS",
+    "T016/result.json: PASS"
+  ],
+  "recordedUtc": "2026-09-29T21:20:42.9500006Z",
+  "baseSha": "c6dfa69466ee9cb61cf28d8b78177f6e7dd7ca84",
+  "limits": [
+    "No global suite, browser/UI, staging or production validation or deployment.",
+    "As in prior isolated fixtures, historical 0005 is omitted; complete migration-chain/checksum acceptance M01 is not claimed.",
+    "Scheduling session identity is the persisted attemptId; history supplies retry counts without altering the schema.",
+    "T019 selection of checkpoint/final/deferred reserves remains unimplemented."
+  ],
+  "acceptance": {
+    "P13": "PASS: 10min/10min/1d retries, duplicate has no lapses/effects, UTC offsets/DST stable, absence creates no failure",
+    "P12": "PASS: intervals [1,3,7,14,30], once per rolling 24h, stage cap 4, actual server acceptance time",
+    "retention": "PASS: first mastery+7/+30; late first measurement pushes second to max(day30,accepted7+7); objective measurement distinct from success/consolidation",
+    "atomicity": "PASS: rollback includes response/event/receipt/evidence/attempt/agenda; append-only receipt replay repairs agenda",
+    "concurrency": "PASS: two distinct PostgreSQL backends confirmed waiting on actor lock before release; one interval extension; failure prevails; duplicate has one lapse",
+    "practice": "PASS: diagnostic/reading excluded; assisted/partial/hard/good do not raise stability; self again reinforces; no easy/speed/confidence credit"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "postgres": "Existing portable PostgreSQL 17.11; fresh localhost:55418/koraz_t018_test cluster; stopped after checks",
+    "pnpmDeclared": "11.9.0",
+    "pnpmAvailable": "11.19.0"
+  },
+  "nextTaskIds": [
+    "T019"
+  ],
+  "resolvedIssues": [
+    "Test rollback assertion used nonexistent id column, then incorrectly assumed absence of the cache created by create(); corrected to compare the prior cache exactly.",
+    "PostgreSQL fixture enrollment/adoption insertion must share one transaction for the existing deferred constraint.",
+    "Extra synthetic diagnosis/match fixtures corrected to match the current contract; all first-run logs retained.",
+    "Scheduler reads partialScore01 for scheduling only; binary evidence/mastery remains unchanged."
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/scheduler.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-scheduler.test.ts",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T018/"
+  ],
+  "scopeAdjustment": "One necessary fixture cleanup line in guided-v2-attempts.test.ts beyond the listed T018 files: delete dependent review_state before attempts/responses, preserving all existing assertions and database integrity. No runtime scope extension.",
+  "taskId": "T018",
+  "checks": [
+    {
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "contracts-build.txt",
+      "command": "pnpm.cmd --filter @cediah/contracts build"
+    },
+    {
+      "result": "PASS: 31/31 executed (17 pure, 6 PGlite, 8 PostgreSQL); 2 PGlite-only concurrency cases intentionally skipped and run in PostgreSQL",
+      "exitCode": 0,
+      "evidence": "scheduler-acceptance.txt",
+      "command": "run-postgres-concurrency.ps1 -PostgresBin C:/Users/josed/.codex/tmp/koraz-t015-postgres/pgsql/bin"
+    },
+    {
+      "result": "PASS: 64/64 executed; 12 PostgreSQL attempt cases verified by separate harness",
+      "exitCode": 0,
+      "evidence": "regression-final.txt",
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-evidence.test.ts test/guided-v2-attempts.test.ts test/guided-v2-selection.test.ts --reporter=verbose"
+    },
+    {
+      "result": "PASS: 19/19 including 12 independent-connection tests",
+      "exitCode": 0,
+      "evidence": "postgres-attempts-regression.txt",
+      "command": "T015 PostgreSQL reproduction harness with T018 provider"
+    },
+    {
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "typecheck-acceptance.txt",
+      "command": "pnpm.cmd --filter @cediah/api typecheck"
+    },
+    {
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "lint.txt",
+      "command": "pnpm.cmd --filter @cediah/api lint"
+    },
+    {
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "state.txt",
+      "command": "git diff --check"
+    }
+  ],
+  "sourceSha256": {
+    "apps/api/test/guided-v2-scheduler.test.ts": "e44bb9ae1114b0b13467d4b06f613341a97034509489713b07d7ad01ca6d52d8",
+    "apps/api/src/guided-learning/v2/scheduler.ts": "5ddda1f428cf058aaa3147894a1fec20cd613accf4ac47f7c2450cf20f32823d",
+    "apps/api/test/guided-v2-attempts.test.ts": "974d44d23f8910c3fb10d2a7ad90fbcc5200f878e174ce8fa8d5ab97fa472a9c",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts": "64bb0f9dc70bbc6ed8ce62c98a4bcf3885a6d1912b74c4e1cf3e52cf8f80c191"
+  }
+}

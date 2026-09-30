@@ -1,0 +1,98 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical creation returns the original receipt and one private snapshot
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent bodies with the same idempotency key conflict without a second effect
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > fixes a private snapshot and resumes the same stage without exposing future answers 217ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > accepts each response once, blocks future answers, and commits completion with the receipt 468ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > persists help as assisted on the server and rejects stale expectedVersion 188ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps constructed text pending until a persisted reveal and self-rating 235ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > resumes a case at the next child without scoring its wrapper twice 179ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps case completion separate within a longer assessment 274ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > pauses on withdrawn content without revealing the next item or creating progress 197ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P08 requires two recall families and an application in a different representation 40ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"assisted":true}) 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"diagnostic"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"purpose":"preview"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"self"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"gradingSource":"none"}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"score01":0.75}) 2ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > assisted, diagnostic, preview, self, partial and invalid answers cannot grant mastery ({"valid":false}) 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reading and confidence do not grant evidence; empty evidence is null 6ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > compares application with the explanation, not with a worked example 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > preview cannot change learner state or postpone eligibility of a real response 12ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > keeps one family and does not reset the eligible window on immediate retries 5ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > reuse waits 24h from the last response or reveal, including assisted exposures 4ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > uses only the five latest distinct eligible families and unrounded objective scores 8ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a latest eligible failure revokes current mastery while retaining its first date 6ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > critical errors need editorial mapping, completed remediation and objective verification 25ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P09 CORE cannot be compensated by a high average; missing is zero and optional failures do not block 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > blocked descendants leave independent branches available 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > P10 completed, mastered and consolidated are separate; dispensations have their own count 7ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a final omitting a required objective scores that objective zero 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > retention requires days 7 and 30, separation of 7 days and distinct families 12ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > replay and input ordering preserve exact state; semantic duplicates have no effect 12ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > recovery keeps the first mastery date and respects the unit's editorial threshold 3ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > a case counts its wrapper once only after all children in the same attempt 11ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence and policy > an empty initial plan is not a completed route 1ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable 564ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > failure rolls back response, progress, event, receipt and evidence together 173ms
+ ✓ test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists final and deferred evidence, then reconstructs historical consolidation after a later failure 708ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P03 preserves editorial root order and an independent optional branch 45ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P11 samples root/CORE only, offers omission and reports short coverage 8ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > diagnostic selects up to eight distinct families and reports unsampled objectives 5ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P11 diagnostic score 0 changes support only, never evidence or gate 10ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P11 diagnostic score 1 changes support only, never evidence or gate 11ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > omitting diagnosis retains full support and does not reduce progress 6ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > full support fades in order to the independent activity 4ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P09 a failed CORE blocks descendants but leaves another branch accessible 5ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > P09 a 90% average cannot bypass missing CORE mastery; optional failure cannot close a passed gate 7ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > resumes an open attempt before remediating or offering overdue work 3ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > critical remediation shows source/confusion and example before verification 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > bank exhaustion explicitly waits, excludes reserves and never unlocks the child 8ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > reveals postpone family reuse; preview and semantic replays do not 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > empty verification bank creates an editorial incident without a made-up date 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > two consecutive failures reinforce explanation; two retries then offer pause 3ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > critical two-retry limit cannot loop through remediation 4ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > success resets failures; diagnosis, preview, invalid and other sessions cannot exhaust retries 4ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > retention precedes review; reviews remain optional alongside available new work 4ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > review batch is at most ten distinct introduced objectives and deterministically ordered 16ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > critical error is first in review even when another debt is older 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > gate is offered after initial work; diagnosis does not satisfy it 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > all initial candidates exhausted yields an explicit date and preserves state 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > selection exposes keys and reasons, never answers or reserved payloads 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > a critical confusion in an optional objective offers targeted remediation without blocking CORE 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > same-family verification waits a full 24h even after reading the remediation 7ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > a passed gate offers checkpoint next; an authorized dispensation does not fabricate responses 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > future debts/events and semantic duplicate failures do not change today's recommendation 2ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > the diagnostic includes dependent CORE but excludes self-graded constructed responses 4ms
+ ✓ test/guided-v2-selection.test.ts > T017 diagnostic and branch progression > rejects invalid clocks, unknown branch and cyclic graphs 10ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > accepts a complete portable fixture with a nonblocking diagnostic warning 48ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > lets the current unbundled CLI publish the complete fixture 652ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > P04 keeps an incomplete draft valid but blocks missing application, source and reserve 10ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > counts equivalence families once and protects reserved pools 2ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > C02 rejects broken citation markers and unverified source or image rights 9ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > requires gates, checkpoint cadence, critical remediation and spatial assets 8ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > requires retrieval and application for an optional objective 2ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > covers every required objective in its gate and every eligible CORE root in a short diagnostic 2ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > rejects case children launched outside the wrapper 4ms
+ ✓ test/guided-v2-validation.test.ts > guided v2 publication validation > checks catalog bindings, hash and review only on the server 33ms
+ ✓ test/guided-v2-case.test.ts > guided v2 case stage grading > shows only the active stage, scores each child once and never scores the wrapper 18ms
+ ✓ test/guided-v2-case.test.ts > guided v2 case stage grading > does not advance a constructed child until reveal and self-rating finish 4ms
+ ✓ test/guided-v2-case.test.ts > guided v2 case stage grading > rejects skipped, repeated, missing and nested case children 2ms
+
+ Test Files  5 passed (5)
+      Tests  77 passed | 12 skipped (89)
+   Start at  17:32:50
+   Duration  29.20s (transform 688ms, setup 0ms, import 5.52s, tests 20.63s, environment 2ms)
+

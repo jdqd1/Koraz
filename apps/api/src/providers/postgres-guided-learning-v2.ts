@@ -7,6 +7,7 @@ import {
   V2IssueSchema,
   V2PolicySnapshotSchema,
   V2AnswerSchema,
+  V2HeartbeatSchema,
   type RoutePackage,
   type RouteActivity,
   type RouteValidationIssue,
@@ -36,7 +37,10 @@ import {
   type GuidedV2AttemptTarget,
 } from "../guided-learning/v2/service.js";
 import { guidedV2AttemptManifest } from "../guided-learning/v2/manifests.js";
+import { awardObjectiveV2 } from "../guided-learning/rewards.js";
+import { calculateMetricsV2, heartbeatIntervalV2, type MetricLearnerV2, type MetricAssessmentV2, type MetricHeartbeatV2 } from "../guided-learning/v2/metrics.js";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceState } from "../guided-learning/v2/evidence.js";
+import { scheduleReviewV2, type ReviewResponseV2, type ReviewStateV2 } from "../guided-learning/v2/scheduler.js";
 import { gradeBasicActivity, type BasicGradingResult } from "../guided-learning/v2/grading.js";
 import { hashRoutePackage } from "../guided-learning/v2/validation.js";
 import { validateBoundRoutePackage } from "../guided-learning/v2/validation.js";
@@ -51,6 +55,18 @@ type Tx = Transaction<CediahDatabase>;
 type Path = Selectable<LearningPathTable>;
 type Version = Selectable<LearningPathVersionTable>;
 type Binding = Selectable<LearningV2BindingTable>;
+
+async function v2MetricEvent(transaction: Tx, input: {
+  userId: string; enrollmentId: string; pathVersionId: string; kind: string; semanticKey: string; at: Date;
+  interval?: { start: string; end: string };
+  objective?: { objectiveKey: string; dueAt: string };
+}) {
+  await transaction.insertInto("learning_events").values({ user_id: input.userId,
+    enrollment_id: input.enrollmentId, attempt_id: null, event_type: input.kind, semantic_key: input.semanticKey,
+    payload_json: { pathVersionId: input.pathVersionId, ...(input.interval ?? {}), ...(input.objective ?? {}) },
+    policy_version: "guided-v2.0", occurred_at: input.at,
+  }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
+}
 
 export type GuidedV2StorageResult<T> =
   | { status: "success"; value: T }
@@ -965,6 +981,60 @@ async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: 
       answers: answers.map((response) => ({ objectiveKey: response.objective_key, score01: response.score01,
         gradingSource: response.grading_source, assisted: response.assisted })) });
   }
+  // Rebuild the agenda inside the same actor-locked transaction as the response
+  // receipt. The append-only answers recover session retries without extra columns.
+  const achievements = rebuildGuidedV2Evidence(definition, timeline);
+  const reviewRows = await transaction.selectFrom("learning_v2_review_state").selectAll()
+    .where("user_id", "=", userId).where("path_version_id", "=", pathVersionId)
+    .orderBy("objective_key").forUpdate().execute();
+  for (const objective of achievements.objectives) {
+    let agenda: ReviewStateV2 | null = null;
+    const history: ReviewResponseV2[] = [];
+    const facts = timeline.filter((event) => event.kind === "response" && event.objectiveKey === objective.objectiveKey)
+      .sort((a, b) => Date.parse(a.at) - Date.parse(b.at) || a.id.localeCompare(b.id));
+    for (const event of facts) {
+      if (event.kind !== "response") continue;
+      const stored = responses.find((item) => item.attempt_id === event.attemptId && item.activity_key === event.activityKey)!;
+      const answer = V2AnswerSchema.safeParse(stored.answer_json);
+      const grading = stored.grading_json as BasicGradingResult;
+      const partial = "feedback" in grading ? grading.feedback?.partialScore01 : undefined;
+      const receipt: ReviewResponseV2 = { responseId: stored.id, sessionId: stored.attempt_id, acceptedAt: event.at,
+        gradingSource: event.gradingSource,
+        score01: event.gradingSource === "server" && partial !== undefined && partial > 0 && partial < 1 ? partial : event.score01,
+        assisted: event.assisted || grading.status === "practice",
+        selfRating: answer.success && answer.data.kind === "constructed_response" ? answer.data.selfRating : null,
+        purpose: event.purpose, phase: event.phase, valid: event.valid };
+      const next = scheduleReviewV2(agenda, receipt, history, objective.firstMasteredAt);
+      if (next !== agenda) history.push(receipt);
+      agenda = next;
+    }
+    if (!agenda) continue;
+    const values = {
+      stage: agenda.stage, lapses: agenda.lapses, due_at: new Date(agenda.dueAt),
+      last_applied_response_id: agenda.lastAppliedResponseId,
+      last_extended_at: agenda.lastExtendedAt ? new Date(agenda.lastExtendedAt) : null,
+      retention7_due_at: agenda.retention7DueAt ? new Date(agenda.retention7DueAt) : null,
+      retention7_accepted_at: agenda.retention7AcceptedAt ? new Date(agenda.retention7AcceptedAt) : null,
+      retention30_due_at: agenda.retention30DueAt ? new Date(agenda.retention30DueAt) : null,
+      retention30_accepted_at: agenda.retention30AcceptedAt ? new Date(agenda.retention30AcceptedAt) : null,
+    };
+    const existing = reviewRows.find((item) => item.objective_key === objective.objectiveKey);
+    if (existing && Object.entries(values).every(([key, value]) => {
+      const current = existing[key as keyof typeof existing];
+      return current instanceof Date && value instanceof Date ? current.getTime() === value.getTime() : current === value;
+    })) continue;
+    await transaction.insertInto("learning_v2_review_state").values({
+      user_id: userId, enrollment_id: enrollmentId, path_version_id: pathVersionId,
+      objective_key: objective.objectiveKey, ...values, updated_at: now,
+    }).onConflict((conflict) => conflict.columns(["user_id", "path_version_id", "objective_key"]).doUpdateSet({
+      ...values, row_version: sql<number>`learning_v2_review_state.row_version + 1`, updated_at: now,
+    })).execute();
+    if (agenda.dueAt && agenda.lastAppliedResponseId) await v2MetricEvent(transaction, {
+      userId, enrollmentId, pathVersionId, kind: "review_scheduled",
+      semanticKey: `v2-schedule:${pathVersionId}:${objective.objectiveKey}:${agenda.lastAppliedResponseId}`,
+      at: now, objective: { objectiveKey: objective.objectiveKey, dueAt: agenda.dueAt },
+    });
+  }
   const due = await transaction.selectFrom("learning_v2_review_state").select("objective_key")
     .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId)
     .where("path_version_id", "=", pathVersionId).where("due_at", "<=", now).execute();
@@ -991,6 +1061,24 @@ async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: 
       first_consolidated_at: objective.firstConsolidatedAt ? new Date(objective.firstConsolidatedAt) : null,
       row_version: sql<number>`learning_v2_objective_state.row_version + 1`, updated_at: now,
     })).execute();
+  }
+  for (const objective of state.objectives) {
+    const firstRecall = timeline.filter((event) => event.kind === "response" && event.objectiveKey === objective.objectiveKey
+      && event.valid && !event.assisted && event.gradingSource === "server" && event.score01 === 1
+      && event.phase === "retrieve" && event.purpose !== "diagnostic" && event.purpose !== "preview")
+      .sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id))[0];
+    for (const [kind, acceptedAt] of [
+      ["v2_objective_recalled", firstRecall?.at],
+      ["v2_objective_mastered", objective.firstMasteredAt],
+      ["v2_objective_consolidated", objective.firstConsolidatedAt],
+    ] as const) if (acceptedAt) await awardObjectiveV2(transaction, {
+      userId, enrollmentId, pathVersionId, objectiveKey: objective.objectiveKey, kind, acceptedAt: new Date(acceptedAt),
+    });
+  }
+  for (const kind of ["completed", "mastered", "consolidated"] as const) {
+    const at = state.route[`${kind}At`];
+    if (at) await v2MetricEvent(transaction, { userId, enrollmentId, pathVersionId,
+      kind: `route_${kind}`, semanticKey: `v2-route:${pathVersionId}:${kind}`, at: new Date(at) });
   }
   return state;
 }
@@ -1059,6 +1147,12 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               payload_json: { v2AttemptId: created.id, targetKey: input.target.key }, policy_version: "guided-v2.0",
               occurred_at: now(),
             }).execute();
+            await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: enrollment.id, pathVersionId: version.id,
+              kind: "route_started", semanticKey: `v2-route-started:${enrollment.id}:${version.id}`, at: now() });
+            if (snapshot.activities.some((item) => item.key === input.target.key && item.phase === "remediate")) {
+              await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: enrollment.id, pathVersionId: version.id,
+                kind: "remediation_started", semanticKey: `v2-remediation:${created.id}`, at: now() });
+            }
             await v2RebuildEvidence(transaction, input.userId, enrollment.id, version.id, now());
             const manifest = await v2AttemptManifestFromRow(transaction, created);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
@@ -1259,10 +1353,129 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               payload_json: { v2AttemptId: row.id, responsesCount: count.count },
               policy_version: "guided-v2.0", occurred_at: serverTime,
             }).execute();
+            if (snapshot.target.kind === "assessment") {
+              const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+                .where("id", "=", row.path_version_id).executeTakeFirstOrThrow();
+              const kind = RoutePackageSchema.parse(version.definition_v2_json).assessments.find((item) => item.key === snapshot.target.key)?.kind;
+              if (kind) await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: row.enrollment_id,
+                pathVersionId: row.path_version_id, kind: kind.startsWith("retention") ? "retention_submitted" : `${kind}_submitted`,
+                semanticKey: `v2-assessment-submitted:${row.id}`, at: serverTime });
+              if (kind === "unit_gate") {
+                const answers = await transaction.selectFrom("learning_v2_responses").select(["score01", "assisted", "grading_source"])
+                  .where("attempt_id", "=", row.id).execute();
+                const threshold = RoutePackageSchema.parse(version.definition_v2_json).assessments.find((item) => item.key === snapshot.target.key)!.thresholdPercent;
+                const score = answers.reduce((sum, answer) => sum + (!answer.assisted && answer.grading_source === "server" ? answer.score01 ?? 0 : 0), 0) * 100 / answers.length;
+                if (score >= threshold) await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: row.enrollment_id,
+                  pathVersionId: row.path_version_id, kind: "gate_passed", semanticKey: `v2-gate:${row.id}`, at: serverTime });
+              }
+            }
             await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime);
             const manifest = await v2AttemptManifestFromRow(transaction, updated);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attemptId));
+      });
+    },
+  };
+}
+
+/** Aggregate adapter. Its HTTP caller enforces coordinator/administrator roles. */
+export function createPostgresGuidedV2MetricsService(database: DatabaseClient, options: { now?: () => Date } = {}) {
+  const now = () => options.now?.() ?? new Date();
+  return {
+    async feedbackViewed(input: { userId: string; attemptId: string; activityKey: string }) {
+      return database.transaction().execute(async (transaction) => {
+        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        if (!actor) return { status: "forbidden" as const };
+        const authorized = await v2AuthorizedAttempt(transaction, input.userId, input.attemptId, true);
+        if (authorized.status !== "success") return authorized;
+        const response = await transaction.selectFrom("learning_v2_responses").select("id")
+          .where("attempt_id", "=", input.attemptId).where("activity_key", "=", input.activityKey).executeTakeFirst();
+        if (!response || (authorized.row.purpose === "assessment" && authorized.row.status !== "completed")) return { status: "conflict" as const };
+        await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: authorized.row.enrollment_id,
+          pathVersionId: authorized.row.path_version_id, kind: "feedback_viewed", semanticKey: `v2-feedback:${response.id}`, at: now() });
+        return { status: "success" as const };
+      });
+    },
+    async heartbeat(input: { userId: string; enrollmentId: string; deviceKey: string; tickKey: string; visible: boolean }) {
+      const parsed = V2HeartbeatSchema.safeParse({ deviceKey: input.deviceKey, tickKey: input.tickKey, visible: input.visible });
+      if (!parsed.success) return { status: "invalid" as const };
+      return database.transaction().execute(async (transaction) => {
+        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        if (!actor) return { status: "forbidden" as const };
+        const enrollment = await transaction.selectFrom("learning_enrollments").selectAll()
+          .where("id", "=", input.enrollmentId).where("user_id", "=", input.userId).forUpdate().executeTakeFirst();
+        if (!enrollment) return { status: "not_found" as const };
+        const version = await transaction.selectFrom("learning_path_versions").select("policy_version").where("id", "=", enrollment.path_version_id).executeTakeFirst();
+        if (enrollment.status !== "active" || version?.policy_version !== "guided-v2.0"
+          || !(await v2ContentAvailable(transaction, enrollment.path_version_id))) return { status: "access_revoked" as const };
+        const at = now(), semanticKey = `v2-heartbeat:${enrollment.path_version_id}:${enrollment.id}:${input.deviceKey}:${input.tickKey}`;
+        const existing = await transaction.selectFrom("learning_events").select("payload_json")
+          .where("user_id", "=", input.userId).where("semantic_key", "=", semanticKey).executeTakeFirst();
+        if (existing) return { status: "success" as const };
+        const interaction = await transaction.selectFrom("learning_events").select("occurred_at")
+          .where("user_id", "=", input.userId).where("enrollment_id", "=", enrollment.id)
+          .where("policy_version", "=", "guided-v2.0").where("event_type", "in", ["activity_presented", "response_accepted", "help_requested"])
+          .where("occurred_at", "<=", at).orderBy("occurred_at", "desc").executeTakeFirst();
+        const interval = heartbeatIntervalV2(at, interaction?.occurred_at ?? null, input.visible);
+        // Persist empty ticks too: replay after becoming visible cannot rewrite the original tick.
+        await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: enrollment.id,
+          pathVersionId: enrollment.path_version_id, kind: "heartbeat", semanticKey, at, interval: interval ?? undefined });
+        return { status: "success" as const };
+      });
+    },
+    async metrics(input: { pathId: string; pathVersionId: string; cohortStart: string; cohortEnd: string }) {
+      return database.transaction().execute(async (transaction) => {
+        const at = now();
+        const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+          .where("id", "=", input.pathVersionId).where("path_id", "=", input.pathId).where("policy_version", "=", "guided-v2.0").executeTakeFirst();
+        if (!version) return { status: "not_found" as const };
+        const definition = RoutePackageSchema.parse(version.definition_v2_json);
+        const enrollments = await transaction.selectFrom("learning_enrollments").selectAll()
+          .where("path_id", "=", input.pathId).where("path_version_id", "=", input.pathVersionId)
+          .where("created_at", ">=", new Date(input.cohortStart)).where("created_at", "<", new Date(input.cohortEnd))
+          .where("created_at", "<=", at).orderBy("user_id").execute();
+        const learners: MetricLearnerV2[] = [], assessments: MetricAssessmentV2[] = [], heartbeats: MetricHeartbeatV2[] = [];
+        for (const enrollment of enrollments) {
+          // Deterministic actor lock order also protects cache/reward reconstruction.
+          await transaction.selectFrom("auth_users").select("id").where("id", "=", enrollment.user_id).forUpdate().executeTakeFirstOrThrow();
+          const state = await v2RebuildEvidence(transaction, enrollment.user_id, enrollment.id, input.pathVersionId, at);
+          learners.push({ enrollmentId: enrollment.id, activatedAt: enrollment.created_at.toISOString(),
+            requiredObjectiveKeys: definition.objectives.filter((item) => item.required).map((item) => item.key),
+            firstMasteredAt: Object.fromEntries(state.objectives.filter((item) => item.firstMasteredAt).map((item) => [item.objectiveKey, item.firstMasteredAt!])),
+            completedAt: state.route.completedAt, masteredAt: state.route.masteredAt, consolidatedAt: state.route.consolidatedAt });
+          const attempts = await transaction.selectFrom("learning_v2_attempts").selectAll()
+            .where("enrollment_id", "=", enrollment.id).where("path_version_id", "=", input.pathVersionId).execute();
+          const responses = await transaction.selectFrom("learning_v2_responses").selectAll()
+            .where("enrollment_id", "=", enrollment.id).where("path_version_id", "=", input.pathVersionId).execute();
+          const events = await transaction.selectFrom("learning_events").selectAll()
+            .where("enrollment_id", "=", enrollment.id).where("policy_version", "=", "guided-v2.0").where("occurred_at", "<=", at).execute();
+          for (const event of events) {
+            const payload = event.payload_json;
+            if (event.event_type === "heartbeat" && payload && typeof payload === "object" && !Array.isArray(payload)
+              && payload.pathVersionId === input.pathVersionId && typeof payload.start === "string" && typeof payload.end === "string") {
+              heartbeats.push({ enrollmentId: enrollment.id, semanticKey: event.semantic_key, start: payload.start, end: payload.end });
+            }
+          }
+          for (const attempt of attempts) {
+            if (attempt.status !== "completed" || !attempt.submitted_at || attempt.submitted_at > at) continue;
+            const snapshot = parseGuidedV2AttemptSnapshot(attempt.snapshot_json);
+            if (!snapshot || snapshot.target.kind !== "assessment") continue;
+            const assessment = definition.assessments.find((item) => item.key === snapshot.target.key);
+            if (!assessment || !["diagnostic", "final", "retention7", "retention30"].includes(assessment.kind)) continue;
+            const presented = events.find((event) => event.semantic_key === `v2-presented:${attempt.id}`)?.occurred_at ?? attempt.started_at;
+            const prior = responses.filter((response) => response.accepted_at < presented);
+            assessments.push({ enrollmentId: enrollment.id, attemptId: attempt.id, kind: assessment.kind as MetricAssessmentV2["kind"],
+              acceptedAt: attempt.submitted_at.toISOString(), objectiveKeys: [...new Set(snapshot.orderedKeys.map((key) => snapshot.activities.find((item) => item.key === key)!.objectiveKey))],
+              answers: responses.filter((response) => response.attempt_id === attempt.id).map((response) => {
+                const modalities = prior.filter((item) => item.objective_key === response.objective_key).map((item) => item.modality);
+                return { objectiveKey: response.objective_key, equivalenceKey: response.equivalence_key,
+                  modality: response.modality, score01: response.score01, gradingSource: response.grading_source, assisted: response.assisted,
+                  novelAtPresentation: response.novel_at_presentation && !prior.some((item) => item.equivalence_key === response.equivalence_key),
+                  newModality: modalities.length > 0 && !modalities.includes(response.modality) };
+              }) });
+          }
+        }
+        return { status: "success" as const, value: calculateMetricsV2({ ...input, nowUtc: at.toISOString(), learners, assessments, heartbeats }) };
       });
     },
   };

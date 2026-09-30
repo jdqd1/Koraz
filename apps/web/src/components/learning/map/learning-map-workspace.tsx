@@ -47,9 +47,7 @@ function Workspace() {
     heading = useRef<HTMLHeadingElement>(null);
   const [wide, setWide] = useState(false),
     [list, setList] = useState(false);
-  const organizing = false,
-    movingId = null,
-    selecting = false;
+  const selecting = false;
   const
     [info, setInfo] = useState<MapItem | "container" | null>(null),
     [colorItem, setColorItem] = useState<MapItem | null>(null),
@@ -449,17 +447,14 @@ function Workspace() {
               level={level}
               account={account}
               iconColors={iconColors}
-              queue={queue}
               onOpen={open}
               onAction={action}
               onPrefetch={intention}
+              onBack={backToParent}
               selecting={selecting}
               selected={selected}
-              organizing={organizing}
               phase={phase}
               direction={direction}
-              movingId={movingId}
-              onMoveFinished={() => {}}
             />
           )}
           {wide ? panel : null}

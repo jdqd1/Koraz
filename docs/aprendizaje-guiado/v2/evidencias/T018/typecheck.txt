@@ -1,0 +1,5 @@
+$ tsc --noEmit
+test/guided-v2-scheduler.test.ts(195,90): error TS2353: Object literal may only specify known properties, and 'solution' does not exist in type '{ stages: { key: string; narrative: string; childActivityKey: string; }[]; } | { body: string; focusSpans: { start: number; end: number; }[]; assetKey: string | null; scaffold: "explanation" | "worked_example" | "partial_example"; videoRange: { ...; } | null; } | ... 5 more ... | { ...; }'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

@@ -69,7 +69,7 @@ export const LearningMapItem = memo(function LearningMapItem({
           />
           <Handle
             type="source"
-            position={Position.Left}
+            position={Position.Right}
             isConnectable={false}
             style={{ opacity: 0 }}
           />

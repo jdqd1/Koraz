@@ -29,79 +29,53 @@ test("card colors persist locally without a views panel", async ({ page }, testI
   await page.reload();
   await expect(icon).toHaveCSS("color", "rgb(196, 94, 75)");
 });
-test("route cards form a vertical column on desktop and mobile", async ({ page, isMobile }) => {
+test("large levels scroll inside a horizontal map on desktop and mobile", async ({ page }) => {
   await page.goto(`${root}?estado=large`);
-  const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
+  const cards = page.locator(".react-flow__node article[data-kind]");
   await expect(cards.first()).toBeVisible();
-  if (isMobile) {
-    const canvas = page.locator('[data-mobile="true"]');
-    const first = await cards.first().boundingBox();
-    const second = await cards.nth(1).boundingBox();
-    expect(second!.y).toBeGreaterThan(first!.y);
-    expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    await canvas.evaluate((element) => { element.scrollTop = 300; });
-    await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
-  } else {
-    const first = await cards.first().boundingBox();
-    const second = await cards.nth(1).boundingBox();
-    expect(second!.y).toBeGreaterThan(first!.y);
-    expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    await expect(page.getByRole("button", { name: "Rutas siguientes" })).toHaveCount(0);
-  }
-  await page.goto(`${root}?node=${node}&item=${block}`);
-  await expect(page.locator(".react-flow__edge-path").first()).toHaveAttribute("d", /M/);
-  expect(await page.locator(".react-flow__edge path[marker-end]").count()).toBe(0);
-  expect(await page.locator(".react-flow__edge").count()).toBeGreaterThan(0);
+  expect(await cards.count()).toBeLessThan(200);
+  const canvas = page.getByRole("region", { name: "Mapa del nivel Mi mapa de aprendizaje" });
+  const before = await canvas.evaluate((element) => element.scrollTop);
+  await canvas.hover();
+  await page.mouse.wheel(0, 400);
+  await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(before);
+  expect(new URL(page.url()).searchParams.has("node")).toBe(false);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
-test("lesson levels draw connections from the first card without an incoming line", async ({ page, isMobile }) => {
-  await page.goto(root);
-  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
-  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
-  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
-  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
-  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
-  const forwardAnimation = page.waitForFunction(() => {
-    const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-connection .react-flow__edge-path');
-    if (!line) return false;
-    const style = getComputedStyle(line);
-    return style.animationName.includes("diagram-line-draw") && style.animationDuration;
-  });
-  await page.getByRole("button", { name: "Abrir Tórax" }).click();
-  expect(await (await forwardAnimation).jsonValue()).toBe("0.33s");
-  await expect(page.locator(".react-flow__edge-connection path[pathLength='1']")).toHaveCount(7);
-  await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
-  await expect(page.getByLabel(/Nivel de origen/)).toHaveCount(0);
-  await expect(page.locator(".react-flow__node-branch")).toHaveCount(0);
-  await expect(page.locator(".react-flow__edge-lineage")).toHaveCount(0);
-  const cards = page.locator(".react-flow__node").filter({ has: page.locator("article[data-kind]") });
-  const cardBoxes = await Promise.all((await cards.all()).map((card) => card.boundingBox()));
-  expect(cardBoxes[1]!.y).toBeGreaterThan(cardBoxes[0]!.y);
-  expect(Math.abs(cardBoxes[1]!.x - cardBoxes[0]!.x)).toBeLessThan(2);
-  if (isMobile) {
-    const first = cardBoxes[0]!;
-    const second = cardBoxes[1]!;
-    expect(second!.y).toBeGreaterThan(first!.y);
-    expect(Math.abs(second!.x - first!.x)).toBeLessThan(2);
-    await expect(page.locator(".react-flow__edge-connection .react-flow__edge-path").first()).toHaveAttribute("d", /H .*Q .*V .*Q .*H /);
-  }
 
-  await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Atrás en el mapa" })).toBeVisible();
-  await expect(page.locator(".react-flow__edge-connection")).toHaveCount(7);
-  await page.getByRole("button", { name: "Atrás en el mapa" }).click();
+test("one level at a time keeps its incoming line and a centered origin", async ({ page }) => {
+  await page.goto(root);
+  await expect(page.locator(".react-flow__node-origin")).toHaveCount(1);
+  await expect(page.locator(".react-flow__edge-connection")).toHaveCount(6);
+  await expect(page.getByLabel("Conexión con el nivel anterior")).toHaveCount(0);
+  await page.getByRole("button", { name: "Abrir Anatomía", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
-  await expect(page.locator(".react-flow__edge")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Abrir Bioquímica", exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Conexión con el nivel anterior")).toHaveCount(1);
+  const animation = page.waitForFunction(() => {
+    const line = document.querySelector('[data-phase="entering"][data-direction="forward"] .react-flow__edge-path');
+    return line && getComputedStyle(line).animationName.includes("diagram-line-draw");
+  });
+  await page.getByRole("button", { name: "Abrir Tórax", exact: true }).click();
+  await animation;
+  await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Abrir Abdomen", exact: true })).toHaveCount(0);
+  await expect(page.locator(".react-flow__edge-connection path[pathLength='1']")).toHaveCount(8);
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
+  const source = await page.locator(".react-flow__node-origin").boundingBox();
+  const boxes = await Promise.all((await page.locator(".react-flow__node article").all()).map((card) => card.boundingBox()));
+  expect(Math.abs(source!.y + source!.height / 2 - (boxes[0]!.y + boxes.at(-1)!.y + boxes.at(-1)!.height) / 2)).toBeLessThan(2);
+  expect(boxes.every((box) => box!.x > source!.x + source!.width)).toBe(true);
+  expect(await page.locator(".react-flow__edge path[marker-end]").count()).toBe(0);
+  await page.getByRole("button", { name: "Volver desde Tórax", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.getByRole("button", { name: "Atrás en el mapa" }).click();
-  await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Abrir Tórax" }).click();
-  await expect(page.getByRole("heading", { name: "Tórax", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Abrir Anatomía", exact: true }).click();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });
-test("flowchart connections meet card sides across mobile widths, zoom and resizing", async ({ page }, testInfo) => {
+
+test("horizontal branches meet the source and card sides after resizing, scrolling and zoom", async ({ page }, testInfo) => {
   test.setTimeout(90_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${root}?node=${node}&item=${block}`);
@@ -109,41 +83,35 @@ test("flowchart connections meet card sides across mobile widths, zoom and resiz
   const checkEndpoints = async () => {
     await expect.poll(() => page.locator(".react-flow__edge-connection path").evaluateAll((paths) => {
       const cards = Array.from(document.querySelectorAll(".react-flow__node article"));
-      if (paths.length !== cards.length - 1 || !paths.length) return Infinity;
+      const source = document.querySelector(".react-flow__node-origin")!.getBoundingClientRect();
+      if (paths.length !== cards.length || !paths.length) return Infinity;
       return Math.max(...paths.flatMap((element, index) => {
         const path = element as SVGPathElement;
         const matrix = path.getScreenCTM();
         if (!matrix) return [Infinity];
         const start = path.getPointAtLength(0).matrixTransform(matrix);
         const end = path.getPointAtLength(path.getTotalLength()).matrixTransform(matrix);
-        const source = cards[index]!.getBoundingClientRect();
-        const target = cards[index + 1]!.getBoundingClientRect();
-        return [
-          Math.abs(start.x - source.left),
-          Math.abs(start.y - (source.top + source.height / 2)),
-          Math.abs(end.x - target.left),
-          Math.abs(end.y - (target.top + target.height / 2)),
-        ];
+        const target = cards[index]!.getBoundingClientRect();
+        return [Math.abs(start.x - source.right), Math.abs(start.y - (source.top + source.height / 2)),
+          Math.abs(end.x - target.left), Math.abs(end.y - (target.top + target.height / 2))];
       }));
-    // React Flow places endpoints at the hidden handle's outer border (2px at 100% zoom).
     })).toBeLessThanOrEqual(3);
   };
   for (const width of [320, 390, 540, 767, 1440, 390]) {
     await page.setViewportSize({ width, height: 844 });
-    await expect(page.locator(`[data-mobile="${width < 768}"]`)).toBeVisible();
     await checkEndpoints();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
   await page.getByRole("button", { name: "Acercar", exact: true }).click();
   await expect(page.getByRole("button", { name: "Restablecer zoom al 100 %" })).toContainText("110");
   await checkEndpoints();
-  const canvas = page.locator('[data-mobile="true"]');
+  const canvas = page.getByRole("region", { name: "Mapa del nivel Tórax" });
   await canvas.evaluate((element) => { element.scrollTop = 130; });
-  await expect.poll(() => canvas.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
   await checkEndpoints();
   await page.getByRole("button", { name: "Ajustar vista", exact: true }).click();
   await expect(page.getByRole("button", { name: "Restablecer zoom al 100 %" })).toContainText("100");
   await checkEndpoints();
-  await page.screenshot({ path: testInfo.outputPath("mobile-connections.png"), fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath("horizontal-connections.png"), fullPage: true });
 });
 test("slow level navigation responds immediately and completes the diagram transition", async ({ page }) => {
   await page.goto(`${root}?estado=slow`);

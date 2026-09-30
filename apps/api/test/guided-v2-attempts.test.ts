@@ -91,7 +91,7 @@ describe.skipIf(!concurrencyUrl)("guided v2 PostgreSQL independent-connection co
     await control.query("alter default privileges in schema public grant all on tables to anon, authenticated;");
     const directory = new URL("../../../database/migrations/", import.meta.url);
     const files = (await readdir(directory))
-      .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0031_guided_v2_runtime.sql") <= 0)
+      .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0032_guided_v2_rewards.sql") <= 0)
       .sort((a, b) => a.localeCompare(b));
     for (const file of files) {
       // Same isolated schema fixture as T008: no fabricated legacy admin identity.
@@ -305,6 +305,7 @@ describe("guided v2 attempt persistence", () => {
   beforeEach(async () => {
     await pg.query("delete from public.learning_events where policy_version = 'guided-v2.0'");
     await pg.query("delete from public.learning_mutation_receipts where user_id = $1", [userId]);
+    await pg.query("delete from public.learning_v2_review_state where user_id = $1", [userId]);
     await pg.query("delete from public.learning_v2_activity_state where user_id = $1", [userId]);
     await pg.query("delete from public.learning_v2_attempts where user_id = $1", [userId]);
     await pg.query("update public.content_assets set status = 'ready', finalized_at = now() where id = $1", [assetId]);

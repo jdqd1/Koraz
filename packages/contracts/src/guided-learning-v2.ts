@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { LearningPathStatusSchema } from "./guided-learning.js";
+import { LearningPathStatusSchema, LearningRewardSchema } from "./guided-learning.js";
 import {
   RouteActivitySchema,
   RouteKeySchema,
@@ -213,13 +213,28 @@ export const V2MetricsSchema = z.strictObject({
   pathVersionId: V2PathVersionIdSchema, cohortStart: Timestamp, cohortEnd: Timestamp,
   enrolled: z.number().int().nonnegative(), evaluated: z.number().int().nonnegative(),
   immediate: z.number().min(0).max(100).nullable(),
-  retention7: z.strictObject({ eligible: z.number().int().nonnegative(), responded: z.number().int().nonnegative(), mean: z.number().min(0).max(100).nullable() }),
-  retention30: z.strictObject({ eligible: z.number().int().nonnegative(), responded: z.number().int().nonnegative(), mean: z.number().min(0).max(100).nullable() }),
-  transfer: z.strictObject({ eligibleItems: z.number().int().nonnegative(), correctItems: z.number().int().nonnegative() }),
-  efficiency: z.number().nullable(), completed: z.number().int().nonnegative(),
+  retention7: z.strictObject({ eligible: z.number().int().nonnegative(), responded: z.number().int().nonnegative(),
+    eligibleObjectives: z.number().int().nonnegative(), respondedObjectives: z.number().int().nonnegative(),
+    inWindowObjectives: z.number().int().nonnegative(), lateObjectives: z.number().int().nonnegative(),
+    daysElapsed: z.array(z.number().nonnegative()), mean: z.number().min(0).max(100).nullable() }),
+  retention30: z.strictObject({ eligible: z.number().int().nonnegative(), responded: z.number().int().nonnegative(),
+    eligibleObjectives: z.number().int().nonnegative(), respondedObjectives: z.number().int().nonnegative(),
+    inWindowObjectives: z.number().int().nonnegative(), lateObjectives: z.number().int().nonnegative(),
+    daysElapsed: z.array(z.number().nonnegative()), mean: z.number().min(0).max(100).nullable() }),
+  transfer: z.strictObject({ eligibleItems: z.number().int().nonnegative(), correctItems: z.number().int().nonnegative(),
+    modalities: z.array(z.strictObject({ modality: RouteActivitySchema.options[0].shape.representation,
+      eligibleItems: z.number().int().nonnegative(), correctItems: z.number().int().nonnegative() })) }),
+  efficiency: z.number().nullable(), efficiencyEvaluated: z.number().int().nonnegative(), activeMinutes: z.number().nonnegative(),
+  completed: z.number().int().nonnegative(),
   mastered: z.number().int().nonnegative(), consolidated: z.number().int().nonnegative(),
   missingness: z.strictObject({ diagnosticOmitted: z.number().int().nonnegative(), zeroActiveMinutes: z.number().int().nonnegative(), retention7Missing: z.number().int().nonnegative(), retention30Missing: z.number().int().nonnegative() }),
 });
+
+export const V2ObjectiveRewardKindSchema = z.enum(["v2_objective_recalled", "v2_objective_mastered", "v2_objective_consolidated"]);
+export const V2ObjectiveRewardSchema = LearningRewardSchema.extend({ kind: V2ObjectiveRewardKindSchema }).strict();
+export const V2RewardSchema = z.union([LearningRewardSchema, V2ObjectiveRewardSchema]);
+export type V2ObjectiveRewardKind = z.infer<typeof V2ObjectiveRewardKindSchema>;
+export const V2HeartbeatSchema = z.strictObject({ deviceKey: Id, tickKey: Id, visible: z.boolean() });
 
 // v2 catalog/home shapes are separate from strict v1 DTOs. Consumers dispatch on engineVersion.
 export const V2PathCardSchema = z.strictObject({

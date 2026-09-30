@@ -1214,6 +1214,117 @@
 @keyframes diagram-child-slide-in { from { opacity: .3; transform: translateX(-12px) scale(.985); } to { opacity: 1; transform: translateX(0) scale(1); } }
 @keyframes diagram-child-slide-back { from { opacity: .3; transform: translateX(12px) scale(.985); } to { opacity: 1; transform: translateX(0) scale(1); } }
 
+/* A single level opens to the right of a centered, compact origin. */
+.horizontalCanvas {
+  background: #f8f8f8;
+  overflow: hidden;
+  padding: 0;
+}
+.horizontalCanvas[data-mobile="true"] { overflow: hidden; }
+.canvasScroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.horizontalCanvas .flow { min-height: 100%; position: relative; }
+.horizontalCanvas :global(.react-flow__pane),
+.horizontalCanvas :global(.react-flow__renderer) { touch-action: pan-x pan-y; }
+.horizontalCanvas .card,
+.horizontalCanvas .card[data-kind="node"] {
+  width: var(--level-card-width);
+  height: var(--level-card-height);
+  min-height: 0;
+  border: 1px solid #e7e7e7;
+  border-radius: 20px;
+  background: #fff;
+  color: #242424;
+  box-shadow: none;
+}
+.horizontalCanvas .card:hover { border-color: #b9b9b9; background: #fdfdfd; }
+.horizontalCanvas .openButton {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 10px 26px 10px 14px;
+  border-radius: 20px;
+  text-align: left;
+}
+.horizontalCanvas .card .iconWell { width: 28px; height: 32px; border-radius: 0; background: transparent; color: #747474; }
+.horizontalCanvas .card .iconWell svg { width: 25px; height: 25px; }
+.horizontalCanvas .cardContent,
+.horizontalCanvas .cardHeading { align-items: flex-start; gap: 3px; padding: 0; }
+.horizontalCanvas .cardHeading strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 36px;
+  overflow: hidden;
+  min-height: 0;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+}
+.horizontalCanvas .badge { min-height: 0; padding: 0; background: transparent; color: #757575; font-size: 10px; line-height: 14px; }
+.horizontalCanvas .cardMetric { justify-content: flex-start; gap: 6px; color: #757575; font-size: 10px; }
+.horizontalCanvas .cardMetric .percentage { color: #555; font-size: 10px; font-weight: 500; }
+.horizontalCanvas .cardMetric small { font-size: 10px; line-height: 14px; }
+.horizontalCanvas .progressTrack { height: 2px; background: #ededed; }
+.horizontalCanvas .menu { top: 4px; right: 4px; }
+.horizontalCanvas .menu summary { width: 28px; height: 28px; color: #777; }
+.horizontalCanvas .roadmapMarker { display: none; }
+.horizontalCanvas .connectionPath { stroke: #c1c1c1; stroke-width: 1; }
+.horizontalCanvas :global(.react-flow__handle) {
+  width: 4px; height: 4px; min-width: 4px; min-height: 4px;
+  border: 0; background: #aaa; opacity: 1 !important;
+}
+.levelOrigin {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; align-items: center;
+}
+.originLabel {
+  box-sizing: border-box;
+  width: 100%; min-height: 48px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #dedede; border-radius: 24px;
+  background: #e9e9e9; color: #292929;
+  font-size: 13px; line-height: 18px;
+}
+button.originLabel { cursor: pointer; }
+button.originLabel:hover { background: #dfdfdf; }
+.originLabel strong {
+  min-width: 0; overflow-wrap: anywhere; font-weight: 500;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+.originLabel svg { flex: none; }
+.levelOrigin[data-root="true"] .originLabel { background: #202020; border-color: #202020; color: #fff; }
+.incomingConnection { position: absolute; left: 0; z-index: 1; overflow: visible; pointer-events: none; }
+.incomingConnection line { stroke: #c1c1c1; stroke-width: 1; }
+.horizontalCanvas .controls,
+.horizontalCanvas[data-mobile="true"] .controls {
+  position: absolute; bottom: 14px; left: 14px;
+  width: max-content; margin: 0; z-index: 6;
+}
+.horizontalCanvas .flow[data-phase="leaving"] { transform: translate3d(-12px,0,0); }
+.horizontalCanvas .flow[data-direction="back"][data-phase="leaving"] { transform: translate3d(12px,0,0); }
+.horizontalCanvas .flow[data-phase="entering"] .diagramChild .card { animation-name: diagram-child-slide-in; }
+.horizontalCanvas .flow[data-direction="back"][data-phase="entering"] .diagramChild .card { animation-name: diagram-child-slide-back; }
+.horizontalCanvas[data-mobile="true"] .originLabel { padding: 8px; gap: 5px; font-size: 11px; line-height: 15px; }
+.horizontalCanvas[data-mobile="true"] .originLabel svg { width: 13px; height: 13px; }
+.horizontalCanvas[data-mobile="true"] .openButton { grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 10px 19px 10px 10px; }
+.horizontalCanvas[data-mobile="true"] .card .iconWell { width: 22px; }
+.horizontalCanvas[data-mobile="true"] .card .iconWell svg { width: 21px; height: 21px; }
+.horizontalCanvas[data-mobile="true"] .cardHeading strong { font-size: 12px; }
+.horizontalCanvas[data-mobile="true"] .canvasScroll { height: calc(100% - 96px); }
+.horizontalCanvas[data-mobile="true"] .controls { bottom: calc(96px + env(safe-area-inset-bottom)); }
+
 @container (max-width: 767px) {
   .canvas[data-mobile="true"] .roadmapMarker { display: none; }
   .canvas[data-mobile="true"] .flow[data-phase="entering"] .diagramChild .card { animation-name: diagram-child-slide-in; }

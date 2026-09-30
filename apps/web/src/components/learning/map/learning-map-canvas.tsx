@@ -1,450 +1,182 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import {
-  ReactFlow,
-  MiniMap,
-  applyNodeChanges,
-  useReactFlow,
-  PanOnScrollMode,
-  type EdgeProps,
-  type NodeChange,
-  type Viewport,
-} from "@xyflow/react";
-import { ArrowsOut, Minus, Plus, MapTrifold } from "@phosphor-icons/react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { ReactFlow, Handle, Position, getBezierPath, useReactFlow, type EdgeProps, type Node, type NodeProps } from "@xyflow/react";
+import { ArrowLeft, ArrowsOut, Minus, Plus, Stack } from "@phosphor-icons/react";
 import type { LearningMapLevelResponse, MapItem } from "@cediah/contracts";
-import {
-  LearningNode,
-  BlockNode,
-  LessonNode,
-  type FlowMapNode,
-  type MapItemAction,
-} from "./nodes/learning-map-item";
-import {
-  initialLayout,
-  resolveDropOverlap,
-  type Positions,
-} from "./map-layout";
-import {
-  readSpatialSnapshot,
-  writeSpatialSnapshot,
-  spatialKey,
-} from "./map-spatial-state";
-import type { MapLayoutQueue } from "./use-map-layout-save";
+import { LearningNode, BlockNode, LessonNode, type FlowMapNode, type MapItemAction } from "./nodes/learning-map-item";
+import { horizontalLevelLayout } from "./map-horizontal-layout";
+import { readSpatialSnapshot, writeSpatialSnapshot, spatialKey } from "./map-spatial-state";
 import styles from "./learning-map.module.css";
-type DiagramNode = FlowMapNode;
-const nodeTypes = { node: LearningNode, block: BlockNode, lesson: LessonNode };
+
+type OriginNode = Node<{ title: string; root: boolean; onBack: () => void }, "origin">;
+type DiagramNode = FlowMapNode | OriginNode;
+const ORIGIN_ID = "level-origin";
+
+function LevelOrigin({ data }: NodeProps<OriginNode>) {
+  return (
+    <div className={styles.levelOrigin} data-root={data.root} aria-label={`Origen del nivel: ${data.title}`}>
+      {!data.root ? <Handle type="target" position={Position.Left} isConnectable={false} /> : null}
+      {data.root ? (
+        <span className={styles.originLabel}><Stack size={18} /><strong title={data.title}>{data.title}</strong></span>
+      ) : (
+        <button className={`${styles.originLabel} nodrag nopan`} onClick={data.onBack} aria-label={`Volver desde ${data.title}`} title="Volver al nivel anterior">
+          <ArrowLeft size={16} /><strong title={data.title}>{data.title}</strong>
+        </button>
+      )}
+      <Handle type="source" position={Position.Right} isConnectable={false} />
+    </div>
+  );
+}
+
 function ConnectionEdge(props: EdgeProps) {
-  const trunkOffset = typeof props.data?.trunkOffset === "number" ? props.data.trunkOffset : 48;
-  const trunkX = Math.min(props.sourceX, props.targetX) - trunkOffset;
-  const direction = Math.sign(props.targetY - props.sourceY) || 1;
-  const radius = Math.min(12, Math.abs(props.targetY - props.sourceY) / 2);
-  const path = [
-    `M ${props.sourceX} ${props.sourceY}`,
-    `H ${trunkX + radius}`,
-    `Q ${trunkX} ${props.sourceY} ${trunkX} ${props.sourceY + direction * radius}`,
-    `V ${props.targetY - direction * radius}`,
-    `Q ${trunkX} ${props.targetY} ${trunkX + radius} ${props.targetY}`,
-    `H ${props.targetX}`,
-  ].join(" ");
+  const [path] = getBezierPath({
+    sourceX: props.sourceX, sourceY: props.sourceY, sourcePosition: Position.Right,
+    targetX: props.targetX, targetY: props.targetY, targetPosition: Position.Left,
+    curvature: 0.45,
+  });
   return <path id={props.id} className={`react-flow__edge-path ${styles.connectionPath}`} d={path} pathLength={1} fill="none" style={props.style} />;
 }
+const nodeTypes = { node: LearningNode, block: BlockNode, lesson: LessonNode, origin: LevelOrigin };
 const edgeTypes = { connection: ConnectionEdge };
+
 export default function LearningMapCanvas({
-  level,
-  account,
-  iconColors,
-  queue,
-  onOpen,
-  onAction,
-  onPrefetch,
-  selecting,
-  selected,
-  organizing,
-  phase,
-  direction,
-  movingId,
-  onMoveFinished,
+  level, account, iconColors, onOpen, onAction, onPrefetch, onBack,
+  selecting, selected, phase, direction,
 }: {
   level: LearningMapLevelResponse;
   account: string;
   iconColors: Record<string, string>;
-  queue: MapLayoutQueue;
   onOpen: (item: MapItem) => void;
   onAction: (item: MapItem, action: MapItemAction) => void;
   onPrefetch: (item: MapItem) => () => void;
+  onBack: () => void;
   selecting: boolean;
   selected: string[];
-  organizing: boolean;
   phase: string;
   direction: "forward" | "back";
-  movingId: string | null;
-  onMoveFinished: () => void;
 }) {
   const flow = useReactFlow<DiagramNode>();
-  const longTitles = level.items.some((item) => item.title.length > 20);
-  const wrapper = useRef<HTMLDivElement>(null),
-    levelKey = useRef("");
-  const lastMobile = useRef<boolean | null>(null);
-  const [nodes, setNodes] = useState<DiagramNode[]>([]),
-    [zoom, setZoom] = useState(1),
-    [mini, setMini] = useState(false);
-  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
-  const cardHeight = mobile ? 118 : longTitles ? 210 : level.levelKey === "root" ? 184 : 172;
-  const diagramOffset = 0;
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const scroller = useRef<HTMLDivElement>(null);
+  const framedLevel = useRef("");
+  const pendingFrame = useRef<{ key: string; zoom: number } | null>(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const compact = size.width > 0 && size.width < 768;
+  const root = level.levelKey === "root";
+  const layout = useMemo(() => horizontalLevelLayout(
+    level.items.map((item) => item.occurrenceId), size.width, size.height, compact,
+  ), [level.items, size.width, size.height, compact]);
+  const key = spatialKey(account, level.mapId, `${level.levelKey}:horizontal-v1`, compact);
+  const [zoom, setZoom] = useState(1);
+  const [scrollTop, setScrollTop] = useState(0);
+  const fittedZoom = compact ? 1 : Math.max(0.65, Math.min(1, size.height / layout.contentHeight, size.width / layout.contentWidth));
+  const viewportX = Math.max(0, (size.width - layout.contentWidth * zoom) / 2);
+  const visibleItems = useMemo(() => level.items.length < 60 ? level.items : level.items.filter((item) => {
+    const y = layout.positions[item.occurrenceId]!.y * zoom;
+    return y + layout.cardHeight * zoom >= scrollTop - 200 && y <= scrollTop + size.height + 200;
+  }), [level.items, layout, zoom, scrollTop, size.height]);
+
   useEffect(() => {
-    const box = wrapper.current;
-    if (!box) return;
-    const measure = () => {
-      setMobile(window.matchMedia("(max-width: 767px)").matches);
-      setCanvasSize((size) => size.width === box.clientWidth && size.height === box.clientHeight
-        ? size
-        : { width: box.clientWidth, height: box.clientHeight });
-    };
-    const observer = new ResizeObserver(measure);
-    observer.observe(box);
-    measure();
+    const element = scroller.current;
+    if (!element) return;
+    const observer = new ResizeObserver(() => {
+      setSize((previous) => previous.width === element.clientWidth && previous.height === element.clientHeight
+        ? previous : { width: element.clientWidth, height: element.clientHeight });
+    });
+    observer.observe(element);
     return () => observer.disconnect();
   }, []);
-  const [outside, setOutside] = useState(false);
-  const points = useRef<Positions>({});
-  const fitLevel = useCallback(
-    (maxZoom = 1) => {
-      const box = wrapper.current?.querySelector(".react-flow");
-      const positions = Object.values(points.current).map((point) => ({ ...point, y: point.y + diagramOffset }));
-      if (!box || !positions.length) return;
-      if (mobile) {
-        wrapper.current?.scrollTo({ top: 0, behavior: "smooth" });
-        return flow.setViewport({ x: 0, y: 0, zoom: 1 });
-      }
-      const width = level.levelKey === "root" ? 208 : 200;
-      const height = Math.max(220, cardHeight);
-      const extentX =
-        Math.max(...positions.map((p) => p.x)) -
-        Math.min(...positions.map((p) => p.x)) +
-        width;
-      const extentY =
-        Math.max(...positions.map((p) => p.y)) -
-        Math.min(...positions.map((p) => p.y)) +
-        height;
-      if (
-        extentX * 0.65 > box.clientWidth ||
-        extentY * 0.65 > box.clientHeight
-      ) {
-        const next = level.items[0];
-        const point = next && points.current[next.occurrenceId];
-        if (point)
-          return flow.setCenter(point.x + width / 2, point.y + diagramOffset + height / 2, {
-            zoom: 1,
-          });
-      }
-      return flow.fitView({ padding: 0.18, minZoom: 0.65, maxZoom });
-    },
-    [cardHeight, diagramOffset, flow, level.items, level.levelKey, mobile],
-  );
-  const movingOriginal = useRef<Positions | null>(null);
-  const snapshotKey = useCallback(
-    () =>
-      spatialKey(
-        account,
-        level.mapId,
-        `${level.levelKey}:vertical-v2`,
-        window.matchMedia("(max-width: 767px)").matches,
-      ),
-    [account, level.mapId, level.levelKey],
-  );
-  const saveViewport = useCallback(
-    (v: Viewport) => {
-      const box = wrapper.current;
-      if (!box || !box.clientWidth || !box.clientHeight) return;
-      writeSpatialSnapshot(snapshotKey(), {
-        schemaVersion: 1,
-        viewport: { ...v, zoom: Math.min(1.35, Math.max(0.65, v.zoom)) },
-        selectedOccurrenceId: selected[0] ?? null,
-        focusedOccurrenceId: selected[0] ?? null,
-        navigationPath: level.ancestry.map((a) => a.route),
-        containerWidth: box.clientWidth,
-        containerHeight: box.clientHeight,
-      });
-      setZoom(v.zoom);
-      setOutside(
-        Object.values(points.current).some(
-          (p) =>
-            p.x * v.zoom + v.x < 0 ||
-            (p.y + diagramOffset) * v.zoom + v.y < 0 ||
-            (p.x + (level.levelKey === "root" ? 208 : 200)) * v.zoom + v.x > box.clientWidth ||
-            (p.y + diagramOffset + 220) * v.zoom + v.y > box.clientHeight,
-        ),
-      );
-    },
-    [diagramOffset, level.ancestry, level.levelKey, selected, snapshotKey],
-  );
+
   useEffect(() => {
-    const changed = levelKey.current !== level.levelKey;
-    const changedViewport = lastMobile.current !== null && lastMobile.current !== mobile;
-    lastMobile.current = mobile;
-    const root = level.levelKey === "root",
-      width = wrapper.current?.clientWidth ?? 900;
-    const positions = initialLayout(
-      level.items.map((i) => i.occurrenceId),
-      width,
-      root,
-      cardHeight,
-    );
-    points.current = positions;
-    levelKey.current = level.levelKey;
-    const childNodes: FlowMapNode[] = level.items.map((item, index) => ({
-        id: item.occurrenceId,
-        type: item.kind,
-        position: { ...positions[item.occurrenceId]!, y: positions[item.occurrenceId]!.y + diagramOffset },
-        className: styles.diagramChild,
-        style: { pointerEvents: "all", "--appear-delay": `${Math.min(index, 4) * 24 + 150}ms` } as CSSProperties,
-        draggable: organizing,
-        dragHandle: ".map-drag-handle",
-        selectable: false,
-        focusable: false,
-        data: {
-          item,
-          iconColor: iconColors[item.occurrenceId],
-          mobile,
-          selected: selected.includes(item.occurrenceId),
-          selecting,
-          organizing,
-          onOpen,
-          onAction,
-          onPrefetch,
-        },
-      }));
-    setNodes(childNodes);
-    if (changed || changedViewport) {
-      if (mobile) wrapper.current?.scrollTo(0, 0);
-      const snapshot = changedViewport ? null : readSpatialSnapshot(snapshotKey());
-      requestAnimationFrame(() => {
-        if (mobile) void flow.setViewport({ x: 0, y: 0, zoom: 1 });
-        else if (snapshot && Math.abs(width / snapshot.containerWidth - 1) <= 0.2)
-          void flow.setViewport(snapshot.viewport);
-        else if (snapshot) {
-          const p =
-            positions[snapshot.selectedOccurrenceId ?? ""] ??
-            Object.values(positions)[0];
-          if (p)
-            void flow.setCenter(p.x + (level.levelKey === "root" ? 104 : 100), p.y + diagramOffset + 95, {
-              zoom: snapshot.viewport.zoom,
-            });
-        } else void fitLevel();
-      });
-    }
-  }, [
-    level,
-    queue,
-    organizing,
-    selected,
-    selecting,
-    onOpen,
-    onAction,
-    onPrefetch,
-    iconColors,
-    flow,
-    snapshotKey,
-    cardHeight,
-    diagramOffset,
-    fitLevel,
-    mobile,
-    canvasSize.width,
-  ]);
+    const frameKey = `${key}:${size.width}:${size.height}`;
+    if (!size.width || framedLevel.current === frameKey) return;
+    framedLevel.current = frameKey;
+    const saved = readSpatialSnapshot(key);
+    const initialZoom = saved?.viewport.zoom ?? 1;
+    pendingFrame.current = { key, zoom: initialZoom };
+    void flow.setViewport({ x: Math.max(0, (size.width - layout.contentWidth * initialZoom) / 2), y: 0, zoom: initialZoom });
+  }, [key, flow, size.width, size.height, layout.contentWidth]);
+
   useEffect(() => {
-    if (!mobile) return;
+    if (pendingFrame.current?.key !== key || Math.abs(pendingFrame.current.zoom - zoom) > 0.001) return;
+    // Frame only after the restored zoom and new level have both reached the DOM.
     const frame = requestAnimationFrame(() => {
-      wrapper.current?.scrollTo(0, 0);
-      void flow.setViewport({ x: 0, y: 0, zoom: 1 });
+      scroller.current?.scrollTo({ left: 0, top: Math.max(0, (layout.origin.y + layout.originHeight / 2) * zoom - size.height / 2) });
+      pendingFrame.current = null;
     });
     return () => cancelAnimationFrame(frame);
-  }, [flow, level.levelKey, mobile]);
-  const updatePoints = useCallback((next: Positions) => {
-    points.current = { ...points.current, ...next };
-    setNodes((current) => current.map((node) => {
-      const point = points.current[node.id];
-      return point ? { ...node, position: { x: point.x, y: point.y + diagramOffset } } : node;
-    }));
-  }, [diagramOffset]);
-  useEffect(() => {
-    if (!movingId) {
-      movingOriginal.current = null;
-      return;
-    }
-    movingOriginal.current = { ...points.current };
-    const keydown = (event: KeyboardEvent) => {
-      if (
-        event.target instanceof HTMLInputElement ||
-        event.target instanceof HTMLTextAreaElement
-      )
-        return;
-      const p = points.current[movingId];
-      if (!p) return;
-      const delta = {
-        ArrowLeft: [-16, 0],
-        ArrowRight: [16, 0],
-        ArrowUp: [0, -16],
-        ArrowDown: [0, 16],
-      }[event.key];
-      if (delta) {
-        event.preventDefault();
-        updatePoints({
-          [movingId]: { x: p.x + delta[0]!, y: p.y + delta[1]! },
-        });
-      }
-      if (event.key === "Escape" || event.key === "Enter") {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.key === "Escape") updatePoints(movingOriginal.current!);
-        else {
-          const point = resolveDropOverlap(
-            movingId,
-            p,
-            points.current,
-            level.levelKey === "root",
-            cardHeight,
-          );
-          updatePoints({ [movingId]: point });
-          if (level.levelKey !== "root" && level.route.nodeId !== level.route.entryId)
-            queue.enqueue(level.levelKey, { [movingId]: point });
-        }
-        onMoveFinished();
-      }
-    };
-    window.addEventListener("keydown", keydown, true);
-    return () => window.removeEventListener("keydown", keydown, true);
-  }, [
-    movingId,
-    level.levelKey,
-    level.route.nodeId,
-    level.route.entryId,
-    queue,
-    updatePoints,
-    onMoveFinished,
-    cardHeight,
-  ]);
-  const changes = useCallback(
-    (changes: NodeChange<DiagramNode>[]) =>
-      setNodes((current) => applyNodeChanges(changes, current)),
-    [],
-  );
-  const edges = useMemo(
-    () => {
-      const sequence = level.items.slice(0, -1).map((item, index) => {
-        const next = level.items[index + 1]!;
-        return { sourceOccurrenceId: item.occurrenceId, targetOccurrenceId: next.occurrenceId };
-      });
-      const siblingEdges = (level.levelKey.startsWith("block:") ? sequence : []).map((e, index) => ({
-        id: `${index}:${e.sourceOccurrenceId}:${e.targetOccurrenceId}`,
-        source: e.sourceOccurrenceId,
-        target: e.targetOccurrenceId,
-        type: "connection",
-        data: { trunkOffset: mobile ? 34 : 68 },
-        style: {
-          stroke: "#8faee0",
-          strokeWidth: 2,
-          "--line-delay": `${Math.min(index, 5) * 65 + 90}ms`,
-        } as CSSProperties,
-        focusable: false,
-        selectable: false,
-      }));
-      return siblingEdges;
+  }, [key, zoom, layout.origin.y, layout.originHeight, size.width, size.height]);
+
+  const nodes = useMemo<DiagramNode[]>(() => [
+    {
+      id: ORIGIN_ID, type: "origin", position: layout.origin,
+      style: { width: layout.originWidth, height: layout.originHeight, pointerEvents: "all" },
+      data: { title: root ? "Mis rutas" : level.containerSummary.title, root, onBack },
+      draggable: false, selectable: false, focusable: false,
     },
-    [level.items, level.levelKey, mobile],
-  );
-  const contentHeight = mobile
-    ? Math.max(canvasSize.height, ...nodes.map((n) => n.position.y + cardHeight + 60))
-    : undefined;
+    ...visibleItems.map((item, index): FlowMapNode => ({
+      id: item.occurrenceId, type: item.kind, position: layout.positions[item.occurrenceId]!,
+      className: styles.diagramChild,
+      style: { pointerEvents: "all", "--appear-delay": `${Math.min(index, 4) * 24 + 150}ms` } as CSSProperties,
+      draggable: false, selectable: false, focusable: false,
+      data: { item, iconColor: iconColors[item.occurrenceId], mobile: compact,
+        selected: selected.includes(item.occurrenceId), selecting, organizing: false,
+        onOpen, onAction, onPrefetch },
+    })),
+  ], [layout, visibleItems, level.containerSummary.title, root, onBack, iconColors, compact, selected, selecting, onOpen, onAction, onPrefetch]);
+
+  const edges = useMemo(() => visibleItems.map((item, index) => ({
+    id: `origin:${item.occurrenceId}`, source: ORIGIN_ID, target: item.occurrenceId,
+    type: "connection", focusable: false, selectable: false,
+    style: { "--line-delay": `${Math.min(index, 5) * 45 + 60}ms` } as CSSProperties,
+  })), [visibleItems]);
+  const changeZoom = (next: number) => {
+    const nextZoom = Math.min(1.35, Math.max(0.65, next));
+    void flow.setViewport({ x: Math.max(0, (size.width - layout.contentWidth * nextZoom) / 2), y: 0, zoom: nextZoom });
+  };
+  const fitLevel = () => {
+    changeZoom(fittedZoom);
+    requestAnimationFrame(() => scroller.current?.scrollTo({ left: 0, top: Math.max(0, (layout.origin.y + layout.originHeight / 2) * fittedZoom - size.height / 2), behavior: "smooth" }));
+  };
+
   return (
-    <div className={styles.canvas} ref={wrapper} data-long-titles={longTitles} data-mobile={mobile}>
-      <div className={styles.flow} data-phase={phase} data-direction={direction} style={contentHeight ? { height: contentHeight } : undefined}>
-        <ReactFlow<DiagramNode>
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          onNodesChange={changes}
-          onNodeDragStop={(_e, n) => {
-            const p = resolveDropOverlap(
-              n.id,
-              { x: n.position.x, y: n.position.y - diagramOffset },
-              points.current,
-              level.levelKey === "root",
-              cardHeight,
-            );
-            updatePoints({ [n.id]: p });
-            if (level.levelKey !== "root" && level.route.nodeId !== level.route.entryId)
-              queue.enqueue(level.levelKey, { [n.id]: p });
-          }}
-          onMoveEnd={(_e, v) => saveViewport(v)}
-          panOnDrag={!mobile}
-          panOnScroll={!mobile}
-          panOnScrollMode={PanOnScrollMode.Vertical}
-          zoomOnScroll={false}
-          zoomOnPinch={!mobile}
-          minZoom={0.65}
-          maxZoom={1.35}
-          zoomOnDoubleClick={false}
-          nodeDragThreshold={6}
-          nodesConnectable={false}
-          edgesReconnectable={false}
-          deleteKeyCode={null}
-          nodesFocusable={false}
-          edgesFocusable={false}
-          onlyRenderVisibleElements={level.items.length >= 60}
-          selectionOnDrag={false}
-          ariaLabelConfig={{
-            "controls.zoomIn.ariaLabel": "Acercar",
-            "controls.zoomOut.ariaLabel": "Alejar",
-            "controls.fitView.ariaLabel": "Ajustar vista",
-          }}
-          proOptions={{ hideAttribution: true }}
-        >
-          {level.items.length > 24 && outside && mini ? (
-            <MiniMap pannable zoomable nodeColor="#d5e3da" />
-          ) : null}
-        </ReactFlow>
+    <div className={`${styles.canvas} ${styles.horizontalCanvas}`} data-mobile={compact} style={{
+      "--level-card-width": `${layout.cardWidth}px`, "--level-card-height": `${layout.cardHeight}px`,
+    } as CSSProperties}>
+      <div className={styles.canvasScroll} ref={scroller} onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)} tabIndex={0} role="region" aria-label={`Mapa del nivel ${level.containerSummary.title}`}>
+        <div className={styles.flow} data-phase={phase} data-direction={direction} style={{
+          width: Math.max(size.width, layout.contentWidth * zoom),
+          height: Math.max(size.height, layout.contentHeight * zoom),
+        }}>
+          {/* Only the incoming connection survives from the previous level. */}
+          {!root ? <svg className={styles.incomingConnection} aria-label="Conexión con el nivel anterior" width={layout.origin.x * zoom + viewportX} height={2} style={{ top: (layout.origin.y + layout.originHeight / 2) * zoom }}>
+            <line x1={0} y1={1} x2="100%" y2={1} />
+          </svg> : null}
+          <ReactFlow<DiagramNode>
+            nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes}
+            onMoveEnd={(_event, viewport) => {
+              setZoom(viewport.zoom);
+              if (!size.width || !size.height) return;
+              writeSpatialSnapshot(key, {
+                schemaVersion: 1, viewport, selectedOccurrenceId: selected[0] ?? null,
+                focusedOccurrenceId: selected[0] ?? null,
+                navigationPath: level.ancestry.map((ancestor) => ancestor.route),
+                containerWidth: size.width, containerHeight: size.height,
+              });
+            }}
+            panOnDrag={false} panOnScroll={false} zoomOnScroll={false} zoomOnPinch={false}
+            preventScrolling={false}
+            minZoom={0.65} maxZoom={1.35} zoomOnDoubleClick={false}
+            nodesConnectable={false} edgesReconnectable={false} deleteKeyCode={null}
+            nodesFocusable={false} edgesFocusable={false} selectionOnDrag={false}
+            proOptions={{ hideAttribution: true }}
+          />
+        </div>
       </div>
       <div className={styles.controls} aria-label="Controles del mapa">
-        <button
-          className={styles.iconButton}
-          aria-label="Alejar"
-          onClick={() => void flow.zoomTo(Math.max(0.65, zoom - 0.1))}
-        >
-          <Minus size={18} />
-        </button>
-        <button
-          className={styles.button}
-          aria-label="Restablecer zoom al 100 %"
-          onClick={() => void flow.zoomTo(1)}
-        >
-          {Math.round(zoom * 100)} %
-        </button>
-        <button
-          className={styles.iconButton}
-          aria-label="Acercar"
-          onClick={() => void flow.zoomTo(Math.min(1.35, zoom + 0.1))}
-        >
-          <Plus size={18} />
-        </button>
-        <button
-          className={styles.iconButton}
-          aria-label="Ajustar vista"
-          onClick={() => void fitLevel(1.35)}
-        >
-          <ArrowsOut size={18} />
-        </button>
-        {level.items.length > 24 && outside ? (
-          <button
-            className={styles.iconButton}
-            aria-label="Alternar minimapa"
-            aria-pressed={mini}
-            onClick={() => setMini(!mini)}
-          >
-            <MapTrifold size={18} />
-          </button>
-        ) : null}
+        <button className={styles.iconButton} aria-label="Alejar" onClick={() => changeZoom(zoom - 0.1)}><Minus size={18} /></button>
+        <button className={styles.button} aria-label="Restablecer zoom al 100 %" onClick={() => changeZoom(1)}>{Math.round(zoom * 100)} %</button>
+        <button className={styles.iconButton} aria-label="Acercar" onClick={() => changeZoom(zoom + 0.1)}><Plus size={18} /></button>
+        <button className={styles.iconButton} aria-label="Ajustar vista" onClick={fitLevel}><ArrowsOut size={18} /></button>
       </div>
     </div>
   );

@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P14 mixes recent/prior introduced units, prioritizes unresolved CORE and excludes the future unit 55ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > CORE critical errors come before unevidenced CORE and rotation never skips required objectives 10ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P15 pools are disjoint by family and malformed reserve sharing is rejected 18ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > final and deferred tests cover every required objective in segments of ten and use distinct reserves 37ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > missing banks block explicitly and never substitute another reserve or a practice item 4ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > final cannot silently omit unintroduced required objectives or objectives omitted editorially 9ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > optional objectives do not increase the final denominator 11ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > avoids exposed/equivalent families when an independent candidate remains 24ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P15 repeating a failed final is not novel transfer, even when the activity ID changes 16ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > first presentation in a new representation is eligible metadata, not an awarded transfer score 13ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > reveal and learner preview exposures count, editor preview/future events do not, duplicates are stable 32ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > the private selection is immutable and detached from later editorial changes 11ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > selection is deterministic even if exposure input order changes 12ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > coverage remains incomplete after the first ten; omissions score zero in the full denominator 4ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > unknown/duplicated answers and unknown segments cannot forge coverage 4ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > self and assisted answers cannot inflate objective scores 4ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > unknown assessments, invalid UTC, foreign introduction and cyclic DAG fail explicitly 10ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved final-test item 7ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved retention7-test item 9ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved retention30-test item 6ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > public projection delivers the active question only, no private solution, hint, family or future prompt 9ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > feedback is withheld until the entire segment is submitted, then reveals that segment only 7ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > existing attempt projection hides reserved items in ordinary activity/review and defers assessment feedback 13ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > invalid segment or position cannot project a future item 26ms
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  17:32:11
+   Duration  1.34s (transform 326ms, setup 0ms, import 680ms, tests 355ms, environment 0ms)
+
