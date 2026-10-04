@@ -1,0 +1,62 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31033
+- Network:       http://127.0.0.1:31033
+✓ Ready in 29.0s
+✓ Running next.config.ts took 2.9s
+
+○ Compiling proxy ...
+○ Compiling /panel/rutas/[pathId] ...
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 12.8s (next.js: 675ms, proxy.ts: 3.1s, application-code: 9.0s)
+○ Compiling /api/v2/editor/learning-paths/[...path] ...
+ GET /api/editor/content 404 in 28.5s (next.js: 21.8s, application-code: 6.7s)
+ GET /api/auth/get-session 404 in 30.7s (next.js: 29.9s, application-code: 763ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions 200 in 32.6s (next.js: 27.9s, application-code: 4.7s)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 177ms (next.js: 28ms, application-code: 148ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 321ms (next.js: 36ms, application-code: 285ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 239ms (next.js: 20ms, application-code: 220ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 300ms (next.js: 81ms, application-code: 219ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 532ms (next.js: 17ms, application-code: 515ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 489ms (next.js: 89ms, application-code: 400ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 576ms (next.js: 49ms, application-code: 527ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 271ms (next.js: 67ms, application-code: 204ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 187ms (next.js: 20ms, application-code: 167ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 241ms (next.js: 81ms, application-code: 160ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 191ms (next.js: 40ms, application-code: 150ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 307ms (next.js: 31ms, application-code: 276ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 169ms (next.js: 61ms, application-code: 108ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/9d9dc551-a81b-4da1-a066-a934e9f0bde6/actions 200 in 170ms (next.js: 13ms, application-code: 157ms)
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 12.1s (next.js: 1778ms, proxy.ts: 951ms, application-code: 9.4s)
+ GET /api/auth/get-session 404 in 195ms (next.js: 140ms, application-code: 56ms)
+○ Compiling /api/v2/editor/learning-paths/[...path] ...
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 5.2s (next.js: 2.1s, proxy.ts: 48ms, application-code: 3.0s)
+ GET /api/auth/get-session 404 in 170ms (next.js: 122ms, application-code: 48ms)
+ GET /api/v2/editor/learning-paths/source-catalog?limit=24&q= 200 in 17ms (next.js: 7ms, application-code: 10ms)
+ GET /api/v2/editor/learning-paths/source-catalog?limit=24&q= 200 in 60ms (next.js: 6ms, application-code: 54ms)
+ GET /api/editor/content 200 in 102ms (next.js: 20ms, application-code: 81ms)
+ GET /api/editor/content 404 in 93ms (next.js: 16ms, application-code: 78ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions 200 in 465ms (next.js: 35ms, application-code: 430ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 526ms (next.js: 106ms, application-code: 420ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 441ms (next.js: 127ms, application-code: 314ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 915ms (next.js: 19ms, application-code: 896ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 193ms (next.js: 24ms, application-code: 169ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 139ms (next.js: 10ms, application-code: 129ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 135ms (next.js: 13ms, application-code: 122ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 134ms (next.js: 37ms, application-code: 97ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 109ms (next.js: 8ms, application-code: 101ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 127ms (next.js: 7ms, application-code: 119ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 134ms (next.js: 27ms, application-code: 107ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 86ms (next.js: 9ms, application-code: 77ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 72ms (next.js: 6ms, application-code: 66ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 80ms (next.js: 6ms, application-code: 74ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 61ms (next.js: 7ms, application-code: 54ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 112ms (next.js: 30ms, application-code: 83ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 117ms (next.js: 9ms, application-code: 108ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 91ms (next.js: 13ms, application-code: 79ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 139ms (next.js: 9ms, application-code: 130ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 111ms (next.js: 37ms, application-code: 74ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/actions 200 in 270ms (next.js: 7ms, application-code: 263ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/b008732a-3fb1-440f-b603-13e4d2faed35/image 200 in 540ms (next.js: 5ms, application-code: 535ms)
+[?25h
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 4294967295: next dev --webpack --hostname 127.0.0.1 --port 31033

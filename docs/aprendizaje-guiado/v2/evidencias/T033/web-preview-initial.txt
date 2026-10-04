@@ -1,0 +1,67 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/editor/v2/preview.test.tsx (3 tests | 3 failed) 86ms
+     × provides Spanish profiles/banner and blocks unconfirmed route opening 37ms
+     × intercepts player retries and never sends a learner URL or persists progress 36ms
+     × checks signed image context and routes its read only through preview 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > provides Spanish profiles/banner and blocks unconfirmed route opening
+Error: A v2 editor needs an explicit draft or confirmed route
+ ❯ createEditorV2State src/components/learning/editor/v2/editor-model.ts:43:43
+     41| }
+     42| export function createEditorV2State(input: { route?: V2BoundRouteDefin…
+     43|   if (!input.route && !input.draft) throw new Error("A v2 editor needs…
+       |                                           ^
+     44|   return {
+     45|     engineVersion: "guided-v2", draft: input.route ? draftFromRouteV2(…
+ ❯ src/components/learning/editor/v2/preview.test.tsx:13:51
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > intercepts player retries and never sends a learner URL or persists progress
+ReferenceError: Storage is not defined
+ ❯ src/components/learning/editor/v2/preview.test.tsx:24:30
+     22|     const complete = { attempt: { ...f.attempt!, status: "completed", …
+     23|     const fetcher = vi.fn().mockResolvedValueOnce(Response.json(f)).mo…
+     24|     const storage = vi.spyOn(Storage.prototype, "setItem").mockImpleme…
+       |                              ^
+     25|     const connection = await openPreviewV2(route.pathId, route.definit…
+     26|     const client = connection.player(f.attempt!.attemptId);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > checks signed image context and routes its read only through preview
+ZodError: [
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "previewId",
+      "expiresAt"
+    ],
+    "path": [],
+    "message": "Unrecognized keys: \"previewId\", \"expiresAt\""
+  }
+]
+ ❯ openPreviewV2 src/components/learning/editor/v2/preview-transport.tsx:13:65
+     11|   if (!response.ok) throw new V2RequestError(response.status);
+     12|   const session = V2EditorPreviewHttpContracts.create.response.parse(a…
+     13|   let snapshot: PreviewSnapshot = V2EditorPreviewSnapshotSchema.parse(…
+       |                                                                 ^
+     14|   const listeners = new Set<() => void>();
+     15|   const sessionRoot = `${root}/${encodeURIComponent(session.previewId)…
+ ❯ src/components/learning/editor/v2/preview.test.tsx:39:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  01:41:21
+   Duration  3.30s (transform 2.05s, setup 0ms, import 2.67s, tests 86ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/editor/v2/preview.test.tsx

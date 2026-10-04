@@ -10,6 +10,7 @@ import { reviewIsCurrentV2 } from "./editor-model";
 import { ExportPackageV2 } from "./export-package";
 import { FieldV2 } from "./sources-fields";
 import { ReviewAssetsV2 } from "./review-assets";
+import { PreviewV2 } from "./preview";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
 
@@ -91,7 +92,7 @@ export function ReviewWorkflowV2({ state, controller, canReview = false, canPubl
     <p>{currentReport ? `Validación del servidor · revisión ${currentReport.revision}` : "Comprobación local de cobertura; aún no confirma catálogo ni permisos."}</p>
     <ul className={local.issueList}>{issues.map((issue, index) => <li key={`${issue.code}:${issue.path}:${index}`}><strong>{issue.severity === "error" ? "Pendiente" : "Aviso"}:</strong> {issue.message}<p>{issue.suggestedFix}</p><button className={styles.textButton} type="button" onClick={() => onLocate(issue.path)}>Ir al campo</button></li>)}</ul>{!issues.length ? <p>No hay incidencias en esta comprobación.</p> : null}
     <FieldV2 label="Notas editoriales de la ruta" path="package.editorial.notes">{(input) => <textarea {...input} maxLength={4000} disabled={state.operation !== "idle" || !controller.canEdit()} value={state.draft.package.editorial.notes} onChange={(event) => controller.edit({ ...state.draft, package: { ...state.draft.package, editorial: { ...state.draft.package.editorial, notes: event.target.value } } })} />}</FieldV2>
-  </section><ReviewAssetsV2 draft={state.draft} disabled={state.operation !== "idle" || !controller.canEdit()} onChange={(draft) => controller.edit(draft)} />{state.confirmed ? <ExportPackageV2 pathId={state.confirmed.pathId} api={controller.api} disabled={blocked} /> : null}
+  </section><PreviewV2 key={`${state.confirmed?.pathVersionId}:${state.confirmed?.editVersion}:${state.dirty}`} state={state} disabled={blocked} /><ReviewAssetsV2 draft={state.draft} disabled={state.operation !== "idle" || !controller.canEdit()} onChange={(draft) => controller.edit(draft)} />{state.confirmed ? <ExportPackageV2 pathId={state.confirmed.pathId} api={controller.api} disabled={blocked} /> : null}
     <AlertDialog.Root open={publishing} onOpenChange={setPublishing}><AlertDialog.Portal><AlertDialog.Overlay className={styles.dialogOverlay} /><AlertDialog.Content className={styles.dialog} data-editor-surface><AlertDialog.Title className={styles.dialogTitle}>Publicar la ruta revisada</AlertDialog.Title><AlertDialog.Description className={styles.dialogDescription}>Publicar «{state.confirmed?.definition.route.title}», revisión {state.confirmed?.editVersion}, con la aprobación vigente. La versión publicada quedará inmutable.</AlertDialog.Description><div className={styles.dialogActions}><AlertDialog.Cancel asChild><button className={styles.secondaryButton} type="button">Cancelar</button></AlertDialog.Cancel><AlertDialog.Action asChild><button className={styles.primaryAction} disabled={blocked || !canPublish || !reviewIsCurrentV2(state)} onClick={() => void run("published")} type="button">Confirmar publicación</button></AlertDialog.Action></div></AlertDialog.Content></AlertDialog.Portal></AlertDialog.Root>
   </div>;
 }

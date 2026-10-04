@@ -1,0 +1,45 @@
+import { writeFile } from "node:fs/promises";
+import { beforeAll, afterAll, expect, it } from "vitest";
+import { createImageHarness } from "../../../../../apps/api/test/helpers/guided-v2-images.js";
+import { v2Id } from "../../../../../apps/api/test/helpers/guided-v2-db.js";
+import { createPostgresGuidedLearningV2Provider } from "../../../../../apps/api/src/providers/postgres-guided-learning-v2.js";
+import { registerGuidedV2EditorImportRoutes } from "../../../../../apps/api/src/guided-learning/v2/editor-routes.js";
+import { guidedV2PolicySnapshot } from "../../../../../apps/api/src/guided-learning/v2/service.js";
+import { editorV2FixturePackage } from "../../../../../apps/web/src/components/learning/editor/v2/editor-fixtures.js";
+import type { ContentProvider } from "../../../../../packages/contracts/dist/index.js";
+let h: Awaited<ReturnType<typeof createImageHarness>>, stop: () => void;
+let baseline: Record<string, number>, tables: string[];
+const counts = async () => Object.fromEntries(await Promise.all(tables.map(async table => [table, (await h.pg.query<{ n: number }>(`select count(*)::int n from public.${table}`)).rows[0]!.n])));
+beforeAll(async () => {
+  h = await createImageHarness();
+  const pkg = editorV2FixturePackage();
+  pkg.sources = []; for (const activity of pkg.activities) { activity.sourceKeys = []; activity.feedback.sourceKeys = []; activity.prompt = `${activity.key}: actividad sintética`; }
+  pkg.assets[0]!.key = "figure"; pkg.assets[0]!.sourceKeys = []; pkg.assets[0]!.originalFileName = "synthetic.png";
+  const image = pkg.activities.find(item => item.kind === "image_target")!;
+  if (image.kind === "image_target") image.payload.assetKey = "figure";
+  pkg.objectives[0]!.sourceKeys = [];
+  pkg.objectives[0]!.misconceptions = [{ key: "confusion", description: "Confusión CORE de prueba", critical: true, remediationActivityKey: "study", verificationActivityKeys: ["short"] }];
+  pkg.activities.find(item => item.key === "choice")!.misconceptionMappings = [{ responseKey: "b", misconceptionKey: "confusion" }];
+  pkg.assessments = [];
+  await h.pg.query("update learning_path_versions set definition_v2_json=$1,policy_json=$2 where id=$3", [JSON.stringify(pkg), JSON.stringify(guidedV2PolicySnapshot), v2Id(7)]);
+  await h.pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,topic_content_id,asset_id,rights_status,rights_credit) select $1,local_key,kind,topic_content_id,asset_id,rights_status,rights_credit from learning_v2_bindings where path_version_id=$2", [v2Id(7),v2Id(6)]);
+  const provider = createPostgresGuidedLearningV2Provider(h.database, { assetStorage: { bucket: "test-assets", createDownloadUrl: async () => "https://t033-media.example.test/figure.png?signed=synthetic-only" } });
+  await registerGuidedV2EditorImportRoutes(h.app, { provider, identityProvider: { getUser: async (request: { cookie?: string }) => request.cookie ? { id: v2Id(1), name: "Editor T033", email: "preview@example.test" } : null } as never, contentProvider: { getRoles: async () => ["content_creator"] } as unknown as ContentProvider });
+  h.app.addHook("onSend", async (request, _reply, payload) => request.url === "/v1/auth/me" ? JSON.stringify({ features: { guidedLearning: true, guidedLearningMap: false }, roles: ["content_creator"], user: { id: v2Id(1), name: "Editor T033", email: "preview@example.test" } }) : payload);
+  h.app.get("/v1/editor/learning-paths/:id", async (_request, reply) => reply.status(409).send({ error: "engine_version_mismatch" }));
+  h.app.get("/v1/editor/learning-resources", async () => ({ items: [], nextCursor: null, topics: [], resourceTopics: [] }));
+  let queue = Promise.resolve(); const releases = new Map<string, () => void>();
+  h.app.addHook("onRequest", async request => { const prior = queue; queue = new Promise<void>(resolve => releases.set(request.id, resolve)); await prior; });
+  h.app.addHook("onResponse", async request => { releases.get(request.id)?.(); releases.delete(request.id); });
+  tables = (await h.pg.query<{ tablename: string }>("select tablename from pg_tables where schemaname='public' and (tablename like 'learning_%' or tablename like '%reward%') and tablename <> 'learning_mutation_receipts' order by tablename")).rows.map(item => item.tablename);
+  baseline = await counts();
+  h.app.get("/__test/counts", async () => ({ baseline, current: await counts() }));
+  h.app.post("/__test/stop", async () => { stop?.(); return { stopped: true }; });
+  await h.app.listen({ host: "127.0.0.1", port: 41033 });
+  await writeFile(new URL("http-preview-ready.json", import.meta.url), JSON.stringify({ api: "http://127.0.0.1:41033", pathId: v2Id(4), tables: tables.length }));
+}, 120000);
+it("reads the real editorial definition without learner effects", async () => {
+  const result = await h.app.inject({ url: `/v2/editor/learning-paths/${v2Id(4)}`, headers: { cookie: "t030=editor" } });
+  expect(result.statusCode, result.body).toBe(200); expect(await counts()).toEqual(baseline);
+});
+afterAll(async () => { if (process.env.T033_BROWSER_HOLD === "true") await new Promise<void>(resolve => { const timer = setTimeout(resolve, 1200000); stop = () => { clearTimeout(timer); resolve(); }; }); await h?.close(); }, 1201000);

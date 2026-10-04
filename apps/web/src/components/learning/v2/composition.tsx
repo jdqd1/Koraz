@@ -1,7 +1,7 @@
 "use client";
 
 import type { V2AttemptManifest, V2PublicActivity } from "@cediah/contracts";
-import type { PlayerAction } from "./client";
+import type { PlayerAction, readV2AttemptImage } from "./client";
 import { StudyRenderer } from "./renderers/study";
 import { ChoiceRenderer } from "./renderers/choice";
 import { ShortRenderer } from "./renderers/short";
@@ -14,10 +14,11 @@ import styles from "./composition.module.css";
 
 type Answer = Extract<PlayerAction, { operation: "response" }>["body"]["answer"];
 type Props = { activity: V2PublicActivity; attemptId: string; rowVersion: number; disabled: boolean;
+  readImage?: typeof readV2AttemptImage;
   comparison: V2AttemptManifest["constructedResponse"]; onSubmit: (answer: Answer) => void; onReveal: () => void; onAlternative: () => void };
 
 /** Presets are compositions of existing kinds, never a separate scoring system. */
-export function ActivityComposition({ activity, attemptId, rowVersion, disabled, comparison, onSubmit, onReveal, onAlternative }: Props) {
+export function ActivityComposition({ activity, attemptId, rowVersion, disabled, comparison, readImage, onSubmit, onReveal, onAlternative }: Props) {
   let renderer;
   switch (activity.kind) {
     case "study": renderer = <><p className={styles.scaffold}>{activity.payload.scaffold === "worked_example" ? "Ejemplo resuelto" : activity.payload.scaffold === "partial_example" ? "Ejemplo con apoyo parcial" : "Estudio guiado"}. Este apoyo es lectura; la práctica independiente se responde en otro paso.</p><StudyRenderer activity={activity} disabled={disabled} onSubmit={() => onSubmit({ kind: "study", acknowledged: true })} /></>; break;
@@ -25,7 +26,7 @@ export function ActivityComposition({ activity, attemptId, rowVersion, disabled,
     case "short_answer": renderer = <ShortRenderer activity={activity} disabled={disabled} onSubmit={text => onSubmit({ kind: "short_answer", text })} />; break;
     case "constructed_response": renderer = <ConstructedRenderer activity={activity} disabled={disabled} submittedText={comparison?.text ?? null} model={comparison?.stage === "revealed" ? comparison.modelAnswer : null} rubric={comparison?.stage === "revealed" ? comparison.rubric : []} onSubmit={text => onSubmit({ kind: "constructed_response", text, selfRating: null })} onReveal={onReveal} onRate={selfRating => { if (comparison?.stage === "revealed") onSubmit({ kind: "constructed_response", text: comparison.text, selfRating }); }} />; break;
     case "match": renderer = <MatchRenderer activity={activity} disabled={disabled} onSubmit={pairs => onSubmit({ kind: "match", pairs })} />; break;
-    case "image_target": renderer = <AuthorizedImageTargetRenderer key={`${activity.key}:${rowVersion}`} activity={activity} attemptId={attemptId} rowVersion={rowVersion} disabled={disabled} onSubmit={onSubmit} onAlternative={onAlternative} />; break;
+    case "image_target": renderer = <AuthorizedImageTargetRenderer key={`${activity.key}:${rowVersion}`} activity={activity} attemptId={attemptId} rowVersion={rowVersion} disabled={disabled} readImage={readImage} onSubmit={onSubmit} onAlternative={onAlternative} />; break;
     case "sequence": renderer = <SequenceRenderer activity={activity} disabled={disabled} onSubmit={orderedKeys => onSubmit({ kind: "sequence", orderedKeys })} />; break;
     case "case": return <CaseRenderer activity={activity} />;
   }

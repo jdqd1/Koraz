@@ -1,0 +1,247 @@
+{
+  "taskId": "T033",
+  "status": "PASS",
+  "scope": "LOCAL",
+  "baseSha": "d609e66ba82cdc9b40392a5bb525e5808b47d305",
+  "clientDate": "2026-10-04",
+  "timezone": "America/Caracas",
+  "initialWorktreeClean": true,
+  "authorization": {
+    "request": "continua con t033",
+    "documentRole": "Specification for the explicitly requested task; no successor execution authority inferred",
+    "expansions": [
+      {
+        "scope": "Seven files in AMPLIACION-PROPUESTA.md",
+        "answer": "Sí, autorizar esa integración",
+        "applied": true
+      },
+      {
+        "scope": "One-line assetStorage connection in apps/api/src/app.ts",
+        "answer": "Sí, incluir esa conexión",
+        "applied": true
+      },
+      {
+        "scope": "Impure selector repair in route-editor.module.css",
+        "answer": "Sí, corregir ese selector",
+        "applied": true
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "taskId": "T027",
+      "status": "PASS",
+      "evidence": "../T027/result.json"
+    },
+    {
+      "taskId": "T029",
+      "status": "PASS",
+      "evidence": "../T029/result.json"
+    },
+    {
+      "taskId": "T030",
+      "status": "PASS",
+      "evidence": "../T030/result.json"
+    },
+    {
+      "taskId": "T031",
+      "status": "PASS",
+      "evidence": "../T031/result.json"
+    },
+    {
+      "taskId": "T032",
+      "status": "PASS",
+      "evidence": "../T032/result.json"
+    }
+  ],
+  "environment": {
+    "node": "24.19.0",
+    "pnpm": "11.19.0 bundled fallback",
+    "browser": "Playwright Chromium headless",
+    "web": "Next 16.3.5 webpack development on 127.0.0.1:31033",
+    "api": "Fastify real editorial routes/provider on 127.0.0.1:41033",
+    "database": "Isolated PGlite, historical legacy 0005 excluded by existing harness",
+    "identity": "Synthetic editorial identity; real SSR identity resolution and BFF proxy",
+    "storage": "Test signing resolver and intercepted synthetic media; configured synthetic content storage origin",
+    "dependencyChanges": false
+  },
+  "changedFiles": [
+    "apps/api/src/app.ts",
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-preview.test.ts",
+    "apps/web/src/app/api/v2/editor/learning-paths/[...path]/route.ts",
+    "apps/web/src/components/learning/editor/route-editor.module.css",
+    "apps/web/src/components/learning/editor/v2/review-workflow.tsx",
+    "apps/web/src/components/learning/editor/v2/preview.tsx",
+    "apps/web/src/components/learning/editor/v2/preview-transport.tsx",
+    "apps/web/src/components/learning/editor/v2/preview.test.tsx",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/composition.tsx",
+    "apps/web/src/components/learning/v2/renderers/image-target.tsx",
+    "packages/contracts/src/guided-learning-v2.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T033/"
+  ],
+  "checks": [
+    {
+      "result": "PASS",
+      "command": "pnpm --filter @cediah/contracts build",
+      "evidence": "contracts-node24.txt"
+    },
+    {
+      "result": "PASS",
+      "command": "API typecheck",
+      "evidence": "api-final-checks.txt"
+    },
+    {
+      "result": "PASS",
+      "command": "Web typecheck",
+      "evidence": "web-final-checks.txt"
+    },
+    {
+      "result": "PASS",
+      "tests": 50,
+      "files": 3,
+      "command": "API preview/selection/grading",
+      "evidence": "api-final-checks.txt"
+    },
+    {
+      "result": "PASS",
+      "tests": 7,
+      "files": 1,
+      "command": "API editorial storage",
+      "evidence": "api-editor-storage-closure.txt"
+    },
+    {
+      "result": "PASS",
+      "tests": 9,
+      "files": 1,
+      "command": "Final preview API including deferred review execution",
+      "evidence": "api-preview-closure.txt"
+    },
+    {
+      "result": "PASS",
+      "tests": 476,
+      "files": 60,
+      "command": "Web vitest --maxWorkers 1",
+      "evidence": "web-suite-serial-closure.txt"
+    },
+    {
+      "result": "PASS",
+      "command": "ESLint changed API/web files --max-warnings=0",
+      "evidence": [
+        "api-lint-closure.txt",
+        "web-lint-closure.txt"
+      ]
+    },
+    {
+      "result": "PASS",
+      "tests": 1,
+      "command": "Real HTTP/editor definition harness",
+      "evidence": "http-preview-closure.txt"
+    },
+    {
+      "result": "PASS",
+      "command": "Real editor preview browser journey",
+      "evidence": [
+        "browser-preview.json",
+        "browser-preview-csp.txt",
+        "next-preview-csp.txt"
+      ]
+    },
+    {
+      "result": "PASS",
+      "command": "git diff --check"
+    }
+  ],
+  "browser": {
+    "checks": 9,
+    "activityKinds": [
+      "study",
+      "single_choice",
+      "short_answer",
+      "constructed_response",
+      "match",
+      "sequence",
+      "image_target",
+      "case"
+    ],
+    "profiles": "Beginner and CORE browser; all three API/unit coverage",
+    "simulatedClock": "+7 days browser and forward/backward clock policy API tests",
+    "keyboard": "Review and preview opening via Enter; native answer controls; trigger focus restored after close",
+    "viewportWidths": [
+      1440,
+      768,
+      375,
+      320
+    ],
+    "horizontalOverflow": false,
+    "axeSeriousCritical": 0,
+    "axeScope": "Preview section",
+    "learnerRequests": 0,
+    "pageErrors": 0,
+    "signedImage": "Authorized editorial resolver, rendered successfully under existing CSP with synthetic origin configured"
+  },
+  "isolation": {
+    "tablesCompared": 30,
+    "countsEqual": true,
+    "evidence": "browser-preview.json database.baseline/current and Fastify preview isolation test",
+    "excludedTable": "learning_mutation_receipts",
+    "exclusionReason": "Existing editorial validation receipt is persisted on session opening; no learner writes",
+    "phantomEnrollments": false,
+    "learnerAttemptsResponsesEventsRewardsCreated": 0,
+    "clientProgressStorageWrites": 0,
+    "simulationStorage": "Server memory, actor/path scoped, 10 minute real TTL, CAS and idempotent action receipts",
+    "pureEngineUnchanged": "preservation.json",
+    "sourceHashes": "source-hashes.json"
+  },
+  "issues": [
+    {
+      "id": "preview-attempt-transport-race",
+      "status": "RESOLVED",
+      "detail": "The next player could mount with the previous attempt transport; transport now matches attemptId before rendering"
+    },
+    {
+      "id": "preexisting-impure-css-selector",
+      "status": "RESOLVED",
+      "detail": "Authorized local .dialog focus selector permits real editor webpack compilation"
+    },
+    {
+      "id": "harness-fixture-and-configuration",
+      "status": "RESOLVED",
+      "detail": "Corrected catalog filename, asset revocation fixture, hydration synchronization, relation locator and synthetic CSP origin"
+    },
+    {
+      "id": "parallel-web-run",
+      "status": "SUPERSEDED",
+      "detail": "Stopped slow parallel execution; final serial 60-file run PASS"
+    },
+    {
+      "id": "inherited-T024-api-timeout",
+      "status": "OPEN",
+      "blockingT033": false,
+      "blockingSystemAcceptance": true,
+      "detail": "Preserved; no claim of global API regression closure"
+    },
+    {
+      "id": "synthetic-shell-and-catalog-404",
+      "status": "NO VERIFICADO",
+      "blockingT033": false,
+      "detail": "Harness does not implement BetterAuth shell issuance or private file catalog; existing bindings validated by real provider"
+    }
+  ],
+  "notVerified": [
+    "Independent PostgreSQL concurrency/restricted role grants",
+    "BetterAuth issuance and complete shell authentication",
+    "External storage download/signing service",
+    "Native zoom, screen reader and complete T037 audit",
+    "Full learner E01-E06 system harness T035",
+    "Hito S, clinical/editorial acceptance, staging and production"
+  ],
+  "nextTaskStarted": false,
+  "nextTask": "T034",
+  "committed": false,
+  "deployed": false,
+  "completedAt": "2026-10-04T16:03:21.0741322+00:00",
+  "harnessStopped": true
+}

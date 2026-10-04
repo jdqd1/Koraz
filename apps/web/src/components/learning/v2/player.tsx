@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { V2AttemptManifest, V2FeedbackSource, V2RouteState } from "@cediah/contracts";
 import { safeMapReturnHref } from "../map/map-route";
-import { createV2PlayerClient, V2RequestError, type PlayerAction, type PlayerResult } from "./client";
+import { createV2PlayerClient, readV2AttemptImage, V2RequestError, type PlayerAction, type PlayerResult } from "./client";
 import { RouteSignals } from "./signals";
 import { ActivityComposition, SequenceRecap } from "./composition";
 import { MaintenanceSessionSummary } from "./maintenance";
@@ -23,10 +23,13 @@ function FeedbackSources({ sources }: { sources: V2FeedbackSource[] }) {
     {source.url ? <a href={source.url} target="_blank" rel="noopener noreferrer">Consultar referencia</a> : null}
   </article>)}</div>;
 }
-export function V2Player({ initialAttempt, initialState, returnTo }: { initialAttempt: V2AttemptManifest; initialState: V2RouteState | null; returnTo?: string | null }) {
+type PlayerProps = { initialAttempt: V2AttemptManifest; initialState: V2RouteState | null; returnTo?: string | null } & (
+  { preview?: false; transport?: ReturnType<typeof createV2PlayerClient>; readImage?: typeof readV2AttemptImage; onExit?: () => void }
+  | { preview: true; transport: ReturnType<typeof createV2PlayerClient>; readImage: typeof readV2AttemptImage; onExit: () => void });
+export function V2Player({ initialAttempt, initialState, returnTo, preview = false, transport, readImage, onExit }: PlayerProps) {
   const [attempt, setAttempt] = useState(initialAttempt);
   const [state, setState] = useState(initialState?.enrollmentId === initialAttempt.enrollmentId && initialState.pathVersionId === initialAttempt.pathVersionId ? initialState : null);
-  const [client] = useState(() => createV2PlayerClient(initialAttempt.attemptId));
+  const [client] = useState(() => { if (preview && !transport) throw new Error("La vista previa requiere un simulador aislado."); return transport ?? createV2PlayerClient(initialAttempt.attemptId); });
   const [busy, setBusy] = useState(false), lock = useRef(false);
   const pending = useSyncExternalStore(client.subscribe, () => Boolean(client.pending()), () => false);
   const [message, setMessage] = useState("");
@@ -57,7 +60,7 @@ export function V2Player({ initialAttempt, initialState, returnTo }: { initialAt
           setHelp(null);
           if (result.body.answer.kind === "study") { setFeedback(null); }
           else setFeedback({ activityKey: result.body.activityKey, ...result.value.feedback });
-          setMessage("Respuesta confirmada y guardada.");
+          setMessage(preview ? "Respuesta simulada. No guarda progreso." : "Respuesta confirmada y guardada.");
         } else if (result.body.answer.kind === "constructed_response" && result.body.answer.selfRating === null) {
           setMessage("Texto guardado para comparar. Aún falta tu valoración formativa.");
         } else throw new Error("La respuesta sigue sin confirmarse.");
@@ -66,7 +69,7 @@ export function V2Player({ initialAttempt, initialState, returnTo }: { initialAt
   }
   async function run(action?: PlayerAction) {
     if (lock.current) return;
-    lock.current = true; setBusy(true); setMessage("Confirmando con el servidor…");
+    lock.current = true; setBusy(true); setMessage(preview ? "Confirmando en la vista previa…" : "Confirmando con el servidor…");
     try { apply(action ? await client.execute(action) : await client.retry()); }
     catch (error) {
       const uncertain = Boolean(client.pending());
@@ -80,7 +83,7 @@ export function V2Player({ initialAttempt, initialState, returnTo }: { initialAt
   function requestHelp(kind: "hint" | "source" | "reveal") { if (activity && !disabled) void run({ operation: "help", body: { activityKey: activity.key, kind, expectedVersion: attempt.rowVersion } }); }
   function next() { setFeedback(null); setHelp(null); }
   return <section aria-label="Sesión de aprendizaje" className="learning-activity-main" data-engine-version="guided-v2">
-    <header className="learning-activity-header"><Link href={safeMapReturnHref(returnTo) ?? "/aprendizaje?tab=hoy"}>Volver a mi aprendizaje</Link><div><span>{attempt.purpose === "review" ? "Repaso" : "Aprendizaje guiado"}</span><h1>Tu sesión de aprendizaje</h1></div><div className={`learning-save-state is-${pending ? "pending" : busy ? "saving" : "confirmed"}`} role="status">{pending ? "Pendiente de confirmar" : busy ? "Guardando…" : "Estado del servidor"}</div></header>
+    <header className="learning-activity-header">{preview ? <button type="button" className="learning-secondary-button" onClick={onExit}>Cerrar vista previa</button> : <Link href={safeMapReturnHref(returnTo) ?? "/aprendizaje?tab=hoy"}>Volver a mi aprendizaje</Link>}<div><span>{attempt.purpose === "review" ? "Repaso" : "Aprendizaje guiado"}</span><h1>Tu sesión de aprendizaje</h1></div><div className={`learning-save-state is-${pending ? "pending" : busy ? "saving" : "confirmed"}`} role="status">{pending ? "Pendiente de confirmar" : busy ? preview ? "Simulando…" : "Guardando…" : preview ? "Estado simulado" : "Estado del servidor"}</div></header>
     <p className="learning-activity-message" role="status" aria-live="polite">{message}</p>
     {pending ? <div><p>Hay una solicitud pendiente de confirmar. El servidor debe confirmar su resultado antes de continuar.</p><button type="button" className="learning-primary-button" disabled={busy} onClick={() => void run()}>Reintentar solicitud pendiente</button></div> : null}
     {!pending && message.includes("Recarga") ? <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button> : null}
@@ -100,7 +103,7 @@ export function V2Player({ initialAttempt, initialState, returnTo }: { initialAt
           <h2 ref={heading} tabIndex={-1} style={{ whiteSpace: "pre-wrap" }}>{activity.prompt}</h2>
           {attempt.accessiblePractice ? <p role="status">Variante accesible de texto o tabla. Esta práctica no acredita identificación espacial. Al responder volverás a la imagen pendiente.</p> : null}
           {activity.kind !== "study" ? <p>Recupera lo aprendido con tus palabras. La explicación del paso anterior ya no está en esta pantalla.</p> : null}
-          <ActivityComposition key={activity.key} activity={activity} attemptId={attempt.attemptId} rowVersion={attempt.rowVersion} disabled={disabled} comparison={comparison} onSubmit={respond} onReveal={() => requestHelp("reveal")} onAlternative={() => { if (!disabled) void run({ operation: "alternative", body: { activityKey: activity.key, expectedVersion: attempt.rowVersion } }); }} />
+          <ActivityComposition key={activity.key} activity={activity} attemptId={attempt.attemptId} rowVersion={attempt.rowVersion} disabled={disabled} comparison={comparison} readImage={readImage} onSubmit={respond} onReveal={() => requestHelp("reveal")} onAlternative={() => { if (!disabled) void run({ operation: "alternative", body: { activityKey: activity.key, expectedVersion: attempt.rowVersion } }); }} />
           {activity.kind !== "study" && attempt.purpose !== "assessment" && ["single_choice", "short_answer", "constructed_response"].includes(activity.kind) ? <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 }}><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("hint")}>Necesito ayuda</button><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("source")}>Consultar fuente con ayuda</button></div> : null}
           {help?.activityKey === activity.key && help.kind !== "reveal" ? <aside role="status" style={{ marginTop: 16, whiteSpace: "pre-wrap" }}><h3>{help.kind === "source" ? "Fuente para practicar con ayuda" : "Pista"}</h3><p>{help.text}</p><p>Consulta registrada: práctica con ayuda.</p></aside> : null}
         </section> : <section className="learning-completion-panel"><h2 ref={heading} tabIndex={-1}>Respuestas guardadas</h2><p>Confirma el cierre para consultar el resultado de la sesión.</p><button type="button" className="learning-primary-button" disabled={disabled} onClick={() => void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } })}>Finalizar sesión</button></section>}

@@ -1,0 +1,197 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-preview.test.ts (8 tests | 8 failed) 3282ms
+     × uses real diagnostic/CORE policies and separates sessions 15ms
+     × shares correction, help and constructed submission/reveal/self rating 2ms
+     × projects one case stage without future solutions, then advances child by child 1ms
+     × grades match, sequence and spatial answers with the existing evaluator 1ms
+     × reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches 2ms
+     × simulates review dates without treating absence as a failed response 2ms
+     × allows omission without conferring mastery and reports empty routes explicitly 2ms
+     × authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged 3248ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > uses real diagnostic/CORE policies and separates sessions
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:30:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > shares correction, help and constructed submission/reveal/self rating
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:39:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > projects one case stage without future solutions, then advances child by child
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:52:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > grades match, sequence and spatial answers with the existing evaluator
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:62:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:70:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > simulates review dates without treating absence as a failed response
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:82:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > allows omission without conferring mastery and reports empty routes explicitly
+ZodError: [
+  {
+    "origin": "string",
+    "code": "too_small",
+    "minimum": 40,
+    "inclusive": true,
+    "path": [
+      "assessments",
+      0,
+      "thresholdRationale"
+    ],
+    "message": "Too small: expected string to have >=40 characters"
+  }
+]
+ ❯ fixture test/guided-v2-preview.test.ts:19:29
+
+ ❯ runner test/guided-v2-preview.test.ts:22:44
+ ❯ test/guided-v2-preview.test.ts:90:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 real Fastify/provider/PGlite preview isolation > authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged
+AssertionError: expected 403 to be 404 // Object.is equality
+
+- Expected
++ Received
+
+- 404
++ 403
+
+ ❯ test/guided-v2-preview.test.ts:117:58
+    115|     roles.set(v2Id(1), ["student"]); expect((await post(root, init)).s…
+    116|     expect((await harness.app.inject({ method: "POST", url: root, payl…
+    117|     expect((await post(root, init, "other")).statusCode).toBe(404);
+       |                                                          ^
+    118|     const creation = await post(root, init);
+    119|     expect(creation.statusCode, creation.body).toBe(200);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  01:30:03
+   Duration  5.21s (transform 510ms, setup 0ms, import 1.48s, tests 3.28s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-preview.test.ts

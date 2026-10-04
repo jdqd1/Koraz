@@ -90,17 +90,17 @@ export function ImageTargetRenderer({ activity, image, hotspotTarget = null, alt
 }
 
 /** Mounted with an activity/version key by the player; stale resource reads are aborted. */
-export function AuthorizedImageTargetRenderer({ activity, attemptId, rowVersion, disabled, onSubmit, onAlternative }: {
-  activity: Activity; attemptId: string; rowVersion: number; disabled: boolean; onSubmit: (answer: Answer) => void; onAlternative: () => void;
+export function AuthorizedImageTargetRenderer({ activity, attemptId, rowVersion, disabled, onSubmit, onAlternative, readImage = readV2AttemptImage }: {
+  activity: Activity; attemptId: string; rowVersion: number; disabled: boolean; onSubmit: (answer: Answer) => void; onAlternative: () => void; readImage?: typeof readV2AttemptImage;
 }) {
   const [image, setImage] = useState<AuthorizedImage | null>(null), [error, setError] = useState(false), [retry, setRetry] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
-    readV2AttemptImage(attemptId, activity.key, activity.payload.assetKey, rowVersion, controller.signal)
+    readImage(attemptId, activity.key, activity.payload.assetKey, rowVersion, controller.signal)
       .then(value => { if (!controller.signal.aborted) setImage({ assetKey: value.assetKey, src: value.url, alt: value.alt }); })
       .catch(() => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
-  }, [attemptId, activity.key, activity.payload.assetKey, rowVersion, retry]);
+  }, [attemptId, activity.key, activity.payload.assetKey, rowVersion, retry, readImage]);
   return <>{!image ? <div role={error ? "alert" : "status"}><p>{error ? "No pudimos obtener la imagen autorizada. Tu respuesta no se ha enviado." : "Solicitando imagen autorizada…"}</p>{error ? <button type="button" disabled={disabled} onClick={() => { setImage(null); setError(false); setRetry(value => value + 1); }}>Reintentar acceso a la imagen</button> : null}</div> : null}
     <ImageTargetRenderer activity={activity} image={image} disabled={disabled} onSubmit={onSubmit}
       onRetryImage={() => { setImage(null); setError(false); setRetry(value => value + 1); }}

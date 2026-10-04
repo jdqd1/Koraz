@@ -1,0 +1,38 @@
+$ tsc --noEmit
+test/guided-v2-preview.test.ts(112,106): error TS7006: Parameter 'request' implicitly has an 'any' type.
+test/guided-v2-preview.test.ts(112,310): error TS7006: Parameter 'id' implicitly has an 'any' type.
+test/guided-v2-preview.test.ts(119,134): error TS2322: Type 'unknown' is not assignable to type 'InjectPayload | undefined'.
+test/guided-v2-preview.test.ts(121,70): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(123,46): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(125,21): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(125,33): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(actual: any, message?: string | undefined): Assertion<any>', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+  Overload 2 of 2, '(val: any, message?: string | undefined): Assertion', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+test/guided-v2-preview.test.ts(126,30): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(128,104): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(130,20): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(130,32): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(actual: any, message?: string | undefined): Assertion<any>', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+  Overload 2 of 2, '(val: any, message?: string | undefined): Assertion', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+test/guided-v2-preview.test.ts(131,43): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(132,78): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(134,21): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(134,33): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(actual: any, message?: string | undefined): Assertion<any>', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+  Overload 2 of 2, '(val: any, message?: string | undefined): Assertion', gave the following error.
+    Argument of type '(body: InjectPayload) => Chain' is not assignable to parameter of type 'string'.
+test/guided-v2-preview.test.ts(135,61): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(136,59): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(136,84): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(137,94): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(137,124): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(138,124): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-preview.test.ts(138,163): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

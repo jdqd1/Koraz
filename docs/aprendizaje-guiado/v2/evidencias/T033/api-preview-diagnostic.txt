@@ -1,0 +1,211 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-preview.test.ts (8 tests | 8 failed) 3112ms
+     × uses real diagnostic/CORE policies and separates sessions 22ms
+     × shares correction, help and constructed submission/reveal/self rating 3ms
+     × projects one case stage without future solutions, then advances child by child 3ms
+     × grades match, sequence and spatial answers with the existing evaluator 2ms
+     × reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches 3ms
+     × simulates review dates without treating absence as a failed response 1ms
+     × allows omission without conferring mastery and reports empty routes explicitly 2ms
+     × authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged 3069ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > uses real diagnostic/CORE policies and separates sessions
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:32:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > shares correction, help and constructed submission/reveal/self rating
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:41:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > projects one case stage without future solutions, then advances child by child
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:54:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > grades match, sequence and spatial answers with the existing evaluator
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:64:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:72:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > simulates review dates without treating absence as a failed response
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:84:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > allows omission without conferring mastery and reports empty routes explicitly
+AssertionError: expected [ { code: 'REFERENCE_MISSING', …(4) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "REFERENCE_MISSING",
++     "message": "La actividad diagnostic-item no aparece en ninguna unidad.",
++     "path": "/activities/8/key",
++     "severity": "error",
++     "suggestedFix": "Inclúyela exactamente una vez en activityKeys.",
++   },
++ ]
+
+ ❯ fixture test/guided-v2-preview.test.ts:20:44
+
+ ❯ runner test/guided-v2-preview.test.ts:24:44
+ ❯ test/guided-v2-preview.test.ts:92:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 real Fastify/provider/PGlite preview isolation > authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged
+AssertionError: {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ test/guided-v2-preview.test.ts:122:48
+    120|     expect((await post(root, init, "other")).statusCode).toBe(404);
+    121|     const creation = await post(root, init);
+    122|     expect(creation.statusCode, creation.body).toBe(200);
+       |                                                ^
+    123|     const session = creation.json();
+    124|     const actionUrl = `${root}/${session.previewId}/actions`;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  01:31:11
+   Duration  4.85s (transform 549ms, setup 0ms, import 1.39s, tests 3.11s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-preview.test.ts

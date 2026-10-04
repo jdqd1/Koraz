@@ -1,0 +1,27 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31033
+- Network:       http://127.0.0.1:31033
+✓ Ready in 1659ms
+✓ Running next.config.ts took 199ms
+
+○ Compiling proxy ...
+○ Compiling /panel/rutas/[pathId] ...
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 97s (next.js: 86s, proxy.ts: 542ms, application-code: 10.9s)
+○ Compiling /api/v2/editor/learning-paths/source-catalog ...
+ GET /api/v2/editor/learning-paths/source-catalog?limit=24&q= 200 in 15.7s (next.js: 13.7s, application-code: 1981ms)
+ GET /api/auth/get-session 404 in 19.3s (next.js: 19.3s, application-code: 28ms)
+○ Compiling /panel/rutas/[pathId] ...
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 7.2s (next.js: 5.0s, proxy.ts: 103ms, application-code: 2.0s)
+ GET /api/auth/get-session 404 in 61ms (next.js: 36ms, application-code: 25ms)
+ GET /api/v2/editor/learning-paths/source-catalog?limit=24&q= 200 in 71ms (next.js: 17ms, application-code: 54ms)
+○ Compiling /api/v2/editor/learning-paths/[...path] ...
+ GET /api/editor/content 404 in 6.1s (next.js: 5.6s, application-code: 475ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions 200 in 7.2s (next.js: 6.9s, application-code: 337ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/bd84bc39-526b-4de3-b661-bad7289d3501/actions 200 in 116ms (next.js: 31ms, application-code: 85ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/bd84bc39-526b-4de3-b661-bad7289d3501/actions 200 in 68ms (next.js: 4ms, application-code: 64ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/bd84bc39-526b-4de3-b661-bad7289d3501/actions 200 in 58ms (next.js: 5ms, application-code: 53ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/bd84bc39-526b-4de3-b661-bad7289d3501/actions 200 in 59ms (next.js: 5ms, application-code: 54ms)
+ POST /api/v2/editor/learning-paths/71000000-0000-4000-8000-000000000004/preview-sessions/bd84bc39-526b-4de3-b661-bad7289d3501/actions 200 in 73ms (next.js: 4ms, application-code: 69ms)
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 4.6s (next.js: 750ms, proxy.ts: 71ms, application-code: 3.8s)
+ GET /api/auth/get-session 404 in 158ms (next.js: 95ms, application-code: 63ms)
+ GET /api/v2/editor/learning-paths/source-catalog?limit=24&q= 200 in 748ms (next.js: 74ms, application-code: 674ms)

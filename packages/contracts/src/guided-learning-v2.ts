@@ -367,6 +367,35 @@ export const V2HttpContracts = {
 } as const;
 
 export type V2HttpContractName = keyof typeof V2HttpContracts;
+/** Editorial simulation is a separate capability; none of these routes accepts
+ * an enrollment or persists learner facts. */
+export const V2EditorPreviewProfileSchema = z.enum(["beginner", "diagnostic_correct", "core_error"]);
+export const V2EditorPreviewActionSchema = z.discriminatedUnion("operation", [
+  z.strictObject({ operation: z.literal("response"), body: V2HttpContracts.attemptResponse.body }),
+  z.strictObject({ operation: z.literal("help"), body: V2HttpContracts.attemptHelp.body }),
+  z.strictObject({ operation: z.literal("alternative"), body: V2HttpContracts.attemptAlternative.body }),
+  z.strictObject({ operation: z.literal("complete"), body: V2HttpContracts.attemptComplete.body }),
+  z.strictObject({ operation: z.literal("start"), body: ExpectedVersion.extend({ target: z.strictObject({ kind: z.enum(["activity", "assessment", "review"]), key: RouteKeySchema }) }).strict() }),
+  z.strictObject({ operation: z.literal("clock"), body: ExpectedVersion.extend({ now: Timestamp }).strict() }),
+  z.strictObject({ operation: z.literal("omit_diagnostic"), body: ExpectedVersion }),
+]);
+export const V2EditorPreviewSnapshotSchema = z.strictObject({
+  state: V2RouteStateSchema, attempt: V2AttemptManifestSchema.nullable(), now: Timestamp,
+  profile: V2EditorPreviewProfileSchema,
+  targets: z.array(z.strictObject({ kind: z.enum(["activity", "assessment"]), key: RouteKeySchema, title: z.string() })),
+  profileWarning: z.string().nullable(),
+});
+const PreviewSessionParams = PathParams.extend({ previewId: Id }).strict();
+export const V2EditorPreviewHttpContracts = {
+  create: route("POST", "/v2/editor/learning-paths/:id/preview-sessions", PathParams, Empty,
+    PackageAndBindings.extend({ profile: V2EditorPreviewProfileSchema, now: Timestamp }).strict(),
+    V2EditorPreviewSnapshotSchema.extend({ previewId: Id, expiresAt: Timestamp }).strict()),
+  action: route("POST", "/v2/editor/learning-paths/:id/preview-sessions/:previewId/actions", PreviewSessionParams, Empty,
+    V2EditorPreviewActionSchema, z.union([V2EditorPreviewSnapshotSchema, V2HttpContracts.attemptResponse.response, V2HttpContracts.attemptHelp.response, V2HttpContracts.attemptAlternative.response, V2HttpContracts.attemptComplete.response])),
+  image: route("POST", "/v2/editor/learning-paths/:id/preview-sessions/:previewId/image", PreviewSessionParams, Empty,
+    z.strictObject({ activityKey: RouteKeySchema, expectedVersion: Version }), V2ImageResourceSchema),
+} as const;
+
 export type V2HttpRequest<K extends V2HttpContractName> = {
   params: z.input<(typeof V2HttpContracts)[K]["params"]>;
   query: z.input<(typeof V2HttpContracts)[K]["query"]>;

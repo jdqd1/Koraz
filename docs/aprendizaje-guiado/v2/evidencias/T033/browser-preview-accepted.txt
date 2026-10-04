@@ -1,0 +1,10 @@
+locator.waitFor: Timeout 90000ms exceeded.
+Call log:
+  - waiting for locator('[data-editor-preview]').getByRole('button', { name: 'Abrir punto seleccionado', exact: true }) to be visible
+
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T033\browser-preview.cjs:23:90) {
+  log: [
+    "  - waiting for locator('[data-editor-preview]').getByRole('button', { name: 'Abrir punto seleccionado', exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

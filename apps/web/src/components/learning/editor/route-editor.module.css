@@ -1364,7 +1364,7 @@
 }
 
 .editor :is(button, a, input, select, textarea):focus-visible,
-[data-editor-surface] :is(button, a, input, select, textarea):focus-visible {
+.dialog :is(button, a, input, select, textarea):focus-visible {
   outline: 3px solid var(--koraz-blue);
   outline-offset: 3px;
 }

@@ -1,0 +1,10 @@
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('[data-editor-preview]').getByRole('heading', { name: 'Pista', exact: true }) to be visible
+
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T033\browser-preview.cjs:30:72) {
+  log: [
+    "  - waiting for locator('[data-editor-preview]').getByRole('heading', { name: 'Pista', exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

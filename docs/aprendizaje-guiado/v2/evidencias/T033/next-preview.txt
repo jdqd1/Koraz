@@ -1,0 +1,53 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31033
+- Network:       http://127.0.0.1:31033
+✓ Ready in 1514ms
+✓ Running next.config.ts took 207ms
+
+○ Compiling proxy ...
+○ Compiling /panel/rutas/[pathId] ...
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|javascript/auto|D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\next-flight-css-loader.js??ruleSet[1].rules[13].oneOf[5].use[0]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[5].use[1]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[5].use[2]!D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\route-editor.module.css|ssr': No serializer registered for CssSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError
+⨯ ./src/components/learning/editor/route-editor.module.css:1366:1
+Syntax error: Selector ".editor :is(button, a, input, select, textarea):focus-visible,
+[data-editor-surface] :is(button, a, input, select, textarea):focus-visible" is not pure (pure selectors must contain at least one local class or id)
+
+  1364 | }
+  1365 | 
+> 1366 | .editor :is(button, a, input, select, textarea):focus-visible,
+       | ^
+  1367 | [data-editor-surface] :is(button, a, input, select, textarea):focus-visible {
+  1368 |   outline: 3px solid var(--koraz-blue);
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[15].oneOf[5].use[2]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[15].oneOf[5].use[3]!D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\route-editor.module.css': No serializer registered for CssSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError
+⨯ ./src/components/learning/editor/route-editor.module.css:1366:1
+Syntax error: Selector ".editor :is(button, a, input, select, textarea):focus-visible,
+[data-editor-surface] :is(button, a, input, select, textarea):focus-visible" is not pure (pure selectors must contain at least one local class or id)
+
+  1364 | }
+  1365 | 
+> 1366 | .editor :is(button, a, input, select, textarea):focus-visible,
+       | ^
+  1367 | [data-editor-surface] :is(button, a, input, select, textarea):focus-visible {
+  1368 |   outline: 3px solid var(--koraz-blue);
+⨯ ./src/components/learning/editor/route-editor.module.css:1366:1
+Syntax error: Selector ".editor :is(button, a, input, select, textarea):focus-visible,
+[data-editor-surface] :is(button, a, input, select, textarea):focus-visible" is not pure (pure selectors must contain at least one local class or id)
+
+  1364 | }
+  1365 | 
+> 1366 | .editor :is(button, a, input, select, textarea):focus-visible,
+       | ^
+  1367 | [data-editor-surface] :is(button, a, input, select, textarea):focus-visible {
+  1368 |   outline: 3px solid var(--koraz-blue);
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 500 in 2.4min (next.js: 2.4min, proxy.ts: 338ms, application-code: 309ms)
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|javascript/auto|D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\next-flight-css-loader.js??ruleSet[1].rules[13].oneOf[5].use[0]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[5].use[1]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[5].use[2]!D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\route-editor.module.css|ssr': No serializer registered for CssSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[15].oneOf[5].use[2]!D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[15].oneOf[5].use[3]!D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\route-editor.module.css': No serializer registered for CssSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError
+○ Compiling /panel/rutas/[pathId] ...
+ GET /panel/rutas/71000000-0000-4000-8000-000000000004 200 in 72s (next.js: 65s, proxy.ts: 115ms, application-code: 7.2s)
+[?25h
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 4294967295: next dev --webpack --hostname 127.0.0.1 --port 31033

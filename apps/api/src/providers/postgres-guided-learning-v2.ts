@@ -367,7 +367,7 @@ async function editorReceipt<T>(transaction: Tx, actorUserId: string, key: strin
   return result;
 }
 
-export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date } = {}) {
+export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> } = {}) {
   return {
     async listEditorSourceCatalog(input: { actorUserId: string; canEditAll: boolean; q?: string; cursor?: string; limit: number }) {
       let guides = database.selectFrom("content_items").select(["id", "title", "version"])
@@ -744,6 +744,26 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       });
     },
 
+    async previewImage(input: EditorIdentity & { pathId: string; package: unknown; bindings: unknown; activityKey: string; expectedVersion: number }): Promise<GuidedV2StorageResult<unknown>> {
+      if (!input.canEdit) return { status: "forbidden" };
+      const prepared = prepareGuidedV2Draft(input.package, input.bindings);
+      if (prepared.status !== "success") return prepared;
+      return database.transaction().execute(async transaction => {
+        const path = await transaction.selectFrom("learning_paths").select("created_by").where("id", "=", input.pathId).forShare().executeTakeFirst();
+        if (!path || !input.canEditAll && path.created_by !== input.actorUserId) return { status: "not_found" };
+        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+        if (issues.length) return { status: "invalid", issues };
+        const activity = prepared.value.definition.activities.find(item => item.key === input.activityKey);
+        if (activity?.kind !== "image_target") return { status: "not_found" };
+        const assetId = prepared.value.bindings.assets.find(item => item.key === activity.payload.assetKey)?.assetId;
+        if (!assetId) return { status: "not_found" };
+        const asset = await transaction.selectFrom("content_assets").selectAll().where("id", "=", assetId).forShare().executeTakeFirst();
+        const storage = options.assetStorage;
+        if (!storage || !asset || asset.status !== "ready" || asset.kind !== "image" || asset.storage_bucket !== storage.bucket || !["image/png", "image/jpeg", "image/webp", "image/gif", "image/avif"].includes(asset.mime_type)) return { status: "not_found" };
+        const url = await storage.createDownloadUrl({ key: asset.storage_path, expiresInSeconds: 60 });
+        return { status: "success", value: V2ImageResourceSchema.parse({ activityKey: activity.key, attemptVersion: input.expectedVersion, image: { assetKey: activity.payload.assetKey, url, alt: prepared.value.definition.assets.find(item => item.key === activity.payload.assetKey)?.alt ?? "", expiresAt: new Date((options.now?.() ?? new Date()).getTime() + 60000).toISOString() } }) };
+      });
+    },
     async convertV1(input: EditorIdentity & { pathId: string; expectedVersion: number; idempotencyKey: string }): Promise<GuidedV2StorageResult<unknown>> {
       if (!input.canEdit) return { status: "forbidden" };
       return database.transaction().execute(async (transaction) => {

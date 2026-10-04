@@ -485,7 +485,7 @@ export async function buildApp(
       flags: { enabled: environment.guidedLearningV2Enabled === true, newEnrollments: environment.guidedLearningV2NewEnrollments === true,
         allowlist: environment.guidedLearningV2Allowlist } });
     if (environment.guidedLearningV2Enabled) await registerGuidedV2EditorImportRoutes(app, { identityProvider, contentProvider,
-      provider: dependencies.guidedLearningV2EditorProvider ?? (database ? createPostgresGuidedLearningV2Provider(database) : undefined) });
+      provider: dependencies.guidedLearningV2EditorProvider ?? (database ? createPostgresGuidedLearningV2Provider(database, { assetStorage: contentAssetStorage }) : undefined) });
     if (environment.guidedLearningV2Enabled) await registerGuidedV2MetricsRoutes(app, { identityProvider, contentProvider,
       provider: database ? createPostgresGuidedV2MetricsService(database) : undefined });
     if (environment.guidedLearningMapEnabled) await registerLearningMapRoutes(app, {

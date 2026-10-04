@@ -1,0 +1,166 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-preview.test.ts (8 tests | 8 failed) 2831ms
+     × uses real diagnostic/CORE policies and separates sessions 49ms
+     × shares correction, help and constructed submission/reveal/self rating 4ms
+     × projects one case stage without future solutions, then advances child by child 6ms
+     × grades match, sequence and spatial answers with the existing evaluator 4ms
+     × reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches 3ms
+     × simulates review dates without treating absence as a failed response 6ms
+     × allows omission without conferring mastery and reports empty routes explicitly 4ms
+     × authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged 2747ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > uses real diagnostic/CORE policies and separates sessions
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ test/guided-v2-preview.test.ts:31:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > shares correction, help and constructed submission/reveal/self rating
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ run test/guided-v2-preview.test.ts:23:131
+ ❯ Object.start test/guided-v2-preview.test.ts:24:53
+ ❯ test/guided-v2-preview.test.ts:39:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > projects one case stage without future solutions, then advances child by child
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ run test/guided-v2-preview.test.ts:23:131
+ ❯ Object.start test/guided-v2-preview.test.ts:24:53
+ ❯ test/guided-v2-preview.test.ts:52:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > grades match, sequence and spatial answers with the existing evaluator
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ run test/guided-v2-preview.test.ts:23:131
+ ❯ Object.start test/guided-v2-preview.test.ts:24:53
+ ❯ test/guided-v2-preview.test.ts:67:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > reuses receipts and rejects CAS, malformed answers, backwards clocks and open-session switches
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ run test/guided-v2-preview.test.ts:23:131
+ ❯ Object.start test/guided-v2-preview.test.ts:24:53
+ ❯ test/guided-v2-preview.test.ts:70:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > simulates review dates without treating absence as a failed response
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ run test/guided-v2-preview.test.ts:23:131
+ ❯ Object.start test/guided-v2-preview.test.ts:24:53
+ ❯ test/guided-v2-preview.test.ts:82:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 isolated editorial simulator > allows omission without conferring mastery and reports empty routes explicitly
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ state src/guided-learning/v2/editor-routes.ts:61:23
+ ❯ Object.read src/guided-learning/v2/editor-routes.ts:68:37
+ ❯ Object.run test/guided-v2-preview.test.ts:23:131
+ ❯ test/guided-v2-preview.test.ts:90:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/guided-v2-preview.test.ts > T033 real Fastify/provider/PGlite preview isolation > authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged
+AssertionError: {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ test/guided-v2-preview.test.ts:119:48
+    117|     expect((await post(root, init, "other")).statusCode).toBe(404);
+    118|     const creation = await post(root, init);
+    119|     expect(creation.statusCode, creation.body).toBe(200);
+       |                                                ^
+    120|     const session = creation.json();
+    121|     const actionUrl = `${root}/${session.previewId}/actions`;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  01:30:31
+   Duration  4.68s (transform 538ms, setup 0ms, import 1.54s, tests 2.83s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-preview.test.ts
