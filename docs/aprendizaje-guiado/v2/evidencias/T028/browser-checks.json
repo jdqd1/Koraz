@@ -1,0 +1,78 @@
+{
+  "scope": "Development fixtures and typed HTTP mocks; no authenticated persistence",
+  "checks": [
+    "Existing v1 map fixture loads and retains its controls",
+    "E06: route, today, cards, progress and session show the same confirmed critical state",
+    "A completed route does not become mastered",
+    "Review, missing state, revoked access and empty units remain distinct and actionable",
+    "Keyboard reaches the action and expands a second unit using Enter",
+    "Map retains topic → route → unit navigation, shows objective blocker and safe returnTo; no completion action",
+    "Mobile detail closes with Escape and releases background inert state",
+    "Browser launcher retries a network failure with the same key/clientAttemptId/CAS and reaches the session URL"
+  ],
+  "responsive": [
+    {
+      "width": 360,
+      "height": 800,
+      "documentWidth": 360,
+      "clientWidth": 360
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "clientWidth": 390
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "documentWidth": 768,
+      "clientWidth": 768
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "documentWidth": 1440,
+      "clientWidth": 1440
+    }
+  ],
+  "pageErrors": [],
+  "nativeZoom200": "NO VERIFICADO",
+  "startedAt": "2026-10-04T00:57:55.835Z",
+  "mobileFocusAfterEscape": {
+    "tag": "BODY",
+    "inert": false
+  },
+  "cssZoom200": {
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "launcherRequests": [
+    {
+      "body": {
+        "enrollmentId": "b2800000-0000-4000-8000-000000000003",
+        "expectedEnrollmentVersion": 4,
+        "target": {
+          "kind": "activity",
+          "key": "practice-a"
+        },
+        "clientAttemptId": "ebfdb52e-205a-4ba7-8eb3-dd5a41bab3df"
+      },
+      "idempotencyKey": "c681e202-09d3-48f0-934b-7778cbe0627f"
+    },
+    {
+      "body": {
+        "enrollmentId": "b2800000-0000-4000-8000-000000000003",
+        "expectedEnrollmentVersion": 4,
+        "target": {
+          "kind": "activity",
+          "key": "practice-a"
+        },
+        "clientAttemptId": "ebfdb52e-205a-4ba7-8eb3-dd5a41bab3df"
+      },
+      "idempotencyKey": "c681e202-09d3-48f0-934b-7778cbe0627f"
+    }
+  ],
+  "status": "PASS",
+  "completedAt": "2026-10-04T00:58:29.066Z"
+}

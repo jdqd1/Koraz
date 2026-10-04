@@ -1,0 +1,16 @@
+$ tsc --noEmit
+src/components/learning/v2/model.test.tsx(29,61): error TS2352: Conversion of type 'string & $brand<"V2PathId">' to type 'string & $brand<"V2EnrollmentId">' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'string & $brand<"V2PathId">' is not comparable to type '$brand<"V2EnrollmentId">'.
+    Types of property '[$brand]' are incompatible.
+      Property 'V2EnrollmentId' is missing in type '{ V2PathId: true; }' but required in type '{ V2EnrollmentId: true; }'.
+src/components/learning/v2/model.test.tsx(30,53): error TS2352: Conversion of type 'string & $brand<"V2PathId">' to type 'string & $brand<"V2PathVersionId">' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'string & $brand<"V2PathId">' is not comparable to type '$brand<"V2PathVersionId">'.
+    Types of property '[$brand]' are incompatible.
+      Property 'V2PathVersionId' is missing in type '{ V2PathId: true; }' but required in type '{ V2PathVersionId: true; }'.
+src/components/learning/v2/model.test.tsx(31,81): error TS2352: Conversion of type 'string & $brand<"V2PathId">' to type 'string & $brand<"V2PathVersionId">' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'string & $brand<"V2PathId">' is not comparable to type '$brand<"V2PathVersionId">'.
+    Types of property '[$brand]' are incompatible.
+      Property 'V2PathVersionId' is missing in type '{ V2PathId: true; }' but required in type '{ V2PathVersionId: true; }'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

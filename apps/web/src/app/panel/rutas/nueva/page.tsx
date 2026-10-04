@@ -3,10 +3,12 @@ import { notFound, redirect } from "next/navigation";
 import { LearningRouteEditor } from "@/components/learning/learning-route-editor";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getLearningEditorResources } from "@/lib/server/guided-learning-api";
+import { ImportWizardV2 } from "@/components/learning/editor/v2/import-wizard";
+import styles from "@/components/learning/editor/route-editor.module.css";
 
 export const dynamic = "force-dynamic";
 
-export default async function NewLearningPathPage() {
+export default async function NewLearningPathPage({ searchParams }: { searchParams: Promise<{ mode?: string }> }) {
   const current = await getCurrentUser();
   if (current.status === "anonymous") redirect("/acceder?next=/panel/rutas/nueva");
   if (current.status !== "authenticated") return <EditorUnavailable />;
@@ -14,6 +16,7 @@ export default async function NewLearningPathPage() {
   const resources = await getLearningEditorResources();
   if (resources.status !== "ready") return <EditorUnavailable forbidden={resources.status === "forbidden"} />;
   const canReview = current.roles.includes("coordinator") || current.roles.includes("administrator");
+  if ((await searchParams).mode === "import") return <main className={styles.editor} data-editor-surface><Link href="/panel/rutas" className={styles.backLink}>Volver a rutas</Link><ImportWizardV2 /></main>;
 
   return <LearningRouteEditor actorUserId={current.user.id} canPublish={canReview} canReview={canReview} initialResources={resources.items} resourceNextCursor={resources.nextCursor} resourceTopics={resources.resourceTopics} routeTopics={resources.topics} />;
 }

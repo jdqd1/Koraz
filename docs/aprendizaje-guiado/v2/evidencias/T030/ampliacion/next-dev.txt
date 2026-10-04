@@ -1,0 +1,30 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31030
+- Network:       http://127.0.0.1:31030
+✓ Ready in 11.7s
+✓ Running next.config.ts took 2.9s
+
+○ Compiling proxy ...
+○ Compiling /visual-fixtures/aprendizaje-v2 ...
+ GET /visual-fixtures/aprendizaje-v2?surface=player&estado=hotspot 200 in 45s (next.js: 37.1s, proxy.ts: 1746ms, application-code: 6.4s)
+○ Compiling /api/v2/guided-learning/[...path] ...
+ GET /api/auth/get-session 404 in 10.5s (next.js: 10.3s, application-code: 154ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 10.9s (next.js: 10.5s, application-code: 418ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 11.0s (next.js: 10.5s, application-code: 463ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 150ms (next.js: 16ms, application-code: 135ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 165ms (next.js: 4ms, application-code: 161ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image?activityKey=hotspot&expectedVersion=1 200 in 97ms (next.js: 3ms, application-code: 93ms)
+ GET /visual-fixtures/aprendizaje-v2?surface=player&estado=hotspot 200 in 1127ms (next.js: 265ms, proxy.ts: 100ms, application-code: 763ms)
+ GET /api/auth/get-session 404 in 175ms (next.js: 90ms, application-code: 85ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 60ms (next.js: 6ms, application-code: 54ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 144ms (next.js: 35ms, application-code: 108ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 94ms (next.js: 4ms, application-code: 90ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 280ms (next.js: 5ms, application-code: 275ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image?activityKey=hotspot&expectedVersion=1 200 in 94ms (next.js: 4ms, application-code: 90ms)
+ GET /visual-fixtures/aprendizaje-v2?surface=player&estado=hotspot 200 in 100ms (next.js: 7ms, proxy.ts: 12ms, application-code: 81ms)
+ GET /api/auth/get-session 404 in 42ms (next.js: 21ms, application-code: 21ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 65ms (next.js: 20ms, application-code: 45ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004 200 in 59ms (next.js: 4ms, application-code: 55ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 51ms (next.js: 4ms, application-code: 46ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 69ms (next.js: 3ms, application-code: 66ms)
+ GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image?activityKey=hotspot&expectedVersion=1 200 in 70ms (next.js: 3ms, application-code: 67ms)

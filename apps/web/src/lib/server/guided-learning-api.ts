@@ -1,5 +1,8 @@
 import "server-only";
 import {
+  V2HttpContracts,
+  V2CatalogResponseSchema,
+  V2HomeSnapshotSchema,
   LearningAttemptSchema,
   LearningEditorPathListResponseSchema,
   LearningEditorResourceCatalogResponseSchema,
@@ -53,6 +56,54 @@ async function sessionRequest(path: string) {
   const session = await getApiRequestCookie();
   if (session.status === "anonymous") return { body: null, status: 401 };
   return requestContentApi({ cookie: session.cookie, method: "GET", path });
+}
+
+/** Explicit v2 transport. Existing strict v1 callers retain their original DTO. */
+async function readGuidedV2<T>(path: string, schema: { safeParse(value: unknown): { success: true; data: T } | { success: false } }) {
+  const response = await sessionRequest(path);
+  if (response.status === 401) return { status: "unauthorized" as const };
+  if (response.status === 403) return { status: "forbidden" as const };
+  if (response.status === 404) return { status: "not_found" as const };
+  if (response.status !== 200) return { status: "unavailable" as const };
+  const parsed = schema.safeParse(response.body);
+  return parsed.success ? { status: "ready" as const, value: parsed.data } : { status: "unavailable" as const };
+}
+export function getLearningV2Paths() { return readGuidedV2("/v2/guided-learning/paths?limit=20", V2CatalogResponseSchema); }
+export function getLearningV2Home() { return readGuidedV2("/v2/guided-learning/home", V2HomeSnapshotSchema); }
+export function getLearningV2Path(slug: string) {
+  return readGuidedV2(`/v2/guided-learning/paths/${encodeURIComponent(slug)}`, V2HttpContracts.publicPath.response);
+}
+export function getLearningV2State(enrollmentId: string) {
+  return readGuidedV2(`/v2/guided-learning/enrollments/${encodeURIComponent(enrollmentId)}/state`, V2HttpContracts.enrollmentState.response);
+}
+export function getLearningV2Attempt(attemptId: string) {
+  return readGuidedV2(`/v2/guided-learning/attempts/${encodeURIComponent(attemptId)}`, V2HttpContracts.attemptGet.response);
+}
+
+type V2Card = Extract<Awaited<ReturnType<typeof getLearningV2Paths>>, { status: "ready" }>["value"]["items"][number];
+export type LearningPathByEngine = { engineVersion: "guided-v1"; path: LearningPathCard } | { engineVersion: "guided-v2"; path: V2Card };
+/** New consumers dispatch explicitly; enrolled versions win if both catalogs mention a route. */
+export async function getLearningCatalogByEngine() {
+  const [v1, v2] = await Promise.all([getLearningPaths(), getLearningV2Paths()]);
+  if (v1.status !== "ready") return v1;
+  if (v2.status === "unauthorized" || v2.status === "unavailable") return { status: v2.status };
+  const items: LearningPathByEngine[] = v1.items.map((path) => ({ engineVersion: "guided-v1", path }));
+  if (v2.status === "ready") for (const path of v2.value.items) {
+    const index = items.findIndex((item) => item.path.id === path.id);
+    if (index < 0) items.push({ engineVersion: "guided-v2", path });
+    else {
+      const previous = items[index]!;
+      if (path.enrollmentId || previous.engineVersion !== "guided-v1" || !previous.path.enrollment) items[index] = { engineVersion: "guided-v2", path };
+    }
+  }
+  return { status: "ready" as const, items, cursors: { v1: v1.nextCursor, v2: v2.status === "ready" ? v2.value.nextCursor : null } };
+}
+export async function getLearningHomeByEngine(minutes?: 5 | 10 | 20) {
+  const [v1, v2] = await Promise.all([getLearningHome(minutes), getLearningV2Home()]);
+  if (v1.status !== "ready") return v1;
+  if (v2.status === "unauthorized" || v2.status === "unavailable") return { status: v2.status };
+  return { status: "ready" as const, v1: { engineVersion: "guided-v1" as const, home: v1.home },
+    v2: v2.status === "ready" ? { engineVersion: "guided-v2" as const, home: v2.value } : null };
 }
 
 export async function getLearningPaths(): Promise<LearningCatalogResult> {
@@ -146,6 +197,20 @@ export async function getLearningEditorPath(pathId: string): Promise<LearningPat
   if (response.status !== 200) return { status: "unavailable" };
   const parsed = LearningPathDetailSchema.safeParse(response.body);
   return parsed.success ? { path: parsed.data, status: "ready" } : { status: "unavailable" };
+}
+
+/** Editor-only dispatch. The existing strict learner/v1 helpers keep their DTOs. */
+export async function getLearningEditorPathForEngine(pathId: string) {
+  const response = await sessionRequest(`/v1/editor/learning-paths/${encodeURIComponent(pathId)}`);
+  if (response.status === 401) return { status: "unauthorized" as const };
+  if (response.status === 403) return { status: "forbidden" as const };
+  if (response.status === 200) {
+    const parsed = LearningPathDetailSchema.safeParse(response.body);
+    return parsed.success ? { status: "ready" as const, path: parsed.data, engineVersion: "guided-v1" as const } : { status: "unavailable" as const };
+  }
+  if (response.status !== 409 || !response.body || typeof response.body !== "object" || !("error" in response.body) || response.body.error !== "engine_version_mismatch") return { status: response.status === 404 ? "not_found" as const : "unavailable" as const };
+  const v2 = await readGuidedV2(`/v2/editor/learning-paths/${encodeURIComponent(pathId)}`, V2HttpContracts.editorGet.response);
+  return v2.status === "ready" ? { status: "ready" as const, path: v2.value.route, engineVersion: "guided-v2" as const } : v2;
 }
 
 export async function getLearningEditorResources(input: {

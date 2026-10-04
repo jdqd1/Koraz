@@ -1,0 +1,91 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t022-e91ca92c586a40ea9d621b9d8f4b6b3e ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t022^-e91ca92c586a40ea9d621b9d8f4b6b3e^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 49ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 107ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 13ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 15ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 59ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 29ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 211ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 2113ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 24ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 32ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 7ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 2ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges 924ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers 48ms
+ × test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > concurrent HTTP requests share a durable 120/minute budget under runtime permissions 7ms
+   → permission denied for table auth_users
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > concurrent HTTP requests share a durable 120/minute budget under runtime permissions
+error: permission denied for table auth_users
+ ❯ ../../node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js:694:17
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:113:28
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ SelectQueryBuilderImpl.execute ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/select-query-builder.js:318:24
+ ❯ SelectQueryBuilderImpl.executeTakeFirst ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/select-query-builder.js:322:26
+ ❯ src/providers/postgres-guided-learning-v2.ts:1112:23
+    1110|     }): Promise<GuidedV2AttemptResult<V2AttemptManifest>> {
+    1111|       return database.transaction().execute(async (transaction) => {
+    1112|         const actor = await transaction.selectFrom("auth_users").selec…
+       |                       ^
+    1113|           .where("id", "=", input.userId).forUpdate().executeTakeFirst…
+    1114|         if (!actor) return { status: "forbidden" };
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:126:41
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ SelectQueryBuilderImpl.execute ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/select-query-builder.js:318:24
+ ❯ SelectQueryBuilderImpl.executeTakeFirst ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/select-query-builder.js:322:26
+ ❯ src/providers/postgres-guided-learning-v2.ts:1112:23
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ DefaultConnectionProvider.provideConnection ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 98, severity: 'ERROR', code: '42501', detail: undefined, hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'aclchk.c', routine: 'aclcheck_error' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  22:14:27
+   Duration  11.71s (transform 826ms, setup 0ms, import 2.46s, tests 9.02s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t022-e91ca92c586a40ea9d621b9d8f4b6b3e

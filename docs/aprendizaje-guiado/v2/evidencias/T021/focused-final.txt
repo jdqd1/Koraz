@@ -1,0 +1,21 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > returns 401/404/403 and no-store before provider calls when disabled or outside allowlist 45ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home 91ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > enrollment is pinned, idempotent and has a request receipt 38ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > strict requests reject client scores/extra fields and foreign attempts/enrollments 8ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > server availability blocks reserved practice, early final and deferred tests 68ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions 1268ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission 336ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version 49ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > scheduler eligibility admits actual day7/day30 evaluations on the pinned version 481ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted 3644ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > config defaults are closed and flags are enforced in buildApp 42ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > executes the new BFF and existing forwarder with real origin checks and cookie/header propagation 140ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  21:49:05
+   Duration  14.03s (transform 973ms, setup 0ms, import 3.48s, tests 10.29s, environment 1ms)
+

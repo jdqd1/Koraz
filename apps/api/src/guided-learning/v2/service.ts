@@ -132,7 +132,22 @@ export type GuidedV2AttemptResume = {
   assistedKeys: string[];
   revealedKeys: string[];
   submittedTextByActivity: Record<string, string>;
+  accessiblePractice?: { sourceActivityKey: string; activityKey: string } | null;
 };
+
+/** This detour never substitutes an assessment or an original spatial response. */
+export function accessibleVariant(snapshot: GuidedV2AttemptSnapshot, sourceKey: string): RouteActivity | null {
+  if (snapshot.target.kind === "assessment") return null;
+  const source = snapshot.activities.find(item => item.key === sourceKey);
+  if (source?.kind !== "image_target") return null;
+  const variant = snapshot.activities.find(item => item.key === source.payload.accessibleAlternativeKey);
+  return variant && variant.key !== source.key && !snapshot.orderedKeys.includes(variant.key)
+    && variant.objectiveKey === source.objectiveKey && variant.use === "learning"
+    && ["text", "table"].includes(variant.representation) && !["case", "image_target", "study"].includes(variant.kind) ? variant : null;
+}
+export function activeGuidedV2ActivityKey(snapshot: GuidedV2AttemptSnapshot, resume: GuidedV2AttemptResume) {
+  return resume.accessiblePractice?.activityKey ?? snapshot.orderedKeys[resume.activeIndex];
+}
 
 /** A private immutable copy of the selected questions; selection never depends on a later publication. */
 export function prepareGuidedV2AttemptSnapshot(
@@ -166,6 +181,13 @@ export function prepareGuidedV2AttemptSnapshot(
   }
   if (new Set(activities.map((activity) => activity.key)).size !== activities.length
     || new Set(orderedKeys).size !== orderedKeys.length) return null;
+  if (target.kind !== "assessment") for (const source of [...activities]) {
+    if (source.kind !== "image_target") continue;
+    const variant = byKey.get(source.payload.accessibleAlternativeKey);
+    if (variant && !activities.some(item => item.key === variant.key) && variant.objectiveKey === source.objectiveKey
+      && variant.use === "learning" && ["text", "table"].includes(variant.representation)
+      && !["case", "image_target", "study"].includes(variant.kind)) activities.push(variant);
+  }
   return { target, pathVersionId, contentHash: hashRoutePackage(definition), activities, orderedKeys };
 }
 
@@ -193,17 +215,24 @@ export function initialGuidedV2AttemptResume(): GuidedV2AttemptResume {
 export function parseGuidedV2AttemptResume(input: unknown, snapshot: GuidedV2AttemptSnapshot): GuidedV2AttemptResume | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
   const value = input as Record<string, unknown>;
+  const allowedKey = (key: unknown) => typeof key === "string" && (snapshot.orderedKeys.includes(key)
+    || snapshot.orderedKeys.some(source => accessibleVariant(snapshot, source)?.key === key));
   if (!Number.isInteger(value.activeIndex) || (value.activeIndex as number) < 0
     || (value.activeIndex as number) > snapshot.orderedKeys.length
     || !Array.isArray(value.assistedKeys) || !Array.isArray(value.revealedKeys)
-    || !value.assistedKeys.every((key) => typeof key === "string" && snapshot.orderedKeys.includes(key))
-    || !value.revealedKeys.every((key) => typeof key === "string" && snapshot.orderedKeys.includes(key))
+    || !value.assistedKeys.every(allowedKey)
+    || !value.revealedKeys.every(allowedKey)
     || !value.submittedTextByActivity || typeof value.submittedTextByActivity !== "object"
     || Array.isArray(value.submittedTextByActivity)) return null;
   const submittedTextByActivity = value.submittedTextByActivity as Record<string, unknown>;
-  if (Object.entries(submittedTextByActivity).some(([key, text]) => !snapshot.orderedKeys.includes(key) || typeof text !== "string")) return null;
+  const practice = value.accessiblePractice as GuidedV2AttemptResume["accessiblePractice"];
+  if (practice != null && (typeof practice !== "object" || practice.sourceActivityKey !== snapshot.orderedKeys[value.activeIndex as number]
+    || accessibleVariant(snapshot, practice.sourceActivityKey)?.key !== practice.activityKey)) return null;
+  const knownKeys = snapshot.activities.map(item => item.key);
+  if (Object.entries(submittedTextByActivity).some(([key, text]) => !knownKeys.includes(key) || typeof text !== "string")) return null;
   return { activeIndex: value.activeIndex as number, assistedKeys: value.assistedKeys as string[],
-    revealedKeys: value.revealedKeys as string[], submittedTextByActivity: submittedTextByActivity as Record<string, string> };
+    revealedKeys: value.revealedKeys as string[], submittedTextByActivity: submittedTextByActivity as Record<string, string>,
+    ...(practice ? { accessiblePractice: practice } : {}) };
 }
 
 export function guidedV2ItemRevisionHash(activity: RouteActivity): string {

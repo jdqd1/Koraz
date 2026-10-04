@@ -1,0 +1,132 @@
+$ next build
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.ts took 1363ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 43s
+  Running TypeScript ...
+  Finished TypeScript in 28.6s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/21) ...
+  Generating static pages using 5 workers (5/21) 
+  Generating static pages using 5 workers (10/21) 
+  Generating static pages using 5 workers (15/21) 
+✓ Generating static pages using 5 workers (21/21) in 1697ms
+  Finalizing page optimization ...
+Turbopack build encountered 1 warning:
+./apps/web/src/app/interactive-term-polish.css:19:13
+Warning: Parsing CSS source code failed
+  17 | }
+  18 |
+> 19 | ::highlight(koraz-editor-interactive-terms) {
+     |             ^
+  20 |   color: inherit;
+  21 |   background-color: color-mix(in srgb, var(--koraz-mint) 18%, transparent);
+  22 |   text-decoration-line: underline;
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of apps/web/src/app/interactive-term-polish.css:
+./apps/web/src/app/interactive-term-polish.css:19:13
+  17 | }
+  18 |
+> 19 | ::highlight(koraz-editor-interactive-terms) {
+     |             ^
+  20 |   color: inherit;
+  21 |   background-color: color-mix(in srgb, var(--koraz-mint) 18%, transparent);
+  22 |   text-decoration-line: underline;
+
+Import trace:
+  Client Component Browser:
+    ./apps/web/src/app/interactive-term-polish.css [Client Component Browser]
+    ./apps/web/src/app/layout.tsx [Server Component]
+
+
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /acceder
+├ ƒ /api/admin/interactive-terms
+├ ƒ /api/admin/interactive-terms/[termId]
+├ ƒ /api/admin/interactive-terms/preview
+├ ƒ /api/admin/interactive-terms/suggestions
+├ ƒ /api/admin/roles
+├ ƒ /api/auth/[...path]
+├ ƒ /api/content-order
+├ ƒ /api/content/[contentId]/reaction
+├ ƒ /api/content/[contentId]/views
+├ ƒ /api/editor/assets/[assetId]
+├ ƒ /api/editor/assets/[assetId]/finalize
+├ ƒ /api/editor/content
+├ ƒ /api/editor/content-index
+├ ƒ /api/editor/content-order
+├ ƒ /api/editor/content/[contentId]
+├ ƒ /api/editor/content/[contentId]/assets
+├ ƒ /api/editor/content/[contentId]/subjects
+├ ƒ /api/editor/content/[contentId]/transition
+├ ƒ /api/editor/learning-paths
+├ ƒ /api/editor/learning-paths/[...path]
+├ ƒ /api/editor/learning-resources
+├ ƒ /api/editor/learning-resources/[contentId]
+├ ƒ /api/editor/subjects
+├ ƒ /api/editor/subjects/[subjectId]
+├ ƒ /api/editor/topic-items
+├ ƒ /api/editor/topic-list-order
+├ ƒ /api/editor/topics
+├ ƒ /api/guided-learning/[...path]
+├ ƒ /api/search
+├ ƒ /api/system-health
+├ ƒ /api/v2/editor/learning-paths/[id]/metrics
+├ ƒ /api/v2/guided-learning/[...path]
+├ ƒ /api/video-tests/[videoId]
+├ ƒ /api/video-tests/uploads
+├ ƒ /aprendizaje
+├ ƒ /aprendizaje/mapa
+├ ƒ /aprendizaje/repaso
+├ ƒ /aprendizaje/rutas/[slug]
+├ ƒ /aprendizaje/rutas/[slug]/actividades/[stepId]
+├ ƒ /aprendizaje/sesiones/[attemptId]
+├ ƒ /asignaturas
+├ ƒ /asignaturas/[slug]
+├ ƒ /auth/actualizar-contrasena
+├ ƒ /auth/callback
+├ ƒ /biblioteca
+├ ƒ /biblioteca/[slug]
+├ ƒ /clases/reproductor
+├ ƒ /contenido/[slug]
+├ ƒ /cursos
+├   /cursos/[slug]
+│ ├ ● /cursos/cuello
+│ ├ ● /cursos/torax
+│ ├ ● /cursos/abdomen
+│ └ ● [+5 more paths]
+├   /cursos/[slug]/lecciones/[lessonSlug]
+│ ├ ● /cursos/cuello/lecciones/introduccion
+│ ├ ● /cursos/torax/lecciones/introduccion
+│ ├ ● /cursos/abdomen/lecciones/introduccion
+│ └ ● [+5 more paths]
+├ ƒ /dashboard
+├ ƒ /guias
+├ ƒ /guias/[slug]
+├ ƒ /guias/musculos-compartimento-anterior
+├ ƒ /panel
+├ ƒ /panel/administracion/roles
+├ ƒ /panel/administracion/terminos
+├ ƒ /panel/contenido
+├ ƒ /panel/rutas
+├ ƒ /panel/rutas/[pathId]
+├ ƒ /panel/rutas/nueva
+├ ƒ /pruebas/video
+├ ƒ /recuperar-acceso
+├ ƒ /visual-fixtures/aprendizaje
+├ ƒ /visual-fixtures/editor-rutas
+└ ƒ /visual-fixtures/mapa
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

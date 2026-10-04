@@ -1,0 +1,42 @@
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+TargetClosedError2: "route.fetch: Request context disposed.
+Call log:
+  - → POST http://127.0.0.1:31031/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses
+    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36
+    - accept: */*
+    - accept-encoding: gzip,deflate,br
+    - content-type: application/json
+    - cookie: t030=learner
+    - idempotency-key: d9ec9fa2-567a-4bea-b7f2-881599e3fe44
+    - origin: http://127.0.0.1:31031
+    - referer: http://127.0.0.1:31031/visual-fixtures/aprendizaje-v2?surface=player&estado=study
+    - sec-ch-ua: "HeadlessChrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"
+    - sec-ch-ua-mobile: ?0
+    - sec-ch-ua-platform: "Windows"
+    - content-length: 136
+" while running route callback.
+Consider awaiting `await page.unrouteAll({ behavior: 'ignoreErrors' })`
+before the end of the test to ignore remaining routes in flight.
+    at page.route.times (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T031\browser-real.cjs:57:219)
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright-core@1.63.0\node_modules\playwright-core\lib\coreBundle.js:60147:59) {
+  log: [
+    '  - → POST http://127.0.0.1:31031/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses',
+    '    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36',
+    '    - accept: */*',
+    '    - accept-encoding: gzip,deflate,br',
+    '    - content-type: application/json',
+    '    - cookie: t030=learner',
+    '    - idempotency-key: d9ec9fa2-567a-4bea-b7f2-881599e3fe44',
+    '    - origin: http://127.0.0.1:31031',
+    '    - referer: http://127.0.0.1:31031/visual-fixtures/aprendizaje-v2?surface=player&estado=study',
+    '    - sec-ch-ua: "HeadlessChrome";v="153", "Not_A Brand";v="8", "Chromium";v="153"',
+    '    - sec-ch-ua-mobile: ?0',
+    '    - sec-ch-ua-platform: "Windows"',
+    '    - content-length: 136'
+  ]
+}
+
+Node.js v24.19.0

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
+  getPublicContentStorageOrigin,
   getPublicTurnstileSiteKey,
   getPublicVideoStorageOrigin,
 } from "@/lib/auth/environment";
@@ -13,13 +14,14 @@ export async function proxy(request: NextRequest) {
   const developmentScriptPolicy =
     process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : "";
   const videoStorageOrigin = getPublicVideoStorageOrigin();
+  const contentStorageOrigin = getPublicContentStorageOrigin();
   const turnstileEnabled = Boolean(getPublicTurnstileSiteKey());
   const turnstileOrigin = "https://challenges.cloudflare.com";
   const contentSecurityPolicy = [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${developmentScriptPolicy}${turnstileEnabled ? ` ${turnstileOrigin}` : ""}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
+    `img-src 'self' data: blob:${contentStorageOrigin ? ` ${contentStorageOrigin}` : ""}`,
     "font-src 'self' data:",
     `media-src 'self'${videoStorageOrigin ? ` ${videoStorageOrigin}` : ""} blob:`,
     `connect-src 'self'${videoStorageOrigin ? ` ${videoStorageOrigin}` : ""}${turnstileEnabled ? ` ${turnstileOrigin}` : ""}`,

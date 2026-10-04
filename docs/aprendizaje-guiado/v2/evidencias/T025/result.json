@@ -1,0 +1,143 @@
+{
+  "taskId": "T025",
+  "status": "PASS",
+  "scope": "Local acceptance criteria of T025. E01 remains partial; inherited T024 API import timeout is open.",
+  "date": "2026-10-02",
+  "completedAt": "2026-10-02 08:38:30 UTC",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "dependencies": [
+    {
+      "taskId": "T006",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T013",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T024",
+      "status": "PASS"
+    }
+  ],
+  "changedFiles": [
+    "apps/web/src/components/learning/editor/v2/activity-model.ts",
+    "apps/web/src/components/learning/editor/v2/activity-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/activity-payloads.tsx",
+    "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+    "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    "apps/web/src/components/learning/editor/v2/styles.module.css"
+  ],
+  "evidenceDirectory": "docs/aprendizaje-guiado/v2/evidencias/T025",
+  "authorizations": [
+    {
+      "scope": "Minimum shell wiring and issue focus/save guard",
+      "userReply": "Sí, incluir la conexión mínima en el shell",
+      "origin": "Existing T024 approval",
+      "interpretation": "Reused narrowly for continuation into T025; no new approval was requested or claimed."
+    }
+  ],
+  "acceptance": [
+    {
+      "criterion": "Four activity kinds create and survive portable serialization, actual save/read and UI reload",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Every incorrect choice requires feedback, with named feedback/distractor sources",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Card/constructed self-assessment explicitly formative, with same-objective learning/gate verification",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Validation per objective and editorial solution separated",
+      "status": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "command": "pnpm --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run src/components/learning/editor/v2 --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS: 5 files, 49 tests; includes 13 new T025 tests",
+      "evidence": "web-focused-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS: 47 files, 310 tests on final source",
+      "evidence": "web-suite-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "web-typecheck-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec eslint src/components/learning/editor/v2/activity-model.ts src/components/learning/editor/v2/activity-fields.tsx src/components/learning/editor/v2/activity-payloads.tsx src/components/learning/editor/v2/activity-editor.tsx src/components/learning/editor/v2/activity-forms.test.tsx src/components/learning/editor/v2/editor-shell.tsx --max-warnings=0",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "web-lint-final.txt"
+    },
+    {
+      "command": "T025_BROWSER_HOLD=true; pnpm --filter @cediah/api exec vitest run --root ../.. --config docs/aprendizaje-guiado/v2/evidencias/T025/vitest.http.config.mts",
+      "exitCode": 0,
+      "result": "PASS: 1 actual HTTP test; duration includes optional manual browser hold",
+      "evidence": "http-integration.txt"
+    },
+    {
+      "command": "cua_repl: actual editorial page through Next/BFF with loopback fixture",
+      "exitCode": null,
+      "result": "PASS within the manual flow coverage recorded; E01 remains partial",
+      "evidence": "browser-checks.json"
+    },
+    {
+      "command": "Assert actual provider snapshots for revisions 4, 5 and 7",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "ui-storage-checks.json"
+    },
+    {
+      "command": "git diff --check; SHA256 preservation and final source hashes; listener cleanup",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "closure-verification.json"
+    }
+  ],
+  "issues": [
+    {
+      "id": "delete-dialog-focus",
+      "status": "RESOLVED",
+      "note": "Initial focus was BODY after deletion. onCloseAutoFocus now preserves focus on Add activity; verified with keyboard."
+    },
+    {
+      "id": "inherited-api-import-timeout",
+      "status": "OPEN",
+      "blockingT025": false,
+      "blockingSystemAcceptance": true,
+      "note": "See T024 evidence. API complete regression not rerun or claimed resolved in T025."
+    }
+  ],
+  "notVerified": [
+    "Complete E01 and Hito S",
+    "Student card renderer and later player workflows",
+    "Production identity/deployment",
+    "Independent PostgreSQL concurrency",
+    "Native browser zoom; 720x450 reflow emulation verified",
+    "Full axe/screen-reader audit reserved to T037"
+  ],
+  "finalStoredRevision": 7,
+  "nextTaskIds": [
+    "T026"
+  ],
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false
+}

@@ -1,0 +1,25 @@
+failed to load config from D:\Jose (Datos)\Medicina\docs\aprendizaje-guiado\v2\evidencias\T023\vitest.http.config.mts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 1 error:
+
+[UNRESOLVED_ENTRY] Cannot resolve entry module ../../../../docs/aprendizaje-guiado/v2/evidencias/T023/vitest.http.config.mts.
+
+    at aggregateBindingErrorsIntoJsError (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/rolldown@1.2.1/node_modules/rolldown/dist/shared/error-BgfXq0Tb.mjs:48:18)
+    at unwrapBindingResult (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/rolldown@1.2.1/node_modules/rolldown/dist/shared/error-BgfXq0Tb.mjs:18:128)
+    at #build (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/rolldown@1.2.1/node_modules/rolldown/dist/shared/rolldown-DP_p9pd3.mjs:132:34)
+    at async bundleConfigFile (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vite@8.2.0_@types+node@26.1.2_esbuild@0.28.1_tsx@4.23.1/node_modules/vite/dist/node/chunks/node.js:36962:17)
+    at async bundleAndLoadConfigFile (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vite@8.2.0_@types+node@26.1.2_esbuild@0.28.1_tsx@4.23.1/node_modules/vite/dist/node/chunks/node.js:36863:18)
+    at async loadConfigFromFile (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vite@8.2.0_@types+node@26.1.2_esbuild@0.28.1_tsx@4.23.1/node_modules/vite/dist/node/chunks/node.js:36824:42)
+    at async resolveConfig (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vite@8.2.0_@types+node@26.1.2_esbuild@0.28.1_tsx@4.23.1/node_modules/vite/dist/node/chunks/node.js:36433:22)
+    at async _createServer (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vite@8.2.0_@types+node@26.1.2_esbuild@0.28.1_tsx@4.23.1/node_modules/vite/dist/node/chunks/node.js:26269:65)
+    at async createViteServer (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vitest@4.1.11_@types+node@2_591c614925ca432805e406097b4d8242/node_modules/vitest/dist/chunks/cli-api.CnMVyzaz.js:8902:17)
+    at async createVitest (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/vitest@4.1.11_@types+node@2_591c614925ca432805e406097b4d8242/node_modules/vitest/dist/chunks/cli-api.CnMVyzaz.js:14288:18) {
+  errors: [Getter/Setter]
+}
+
+
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run --root ../.. --config ../../docs/aprendizaje-guiado/v2/evidencias/T023/vitest.http.config.mts

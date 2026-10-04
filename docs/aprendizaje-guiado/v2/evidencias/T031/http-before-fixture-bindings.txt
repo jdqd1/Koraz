@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts (1 test | 1 failed) 111069ms
+   × projects only the first case child and current narrative over real HTTP 123ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts > projects only the first case child and current narrative over real HTTP
+AssertionError: expected 403 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 403
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts:67:29
+     65| it("projects only the first case child and current narrative over real…
+     66|   const result = await h.app.inject({ url: `/v2/guided-learning/attemp…
+     67|   expect(result.statusCode).toBe(200);
+       |                             ^
+     68|   expect(result.json().attempt.activeActivity.key).toBe("partial");
+     69|   expect(result.body).toContain("NARRATIVA_UNO");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  23:47:42
+   Duration  113.37s (transform 682ms, setup 0ms, import 1.82s, tests 111.07s, environment 0ms)
+

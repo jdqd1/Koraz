@@ -1,0 +1,59 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 61ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 165ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 9ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 13ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 114ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 384ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1 21ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage 50ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 50ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 13ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 12ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 122ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 152ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 521ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 2024ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 17ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 5ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 15ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 19ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 3ms
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01 stores a private 24h session without creating or changing a learning path 56ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reports a missing guide binding precisely and leaves the session unready 7ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > detects a changed guide digest and never auto-links by title 20ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > computes key-based target diff and enforces owner/CAS without mutating the target 52ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > S05 rejects >10 MiB, unknown privileged fields and file URLs 18ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > uses array order and local keys in diffs 2ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > marks an asset digest as unverified when the catalog has no trusted file hash 20ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reuses an idempotency key only for the same package and bindings 28ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > exposes a validated endpoint with auth, capability and private no-store 267ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > limits validate to 10 sessions per actor per ten minutes 91ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01/I02 commits once, replays the receipt and exports exact portable content 1588ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 updates only the target draft with CAS and rejects reused revision with changed hash 72ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rejects a new import that reuses packageKey and revision with different content 33ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rechecks the guide after dry-run and preserves the validated session on failure 16ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rejects another actor and an expired session 16ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rolls back route, version and bindings when closing the import fails 22ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > returns the original receipt after a later edit and rejects stale target CAS 44ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > serves commit and export through authenticated editor HTTP routes 45ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > creates one canonical draft, reads it back and leaves v1 step tables empty 42ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > saves and rereads one version with CAS; stale writes do not change metadata 34ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > hashes canonical object keys but preserves source array order 11ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > enforces editor ownership and never trusts imported status or actor 18ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rolls back route metadata and version when a binding FK fails 22ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rejects writes to published versions 11ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > I02 keeps portable semantics when reimported with different catalog bindings 1522ms
+
+ Test Files  3 passed (3)
+      Tests  45 passed | 5 skipped (50)
+   Start at  23:18:00
+   Duration  23.32s (transform 1.36s, setup 0ms, import 5.80s, tests 16.74s, environment 0ms)
+

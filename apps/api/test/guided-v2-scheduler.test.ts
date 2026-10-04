@@ -167,7 +167,7 @@ for (const backend of ["pglite", "postgres"] as const) {
         await control.query("create role cediah_runtime; create role anon; create role authenticated;");
         const directory = new URL("../../../database/migrations/", import.meta.url);
         for (const file of (await readdir(directory)).filter((f) => /^\d+_[a-z0-9_]+\.sql$/.test(f)
-          && f.localeCompare("0031_guided_v2_runtime.sql") <= 0).sort()) {
+          && f.localeCompare("0034_guided_v2_editor_audit.sql") <= 0).sort()) {
           if (file === "0005_restore_legacy_content.sql") continue;
           await control.query(`begin;\n${await readFile(new URL(file, directory), "utf8")}\ncommit;`);
         }

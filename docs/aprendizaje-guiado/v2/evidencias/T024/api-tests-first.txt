@@ -1,0 +1,31 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-source-catalog.test.ts (3 tests | 3 skipped) 19722ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-source-catalog.test.ts > T024 editorial source catalogue
+error: new row for relation "content_items" violates check constraint "content_items_publication_fields"
+ ❯ pe.Ue ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:17959
+ ❯ pe.tt ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:15347
+ ❯ pe.parse ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:14021
+ ❯ N.qe ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/index.js:5:1762
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/index.js:5:1155
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:5922000
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2616044
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2648530
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2649134
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:5569870
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  19 passed | 3 skipped (22)
+   Start at  19:33:14
+   Duration  35.22s (transform 1.57s, setup 0ms, import 6.65s, tests 24.56s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-source-catalog.test.ts test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-learning-editor-contract.test.ts

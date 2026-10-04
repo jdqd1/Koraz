@@ -1,0 +1,115 @@
+{
+  "taskId": "T021",
+  "status": "PARTIAL",
+  "implementationChecks": "PASS",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "observedHead": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "recordedUtc": "2026-09-30T01:54:53.9714894Z",
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/app.ts",
+    "apps/api/src/config.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-routes.test.ts",
+    "apps/web/src/lib/server/guided-learning-api.ts",
+    "apps/web/src/app/api/v2/guided-learning/[...path]/route.ts",
+    "apps/web/src/app/api/v2/editor/learning-paths/[id]/metrics/route.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T021/"
+  ],
+  "predecessors": [
+    {
+      "taskId": "T015",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T017",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T018",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T019",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T020",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T004",
+      "status": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "name": "routes-regression",
+      "status": "PASS",
+      "evidence": "routes-regression-final.txt",
+      "passed": 67,
+      "skipped": 12
+    },
+    {
+      "name": "T021-focused-final",
+      "status": "PASS",
+      "passed": 12,
+      "evidence": "focused-final.txt"
+    },
+    {
+      "name": "api-typecheck",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "api-typecheck-final.txt"
+    },
+    {
+      "name": "web-typecheck",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "web-typecheck-final.txt"
+    },
+    {
+      "name": "api-lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "api-lint-final.txt"
+    },
+    {
+      "name": "web-scoped-lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "web-lint-scoped-final.txt"
+    },
+    {
+      "name": "diff-check",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "diff-check-final.txt"
+    }
+  ],
+  "issues": [
+    {
+      "id": "upgrade-success-dto-pending",
+      "status": "OPEN",
+      "detail": "GET/POST upgrade registered and protected but return 409 for owned enrollment until explicit adoption service T034. Full all-endpoints acceptance is pending."
+    }
+  ],
+  "scopeExceptions": [
+    "Minimal exports and transactional preparation hook in postgres-guided-learning-v2.ts; persisted novelKeys from frozen assessment plan."
+  ],
+  "sourceHashes": "source-hashes.json",
+  "nextTaskIds": [
+    "T022"
+  ],
+  "acceptanceFollowupTaskIds": [
+    "T034"
+  ],
+  "nextTaskStarted": false,
+  "limitations": [
+    "No new PostgreSQL concurrency run: 12 dedicated-environment cases skipped.",
+    "No deployment, flag activation, browser E2E, external database migration or UI implementation.",
+    "BFF executes real source with framework/session/upstream adapters.",
+    "Upgrade success DTOs pending T034."
+  ],
+  "details": "README.md"
+}

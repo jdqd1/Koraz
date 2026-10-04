@@ -1,0 +1,201 @@
+{
+  "scope": "Chromium -> Next BFF -> real Fastify services -> fresh isolated PGlite; synthetic cookie identity and synthetic nonmedical content. No mocked learner API receipts.",
+  "checks": [
+    "Initial network and DOM contain only current case child/narrative; attempting a future mandatory child is rejected with 409 and no response persisted"
+  ],
+  "viewports": [
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "pageOverflow": false
+    }
+  ],
+  "axe": [
+    {
+      "state": "sequence-mobile",
+      "seriousCritical": 0
+    },
+    {
+      "state": "sequence-confirmed-feedback",
+      "seriousCritical": 0
+    },
+    {
+      "state": "case-constructed-revealed-mobile",
+      "seriousCritical": 0
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n\n    at main (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T031\\browser-real.cjs:53:420)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+  ],
+  "traffic": [
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/help",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    }
+  ],
+  "status": "FAIL"
+}

@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { LearningRouteEditor } from "@/components/learning/learning-route-editor";
 import { getCurrentUser } from "@/lib/server/current-user";
-import { getLearningEditorPath, getLearningEditorResources } from "@/lib/server/guided-learning-api";
+import { getLearningEditorPathForEngine, getLearningEditorResources } from "@/lib/server/guided-learning-api";
 
 export const dynamic = "force-dynamic";
 
@@ -12,10 +12,10 @@ export default async function LearningPathEditorPage({ params }: { params: Promi
   if (!current.features.guidedLearning) notFound();
   const { pathId } = await params;
   const [path, resources] = await Promise.all([
-    getLearningEditorPath(pathId),
+    getLearningEditorPathForEngine(pathId),
     getLearningEditorResources(),
   ]);
   if (path.status !== "ready" || resources.status !== "ready") notFound();
   const canReview = current.roles.includes("coordinator") || current.roles.includes("administrator");
-  return <LearningRouteEditor actorUserId={current.user.id} canPublish={canReview} canReview={canReview} initialPath={path.path} initialResources={resources.items} key={path.path.id} resourceNextCursor={resources.nextCursor} resourceTopics={resources.resourceTopics} routeTopics={resources.topics} />;
+  return <LearningRouteEditor actorUserId={current.user.id} canPublish={canReview} canReview={canReview} initialPath={path.path} initialResources={resources.items} key={path.engineVersion === "guided-v2" ? path.path.pathId : path.path.id} resourceNextCursor={resources.nextCursor} resourceTopics={resources.resourceTopics} routeTopics={resources.topics} />;
 }

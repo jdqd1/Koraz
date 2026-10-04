@@ -1,0 +1,7 @@
+$ tsc --noEmit
+src/guided-learning/v2/routes.ts(344,66): error TS2533: Object is possibly 'null' or 'undefined'.
+src/guided-learning/v2/routes.ts(344,95): error TS2339: Property 'trim' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'trim' does not exist on type 'number'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

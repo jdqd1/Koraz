@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-import.test.ts (18 tests | 1 failed) 14670ms
+     × I01/I02 commits once, replays the receipt and exports exact portable content 5141ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-import.test.ts > guided v2 import dry-run > I01/I02 commits once, replays the receipt and exports exact portable content
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-import.test.ts:240:3
+    238|   });
+    239|
+    240|   it("I01/I02 commits once, replays the receipt and exports exact port…
+       |   ^
+    241|     const pkg = namedFixture("roundtrip-import");
+    242|     const validated = await provider.validateImport(request({ package:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 passed (18)
+   Start at  20:11:48
+   Duration  17.17s (transform 683ms, setup 0ms, import 1.86s, tests 14.67s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-import.test.ts

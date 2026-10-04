@@ -1,0 +1,207 @@
+{
+  "taskId": "T024",
+  "status": "PASS",
+  "scope": "Local acceptance criteria of T024; E01 remains partial and broader API regression has a reproduced import timeout.",
+  "date": "2026-09-30",
+  "completedAt": "2026-10-01T00:25:47.091Z",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "dependencies": [
+    {
+      "taskId": "T005",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T023",
+      "status": "PASS"
+    }
+  ],
+  "changedFiles": [
+    "apps/web/src/components/learning/editor/v2/sources.tsx",
+    "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/objectives.tsx",
+    "apps/web/src/components/learning/editor/v2/dependencies.tsx",
+    "apps/web/src/components/learning/editor/v2/route-basics.tsx",
+    "apps/web/src/components/learning/editor/v2/styles.module.css",
+    "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    "apps/web/src/components/learning/editor/v2/sources-objectives.test.tsx",
+    "apps/web/src/components/learning/editor/v2/editor-web.test.tsx",
+    "apps/web/src/app/api/v2/editor/learning-paths/source-catalog/route.ts",
+    "packages/contracts/src/guided-learning-v2.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/test/guided-v2-source-catalog.test.ts",
+    "apps/api/test/guided-v2-contract.test.ts"
+  ],
+  "evidenceDirectory": "docs/aprendizaje-guiado/v2/evidencias/T024",
+  "authorizations": [
+    {
+      "scope": "Minimum editor/v2/editor-shell.tsx connection and issue focus",
+      "userReply": "Sí, incluir la conexión mínima en el shell"
+    },
+    {
+      "scope": "Minimum read-only v2 source catalogue, contract/provider/API/BFF/tests; only existing valid snapshots",
+      "userReply": "Sí, añadir el catálogo mínimo de fuentes v2"
+    }
+  ],
+  "acceptance": [
+    {
+      "criterion": "Route/source/binding and objective controls with names, no UUID input task",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Shared topological order; cycle rejected before accepting a link",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Objective/source issue locates and focuses corresponding field",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Keyboard create/edit/delete objective and prerequisite link",
+      "status": "PASS"
+    },
+    {
+      "criterion": "Deletion does not leave broken references; linked objects protected",
+      "status": "PASS"
+    },
+    {
+      "criterion": "E01 full editor workflow across remaining constructor tasks",
+      "status": "PARTIAL",
+      "note": "T024 covers data/sources/objectives only."
+    }
+  ],
+  "checks": [
+    {
+      "name": "contracts build",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "name": "complete web suite before final minor corrections",
+      "status": "PASS",
+      "files": 46,
+      "passed": 297,
+      "exitCode": 0,
+      "evidence": "web-suite-final.txt"
+    },
+    {
+      "name": "focused final web tests",
+      "status": "PASS",
+      "files": 4,
+      "passed": 36,
+      "exitCode": 0,
+      "evidence": "web-tests-closure.txt"
+    },
+    {
+      "name": "source catalogue API",
+      "status": "PASS",
+      "files": 1,
+      "passed": 3,
+      "exitCode": 0,
+      "evidence": "api-catalog-tests.txt"
+    },
+    {
+      "name": "actual HTTP with isolated storage",
+      "status": "PASS",
+      "passed": 1,
+      "exitCode": 0,
+      "evidence": "http-integration.txt",
+      "note": "Duration includes optional manual browser hold; not a performance measurement."
+    },
+    {
+      "name": "web typecheck",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "web-typecheck-closure.txt"
+    },
+    {
+      "name": "API typecheck",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "api-typecheck-closure.txt"
+    },
+    {
+      "name": "web ESLint affected sources",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "web-lint-closure.txt"
+    },
+    {
+      "name": "API ESLint affected sources",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "api-lint-closure.txt"
+    },
+    {
+      "name": "browser keyboard/forms/persistence/responsive geometry",
+      "status": "PASS",
+      "evidence": "browser-checks.json"
+    },
+    {
+      "name": "broader API regression",
+      "status": "PARTIAL",
+      "passed": 45,
+      "failed": 1,
+      "files": 6,
+      "exitCode": 1,
+      "evidence": "api-regression.txt"
+    },
+    {
+      "name": "isolated import rerun, original timeout",
+      "status": "FAIL",
+      "passed": 17,
+      "failed": 1,
+      "exitCode": 1,
+      "evidence": "api-import-isolated.txt"
+    },
+    {
+      "name": "import comparison with catalogue method removed, original timeout",
+      "status": "FAIL",
+      "passed": 17,
+      "failed": 1,
+      "exitCode": 1,
+      "evidence": "api-import-before-catalog.txt"
+    },
+    {
+      "name": "diff check and final source hashes",
+      "status": "PASS",
+      "exitCode": 0,
+      "evidence": "closure-verification.json"
+    }
+  ],
+  "issues": [
+    {
+      "id": "import-regression-timeout",
+      "status": "OPEN",
+      "blockingT024": false,
+      "blockingSystemAcceptance": true,
+      "note": "I01/I02 creates a second PGlite and applies migrations within a 5000ms case. Same timeout reproduced without T024 catalogue method. No assertions or timeout altered; no claim of complete API suite PASS."
+    },
+    {
+      "id": "generated-next-types",
+      "status": "RESOLVED",
+      "note": "Preserved corrupt generated file/log; stopped Next, generated types with next typegen and copied generated routes/root params into original dev type paths. Original next-env and tsconfig preserved; final typecheck PASS."
+    },
+    {
+      "id": "guide-without-current-stored-revision",
+      "status": "EXPECTED_LIMIT",
+      "note": "Shown explicitly unavailable. Read-only catalogue creates no revisions."
+    }
+  ],
+  "notVerified": [
+    "Native browser zoom (720x450 reflow emulation verified)",
+    "Full axe/screen-reader audit (T037)",
+    "Manual reference-file fingerprint flow",
+    "Production identity/deployment",
+    "Real PostgreSQL concurrency",
+    "Clinical validation and full Hito S"
+  ],
+  "finalStoredRevision": 7,
+  "nextTaskIds": [
+    "T025"
+  ],
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false
+}

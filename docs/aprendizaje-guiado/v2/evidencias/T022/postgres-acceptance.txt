@@ -1,0 +1,65 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t022-b3db59752e064b6ea0c110b7f8c27187 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t022^-b3db59752e064b6ea0c110b7f8c27187^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 55ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 169ms
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 11ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 16ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 133ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 448ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1 21ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage 63ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 62ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 11ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 14ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 167ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 212ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 573ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 2522ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 26ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 11ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 20ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 6ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 1ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges 989ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers 46ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service 296ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes 56ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution 576ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget 2598ms
+
+ Test Files  1 passed (1)
+      Tests  26 passed | 1 skipped (27)
+   Start at  23:35:32
+   Duration  23.39s (transform 1.54s, setup 0ms, import 5.71s, tests 16.94s, environment 0ms)
+
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t022-b3db59752e064b6ea0c110b7f8c27187

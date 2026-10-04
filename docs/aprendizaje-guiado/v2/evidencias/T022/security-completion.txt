@@ -1,0 +1,57 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 59ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 174ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 12ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 9ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 127ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 451ms
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 conversion creates only an explicit incomplete draft and preserves v1 and all progress 10ms
+   → new row for relation "learning_paths" violates check constraint "learning_paths_cover_present"
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 60ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 16ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 13ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 145ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 191ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 401ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 1804ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 17ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 8ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 26ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 4ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 2ms
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 conversion creates only an explicit incomplete draft and preserves v1 and all progress
+error: new row for relation "learning_paths" violates check constraint "learning_paths_cover_present"
+ ❯ pe.Ue ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:17959
+ ❯ pe.tt ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:15347
+ ❯ pe.parse ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/chunk-2BOC2OMW.js:1:14021
+ ❯ N.qe ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/index.js:5:1762
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@electric-sql+pglite@0.5.8/node_modules/@electric-sql/pglite/dist/index.js:5:1155
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:5922000
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2616044
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2648530
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:2649134
+ ❯ null.<anonymous> wasm:/wasm/0267bb86:1:5569870
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 473, severity: 'ERROR', code: '23514', detail: 'Failing row contains (71000000-0000-4000-8000-000000000801, 71000000-0000-4000-8000-000000000003, t022-legacy, Ruta antigua, Ruta sintética, null, null, 71000000-0000-4000-8000-000000000001, null, null, 2026-09-29 23:13:02.192-04, 2026-09-29 23:13:02.192-04).', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: 'public', table: 'learning_paths', dataType: undefined, constraint: 'learning_paths_cover_present', file: 'execMain.c', routine: 'ExecConstraints', query: 'insert into learning_paths(id,topic_content_id,slug,title,summary,created_by) values($1,$2,\'t022-legacy\',\'Ruta antigua\',\'Ruta sintética\',$3)', params: [ '71000000-0000-4000-8000-000000000801', '71000000-0000-4000-8000-000000000003', '71000000-0000-4000-8000-000000000001' ], queryOptions: undefined }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed | 5 skipped (24)
+   Start at  23:12:50
+   Duration  14.74s (transform 1.28s, setup 0ms, import 4.97s, tests 9.42s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"

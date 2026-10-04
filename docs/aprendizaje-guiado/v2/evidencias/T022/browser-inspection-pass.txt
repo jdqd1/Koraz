@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering 17948ms
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 26 skipped (27)
+   Start at  23:31:04
+   Duration  36.36s (transform 1.66s, setup 0ms, import 5.71s, tests 29.80s, environment 0ms)
+

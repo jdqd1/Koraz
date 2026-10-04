@@ -1,0 +1,207 @@
+{
+  "taskId": "T023",
+  "status": "PASS",
+  "date": "2026-09-30",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "dependencies": [
+    {
+      "taskId": "T004",
+      "status": "PASS",
+      "evidence": "../T004/result.json"
+    },
+    {
+      "taskId": "T009",
+      "status": "PASS",
+      "evidence": "../T009/result.json"
+    }
+  ],
+  "authorization": {
+    "request": "continua con t023",
+    "scopeExtension": "Sí, incluir la conexión web mínima",
+    "extensionReason": "Missing editorial v2 web proxy and engine-aware loader; user approved minimum route-handler/loader/page wiring.",
+    "instructionSource": "HANDOFF-EJECUTOR.md, T023; design guidance in DISENO-RUTAS.md"
+  },
+  "changedFiles": [
+    "apps/web/src/components/learning/editor/v2/editor-model.ts",
+    "apps/web/src/components/learning/editor/v2/editor-reducer.ts",
+    "apps/web/src/components/learning/editor/v2/editor-serialization.ts",
+    "apps/web/src/components/learning/editor/v2/editor-api.ts",
+    "apps/web/src/components/learning/editor/v2/editor-recovery.ts",
+    "apps/web/src/components/learning/editor/v2/editor-controller.ts",
+    "apps/web/src/components/learning/editor/v2/use-route-editor.ts",
+    "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    "apps/web/src/components/learning/editor/v2/styles.module.css",
+    "apps/web/src/components/learning/editor/v2/editor-fixtures.ts",
+    "apps/web/src/components/learning/editor/v2/editor-fixture-workspace.tsx",
+    "apps/web/src/components/learning/editor/v2/editor-model.test.ts",
+    "apps/web/src/components/learning/editor/v2/editor-controller.test.ts",
+    "apps/web/src/components/learning/editor/v2/editor-web.test.tsx",
+    "apps/web/src/components/learning/editor/editor-shell.tsx",
+    "apps/web/src/components/learning/editor/learning-route-editor-facade.tsx",
+    "apps/web/src/app/api/v2/editor/learning-paths/route.ts",
+    "apps/web/src/app/api/v2/editor/learning-paths/[...path]/route.ts",
+    "apps/web/src/lib/server/guided-learning-api.ts",
+    "apps/web/src/app/panel/rutas/[pathId]/page.tsx",
+    "apps/web/src/app/visual-fixtures/editor-rutas-v2/page.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T023/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web test -- --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS: 45 files, 286 tests; before final navigation/download/dispatch and wording refinements",
+      "evidence": "web-test.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/editor/v2/editor-model.test.ts src/components/learning/editor/v2/editor-controller.test.ts src/components/learning/editor/v2/editor-web.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS: 3 files, 25 tests after final behavior changes; subsequent error-label wording checked by typecheck/lint",
+      "evidence": "focused-closure.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web typecheck",
+      "exitCode": 0,
+      "result": "PASS: final source",
+      "evidence": "typecheck-closure.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec eslint src/components/learning/editor/v2 src/components/learning/editor/editor-shell.tsx src/components/learning/editor/learning-route-editor-facade.tsx src/app/api/v2/editor/learning-paths 'src/app/panel/rutas/[pathId]/page.tsx' src/app/visual-fixtures/editor-rutas-v2 src/lib/server/guided-learning-api.ts --max-warnings=0",
+      "exitCode": 0,
+      "result": "PASS: affected web files, final source",
+      "evidence": "lint-closure.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run --root 'D:/Jose (Datos)/Medicina/CEDIAH/Web' --config 'D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T023/vitest.http.config.mts'",
+      "exitCode": 0,
+      "result": "PASS: 1 integrated HTTP create/edit/save/read/CAS/replay test; local Fastify/provider/PGlite, all eight activity kinds",
+      "evidence": "http-integration.txt"
+    },
+    {
+      "command": "Chromium + actual Next dev editor page + actual BFF + isolated Fastify/provider/PGlite",
+      "result": "PASS: PATCH 200, revision 4, reload retains title and eight activities; remote edit causes 409 with local draft preserved",
+      "evidence": [
+        "browser-bff-save.json",
+        "actual-storage-after-ui.json",
+        "editor-v2-real-desktop.png",
+        "editor-v2-real-conflict.png"
+      ]
+    },
+    {
+      "command": "UI recovery, effective JSON download and explicit reload after download",
+      "result": "PASS",
+      "evidence": [
+        "browser-recovery.txt",
+        "local-conflict-copy.json",
+        "download-verification.json",
+        "browser-conflict-reload.txt"
+      ]
+    },
+    {
+      "command": "Desktop/mobile viewport geometry and keyboard tab navigation",
+      "result": "PASS at 360x800,390x844,768x1024,1440x900; no page overflow, five tabs, Arrow/Enter and End/Enter with visible focus",
+      "evidence": [
+        "browser-geometry-keyboard.json",
+        "editor-v2-real-mobile.png"
+      ]
+    },
+    {
+      "command": "200% equivalent reflow emulation",
+      "result": "PASS: 720x450 CSS px, DPR 2; native browser zoom NOT VERIFIED",
+      "evidence": [
+        "browser-zoom-200-emulated.json",
+        "editor-v2-zoom-200-emulated.png"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "diff-check.txt"
+    },
+    {
+      "command": "Verify SHA-256 source manifest and stopped temporary loopback listeners",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "closure-verification.json"
+    }
+  ],
+  "acceptance": {
+    "editSaveReload": {
+      "status": "PASS",
+      "detail": "Full portable package and bindings retained through typed adapter, real HTTP persistence and actual web page reload."
+    },
+    "conflictRecovery": {
+      "status": "PASS",
+      "detail": "409 preserves local CAS/draft; effective downloaded JSON verified with eight activities; explicit server reload works after download."
+    },
+    "v1Compatibility": {
+      "status": "PASS",
+      "detail": "Explicit facade and loader dispatch keep the existing v1 editor; no v1 model/reducer/serializer changes."
+    },
+    "reviewInvalidation": {
+      "status": "PASS",
+      "detail": "Every edit marks the draft dirty and makes visual review stale; server confirmation remains separate."
+    },
+    "fiveSectionShell": {
+      "status": "PASS",
+      "detail": "Five accessible tabs reuse existing styling. Title/summary edit and summaries of existing objects only; detailed forms and workflows are later tasks."
+    }
+  },
+  "issues": [
+    {
+      "id": "missing-web-connection",
+      "status": "CLOSED",
+      "detail": "User authorized minimum v2 BFF/loader/page connection; implemented and verified."
+    },
+    {
+      "id": "mobile-savebar-overlap",
+      "status": "CLOSED",
+      "detail": "Local CSS separates save bar from mobile navigation; corrected final screenshot verified."
+    },
+    {
+      "id": "initial-lint-state-effect",
+      "status": "CLOSED",
+      "detail": "Two state-in-effect errors replaced by cached external-store snapshots; final lint passes.",
+      "evidence": "lint-first.txt"
+    },
+    {
+      "id": "initial-http-config-path",
+      "status": "CLOSED",
+      "detail": "Relative Vitest config lookup corrected with absolute root/config; integrated test passes.",
+      "evidence": "http-startup-first.txt"
+    },
+    {
+      "id": "browser-download-event-timeout",
+      "status": "CLOSED",
+      "detail": "Tool event timed out, but actual browser download found in the system Downloads directory, copied and parsed; UI reload subsequently verified.",
+      "evidence": "download-verification.json"
+    }
+  ],
+  "scope": "T023 only, plus explicitly approved minimum web connection and development-only visual fixture. Existing T020-T022 changes preserved. No global styles, backend, contracts, policy, dependency upgrade, production deployment or commit.",
+  "limitations": [
+    "PASS certifies T023 locally, not the complete editor or Hito S.",
+    "Synthetic identity and isolated PGlite; production sessions/deployment and real PostgreSQL concurrency not verified here.",
+    "Historical migration 0005 excluded by existing helper; no M01 certification.",
+    "Native browser zoom not verified; 200% equivalent reflow emulated. Full axe/screen-reader matrix deferred to T037.",
+    "Detailed objectives/activity/asset forms, import/review/publication/export UI and v2 creation launcher remain T024-T027.",
+    "Full web suite ran before the final small behavior refinements; focused suite, typecheck and affected-file lint provide closure coverage as documented.",
+    "Local server hold accounts for the HTTP run's long duration; no performance claim."
+  ],
+  "nextTaskIds": [
+    "T024"
+  ],
+  "blockedNextTaskIds": [],
+  "nextTaskStarted": false,
+  "details": "README.md",
+  "sourceHashes": "source-hashes.json",
+  "runtime": {
+    "node": "24.19.0",
+    "pnpm": "11.19.0"
+  }
+}

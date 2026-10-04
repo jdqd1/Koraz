@@ -1,0 +1,23 @@
+.form { display: grid; gap: 16px; min-width: 0; }
+.form fieldset { min-width: 0; margin: 0; padding: 16px; border: 1px solid #cbd5e1; border-radius: 12px; }
+.form legend { font-weight: 600; padding-inline: 6px; }
+.form select { width: 100%; min-width: 0; min-height: 44px; padding: 8px; font: inherit; color: inherit; background: #fff; border: 1px solid #94a3b8; border-radius: 8px; }
+.form button { min-height: 44px; }
+.form :is(button, select, input):focus-visible, .surface:focus-visible, .viewport:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+.pairs, .map { display: grid; gap: 12px; }
+.relation { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; overflow-wrap: anywhere; }
+.map .relation { border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px; }
+.tableRegion { overflow: auto; max-width: 100%; }
+.tableRegion table { width: 100%; border-collapse: collapse; }
+.tableRegion th, .tableRegion td { text-align: left; padding: 12px; border-bottom: 1px solid #cbd5e1; overflow-wrap: anywhere; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.viewport { overflow: auto; max-width: 100%; border: 1px solid #94a3b8; border-radius: 12px; }
+.surface { position: relative; height: 360px; touch-action: pan-x pan-y; }
+.surface img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }
+.marker { position: absolute; transform: translate(-50%, -50%); pointer-events: none; border: 2px solid #fff; background: #172554; color: #fff; border-radius: 50%; min-width: 28px; min-height: 28px; display: grid; place-items: center; box-shadow: 0 0 0 2px #172554; }
+.labels { display: grid; gap: 12px; }
+.labels label { display: grid; gap: 6px; }
+.coordinates { display: flex; flex-wrap: wrap; gap: 12px; }
+.coordinates label { display: grid; gap: 6px; }
+.coordinates input { width: 100px; min-height: 44px; font: inherit; }
+@media (max-width: 540px) { .relation { grid-template-columns: minmax(0, 1fr); gap: 6px; } .relation > span[aria-hidden] { display: none; } .surface { height: 300px; } .tableRegion th, .tableRegion td { padding: 6px; } }

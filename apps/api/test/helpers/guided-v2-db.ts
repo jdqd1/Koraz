@@ -8,7 +8,7 @@ export async function createGuidedV2Database(): Promise<PGlite> {
   const db = new PGlite();
   await db.exec("create role cediah_runtime; create role anon; create role authenticated; alter default privileges in schema public grant all on tables to anon, authenticated;");
   const files = (await readdir(directory))
-    .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0032_guided_v2_rewards.sql") <= 0)
+    .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0035_guided_v2_media_access.sql") <= 0)
     .sort((a, b) => a.localeCompare(b));
   for (const file of files) {
     // This historical migration requires a real legacy administrator identity.

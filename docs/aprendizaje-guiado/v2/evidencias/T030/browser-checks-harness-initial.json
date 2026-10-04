@@ -1,0 +1,16 @@
+{
+  "scope": "Standalone browser harness of real renderers and V2Player; authorized media, alternative and HTTP receipts are synthetic mocks. No BFF/API persistence.",
+  "checks": [],
+  "geometry": [],
+  "axe": [],
+  "errors": [
+    "process is not defined",
+    "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Prueba local T030' }) to be visible\u001b[22m\n\n    at go (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T030\\browser-check.cjs:26:130)\n    at async main (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T030\\browser-check.cjs:31:44)"
+  ],
+  "notVerified": [
+    "Native browser zoom",
+    "Real authorized image/alternative resolution",
+    "Full route journey and production"
+  ],
+  "status": "FAIL"
+}

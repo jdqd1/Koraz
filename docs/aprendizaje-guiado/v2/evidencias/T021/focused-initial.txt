@@ -1,0 +1,105 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > returns 401/404/403 and no-store before provider calls when disabled or outside allowlist 29ms
+ × test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home 10ms
+   → expected 404 to be 200 // Object.is equality
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > enrollment is pinned, idempotent and has a request receipt 50ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > strict requests reject client scores/extra fields and foreign attempts/enrollments 10ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > server availability blocks reserved practice, early final and deferred tests 63ms
+ × test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions 208ms
+   → {"error":"invalid_answer"}: expected 400 to be 200 // Object.is equality
+ × test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission 22ms
+   → {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+ × test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version 9ms
+   → expected 404 to be 200 // Object.is equality
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > config defaults are closed and flags are enforced in buildApp 40ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > new BFF uses versioned allowlisted schemas and the existing origin/session forwarder 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home
+AssertionError: expected 404 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 404
+
+ ❯ test/guided-v2-routes.test.ts:71:81
+     69|   });
+     70|   it("projects a safe path and explicit engine version in catalog/home…
+     71|     const response = await get("paths/http-route"); expect(response.st…
+       |                                                                                 ^
+     72|     expect(V2HttpContracts.publicPath.response.parse(response.json()).…
+     73|     expect(response.body).not.toContain("correctKey"); expect(response…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions
+AssertionError: {"error":"invalid_answer"}: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ test/guided-v2-routes.test.ts:114:50
+    112|       const id = started.json().attempt.attemptId as string;
+    113|       const response = await post(`attempts/${id}/responses`, { activi…
+    114|       expect(response.statusCode, response.body).toBe(200); expect(res…
+       |                                                  ^
+    115|       expect((await post(`attempts/${id}/complete`, { expectedVersion:…
+    116|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ test/guided-v2-routes.test.ts:121:104
+    119|   });
+    120|   it("selects/fixes one reserved item per objective and exposes correc…
+    121|     const created = await launch("final-test", "assessment"); expect(c…
+       |                                                                                                        ^
+    122|     const manifest = created.json().attempt;
+    123|     const stored = (await pg.query<{ snapshot_json: { orderedKeys: str…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version
+AssertionError: expected 404 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 404
+
+ ❯ test/guided-v2-routes.test.ts:141:81
+    139|     await pg.query("update learning_path_versions set status='publishe…
+    140|     await pg.query("update learning_paths set published_version_id=$1 …
+    141|     const response = await get("paths/http-route"); expect(response.st…
+       |                                                                                 ^
+    142|     expect(response.json().path).toMatchObject({ pathVersionId: v2Id(6…
+    143|     expect((await get(`enrollments/${v2Id(8)}/state`)).json().state.pa…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 6 passed (10)
+   Start at  21:33:43
+   Duration  5.95s (transform 804ms, setup 0ms, import 2.59s, tests 3.07s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-routes.test.ts "--reporter=verbose"

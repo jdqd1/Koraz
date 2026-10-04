@@ -1,0 +1,147 @@
+{
+  "taskId": "T022",
+  "status": "FAIL",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "recordedUtc": "2026-09-30T02:28:53.201806+00:00",
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/test/guided-v2-security.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T022/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 16 passed, 4 PostgreSQL cases skipped here and executed in the dedicated harness",
+      "evidence": "security-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts test/guided-v2-routes.test.ts test/guided-v2-workflow.test.ts test/guided-v2-import.test.ts test/guided-v2-contract.test.ts test/guided-v2-attempts.test.ts test/guided-learning-routes.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 77 passed, 16 skipped; prior to the final v2 CORS status repair, rechecked by security-final.txt and routes-serial-final.txt",
+      "evidence": "regression-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 25/25, run without another concurrent verification suite",
+      "evidence": "routes-serial-final.txt"
+    },
+    {
+      "command": "./docs/aprendizaje-guiado/v2/evidencias/T022/run-postgres-security.ps1 -PostgresBin C:/Users/josed/.codex/tmp/koraz-t015-postgres/pgsql/bin",
+      "exitCode": 1,
+      "result": "FAIL: 19 passed, 1 failed; restricted runtime cannot open an attempt: auth_users permission denied (42501)",
+      "evidence": "postgres-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "lint-final.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "diff-check.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts --reporter=verbose (concurrent with another verification process)",
+      "exitCode": 1,
+      "result": "FAIL: 24 PASS, 1 timeout at 5000ms in the 12-objective fixture; subsequent serial run 25/25; timeout unchanged",
+      "evidence": "routes-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts -t 'S05 rejects active markup' --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 1 targeted case; local URL rejected specifically at package.sources.0.url on an otherwise schema-valid source",
+      "evidence": "import-url-final.txt"
+    }
+  ],
+  "acceptance": {
+    "S01": {
+      "status": "NO VERIFICADO",
+      "verified": "Available import/export/validate/transition/version endpoints enforce server roles and route ownership. Missing editorial endpoints/application mounting prevent complete endpoint acceptance."
+    },
+    "S02": {
+      "status": "PASS",
+      "verified": "Real Fastify endpoints and storage deny foreign enrollment/attempt operations, including upgrade and all attempt mutations; no changes to foreign attempts/responses."
+    },
+    "S03": {
+      "status": "NO VERIFICADO",
+      "verified": "HTTP nested DTOs/reserved items and eight-kind projection regression pass; premature reveal repaired; constructed reveal follows persisted text. No real SSR/browser/network capture or full client bundle scan."
+    },
+    "S04": {
+      "status": "PASS",
+      "verified": "Withdrawal of catalog topic availability or bound asset denies delivery/help and accepted-response replay; responses preserved."
+    },
+    "S05": {
+      "status": "PASS",
+      "verified": "Unknown keys, forged roles/scores/status, script, file URL and oversized imports/responses rejected. Imports 10/10min; responses 120/min with exact retry tolerance. Preview endpoint/rate remains unavailable."
+    },
+    "S06": {
+      "status": "FAIL",
+      "verified": "Real independent anon/authenticated connections denied read/delete on all private v2 tables; runtime has RLS, no ownership/bypass and cannot delete responses. Runtime attempt service fails on auth_users with the migrated baseline grants."
+    },
+    "S07": {
+      "status": "PASS",
+      "verified": "Expired identity 401 and cross-origin mutation 403 before provider; actual same-origin BFF tested in routes regression. v2-scoped status normalization leaves origin policy intact."
+    },
+    "S08": {
+      "status": "PASS",
+      "verified": "Real v1 enrollment/editor/delete reject v2 engine IDs; persisted path/enrollments preserved. Existing map-projection regression credits no v1 progress."
+    }
+  },
+  "issues": [
+    {
+      "id": "runtime-base-privileges",
+      "status": "OPEN",
+      "result": "FAIL",
+      "detail": "Fresh disposable PostgreSQL, roles created before migrations, runtime service at postgres-guided-learning-v2.ts:1112 requires auth_users SELECT FOR UPDATE and fails 42501. Provider/identity grants/migrations outside T022 file allowlist; no blanket grant or owner fallback applied."
+    },
+    {
+      "id": "T021-partial-dependency",
+      "status": "OPEN",
+      "result": "NO VERIFICADO",
+      "detail": "T021 implementation checks PASS but upgrade success DTO/adoption pending T034. Security of closed ownership boundaries tested; acceptance does not upgrade T021 to PASS."
+    },
+    {
+      "id": "editor-endpoint-completeness",
+      "status": "OPEN",
+      "result": "NO VERIFICADO",
+      "detail": "Current v2 editor module registers import validate/commit/export/validate/transition/versions only; create/get/patch/preview/convert-v1 and the editor module mounting in app.ts are not complete. Existing metrics registration is present."
+    },
+    {
+      "id": "SSR-bundle-inspection",
+      "status": "OPEN",
+      "result": "NO VERIFICADO",
+      "detail": "No deployed or browser SSR/network/bundle examination. Contracts projection has no credential imports; this does not certify the production bundle."
+    }
+  ],
+  "scope": "Only T022. Preserve previous T020/T021 changes. No migration/identity/provider changes, deployment, commit or T023 execution.",
+  "limitations": [
+    "Isolated migrations omit legacy 0005; not full M01 or production verification.",
+    "PostgreSQL concurrent budget proven using two owner service connections with both waiting on the actor lock; this does not certify runtime privileges.",
+    "The dedicated PostgreSQL clusters were stopped and retained for diagnosis."
+  ],
+  "nextTaskIds": [],
+  "blockedNextTaskIds": [
+    "T023"
+  ],
+  "details": "README.md",
+  "escalation": "ESCALAMIENTO.md",
+  "sourceHashes": "source-hashes.json"
+}

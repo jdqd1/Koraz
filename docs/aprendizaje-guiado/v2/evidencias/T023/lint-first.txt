@@ -1,0 +1,41 @@
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\v2\editor-fixture-workspace.tsx
+  19:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\v2\editor-fixture-workspace.tsx:19:5
+  17 |     if (mode === "empty") initial.definition = { ...initial.definition, objectives: [], units: [], activities: [], assessments: [], reviewPlan: { objectiveKeys: [] } };
+  18 |     if (mode === "published") initial.status = "published";
+> 19 |     setRoute(initial); setLoaded(true);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  20 |   }, [mode, storageKey]);
+  21 |   const [transport] = useState(() => createEditorV2Api(async (_url, init) => {
+  22 |     const remote = V2BoundRouteDefinitionSchema.parse(JSON.parse(sessionStorage.getItem(storageKey) ?? JSON.stringify(editorV2FixtureRoute())));  react-hooks/set-state-in-effect
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\v2\use-route-editor.ts
+  31:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\editor\v2\use-route-editor.ts:31:7
+  29 |     try {
+  30 |       const base = controller.getSnapshot();
+> 31 |       setRecoveryCandidate(parseEditorV2Recovery(sessionStorage.getItem(editorV2RecoveryKey(input.actorUserId, base.confirmed?.pathId)), input.actorUserId, base.confirmed?.pathId ?? null));
+     |       ^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  32 |     } catch { setRecoveryAvailable(false); }
+  33 |   }, [controller, input.actorUserId]);
+  34 |   useEffect(() => {  react-hooks/set-state-in-effect
+
+✖ 2 problems (2 errors, 0 warnings)
+
+undefined
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: eslint src/components/learning/editor/v2 src/components/learning/editor/editor-shell.tsx src/components/learning/editor/learning-route-editor-facade.tsx src/app/api/v2/editor/learning-paths "src/app/panel/rutas/[pathId]/page.tsx" src/app/visual-fixtures/editor-rutas-v2 src/lib/server/guided-learning-api.ts "--max-warnings=0"

@@ -23,6 +23,9 @@ import { LessonDetailPanel } from "./lesson-detail-panel";
 import { MapMobileSheet } from "./map-mobile-sheet";
 import { MapIconColorDialog } from "./map-icon-color-dialog";
 import styles from "./learning-map.module.css";
+import { guidedMapClient, v2MapItem, v2MapGroup, v2MapLevel, v2MapSummary } from "./v2-adapter";
+import { V2MapPanel } from "../v2/map-panel";
+import v2Styles from "../v2/styles.module.css";
 const Canvas = dynamic(() => import("./learning-map-canvas"), {
   ssr: false,
   loading: () => <p className={styles.empty}>Preparando mapa…</p>,
@@ -132,7 +135,7 @@ function Workspace() {
   );
   const closePanel = useCallback(() => {
     setInfo(null);
-    if (level?.selectedLesson) back();
+    if (level?.selectedLesson || level?.route.unitStableKey && v2MapLevel(level)) back();
     else if (detail && level)
       window.history.replaceState(null, "", buildMapHref(level.route));
   }, [back, detail, level]);
@@ -183,7 +186,7 @@ function Workspace() {
       );
     }
   }
-  const selected = level?.selectedLesson
+  const selected = level?.selectedLesson || level?.route.unitStableKey && v2MapLevel(level)
       ? [
           level.route.unitStableKey
             ? `lesson:${level.route.unitStableKey}`
@@ -199,7 +202,11 @@ function Workspace() {
         item.kind === "lesson" &&
         item.availability !== "available",
     );
-  const panel = unavailableSelection ? (
+  const v2Selection = v2MapLevel(level);
+  const v2Info = info && info !== "container" ? v2MapItem(info) : null;
+  const panel = level && (v2Selection && (level.route.unitStableKey || detail || info) || v2Info) ? (
+    <V2MapPanel meta={v2Info ?? v2Selection!} route={level.route} onClose={closePanel} />
+  ) : unavailableSelection ? (
     <aside className={styles.panel} aria-label="Lección no disponible">
       <header className={styles.panelHeader}>
         <h2>Lección no disponible</h2>
@@ -253,7 +260,7 @@ function Workspace() {
         {info && info !== "container" ? (
           <>
             <p>
-              {info.progress.percentage ?? "—"} % · {info.childCountLabel}
+              {v2MapGroup(info) ? `${v2MapGroup(info)!.length} rutas con práctica por objetivos` : `${info.progress.percentage ?? "—"} % · ${info.childCountLabel}`}
             </p>
             <button className={styles.primary} onClick={() => open(info)}>
               Abrir contenido
@@ -264,7 +271,7 @@ function Workspace() {
             <div className={styles.suggestion} key={item.occurrenceId}>
               <div>
                 <strong>{item.title}</strong>
-                <small>{item.progress.percentage ?? "—"} %</small>
+                <small>{v2MapItem(item) ? v2MapSummary(v2MapItem(item)!) : v2MapGroup(item) ? "Práctica por objetivos" : `${item.progress.percentage ?? "—"} %`}</small>
               </div>
               <button
                 className={styles.iconButton}
@@ -342,7 +349,7 @@ function Workspace() {
               <h1 ref={heading} tabIndex={-1}>
                 {level?.containerSummary.title ?? "Mi mapa de aprendizaje"}
               </h1>
-              {level?.containerSummary.progress.percentage !== null && level ? (
+              {v2Selection ? <span className={`${styles.status} ${v2Styles.mapNotice}`}>{v2MapSummary({ ...v2Selection, unitKey: undefined })}</span> : level?.containerSummary.progress.percentage !== null && level ? (
                 <span className={styles.status}>
                   {`${level.containerSummary.progress.percentage} % · ${level.containerSummary.progress.completedEssentialSteps}/${level.containerSummary.progress.totalEssentialSteps} esenciales`}
                 </span>
@@ -481,7 +488,7 @@ function Workspace() {
 }
 export function LearningMapWorkspace({
   account,
-  client,
+  client = guidedMapClient,
 }: {
   account: string;
   client?: MapClient;

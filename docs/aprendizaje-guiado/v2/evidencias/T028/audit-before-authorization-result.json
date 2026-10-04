@@ -1,0 +1,34 @@
+{
+  "taskId": "T028",
+  "status": "NO VERIFICADO",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "implementationStarted": false,
+  "scope": "Read-only dependency audit; T028 implementation awaits dependency closure or an explicit limited exception.",
+  "dependencies": [
+    { "taskId": "T016", "status": "PASS", "evidence": "../T016/result.json" },
+    { "taskId": "T021", "status": "PARTIAL", "evidence": "../T021/result.json", "blocking": true }
+  ],
+  "previousTask": { "taskId": "T027", "status": "PASS", "evidence": "../T027/result.json" },
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T028/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T028/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T028/source-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T028/base-sha.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T028/state-before.txt"
+  ],
+  "checks": [
+    { "command": "Read T028 ficha and T016/T021/T027 result.json", "exitCode": 0, "result": "T016 and T027 PASS; required T021 remains PARTIAL", "evidence": "source-hashes.json" },
+    { "command": "Inspect upgradePreview/upgradeCommit in current apps/api/src/guided-learning/v2/routes.ts", "exitCode": 0, "result": "Owned enrollment still returns conflict pending explicit T034 adoption", "evidence": "source-hashes.json" },
+    { "command": "git status --short; git rev-parse HEAD", "exitCode": 0, "result": "Existing changes inspected and preserved", "evidence": "state-before.txt; base-sha.txt" }
+  ],
+  "issues": [
+    { "id": "required-T021-incomplete", "blockingT028": true, "detail": "Handoff line 1701 blocks consumers of unverified required dependencies. No scoped exception has been authorized." }
+  ],
+  "nextTaskIds": [],
+  "nextAction": "Owner decision on the limited dependency exception described in README.md, or separately authorized closure of T021/T034.",
+  "testsRun": false,
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false
+}

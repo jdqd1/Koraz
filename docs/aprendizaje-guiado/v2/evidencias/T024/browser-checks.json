@@ -1,0 +1,36 @@
+{
+  "environment": "Local Next/BFF/Fastify/provider/PGlite, synthetic identity",
+  "keyboard": [
+    "ArrowRight and Enter open Objectives",
+    "create objective focuses its title",
+    "cycle is rejected without changing prerequisites",
+    "valid link returns focus to prerequisite selector",
+    "remove link and confirm objective deletion",
+    "create and confirm source deletion",
+    "field issue changes tab and focuses exact title",
+    "missing binding focuses guide selector"
+  ],
+  "persistence": {
+    "initialRunCreatedSourceAndObjectiveRevision": 4,
+    "finalRunObjectiveDeletionRevision": 4,
+    "finalRunSourceCreatedRevision": 5,
+    "finalRunSourceDeletedRevision": 6,
+    "finalRunReboundSourceRevision": 7
+  },
+  "visual": [
+    "Desktop and mobile use the existing shell and local CSS",
+    "last mobile prerequisite control stays visible above save bar",
+    "reflow 720x450 is emulation, native browser zoom unverified"
+  ],
+  "limitations": [
+    "No production identity/deployment",
+    "No real PostgreSQL concurrency",
+    "No full axe or screen reader audit",
+    "Reference file fingerprint flow not manually exercised"
+  ],
+  "toolObservations": [
+    "Full-page capture failed; viewport captures used",
+    "Navigation tool timed out but URL and loaded page verified",
+    "First harness hold expired; isolated harness restarted with longer optional browser hold"
+  ]
+}

@@ -1,0 +1,66 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import type { RouteActivity } from "@cediah/contracts";
+import type { ActivityFieldsPropsV2 } from "./activity-fields";
+import { FieldV2 } from "./sources-fields";
+import { nextLocalKeyV2 } from "./editor-model";
+import { moveEntryV2 } from "./visual-presets";
+import { imagePointV2 } from "./visual-geometry";
+import styles from "../route-editor.module.css";
+import local from "./styles.module.css";
+type ImageActivity = Extract<RouteActivity, {kind: "image_target"}>;
+
+export function VisualFieldsV2({ activity, pkg, path, issues, onChange, solution = false }: ActivityFieldsPropsV2<ImageActivity> & {solution?: boolean}) {
+  const p = activity.payload;
+  const asset = pkg.assets.find((item) => item.key === p.assetKey);
+  const patch = (values: Partial<ImageActivity["payload"]>) => onChange({ ...activity, payload: { ...p, ...values } });
+  const [preview, setPreview] = useState<{url: string; assetKey: string; name: string} | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 1, height: 1 });
+  const [selected, setSelected] = useState("");
+  const [point, setPoint] = useState({ x: "", y: "" });
+  const [message, setMessage] = useState("");
+  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview.url); }, [preview]);
+  const selectedKey = p.targets.some((item) => item.key === selected) ? selected : p.targets[0]?.key ?? "";
+  const target = p.targets.find((item) => item.key === selectedKey);
+  const targetIndex = p.targets.findIndex((item) => item.key === selectedKey);
+  const displayed = preview?.assetKey === p.assetKey ? preview : null;
+  const size = displayed ? dimensions : { width: asset?.width ?? 1, height: asset?.height ?? 1 };
+  function addPoint(value: { x: number; y: number }) {
+    if (!target) return;
+    patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, polygon: [...item.polygon, value] } : item) });
+    setMessage(`Punto ${target.polygon.length + 1} añadido a la zona ${targetIndex + 1}.`);
+  }
+  if (!solution) return <div className={local.stack}><div className={styles.fieldGrid}>
+    <FieldV2 label="Imagen vinculada" path={`${path}.payload.assetKey`} issues={issues} hint="Selecciona una imagen del paquete con procedencia y derechos revisados.">{(input) => <select {...input} value={p.assetKey} onChange={(e) => patch({ assetKey: e.target.value })}><option value="">Selecciona una imagen</option>{p.assetKey && !asset ? <option value={p.assetKey}>Imagen ausente</option> : null}{pkg.assets.filter((item) => item.mediaType === "image").map((item) => <option key={item.key} value={item.key}>{item.originalFileName}</option>)}</select>}</FieldV2>
+    <FieldV2 label="Modalidad visual" path={`${path}.payload.mode`} issues={issues}>{(input) => <select {...input} value={p.mode} onChange={(e) => patch({ mode: e.target.value as ImageActivity["payload"]["mode"], correctLabelByTarget: {} })}><option value="hotspot">Señalar una zona</option><option value="labeling">Etiquetar zonas</option></select>}</FieldV2>
+    <FieldV2 label="Apoyo de etiquetas" path={`${path}.payload.masking`} issues={issues} hint="Solo Sin etiquetas permite acreditar evaluación objetiva sin apoyo.">{(input) => <select {...input} value={p.masking} onChange={(e) => patch({ masking: e.target.value as ImageActivity["payload"]["masking"] })}><option value="no_labels">Sin etiquetas</option><option value="partial_labels">Etiquetas parciales</option><option value="all_labels">Todas las etiquetas</option></select>}</FieldV2>
+    <FieldV2 label="Alternativa accesible de texto o tabla" path={`${path}.payload.accessibleAlternativeKey`} issues={issues} hint="La alternativa registra otra modalidad; su equivalencia para un gate espacial requiere revisión editorial.">{(input) => <select {...input} value={p.accessibleAlternativeKey} onChange={(e) => patch({ accessibleAlternativeKey: e.target.value })}><option value="">Selecciona una alternativa</option>{p.accessibleAlternativeKey && !pkg.activities.some((item) => item.key === p.accessibleAlternativeKey && item.kind !== "case" && item.kind !== "image_target") ? <option value={p.accessibleAlternativeKey}>Vínculo inválido</option> : null}{pkg.activities.filter((item) => item.key !== activity.key && item.kind !== "image_target" && item.kind !== "case" && item.objectiveKey === activity.objectiveKey && ["text", "table"].includes(item.representation)).map((item) => <option key={item.key} value={item.key}>{item.prompt || "Actividad sin consigna"}</option>)}</select>}</FieldV2>
+  </div><p className={styles.fieldHint}>La etiqueta de solución no se utiliza como alt ni como caption de la imagen.</p></div>;
+  return <div className={local.stack}><h4>Zonas y geometría · solo edición</h4><p className={styles.fieldHint}>Añade puntos sobre la imagen o introduce sus coordenadas con teclado. Usa al menos tres vértices distintos entre 0 y 1, sin cruces y con área positiva. El servidor valida el polígono.</p>
+    <FieldV2 label="Zona para dibujar o ajustar" path={`${path}.payload.targets`} issues={issues}>{(input) => <select {...input} value={selectedKey} onChange={(e) => setSelected(e.target.value)}>{p.targets.map((item, i) => <option key={item.key} value={item.key}>Zona {i + 1} · {item.prompt || "Consigna pendiente"}</option>)}</select>}</FieldV2>
+    {asset ? <FieldV2 label="Abrir copia local de la imagen para ubicar puntos" path={`${path}.imagePreview`} hint={`Usa la copia revisada de ${asset.originalFileName}. Se muestra solo en este navegador; no se sube ni cambia el vínculo del paquete.`}>{(input) => <input {...input} key={p.assetKey} type="file" accept="image/png,image/jpeg,image/webp" onChange={(e) => { const file = e.target.files?.[0]; if (!file) return; if (!["image/png", "image/jpeg", "image/webp"].includes(file.type) || file.size > 10 * 1024 * 1024) { setMessage("Usa PNG, JPEG o WebP de hasta 10 MiB."); return; } setDimensions({ width: 1, height: 1 }); setPreview({ url: URL.createObjectURL(file), assetKey: p.assetKey, name: file.name }); }} />}</FieldV2> : null}
+    {displayed ? <p className={styles.fieldHint}>Copia local: {displayed.name}. Confirma que corresponde al archivo vinculado antes de guardar.</p> : <p className={styles.fieldHint}>Sin copia local: se muestra una cuadrícula de coordenadas; puedes completar la geometría con teclado.</p>}
+    <div className={local.imageCanvas} style={{ aspectRatio: `${asset?.width ?? 1} / ${asset?.height ?? 1}` }}>
+      {/* Local object URLs do not pass through the Next image optimizer. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {displayed ? <img src={displayed.url} alt={asset?.alt || "Imagen de la actividad"} onLoad={(e) => setDimensions({ width: e.currentTarget.naturalWidth, height: e.currentTarget.naturalHeight })} onError={() => { setPreview(null); setMessage("No se pudo abrir esta copia local."); }} /> : null}
+      <svg role="img" aria-label="Vista editorial del polígono; alternativa en la lista de puntos" viewBox={`0 0 ${size.width} ${size.height}`} preserveAspectRatio="xMidYMid meet" onClick={(e) => { if (e.currentTarget.closest("fieldset")?.disabled) return; if (!displayed) { setMessage("Abre una copia local para dibujar sobre la imagen, o usa las coordenadas."); return; } const value = imagePointV2({ x: e.clientX, y: e.clientY }, e.currentTarget.getBoundingClientRect(), size); if (value) addPoint(value); else setMessage("El punto está fuera de la imagen, en una banda vacía."); }}>
+        {target?.polygon.length ? <polygon className={local.polygon} points={target.polygon.map((pt) => `${pt.x * size.width},${pt.y * size.height}`).join(" ")} /> : null}
+        {target?.polygon.map((pt, i) => <circle key={i} cx={pt.x * size.width} cy={pt.y * size.height} r={Math.min(size.width, size.height) * .012} className={local.vertex} />)}
+      </svg>
+    </div>
+    <p role="status" aria-live="polite">{message}</p>
+    {target ? <fieldset className={local.choices}><legend>Zona {targetIndex + 1}</legend><div className={local.stack}>
+      <FieldV2 label={`Consigna de zona ${targetIndex + 1}`} path={`${path}.payload.targets.${targetIndex}.prompt`} issues={issues}>{(input) => <textarea {...input} rows={2} maxLength={2000} value={target.prompt} onChange={(e) => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, prompt: e.target.value } : item) })} />}</FieldV2>
+      <FieldV2 label={`Etiqueta privada de zona ${targetIndex + 1}`} path={`${path}.payload.targets.${targetIndex}.label`} issues={issues}>{(input) => <input {...input} maxLength={500} value={target.label} onChange={(e) => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, label: e.target.value } : item) })} />}</FieldV2>
+      <ol className={local.vertexList}>{target.polygon.map((pt, i) => <li key={i}><div className={styles.fieldGrid}>{(["x", "y"] as const).map((axis) => <FieldV2 key={axis} label={`${axis.toUpperCase()} del punto ${i + 1}`} path={`${path}.payload.targets.${targetIndex}.polygon.${i}.${axis}`} issues={issues}>{(input) => <input {...input} type="number" min={0} max={1} step="any" value={Number.isFinite(pt[axis]) ? pt[axis] : ""} onChange={(e) => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, polygon: item.polygon.map((entry, j) => j === i ? { ...entry, [axis]: e.target.value === "" ? NaN : Number(e.target.value) } : entry) } : item) })} />}</FieldV2>)}</div><div className={local.inlineForm}><button type="button" className={styles.textButton} disabled={i === 0} aria-label={`Subir punto ${i + 1}`} onClick={() => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, polygon: moveEntryV2(item.polygon, i, -1) } : item) })}>Subir</button><button type="button" className={styles.textButton} disabled={i === target.polygon.length - 1} aria-label={`Bajar punto ${i + 1}`} onClick={() => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, polygon: moveEntryV2(item.polygon, i, 1) } : item) })}>Bajar</button><button type="button" className={styles.textButton} onClick={() => patch({ targets: p.targets.map((item) => item.key === selectedKey ? { ...item, polygon: item.polygon.filter((_, j) => j !== i) } : item) })}>Retirar punto {i + 1}</button></div></li>)}</ol>
+      <div className={styles.fieldGrid}>{(["x", "y"] as const).map((axis) => <FieldV2 key={axis} label={`${axis.toUpperCase()} del nuevo punto`} path={`${path}.newPoint.${axis}`}>{(input) => <input {...input} type="number" min={0} max={1} step="any" value={point[axis]} onChange={(e) => setPoint({ ...point, [axis]: e.target.value })} />}</FieldV2>)}<button type="button" className={styles.secondaryButton} disabled={!point.x || !point.y || ![Number(point.x), Number(point.y)].every((v) => Number.isFinite(v) && v >= 0 && v <= 1)} onClick={() => { addPoint({ x: Number(point.x), y: Number(point.y) }); setPoint({ x: "", y: "" }); }}>Añadir punto por coordenadas</button></div>
+      <button type="button" className={styles.textButton} disabled={p.targets.length <= 1} onClick={() => patch({ targets: p.targets.filter((item) => item.key !== selectedKey), correctLabelByTarget: Object.fromEntries(Object.entries(p.correctLabelByTarget).filter(([key]) => key !== selectedKey)) })}>Retirar zona {targetIndex + 1}</button>
+    </div></fieldset> : null}
+    <button type="button" className={styles.secondaryButton} onClick={() => { const key = nextLocalKeyV2("zona", p.targets.map((item) => item.key)); patch({ targets: [...p.targets, { key, prompt: "", polygon: [], label: "" }] }); setSelected(key); }}>Añadir zona</button>
+    {p.mode === "labeling" ? <div className={local.stack}><h4>Etiquetas para responder</h4>{p.labels.map((label, i) => <div key={label.key} className={local.activityOption}><FieldV2 label={`Etiqueta ${i + 1}`} path={`${path}.payload.labels.${i}.text`} issues={issues}>{(input) => <input {...input} maxLength={500} value={label.text} onChange={(e) => patch({ labels: p.labels.map((item, j) => j === i ? { ...item, text: e.target.value } : item) })} />}</FieldV2><button type="button" className={styles.textButton} onClick={() => patch({ labels: p.labels.filter((_, j) => j !== i), correctLabelByTarget: Object.fromEntries(Object.entries(p.correctLabelByTarget).filter(([, value]) => value !== label.key)) })}>Retirar etiqueta {i + 1}</button></div>)}<button type="button" className={styles.secondaryButton} onClick={() => patch({ labels: [...p.labels, { key: nextLocalKeyV2("etiqueta", p.labels.map((item) => item.key)), text: "" }] })}>Añadir etiqueta</button>
+      {p.targets.map((item, i) => <FieldV2 key={item.key} label={`Etiqueta correcta de zona ${i + 1}`} path={`${path}.payload.correctLabelByTarget.${item.key}`} issues={issues}>{(input) => <select {...input} value={p.correctLabelByTarget[item.key] ?? ""} onChange={(e) => { const map = { ...p.correctLabelByTarget }; if (e.target.value) map[item.key] = e.target.value; else delete map[item.key]; patch({ correctLabelByTarget: map }); }}><option value="">Selecciona la etiqueta correcta</option>{p.labels.map((entry, j) => <option key={entry.key} value={entry.key}>{entry.text || `Etiqueta ${j + 1}`}</option>)}</select>}</FieldV2>)}
+    </div> : null}
+  </div>;
+}

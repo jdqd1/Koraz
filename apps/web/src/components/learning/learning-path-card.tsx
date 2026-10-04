@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Stack } from "@phosphor-icons/react/dist/ssr";
 import type { LearningPathCard as LearningPathCardData } from "@cediah/contracts";
+import { isV2Card, type V2Card, type V2State } from "./v2/model";
+import { V2PathCard } from "./v2/path-card";
 
 const coverImages = {
   "back-muscles": "/anatomy/back-muscles.png",
@@ -14,10 +16,12 @@ const coverImages = {
   thigh: "/anatomy/thigh.png",
 } as const;
 
-export function LearningPathCard({ path, priority = false }: {
-  path: LearningPathCardData;
+export function LearningPathCard({ path, priority = false, v2State = null }: {
+  path: LearningPathCardData | V2Card;
   priority?: boolean;
+  v2State?: V2State | null;
 }) {
+  if (isV2Card(path)) return <V2PathCard path={path} state={v2State} priority={priority} />;
   return (
     <article className="learning-path-card">
       <Link aria-label={`Abrir ruta ${path.title}`} className="learning-path-card-link" href={`/aprendizaje/rutas/${path.slug}`}>

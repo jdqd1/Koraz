@@ -30,7 +30,7 @@ async function testDatabase() {
   const pg = new PGlite();
   await pg.exec("create role cediah_runtime; create role anon; create role authenticated");
   const files = (await readdir(migrationDirectory))
-    .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0031_guided_v2_runtime.sql") <= 0)
+    .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0034_guided_v2_editor_audit.sql") <= 0)
     .sort((a, b) => a.localeCompare(b));
   for (const file of files) {
     if (file === "0005_restore_legacy_content.sql") continue;

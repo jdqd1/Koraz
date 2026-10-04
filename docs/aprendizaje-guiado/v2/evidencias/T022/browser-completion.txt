@@ -1,0 +1,65 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 32ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 98ms
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering 5365ms
+   → expected 'Inicio\nMaterias\nMaterial de estudio…' to contain 'No pudimos recuperar la sesión'
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 10ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 14ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 84ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 310ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1 16ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage 36ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 38ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 12ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 15ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 92ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 130ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 438ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 4230ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 240ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 25ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 74ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 17ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 2ms
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering
+AssertionError: expected 'Inicio\nMaterias\nMaterial de estudio…' to contain 'No pudimos recuperar la sesión'
+
+- Expected
++ Received
+
+- No pudimos recuperar la sesión
++ Inicio
++ Materias
++ Material de estudio
++ Koras
++ Cargando tu progreso y próximas actividades…
+
+ ❯ test/guided-v2-security.test.ts:146:99
+    144|       expect(response?.status()).toBe(200);
+    145|       const html = await response!.text(); const dom = await page.cont…
+    146|       expect(page.url()).not.toContain("acceder"); expect(await page.l…
+       |                                                                                                   ^
+    147|       for (const secret of secrets) { expect(html).not.toContain(secre…
+    148|       const urls = [`/api/v2/guided-learning/attempts/${attemptId}`, "…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 20 passed | 5 skipped (26)
+   Start at  23:20:30
+   Duration  18.66s (transform 1.14s, setup 0ms, import 3.93s, tests 14.45s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"

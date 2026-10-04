@@ -1,17 +1,23 @@
+import { randomUUID } from "node:crypto";
+import type { S3ObjectStorage } from "./s3-object-storage.js";
 import { sql, type Insertable, type Selectable, type Transaction } from "kysely";
 import {
   RoutePackageSchema,
   validateRoutePackage,
   V2BoundRouteDefinitionSchema,
+  V2EditorSourceCatalogSchema,
   V2BindingsSchema,
   V2IssueSchema,
   V2PolicySnapshotSchema,
   V2AnswerSchema,
+  V2ImageResourceSchema,
+  toV2PublicActivity,
   V2HeartbeatSchema,
   type RoutePackage,
   type RouteActivity,
   type RouteValidationIssue,
   type V2AttemptManifest,
+  type V2FeedbackSource,
   type V2BoundRouteDefinition,
 } from "@cediah/contracts";
 import type {
@@ -32,6 +38,8 @@ import {
   parseGuidedV2AttemptResume,
   parseGuidedV2AttemptSnapshot,
   prepareGuidedV2AttemptSnapshot,
+  accessibleVariant,
+  activeGuidedV2ActivityKey,
   type GuidedV2AttemptResume,
   type GuidedV2AttemptSnapshot,
   type GuidedV2AttemptTarget,
@@ -56,6 +64,22 @@ type Path = Selectable<LearningPathTable>;
 type Version = Selectable<LearningPathVersionTable>;
 type Binding = Selectable<LearningV2BindingTable>;
 
+function v2Audit(transaction: Tx) {
+  return transaction.withTables<{ guided_v2_audit: CediahDatabase["audit_log"] }>().withSchema("private");
+}
+
+/** Narrow definer function preserves the original actor row lock without identity writes. */
+export async function v2LockActor(transaction: Tx, userId: string) {
+  const result = await sql<{ id: string | null }>`select private.lock_guided_v2_actor(${userId}::uuid) as id`.execute(transaction);
+  const id = result.rows[0]?.id;
+  return id ? { id } : undefined;
+}
+
+async function v2LockCatalog(transaction: Tx, kind: "topic" | "source" | "asset", id: string) {
+  await sql`select private.lock_guided_v2_catalog(${kind}::text, ${id}::uuid)`.execute(transaction);
+}
+
+
 async function v2MetricEvent(transaction: Tx, input: {
   userId: string; enrollmentId: string; pathVersionId: string; kind: string; semanticKey: string; at: Date;
   interval?: { start: string; end: string };
@@ -71,7 +95,7 @@ async function v2MetricEvent(transaction: Tx, input: {
 export type GuidedV2StorageResult<T> =
   | { status: "success"; value: T }
   | { status: "invalid"; issues: RouteValidationIssue[] }
-  | { status: "forbidden" | "not_found" | "conflict" | "version_conflict" };
+  | { status: "forbidden" | "not_found" | "conflict" | "version_conflict" | "rate_limited" };
 
 export type GuidedV2ImportResult =
   | { status: "success"; value: {
@@ -85,7 +109,7 @@ export type GuidedV2DraftReceipt = { pathId: string; pathVersionId: string; edit
 
 async function storedImportReceipt(transaction: Tx, importId: string, pathId: string | null, versionId: string | null): Promise<GuidedV2DraftReceipt | null> {
   if (!pathId || !versionId) return null;
-  const row = await transaction.selectFrom("audit_log").select("metadata")
+  const row = await v2Audit(transaction).selectFrom("guided_v2_audit").select("metadata")
     .where("action", "=", "learning_path_v2_imported")
     .where("target_id", "=", pathId)
     .where(sql<boolean>`metadata->>'importId' = ${importId}`)
@@ -158,8 +182,9 @@ async function validateImportCatalog(
   actorUserId: string, canEditAll: boolean,
 ): Promise<RouteValidationIssue[]> {
   const blockers: RouteValidationIssue[] = [];
+  await v2LockCatalog(transaction, "topic", bindings.topicContentId);
   const topic = await transaction.selectFrom("content_items").selectAll()
-    .where("id", "=", bindings.topicContentId).forShare().executeTakeFirst();
+    .where("id", "=", bindings.topicContentId).executeTakeFirst();
   if (!topic || topic.kind !== "topic" || (topic.status !== "published" && topic.author_user_id !== actorUserId && !canEditAll)) blockers.push(
     importIssue("SOURCE_UNRESOLVED", "/bindings/topicContentId", "El tema no está disponible para este editor.", "Selecciona un tema autorizado del catálogo."),
   );
@@ -171,6 +196,7 @@ async function validateImportCatalog(
       blockers.push(importIssue("SOURCE_UNRESOLVED", `/sources/${index}`, `Falta vincular la fuente ${source.key} a una revisión de guía.`, "Selecciona una guía y revisión explícitas."));
       continue;
     }
+    await v2LockCatalog(transaction, "source", binding.resourceRevisionId);
     const revision = await transaction.selectFrom("learning_resource_revisions")
       .innerJoin("learning_resources", "learning_resources.id", "learning_resource_revisions.resource_id")
       .innerJoin("content_items", "content_items.id", "learning_resources.source_content_id")
@@ -180,7 +206,7 @@ async function validateImportCatalog(
         "learning_resources.retired_at", "learning_resources.source_content_id",
         "content_items.kind", "content_items.status", "content_items.author_user_id",
         "content_items.version", "content_items.catalog_visibility",
-      ]).where("learning_resource_revisions.id", "=", binding.resourceRevisionId).forShare().executeTakeFirst();
+      ]).where("learning_resource_revisions.id", "=", binding.resourceRevisionId).executeTakeFirst();
     if (!revision || revision.source_content_id !== binding.sourceContentId || revision.projection !== "guide"
       || revision.retired_at || !["guide", "video"].includes(revision.kind)
       || (revision.status !== "published" && revision.author_user_id !== actorUserId && !canEditAll)
@@ -199,11 +225,12 @@ async function validateImportCatalog(
       blockers.push(importIssue("ASSET_REQUIRED", `/assets/${index}`, `Falta el binding del asset ${asset.key}.`, "Selecciona un asset del catálogo."));
       continue;
     }
+    await v2LockCatalog(transaction, "asset", binding.assetId);
     const row = await transaction.selectFrom("content_assets")
       .innerJoin("content_items", "content_items.id", "content_assets.content_item_id")
       .select(["content_assets.status as asset_status", "content_assets.owner_user_id", "content_assets.kind", "content_assets.original_file_name",
         "content_items.author_user_id", "content_items.status as content_status", "content_items.catalog_visibility"])
-      .where("content_assets.id", "=", binding.assetId).forShare().executeTakeFirst();
+      .where("content_assets.id", "=", binding.assetId).executeTakeFirst();
     if (!row || row.asset_status !== "ready" || row.kind !== asset.mediaType || row.original_file_name !== asset.originalFileName
       || (row.owner_user_id !== actorUserId && row.content_status !== "published" && !canEditAll)
       || (row.catalog_visibility !== "catalog" && row.owner_user_id !== actorUserId && !canEditAll)) {
@@ -245,7 +272,7 @@ async function boundDefinition(transaction: Tx, path: Path, version: Version): P
   };
   const contentHash = hashRoutePackage(definition);
   const approval = version.status === "approved" || version.status === "published"
-    ? await transaction.selectFrom("audit_log").select(["actor_user_id", "metadata"])
+    ? await v2Audit(transaction).selectFrom("guided_v2_audit").select(["actor_user_id", "metadata"])
       .where("action", "=", "learning_path_v2_approved")
       .where("target_id", "=", path.id)
       .where(sql<boolean>`metadata->>'versionId' = ${version.id}`)
@@ -294,8 +321,77 @@ async function publicationIssues(transaction: Tx, route: V2BoundRouteDefinition,
   return [...bound.issues, ...catalog];
 }
 
+
+async function insertEditorDraft(transaction: Tx, prepared: PreparedGuidedV2Draft, actorUserId: string): Promise<GuidedV2StorageResult<V2BoundRouteDefinition>> {
+  const topic = await transaction.selectFrom("content_items").select("id").where("id", "=", prepared.bindings.topicContentId).where("kind", "=", "topic").executeTakeFirst();
+  if (!topic) return { status: "not_found" };
+  const route = prepared.definition.route;
+  const path = await transaction.insertInto("learning_paths").values({
+    topic_content_id: topic.id,
+    slug: route.slug,
+    title: route.title,
+    summary: route.summary,
+    cover_asset_id: null,
+    cover_key: route.coverKey,
+    created_by: actorUserId,
+  }).returningAll().executeTakeFirstOrThrow();
+  const version = await transaction.insertInto("learning_path_versions").values({
+    path_id: path.id,
+    version_number: 1,
+    policy_version: "guided-v2.0",
+    policy_json: guidedV2PolicySnapshot as JsonValue,
+    definition_v2_json: JSON.parse(prepared.canonicalJson) as JsonValue,
+    release_notes: "",
+  }).returningAll().executeTakeFirstOrThrow();
+  await insertBindings(transaction, version.id, prepared);
+  await v2Audit(transaction).insertInto("guided_v2_audit").values({
+    action: "learning_path_v2_created",
+    actor_user_id: actorUserId,
+    target_type: "learning_path",
+    target_id: path.id,
+    metadata: { versionId: version.id, contentHash: prepared.contentHash },
+  }).execute();
+  return { status: "success" as const, value: await boundDefinition(transaction, path, version) };
+}
+
+async function editorReceipt<T>(transaction: Tx, actorUserId: string, key: string | undefined, request: unknown, mutate: () => Promise<GuidedV2StorageResult<T>>): Promise<GuidedV2StorageResult<T>> {
+  if (!key) return mutate();
+  const hash = hashLearningSnapshot(request);
+  const previous = await transaction.selectFrom("learning_mutation_receipts").select(["request_hash", "response_json"]).where("user_id", "=", actorUserId).where("idempotency_key", "=", key).executeTakeFirst();
+  if (previous) {
+    if (previous.request_hash !== hash || !previous.response_json) return { status: "conflict" };
+    return previous.response_json as GuidedV2StorageResult<T>;
+  }
+  const result = await mutate();
+  await transaction.insertInto("learning_mutation_receipts").values({ user_id: actorUserId, idempotency_key: key, request_hash: hash, response_json: result as JsonValue, http_status: result.status === "success" ? 200 : 409 }).execute();
+  return result;
+}
+
 export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date } = {}) {
   return {
+    async listEditorSourceCatalog(input: { actorUserId: string; canEditAll: boolean; q?: string; cursor?: string; limit: number }) {
+      let guides = database.selectFrom("content_items").select(["id", "title", "version"])
+        .where("kind", "=", "guide").where("status", "!=", "archived")
+        .where((eb) => eb.or([eb("status", "=", "published"), eb("author_user_id", "=", input.actorUserId), ...(input.canEditAll ? [eb.val(true)] : [])]))
+        .where((eb) => eb.or([eb("catalog_visibility", "=", "catalog"), eb("author_user_id", "=", input.actorUserId), ...(input.canEditAll ? [eb.val(true)] : [])]));
+      if (input.q) guides = guides.where("title", "ilike", `%${input.q.replace(/[\\%_]/g, "\\$&")}%`);
+      if (input.cursor) guides = guides.where("id", ">", input.cursor);
+      const rows = await guides.orderBy("id").limit(input.limit + 1).execute();
+      const visible = rows.slice(0, input.limit);
+      const revisions = visible.length ? await database.selectFrom("learning_resource_revisions")
+        .innerJoin("learning_resources", "learning_resources.id", "learning_resource_revisions.resource_id")
+        .select(["learning_resources.source_content_id", "learning_resource_revisions.id", "learning_resource_revisions.source_version", "learning_resource_revisions.revision_number", "learning_resource_revisions.payload_hash", "learning_resource_revisions.payload_json"])
+        .where("learning_resources.source_content_id", "in", visible.map((item) => item.id)).where("learning_resources.projection", "=", "guide").where("learning_resources.retired_at", "is", null)
+        .orderBy("learning_resource_revisions.revision_number", "desc").orderBy("learning_resource_revisions.id").execute() : [];
+      const topics = await database.selectFrom("content_items").select(["id", "title"]).where("kind", "=", "topic").where("status", "!=", "archived")
+        .where((eb) => eb.or([eb("status", "=", "published"), eb("author_user_id", "=", input.actorUserId), ...(input.canEditAll ? [eb.val(true)] : [])]))
+        .where((eb) => eb.or([eb("catalog_visibility", "=", "catalog"), eb("author_user_id", "=", input.actorUserId), ...(input.canEditAll ? [eb.val(true)] : [])]))
+        .orderBy("title").orderBy("id").limit(500).execute();
+      return V2EditorSourceCatalogSchema.parse({ topics, items: visible.map((item) => {
+        const revision = revisions.find((entry) => entry.source_content_id === item.id && entry.source_version === item.version && hashLearningSnapshot(entry.payload_json) === entry.payload_hash);
+        return { sourceContentId: item.id, title: item.title, sourceVersion: item.version, revision: revision ? { resourceRevisionId: revision.id, revisionNumber: revision.revision_number, documentSha256: revision.payload_hash } : null };
+      }), nextCursor: rows.length > input.limit ? visible[visible.length - 1]!.id : null });
+    },
     async validateImport(input: {
       actorUserId: string; canCreate: boolean; canEditAll: boolean; idempotencyKey: string;
       package: unknown; bindings: unknown; targetPathId: string | null; expectedVersion: number | null;
@@ -318,8 +414,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       const bindingsHash = hashImportBindings(bindings.data);
       try {
         return await database.transaction().execute(async (transaction) => {
-          const actor = await transaction.selectFrom("auth_users").select("id")
-            .where("id", "=", input.actorUserId).forUpdate().executeTakeFirst();
+          const actor = await v2LockActor(transaction, input.actorUserId);
           if (!actor) return { status: "forbidden" as const };
           const existing = await transaction.selectFrom("learning_v2_imports").selectAll()
             .where("actor_user_id", "=", input.actorUserId)
@@ -385,13 +480,12 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       const now = options.now?.() ?? new Date();
       try {
         return await database.transaction().execute(async (transaction) => {
-          const actor = await transaction.selectFrom("auth_users").select("id")
-            .where("id", "=", input.actorUserId).forUpdate().executeTakeFirst();
+          const actor = await v2LockActor(transaction, input.actorUserId);
           if (!actor) return { status: "forbidden" as const };
           const session = await transaction.selectFrom("learning_v2_imports").selectAll()
             .where("id", "=", input.importId).forUpdate().executeTakeFirst();
           if (!session || session.actor_user_id !== input.actorUserId) return { status: "not_found" as const };
-          const reusedKey = await transaction.selectFrom("audit_log").select("metadata")
+          const reusedKey = await v2Audit(transaction).selectFrom("guided_v2_audit").select("metadata")
             .where("action", "=", "learning_path_v2_imported")
             .where("actor_user_id", "=", input.actorUserId)
             .where(sql<boolean>`metadata->>'idempotencyKey' = ${input.idempotencyKey}`)
@@ -491,7 +585,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
           await transaction.updateTable("learning_v2_imports").set({
             state: "committed", committed_path_id: path.id, committed_version_id: version.id,
           }).where("id", "=", session.id).execute();
-          await transaction.insertInto("audit_log").values({
+          await v2Audit(transaction).insertInto("guided_v2_audit").values({
             action: "learning_path_v2_imported", actor_user_id: input.actorUserId,
             target_type: "learning_path", target_id: path.id,
             metadata: { importId: session.id, versionId: version.id, editVersion: priorReceipt?.editVersion ?? version.edit_version,
@@ -507,13 +601,13 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       }
     },
     async exportPath(input: EditorIdentity & { pathId: string }): Promise<GuidedV2StorageResult<{ package: RoutePackage; bindings: GuidedV2Bindings }>> {
-      const read = await this.getEditorPath(input);
+      const read = await this.getEditorPath({ ...input, enforceAccess: true });
       if (read.status !== "success") return read;
       return { status: "success", value: { package: read.value.definition, bindings: read.value.bindings } };
     },
     async createDraft(input: {
       actorUserId: string;
-      canCreate: boolean;
+      canCreate: boolean; canEditAll?: boolean; idempotencyKey?: string; enforceAccess?: boolean;
       package: unknown;
       bindings: unknown;
     }): Promise<GuidedV2StorageResult<V2BoundRouteDefinition>> {
@@ -522,37 +616,18 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       if (prepared.status === "invalid") return prepared;
       try {
         return await database.transaction().execute(async (transaction) => {
+          if (input.idempotencyKey && !(await v2LockActor(transaction, input.actorUserId))) return { status: "not_found" };
+          if (input.enforceAccess) {
+            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll === true);
+            if (issues.length) return { status: "invalid", issues };
+          }
+          return editorReceipt(transaction, input.actorUserId, input.idempotencyKey, { operation: "editorCreate", input }, async () => {
           const topic = await transaction.selectFrom("content_items").select("id")
             .where("id", "=", prepared.value.bindings.topicContentId)
             .where("kind", "=", "topic").executeTakeFirst();
           if (!topic) return { status: "not_found" as const };
-          const route = prepared.value.definition.route;
-          const path = await transaction.insertInto("learning_paths").values({
-            topic_content_id: topic.id,
-            slug: route.slug,
-            title: route.title,
-            summary: route.summary,
-            cover_asset_id: null,
-            cover_key: route.coverKey,
-            created_by: input.actorUserId,
-          }).returningAll().executeTakeFirstOrThrow();
-          const version = await transaction.insertInto("learning_path_versions").values({
-            path_id: path.id,
-            version_number: 1,
-            policy_version: "guided-v2.0",
-            policy_json: guidedV2PolicySnapshot as JsonValue,
-            definition_v2_json: JSON.parse(prepared.value.canonicalJson) as JsonValue,
-            release_notes: "",
-          }).returningAll().executeTakeFirstOrThrow();
-          await insertBindings(transaction, version.id, prepared.value);
-          await transaction.insertInto("audit_log").values({
-            action: "learning_path_v2_created",
-            actor_user_id: input.actorUserId,
-            target_type: "learning_path",
-            target_id: path.id,
-            metadata: { versionId: version.id, contentHash: prepared.value.contentHash },
-          }).execute();
-          return { status: "success" as const, value: await boundDefinition(transaction, path, version) };
+          return insertEditorDraft(transaction, prepared.value, input.actorUserId);
+          });
         });
       } catch (error) {
         if (sqlConflict(error)) return { status: "conflict" };
@@ -560,7 +635,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       }
     },
 
-    async getEditorPath(input: EditorIdentity & { pathId: string }): Promise<GuidedV2StorageResult<V2BoundRouteDefinition>> {
+    async getEditorPath(input: EditorIdentity & { pathId: string; enforceAccess?: boolean }): Promise<GuidedV2StorageResult<V2BoundRouteDefinition>> {
       if (!input.canEdit) return { status: "forbidden" };
       return database.transaction().execute(async (transaction) => {
         const path = await transaction.selectFrom("learning_paths").selectAll()
@@ -570,12 +645,17 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
           .where("path_id", "=", path.id).orderBy("version_number", "desc")
           .forShare().executeTakeFirst();
         if (!version || version.policy_version !== "guided-v2.0") return { status: "not_found" };
-        return { status: "success", value: await boundDefinition(transaction, path, version) };
+        const value = await boundDefinition(transaction, path, version);
+        if (input.enforceAccess) {
+          const issues = await validateImportCatalog(transaction, value.definition, value.bindings, input.actorUserId, input.canEditAll);
+          if (issues.length) return { status: "invalid", issues };
+        }
+        return { status: "success", value };
       });
     },
 
     async saveDraft(input: EditorIdentity & {
-      pathId: string;
+      pathId: string; idempotencyKey?: string; enforceAccess?: boolean;
       expectedVersion: number;
       package: unknown;
       bindings: unknown;
@@ -585,49 +665,99 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       if (prepared.status === "invalid") return prepared;
       try {
         return await database.transaction().execute(async (transaction) => {
+          if (input.idempotencyKey && !(await v2LockActor(transaction, input.actorUserId))) return { status: "not_found" };
           const path = await transaction.selectFrom("learning_paths").selectAll()
             .where("id", "=", input.pathId).forUpdate().executeTakeFirst();
           if (!path || (!input.canEditAll && path.created_by !== input.actorUserId)) return { status: "not_found" as const };
-          const version = await latestVersion(transaction, path.id);
-          if (!version || version.policy_version !== "guided-v2.0") return { status: "not_found" as const };
-          if (version.status !== "draft" && version.status !== "changes_requested") return { status: "conflict" as const };
-          if (version.edit_version !== input.expectedVersion) return { status: "version_conflict" as const };
-          const topic = await transaction.selectFrom("content_items").select("id")
-            .where("id", "=", prepared.value.bindings.topicContentId)
-            .where("kind", "=", "topic").executeTakeFirst();
-          if (!topic) return { status: "not_found" as const };
-          const nextVersion = await transaction.updateTable("learning_path_versions").set({
-            edit_version: sql<number>`edit_version + 1`,
-            definition_v2_json: JSON.parse(prepared.value.canonicalJson) as JsonValue,
-            status: "draft",
-          }).where("id", "=", version.id).where("edit_version", "=", input.expectedVersion)
-            .returningAll().executeTakeFirst();
-          if (!nextVersion) return { status: "version_conflict" as const };
-          const route = prepared.value.definition.route;
-          const nextPath = await transaction.updateTable("learning_paths").set({
-            topic_content_id: topic.id,
-            slug: route.slug,
-            title: route.title,
-            summary: route.summary,
-            cover_asset_id: null,
-            cover_key: route.coverKey,
-          }).where("id", "=", path.id).returningAll().executeTakeFirstOrThrow();
-          await transaction.deleteFrom("learning_v2_bindings")
-            .where("path_version_id", "=", version.id).execute();
-          await insertBindings(transaction, version.id, prepared.value);
-          await transaction.insertInto("audit_log").values({
-            action: "learning_path_v2_updated",
-            actor_user_id: input.actorUserId,
-            target_type: "learning_path",
-            target_id: path.id,
-            metadata: { versionId: version.id, editVersion: nextVersion.edit_version, contentHash: prepared.value.contentHash },
-          }).execute();
-          return { status: "success" as const, value: await boundDefinition(transaction, nextPath, nextVersion) };
+          if (input.enforceAccess) {
+            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+            if (issues.length) return { status: "invalid", issues };
+          }
+          return editorReceipt<V2BoundRouteDefinition>(transaction, input.actorUserId, input.idempotencyKey, { operation: "editorPatch", input }, async () => {
+            const version = await latestVersion(transaction, path.id);
+            if (!version || version.policy_version !== "guided-v2.0") return { status: "not_found" as const };
+            if (version.status !== "draft" && version.status !== "changes_requested") return { status: "conflict" as const };
+            if (version.edit_version !== input.expectedVersion) return { status: "version_conflict" as const };
+            const topic = await transaction.selectFrom("content_items").select("id")
+              .where("id", "=", prepared.value.bindings.topicContentId)
+              .where("kind", "=", "topic").executeTakeFirst();
+            if (!topic) return { status: "not_found" as const };
+            const nextVersion = await transaction.updateTable("learning_path_versions").set({
+              edit_version: sql<number>`edit_version + 1`,
+              definition_v2_json: JSON.parse(prepared.value.canonicalJson) as JsonValue,
+              status: "draft",
+            }).where("id", "=", version.id).where("edit_version", "=", input.expectedVersion)
+              .returningAll().executeTakeFirst();
+            if (!nextVersion) return { status: "version_conflict" as const };
+            const route = prepared.value.definition.route;
+            const nextPath = await transaction.updateTable("learning_paths").set({
+              topic_content_id: topic.id,
+              slug: route.slug,
+              title: route.title,
+              summary: route.summary,
+              cover_asset_id: null,
+              cover_key: route.coverKey,
+            }).where("id", "=", path.id).returningAll().executeTakeFirstOrThrow();
+            await transaction.deleteFrom("learning_v2_bindings")
+              .where("path_version_id", "=", version.id).execute();
+            await insertBindings(transaction, version.id, prepared.value);
+            await v2Audit(transaction).insertInto("guided_v2_audit").values({
+              action: "learning_path_v2_updated",
+              actor_user_id: input.actorUserId,
+              target_type: "learning_path",
+              target_id: path.id,
+              metadata: { versionId: version.id, editVersion: nextVersion.edit_version, contentHash: prepared.value.contentHash },
+            }).execute();
+            return { status: "success" as const, value: await boundDefinition(transaction, nextPath, nextVersion) };
+          });
         });
       } catch (error) {
         if (sqlConflict(error)) return { status: "conflict" };
         throw error;
       }
+    },
+
+    async previewPath(input: EditorIdentity & { pathId: string; package: unknown; bindings: unknown; idempotencyKey: string }): Promise<GuidedV2StorageResult<unknown>> {
+      if (!input.canEdit) return { status: "forbidden" };
+      const parsed = parseRouteImport(input.package);
+      if (parsed.status !== "success") return { status: "invalid", issues: parsed.status === "invalid" ? parsed.issues : [] };
+      const prepared = prepareGuidedV2Draft(parsed.definition, input.bindings);
+      if (prepared.status === "invalid") return prepared;
+      return database.transaction().execute(async (transaction) => {
+        if (!(await v2LockActor(transaction, input.actorUserId))) return { status: "not_found" };
+        const path = await transaction.selectFrom("learning_paths").selectAll().where("id", "=", input.pathId).forShare().executeTakeFirst();
+        if (!path || (!input.canEditAll && path.created_by !== input.actorUserId)) return { status: "not_found" };
+        const version = await transaction.selectFrom("learning_path_versions").select("policy_version").where("path_id", "=", path.id).orderBy("version_number", "desc").executeTakeFirst();
+        if (version?.policy_version !== "guided-v2.0") return { status: "not_found" };
+        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+        if (issues.length) return { status: "invalid", issues };
+        const prior = await transaction.selectFrom("learning_mutation_receipts").select("idempotency_key").where("user_id", "=", input.actorUserId).where("idempotency_key", "=", input.idempotencyKey).executeTakeFirst();
+        if (!prior) {
+          const count = await sql<{ n: string }>`select count(*)::text as n from public.learning_mutation_receipts where user_id = ${input.actorUserId}::uuid and created_at > now() - interval '10 minutes' and response_json->'value'->>'editorPreviewV2' = 'true'`.execute(transaction);
+          if (Number(count.rows[0]?.n ?? 0) >= 30) return { status: "rate_limited" };
+        }
+        return editorReceipt(transaction, input.actorUserId, input.idempotencyKey, { operation: "editorPreview", input }, async () => {
+          const reserved = new Set(prepared.value.definition.assessments.filter((a) => a.kind !== "checkpoint" && a.kind !== "diagnostic").flatMap((a) => a.candidateActivityKeys));
+          const activity = prepared.value.definition.activities.find((a) => !reserved.has(a.key) && a.kind !== "case");
+          return { status: "success", value: { editorPreviewV2: true, previewId: randomUUID(), activeActivity: activity ? toV2PublicActivity(activity) : null, issues: parsed.issues, expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString() } };
+        });
+      });
+    },
+
+    async convertV1(input: EditorIdentity & { pathId: string; expectedVersion: number; idempotencyKey: string }): Promise<GuidedV2StorageResult<unknown>> {
+      if (!input.canEdit) return { status: "forbidden" };
+      return database.transaction().execute(async (transaction) => {
+        if (!(await v2LockActor(transaction, input.actorUserId))) return { status: "not_found" };
+        const path = await transaction.selectFrom("learning_paths").selectAll().where("id", "=", input.pathId).forUpdate().executeTakeFirst();
+        if (!path || (!input.canEditAll && path.created_by !== input.actorUserId)) return { status: "not_found" };
+        return editorReceipt(transaction, input.actorUserId, input.idempotencyKey, { operation: "convertV1", input }, async () => {
+          const version = await latestVersion(transaction, path.id);
+          if (!version || version.policy_version === "guided-v2.0") return { status: "conflict" };
+          if (version.edit_version !== input.expectedVersion) return { status: "version_conflict" };
+          // Conversion/adoption is implemented by T034; this endpoint stays closed.
+          return { status: "conflict" };
+        });
+      });
     },
 
     async validatePath(input: EditorIdentity & { pathId: string; expectedVersion: number; canPublish: boolean }) {
@@ -671,7 +801,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
           if (input.status === "archived") {
             const archived = await transaction.updateTable("learning_paths").set({ archived_at: options.now?.() ?? new Date() })
               .where("id", "=", path.id).returningAll().executeTakeFirstOrThrow();
-            await transaction.insertInto("audit_log").values({
+            await v2Audit(transaction).insertInto("guided_v2_audit").values({
               action: "learning_path_v2_archived", actor_user_id: input.actorUserId,
               target_type: "learning_path", target_id: path.id,
               metadata: { versionId: version.id, reviewNote: input.reviewNote },
@@ -700,7 +830,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
             ? await transaction.updateTable("learning_paths").set({ published_version_id: version.id })
               .where("id", "=", path.id).returningAll().executeTakeFirstOrThrow()
             : path;
-          await transaction.insertInto("audit_log").values({
+          await v2Audit(transaction).insertInto("guided_v2_audit").values({
             action: `learning_path_v2_${input.status}`, actor_user_id: input.actorUserId,
             target_type: "learning_path", target_id: path.id,
             metadata: { versionId: version.id, editVersion: nextVersion.edit_version,
@@ -739,7 +869,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
             document_sha256: binding.document_sha256, asset_sha256: binding.asset_sha256,
             rights_status: binding.rights_status, rights_credit: binding.rights_credit,
           }))).execute();
-          await transaction.insertInto("audit_log").values({
+          await v2Audit(transaction).insertInto("guided_v2_audit").values({
             action: "learning_path_v2_version_created", actor_user_id: input.actorUserId,
             target_type: "learning_path", target_id: path.id,
             metadata: { sourceVersionId: source.id, versionId: created.id, releaseNotes: input.releaseNotes },
@@ -761,7 +891,7 @@ export type GuidedV2AttemptResult<T> = { status: "success"; value: T }
 
 type AttemptRow = Selectable<CediahDatabase["learning_v2_attempts"]>;
 
-async function v2Receipt<T>(transaction: Tx, userId: string, idempotencyKey: string, request: unknown,
+export async function v2Receipt<T>(transaction: Tx, userId: string, idempotencyKey: string, request: unknown,
   mutate: () => Promise<GuidedV2AttemptResult<T>>,
   replayGuard?: (value: T) => Promise<"access_revoked" | "not_found" | "conflict" | null>,
 ): Promise<GuidedV2AttemptResult<T>> {
@@ -798,7 +928,7 @@ async function v2Receipt<T>(transaction: Tx, userId: string, idempotencyKey: str
   return result;
 }
 
-async function v2ContentAvailable(transaction: Tx, pathVersionId: string): Promise<boolean> {
+export async function v2ContentAvailable(transaction: Tx, pathVersionId: string): Promise<boolean> {
   const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
     .where("id", "=", pathVersionId).executeTakeFirst();
   const definition = RoutePackageSchema.safeParse(version?.definition_v2_json);
@@ -813,25 +943,27 @@ async function v2ContentAvailable(transaction: Tx, pathVersionId: string): Promi
   for (const binding of bindings) {
     if (binding.kind === "topic") {
       if (!binding.topic_content_id) return false;
+      await v2LockCatalog(transaction, "topic", binding.topic_content_id);
       const topic = await transaction.selectFrom("content_items").select(["kind", "status", "catalog_visibility"])
-        .where("id", "=", binding.topic_content_id).forShare().executeTakeFirst();
+        .where("id", "=", binding.topic_content_id).executeTakeFirst();
       if (!topic || topic.kind !== "topic" || topic.status !== "published"
         || topic.catalog_visibility !== "catalog") return false;
     } else if (binding.kind === "source" && binding.resource_revision_id) {
+      await v2LockCatalog(transaction, "source", binding.resource_revision_id);
       const source = await transaction.selectFrom("learning_resource_revisions")
         .innerJoin("learning_resources", "learning_resources.id", "learning_resource_revisions.resource_id")
         .innerJoin("content_items", "content_items.id", "learning_resources.source_content_id")
         .select(["learning_resources.retired_at", "content_items.status", "content_items.catalog_visibility"])
-        .where("learning_resource_revisions.id", "=", binding.resource_revision_id)
-        .forShare().executeTakeFirst();
+        .where("learning_resource_revisions.id", "=", binding.resource_revision_id).executeTakeFirst();
       if (!source || source.retired_at || source.status !== "published" || source.catalog_visibility !== "catalog") return false;
     } else if (binding.kind === "asset") {
       if (!binding.asset_id) return false;
+      await v2LockCatalog(transaction, "asset", binding.asset_id);
       const asset = await transaction.selectFrom("content_assets")
         .innerJoin("content_items", "content_items.id", "content_assets.content_item_id")
         .select(["content_assets.status as asset_status", "content_items.status as content_status",
           "content_items.catalog_visibility"])
-        .where("content_assets.id", "=", binding.asset_id).forShare().executeTakeFirst();
+        .where("content_assets.id", "=", binding.asset_id).executeTakeFirst();
       if (!asset || asset.asset_status !== "ready" || asset.content_status !== "published"
         || asset.catalog_visibility !== "catalog") return false;
     }
@@ -851,11 +983,16 @@ async function v2AttemptManifestFromRow(transaction: Tx, row: AttemptRow): Promi
     const feedback = grading && "feedback" in grading && grading.feedback && typeof grading.feedback === "object"
       ? grading.feedback : null;
     return { activityKey: response.activity_key, answer: response.answer_json, acceptedAt: response.accepted_at,
-      score01: response.score01, explanation: feedback?.explanation ?? "", commonError: feedback?.commonError ?? "" };
+      score01: response.score01, explanation: feedback?.explanation ?? "", commonError: feedback?.commonError ?? "",
+      ...(feedback?.partialScore01 === undefined ? {} : { partialScore01: feedback.partialScore01 }) };
   });
+  const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+    .where("id", "=", row.path_version_id).executeTakeFirst();
+  const definition = RoutePackageSchema.safeParse(version?.definition_v2_json);
+  if (!definition.success) return null;
   return guidedV2AttemptManifest({ attemptId: row.id, enrollmentId: row.enrollment_id,
     pathVersionId: row.path_version_id, purpose: row.purpose, rowVersion: row.row_version,
-    status: row.status, snapshot, resume, responses });
+    status: row.status, snapshot, resume, responses, sources: definition.data.sources });
 }
 
 async function v2AuthorizedAttempt(transaction: Tx, userId: string, attemptId: string, lock: boolean): Promise<
@@ -904,12 +1041,12 @@ function v2HelpText(activity: RouteActivity, kind: "hint" | "source" | "reveal",
 
 export type GuidedV2ResponseReceipt = {
   accepted: boolean;
-  feedback: { explanation: string; commonError: string; score01: number | null };
+  feedback: { explanation: string; commonError: string; score01: number | null; sources?: V2FeedbackSource[]; partialScore01?: number };
   attempt: V2AttemptManifest;
 };
 
 /** Source facts are append-only responses and semantic events, never the derived cache. */
-async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: string, pathVersionId: string, now: Date): Promise<GuidedV2EvidenceState> {
+export async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: string, pathVersionId: string, now: Date): Promise<GuidedV2EvidenceState> {
   const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
     .where("id", "=", pathVersionId).executeTakeFirstOrThrow();
   const definition = RoutePackageSchema.parse(version.definition_v2_json);
@@ -1084,12 +1221,70 @@ async function v2RebuildEvidence(transaction: Tx, userId: string, enrollmentId: 
 }
 
 /** Runtime mutations are deliberately separate from editorial storage. */
-export function createPostgresGuidedV2AttemptService(database: DatabaseClient, options: { now?: () => Date } = {}) {
+export function createPostgresGuidedV2AttemptService(database: DatabaseClient, options: {
+  now?: () => Date;
+  assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl">;
+  prepareSnapshot?: (transaction: Tx, input: { userId: string; enrollmentId: string; pathVersionId: string;
+    target: GuidedV2AttemptTarget; definition: RoutePackage; at: Date }) => Promise<GuidedV2AttemptSnapshot | null>;
+} = {}) {
   const now = () => options.now?.() ?? new Date();
   return {
+    async image(input: { userId: string; attemptId: string; activityKey: string; expectedVersion: number }): Promise<GuidedV2AttemptResult<typeof V2ImageResourceSchema._output>> {
+      return database.transaction().execute(async transaction => {
+        const authorized = await v2AuthorizedAttempt(transaction, input.userId, input.attemptId, true);
+        if (authorized.status !== "success") return { status: authorized.status };
+        const { row, snapshot, resume } = authorized;
+        if (row.status !== "in_progress" || activeGuidedV2ActivityKey(snapshot, resume) !== input.activityKey) return { status: "conflict" };
+        if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
+        const activity = snapshot.activities.find(item => item.key === input.activityKey);
+        if (activity?.kind !== "image_target") return { status: "conflict" };
+        const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json").where("id", "=", row.path_version_id).executeTakeFirstOrThrow();
+        const assetInfo = RoutePackageSchema.parse(version.definition_v2_json).assets.find(item => item.key === activity.payload.assetKey);
+        const binding = await transaction.selectFrom("learning_v2_bindings").select("asset_id")
+          .where("path_version_id", "=", row.path_version_id).where("kind", "=", "asset").where("local_key", "=", activity.payload.assetKey).executeTakeFirst();
+        if (!assetInfo || assetInfo.mediaType !== "image" || !binding?.asset_id) return { status: "not_found" };
+        const asset = await transaction.selectFrom("content_assets").select(["kind", "status", "storage_bucket", "storage_path", "mime_type"])
+          .where("id", "=", binding.asset_id).executeTakeFirst();
+        if (!asset || asset.kind !== "image" || asset.status !== "ready" || !options.assetStorage
+          || asset.storage_bucket !== options.assetStorage.bucket || !["image/png", "image/jpeg", "image/webp", "image/gif", "image/avif"].includes(asset.mime_type)) return { status: "not_found" };
+        const url = await options.assetStorage.createDownloadUrl({ key: asset.storage_path, expiresInSeconds: 60 });
+        return { status: "success", value: V2ImageResourceSchema.parse({ activityKey: activity.key, attemptVersion: row.row_version,
+          image: { assetKey: assetInfo.key, url, alt: assetInfo.alt, expiresAt: new Date(now().getTime() + 60000).toISOString() } }) };
+      });
+    },
+    async alternative(input: { userId: string; attemptId: string; idempotencyKey: string; activityKey: string; expectedVersion: number }): Promise<GuidedV2AttemptResult<V2AttemptManifest>> {
+      return database.transaction().execute(async transaction => {
+        if (!(await v2LockActor(transaction, input.userId))) return { status: "forbidden" };
+        return v2Receipt<V2AttemptManifest>(transaction, input.userId, input.idempotencyKey,
+          { method: "POST", route: `/v2/guided-learning/attempts/${input.attemptId}/alternative`, body: { activityKey: input.activityKey, expectedVersion: input.expectedVersion } }, async () => {
+            const authorized = await v2AuthorizedAttempt(transaction, input.userId, input.attemptId, true);
+            if (authorized.status !== "success") return { status: authorized.status };
+            const { row, snapshot, resume } = authorized;
+            if (row.status !== "in_progress" || resume.accessiblePractice || snapshot.orderedKeys[resume.activeIndex] !== input.activityKey) return { status: "conflict" };
+            if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
+            const variant = accessibleVariant(snapshot, input.activityKey);
+            if (!variant) return { status: "conflict" };
+            const prior = await transaction.selectFrom("learning_v2_responses").select("id").where("attempt_id", "=", row.id).where("activity_key", "=", variant.key).executeTakeFirst();
+            if (prior) return { status: "conflict" };
+            const nextResume: GuidedV2AttemptResume = { ...resume,
+              accessiblePractice: { sourceActivityKey: input.activityKey, activityKey: variant.key },
+              assistedKeys: [...new Set([...resume.assistedKeys, input.activityKey, variant.key])] };
+            const updated = await transaction.updateTable("learning_v2_attempts").set({ resume_json: nextResume as JsonValue, row_version: sql<number>`row_version + 1`, updated_at: now() })
+              .where("id", "=", row.id).where("row_version", "=", input.expectedVersion).returningAll().executeTakeFirst();
+            if (!updated) return { status: "version_conflict" };
+            await transaction.insertInto("learning_events").values({ user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
+              event_type: "help_requested", semantic_key: `v2-alternative:${row.id}:${input.activityKey}`,
+              payload_json: { v2AttemptId: row.id, activityKey: input.activityKey, alternativeActivityKey: variant.key, modality: variant.representation, kind: "accessible_practice" },
+              policy_version: "guided-v2.0", occurred_at: now() }).onConflict(conflict => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
+            await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, now());
+            const manifest = await v2AttemptManifestFromRow(transaction, updated);
+            return manifest ? { status: "success", value: manifest } : { status: "conflict" };
+          }, value => v2ReplayAvailability(transaction, input.userId, value.attemptId));
+      });
+    },
     async readEvidence(input: { userId: string; enrollmentId: string }): Promise<GuidedV2AttemptResult<GuidedV2EvidenceState>> {
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         const enrollment = await transaction.selectFrom("learning_enrollments").selectAll()
           .where("id", "=", input.enrollmentId).where("user_id", "=", input.userId).forUpdate().executeTakeFirst();
@@ -1105,8 +1300,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
       enrollmentId: string; target: GuidedV2AttemptTarget; expectedEnrollmentVersion: number;
     }): Promise<GuidedV2AttemptResult<V2AttemptManifest>> {
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id")
-          .where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         return v2Receipt<V2AttemptManifest>(transaction, input.userId, input.idempotencyKey,
           { method: "POST", route: "/v2/guided-learning/attempts", body: {
@@ -1125,8 +1319,6 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             if (!(await v2ContentAvailable(transaction, version.id))) return { status: "access_revoked" };
             const definition = RoutePackageSchema.safeParse(version.definition_v2_json);
             if (!definition.success) return { status: "conflict" };
-            const snapshot = prepareGuidedV2AttemptSnapshot(definition.data, version.id, input.target);
-            if (!snapshot) return { status: "not_found" };
             const existing = await transaction.selectFrom("learning_v2_attempts").selectAll()
               .where("user_id", "=", input.userId).where("client_attempt_id", "=", input.clientAttemptId).executeTakeFirst();
             if (existing) {
@@ -1136,6 +1328,11 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               const manifest = await v2AttemptManifestFromRow(transaction, existing);
               return manifest ? { status: "success", value: manifest } : { status: "conflict" };
             }
+            const snapshot = options.prepareSnapshot
+              ? await options.prepareSnapshot(transaction, { userId: input.userId, enrollmentId: enrollment.id,
+                pathVersionId: version.id, target: input.target, definition: definition.data, at: now() })
+              : prepareGuidedV2AttemptSnapshot(definition.data, version.id, input.target);
+            if (!snapshot) return { status: options.prepareSnapshot ? "conflict" : "not_found" };
             const created = await transaction.insertInto("learning_v2_attempts").values({
               user_id: input.userId, enrollment_id: enrollment.id, path_version_id: version.id,
               client_attempt_id: input.clientAttemptId, purpose: input.target.kind,
@@ -1181,8 +1378,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
       kind: "hint" | "source" | "reveal"; expectedVersion: number;
     }): Promise<GuidedV2AttemptResult<{ help: { kind: "hint" | "source" | "reveal"; text: string }; attempt: V2AttemptManifest }>> {
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id")
-          .where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         return v2Receipt<{ help: { kind: "hint" | "source" | "reveal"; text: string }; attempt: V2AttemptManifest }>(transaction, input.userId, input.idempotencyKey,
           { method: "POST", route: `/v2/guided-learning/attempts/${input.attemptId}/help`, body: {
@@ -1191,9 +1387,12 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             const authorized = await v2AuthorizedAttempt(transaction, input.userId, input.attemptId, true);
             if (authorized.status !== "success") return { status: authorized.status };
             const { row, snapshot, resume } = authorized;
-            if (row.status !== "in_progress" || snapshot.orderedKeys[resume.activeIndex] !== input.activityKey) return { status: "conflict" };
+            if (row.status !== "in_progress" || activeGuidedV2ActivityKey(snapshot, resume) !== input.activityKey) return { status: "conflict" };
             if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
             const activity = snapshot.activities.find((item) => item.key === input.activityKey)!;
+            // Keep the existing HTTP reveal boundary inside the transactional service as well.
+            if (input.kind === "reveal" && (row.purpose === "assessment"
+              || !resume.submittedTextByActivity[activity.key]?.trim())) return { status: "conflict" };
             const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
               .where("id", "=", row.path_version_id).executeTakeFirstOrThrow();
             const definition = RoutePackageSchema.safeParse(version.definition_v2_json);
@@ -1225,8 +1424,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
       const answer = V2AnswerSchema.safeParse(input.answer);
       if (!answer.success) return { status: "invalid_answer" };
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id")
-          .where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         return v2Receipt<GuidedV2ResponseReceipt>(transaction, input.userId, input.idempotencyKey,
           { method: "POST", route: `/v2/guided-learning/attempts/${input.attemptId}/responses`, body: {
@@ -1245,9 +1443,10 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               const manifest = await v2AttemptManifestFromRow(transaction, row);
               return manifest ? { status: "success", value: { accepted: true, attempt: manifest,
                 feedback: { explanation: feedback?.explanation ?? "", commonError: feedback?.commonError ?? "",
-                  score01: existing.score01 } } } : { status: "conflict" };
+                  ...(feedback?.partialScore01 === undefined ? {} : { partialScore01: feedback.partialScore01 }),
+                  score01: existing.score01, sources: manifest.acceptedResponses.find(item => item.activityKey === input.activityKey)?.feedback.sources ?? [] } } } : { status: "conflict" };
             }
-            if (row.status !== "in_progress" || snapshot.orderedKeys[resume.activeIndex] !== input.activityKey) return { status: "conflict" };
+            if (row.status !== "in_progress" || activeGuidedV2ActivityKey(snapshot, resume) !== input.activityKey) return { status: "conflict" };
             if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
             const activity = snapshot.activities.find((item) => item.key === input.activityKey)!;
             const graded = gradeBasicActivity(activity, answer.data, {
@@ -1268,7 +1467,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               if (!updated) return { status: "version_conflict" };
               const manifest = await v2AttemptManifestFromRow(transaction, updated);
               return manifest ? { status: "success", value: { accepted: false, attempt: manifest,
-                feedback: { explanation: "", commonError: "", score01: null } } } : { status: "conflict" };
+                feedback: { explanation: "", commonError: "", score01: null, sources: [] } } } : { status: "conflict" };
             }
             const serverTime = now();
             const response = await transaction.insertInto("learning_v2_responses").values({
@@ -1279,16 +1478,18 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               purpose: row.purpose === "review" ? "review" : activity.use,
               answer_json: answer.data as JsonValue, grading_json: graded as JsonValue,
               grading_source: graded.gradingSource, confidence: input.confidence,
-              assisted: resume.assistedKeys.includes(activity.key), novel_at_presentation: false,
+              assisted: Boolean(resume.accessiblePractice) || resume.assistedKeys.includes(activity.key), novel_at_presentation: Boolean(
+                row.snapshot_json && typeof row.snapshot_json === "object" && !Array.isArray(row.snapshot_json)
+                && Array.isArray(row.snapshot_json.novelKeys) && row.snapshot_json.novelKeys.includes(activity.key)),
               score01: graded.score01, accepted_at: serverTime,
             }).returning("id").executeTakeFirstOrThrow();
-            const nextResume: GuidedV2AttemptResume = { ...resume, activeIndex: resume.activeIndex + 1 };
+            const nextResume: GuidedV2AttemptResume = { ...resume, activeIndex: resume.activeIndex + (resume.accessiblePractice ? 0 : 1), accessiblePractice: null };
             const updated = await transaction.updateTable("learning_v2_attempts").set({
               resume_json: nextResume as JsonValue, row_version: sql<number>`row_version + 1`, updated_at: serverTime,
             }).where("id", "=", row.id).where("row_version", "=", input.expectedVersion)
               .returningAll().executeTakeFirst();
             if (!updated) return { status: "version_conflict" };
-            await transaction.insertInto("learning_v2_activity_state").values({
+            if (!resume.accessiblePractice) await transaction.insertInto("learning_v2_activity_state").values({
               enrollment_id: row.enrollment_id, user_id: input.userId, path_version_id: row.path_version_id,
               activity_key: activity.key, state: "completed", evidence_attempt_id: row.id,
             }).onConflict((conflict) => conflict.columns(["enrollment_id", "path_version_id", "activity_key"])
@@ -1315,7 +1516,8 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             const feedback = graded.feedback;
             return manifest ? { status: "success", value: { accepted: true, attempt: manifest,
               feedback: { explanation: feedback.explanation, commonError: feedback.commonError,
-                score01: graded.score01 } } } : { status: "conflict" };
+                ...(feedback.partialScore01 === undefined ? {} : { partialScore01: feedback.partialScore01 }),
+                score01: graded.score01, sources: manifest.acceptedResponses.find(item => item.activityKey === input.activityKey)?.feedback.sources ?? [] } } } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attempt.attemptId));
       });
     },
@@ -1323,8 +1525,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
     async complete(input: { userId: string; attemptId: string; idempotencyKey: string; expectedVersion: number;
     }): Promise<GuidedV2AttemptResult<V2AttemptManifest>> {
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id")
-          .where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         return v2Receipt<V2AttemptManifest>(transaction, input.userId, input.idempotencyKey,
           { method: "POST", route: `/v2/guided-learning/attempts/${input.attemptId}/complete`,
@@ -1336,6 +1537,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
             const count = await transaction.selectFrom("learning_v2_responses")
               .select(sql<number>`count(*)::int`.as("count")).where("attempt_id", "=", row.id)
+              .where("activity_key", "in", snapshot.orderedKeys)
               .executeTakeFirstOrThrow();
             if (count.count !== snapshot.orderedKeys.length) return { status: "conflict" };
             const serverTime = now();
@@ -1360,16 +1562,17 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               if (kind) await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: row.enrollment_id,
                 pathVersionId: row.path_version_id, kind: kind.startsWith("retention") ? "retention_submitted" : `${kind}_submitted`,
                 semanticKey: `v2-assessment-submitted:${row.id}`, at: serverTime });
-              if (kind === "unit_gate") {
-                const answers = await transaction.selectFrom("learning_v2_responses").select(["score01", "assisted", "grading_source"])
-                  .where("attempt_id", "=", row.id).execute();
-                const threshold = RoutePackageSchema.parse(version.definition_v2_json).assessments.find((item) => item.key === snapshot.target.key)!.thresholdPercent;
-                const score = answers.reduce((sum, answer) => sum + (!answer.assisted && answer.grading_source === "server" ? answer.score01 ?? 0 : 0), 0) * 100 / answers.length;
-                if (score >= threshold) await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: row.enrollment_id,
+            }
+            const state = await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime);
+            if (snapshot.target.kind === "assessment") {
+              const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+                .where("id", "=", row.path_version_id).executeTakeFirstOrThrow();
+              const gate = RoutePackageSchema.parse(version.definition_v2_json).assessments.find((item) => item.key === snapshot.target.key && item.kind === "unit_gate");
+              if (gate && state.gates.some((item) => item.unitKey === gate.afterUnitKey && item.passed)) {
+                await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: row.enrollment_id,
                   pathVersionId: row.path_version_id, kind: "gate_passed", semanticKey: `v2-gate:${row.id}`, at: serverTime });
               }
             }
-            await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime);
             const manifest = await v2AttemptManifestFromRow(transaction, updated);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
           }, (value) => v2ReplayAvailability(transaction, input.userId, value.attemptId));
@@ -1384,7 +1587,7 @@ export function createPostgresGuidedV2MetricsService(database: DatabaseClient, o
   return {
     async feedbackViewed(input: { userId: string; attemptId: string; activityKey: string }) {
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" as const };
         const authorized = await v2AuthorizedAttempt(transaction, input.userId, input.attemptId, true);
         if (authorized.status !== "success") return authorized;
@@ -1400,7 +1603,7 @@ export function createPostgresGuidedV2MetricsService(database: DatabaseClient, o
       const parsed = V2HeartbeatSchema.safeParse({ deviceKey: input.deviceKey, tickKey: input.tickKey, visible: input.visible });
       if (!parsed.success) return { status: "invalid" as const };
       return database.transaction().execute(async (transaction) => {
-        const actor = await transaction.selectFrom("auth_users").select("id").where("id", "=", input.userId).forUpdate().executeTakeFirst();
+        const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" as const };
         const enrollment = await transaction.selectFrom("learning_enrollments").selectAll()
           .where("id", "=", input.enrollmentId).where("user_id", "=", input.userId).forUpdate().executeTakeFirst();
@@ -1437,7 +1640,7 @@ export function createPostgresGuidedV2MetricsService(database: DatabaseClient, o
         const learners: MetricLearnerV2[] = [], assessments: MetricAssessmentV2[] = [], heartbeats: MetricHeartbeatV2[] = [];
         for (const enrollment of enrollments) {
           // Deterministic actor lock order also protects cache/reward reconstruction.
-          await transaction.selectFrom("auth_users").select("id").where("id", "=", enrollment.user_id).forUpdate().executeTakeFirstOrThrow();
+          if (!(await v2LockActor(transaction, enrollment.user_id))) throw new Error("Guided v2 actor not found");
           const state = await v2RebuildEvidence(transaction, enrollment.user_id, enrollment.id, input.pathVersionId, at);
           learners.push({ enrollmentId: enrollment.id, activatedAt: enrollment.created_at.toISOString(),
             requiredObjectiveKeys: definition.objectives.filter((item) => item.required).map((item) => item.key),
@@ -1464,13 +1667,26 @@ export function createPostgresGuidedV2MetricsService(database: DatabaseClient, o
             if (!assessment || !["diagnostic", "final", "retention7", "retention30"].includes(assessment.kind)) continue;
             const presented = events.find((event) => event.semantic_key === `v2-presented:${attempt.id}`)?.occurred_at ?? attempt.started_at;
             const prior = responses.filter((response) => response.accepted_at < presented);
+            const priorPresentations: RouteActivity[] = [];
+            for (const event of events.filter((item) => item.occurred_at < presented
+              && ["activity_presented", "help_requested"].includes(item.event_type))) {
+              const payload = event.payload_json;
+              if (!payload || typeof payload !== "object" || Array.isArray(payload) || typeof payload.v2AttemptId !== "string") continue;
+              const previous = attempts.find((item) => item.id === payload.v2AttemptId);
+              const previousSnapshot = previous && parseGuidedV2AttemptSnapshot(previous.snapshot_json);
+              const key = typeof payload.activityKey === "string" ? payload.activityKey : previousSnapshot?.orderedKeys[0];
+              const activity = previousSnapshot?.activities.find((item) => item.key === key);
+              if (activity) priorPresentations.push(activity);
+            }
             assessments.push({ enrollmentId: enrollment.id, attemptId: attempt.id, kind: assessment.kind as MetricAssessmentV2["kind"],
               acceptedAt: attempt.submitted_at.toISOString(), objectiveKeys: [...new Set(snapshot.orderedKeys.map((key) => snapshot.activities.find((item) => item.key === key)!.objectiveKey))],
               answers: responses.filter((response) => response.attempt_id === attempt.id).map((response) => {
-                const modalities = prior.filter((item) => item.objective_key === response.objective_key).map((item) => item.modality);
+                const modalities = [...prior.filter((item) => item.objective_key === response.objective_key).map((item) => item.modality),
+                  ...priorPresentations.filter((item) => item.objectiveKey === response.objective_key).map((item) => item.representation)];
                 return { objectiveKey: response.objective_key, equivalenceKey: response.equivalence_key,
                   modality: response.modality, score01: response.score01, gradingSource: response.grading_source, assisted: response.assisted,
-                  novelAtPresentation: response.novel_at_presentation && !prior.some((item) => item.equivalence_key === response.equivalence_key),
+                  novelAtPresentation: response.novel_at_presentation && !prior.some((item) => item.equivalence_key === response.equivalence_key)
+                    && !priorPresentations.some((item) => item.equivalenceKey === response.equivalence_key),
                   newModality: modalities.length > 0 && !modalities.includes(response.modality) };
               }) });
           }

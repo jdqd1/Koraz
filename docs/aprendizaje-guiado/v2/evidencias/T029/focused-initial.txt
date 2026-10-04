@@ -1,0 +1,32 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/v2/player.test.tsx (21 tests | 2 failed) 129ms
+     × sends assistance to the help endpoint with CAS and accepts only its typed receipt 18ms
+     × finishes with a server receipt and never invents a local completion 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > sends assistance to the help endpoint with CAS and accepts only its typed receipt
+Error: Invalid Chai property: toEndWith
+ ❯ src/components/learning/v2/player.test.tsx:50:107
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > finishes with a server receipt and never invents a local completion
+Error: Invalid Chai property: toEndWith
+ ❯ src/components/learning/v2/player.test.tsx:57:38
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 37 passed (39)
+   Start at  21:23:34
+   Duration  32.37s (transform 1.81s, setup 0ms, import 28.41s, tests 559ms, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/v2/player.test.tsx src/components/learning/v2/client.test.ts src/components/learning/v2/model.test.tsx "--maxWorkers=1"

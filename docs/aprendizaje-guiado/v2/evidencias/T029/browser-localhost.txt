@@ -1,0 +1,44 @@
+CHUNK 200 http://localhost:3000/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf
+CHUNK 200 http://localhost:3000/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_src_app_1mi2v3f._.css
+CHUNK 200 http://localhost:3000/_next/static/chunks/_1r17o11._.css
+CHUNK 200 http://localhost:3000/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf
+CHUNK 200 http://localhost:3000/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf
+CHUNK 200 http://localhost:3000/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf
+CHUNK 200 http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_12u42px._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_compiled_react-server-dom-turbopack_0wfqwt9._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_compiled_1okqqk0._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_1anvha4._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_20m5051._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/0zix_%40swc_helpers_cjs_0hi-e47._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_07lrsyw._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/turbopack-apps_web_115disp._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_src_0gvz8qs._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_src_components_learning_map_learning-map-canvas_tsx_1co1qlr._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_compiled_next-devtools_index_1f4wl4k.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_client_0y3cw-i._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/packages_contracts_dist_0vp3pky._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/node_modules__pnpm_0e82bbj._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/0r4j_%40xyflow_system_dist_esm_index_1u_5fxe.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/0g60_%40phosphor-icons_react_dist_0-yoz4x._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/apps_web_src_1t5hb1n._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/node_modules__pnpm_16b-xr6._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/1765_%40xyflow_react_dist_esm_index_0irwiav.js
+CHUNK 200 http://localhost:3000/_next/static/chunks/1a7c_zod_v4_0_p_dem._.js
+API REQUEST GET http://localhost:3000/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004
+MOCK GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004
+API REQUEST GET http://localhost:3000/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004
+MOCK GET /api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004
+API REQUEST POST http://localhost:3000/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses
+locator.innerHTML: Error: strict mode violation: locator('main') resolved to 2 elements:
+    1) <main class="app-main" data-pathname="/visual-fixtures/aprendizaje-v2">…</main> aka getByRole('main').first()
+    2) <main class="learning-activity-main" data-engine-version="guided-v2">…</main> aka getByRole('main').nth(1)
+
+Call log:
+  - waiting for locator('main')
+
+    at run (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T029\browser-check.cjs:75:39) {
+  log: [ "  - waiting for locator('main')" ]
+}

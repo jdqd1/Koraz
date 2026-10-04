@@ -1,0 +1,8 @@
+{
+  "scope": "Typed HTTP mocks in local Next; no authenticated API persistence",
+  "checks": [],
+  "responsive": [],
+  "limitations": [],
+  "errors": [],
+  "failure": "locator.innerHTML: Error: strict mode violation: locator('main') resolved to 2 elements:\n    1) <main class=\"app-main\" data-pathname=\"/visual-fixtures/aprendizaje-v2\">…</main> aka getByRole('main').first()\n    2) <main class=\"learning-activity-main\" data-engine-version=\"guided-v2\">…</main> aka getByRole('main').nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n\n    at run (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T029\\browser-check.cjs:75:39)"
+}

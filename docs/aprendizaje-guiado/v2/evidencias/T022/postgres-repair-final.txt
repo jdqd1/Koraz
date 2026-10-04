@@ -1,0 +1,117 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t022-dab5fba5831148e3b0567811eb822d98 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t022^-dab5fba5831148e3b0567811eb822d98^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 33ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 98ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 3ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 16ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 46ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 12ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 8ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 107ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 148ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 412ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 1842ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 47ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 5ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 23ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 4ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 1ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges 1123ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers 40ms
+ × test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service 42ms
+   → column reference "resource_id" is ambiguous
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution 459ms
+ × test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget 47ms
+   → {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+error: column reference "resource_id" is ambiguous
+ ❯ ../../node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js:694:17
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:113:28
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ v2LockCatalog src/providers/postgres-guided-learning-v2.ts:67:3
+     65|
+     66| async function v2LockCatalog(transaction: Tx, kind: "topic" | "source"…
+     67|   await sql`select private.lock_guided_v2_catalog(${kind}::text, ${id}…
+       |   ^
+     68| }
+     69|
+ ❯ v2ContentAvailable src/providers/postgres-guided-learning-v2.ts:835:7
+ ❯ src/providers/postgres-guided-learning-v2.ts:1143:19
+ ❯ v2Receipt src/providers/postgres-guided-learning-v2.ts:805:18
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:126:41
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ v2LockCatalog src/providers/postgres-guided-learning-v2.ts:67:3
+ ❯ v2ContentAvailable src/providers/postgres-guided-learning-v2.ts:835:7
+ ❯ src/providers/postgres-guided-learning-v2.ts:1143:19
+ ❯ v2Receipt src/providers/postgres-guided-learning-v2.ts:805:18
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 583, severity: 'ERROR', code: '42702', detail: 'It could refer to either a PL/pgSQL variable or a table column.', hint: undefined, position: undefined, internalPosition: '271', internalQuery: 'SELECT revision.id from public.learning_resource_revisions as revision\n        join public.learning_resources as resource on resource.id = revision.resource_id\n        join public.content_items as item on item.id = resource.source_content_id\n        where revision.id = resource_id for share of revision, resource, item', where: 'PL/pgSQL function private.lock_guided_v2_catalog(text,uuid) line 8 at PERFORM', schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'pl_comp.c', routine: 'plpgsql_post_column_ref' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+AssertionError: {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ test/guided-v2-security.test.ts:407:48
+    405|       const created = await app.inject({ method: "POST", url: "/v2/gui…
+    406|         payload: { clientAttemptId: v2Id(92001), enrollmentId: v2Id(9)…
+    407|       expect(created.statusCode, created.body).toBe(200);
+       |                                                ^
+    408|       const attemptId = created.json().attempt.attemptId;
+    409|       const payload = { activityKey: "learn", answer: { kind: "study",…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 19 passed (21)
+   Start at  22:37:35
+   Duration  11.17s (transform 900ms, setup 0ms, import 2.47s, tests 8.41s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t022-dab5fba5831148e3b0567811eb822d98

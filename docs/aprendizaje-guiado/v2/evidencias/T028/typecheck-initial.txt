@@ -1,0 +1,14 @@
+$ tsc --noEmit
+src/components/learning/map/v2-adapter.ts(78,46): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string & $brand<"V2PathId">'.
+  Type 'string' is not assignable to type '$brand<"V2PathId">'.
+src/components/learning/map/v2-adapter.ts(83,80): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string & $brand<"V2PathId">'.
+  Type 'string' is not assignable to type '$brand<"V2PathId">'.
+src/components/learning/map/v2-adapter.ts(83,168): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string & $brand<"V2PathId">'.
+  Type 'string' is not assignable to type '$brand<"V2PathId">'.
+src/components/learning/map/v2-adapter.ts(83,215): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string & $brand<"V2PathId">'.
+  Type 'string' is not assignable to type '$brand<"V2PathId">'.
+src/components/learning/map/v2-adapter.ts(83,261): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string & $brand<"V2PathId">'.
+  Type 'string' is not assignable to type '$brand<"V2PathId">'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

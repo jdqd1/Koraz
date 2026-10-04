@@ -1,0 +1,103 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t022-ce3a6d9005264719be88f89fe5c889c4 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t022^-ce3a6d9005264719be88f89fe5c889c4^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 45ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 170ms
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 9ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 15ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 135ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 383ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1 20ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage 45ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 55ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 28ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 9ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 114ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 168ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 428ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 3280ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 22ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 8ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 25ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 3ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 1ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges 1280ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers 162ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service 389ms
+ × test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes 28ms
+   → permission denied for table audit_log
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution 416ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget 2385ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes
+error: permission denied for table audit_log
+ ❯ ../../node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js:694:17
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:113:28
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ InsertQueryBuilder.execute ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24
+ ❯ insertEditorDraft src/providers/postgres-guided-learning-v2.ts:337:3
+    335|   }).returningAll().executeTakeFirstOrThrow();
+    336|   await insertBindings(transaction, version.id, prepared);
+    337|   await transaction.insertInto("audit_log").values({
+       |   ^
+    338|     action: "learning_path_v2_created",
+    339|     actor_user_id: actorUserId,
+ ❯ editorReceipt src/providers/postgres-guided-learning-v2.ts:355:18
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ PostgresConnection.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:126:41
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+ ❯ SingleConnectionProvider.#run ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16
+ ❯ DefaultQueryExecutor.executeQuery ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28
+ ❯ InsertQueryBuilder.execute ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24
+ ❯ insertEditorDraft src/providers/postgres-guided-learning-v2.ts:337:3
+ ❯ editorReceipt src/providers/postgres-guided-learning-v2.ts:355:18
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ DefaultConnectionProvider.provideConnection ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 97, severity: 'ERROR', code: '42501', detail: undefined, hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'aclchk.c', routine: 'aclcheck_error' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 passed | 1 skipped (27)
+   Start at  23:23:22
+   Duration  21.91s (transform 1.27s, setup 0ms, import 4.66s, tests 16.73s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t022-ce3a6d9005264719be88f89fe5c889c4

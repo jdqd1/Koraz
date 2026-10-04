@@ -1,0 +1,157 @@
+{
+  "notVerified": [
+    "Complete E01 and learner E04",
+    "Hito S",
+    "Production identity/deployment",
+    "Independent PostgreSQL concurrency",
+    "Real asset bytes, medical content and licenses",
+    "Native browser zoom",
+    "Full axe/screen-reader audit reserved to T037"
+  ],
+  "committed": false,
+  "scope": "Local T026 acceptance. E01 partial and E04 preparation; full student flow, clinical assets and Hito S are not accepted.",
+  "status": "PASS",
+  "changedFiles": [
+    "apps/web/src/components/learning/editor/v2/activity-model.ts",
+    "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    "apps/web/src/components/learning/editor/v2/styles.module.css",
+    "apps/web/src/components/learning/editor/v2/visual-presets.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-activity.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-geometry.tsx",
+    "apps/web/src/components/learning/editor/v2/relation-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/sequence-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/case-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx"
+  ],
+  "nextTaskIds": [
+    "T027"
+  ],
+  "deployed": false,
+  "evidenceDirectory": "docs/aprendizaje-guiado/v2/evidencias/T026",
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "evidence": "contracts-build.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/editor/v2 --maxWorkers=1",
+      "evidence": "web-focused-final.txt",
+      "result": "PASS: 6 files, 68 tests; 19 new T026 tests",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run --maxWorkers=1",
+      "evidence": "web-suite-final.txt",
+      "result": "PASS: 48 files, 329 tests",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web typecheck",
+      "evidence": "typecheck-final.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec eslint src/components/learning/editor/v2/activity-model.ts src/components/learning/editor/v2/activity-editor.tsx src/components/learning/editor/v2/visual-presets.tsx src/components/learning/editor/v2/visual-activity.tsx src/components/learning/editor/v2/visual-fields.tsx src/components/learning/editor/v2/visual-geometry.tsx src/components/learning/editor/v2/relation-fields.tsx src/components/learning/editor/v2/sequence-fields.tsx src/components/learning/editor/v2/case-fields.tsx src/components/learning/editor/v2/visual-forms.test.tsx --max-warnings=0",
+      "evidence": "lint-final.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-grading.test.ts test/guided-v2-case.test.ts --maxWorkers=1",
+      "evidence": "p07-case-tests.txt",
+      "result": "PASS: 2 files, 15 tests",
+      "exitCode": 0
+    },
+    {
+      "command": "T026_BROWSER_HOLD=true; pnpm.cmd --filter @cediah/api exec vitest run --root ../.. --config docs/aprendizaje-guiado/v2/evidencias/T026/vitest.http.config.mts",
+      "evidence": "http-integration.txt",
+      "result": "PASS: actual HTTP integration; duration includes optional browser hold",
+      "exitCode": 0
+    },
+    {
+      "command": "cua_repl: real editor through Next/BFF/API, UI edits and reload",
+      "evidence": "browser-checks.json",
+      "result": "PASS within recorded local coverage",
+      "exitCode": null
+    },
+    {
+      "command": "Assert actual provider snapshots, geometry, order and unchanged activities",
+      "evidence": "ui-storage-checks.json",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check; baseline SHA256 comparison; listener cleanup",
+      "evidence": "closure-verification.json",
+      "result": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "finalStoredRevision": 6,
+  "issues": [
+    {
+      "blockingT026": false,
+      "status": "OPEN",
+      "note": "T024 expanded API regression timeout persists; not rerun or claimed fixed here.",
+      "blockingSystemAcceptance": true,
+      "id": "inherited-api-import-timeout"
+    },
+    {
+      "blockingT026": false,
+      "status": "OPEN",
+      "note": "Next dev warns on ::highlight in unchanged interactive-term-polish.css.",
+      "id": "preexisting-next-highlight-warning"
+    }
+  ],
+  "completedAt": "2026-10-02T09:31:19.4027382Z",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "finalActivityCount": 19,
+  "dependencies": [
+    {
+      "status": "PASS",
+      "taskId": "T025",
+      "evidence": "../T025/result.json"
+    },
+    {
+      "status": "PASS",
+      "taskId": "T014",
+      "evidence": "../T014/result.json"
+    }
+  ],
+  "date": "2026-10-02",
+  "nextTaskStarted": false,
+  "acceptance": [
+    {
+      "status": "PASS",
+      "criterion": "All four advanced kinds and existing four kinds editable, with strict portable round-trip"
+    },
+    {
+      "status": "PASS",
+      "criterion": "Normalized geometry and accepted/stage order persist through actual API and UI reload"
+    },
+    {
+      "status": "PASS",
+      "criterion": "Presets compose existing families with unique children and no invented content"
+    },
+    {
+      "status": "PASS",
+      "criterion": "Keyboard alternatives for coordinates, relations, sequence and case ordering"
+    },
+    {
+      "status": "PASS",
+      "criterion": "Shared structural validation blocks invalid geometry/orders/mappings; private DTOs remain unchanged"
+    }
+  ],
+  "taskId": "T026",
+  "minimumIntegration": {
+    "reason": "Existing builder hardcoded four kinds and showed advanced kinds as next-task placeholders. Only creation delegation, kind options, form dispatch and case child ordering were connected.",
+    "files": [
+      "activity-model.ts",
+      "activity-editor.tsx"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts [ docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts ]
+Error: Cannot find package '@cediah/contracts' imported from D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T031/http-browser.test.ts:3:1
+      1| import { writeFile } from "node:fs/promises";
+      2| import { afterAll, beforeAll, expect, it } from "vitest";
+      3| import { RoutePackageSchema } from "@cediah/contracts";
+       | ^
+      4| import { createImageHarness } from "../../../../../apps/api/test/helpe…
+      5| import { v2Id } from "../../../../../apps/api/test/helpers/guided-v2-d…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  23:41:27
+   Duration  401ms (transform 39ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

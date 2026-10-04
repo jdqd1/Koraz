@@ -1,0 +1,126 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 37ms
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 130ms
+   → {"help":{"kind":"reveal","text":"PRIVATE_FEEDBACK"},"attempt":{"engineVersion":"guided-v2","attemptId":"f3a71c51-6e44-4585-8e67-1d405f029cdb","enrollmentId":"71000000-0000-4000-8000-000000000008","pathVersionId":"71000000-0000-4000-8000-000000000006","policyVersion":"guided-v2.0","purpose":"activity","rowVersion":2,"status":"open","activeActivity":{"key":"a","objectiveKey":"core","phase":"retrieve","representation":"text","prompt":"Pregunta","kind":"single_choice","payload":{"options":[{"key":"yes","text":"Sí"},{"key":"no","text":"No"}]}},"acceptedResponses":[]}}: expected 200 to be 409 // Object.is equality
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 2ms
+   → expected undefined to be 'private, no-store' // Object.is equality
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 13ms
+   → {"error":"not_found"}: expected 404 to be 403 // Object.is equality
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 50ms
+ × test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 27ms
+   → expected 409 to be 200 // Object.is equality
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 40ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 44ms
+ × test/guided-v2-security.test.ts > T022 transport safeguards > 120/minute response limit permits exact replays and resets after the server window 83ms
+   → expected 409 to be 429 // Object.is equality
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 6ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission
+AssertionError: {"help":{"kind":"reveal","text":"PRIVATE_FEEDBACK"},"attempt":{"engineVersion":"guided-v2","attemptId":"f3a71c51-6e44-4585-8e67-1d405f029cdb","enrollmentId":"71000000-0000-4000-8000-000000000008","pathVersionId":"71000000-0000-4000-8000-000000000006","policyVersion":"guided-v2.0","purpose":"activity","rowVersion":2,"status":"open","activeActivity":{"key":"a","objectiveKey":"core","phase":"retrieve","representation":"text","prompt":"Pregunta","kind":"single_choice","payload":{"options":[{"key":"yes","text":"Sí"},{"key":"no","text":"No"}]}},"acceptedResponses":[]}}: expected 200 to be 409 // Object.is equality
+
+- Expected
++ Received
+
+- 409
++ 200
+
+ ❯ test/guided-v2-security.test.ts:103:48
+    101|     }
+    102|     const response = await post(path("/help"), { activityKey: "a", kin…
+    103|     expect(response.statusCode, response.body).toBe(409);
+       |                                                ^
+    104|     expect((await pg.query("select row_version from learning_v2_attemp…
+    105|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint
+AssertionError: expected undefined to be 'private, no-store' // Object.is equality
+
+- Expected:
+"private, no-store"
+
++ Received:
+undefined
+
+ ❯ test/guided-v2-security.test.ts:117:106
+    115|     for (const request of requests) {
+    116|       const response = await request(); expect(response.statusCode).to…
+    117|       expect(response.json()).toEqual({ error: "forbidden" }); expect(…
+       |                                                                                                          ^
+    118|     }
+    119|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route
+AssertionError: {"error":"not_found"}: expected 404 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 404
+
+ ❯ test/guided-v2-security.test.ts:127:53
+    125|       await post(`/v2/editor/learning-paths/${v2Id(4)}/transition`, { …
+    126|       await post(`/v2/editor/learning-paths/${v2Id(4)}/versions`, { ex…
+    127|     ]) { expect(response.statusCode, response.body).toBe(403); expect(…
+       |                                                     ^
+    128|     roles = ["student"];
+    129|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers
+AssertionError: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ test/guided-v2-security.test.ts:141:82
+    139|   it("S04 revocation blocks new deliveries and replays, preserves acce…
+    140|     const key = v2Id(serial++), payload = { activityKey: "a", answer: …
+    141|     expect((await post(path("/responses"), payload, "learner", key)).s…
+       |                                                                                  ^
+    142|     const before = (await pg.query("select * from learning_v2_response…
+    143|     await pg.query("update content_items set catalog_visibility='hidde…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 transport safeguards > 120/minute response limit permits exact replays and resets after the server window
+AssertionError: expected 409 to be 429 // Object.is equality
+
+- Expected
++ Received
+
+- 429
++ 409
+
+ ❯ test/guided-v2-security.test.ts:193:54
+    191|     try {
+    192|       for (let i = 0; i < 120; i++) expect((await request(v2Id(1000 + …
+    193|       expect((await request(v2Id(1120))).statusCode).toBe(429);
+       |                                                      ^
+    194|       expect((await request(v2Id(1000))).statusCode).toBe(409);
+    195|       expect((await request(v2Id(1000), { ...payload, expectedVersion:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 6 passed (11)
+   Start at  22:07:55
+   Duration  7.03s (transform 875ms, setup 0ms, import 2.78s, tests 3.94s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"

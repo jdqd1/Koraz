@@ -1,0 +1,710 @@
+{
+  "status": "success",
+  "value": {
+    "engineVersion": "guided-v2",
+    "pathId": "51cae14b-7104-4343-a91c-321c86f638e9",
+    "pathVersionId": "6ca957b9-b42b-4d94-92b7-73e6a4766d35",
+    "editVersion": 3,
+    "status": "draft",
+    "contentHash": "0cf578c70f72dfb1e02a459d3db408470505e07620f64a166c819c0ed2e00581",
+    "bindings": {
+      "topicContentId": "fa000000-0000-4000-8000-000000000003",
+      "sources": [
+        {
+          "key": "source",
+          "sourceContentId": "fa000000-0000-4000-8000-000000000005",
+          "resourceRevisionId": "fa000000-0000-4000-8000-000000000006"
+        }
+      ],
+      "assets": [
+        {
+          "key": "image",
+          "assetId": "fa000000-0000-4000-8000-000000000007"
+        }
+      ]
+    },
+    "definition": {
+      "schemaVersion": "2.0",
+      "packageKey": "editor-synthetic",
+      "revision": 1,
+      "locale": "es",
+      "route": {
+        "slug": "editor-synthetic",
+        "title": "Título confirmado T025",
+        "summary": "Ejemplo para verificar guardado y recuperación del editor.",
+        "topicLabel": "Tema sintético",
+        "audience": "Estudiantes",
+        "discipline": "general",
+        "coverKey": "heart"
+      },
+      "policyVersion": "guided-v2.0",
+      "sources": [
+        {
+          "key": "source",
+          "kind": "guide",
+          "title": "Guía sintética",
+          "citation": "Fixture de software",
+          "locator": {
+            "heading": "Sección",
+            "sectionPath": [],
+            "page": null
+          },
+          "documentSha256": "2b324dfa84fc49bfe4afe27245ac69483ff87d433fbd769e866e61787b35bad5",
+          "excerpt": "Contenido de ejemplo",
+          "url": null,
+          "verification": "provided",
+          "checkedAt": null
+        }
+      ],
+      "assets": [
+        {
+          "key": "image",
+          "mediaType": "image",
+          "originalFileName": "image.png",
+          "sha256": null,
+          "alt": "Diagrama de prueba",
+          "caption": "",
+          "sourceKeys": [
+            "source"
+          ],
+          "rightsStatus": "owned",
+          "credit": "Fixture",
+          "width": 100,
+          "height": 100
+        }
+      ],
+      "objectives": [
+        {
+          "key": "objective",
+          "title": "Relacionar los ejemplos",
+          "unitKey": "unit",
+          "verb": "relate",
+          "criticality": "core",
+          "required": true,
+          "prerequisiteKeys": [],
+          "sourceKeys": [
+            "source"
+          ],
+          "comparisonGroup": null,
+          "misconceptions": []
+        }
+      ],
+      "units": [
+        {
+          "key": "unit",
+          "title": "Unidad de ejemplo",
+          "objectiveKeys": [
+            "objective"
+          ],
+          "activityKeys": [
+            "study",
+            "choice",
+            "short",
+            "constructed",
+            "match",
+            "image",
+            "sequence",
+            "case",
+            "actividad-1",
+            "actividad-2",
+            "actividad-3",
+            "actividad-4",
+            "actividad-5"
+          ],
+          "support": "full",
+          "estimatedMinutes": 5
+        }
+      ],
+      "activities": [
+        {
+          "key": "study",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-study",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "study",
+          "payload": {
+            "body": "Texto de ejemplo",
+            "focusSpans": [],
+            "assetKey": null,
+            "scaffold": "explanation",
+            "videoRange": null
+          }
+        },
+        {
+          "key": "choice",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-choice",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "single_choice",
+          "payload": {
+            "options": [
+              {
+                "key": "a",
+                "text": "A"
+              },
+              {
+                "key": "b",
+                "text": "B"
+              }
+            ],
+            "correctKey": "a",
+            "distractorFeedback": {
+              "b": "Explicación"
+            }
+          }
+        },
+        {
+          "key": "short",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-short",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "short_answer",
+          "payload": {
+            "acceptedAnswers": [
+              "respuesta"
+            ],
+            "maxChars": 100,
+            "modelAnswer": "respuesta",
+            "normalization": "nfkc-lower-space"
+          }
+        },
+        {
+          "key": "constructed",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-constructed",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "constructed_response",
+          "payload": {
+            "rubric": [
+              {
+                "key": "criterion",
+                "criterion": "Criterio",
+                "example": "Ejemplo"
+              }
+            ],
+            "modelAnswer": "Ejemplo",
+            "verificationActivityKey": "choice"
+          }
+        },
+        {
+          "key": "match",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-match",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "match",
+          "payload": {
+            "presentation": "causal_map",
+            "prompts": [
+              {
+                "key": "p",
+                "text": "P"
+              }
+            ],
+            "choices": [
+              {
+                "key": "c",
+                "text": "C"
+              }
+            ],
+            "correctByPrompt": {
+              "p": "c"
+            },
+            "allowReuse": false,
+            "edges": []
+          }
+        },
+        {
+          "key": "image",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-image",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "image_target",
+          "payload": {
+            "assetKey": "image",
+            "mode": "hotspot",
+            "targets": [
+              {
+                "key": "target",
+                "prompt": "Señala",
+                "polygon": [
+                  {
+                    "x": 0,
+                    "y": 0
+                  },
+                  {
+                    "x": 1,
+                    "y": 0
+                  },
+                  {
+                    "x": 0,
+                    "y": 1
+                  }
+                ],
+                "label": ""
+              }
+            ],
+            "labels": [],
+            "correctLabelByTarget": {},
+            "accessibleAlternativeKey": "choice",
+            "masking": "no_labels"
+          }
+        },
+        {
+          "key": "sequence",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-sequence",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "sequence",
+          "payload": {
+            "items": [
+              {
+                "key": "one",
+                "text": "1"
+              },
+              {
+                "key": "two",
+                "text": "2"
+              },
+              {
+                "key": "three",
+                "text": "3"
+              }
+            ],
+            "acceptedOrders": [
+              [
+                "one",
+                "two",
+                "three"
+              ]
+            ],
+            "whyActivityKey": null
+          }
+        },
+        {
+          "key": "case",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "family-case",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Pregunta sintética",
+          "feedback": {
+            "explanation": "Explicación sintética",
+            "commonError": "",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "case",
+          "payload": {
+            "stages": [
+              {
+                "key": "first",
+                "narrative": "Etapa 1",
+                "childActivityKey": "choice"
+              },
+              {
+                "key": "second",
+                "narrative": "Etapa 2",
+                "childActivityKey": "short"
+              }
+            ]
+          }
+        },
+        {
+          "key": "actividad-1",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "learn",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "familia-1",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Consigna creada por HTTP study",
+          "feedback": {
+            "explanation": "Explicación trazable del ejemplo",
+            "commonError": "Confundir dos ejemplos",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "study",
+          "payload": {
+            "body": "Contenido sintético de estudio",
+            "focusSpans": [
+              {
+                "start": 0,
+                "end": 9
+              }
+            ],
+            "assetKey": null,
+            "scaffold": "explanation",
+            "videoRange": null
+          }
+        },
+        {
+          "key": "actividad-2",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "familia-2",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Consigna creada por HTTP single_choice",
+          "feedback": {
+            "explanation": "Explicación trazable del ejemplo",
+            "commonError": "Confundir dos ejemplos",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "single_choice",
+          "payload": {
+            "options": [
+              {
+                "key": "opcion-1",
+                "text": "Primera opción"
+              },
+              {
+                "key": "opcion-2",
+                "text": "Segunda opción"
+              }
+            ],
+            "correctKey": "opcion-1",
+            "distractorFeedback": {
+              "opcion-2": "La segunda opción no cumple el criterio"
+            }
+          }
+        },
+        {
+          "key": "actividad-3",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "familia-3",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Consigna creada por HTTP short_answer",
+          "feedback": {
+            "explanation": "Explicación trazable del ejemplo",
+            "commonError": "Confundir dos ejemplos",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "short_answer",
+          "payload": {
+            "acceptedAnswers": [
+              "sí",
+              "no es igual",
+              "5 mm"
+            ],
+            "maxChars": 500,
+            "modelAnswer": "sí",
+            "normalization": "nfkc-lower-space"
+          }
+        },
+        {
+          "key": "actividad-4",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "elaborate",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "familia-4",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Consigna creada por HTTP constructed_response",
+          "feedback": {
+            "explanation": "Explicación trazable del ejemplo",
+            "commonError": "Confundir dos ejemplos",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "constructed_response",
+          "payload": {
+            "rubric": [
+              {
+                "key": "criterio-1",
+                "criterion": "Comparar ejemplos",
+                "example": "Distinguir sus relaciones"
+              }
+            ],
+            "modelAnswer": "Modelo privado de comparación",
+            "verificationActivityKey": "choice"
+          }
+        },
+        {
+          "key": "actividad-5",
+          "objectiveKey": "objective",
+          "relatedObjectiveKeys": [],
+          "phase": "retrieve",
+          "required": true,
+          "sourceKeys": [
+            "source"
+          ],
+          "representation": "text",
+          "equivalenceKey": "familia-5",
+          "hints": [],
+          "use": "learning",
+          "prompt": "Consigna creada por HTTP card",
+          "feedback": {
+            "explanation": "Explicación trazable del ejemplo",
+            "commonError": "Confundir dos ejemplos",
+            "sourceKeys": [
+              "source"
+            ]
+          },
+          "misconceptionMappings": [],
+          "alternativeActivityKey": null,
+          "kind": "constructed_response",
+          "payload": {
+            "rubric": [
+              {
+                "key": "criterio-1",
+                "criterion": "Comparar ejemplos",
+                "example": "Distinguir sus relaciones"
+              }
+            ],
+            "modelAnswer": "Modelo privado de comparación",
+            "verificationActivityKey": "choice"
+          }
+        }
+      ],
+      "assessments": [
+        {
+          "key": "final",
+          "kind": "final",
+          "afterUnitKey": null,
+          "objectiveKeys": [
+            "objective"
+          ],
+          "candidateActivityKeys": [],
+          "thresholdPercent": 80,
+          "thresholdRationale": "Umbral sintético para comprobar la preservación de la configuración."
+        }
+      ],
+      "reviewPlan": {
+        "objectiveKeys": [
+          "objective"
+        ]
+      },
+      "editorial": {
+        "notes": "Borrador sintético. No acredita contenido clínico ni cobertura de publicación.",
+        "unresolvedIssues": []
+      }
+    },
+    "policyVersion": "guided-v2.0",
+    "schedulerVersion": "scheduler-v2.0",
+    "policySnapshot": {
+      "policyVersion": "guided-v2.0",
+      "schedulerVersion": "scheduler-v2.0",
+      "coverage": {
+        "requiredObjectiveItems": 5,
+        "minRecallItems": 2,
+        "minApplicationItems": 1,
+        "finalReserves": 1,
+        "retention7Reserves": 1,
+        "retention30Reserves": 1
+      },
+      "defaultGateThresholdPercent": 80,
+      "diagnostic": {
+        "minItems": 4,
+        "maxItems": 8
+      },
+      "mastery": {
+        "window": 5,
+        "minFamilies": 3,
+        "minRecallFamilies": 2,
+        "minApplications": 1,
+        "familyReuseHours": 24
+      },
+      "review": {
+        "intervalsDays": [
+          1,
+          3,
+          7,
+          14,
+          30
+        ],
+        "batchLimit": 10,
+        "retryMinutes": 10,
+        "immediateRetryLimit": 2
+      },
+      "retention": {
+        "firstDays": 7,
+        "secondDays": 30,
+        "minSeparationDays": 7
+      },
+      "checkpointItemLimit": 10,
+      "consecutiveFailuresBeforeSupport": 2,
+      "xp": {
+        "firstRecall": 5,
+        "firstMastery": 10,
+        "firstConsolidation": 15
+      }
+    },
+    "reviewedContentHash": null,
+    "approvedBy": null
+  }
+}

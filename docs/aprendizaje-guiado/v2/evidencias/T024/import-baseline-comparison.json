@@ -1,0 +1,7 @@
+{
+  "purpose": "Reproduce the import timeout with only the T024 catalogue method and its schema import removed; unchanged import test, migrations, assertions and 5000ms limit.",
+  "removedStart": 19278,
+  "removedEnd": 22162,
+  "removedOnlyCatalog": true,
+  "importTest": "apps/api/test/guided-v2-import.test.ts"
+}

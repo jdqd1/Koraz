@@ -18,6 +18,10 @@ const EnvironmentSchema = z
     DATABASE_MIGRATIONS_PATH: z.string().min(1).optional(),
   GUIDED_LEARNING_ENABLED: z.enum(["true", "false"]).default("false"),
   GUIDED_LEARNING_MAP_ENABLED: z.enum(["true", "false"]).default("false"),
+  GUIDED_LEARNING_V2_ENABLED: z.enum(["true", "false"]).default("false"),
+  GUIDED_LEARNING_V2_NEW_ENROLLMENTS: z.enum(["true", "false"]).default("false"),
+  GUIDED_LEARNING_V2_ALLOWLIST: z.string().default("").refine((value) => value.split(",").map((id) => id.trim()).filter(Boolean)
+    .every((id) => UuidSchema.safeParse(id).success), "GUIDED_LEARNING_V2_ALLOWLIST requires UUIDs"),
     HOST: z.string().min(1).default("0.0.0.0"),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     PORT: z.coerce.number().int().min(1).max(65_535).default(4000),
@@ -167,6 +171,9 @@ export type ApiEnvironment = {
   databaseUrl?: string;
   guidedLearningEnabled?: boolean;
   guidedLearningMapEnabled?: boolean;
+  guidedLearningV2Enabled?: boolean;
+  guidedLearningV2NewEnrollments?: boolean;
+  guidedLearningV2Allowlist?: ReadonlySet<string>;
   migrationsEnabled?: boolean;
   migrationsPath?: string;
   HOST: string;
@@ -258,6 +265,9 @@ export function readEnvironment(source: NodeJS.ProcessEnv = process.env): ApiEnv
     contentStorage,
     databaseUrl: environment.DATABASE_URL,
     guidedLearningEnabled: environment.GUIDED_LEARNING_ENABLED === "true",
+    guidedLearningV2Enabled: environment.GUIDED_LEARNING_ENABLED === "true" && environment.GUIDED_LEARNING_V2_ENABLED === "true",
+    guidedLearningV2NewEnrollments: environment.GUIDED_LEARNING_V2_NEW_ENROLLMENTS === "true",
+    guidedLearningV2Allowlist: new Set(environment.GUIDED_LEARNING_V2_ALLOWLIST.split(",").map((id) => id.trim()).filter((id) => UuidSchema.safeParse(id).success)),
     guidedLearningMapEnabled: environment.GUIDED_LEARNING_ENABLED === "true" && environment.GUIDED_LEARNING_MAP_ENABLED === "true",
     HOST: environment.HOST,
     NODE_ENV: environment.NODE_ENV,

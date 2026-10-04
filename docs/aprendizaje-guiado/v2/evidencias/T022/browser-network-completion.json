@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "identity": "synthetic local test adapter",
+  "server": "real production Next build",
+  "ssrBoundary": "Current v1 session renderer rejects v2 attempts; v2 renderer belongs to T028-T033",
+  "htmlBytes": 51602,
+  "captured": [
+    {
+      "url": "/api/v2/guided-learning/attempts/5c6ee446-0990-4c2a-8098-e778d0e830ef",
+      "status": 200,
+      "cache": "private, no-store",
+      "body": "{\"attempt\":{\"engineVersion\":\"guided-v2\",\"attemptId\":\"5c6ee446-0990-4c2a-8098-e778d0e830ef\",\"enrollmentId\":\"71000000-0000-4000-8000-000000000008\",\"pathVersionId\":\"71000000-0000-4000-8000-000000000006\",\"policyVersion\":\"guided-v2.0\",\"purpose\":\"activity\",\"rowVersion\":1,\"status\":\"open\",\"activeActivity\":{\"key\":\"a\",\"objectiveKey\":\"core\",\"phase\":\"retrieve\",\"representation\":\"text\",\"prompt\":\"Pregunta\",\"kind\":\"single_choice\",\"payload\":{\"options\":[{\"key\":\"yes\",\"text\":\"Sí\"},{\"key\":\"no\",\"text\":\"No\"}]}},\"acceptedResponses\":[]}}"
+    },
+    {
+      "url": "/api/v2/guided-learning/paths/http-route",
+      "status": 200,
+      "cache": "private, no-store",
+      "body": "{\"path\":{\"engineVersion\":\"guided-v2\",\"policyVersion\":\"guided-v2.0\",\"pathId\":\"71000000-0000-4000-8000-000000000004\",\"pathVersionId\":\"71000000-0000-4000-8000-000000000006\",\"slug\":\"http-route\",\"title\":\"Versión fijada\",\"summary\":\"Fixture\",\"coverKey\":\"heart\",\"topicLabel\":\"Tema\",\"access\":\"enrolled\",\"enrollmentId\":\"71000000-0000-4000-8000-000000000008\",\"units\":[{\"key\":\"unit\",\"title\":\"Unidad\",\"objectives\":[{\"key\":\"core\",\"title\":\"Objetivo\",\"criticality\":\"core\"}]}]}}"
+    },
+    {
+      "url": "/api/v2/guided-learning/paths",
+      "status": 200,
+      "cache": "private, no-store",
+      "body": "{\"items\":[{\"engineVersion\":\"guided-v2\",\"policyVersion\":\"guided-v2.0\",\"id\":\"71000000-0000-4000-8000-000000000004\",\"pathVersionId\":\"71000000-0000-4000-8000-000000000006\",\"enrollmentId\":\"71000000-0000-4000-8000-000000000008\",\"slug\":\"http-route\",\"title\":\"Versión fijada\",\"summary\":\"Fixture\",\"coverKey\":\"heart\",\"topicLabel\":\"Tema\",\"unitCount\":1,\"completed\":false,\"mastered\":false,\"consolidated\":false}],\"nextCursor\":null}"
+    },
+    {
+      "url": "/api/v2/guided-learning/home",
+      "status": 200,
+      "cache": "private, no-store",
+      "body": "{\"engineVersion\":\"guided-v2\",\"generatedAt\":\"2026-09-30T03:39:49.791Z\",\"activePath\":{\"engineVersion\":\"guided-v2\",\"policyVersion\":\"guided-v2.0\",\"id\":\"71000000-0000-4000-8000-000000000004\",\"pathVersionId\":\"71000000-0000-4000-8000-000000000006\",\"enrollmentId\":\"71000000-0000-4000-8000-000000000008\",\"slug\":\"http-route\",\"title\":\"Versión fijada\",\"summary\":\"Fixture\",\"coverKey\":\"heart\",\"topicLabel\":\"Tema\",\"unitCount\":1,\"completed\":false,\"mastered\":false,\"consolidated\":false},\"dueReviews\":0,\"nextAction\":{\"kind\":\"resume\",\"key\":\"5c6ee446-0990-4c2a-8098-e778d0e830ef\",\"reason\":\"Reanudar el intento abierto\"}}"
+    }
+  ]
+}

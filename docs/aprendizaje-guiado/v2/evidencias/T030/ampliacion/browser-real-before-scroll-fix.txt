@@ -1,0 +1,65 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   {
++     description: 'Ensure elements that have scrollable content are accessible by keyboard in Safari',
++     help: 'Scrollable region must have keyboard access',
++     helpUrl: 'https://dequeuniversity.com/rules/axe/4.13/scrollable-region-focusable?application=playwright',
++     id: 'scrollable-region-focusable',
++     impact: 'serious',
++     nodes: [
++       {
++         all: [],
++         any: [
++           {
++             data: null,
++             id: 'focusable-content',
++             impact: 'serious',
++             message: 'Element should have focusable content',
++             relatedNodes: []
++           },
++           {
++             data: null,
++             id: 'focusable-element',
++             impact: 'serious',
++             message: 'Element should be focusable',
++             relatedNodes: []
++           }
++         ],
++         failureSummary: 'Fix any of the following:\n' +
++           '  Element should have focusable content\n' +
++           '  Element should be focusable',
++         html: '<div class="visual_viewport__pSvne">',
++         impact: 'serious',
++         none: [],
++         target: [
++           '.visual_viewport__pSvne'
++         ]
++       }
++     ],
++     tags: [
++       'cat.keyboard',
++       'wcag2a',
++       'wcag211',
++       'wcag213',
++       'TTv5',
++       'TT4.a',
++       'EN-301-549',
++       'EN-9.2.1.1',
++       'EN-9.2.1.3',
++       'RGAAv4',
++       'RGAA-7.3.2'
++     ]
++   }
++ ]
+- []
+
+    at main (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T030\ampliacion\browser-real.cjs:48:106) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

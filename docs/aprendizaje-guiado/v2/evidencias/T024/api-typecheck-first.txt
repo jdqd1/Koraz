@@ -1,0 +1,8 @@
+$ tsc --noEmit
+test/guided-v2-source-catalog.test.ts(14,32): error TS2322: Type '"creator"' is not assignable to type '"student" | "content_creator" | "coordinator" | "administrator"'.
+test/guided-v2-source-catalog.test.ts(33,198): error TS2352: Conversion of type '{ getRoles: () => Promise<("student" | "content_creator" | "coordinator" | "administrator")[]>; }' to type 'ContentProvider' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ getRoles: () => Promise<("student" | "content_creator" | "coordinator" | "administrator")[]>; }' is missing the following properties from type 'ContentProvider': createAssetUpload, createContent, deleteContent, deleteAsset, and 6 more.
+test/guided-v2-source-catalog.test.ts(59,14): error TS2322: Type '"creator"' is not assignable to type '"student" | "content_creator" | "coordinator" | "administrator"'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

@@ -1,0 +1,1 @@
+export default { resolve: { alias: [{ find: '../src/providers/postgres-guided-learning-v2.js', replacement: "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T024/provider-before-catalog.ts" }] }, test: { include: ['apps/api/test/guided-v2-import.test.ts'], maxWorkers: 1 } };

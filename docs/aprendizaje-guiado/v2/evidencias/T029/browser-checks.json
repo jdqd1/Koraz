@@ -1,0 +1,179 @@
+{
+  "scope": "Typed HTTP mocks in local Next; no authenticated API persistence",
+  "checks": [
+    "Study focus optional; acknowledgment advances only after receipt; prior explanation and feedback absent from recall DOM; heading receives focus",
+    "E03 typed mocks: hint/source registered server-side; wrong answer, critical reinforcement, explanation, common error and consulted source appear only after receipt; no mastery claim",
+    "Explicit complete receipt; refresh recovers completed attempt and server accepted history",
+    "Commit then lost response: no optimistic success, refresh recovers pending request, exact key/body replay, one effect",
+    "Short answer sends original text/max length; delayed server receipt is required for success",
+    "Constructed ordered text → server save → explicit reveal → self-report; same submitted text and null score; no model before response",
+    "409 displays reload action and leaves confirmed progress unchanged",
+    "Four required viewports: no page horizontal overflow/control clipping; axe serious/critical 0 in tested short-answer states",
+    "CSS zoom 200% exploratory visibility (not native browser zoom)",
+    "Keyboard text input, Tab/Enter submit and feedback heading focus"
+  ],
+  "responsive": [
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "width": 360,
+      "scroll": 360,
+      "controls": [
+        {
+          "text": "",
+          "rect": {
+            "left": 49,
+            "right": 311
+          }
+        },
+        {
+          "text": "Comprobar respuesta",
+          "rect": {
+            "left": 49,
+            "right": 311
+          }
+        },
+        {
+          "text": "Necesito ayuda",
+          "rect": {
+            "left": 28,
+            "right": 177.703125
+          }
+        },
+        {
+          "text": "Consultar fuente con ayuda",
+          "rect": {
+            "left": 28,
+            "right": 262.59375
+          }
+        }
+      ],
+      "axeViolations": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "width": 390,
+      "scroll": 390,
+      "controls": [
+        {
+          "text": "",
+          "rect": {
+            "left": 49,
+            "right": 341
+          }
+        },
+        {
+          "text": "Comprobar respuesta",
+          "rect": {
+            "left": 49,
+            "right": 341
+          }
+        },
+        {
+          "text": "Necesito ayuda",
+          "rect": {
+            "left": 28,
+            "right": 177.703125
+          }
+        },
+        {
+          "text": "Consultar fuente con ayuda",
+          "rect": {
+            "left": 28,
+            "right": 262.59375
+          }
+        }
+      ],
+      "axeViolations": []
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "width": 768,
+      "scroll": 768,
+      "controls": [
+        {
+          "text": "",
+          "rect": {
+            "left": 95.3125,
+            "right": 672.6875
+          }
+        },
+        {
+          "text": "Comprobar respuesta",
+          "rect": {
+            "left": 476.828125,
+            "right": 672.6875
+          }
+        },
+        {
+          "text": "Necesito ayuda",
+          "rect": {
+            "left": 56.3125,
+            "right": 206.015625
+          }
+        },
+        {
+          "text": "Consultar fuente con ayuda",
+          "rect": {
+            "left": 218.015625,
+            "right": 452.609375
+          }
+        }
+      ],
+      "axeViolations": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "width": 1440,
+      "scroll": 1440,
+      "controls": [
+        {
+          "text": "",
+          "rect": {
+            "left": 368,
+            "right": 1134
+          }
+        },
+        {
+          "text": "Comprobar respuesta",
+          "rect": {
+            "left": 938.140625,
+            "right": 1134
+          }
+        },
+        {
+          "text": "Necesito ayuda",
+          "rect": {
+            "left": 329,
+            "right": 478.703125
+          }
+        },
+        {
+          "text": "Consultar fuente con ayuda",
+          "rect": {
+            "left": 490.703125,
+            "right": 725.296875
+          }
+        }
+      ],
+      "axeViolations": []
+    }
+  ],
+  "limitations": [
+    "Post-answer source missing for unassisted answer: help API accepts active key only; client does not invent source",
+    "Constructed intermediate stage not recoverable from public manifest on refresh; server retains text but public manifest exposes neither text nor reveal state/rubric"
+  ],
+  "errors": [],
+  "finishedAt": "2026-10-04T01:42:18.070Z"
+}

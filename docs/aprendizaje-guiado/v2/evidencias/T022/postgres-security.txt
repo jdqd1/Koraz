@@ -1,0 +1,79 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t022-eaaaa5b6d1e24790b5ae8fe2701b5c23 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t022^-eaaaa5b6d1e24790b5ae8fe2701b5c23^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 32ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 86ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 3ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 13ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 45ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 11ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 164ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 1605ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 20ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 26ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 4ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 1ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges 903ms
+ ✓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers 149ms
+ × test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > concurrent HTTP requests share a durable 120/minute budget under runtime permissions 15ms
+   → {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > concurrent HTTP requests share a durable 120/minute budget under runtime permissions
+AssertionError: {"error":"learning_unavailable"}: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ test/guided-v2-security.test.ts:290:48
+    288|       const created = await app.inject({ method: "POST", url: "/v2/gui…
+    289|         payload: { clientAttemptId: v2Id(90001), enrollmentId: v2Id(8)…
+    290|       expect(created.statusCode, created.body).toBe(200);
+       |                                                ^
+    291|       const attemptId = created.json().attempt.attemptId;
+    292|       const payload = { activityKey: "learn", answer: { kind: "study",…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  22:13:39
+   Duration  10.21s (transform 904ms, setup 0ms, import 2.68s, tests 7.22s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts "--reporter=verbose"
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t022-eaaaa5b6d1e24790b5ae8fe2701b5c23

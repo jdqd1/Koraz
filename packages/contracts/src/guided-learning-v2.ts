@@ -4,6 +4,7 @@ import {
   RouteActivitySchema,
   RouteKeySchema,
   RoutePackageSchema,
+  RouteSourceSchema,
   type RouteActivity,
 } from "./learning-route-package.js";
 
@@ -34,6 +35,16 @@ export const V2BindingsSchema = z.strictObject({
   topicContentId: Id,
   sources: z.array(z.strictObject({ key: RouteKeySchema, sourceContentId: Id.nullable(), resourceRevisionId: Id.nullable() })),
   assets: z.array(z.strictObject({ key: RouteKeySchema, assetId: Id })),
+});
+
+/** Editorial metadata only. A null revision cannot be used as a source binding. */
+export const V2EditorSourceCatalogSchema = z.strictObject({
+  topics: z.array(z.strictObject({ id: Id, title: z.string().min(1).max(500) })).max(500),
+  items: z.array(z.strictObject({
+    sourceContentId: Id, title: z.string().min(1).max(500), sourceVersion: Version,
+    revision: z.strictObject({ resourceRevisionId: Id, revisionNumber: Version, documentSha256: Hash }).nullable(),
+  })).max(100),
+  nextCursor: Id.nullable(),
 });
 
 export const V2PolicySnapshotSchema = z.strictObject({
@@ -96,7 +107,7 @@ const PublicChoice = PublicBase.extend({ kind: z.literal("single_choice"), paylo
 const PublicShort = PublicBase.extend({ kind: z.literal("short_answer"), payload: z.strictObject({ maxChars: z.number().int().positive() }) }).strict();
 const PublicConstructed = PublicBase.extend({ kind: z.literal("constructed_response"), payload: z.strictObject({ maxChars: z.literal(4000) }) }).strict();
 const PublicMatch = PublicBase.extend({ kind: z.literal("match"), payload: z.strictObject({ presentation: z.enum(["pairs", "comparison_table", "causal_map"]), prompts: z.array(z.strictObject({ key: RouteKeySchema, text: z.string() })), choices: z.array(z.strictObject({ key: RouteKeySchema, text: z.string() })), allowReuse: z.boolean() }) }).strict();
-const PublicImage = PublicBase.extend({ kind: z.literal("image_target"), payload: z.strictObject({ assetKey: RouteKeySchema, mode: z.enum(["hotspot", "labeling"]), targets: z.array(z.strictObject({ key: RouteKeySchema, prompt: z.string(), marker: z.strictObject({ x: z.number(), y: z.number() }) })), labels: z.array(z.strictObject({ key: RouteKeySchema, text: z.string() })), masking: z.enum(["all_labels", "partial_labels", "no_labels"]) }) }).strict();
+const PublicImage = PublicBase.extend({ kind: z.literal("image_target"), payload: z.strictObject({ assetKey: RouteKeySchema, mode: z.enum(["hotspot", "labeling"]), targets: z.array(z.strictObject({ key: RouteKeySchema, prompt: z.string(), marker: z.strictObject({ x: z.number(), y: z.number() }).nullable() })), labels: z.array(z.strictObject({ key: RouteKeySchema, text: z.string() })), masking: z.enum(["all_labels", "partial_labels", "no_labels"]), accessibleAlternativeKey: RouteKeySchema.nullable().optional() }) }).strict();
 const PublicSequence = PublicBase.extend({ kind: z.literal("sequence"), payload: z.strictObject({ items: z.array(z.strictObject({ key: RouteKeySchema, text: z.string() })) }) }).strict();
 const PublicCase = PublicBase.extend({ kind: z.literal("case"), payload: z.strictObject({ activeStage: z.strictObject({ key: RouteKeySchema, narrative: z.string(), childActivityKey: RouteKeySchema }) }) }).strict();
 export const V2PublicActivitySchema = z.discriminatedUnion("kind", [PublicStudy, PublicChoice, PublicShort, PublicConstructed, PublicMatch, PublicImage, PublicSequence, PublicCase]);
@@ -124,10 +135,10 @@ export function toV2PublicActivity(activity: RouteActivity, activeStageIndex = 0
       const { assetKey, mode, targets, labels, masking } = activity.payload;
       return { ...base, kind: "image_target", payload: {
         assetKey, mode,
-        targets: mode === "labeling" ? targets.map(({ key, prompt, polygon }) => ({ key, prompt, marker: {
+        targets: targets.map(({ key, prompt, polygon }) => ({ key, prompt: mode === "labeling" ? prompt : activity.prompt, marker: mode === "labeling" ? {
           x: polygon.reduce((sum, point) => sum + point.x, 0) / polygon.length,
           y: polygon.reduce((sum, point) => sum + point.y, 0) / polygon.length,
-        } })) : [],
+        } : null })),
         labels: mode === "labeling" ? labels.map(({ key, text }) => ({ key, text })) : [],
         masking,
       } };
@@ -200,13 +211,42 @@ export const V2RouteStateSchema = z.strictObject({
   nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1) }),
 });
 
+/** Authorized feedback excerpt only; no bindings, editorial flags or resource payloads. */
+export const V2FeedbackSourceSchema = RouteSourceSchema.pick({ key: true, title: true, citation: true, locator: true, excerpt: true, url: true }).strict();
+export type V2FeedbackSource = z.infer<typeof V2FeedbackSourceSchema>;
+export const V2FeedbackSchema = z.strictObject({
+  explanation: z.string(), commonError: z.string(),
+  // Additive transport fields allow historical receipts and existing v2 clients.
+  sources: z.array(V2FeedbackSourceSchema).max(200).optional(),
+  partialScore01: z.number().min(0).max(1).optional(),
+});
+const ConstructedResumeBase = { activityKey: RouteKeySchema, text: z.string().min(1).max(4000) };
+export const V2ConstructedResumeSchema = z.discriminatedUnion("stage", [
+  z.strictObject({ ...ConstructedResumeBase, stage: z.literal("submitted") }),
+  z.strictObject({ ...ConstructedResumeBase, stage: z.literal("revealed"), modelAnswer: z.string(),
+    rubric: z.array(z.strictObject({ key: RouteKeySchema, criterion: z.string(), example: z.string() })).min(1).max(8) }),
+]);
+
 export const V2AttemptManifestSchema = z.strictObject({
   engineVersion: V2EngineVersionSchema, attemptId: V2AttemptIdSchema, enrollmentId: V2EnrollmentIdSchema,
   pathVersionId: V2PathVersionIdSchema, policyVersion: V2PolicyVersionSchema,
   purpose: z.enum(["activity", "assessment", "review"]), rowVersion: Version,
   status: z.enum(["open", "completed", "abandoned", "paused"]),
   activeActivity: V2PublicActivitySchema.nullable(),
-  acceptedResponses: z.array(z.strictObject({ activityKey: RouteKeySchema, answer: V2AnswerSchema, serverAcceptedAt: Timestamp, score01: z.number().min(0).max(1).nullable(), feedback: z.strictObject({ explanation: z.string(), commonError: z.string() }) })),
+  constructedResponse: V2ConstructedResumeSchema.nullable().optional(),
+  accessiblePractice: z.strictObject({ sourceActivityKey: RouteKeySchema }).nullable().optional(),
+  acceptedResponses: z.array(z.strictObject({ activityKey: RouteKeySchema, answer: V2AnswerSchema, serverAcceptedAt: Timestamp, score01: z.number().min(0).max(1).nullable(), feedback: V2FeedbackSchema })),
+}).superRefine((value, context) => {
+  if (value.accessiblePractice && (value.status !== "open" || !value.activeActivity
+    || value.activeActivity.key === value.accessiblePractice.sourceActivityKey
+    || !["text", "table"].includes(value.activeActivity.representation) || ["image_target", "case", "study"].includes(value.activeActivity.kind))) {
+    context.addIssue({ code: "custom", path: ["accessiblePractice"], message: "La variante formativa debe ser la actividad accesible activa." });
+  }
+  const pending = value.constructedResponse;
+  if (pending && (value.status !== "open" || value.activeActivity?.kind !== "constructed_response"
+    || value.activeActivity.key !== pending.activityKey || value.acceptedResponses.some(item => item.activityKey === pending.activityKey))) {
+    context.addIssue({ code: "custom", path: ["constructedResponse"], message: "La comparación debe pertenecer a la respuesta activa pendiente." });
+  }
 });
 
 export const V2MetricsSchema = z.strictObject({
@@ -262,6 +302,8 @@ const BoundResponse = z.strictObject({ route: V2BoundRouteDefinitionSchema });
 const DraftResponse = z.strictObject({ pathId: V2PathIdSchema, pathVersionId: V2PathVersionIdSchema, editVersion: Version, status: z.literal("draft") });
 const IssuesResponse = z.strictObject({ issues: z.array(V2IssueSchema), validatedEditVersion: Version.nullable(), ready: z.boolean() });
 const AttemptResponse = z.strictObject({ attempt: V2AttemptManifestSchema });
+export const V2ImageResourceSchema = z.strictObject({ activityKey: RouteKeySchema, attemptVersion: Version,
+  image: z.strictObject({ assetKey: RouteKeySchema, url: z.url().refine(value => new URL(value).protocol === "https:"), alt: z.string(), expiresAt: Timestamp }) });
 const PreviewResponse = z.strictObject({ previewId: Id, activeActivity: V2PublicActivitySchema.nullable(), issues: z.array(V2IssueSchema), expiresAt: Timestamp });
 const StateResponse = z.strictObject({ state: V2RouteStateSchema });
 const Ack = z.strictObject({ accepted: z.boolean(), rowVersion: Version });
@@ -281,6 +323,7 @@ const route = <M extends "GET" | "POST" | "PATCH", P extends z.ZodType, Q extend
 
 /** One entry per HTTP route in §8.10; request parts and response remain separately typed. */
 export const V2HttpContracts = {
+  editorSourceCatalog: route("GET", "/v2/editor/learning-paths/source-catalog", Empty, z.strictObject({ q: z.string().max(120).optional(), cursor: Id.optional(), limit: z.coerce.number().int().min(1).max(100).default(24) }), Empty, V2EditorSourceCatalogSchema),
   importValidate: route("POST", "/v2/editor/learning-paths/imports/validate", Empty, Empty, PackageAndBindings.extend({ targetPathId: V2PathIdSchema.nullable(), expectedVersion: NullableVersion }).strict(), z.strictObject({ importId: V2ImportIdSchema, hash: Hash, expiresAt: Timestamp, issues: z.array(V2IssueSchema), diff: z.array(z.strictObject({ path: z.string(), before: z.unknown(), after: z.unknown() })), readyToImport: z.boolean() })),
   importCommit: route("POST", "/v2/editor/learning-paths/imports/:id/commit", ImportParams, Empty, z.strictObject({ hash: Hash, expectedVersion: NullableVersion }), DraftResponse),
   editorCreate: route("POST", "/v2/editor/learning-paths", Empty, Empty, PackageAndBindings, DraftResponse),
@@ -296,8 +339,10 @@ export const V2HttpContracts = {
   enrollmentState: route("GET", "/v2/guided-learning/enrollments/:id/state", EnrollmentParams, Empty, Empty, StateResponse),
   attemptCreate: route("POST", "/v2/guided-learning/attempts", Empty, Empty, z.strictObject({ clientAttemptId: Id, enrollmentId: V2EnrollmentIdSchema, target: z.strictObject({ kind: z.enum(["activity", "assessment", "review"]), key: RouteKeySchema }), expectedEnrollmentVersion: Version }), AttemptResponse),
   attemptGet: route("GET", "/v2/guided-learning/attempts/:id", AttemptParams, Empty, Empty, AttemptResponse),
+  attemptImage: route("GET", "/v2/guided-learning/attempts/:id/image", AttemptParams, z.strictObject({ activityKey: RouteKeySchema, expectedVersion: z.coerce.number().int().positive() }), Empty, V2ImageResourceSchema),
+  attemptAlternative: route("POST", "/v2/guided-learning/attempts/:id/alternative", AttemptParams, Empty, z.strictObject({ activityKey: RouteKeySchema, expectedVersion: Version }), AttemptResponse.extend({ state: V2RouteStateSchema })),
   attemptHelp: route("POST", "/v2/guided-learning/attempts/:id/help", AttemptParams, Empty, z.strictObject({ activityKey: RouteKeySchema, kind: z.enum(["hint", "source", "reveal"]), expectedVersion: Version }), z.strictObject({ help: z.strictObject({ kind: z.enum(["hint", "source", "reveal"]), text: z.string() }), attempt: V2AttemptManifestSchema })),
-  attemptResponse: route("POST", "/v2/guided-learning/attempts/:id/responses", AttemptParams, Empty, z.strictObject({ activityKey: RouteKeySchema, answer: V2AnswerSchema, confidence: z.enum(["sure", "unsure", "guessed"]).nullable(), expectedVersion: Version }), z.strictObject({ accepted: z.boolean(), feedback: z.strictObject({ explanation: z.string(), commonError: z.string(), score01: z.number().min(0).max(1).nullable() }), nextStep: V2PublicActivitySchema.nullable(), attempt: V2AttemptManifestSchema, state: V2RouteStateSchema })),
+  attemptResponse: route("POST", "/v2/guided-learning/attempts/:id/responses", AttemptParams, Empty, z.strictObject({ activityKey: RouteKeySchema, answer: V2AnswerSchema, confidence: z.enum(["sure", "unsure", "guessed"]).nullable(), expectedVersion: Version }), z.strictObject({ accepted: z.boolean(), feedback: V2FeedbackSchema.extend({ score01: z.number().min(0).max(1).nullable() }), nextStep: V2PublicActivitySchema.nullable(), attempt: V2AttemptManifestSchema, state: V2RouteStateSchema })),
   attemptComplete: route("POST", "/v2/guided-learning/attempts/:id/complete", AttemptParams, Empty, ExpectedVersion, z.strictObject({ attempt: V2AttemptManifestSchema, state: V2RouteStateSchema })),
   attemptHeartbeat: route("POST", "/v2/guided-learning/attempts/:id/heartbeat", AttemptParams, Empty, z.strictObject({ clientEventId: Id, visible: z.boolean(), interactionAgeMs: z.number().int().nonnegative().max(600000) }), Ack),
   convertV1: route("POST", "/v2/editor/learning-paths/:id/convert-v1", PathParams, Empty, ExpectedVersion, z.strictObject({ draft: DraftResponse, issues: z.array(V2IssueSchema) })),

@@ -1,6 +1,6 @@
-import { V2AttemptManifestSchema, toV2PublicActivity, type RouteActivity, type V2AttemptManifest, type V2PublicActivity } from "@cediah/contracts";
+import { V2AttemptManifestSchema, toV2PublicActivity, type RouteActivity, type RoutePackage, type V2FeedbackSource, type V2AttemptManifest, type V2PublicActivity } from "@cediah/contracts";
 import { validateCaseStage, type CaseStageState } from "./grading.js";
-import type { GuidedV2AttemptResume, GuidedV2AttemptSnapshot } from "./service.js";
+import { accessibleVariant, activeGuidedV2ActivityKey, type GuidedV2AttemptResume, type GuidedV2AttemptSnapshot } from "./service.js";
 import { assessmentCoverageV2, type AssessmentPlanV2 } from "./assessments.js";
 
 type CaseActivity = Extract<RouteActivity, { kind: "case" }>;
@@ -28,7 +28,16 @@ export type GuidedV2ManifestResponse = {
   score01: number | null;
   explanation: string;
   commonError: string;
+  partialScore01?: number;
 };
+
+/** Call only for authorized correction: explicit allowlist from the frozen version. */
+export function guidedV2FeedbackSources(activities: readonly RouteActivity[], sources: RoutePackage["sources"], activityKey: string): V2FeedbackSource[] {
+  const keys = new Set(activities.find(item => item.key === activityKey)?.feedback.sourceKeys ?? []);
+  return sources.filter(source => keys.has(source.key)).map(({ key, title, citation, locator, excerpt, url }) => ({
+    key, title, citation, locator: { ...locator, sectionPath: [...locator.sectionPath] }, excerpt, url,
+  }));
+}
 
 /** Construct only allowlisted public fields from the private snapshot. */
 export function guidedV2AttemptManifest(input: {
@@ -37,13 +46,18 @@ export function guidedV2AttemptManifest(input: {
   rowVersion: number; status: "in_progress" | "paused" | "completed" | "abandoned";
   snapshot: GuidedV2AttemptSnapshot; resume: GuidedV2AttemptResume;
   responses: readonly GuidedV2ManifestResponse[];
+  sources?: RoutePackage["sources"];
 }): V2AttemptManifest {
-  const activeKey = input.snapshot.orderedKeys[input.resume.activeIndex];
+  const activeKey = activeGuidedV2ActivityKey(input.snapshot, input.resume);
   const activity = activeKey ? input.snapshot.activities.find((item) => item.key === activeKey) : undefined;
   const reserved = (key: string) => input.snapshot.activities.some((item) => item.key === key
     && ["final", "retention7", "retention30"].includes(item.use));
   const deferred = input.purpose === "assessment" && input.snapshot.orderedKeys.some(reserved) && input.status !== "completed";
   let activeActivity = activity && (input.purpose === "assessment" || !reserved(activity.key)) ? toV2PublicActivity(activity) : null;
+  if (activeActivity?.kind === "image_target") {
+    const variant = accessibleVariant(input.snapshot, activeActivity.key);
+    activeActivity.payload.accessibleAlternativeKey = variant && !input.responses.some(item => item.activityKey === variant.key) ? variant.key : null;
+  }
   if (activeActivity) {
     const wrapper = input.snapshot.activities.find((item) => item.kind === "case"
       && item.payload.stages.some((stage) => stage.childActivityKey === activeActivity?.key));
@@ -58,10 +72,21 @@ export function guidedV2AttemptManifest(input: {
     rowVersion: input.rowVersion,
     status: input.status === "in_progress" ? "open" : input.status,
     activeActivity: input.status === "in_progress" ? activeActivity : null,
+    accessiblePractice: input.status === "in_progress" && input.resume.accessiblePractice
+      ? { sourceActivityKey: input.resume.accessiblePractice.sourceActivityKey } : null,
+    constructedResponse: input.status === "in_progress" && activeActivity?.kind === "constructed_response"
+      && activity?.kind === "constructed_response" && input.resume.submittedTextByActivity[activity.key]?.trim()
+      ? input.resume.revealedKeys.includes(activity.key) && input.purpose !== "assessment"
+        ? { activityKey: activity.key, stage: "revealed", text: input.resume.submittedTextByActivity[activity.key],
+          modelAnswer: activity.payload.modelAnswer, rubric: activity.payload.rubric.map(item => ({ ...item })) }
+        : { activityKey: activity.key, stage: "submitted", text: input.resume.submittedTextByActivity[activity.key] }
+      : null,
     acceptedResponses: input.responses.filter((item) => input.purpose === "assessment" || !reserved(item.activityKey)).map((item) => ({
       activityKey: item.activityKey, answer: item.answer, serverAcceptedAt: item.acceptedAt.toISOString(),
       score01: deferred ? null : item.score01,
-      feedback: { explanation: deferred ? "" : item.explanation, commonError: deferred ? "" : item.commonError },
+      feedback: { explanation: deferred ? "" : item.explanation, commonError: deferred ? "" : item.commonError,
+        ...(!deferred && input.purpose !== "assessment" && item.partialScore01 !== undefined ? { partialScore01: item.partialScore01 } : {}),
+        sources: deferred ? [] : guidedV2FeedbackSources(input.snapshot.activities, input.sources ?? [], item.activityKey) },
     })),
   });
 }

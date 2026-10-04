@@ -38,6 +38,13 @@ export function parentMapRoute(r: MapRoute): MapRoute {
       : ROOT_MAP_ROUTE;
 }
 export function mapNavigationHref(href: string) {
+  if (typeof window !== "undefined" && window.location.pathname === "/visual-fixtures/aprendizaje-v2") {
+    const query = new URLSearchParams(href.split("?")[1]);
+    query.set("surface", "map");
+    const mode = new URLSearchParams(window.location.search).get("estado");
+    if (mode) query.set("estado", mode);
+    return `/visual-fixtures/aprendizaje-v2?${query}`;
+  }
   if (
     typeof window === "undefined" ||
     window.location.pathname !== "/visual-fixtures/mapa"

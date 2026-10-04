@@ -9,6 +9,7 @@ import {
   V2HttpContracts,
   V2IdSchemas,
   V2AttemptManifestSchema,
+  V2FeedbackSourceSchema,
   V2PersistedResponseSchema,
   V2PublicActivitySchema,
   V2PublicPathSchema,
@@ -30,6 +31,21 @@ const activity = (kind: string, payload: unknown) => RouteActivitySchema.parse({
 const secret = "PRIVATE_SOLUTION_SENTINEL";
 
 describe("guided v2 contracts", () => {
+  it("T029 keeps resume stages strict, ties them to the active activity and allowlists feedback sources", () => {
+    const active = toV2PublicActivity(activity("constructed_response", { rubric: [{ key: "reason", criterion: "Critério", example: "Ejemplo" }], modelAnswer: secret, verificationActivityKey: null }));
+    const manifest = { engineVersion: "guided-v2", attemptId: uuid(4), enrollmentId: uuid(5), pathVersionId: uuid(2), policyVersion: "guided-v2.0", purpose: "activity", rowVersion: 2, status: "open", activeActivity: active, acceptedResponses: [] };
+    const submitted = { activityKey: active.key, stage: "submitted", text: "Mi respuesta" };
+    expect(V2AttemptManifestSchema.safeParse({ ...manifest, constructedResponse: submitted }).success).toBe(true);
+    for (const constructedResponse of [{ ...submitted, modelAnswer: secret }, { ...submitted, rubric: [] }, { ...submitted, activityKey: "foreign" }]) {
+      expect(V2AttemptManifestSchema.safeParse({ ...manifest, constructedResponse }).success).toBe(false);
+    }
+    expect(V2AttemptManifestSchema.safeParse({ ...manifest, status: "completed", activeActivity: null, constructedResponse: submitted }).success).toBe(false);
+    const source = { key: "source", title: "Referencia", citation: "Referencia sintética", locator: { heading: "Sección", sectionPath: [], page: 1 }, excerpt: "Fragmento autorizado", url: "https://example.test/source" };
+    expect(V2FeedbackSourceSchema.parse(source)).toEqual(source);
+    expect(V2FeedbackSourceSchema.safeParse({ ...source, url: "file:///private" }).success).toBe(false);
+    expect(V2FeedbackSourceSchema.safeParse({ ...source, bindings: {} }).success).toBe(false);
+    expect(V2HttpContracts.attemptResponse.body.safeParse({ activityKey: active.key, answer: { kind: "constructed_response", text: "Mi respuesta", selfRating: null }, confidence: null, expectedVersion: 1, constructedResponse: { ...submitted, stage: "revealed" } }).success).toBe(false);
+  });
   it("projects each activity with an explicit allowlist", () => {
     const variants = [
       activity("study", { body: "Texto", focusSpans: [{ start: 0, end: 5 }], assetKey: null, scaffold: "explanation", videoRange: null }),
@@ -100,7 +116,10 @@ describe("guided v2 contracts", () => {
   });
 
   it("types all §8.10 routes and rejects client supplied scoring fields", () => {
-    expect(Object.keys(V2HttpContracts)).toHaveLength(23);
+    expect(Object.keys(V2HttpContracts)).toHaveLength(26);
+    expect(V2HttpContracts.attemptImage).toMatchObject({ method: "GET", path: "/v2/guided-learning/attempts/:id/image" });
+    expect(V2HttpContracts.attemptAlternative).toMatchObject({ method: "POST", path: "/v2/guided-learning/attempts/:id/alternative" });
+    expect(V2HttpContracts.editorSourceCatalog).toMatchObject({ method: "GET", path: "/v2/editor/learning-paths/source-catalog" });
     for (const contract of Object.values(V2HttpContracts)) {
       expect(contract.path).toMatch(/^\/v2\//);
       expect(contract.params).toBeDefined();

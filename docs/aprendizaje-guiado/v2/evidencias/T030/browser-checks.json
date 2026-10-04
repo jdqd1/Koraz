@@ -1,0 +1,110 @@
+{
+  "scope": "Standalone browser harness of real renderers and V2Player; authorized media, alternative and HTTP receipts are synthetic mocks. No BFF/API persistence.",
+  "checks": [
+    "Portrait horizontal letterbox rejected; hotspot arrows and numeric keyboard controls; normalized border submitted without local grading",
+    "Disabled renderer does not mutate selection or submit",
+    "Missing image blocks submit; failed image retries successfully; alternative callback does not submit an image response or invent modality",
+    "Labeling public numbered markers align to contained rectangle, keyboard selectors and zoom preserve submitted mappings",
+    "All matching presentations completed only with keyboard; intermediate arrow selections preserve other pairs; nonreuse duplicates block submission with message; reuse allowed explicitly; mobile no page overflow",
+    "Actual V2Player matching submits existing typed HTTP/CAS/idempotency contract and displays server-confirmed partial feedback without local mastery"
+  ],
+  "geometry": [
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "requestedPoint": {
+        "x": 0.25,
+        "y": 0.75
+      },
+      "submittedPoint": {
+        "x": 0.24846625766871167,
+        "y": 0.7461656441717791
+      },
+      "clickTolerance": "1.1 CSS pixel for integer clientX/clientY; selection unchanged through zoom and resize",
+      "zoom": 200,
+      "resize": true,
+      "letterboxRejected": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "requestedPoint": {
+        "x": 0.25,
+        "y": 0.75
+      },
+      "submittedPoint": {
+        "x": 0.25,
+        "y": 0.7478932584269663
+      },
+      "clickTolerance": "1.1 CSS pixel for integer clientX/clientY; selection unchanged through zoom and resize",
+      "zoom": 200,
+      "resize": true,
+      "letterboxRejected": true
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "requestedPoint": {
+        "x": 0.25,
+        "y": 0.75
+      },
+      "submittedPoint": {
+        "x": 0.25,
+        "y": 0.7470833333333333
+      },
+      "clickTolerance": "1.1 CSS pixel for integer clientX/clientY; selection unchanged through zoom and resize",
+      "zoom": 200,
+      "resize": true,
+      "letterboxRejected": true
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "requestedPoint": {
+        "x": 0.25,
+        "y": 0.75
+      },
+      "submittedPoint": {
+        "x": 0.25,
+        "y": 0.7470833333333333
+      },
+      "clickTolerance": "1.1 CSS pixel for integer clientX/clientY; selection unchanged through zoom and resize",
+      "zoom": 200,
+      "resize": true,
+      "letterboxRejected": true
+    }
+  ],
+  "axe": [
+    {
+      "mode": "pairs",
+      "seriousCritical": 0
+    },
+    {
+      "mode": "comparison_table",
+      "seriousCritical": 0
+    },
+    {
+      "mode": "causal_map",
+      "seriousCritical": 0
+    },
+    {
+      "mode": "hotspot",
+      "seriousCritical": 0
+    }
+  ],
+  "errors": [],
+  "notVerified": [
+    "Native browser zoom",
+    "Real authorized image/alternative resolution",
+    "Full route journey and production"
+  ],
+  "status": "PASS"
+}

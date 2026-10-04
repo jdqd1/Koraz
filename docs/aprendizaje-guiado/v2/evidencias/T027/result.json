@@ -1,0 +1,149 @@
+{
+  "evidenceDirectory": "docs/aprendizaje-guiado/v2/evidencias/T027",
+  "notVerified": [
+    "Full E01/E02 smoke reserved to T035",
+    "Student runtime and preview T032",
+    "Native browser zoom 200 percent",
+    "Full axe and screen reader audit T037",
+    "Real medical content, asset bytes and licensing",
+    "Selection of secondary assets not exposed by existing catalogue",
+    "Independent PostgreSQL connections, production, Hito S"
+  ],
+  "dependencies": [
+    {
+      "evidence": "../T011/result.json",
+      "status": "PASS",
+      "taskId": "T011"
+    },
+    {
+      "evidence": "../T012/result.json",
+      "status": "PASS",
+      "taskId": "T012"
+    },
+    {
+      "evidence": "../T023/result.json",
+      "status": "PASS",
+      "taskId": "T023"
+    },
+    {
+      "evidence": "../T026/result.json",
+      "status": "PASS",
+      "taskId": "T026"
+    }
+  ],
+  "date": "2026-10-02",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "status": "PASS",
+  "taskId": "T027",
+  "nextTaskStarted": false,
+  "committed": false,
+  "scope": "Local T027 implementation and acceptance. Full E01/E02 is reserved to T035; full accessibility to T037. No Hito S or production acceptance.",
+  "changedFiles": [
+    "apps/web/src/components/learning/editor/learning-route-editor-facade.tsx",
+    "apps/web/src/app/api/v2/editor/learning-paths/[...path]/route.ts",
+    "apps/web/src/app/panel/rutas/page.tsx",
+    "apps/web/src/app/panel/rutas/nueva/page.tsx",
+    "apps/web/src/components/learning/editor/v2/editor-api.ts",
+    "apps/web/src/components/learning/editor/v2/editor-controller.ts",
+    "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    "apps/web/src/components/learning/editor/v2/editor-web.test.tsx",
+    "apps/web/src/components/learning/editor/v2/styles.module.css",
+    "apps/web/src/components/learning/editor/v2/assessment-editor.tsx",
+    "apps/web/src/components/learning/editor/v2/export-package.tsx",
+    "apps/web/src/components/learning/editor/v2/import-wizard.tsx",
+    "apps/web/src/components/learning/editor/v2/review-workflow.tsx",
+    "apps/web/src/components/learning/editor/v2/review-assets.tsx",
+    "apps/web/src/components/learning/editor/v2/review-workflow.test.tsx"
+  ],
+  "nextTaskIds": [
+    "T028"
+  ],
+  "minimumIntegration": {
+    "reason": "Connect the existing placeholder sections, pass existing capabilities, confirm workflow state through the controller without overwriting local edits, and scope new controls CSS. Backend workflow and contracts were not changed.",
+    "files": [
+      "editor-shell.tsx",
+      "learning-route-editor-facade.tsx",
+      "editor-controller.ts",
+      "styles.module.css"
+    ]
+  },
+  "issues": [
+    {
+      "status": "OPEN",
+      "blockingT027": false,
+      "blockingSystemAcceptance": true,
+      "note": "T024 API regression timeout preserved; not claimed fixed.",
+      "id": "inherited-api-import-timeout"
+    },
+    {
+      "blockingT027": false,
+      "status": "OPEN",
+      "note": "Unchanged interactive-term-polish.css ::highlight warning.",
+      "id": "preexisting-next-highlight-warning"
+    },
+    {
+      "blockingT027": false,
+      "status": "LIMITATION",
+      "note": "Uses assets exposed by current content catalogue; retains other existing bindings. No new exhaustive asset catalogue or rights/digest backend changes.",
+      "id": "catalogue-secondary-assets"
+    },
+    {
+      "blockingT027": false,
+      "status": "NO VERIFICADO",
+      "note": "Browser download event timed out. UI success and actual HTTP export verified; downloaded browser file bytes not inspected.",
+      "id": "browser-download-bytes"
+    }
+  ],
+  "completedAt": "2026-10-02T10:20:47.2305483Z",
+  "deployed": false,
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "evidence": "contracts-build.txt",
+      "result": "PASS"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/editor/v2 --maxWorkers=1",
+      "exitCode": 0,
+      "evidence": "web-focused-final.txt",
+      "result": "PASS: 7 files, 93 tests; 25 T027 tests"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec vitest run --maxWorkers=1",
+      "exitCode": 0,
+      "evidence": "web-suite-final.txt",
+      "result": "PASS: 49 files, 354 tests; focused suite repeated after final small UI adjustments"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web typecheck",
+      "exitCode": 0,
+      "evidence": "typecheck-final.txt",
+      "result": "PASS"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec eslint [changed TS/TSX files] --max-warnings=0",
+      "exitCode": 0,
+      "evidence": "lint-final.txt",
+      "result": "PASS"
+    },
+    {
+      "command": "T027_BROWSER_HOLD=true; pnpm.cmd --filter @cediah/api exec vitest run --root ../.. --config docs/aprendizaje-guiado/v2/evidencias/T027/vitest.http.config.mts",
+      "exitCode": 0,
+      "evidence": "http-final.txt",
+      "result": "PASS: 1 actual HTTP integration, isolated PGlite; duration includes browser hold"
+    },
+    {
+      "command": "cua_repl: local Next/BFF/API editor workflow, import, source errors, conflict, persistence, keyboard and responsive",
+      "exitCode": null,
+      "evidence": "browser-checks.json",
+      "result": "PASS within explicitly recorded local coverage"
+    },
+    {
+      "command": "git diff --check; SHA256 baseline comparison; listener cleanup",
+      "exitCode": 0,
+      "evidence": "closure-verification.json",
+      "result": "PASS: 333 baseline files, no unexpected prior changes, no test listeners"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+$ tsc --noEmit
+src/components/learning/editor/v2/editor-shell.tsx(51,81): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/objectives.tsx(43,81): error TS18048: 'unit' is possibly 'undefined'.
+src/components/learning/editor/v2/objectives.tsx(43,274): error TS18048: 'unit' is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(14,46): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(15,3): error TS2322: Type '{ key: string; title: string; prerequisiteKeys: never[]; unitKey?: string | undefined; verb?: "order" | "apply" | "recall" | "integrate" | "identify" | "relate" | "differentiate" | "explain" | "predict" | undefined; ... 4 more ...; misconceptions?: { ...; }[] | undefined; }[]' is not assignable to type '{ key: string; title: string; unitKey: string; verb: "order" | "apply" | "recall" | "integrate" | "identify" | "relate" | "differentiate" | "explain" | "predict"; criticality: "detail" | "core" | "high_yield" | "supporting"; ... 4 more ...; misconceptions: { ...; }[]; }[]'.
+  Type '{ key: string; title: string; prerequisiteKeys: never[]; unitKey?: string | undefined; verb?: "order" | "apply" | "recall" | "integrate" | "identify" | "relate" | "differentiate" | "explain" | "predict" | undefined; ... 4 more ...; misconceptions?: { ...; }[] | undefined; }' is not assignable to type '{ key: string; title: string; unitKey: string; verb: "order" | "apply" | "recall" | "integrate" | "identify" | "relate" | "differentiate" | "explain" | "predict"; criticality: "detail" | "core" | "high_yield" | "supporting"; ... 4 more ...; misconceptions: { ...; }[]; }'.
+    Types of property 'unitKey' are incompatible.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(16,3): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(29,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(47,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(47,61): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(48,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(50,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(56,27): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(58,33): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(61,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(62,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(83,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(84,12): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(84,77): error TS2532: Object is possibly 'undefined'.
+src/components/learning/editor/v2/sources-objectives.test.tsx(84,171): error TS2532: Object is possibly 'undefined'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

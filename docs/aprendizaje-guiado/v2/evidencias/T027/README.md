@@ -1,0 +1,38 @@
+# T027 — Importación, revisión, publicación y exportación
+
+**PASS de los criterios locales de T027, 02/10/2026.** Base `e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a`. La solicitud «continua con t027» autoriza esta ficha. El handoff se utilizó como especificación; sus indicaciones históricas de iniciar T001 no sustituyen la solicitud actual. T028 no se inició. Sin commit ni despliegue.
+
+## Dependencias y alcance
+
+Se comprobaron los resultados PASS individuales de T011, T012, T023 y T026. Se leyeron §8.10–8.11, `DISENO-RUTAS.md`, `apps/web/AGENTS.md` y las guías locales de Next sobre componentes cliente y route handlers. Se conservaron los cambios anteriores y no se modificó el workflow, proveedor ni contratos del backend.
+
+La conexión mínima incluye el shell v2, el paso de capacidades de la fachada, la API/controlador editorial y CSS local. El shell anterior solo mostraba resúmenes en Evaluación/Revisión. El controlador expone su transporte y acepta una confirmación del workflow únicamente sin cambios locales y para la misma ruta; permite que el contador vuelva a 1 al crear una nueva versión. La prueba BFF que rechazaba `export` se actualizó para rechazar un sufijo realmente no soportado; la exportación ahora es una ruta autorizada y tiene pruebas propias. Los hashes de todos los demás archivos anteriores se conservaron.
+
+## Implementación
+
+- Importación en `/panel/rutas/nueva?mode=import`, desde la lista de rutas y dentro del editor existente. Lee paquetes portables o exportaciones editoriales separadas de bindings; rechaza JSON inválido, campos de privilegios y archivos mayores de 10 MiB, contando bytes UTF-8. Selecciona tema, revisión de guía y archivos disponibles en el catálogo editorial existente. Conserva el texto y huella de la fuente para que el servidor detecte discrepancias.
+- Dry-run privado con diferencias, incidencias, caducidad y destino explícito. Cambiar archivo, vínculos, destino o revisión invalida su resultado. `readyToImport` habilita únicamente **Importar borrador**. No hay transición de publicación en el importador. La lectura posterior confirma el resultado; un fallo de lectura conserva el receipt y no repite el commit. Si una importación ya registrada tiene una ruta en otro estado o versión, se muestra su estado actual. Abrir el resultado recarga el editor, también cuando se reemplaza la ruta actualmente abierta.
+- Las solicitudes conservan la misma clave de idempotencia al reintentar el mismo input. Un conflicto no reemplaza los cambios del editor ni su recuperación. El wizard bloquea el reemplazo de un borrador con cambios locales; abrirlo y cerrarlo conserva esos cambios y restaura el foco en el botón de importación.
+- Diagnóstico, comprobación de unidad/acumulativa, evaluación final y retención 7/30. Selección de objetivos, unidad, candidatos existentes, familias y plan de repaso. Se excluyen reservas ajenas, hijos de casos y actividades autorreportadas del banco objetivo. Los vínculos importados incompatibles permanecen visibles y pueden retirarse. Umbral 80–100 y justificación de 40–2000 caracteres; diagnóstico fijo en 80, no operativo. Banco ausente explícito, sin preguntas ni justificaciones inventadas.
+- Revisión local y reporte del servidor asociados a la revisión/hash confirmados. Incidencias llevan al campo; fuentes del importador a su selector, assets a su binding, evaluación a su sección y revisión desactualizada a la nota editorial. Validar, enviar a revisión, solicitar cambios, aprobar, publicar y crear versión según estado/capacidades. Creator no recibe botón de publicación. Publicar requiere aprobación vigente y un diálogo con título y revisión concretos; el servidor sigue siendo la autoridad.
+- Revisión de bindings de archivos y metadatos de procedencia. El selector reutiliza el archivo listo expuesto por cada contenido del catálogo editorial y conserva bindings importados que no aparecen en esa lista. No se añadió un catálogo exhaustivo de assets secundarios. Las limitaciones del catálogo sobre derechos/digests se muestran como incidencias del servidor, sin eludirlas.
+- Exportación lee el servidor y descarga el paquete portable sin bindings, firmas ni progreso; reporte de cobertura separado. Los cambios locales deben guardarse antes de exportar. Errores y JSON se presentan como texto escapado, sin ejecutar contenido importado.
+
+## Verificación
+
+- Contratos: build PASS.
+- Editor: **7 archivos / 93 pruebas PASS**, incluidas 25 pruebas T027.
+- Suite web: **49 archivos / 354 pruebas PASS**. Después de los últimos ajustes de mensajes/CSS se repitió la suite focalizada.
+- Typecheck y ESLint de los archivos modificados: PASS. `git diff --check`: PASS.
+- `http-integration.test.ts`: **1 integración HTTP real PASS**, con Fastify, proveedor PostgreSQL sobre PGlite en memoria y catálogo sintético. Comprueba I01 sin binding y sin creación; dry-run/commit; replay sin duplicados; exportación semántica; mismo packageKey/revisión con otro hash → 409; revisión mayor con diff y CAS; cambio de versión de fuente entre validate/commit → SOURCE_CHANGED; prohibición de publicar sin revisión; envío/revisión/aprobación/publicación; nueva versión sin aprobación; tablas de intentos, respuestas, repaso, eventos y matrículas vacías antes del trabajo de navegador. La duración incluye la espera del harness para las pruebas de UI, no el coste de la operación.
+- Navegador por Next/BFF/API reales: recorrido editorial hasta publicación exclusivamente aislada; recarga; importación desde archivo con fuente ausente → botón bloqueado; foco exacto `package.sources.0.binding`; resolución → borrador confirmado sin aprobación; apertura del borrador; conservación de cambios locales al abrir/cerrar wizard; umbral 90 y justificación guardados y releídos; conflicto de paquete recuperable sin sobrescribir el borrador; teclado y foco. Snapshots reales en `ui-reviewed-state.json`, `ui-imported-state.json`, `ui-final-state.json`.
+- Tamaños **efectivos medidos** 360×800, 390×844, 768×1024, 1440×900, sin scroll horizontal de página ni campos fuera del viewport en Revisión. El host escala 125 %, por lo que el override nominal del navegador es distinto; `responsive.json` registra dimensiones DOM reales. Evaluación móvil a 390×844: casillas 18×18 y etiquetas táctiles 44 px. Se corrigió la herencia de ancho/min-height de los inputs compartidos que agrandaba las casillas.
+- Capturas finales: `assessment-mobile.png`, `review-desktop.png`. El capturador estándar falló durante cambios de viewport; se usó `Page.captureScreenshot` mediante la capacidad CDP documentada del navegador. Se retiró la cookie sintética, se restableció el viewport, se cerró la pestaña temporal y se detuvieron los listeners 3000/4107.
+
+## Límites explícitos
+
+E01/E02 completos con el harness de integración estable corresponden a T035; esta evidencia no acepta el flujo completo de alumno ni el preview de T032. Zoom nativo 200 %, lector de pantalla y auditoría axe exhaustiva quedan NO VERIFICADO/T037. No se verificaron bytes/licencias/contenido médico de assets reales ni la selección de assets secundarios no expuestos por el catálogo actual. PGlite no demuestra conexiones PostgreSQL independientes ni producción.
+
+La UI confirmó la descarga y el endpoint real produjo el paquete esperado, pero el evento de descarga del navegador agotó el timeout: los bytes del archivo descargado por esa UI quedan NO VERIFICADO. No se presenta esa señal como verificación del filesystem de descargas.
+
+Persisten el timeout de regresión API registrado en T024 y la advertencia de Next sobre `::highlight` en CSS preexistente; no se atribuyen reparaciones de esos problemas a T027. Hito S, contenido clínico/revisión humana, producción y despliegue no están aceptados.

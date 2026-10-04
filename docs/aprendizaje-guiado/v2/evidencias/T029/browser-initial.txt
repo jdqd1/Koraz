@@ -1,0 +1,15 @@
+locator.waitFor: Timeout 60000ms exceeded.
+Call log:
+  - waiting for locator('main[data-engine-version="guided-v2"]') to be visible
+    - waiting for "http://127.0.0.1:3000/visual-fixtures/aprendizaje-v2?surface=player&estado=study" navigation to finish...
+    - navigated to "http://127.0.0.1:3000/visual-fixtures/aprendizaje-v2?surface=player&estado=study"
+
+    at go (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T029\browser-check.cjs:65:250)
+    at async run (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T029\browser-check.cjs:66:3) {
+  log: [
+    `  - waiting for locator('main[data-engine-version="guided-v2"]') to be visible`,
+    '    - waiting for "http://127.0.0.1:3000/visual-fixtures/aprendizaje-v2?surface=player&estado=study" navigation to finish...',
+    '    - navigated to "http://127.0.0.1:3000/visual-fixtures/aprendizaje-v2?surface=player&estado=study"'
+  ],
+  name: 'TimeoutError'
+}

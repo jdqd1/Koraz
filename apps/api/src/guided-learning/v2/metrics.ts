@@ -71,7 +71,7 @@ export function calculateMetricsV2(input: {
   for (const learner of learners) {
     const own = assessments.filter((item) => item.enrollmentId === learner.enrollmentId);
     const final = own.find((item) => item.kind === "final");
-    const diagnostic = own.find((item) => item.kind === "diagnostic");
+    const diagnostic = own.find((item) => item.kind === "diagnostic" && (!final || time(item.acceptedAt) <= time(final.acceptedAt)));
     const ownHeartbeats = input.heartbeats.filter((item) => item.enrollmentId === learner.enrollmentId)
       .map((item) => ({ ...item, start: new Date(Math.max(time(item.start), time(learner.activatedAt))).toISOString() }));
     const minutes = activeMillisecondsV2(ownHeartbeats, final?.acceptedAt ?? input.nowUtc) / 60000;
@@ -110,10 +110,11 @@ export function calculateMetricsV2(input: {
   };
   const families = new Set<string>();
   const modalities = new Map<string, { modality: RouteActivity["representation"]; eligibleItems: number; correctItems: number }>();
-  for (const assessment of assessments.filter((item) => item.kind !== "diagnostic")) for (const answer of assessment.answers) {
+  for (const assessment of assessments) for (const answer of assessment.answers) {
     const familyKey = `${assessment.enrollmentId}:${answer.equivalenceKey}`;
     if (families.has(familyKey)) continue;
     families.add(familyKey);
+    if (assessment.kind === "diagnostic") continue;
     if (!answer.novelAtPresentation || !answer.newModality || answer.assisted || answer.gradingSource !== "server" || answer.score01 === null) continue;
     const modality = modalities.get(answer.modality) ?? { modality: answer.modality, eligibleItems: 0, correctItems: 0 };
     modality.eligibleItems++; if (answer.score01 === 1) modality.correctItems++;

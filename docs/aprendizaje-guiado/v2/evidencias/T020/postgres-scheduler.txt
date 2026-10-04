@@ -1,0 +1,71 @@
+The files belonging to this database system will be owned by user "josed".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory C:/Users/josed/AppData/Local/Temp/koraz-t018-3649221e16ba42088090031c6174c519 ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... America/Caracas
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\josed^\^.codex^\tmp^\koraz^-t015^-postgres^\pgsql^\bin^\pg^_ctl^" -D ^"C^:^\Users^\josed^\AppData^\Local^\Temp^\koraz^-t018^-3649221e16ba42088090031c6174c519^" -l logfile start
+
+waiting for server to start.... done
+server started
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > P12 extends once per rolling 24h, uses actual acceptance and caps stage at four 4ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > P13 three semantic failures yield 10min/10min/1d; duplicates never add lapses 1ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"assisted":true}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"assisted":true,"score01":0}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"score01":0.5}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"self","selfRating":"hard"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"self","selfRating":"good"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"none","score01":null,"assisted":true}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > self again reinforces; changing session resets immediate retries, never stability 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"purpose":"diagnostic"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"purpose":"preview"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"valid":false}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"phase":"learn"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"gradingSource":"none"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > retention dates use first mastery, late day7 pushes day30, and absence never fails 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > failed retention records the measurement and keeps reinforcement; assisted cannot accept it 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > UTC is invariant across offsets and daylight-saving boundaries 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > diagnosis/reading create no debt; assisted and self-reported answers do not extend stability 345ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > partial objective correctness schedules one day without adding a lapse or mastery 69ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > creates one debt before route completion, replays receipts and repairs caches without extending 190ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > same session has two immediate retries, then one day; success cannot erase reinforcement 125ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > persists first mastery dates and deferred measurements; absence does not mutate agenda 252ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > agenda write failure rolls back response, receipt, event, evidence and attempt version 49ms
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > independent devices cannot extend twice at the exact 24h boundary
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > concurrent failure/correct responses leave reinforcement and one lapse
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > diagnosis/reading create no debt; assisted and self-reported answers do not extend stability 385ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > partial objective correctness schedules one day without adding a lapse or mastery 59ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > creates one debt before route completion, replays receipts and repairs caches without extending 153ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > same session has two immediate retries, then one day; success cannot erase reinforcement 105ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > persists first mastery dates and deferred measurements; absence does not mutate agenda 241ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > agenda write failure rolls back response, receipt, event, evidence and attempt version 63ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > independent devices cannot extend twice at the exact 24h boundary 280ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > concurrent failure/correct responses leave reinforcement and one lapse 140ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed | 2 skipped (33)
+   Start at  21:09:47
+   Duration  8.93s (transform 447ms, setup 0ms, import 1.11s, tests 7.55s, environment 0ms)
+
+waiting for server to shut down.... done
+server stopped
+Disposable cluster retained, stopped: C:\Users\josed\AppData\Local\Temp\koraz-t018-3649221e16ba42088090031c6174c519

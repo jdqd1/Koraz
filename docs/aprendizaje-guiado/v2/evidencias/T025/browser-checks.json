@@ -1,0 +1,88 @@
+{
+  "taskId": "T025",
+  "status": "PASS",
+  "environment": "Loopback Next/BFF plus actual Fastify/provider with synthetic identity and in-memory PGlite",
+  "checks": [
+    {
+      "name": "Keyboard tabs, creation and prompt focus",
+      "status": "PASS"
+    },
+    {
+      "name": "Four UI-created kinds survive save and reload",
+      "status": "PASS",
+      "evidence": "storage-after-four-ui-created.json",
+      "revision": 4
+    },
+    {
+      "name": "General feedback and missing distractor focus with aria-invalid",
+      "status": "PASS",
+      "evidence": [
+        "feedback-focus.json",
+        "distractor-focus.json",
+        "distractor-pending.png"
+      ]
+    },
+    {
+      "name": "Study keyboard selection persisted as focus span",
+      "status": "PASS",
+      "evidence": "ui-storage-checks.json"
+    },
+    {
+      "name": "Explicit aliases, phase, representation and hints persisted",
+      "status": "PASS",
+      "evidence": "storage-after-four-ui-created.json"
+    },
+    {
+      "name": "Card saved as constructed_response/retrieve and objective verification selected by name",
+      "status": "PASS",
+      "revision": 5,
+      "evidence": "storage-card-created.json"
+    },
+    {
+      "name": "Keyboard deletion and focus restoration after fix",
+      "status": "PASS",
+      "evidence": "delete-focus.json"
+    },
+    {
+      "name": "Final persistence and unit-reference cleanup",
+      "status": "PASS",
+      "revision": 7,
+      "evidence": "storage-final.json"
+    },
+    {
+      "name": "Responsive geometry",
+      "status": "PASS",
+      "evidence": "browser-geometry.json"
+    },
+    {
+      "name": "Mobile verification selector visible above save bar",
+      "status": "PASS",
+      "evidence": "mobile-focus.json"
+    }
+  ],
+  "screenshots": [
+    "card-desktop.png",
+    "card-mobile.png",
+    "distractor-pending.png",
+    "journey-final.png"
+  ],
+  "resolvedIssues": [
+    "AlertDialog initially stole post-deletion focus; corrected onCloseAutoFocus and repeated with keyboard.",
+    "Initial bar selector was absent; corrected observation using the observed save button parent, yielding visibleAboveBar=true.",
+    "Summary role locator did not match native details summary; observed again and used summary locator.",
+    "Cookie deletion by domain rejected; deletion by URL succeeded before closing agent tab."
+  ],
+  "notVerified": [
+    "Full E01",
+    "Native browser zoom",
+    "Complete axe/screen-reader audit",
+    "Production identity",
+    "Independent PostgreSQL concurrency"
+  ],
+  "cleanup": {
+    "syntheticCookieRemoved": true,
+    "viewportReset": true,
+    "agentTabClosed": true,
+    "serversStopped": true
+  }
+}

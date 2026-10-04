@@ -1,0 +1,26 @@
+$ tsc --noEmit
+test/guided-v2-images.test.ts(15,139): error TS2322: Type 'unknown' is not assignable to type 'InjectPayload | undefined'.
+test/guided-v2-images.test.ts(20,17): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(21,21): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(21,104): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(50,114): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(51,98): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(52,95): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(53,79): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(53,101): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(54,79): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(58,87): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(60,111): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(61,93): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(61,116): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(62,73): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(67,221): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(68,18): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(69,87): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(73,141): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(75,112): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(82,220): error TS2339: Property 'statusCode' does not exist on type 'void & Promise<Response> & Chain'.
+test/guided-v2-images.test.ts(82,258): error TS2339: Property 'json' does not exist on type 'void & Promise<Response> & Chain'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

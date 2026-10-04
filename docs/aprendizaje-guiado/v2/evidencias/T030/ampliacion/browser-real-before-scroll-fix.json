@@ -1,0 +1,225 @@
+{
+  "scope": "Real Chromium -> Next BFF -> Fastify -> isolated PGlite. Synthetic cookie identity and private-storage signer/media only; no mocked learner API.",
+  "checks": [
+    "Real cookie forwarding, typed own attempt/state and authorized private image through Next BFF; initial state read from server",
+    "Real normalized border response persisted exactly once, server feedback, same-origin rejection, completion and reload preserve state",
+    "Accessible detour confirmed and resumed by real server; text modality/assisted persisted once; original image and gate remain pending; no alternative activity completion or spatial evidence"
+  ],
+  "geometry": [
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "point": {
+        "x": 0.24834399999999998,
+        "y": 0.7466889999999999
+      },
+      "imageZoom": 200,
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "point": {
+        "x": 0.25,
+        "y": 0.748494
+      },
+      "imageZoom": 200,
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "point": {
+        "x": 0.25,
+        "y": 0.748177
+      },
+      "imageZoom": 200,
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "point": {
+        "x": 0.25,
+        "y": 0.748177
+      },
+      "imageZoom": 200,
+      "pageOverflow": false
+    }
+  ],
+  "axe": [],
+  "apiTraffic": [
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/alternative",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/image",
+      "status": 200,
+      "method": "GET"
+    }
+  ],
+  "errors": [
+    "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     description: 'Ensure elements that have scrollable content are accessible by keyboard in Safari',\n+     help: 'Scrollable region must have keyboard access',\n+     helpUrl: 'https://dequeuniversity.com/rules/axe/4.13/scrollable-region-focusable?application=playwright',\n+     id: 'scrollable-region-focusable',\n+     impact: 'serious',\n+     nodes: [\n+       {\n+         all: [],\n+         any: [\n+           {\n+             data: null,\n+             id: 'focusable-content',\n+             impact: 'serious',\n+             message: 'Element should have focusable content',\n+             relatedNodes: []\n+           },\n+           {\n+             data: null,\n+             id: 'focusable-element',\n+             impact: 'serious',\n+             message: 'Element should be focusable',\n+             relatedNodes: []\n+           }\n+         ],\n+         failureSummary: 'Fix any of the following:\\n' +\n+           '  Element should have focusable content\\n' +\n+           '  Element should be focusable',\n+         html: '<div class=\"visual_viewport__pSvne\">',\n+         impact: 'serious',\n+         none: [],\n+         target: [\n+           '.visual_viewport__pSvne'\n+         ]\n+       }\n+     ],\n+     tags: [\n+       'cat.keyboard',\n+       'wcag2a',\n+       'wcag211',\n+       'wcag213',\n+       'TTv5',\n+       'TT4.a',\n+       'EN-301-549',\n+       'EN-9.2.1.1',\n+       'EN-9.2.1.3',\n+       'RGAAv4',\n+       'RGAA-7.3.2'\n+     ]\n+   }\n+ ]\n- []\n\n    at main (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T030\\ampliacion\\browser-real.cjs:48:106)"
+  ],
+  "status": "FAIL"
+}

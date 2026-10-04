@@ -233,7 +233,7 @@ export function EditorShell({
   }
 
   return (
-    <main className={styles.editor} data-editor-surface>
+    <main className={styles.editor} data-editor-surface data-engine-version="guided-v1">
       <header className={styles.header}>
         <div>
           <Link className={styles.backLink} href="/panel/rutas">Volver a rutas</Link>

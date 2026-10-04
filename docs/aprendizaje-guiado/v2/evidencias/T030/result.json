@@ -1,0 +1,190 @@
+{
+  "taskId": "T030",
+  "status": "PASS",
+  "acceptanceScope": "LOCAL_WITH_AUTHORIZED_EXPANSION",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "authorization": {
+    "request": "haz t030",
+    "expansion": "hazlo",
+    "continuation": "continua",
+    "proposal": "AMPLIACION-PROPUESTA.md",
+    "previousFailurePreserved": "ampliacion/result-before.json"
+  },
+  "dependencies": [
+    {
+      "taskId": "T014",
+      "status": "PASS",
+      "evidence": "../T014/result.json"
+    },
+    {
+      "taskId": "T029",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "evidence": "../T029/result.json"
+    }
+  ],
+  "changedFiles": [
+    "packages/contracts/src/guided-learning-v2.ts",
+    "apps/api/src/app.ts",
+    "apps/api/src/guided-learning/v2/manifests.ts",
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/guided-learning/v2/service.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-contract.test.ts",
+    "apps/api/test/guided-v2-security.test.ts",
+    "apps/api/test/guided-v2-images.test.ts",
+    "apps/api/test/helpers/guided-v2-db.ts",
+    "apps/api/test/helpers/guided-v2-images.ts",
+    "database/migrations/0035_guided_v2_media_access.sql",
+    "apps/web/.env.example",
+    "apps/web/src/proxy.ts",
+    "apps/web/src/lib/auth/environment.ts",
+    "apps/web/src/lib/auth/environment.test.ts",
+    "apps/web/src/app/api/v2/guided-learning/[...path]/route.ts",
+    "apps/web/src/components/learning/v2/client.ts",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/player.test.tsx",
+    "apps/web/src/components/learning/v2/player-fixture.tsx",
+    "apps/web/src/components/learning/v2/renderers/image-target.tsx",
+    "apps/web/src/components/learning/v2/renderers/match.tsx",
+    "apps/web/src/components/learning/v2/renderers/visual.module.css",
+    "apps/web/src/components/learning/v2/renderers/visual.test.tsx",
+    "apps/web/src/components/learning/v2/renderers/visual-client.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T030/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS Node24.19.0",
+      "evidence": "ampliacion/contracts-build.txt"
+    },
+    {
+      "command": "API focused: images, contract, case, grading, attempts, routes, security",
+      "exitCode": 0,
+      "result": "69 PASS, 19 SKIP, 7 files; independent PostgreSQL skipped",
+      "evidence": "ampliacion/api-focused-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web test",
+      "exitCode": 0,
+      "result": "437 PASS, 56 files",
+      "evidence": "ampliacion/web-suite-final.txt"
+    },
+    {
+      "command": "API and web typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": [
+        "ampliacion/api-typecheck-final.txt",
+        "ampliacion/web-typecheck-final.txt"
+      ]
+    },
+    {
+      "command": "ESLint affected API/web files --max-warnings=0",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": [
+        "ampliacion/api-lint-final.txt",
+        "ampliacion/web-lint-final.txt"
+      ]
+    },
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T030/ampliacion/browser-real.cjs",
+      "exitCode": 0,
+      "result": "PASS Chromium -> Next/BFF -> Fastify -> isolated PGlite, four viewports, image zoom200, own/foreign access, real response/completion/resume, accessible text detour no spatial credit, labeling, partial matching",
+      "evidence": "ampliacion/browser-real-checks.json"
+    },
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T030/browser-check.cjs",
+      "exitCode": 0,
+      "result": "PASS current renderers and V2Player matching; keyboard all three presentations, geometry/letterboxing/resize/zoom, errors/retry; synthetic HTTP only in this auxiliary harness",
+      "evidence": [
+        "browser-checks.json",
+        "ampliacion/browser-renderers-final.txt"
+      ]
+    },
+    {
+      "command": "SHA256 baseline comparisons",
+      "exitCode": 0,
+      "result": "734/752 original files unchanged, 18 intended edits; 643/664 pre-expansion files unchanged, 21 intended edits; no missing files",
+      "evidence": [
+        "preservation-final.json",
+        "ampliacion/preservation.json"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "ampliacion/diff-check.txt"
+    }
+  ],
+  "acceptance": {
+    "clientGeometry": "PASS_LOCAL",
+    "matchingKeyboard": "PASS_LOCAL_PAIRS_TABLE_CAUSAL_MAP",
+    "imageKeyboardZoomLabeling": "PASS_LOCAL",
+    "P07": "PASS_LOCAL_SERVER_PARTIAL_FEEDBACK_AND_BINARY_SCORE",
+    "actualImagePlayer": "PASS_LOCAL_BFF_API_PGLITE_SYNTHETIC_PRIVATE_SIGNER",
+    "accessibleAlternativeModality": "PASS_LOCAL_TEXT_ASSISTED_NO_SPATIAL_CREDIT_RETURN_TO_PENDING_IMAGE",
+    "V05": "PASS_LOCAL_LETTERBOX_IMAGE_ZOOM_USABLE_ACCESSIBLE_VARIANT",
+    "production": "NO VERIFICADO"
+  },
+  "issues": [
+    {
+      "id": "T030-media-resolution",
+      "blockingT030": false,
+      "status": "CLOSED_LOCAL"
+    },
+    {
+      "id": "T030-hotspot-target-key",
+      "blockingT030": false,
+      "status": "CLOSED_LOCAL"
+    },
+    {
+      "id": "T030-alternative-transition",
+      "blockingT030": false,
+      "status": "CLOSED_LOCAL"
+    },
+    {
+      "id": "T030-private-media-CSP",
+      "blockingT030": false,
+      "status": "CLOSED_LOCAL",
+      "configuration": "NEXT_PUBLIC_CONTENT_STORAGE_ORIGIN must match actual signer HTTPS origin"
+    },
+    {
+      "id": "T030-partial-feedback",
+      "blockingT030": false,
+      "status": "CLOSED_LOCAL",
+      "detail": "3/4 displays 75% with binary score01=0; grading algorithm unchanged"
+    },
+    {
+      "id": "inherited-T024-api-timeout",
+      "blockingT030": false,
+      "blockingSystemAcceptance": true,
+      "status": "OPEN"
+    },
+    {
+      "id": "T021-upgrade-pending",
+      "blockingT030": false,
+      "status": "OPEN"
+    }
+  ],
+  "notVerified": [
+    "Actual S3 credentials/object download; private signer/media synthetic",
+    "Better Auth session issuance",
+    "Independent PostgreSQL locking/concurrency and restricted-role integration in this run (19 SKIP)",
+    "Native browser zoom, screen reader and full T035/T037 journey",
+    "Global system acceptance/Hito S",
+    "Clinical/editorial validation and production"
+  ],
+  "nextTaskIds": [
+    "T031"
+  ],
+  "nextTaskBlockedUntilT030Pass": false,
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

@@ -1,0 +1,43 @@
+{
+  "taskId": "T030",
+  "status": "FAIL",
+  "acceptanceScope": "LOCAL_RENDERERS_ONLY",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "dependencies": [{"taskId":"T014","status":"PASS","evidence":"../T014/result.json"},{"taskId":"T029","status":"PASS","scope":"LOCAL","evidence":"../T029/result.json"}],
+  "changedFiles": [
+    "apps/web/src/components/learning/v2/renderers/image-target.tsx",
+    "apps/web/src/components/learning/v2/renderers/match.tsx",
+    "apps/web/src/components/learning/v2/renderers/visual.module.css",
+    "apps/web/src/components/learning/v2/renderers/visual.test.tsx",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T030/"
+  ],
+  "scopeExceptions": [{"file":"apps/web/src/components/learning/v2/player.tsx","reason":"Minimum renderer mounting; matching uses existing transport and image shows a safe missing-resource guard. No contract/API changes."}],
+  "checks": [
+    {"command":"pnpm.cmd --filter @cediah/contracts build","exitCode":0,"result":"PASS Node24.19.0","evidence":"contracts-build.txt"},
+    {"command":"pnpm.cmd --filter @cediah/web test","exitCode":0,"result":"427 PASS, 55 files before final numeric-input and keyboard-selection corrections","evidence":"web-suite.txt"},
+    {"command":"pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/v2/renderers/visual.test.tsx src/components/learning/v2/player.test.tsx","exitCode":0,"result":"41 PASS, 2 files after final corrections","evidence":"focused-final.txt"},
+    {"command":"pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-grading.test.ts test/guided-v2-case.test.ts","exitCode":0,"result":"15 PASS, 2 files; server unchanged","evidence":"api-p07.txt"},
+    {"command":"pnpm.cmd --filter @cediah/web typecheck","exitCode":0,"result":"PASS","evidence":"typecheck-final.txt"},
+    {"command":"ESLint affected web files --max-warnings=0","exitCode":0,"result":"PASS","evidence":"lint-final.txt"},
+    {"command":"node docs/aprendizaje-guiado/v2/evidencias/T030/browser-check.cjs","exitCode":0,"result":"PASS renderers and V2Player with synthetic media/HTTP mocks; four viewports; image zoom/resize/letterboxing/keyboard; axe serious/critical 0 in inspected states","evidence":"browser-checks.json"},
+    {"command":"SHA256 comparison and git diff --check","exitCode":0,"result":"PASS: 751/752 baseline files preserved, only planned player mounting changed","evidence":"preservation.json; diff-check.txt"}
+  ],
+  "acceptance": {"clientGeometry":"PASS","matchingKeyboard":"PASS","imageKeyboardZoomLabeling":"PASS_LOCAL_WITH_AUTHORIZED_RESOURCE_MOCK","P07":"PASS_PURE_API_AND_TYPED_HTTP_MOCK","actualImagePlayer":"FAIL_MISSING_PUBLIC_MEDIA_AND_HOTSPOT_IDENTITY","accessibleAlternativeModality":"NO VERIFICADO","V05":"LOCAL_RENDERER_PASS; ACTUAL_ACCESSIBLE_VARIANT_NOT_VERIFIED"},
+  "issues": [
+    {"id":"T030-media-resolution","blockingT030":true,"status":"OPEN","detail":"Public activity contains only assetKey; no authorized media/alt resolver in the attempt transport."},
+    {"id":"T030-hotspot-target-key","blockingT030":true,"status":"OPEN","detail":"Public hotspot projects targets=[] while response contract and grader require targetKey."},
+    {"id":"T030-alternative-transition","blockingT030":true,"status":"OPEN","detail":"Public DTO omits editorial alternative; current attempt launch denies concurrent open attempt. Real alternative activation/modalities must be confirmed by server."},
+    {"id":"inherited-T024-api-timeout","blockingT030":false,"blockingSystemAcceptance":true,"status":"OPEN"},
+    {"id":"T021-upgrade-pending","blockingT030":false,"status":"OPEN"}
+  ],
+  "approvalRequiredForExpansion": "AMPLIACION-PROPUESTA.md",
+  "notVerified": ["Authorized actual media and alternative transition/persistence", "Authenticated browser/BFF/API image journey", "Native browser zoom and screen reader", "Independent PostgreSQL and full system acceptance", "Clinical/editorial validation and production"],
+  "nextTaskIds": ["T031"],
+  "nextTaskBlockedUntilT030Pass": true,
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

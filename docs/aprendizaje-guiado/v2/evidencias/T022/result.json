@@ -1,0 +1,291 @@
+{
+  "taskId": "T022",
+  "status": "PASS",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "recordedUtc": "2026-09-30T21:18:32.4493620Z",
+  "changedFiles": [
+    "apps/api/src/app.ts",
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "database/migrations/0033_guided_v2_runtime_access.sql",
+    "database/migrations/0034_guided_v2_editor_audit.sql",
+    "apps/api/test/guided-v2-security.test.ts",
+    "apps/api/test/helpers/guided-v2-db.ts",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "apps/api/test/guided-v2-editor-storage.test.ts",
+    "apps/api/test/guided-v2-import.test.ts",
+    "apps/api/test/guided-v2-scheduler.test.ts",
+    "apps/api/test/guided-v2-workflow.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T022/"
+  ],
+  "checks": [
+    {
+      "command": "Production PostgreSQL disposable harness through 0034, restricted runtime",
+      "exitCode": 0,
+      "result": "PASS: 26/26 executed; browser case skipped here and verified separately",
+      "evidence": "postgres-acceptance.txt"
+    },
+    {
+      "command": "KORAZ_T022_BROWSER=true pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts -t 'S03 browser' --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 1 browser case, 26 non-target cases skipped. Real Chromium, production Next SSR/DOM and authenticated BFF network; together with PostgreSQL run, all 27 security cases executed",
+      "evidence": "browser-acceptance.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run guided-v2 guided-learning-routes guided-learning-editor-routes guided-learning-editor-storage --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 21 files, 297 cases, 29 dedicated/untargeted cases skipped; before final export access enforcement, covered by subsequent full import/export suite",
+      "evidence": "regression-completion.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-import.test.ts --reporter=verbose, serial after final export access check",
+      "exitCode": 0,
+      "result": "PASS: 18/18; preceding concurrent run had one 5000ms timeout; timeout unchanged",
+      "evidence": "export-access-verified.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-acceptance.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "lint-acceptance.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web build with two synthetic private server secret canaries",
+      "exitCode": 0,
+      "result": "PASS: production build; no dependency upgrade or deployment",
+      "evidence": "web-build-canary.txt"
+    },
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T022/scan-client-bundle.cjs under the same canary environment",
+      "exitCode": 0,
+      "result": "PASS: 59 production browser JS/map files, 2 private canary values checked, zero hits",
+      "evidence": "bundle-completion.json"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "diff-check-acceptance.txt"
+    },
+    {
+      "command": "Compare HEAD and working-tree Git blobs for tracked historical migrations",
+      "exitCode": 0,
+      "result": "PASS: 33 unchanged",
+      "evidence": "migration-integrity-acceptance.json"
+    }
+  ],
+  "acceptance": {
+    "S01": {
+      "status": "PASS",
+      "verified": "All eleven editorial HTTP contracts registered; server roles, ownership, strict bodies, flags and safe errors tested. CRUD exposed with atomic receipts and CAS. Preview protected and ephemeral. Conversion is explicitly closed with 409 after ownership/CAS checks pending its functional implementation in T034."
+    },
+    "S02": {
+      "status": "PASS",
+      "verified": "Real Fastify endpoints and storage deny foreign enrollment/attempt operations, including upgrade and all attempt mutations; no changes to foreign attempts/responses."
+    },
+    "S03": {
+      "status": "PASS",
+      "verified": "Nested DTO and eight-kind projection tests plus real Chromium inspection of authenticated production Next BFF responses and SSR/DOM before answering. Current v1 SSR renderer rejects v2 attempts with 404 without private data. Actual 59 emitted client files scanned: no private server markers or two synthetic build-only secret values. Future v2 renderer implementation belongs to T028-T033."
+    },
+    "S04": {
+      "status": "PASS",
+      "verified": "Withdrawal of catalog topic availability or bound asset denies delivery/help and accepted-response replay; responses preserved."
+    },
+    "S05": {
+      "status": "PASS",
+      "verified": "Forged identity/roles/scores/status, active markup, local URLs, unknown body keys and size violations rejected. Import 10/10min, response 120/min and preview durable 30/10min with exact retry tolerance. Preview writes no enrollment/attempt/response/event/reward rows."
+    },
+    "S06": {
+      "status": "PASS",
+      "verified": "Fresh real PostgreSQL runs learner service plus editorial CRUD/preview with restricted runtime. No identity/catalog/revision writes, credential/storage-path reads, RLS bypass, response deletion or direct general-audit access. Audit view limits SELECT/INSERT to v2 learning_path actions; unrelated inserts fail CHECK OPTION; anon/authenticated cannot read it. Independent runtime connections share response budget."
+    },
+    "S07": {
+      "status": "PASS",
+      "verified": "Expired identity 401 and cross-origin mutation 403 before provider; actual same-origin BFF tested in routes regression. v2-scoped status normalization leaves origin policy intact."
+    },
+    "S08": {
+      "status": "PASS",
+      "verified": "Real v1 enrollment/editor/delete reject v2 engine IDs; persisted path/enrollments preserved. Existing map-projection regression credits no v1 progress."
+    }
+  },
+  "issues": [
+    {
+      "id": "runtime-base-privileges",
+      "status": "CLOSED",
+      "result": "PASS",
+      "detail": "0033 scoped row-lock functions tested with restricted runtime; original 42501 fixed."
+    },
+    {
+      "id": "runtime-editor-audit",
+      "status": "CLOSED",
+      "result": "PASS",
+      "detail": "0034 private filtered audit view provides only v2 SELECT/INSERT. General audit remains inaccessible to runtime; unrelated actions and deletion rejected."
+    },
+    {
+      "id": "editor-endpoint-completeness",
+      "status": "CLOSED",
+      "result": "PASS",
+      "detail": "CRUD and preview connected in app.ts. All editorial entries enforce capacity and ownership; conversion remains fail-closed pending T034, consistent with deferred learner upgrade."
+    },
+    {
+      "id": "SSR-bundle-inspection",
+      "status": "CLOSED",
+      "result": "PASS",
+      "detail": "Actual production Next server, Chromium, synthetic identity/PGlite adapter; captured HTTP/SSR/DOM plus 59 actual emitted browser files and two synthetic server secrets."
+    },
+    {
+      "id": "T021-partial-dependency",
+      "status": "CLOSED_FOR_T022",
+      "result": "PASS",
+      "detail": "T021 implementationChecks PASS and nextTaskIds explicitly include T022. Security of its available and closed upgrade boundaries verified. Functional upgrade/adoption remains T034; T021 status unchanged."
+    }
+  ],
+  "scope": "Complete T022 as authorized by the user, including necessary API mounting, provider access and new migrations. Preserve prior T020/T021 work. No T023/T034 implementation, global identity refactor, production migration, deployment or commit.",
+  "limitations": [
+    "PASS certifies the current T022 endpoint authorization/privacy criteria, not a complete v2 frontend or production environment.",
+    "Real Chromium/production Next inspection uses a synthetic identity adapter and a local PGlite fixture; independent PostgreSQL runtime checks use the dedicated stopped disposable cluster.",
+    "Legacy migration 0005 remains excluded due to its historical identity requirement; this is not M01 certification.",
+    "The 29 skips of the broad regression remain skips; the T022 dedicated database/browser cases are executed in their own runs.",
+    "Historical failures and intermediate timeouts retained separately; no assertion or timeout relaxed.",
+    "Production migrations, flags and deployment untouched; previous T020/T021 changes preserved."
+  ],
+  "nextTaskIds": [
+    "T023"
+  ],
+  "blockedNextTaskIds": [],
+  "details": "README.md",
+  "escalation": "ESCALAMIENTO.md",
+  "sourceHashes": "source-hashes.json",
+  "runtimeRepair": {
+    "status": "PASS",
+    "authorization": "User si approved the previously proposed provider/new-migration repair",
+    "migration": "0033_guided_v2_runtime_access.sql plus 0034_guided_v2_editor_audit.sql",
+    "previousResult": "result-before-runtime-repair.json",
+    "postgres": "26/26 PASS",
+    "importRegression": "18/18 PASS",
+    "historicalMigrations": "Unchanged",
+    "production": "Not applied"
+  },
+  "historicalChecks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 16 passed, 4 PostgreSQL cases skipped here and executed in the dedicated harness",
+      "evidence": "security-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts test/guided-v2-routes.test.ts test/guided-v2-workflow.test.ts test/guided-v2-import.test.ts test/guided-v2-contract.test.ts test/guided-v2-attempts.test.ts test/guided-learning-routes.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 77 passed, 16 skipped; prior to the final v2 CORS status repair, rechecked by security-final.txt and routes-serial-final.txt",
+      "evidence": "regression-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 25/25, run without another concurrent verification suite",
+      "evidence": "routes-serial-final.txt"
+    },
+    {
+      "command": "./docs/aprendizaje-guiado/v2/evidencias/T022/run-postgres-security.ps1 -PostgresBin C:/Users/josed/.codex/tmp/koraz-t015-postgres/pgsql/bin",
+      "exitCode": 1,
+      "result": "FAIL: 19 passed, 1 failed; restricted runtime cannot open an attempt: auth_users permission denied (42501)",
+      "evidence": "postgres-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "lint-final.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "diff-check.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts --reporter=verbose (concurrent with another verification process)",
+      "exitCode": 1,
+      "result": "FAIL: 24 PASS, 1 timeout at 5000ms in the 12-objective fixture; subsequent serial run 25/25; timeout unchanged",
+      "evidence": "routes-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts -t 'S05 rejects active markup' --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 1 targeted case; local URL rejected specifically at package.sources.0.url on an otherwise schema-valid source",
+      "evidence": "import-url-final.txt"
+    },
+    {
+      "command": "run-postgres-security.ps1 with fresh disposable PostgreSQL through 0033",
+      "exitCode": 0,
+      "result": "PASS: 21/21, includes restricted runtime source/asset access and two-connection rate serialization",
+      "evidence": "postgres-repair-verified.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run guided-v2 guided-learning-routes guided-learning-editor-routes guided-learning-editor-storage --reporter=verbose",
+      "exitCode": 1,
+      "result": "278 PASS, 15 FAIL, 27 SKIP; all failures in import suite used pre-fix ambiguous source lock SQL; retained historical failure",
+      "evidence": "regression-repair.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-import.test.ts --reporter=verbose",
+      "exitCode": 0,
+      "result": "PASS: 18/18 after correcting source lock parameter ambiguity; covers all failed cases",
+      "evidence": "import-repair-verified.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS after runtime repair",
+      "evidence": "typecheck-repair.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS after runtime repair",
+      "evidence": "lint-repair.txt"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS after repair",
+      "evidence": "diff-check-repair.txt"
+    },
+    {
+      "command": "Compare HEAD and working-tree Git blobs of every tracked historical migration",
+      "exitCode": 0,
+      "result": "PASS: 33 historical migrations unchanged",
+      "evidence": "migration-integrity-repair.json"
+    }
+  ],
+  "deferredFunctionality": [
+    {
+      "taskId": "T034",
+      "detail": "Functional conversion/adoption and successful upgrade DTOs remain deferred. Closed endpoint guards are verified by T022, not a functional conversion certificate."
+    },
+    {
+      "taskId": "T028-T033",
+      "detail": "Future v2 renderer/preview UI. Current actual SSR boundary inspected and safe; no certification of unimplemented UI."
+    }
+  ],
+  "nextTaskStarted": false
+}

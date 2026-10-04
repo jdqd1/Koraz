@@ -1,0 +1,14 @@
+{
+  "scope": "Development fixtures and typed HTTP mocks; no authenticated persistence",
+  "checks": [
+    "Existing v1 map fixture loads and retains its controls",
+    "E06: route, today, cards, progress and session show the same confirmed critical state"
+  ],
+  "responsive": [],
+  "pageErrors": [],
+  "nativeZoom200": "NO VERIFICADO",
+  "startedAt": "2026-10-04T00:51:52.541Z",
+  "status": "FAIL",
+  "error": "locator.innerText: Error: strict mode violation: locator('main') resolved to 2 elements:\n    1) <main class=\"app-main\" data-pathname=\"/visual-fixtures/aprendizaje-v2\">…</main> aka getByText('maproutehoyrutasprogresosessionTodas las rutasFisiologíaPráctica por')\n    2) <main data-engine-version=\"guided-v2\" class=\"learning-main learning-path-detail\">…</main> aka getByText('Todas las rutasFisiologíaPrá')\n\nCall log:\n\u001b[2m  - waiting for locator('main')\u001b[22m\n\n    at awaitable (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T028\\browser-check.cjs:31:40)",
+  "completedAt": "2026-10-04T00:52:22.949Z"
+}

@@ -1,0 +1,156 @@
+{
+  "taskId": "T028",
+  "status": "PASS",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "scope": "Local T028 acceptance with typed mocks. No full authenticated learner flow, activity renderer, upgrade, Hito S or production acceptance.",
+  "authorization": {
+    "userRequest": "continua con t028",
+    "detail": "Use verified T021 catalog/home/path/enrollment/state and launcher boundaries; leave upgrade for T034; retain T021 PARTIAL.",
+    "dependencyException": "ok, hazlo"
+  },
+  "dependencies": [
+    {
+      "status": "PASS",
+      "evidence": "../T016/result.json",
+      "taskId": "T016"
+    },
+    {
+      "status": "PARTIAL",
+      "scopedImplementationChecks": "PASS",
+      "exceptionAuthorized": true,
+      "evidence": "../T021/result.json",
+      "taskId": "T021"
+    }
+  ],
+  "previousTask": {
+    "status": "PASS",
+    "evidence": "../T027/result.json",
+    "taskId": "T027"
+  },
+  "implementationStarted": true,
+  "changedFiles": [
+    "apps/web/src/app/aprendizaje/page.tsx",
+    "apps/web/src/app/aprendizaje/rutas/[slug]/page.tsx",
+    "apps/web/src/app/aprendizaje/sesiones/[attemptId]/page.tsx",
+    "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx",
+    "apps/web/src/components/learning/learning-home-screen.tsx",
+    "apps/web/src/components/learning/learning-path-card.tsx",
+    "apps/web/src/components/learning/learning-today-panel.tsx",
+    "apps/web/src/components/learning/map/learning-map-workspace.tsx",
+    "apps/web/src/components/learning/map/map-route.ts",
+    "apps/web/src/components/learning/map/nodes/learning-map-item.tsx",
+    "apps/web/src/components/learning/map/v2-adapter.test.tsx",
+    "apps/web/src/components/learning/map/v2-adapter.ts",
+    "apps/web/src/components/learning/v2\\client.test.ts",
+    "apps/web/src/components/learning/v2\\client.ts",
+    "apps/web/src/components/learning/v2\\fixture-workspace.tsx",
+    "apps/web/src/components/learning/v2\\fixtures.ts",
+    "apps/web/src/components/learning/v2\\map-panel.tsx",
+    "apps/web/src/components/learning/v2\\model.test.tsx",
+    "apps/web/src/components/learning/v2\\model.ts",
+    "apps/web/src/components/learning/v2\\path-card.tsx",
+    "apps/web/src/components/learning/v2\\path-screen.tsx",
+    "apps/web/src/components/learning/v2\\route-action.tsx",
+    "apps/web/src/components/learning/v2\\server.test.ts",
+    "apps/web/src/components/learning/v2\\server.ts",
+    "apps/web/src/components/learning/v2\\session-entry.tsx",
+    "apps/web/src/components/learning/v2\\signals.tsx",
+    "apps/web/src/components/learning/v2\\styles.module.css",
+    "apps/web/src/components/learning/v2\\today-panel.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T028/"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/contracts build",
+      "evidence": "contracts-build.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec vitest run [T028 + map/route regression] --maxWorkers=1",
+      "evidence": "focused-after-polish.txt",
+      "result": "PASS: 67 tests, 7 files, including 32 T028 tests; final source",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec vitest run --maxWorkers=1",
+      "evidence": "web-suite-final.txt",
+      "result": "PASS: 386 tests, 53 files; later map/text/error polish checked by focused suite, typecheck, lint and browser",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web typecheck",
+      "evidence": "typecheck-final.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec eslint [all changed TS/TSX] --max-warnings=0",
+      "evidence": "lint-final.txt",
+      "result": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "Node 24.19.0 browser-check.cjs against local Next development with typed mocks",
+      "evidence": "browser-checks.json; browser-final.txt",
+      "result": "PASS: E06 mocked surfaces, keyboard, states, mobile dialog, idempotent browser retry and session URL",
+      "exitCode": 0
+    },
+    {
+      "command": "Node 24.19.0 map-responsive.cjs",
+      "evidence": "map-responsive.json; map-responsive-final.txt",
+      "result": "PASS: 360x800, 390x844, 768x1024, 1440x900 settled DOM geometry",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check; SHA256 comparison of preexisting files",
+      "evidence": "diff-check-final.txt; changed-baseline-files.json",
+      "result": "PASS: 378 baseline files unchanged",
+      "exitCode": 0
+    }
+  ],
+  "scopeExceptions": [
+    {
+      "reason": "Minimal development-only wrapper to verify T028 components in a real browser; no production flow or progress writes.",
+      "file": "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx"
+    }
+  ],
+  "issues": [
+    {
+      "status": "OPEN",
+      "id": "T021-upgrade-pending",
+      "blockingT028": false,
+      "detail": "Explicit scoped exception authorized; T021 remains PARTIAL until T034 adoption succeeds."
+    },
+    {
+      "status": "OPEN",
+      "id": "inherited-T024-api-timeout",
+      "blockingT028": false,
+      "detail": "Not rerun or claimed fixed.",
+      "blockingSystemAcceptance": true
+    },
+    {
+      "status": "OPEN",
+      "id": "preexisting-next-highlight-warning",
+      "blockingT028": false,
+      "detail": "Unchanged CSS warning."
+    }
+  ],
+  "notVerified": [
+    "Authenticated BFF/API persistence and complete learner journey T035",
+    "Answering renderers, help, feedback and attempt completion T029-T031",
+    "Native browser zoom 200 percent and full axe/screen reader T037",
+    "Future review dates, per-unit consumption, prerequisite list, editorial duration absent from existing public DTOs; not invented",
+    "Large fixture load/API performance T038",
+    "Independent PostgreSQL connections, clinical/editorial acceptance, Hito S, production"
+  ],
+  "nextTaskIds": [
+    "T029"
+  ],
+  "nextTaskStarted": false,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md",
+  "completedAt": "2026-10-04T01:04:23.7208993Z"
+}

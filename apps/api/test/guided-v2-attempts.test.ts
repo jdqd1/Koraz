@@ -18,9 +18,9 @@ const id = (last: number) => v2Id(100 + last);
 
 const base = {
   objectiveKey: "objective", relatedObjectiveKeys: [], phase: "retrieve", required: true,
-  sourceKeys: [], representation: "text", equivalenceKey: "family", hints: ["Piensa en la relación."],
+  sourceKeys: ["feedback-source"], representation: "text", equivalenceKey: "family", hints: ["Piensa en la relación."],
   use: "learning", prompt: "Pregunta sintética", feedback: {
-    explanation: "Explicación posterior", commonError: "Revisa la relación", sourceKeys: [],
+    explanation: "Explicación posterior", commonError: "Revisa la relación", sourceKeys: ["feedback-source"],
   }, misconceptionMappings: [], alternativeActivityKey: null,
 };
 
@@ -28,7 +28,10 @@ const definition = RoutePackageSchema.parse({
   schemaVersion: "2.0", packageKey: "runtime", revision: 1, locale: "es",
   route: { slug: "runtime-route", title: "Ruta sintética", summary: "Prueba", topicLabel: "Tema",
     audience: "Alumno", discipline: "general", coverKey: "heart" },
-  policyVersion: "guided-v2.0", sources: [],
+  policyVersion: "guided-v2.0", sources: [
+    { key: "feedback-source", kind: "reference", title: "Fuente sintética fijada", citation: "Referencia de prueba, sección 2", locator: { heading: "Relaciones", sectionPath: ["Capítulo de prueba"], page: 2 }, documentSha256: "a".repeat(64), excerpt: "T029_SOURCE_AUTHORIZED", url: "https://example.test/reference", verification: "provided", checkedAt: null },
+    { key: "unlinked-source", kind: "reference", title: "Fuente ajena al feedback", citation: "Referencia de prueba", locator: { heading: "Otra sección", sectionPath: [], page: null }, documentSha256: "b".repeat(64), excerpt: "T029_UNLINKED_PRIVATE", url: null, verification: "provided", checkedAt: null },
+  ],
   assets: [{ key: "diagram", mediaType: "image", originalFileName: "diagram.png", sha256: null,
     alt: "Diagrama", caption: "", sourceKeys: [], rightsStatus: "owned", credit: "",
     width: 100, height: 100 }],
@@ -91,7 +94,7 @@ describe.skipIf(!concurrencyUrl)("guided v2 PostgreSQL independent-connection co
     await control.query("alter default privileges in schema public grant all on tables to anon, authenticated;");
     const directory = new URL("../../../database/migrations/", import.meta.url);
     const files = (await readdir(directory))
-      .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0032_guided_v2_rewards.sql") <= 0)
+      .filter((file) => /^\d+_[a-z0-9_]+\.sql$/.test(file) && file.localeCompare("0034_guided_v2_editor_audit.sql") <= 0)
       .sort((a, b) => a.localeCompare(b));
     for (const file of files) {
       // Same isolated schema fixture as T008: no fabricated legacy admin identity.
@@ -411,6 +414,46 @@ describe("guided v2 attempt persistence", () => {
     const stored = await pg.query<{ grading_source: string; assisted: boolean; score01: number | null }>(
       "select grading_source, assisted, score01 from public.learning_v2_responses where attempt_id = $1", [attemptId]);
     expect(stored.rows[0]).toMatchObject({ grading_source: "self", assisted: true, score01: null });
+  });
+
+  it("T029 projects authorized feedback sources without marking the unassisted response and resumes constructed stages", async () => {
+    const created = await create(id(81), id(82), { kind: "activity", key: "choice" });
+    if (created.status !== "success") throw new Error("create failed");
+    const attemptId = created.value.attemptId;
+    expect(JSON.stringify(created.value)).not.toContain("T029_SOURCE_AUTHORIZED");
+    const response = await service.respond({ userId, attemptId, idempotencyKey: id(83), activityKey: "choice",
+      answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 });
+    expect(response).toMatchObject({ status: "success", value: { accepted: true, attempt: { activeActivity: null } } });
+    if (response.status !== "success") throw new Error("response failed");
+    expect(response.value.feedback.sources).toEqual([{ key: "feedback-source", title: "Fuente sintética fijada", citation: "Referencia de prueba, sección 2", locator: { heading: "Relaciones", sectionPath: ["Capítulo de prueba"], page: 2 }, excerpt: "T029_SOURCE_AUTHORIZED", url: "https://example.test/reference" }]);
+    expect(JSON.stringify(response.value)).not.toMatch(/T029_UNLINKED_PRIVATE|documentSha256|verification|checkedAt/);
+    const history = await service.read({ userId, attemptId });
+    expect(history).toMatchObject({ status: "success", value: { acceptedResponses: [{ feedback: { sources: response.value.feedback.sources } }] } });
+    expect(await service.help({ userId, attemptId, idempotencyKey: id(84), activityKey: "choice", kind: "source", expectedVersion: 2 })).toMatchObject({ status: "conflict" });
+    expect((await pg.query("select assisted from learning_v2_responses where attempt_id=$1", [attemptId])).rows).toEqual([{ assisted: false }]);
+    const constructed = await create(id(85), id(86), { kind: "activity", key: "constructed" });
+    if (constructed.status !== "success") throw new Error("create failed");
+    const text = "T029_PENDING_TEXT_PRIVATE";
+    expect(await service.help({ userId, attemptId: constructed.value.attemptId, idempotencyKey: id(89), activityKey: "constructed", kind: "reveal", expectedVersion: 1 })).toMatchObject({ status: "conflict" });
+    const input = { userId, attemptId: constructed.value.attemptId, idempotencyKey: id(87), activityKey: "constructed",
+      answer: { kind: "constructed_response", text, selfRating: null }, confidence: null, expectedVersion: 1 };
+    const submission = await service.respond(input);
+    expect(await service.respond(input)).toEqual(submission);
+    const resume = await service.read({ userId, attemptId: constructed.value.attemptId });
+    expect(resume).toMatchObject({ status: "success", value: { rowVersion: 2, acceptedResponses: [], constructedResponse: { activityKey: "constructed", stage: "submitted", text } } });
+    expect(JSON.stringify(resume)).not.toMatch(/modelAnswer|rubric|A causa B|T029_SOURCE_AUTHORIZED/);
+    expect(await service.read({ userId: v2Id(2), attemptId: constructed.value.attemptId })).toMatchObject({ status: "not_found" });
+    const saved = await pg.query<{ resume_json: { submittedTextByActivity: Record<string, string> } }>(
+      "select resume_json from learning_v2_attempts where id=$1", [constructed.value.attemptId]);
+    expect(saved.rows[0]?.resume_json.submittedTextByActivity.constructed).toBe(text);
+    const reveal = await service.help({ userId, attemptId: constructed.value.attemptId, idempotencyKey: id(88), activityKey: "constructed", kind: "reveal", expectedVersion: 2 });
+    expect(reveal).toMatchObject({ status: "success", value: { help: { text: "A causa B" } } });
+    const revealed = await service.read({ userId, attemptId: constructed.value.attemptId });
+    expect(revealed).toMatchObject({ status: "success", value: { rowVersion: 3, constructedResponse: { stage: "revealed", text, modelAnswer: "A causa B", rubric: [{ key: "reason", criterion: "Explica la relación", example: "A causa B" }] } } });
+    const accepted = await service.respond({ userId, attemptId: constructed.value.attemptId, idempotencyKey: id(90), activityKey: "constructed", answer: { kind: "constructed_response", text, selfRating: "good" }, confidence: null, expectedVersion: 3 });
+    expect(accepted).toMatchObject({ status: "success", value: { accepted: true, feedback: { score01: null }, attempt: { constructedResponse: null } } });
+    await pg.query("update content_assets set status='pending',finalized_at=null where id=$1", [assetId]);
+    expect(await service.read({ userId, attemptId: constructed.value.attemptId })).toMatchObject({ status: "access_revoked" });
   });
 
   it("resumes a case at the next child without scoring its wrapper twice", async () => {

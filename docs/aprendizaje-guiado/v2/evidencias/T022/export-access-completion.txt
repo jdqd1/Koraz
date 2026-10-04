@@ -1,0 +1,48 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01 stores a private 24h session without creating or changing a learning path 94ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reports a missing guide binding precisely and leaves the session unready 29ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > detects a changed guide digest and never auto-links by title 53ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > computes key-based target diff and enforces owner/CAS without mutating the target 108ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > S05 rejects >10 MiB, unknown privileged fields and file URLs 42ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > uses array order and local keys in diffs 7ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > marks an asset digest as unverified when the catalog has no trusted file hash 48ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reuses an idempotency key only for the same package and bindings 84ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > exposes a validated endpoint with auth, capability and private no-store 590ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > limits validate to 10 sessions per actor per ten minutes 300ms
+ × test/guided-v2-import.test.ts > guided v2 import dry-run > I01/I02 commits once, replays the receipt and exports exact portable content 5398ms
+   → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 updates only the target draft with CAS and rejects reused revision with changed hash 233ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rejects a new import that reuses packageKey and revision with different content 143ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rechecks the guide after dry-run and preserves the validated session on failure 69ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rejects another actor and an expired session 50ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rolls back route, version and bindings when closing the import fails 67ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > returns the original receipt after a later edit and rejects stale target CAS 242ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > serves commit and export through authenticated editor HTTP routes 173ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-import.test.ts > guided v2 import dry-run > I01/I02 commits once, replays the receipt and exports exact portable content
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-import.test.ts:240:3
+    238|   });
+    239|
+    240|   it("I01/I02 commits once, replays the receipt and exports exact port…
+       |   ^
+    241|     const pkg = namedFixture("roundtrip-import");
+    242|     const validated = await provider.validateImport(request({ package:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 passed (18)
+   Start at  23:34:58
+   Duration  20.48s (transform 767ms, setup 0ms, import 2.57s, tests 17.36s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-import.test.ts "--reporter=verbose"

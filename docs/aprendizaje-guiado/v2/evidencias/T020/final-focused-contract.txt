@@ -1,0 +1,49 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A01 omitted diagnosis or zero active time gives null descriptive efficiency 11ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A02 retention reports eligible, returned and absent learners separately 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > retention keeps late observations outside the window mean 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 7 retention7 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 14 retention7 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 30 retention30 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 45 retention30 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > uses the first final, with missing required objectives as zero 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > descriptive efficiency uses comparable objectives and stops the clock at first final 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A03 repeated families cannot become transfer by changing their item ID or modality 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"assisted":true} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"gradingSource":"self"} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"gradingSource":"none"} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"newModality":false} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"novelAtPresentation":false} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > an assisted first exposure prevents claiming transfer on the next attempt 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > diagnostic exposures remain exposed and a later diagnosis cannot create a baseline 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > empty cohorts have null means and zero denominators 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > cohort boundaries, replay and future observations do not change denominators 10ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > never exports identities, answers, prompts or clinical text 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > deduplicates semantic replays and unions overlapping device intervals 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > hidden tabs, no interaction and future interaction grant zero time 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > limits ticks to 30 seconds and cuts intervals at 60 seconds inactivity 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing student permissions 3126ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing content_creator permissions 8ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing coordinator permissions 22ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing administrator permissions 10ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > rejects reversed date ranges before querying and hides missing versions 6ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > opening/reading grants zero XP; correct recall grants +5 exactly once 872ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > persists heartbeat once, unions devices, cuts inactivity and never creates XP 99ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > automatic mastery grants +10; cache rebuilding and repeated correct answers grant no extra XP 225ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > first consolidation grants +15 once and records actual retention aggregates 505ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > mixed v1/v2 account keeps historical rows and reads strict v1 milestones safely 49ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > ledger failure rolls back response, semantic event, receipt and cache 216ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > version/path mismatch returns not_found without revealing cohort information 10ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > projects each activity with an explicit allowlist 31ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > exposes labeling markers without solution polygons 1ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > keeps editorial definition and reserved questions out of the public path 13ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > types all §8.10 routes and rejects client supplied scoring fields 17ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > separates private response, public error, and v1 validation 9ms
+
+ Test Files  2 passed (2)
+      Tests  40 passed (40)
+   Start at  21:14:28
+   Duration  26.58s (transform 1.02s, setup 0ms, import 13.84s, tests 11.21s, environment 0ms)
+

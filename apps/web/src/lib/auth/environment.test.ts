@@ -1,10 +1,22 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  getPublicContentStorageOrigin,
   getPublicTurnstileSiteKey,
   getPublicVideoStorageOrigin,
 } from "./environment";
 
 afterEach(() => vi.unstubAllEnvs());
+
+describe("private content image origin", () => {
+  it("keeps only the configured HTTPS origin", () => {
+    vi.stubEnv("NEXT_PUBLIC_CONTENT_STORAGE_ORIGIN", "https://private.example.test/bucket?token=test");
+    expect(getPublicContentStorageOrigin()).toBe("https://private.example.test");
+  });
+  it.each(["", "http://localhost:9000", "https://user:password@private.example.test", "data:image/png;base64,test", "https://private.example.test; img-src *"])("rejects unsafe policy input: %s", value => {
+    vi.stubEnv("NEXT_PUBLIC_CONTENT_STORAGE_ORIGIN", value);
+    expect(getPublicContentStorageOrigin()).toBeNull();
+  });
+});
 
 describe("public auth environment", () => {
   it("accepts a valid Turnstile site key", () => {

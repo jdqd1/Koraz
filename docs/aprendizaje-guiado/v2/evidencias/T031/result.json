@@ -1,0 +1,54 @@
+{
+  "taskId": "T031",
+  "status": "PASS",
+  "acceptanceScope": "LOCAL",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "clientDate": "2026-10-04",
+  "timezone": "America/Caracas",
+  "userRequest": "haz la t031",
+  "dependencies": [
+    {"taskId": "T014", "status": "PASS", "evidence": "../T014/result.json"},
+    {"taskId": "T029", "status": "PASS", "scope": "LOCAL", "evidence": "../T029/result.json"},
+    {"taskId": "T030", "status": "PASS", "scope": "LOCAL including authorized expansion", "evidence": "../T030/result.json"}
+  ],
+  "changedFiles": [
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/composition.tsx",
+    "apps/web/src/components/learning/v2/composition.module.css",
+    "apps/web/src/components/learning/v2/composition.test.tsx",
+    "apps/web/src/components/learning/v2/renderers/sequence.tsx",
+    "apps/web/src/components/learning/v2/renderers/case.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T031/"
+  ],
+  "scopeExceptions": [{"file": "apps/web/src/components/learning/v2/player.tsx", "reason": "Minimum mounting of composition dispatcher and server-confirmed sequence recap; no transport/backend rule changes"}],
+  "checks": [
+    {"command": "pnpm.cmd --filter @cediah/contracts build", "exitCode": 0, "result": "PASS Node24.19.0", "evidence": "contracts-build.txt"},
+    {"command": "pnpm.cmd --filter @cediah/web test", "exitCode": 0, "result": "450 PASS, 57 files; before final historical-recap fallback adjustment", "evidence": "web-suite.txt"},
+    {"command": "pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/v2/composition.test.tsx src/components/learning/v2/player.test.tsx src/components/learning/v2/renderers/visual.test.tsx", "exitCode": 0, "result": "55 PASS, 3 files on final implementation", "evidence": "focused-final.txt"},
+    {"command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-case.test.ts test/guided-v2-grading.test.ts test/guided-v2-attempts.test.ts test/guided-v2-contract.test.ts", "exitCode": 0, "result": "29 PASS, 12 SKIP independent PostgreSQL, 4 files", "evidence": "api-focused.txt"},
+    {"command": "node apps/api/node_modules/vitest/vitest.mjs run --config docs/aprendizaje-guiado/v2/evidencias/T031/vitest.http.config.mts", "exitCode": 0, "result": "1 HTTP PASS; duration includes deliberate browser-hold and cleanup", "evidence": "http-server.txt"},
+    {"command": "node docs/aprendizaje-guiado/v2/evidencias/T031/browser-real.cjs", "exitCode": 0, "result": "PASS real BFF/Fastify/PGlite, keyboard, four viewports, three axe states 0 serious/critical", "evidence": "browser-real-checks.json"},
+    {"command": "pnpm.cmd --filter @cediah/web typecheck", "exitCode": 0, "result": "PASS final", "evidence": "typecheck-final.txt"},
+    {"command": "ESLint five affected TypeScript files --max-warnings=0", "exitCode": 0, "result": "PASS final", "evidence": "lint-final.txt"},
+    {"command": "SHA256 baseline preservation; git diff --check", "exitCode": 0, "result": "1394/1395 previous files unchanged; only player.tsx changed; no deleted files", "evidence": "preservation.json; diff-check.txt; source-hashes-final.json"}
+  ],
+  "acceptance": {
+    "E04": "PASS local composition execution: six-stage synthetic case, sequence, study scaffolds, prediction, error detection/correction and table; existing match/image renderers preserved by focused and web tests",
+    "casePrivacy": "PASS current narrative/child only; future child 409 without persistence; submitted/revealed constructed response remains active until rating",
+    "noDoubleScore": "PASS exactly six child responses, no wrapper response/score; existing wrapper completion bookkeeping retained",
+    "sequence": "PASS keyboard movement, boundary focus, confirmed public-label immediate recap; lost receipt retry retains exact body/key across refresh and one stored row",
+    "study": "PASS worked/partial examples acknowledged with score null and removed from independent recall DOM"
+  },
+  "issues": [
+    {"id": "historical-sequence-labels", "blockingT031": false, "detail": "Existing DTO stores order keys without public labels; after refresh recap reports saved step count. Full labeled historical recap would require separately authorized DTO/backend expansion."},
+    {"id": "inherited-T024-api-timeout", "blockingSystemAcceptance": true, "detail": "Not investigated or claimed resolved in this task"},
+    {"id": "T021-upgrade-pending", "detail": "Previous acceptance scope preserved"}
+  ],
+  "notVerified": ["Native zoom and full screen-reader/axe audit T037", "Full learner journey T035", "Independent PostgreSQL concurrency/grants in this turn", "Better Auth session issuance", "Load and full API/system regression", "Editorial/clinical acceptance, Hito S, staging and production"],
+  "processesClosed": true,
+  "committed": false,
+  "deployed": false,
+  "nextTaskIds": ["T032"],
+  "nextTaskStarted": false,
+  "details": "README.md"
+}

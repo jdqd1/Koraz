@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-routes.test.ts (12 tests | 1 failed) 15347ms
+     × 12 reserved objectives keep correction private until each ten-item segment is submitted 5139ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-routes.test.ts:170:3
+    168|     expect((await get(`enrollments/${v2Id(8)}/state`)).json().state.co…
+    169|   });
+    170|   it("12 reserved objectives keep correction private until each ten-it…
+       |   ^
+    171|     const route = fixture(), choice = route.activities.find((item) => …
+    172|     route.route.slug = "segments";
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 71 passed | 19 skipped (91)
+   Start at  22:00:55
+   Duration  76.76s (transform 3.89s, setup 0ms, import 34.06s, tests 38.32s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-contract.test.ts test/guided-v2-attempts.test.ts test/guided-v2-assessments.test.ts test/guided-v2-routes.test.ts test/guided-v2-security.test.ts "--maxWorkers=1"

@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-contract.test.ts (6 tests | 1 failed) 44ms
+     × types all §8.10 routes and rejects client supplied scoring fields 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-contract.test.ts > guided v2 contracts > types all §8.10 routes and rejects client supplied scoring fields
+AssertionError: expected [ 'editorSourceCatalog', …(25) ] to have a length of 24 but got 26
+
+- Expected
++ Received
+
+- 24
++ 26
+
+ ❯ test/guided-v2-contract.test.ts:119:42
+    117|
+    118|   it("types all §8.10 routes and rejects client supplied scoring field…
+    119|     expect(Object.keys(V2HttpContracts)).toHaveLength(24);
+       |                                          ^
+    120|     expect(V2HttpContracts.editorSourceCatalog).toMatchObject({ method…
+    121|     for (const contract of Object.values(V2HttpContracts)) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 8 passed (9)
+   Start at  22:38:51
+   Duration  1.27s (transform 299ms, setup 0ms, import 687ms, tests 65ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-contract.test.ts test/guided-v2-case.test.ts

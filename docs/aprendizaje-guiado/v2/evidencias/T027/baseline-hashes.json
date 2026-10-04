@@ -1,0 +1,1334 @@
+[
+  {
+    "path": "apps/api/src/app.ts",
+    "sha256": "A2F19403214A59D44934D6306BE3F3E8E5554583457E9B84B5F5CA07B2C7DFA4"
+  },
+  {
+    "path": "apps/api/src/config.ts",
+    "sha256": "E09EB89B29915E2B6930E932AD4743C2D319FB6475B968C4E5783FFFE6903F55"
+  },
+  {
+    "path": "apps/api/src/guided-learning/v2/editor-routes.ts",
+    "sha256": "B8A5C5F7CDC9C68ED86C87672C97ACAF133019CB27E9433F80DDC7B7BA564333"
+  },
+  {
+    "path": "apps/api/src/guided-learning/v2/metrics.ts",
+    "sha256": "ABA322507163BDA29A885A5B5F95DE43B4D8794DB3FAF77EF59CEA4964CA17B8"
+  },
+  {
+    "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "sha256": "FB6A2FED19475834EC46F372C6C1D22C0454D9E215FAC2196BE9C6831A75A455"
+  },
+  {
+    "path": "apps/api/test/guided-v2-attempts.test.ts",
+    "sha256": "AA149E403333F9F2D76E976E72BA171C74EDC36A4F5FB1B02844858278A20935"
+  },
+  {
+    "path": "apps/api/test/guided-v2-contract.test.ts",
+    "sha256": "D6A15A45A99C795B78845112C051AD67A7D582BF435D9EB5B73B117869B1FA19"
+  },
+  {
+    "path": "apps/api/test/guided-v2-editor-storage.test.ts",
+    "sha256": "F27CBA6957848C13DF5BDFCCF328A4925A8A92BFDB5B9103677B38FAE386BA1A"
+  },
+  {
+    "path": "apps/api/test/guided-v2-import.test.ts",
+    "sha256": "7D0DA2AC0D5CD7921AB411C5BF1FAF54E16BCE28E67EC13AAB30A02369C45C65"
+  },
+  {
+    "path": "apps/api/test/guided-v2-metrics.test.ts",
+    "sha256": "30F10A5464CB58C3EF2A4A4B70B3DAF49BB45AC0B2796AA749B9ABA898F730E8"
+  },
+  {
+    "path": "apps/api/test/guided-v2-scheduler.test.ts",
+    "sha256": "780C4C48C65225E9303162F9168C0C5A0CEA1F2E8A640BF8E9B67EB1CE687D86"
+  },
+  {
+    "path": "apps/api/test/guided-v2-workflow.test.ts",
+    "sha256": "1292513671EBF28E482395757C254D190165A35DF5367C8C53F8F87FD29F8DAE"
+  },
+  {
+    "path": "apps/api/test/helpers/guided-v2-db.ts",
+    "sha256": "52F2BB33216D1B8B6A242490B9DF1A45FB82CA822BFE87BD376076BD704ADF3D"
+  },
+  {
+    "path": "apps/web/src/app/panel/rutas/[pathId]/page.tsx",
+    "sha256": "420A4DF785F0C3DA49E5169882E3F00232390D231CCAB69E7E4ED9BE02ED056C"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/editor-shell.tsx",
+    "sha256": "D78479240ED4F164F3BB63CE75590C5D4FB425AABB2EC27A6984840116291609"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/learning-route-editor-facade.tsx",
+    "sha256": "EECEEA7E7B50BE1F43F53B1E65187D8B2E5DF3CC2430AE175B4D7B2D0DBEEA3B"
+  },
+  {
+    "path": "apps/web/src/lib/server/guided-learning-api.ts",
+    "sha256": "AC5031D6A4905BF25C84817548B0E0FDA9B5C040B3E80A6A2A003269667D80CB"
+  },
+  {
+    "path": "packages/contracts/src/guided-learning-v2.ts",
+    "sha256": "B8F1D66671D4EA06B37C121784FABD69D2D1FFED8514738ABCA874351542C772"
+  },
+  {
+    "path": "apps/api/src/guided-learning/v2/routes.ts",
+    "sha256": "AF09971BB224027F3ABEC8D9E28659CE7DBDE6AFA8818A057B146ECD93D07D6D"
+  },
+  {
+    "path": "apps/api/test/guided-v2-routes.test.ts",
+    "sha256": "2E706E3886FECAF2712ACE630A84B2F3ABDD8CA20FAAA5AE93029AA473C873DE"
+  },
+  {
+    "path": "apps/api/test/guided-v2-security.test.ts",
+    "sha256": "FA807F1FD9259035D1226F5744FB659CD7EEA576536176E41E0E11622BEDA743"
+  },
+  {
+    "path": "apps/api/test/guided-v2-source-catalog.test.ts",
+    "sha256": "CADE5ABD04F1ECF2F964C2884D74FB02397885DEC62BEE560B66730595DFBD16"
+  },
+  {
+    "path": "apps/web/src/app/api/v2/editor/learning-paths/[...path]/route.ts",
+    "sha256": "6A25A981F28491F16910B789624F9FB57538BAFD1F3064E2D3D997A3431ACF9F"
+  },
+  {
+    "path": "apps/web/src/app/api/v2/editor/learning-paths/[id]/metrics/route.ts",
+    "sha256": "B849ADE5E8D542D7EC1D7C811C7FD8D27930EAAD4CC4A23CF98682B6E937A8B9"
+  },
+  {
+    "path": "apps/web/src/app/api/v2/editor/learning-paths/route.ts",
+    "sha256": "97FB363FE3C7D48C1D33D97F71BE846A27976888CC86B0527A0FC6C2469BCDFF"
+  },
+  {
+    "path": "apps/web/src/app/api/v2/editor/learning-paths/source-catalog/route.ts",
+    "sha256": "16574798A88CFC13B3AC655DD9D76F3859B2B94CBE8D1EBC6C9371F11632D347"
+  },
+  {
+    "path": "apps/web/src/app/api/v2/guided-learning/[...path]/route.ts",
+    "sha256": "17727C51DB127C0ECA87300AAFAE2DE05BFABB6CB1389952996738598CA6401B"
+  },
+  {
+    "path": "apps/web/src/app/visual-fixtures/editor-rutas-v2/page.tsx",
+    "sha256": "BFD95A9C162CE5B6176DE841F58DBBA083C89BEBD95ABCB65A194482F5848856"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    "sha256": "8CF9A092A4E8D1880557FB6521190B68EA1BE53C571F5398B07CCC3F655D5410"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/activity-fields.tsx",
+    "sha256": "F55104C9C3E7C98F0ADCF72082C03F28C9FFB61D7FB4CEC679D9249309ED1E1B"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+    "sha256": "435232397E56842BDFDC6166CA86037FFDA3F3A16451E2563A1E5E56746627D4"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/activity-model.ts",
+    "sha256": "5D0B76FB09D99FE9995DB146499A5A04D45357B55E83C843C6D3EC0DC6DEE488"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/activity-payloads.tsx",
+    "sha256": "3F8471E7F403D7C9998094C2B01F30EB9E1A5B02ED8694E7A72AD786FFFE4F31"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/case-fields.tsx",
+    "sha256": "1774F64D55A85DCC1BBE7849A8E79EAA2B45084EF14C30802B9733C5779EE1E8"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/dependencies.tsx",
+    "sha256": "49B70508D41255DAE58FAE33318AF41B19A621D8FB69D930D8ED70304DE5CE3F"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-api.ts",
+    "sha256": "044941A7EA3B719604956A7437993F22B642B52947429D2AA7697F155F5FA2E0"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-controller.test.ts",
+    "sha256": "D642C7732B7DD171043E64CB403ED58D4D37072E3A03823C9C15F3AC9E168CC7"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-controller.ts",
+    "sha256": "3A64583C728C0783EBEF889083C307673F3A923BA48BCCFE7B8A4BE07282262C"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-fixture-workspace.tsx",
+    "sha256": "93B5D4350A1A13A16D64E7463D87AAA9F0F70924E8BFB1989DE146102114B9FA"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-fixtures.ts",
+    "sha256": "1059D1F9B68E1A646D808755C323BEEC50ACC6EC3F0878A73BF49FB8AC260F82"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-model.test.ts",
+    "sha256": "73283667E01F3CAE37FB32057E8632831D1A2EA2D7271A57DE388BE766402478"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-model.ts",
+    "sha256": "D1CDC42B232C288F0328A7175FBBA7DC0A72A05D48CA7D951926594C5B88C897"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-recovery.ts",
+    "sha256": "371FBE241BDA18F3D0B24CFB5A394F4916658D6D5D22E68CF7DE19AB8436EEF0"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-reducer.ts",
+    "sha256": "824C1DCFF874123032D405D161FA08B4CB8C9772904B9A573869ABEFCC459909"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-serialization.ts",
+    "sha256": "E04FE36C9DAD6519881371E3AA0697CE4EFA26D95C74948FB2F5E008A3432607"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    "sha256": "8808B5BD7126A868D889B793C2277F9F0DADF31EA41DA000606AC0A204577F14"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/editor-web.test.tsx",
+    "sha256": "6D6CD5EFD106FBDEDFDB94922A37437D9609236EB5827D207F1ADC580E4FF1F1"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/objectives.tsx",
+    "sha256": "5CCCC7380CFE70F27162A20E50D2FC31D59BD0BDD050547DD53E8AD66021C677"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/relation-fields.tsx",
+    "sha256": "93906EF515AB72DD65E6C2C00B0BCDFE6A6162E15346BBCBF0B12C0565AE9992"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/route-basics.tsx",
+    "sha256": "45FD557E821C91B988FCAA27E6B6FC2472DC91EA157888F1616345BC557F26B7"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/sequence-fields.tsx",
+    "sha256": "2D102919C28AE219C08C15543581B2E363EADC1171FD0197311309A629EBF814"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+    "sha256": "62839EF529F0AA953C6C8434720EB4B7EA1C8B858F5698A2C724CE993C998272"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/sources-objectives.test.tsx",
+    "sha256": "81B783D8DA54E45C9974F8D368D562C1DDF8D31E1D3E279A9496BC43E440606B"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/sources.tsx",
+    "sha256": "5FFD2743EB13BA57B4C7825BE496B879B75A1EBB26002C71BDD1735DD75204C8"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/styles.module.css",
+    "sha256": "0A8222EE36545A9E7C942FA9F38FC1026BA441424449A3E84CDCE72CEBD237AA"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/use-route-editor.ts",
+    "sha256": "1952632AD21A69E4CA7B0DD3A3FB8E285D21B4D079D96FAADB52FC2BFD00BE9C"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/visual-activity.tsx",
+    "sha256": "7168BE69DCB11616890B1B8BAE5AA6281818557116C8CF694CA9EC6590C4D78F"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/visual-fields.tsx",
+    "sha256": "606E7B5CB5F50C2F1C820AFDFCAF6F61ED2A1AC486E4E0DC56BB9AB195398D8A"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+    "sha256": "228B6D073A63974B01D1C240DB6E4247A16383FC199612E1BB2FD958EEC043B1"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/visual-geometry.tsx",
+    "sha256": "DE0A7B86F4DB03263994FCB180170DF8C1E7A1462D30E18044668B836498B147"
+  },
+  {
+    "path": "apps/web/src/components/learning/editor/v2/visual-presets.tsx",
+    "sha256": "E17B5BD71F8C1EE97B6012E85EE32CBFAC2649F6AE08550B642CC4637490C8B6"
+  },
+  {
+    "path": "database/migrations/0033_guided_v2_runtime_access.sql",
+    "sha256": "358C709312B027058365A4EB1AE7D9F571AAFDFE2DC8A9DEFDD84D22DEEB163F"
+  },
+  {
+    "path": "database/migrations/0034_guided_v2_editor_audit.sql",
+    "sha256": "8BE064EC3E86735791C822A72E44226C6387EF018E69F7F6DEB7351CD0D55D42"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/README.md",
+    "sha256": "F06E81CA84A6984122EAA25D7FAAA9F4A4F6B8D28CA7E79D8EBE81DA81E4D88A"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/acceptance-regression.txt",
+    "sha256": "F44367924FA550FD67AF1C2CCB44C7872078C3D7AAD02ADEEFC1C91E19B82471"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/final-focused-contract.txt",
+    "sha256": "633DB88DED6350767C3C05CB452C455DDF14FFBB8A69B490D05B5B4BFCD90B06"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/lint-final.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/lint.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/postgres-attempts.txt",
+    "sha256": "D4EACCB28778C1B2093D2E96D8FFBC1A12AF54EB5007BE67DD7751C71A39134A"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/postgres-scheduler.txt",
+    "sha256": "CEB9DBAE04A254E1A026CEA0930AF919D367D1AF0436AB1923CD79B9FCFF1299"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/predecessors.json",
+    "sha256": "DF72DEE4F864C62CC4F3B071DB84BDC0EC20C5B7D7D5BA58E9C1384ACA3D6A98"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/result.json",
+    "sha256": "87D00BB614B76BF4E7D1503C2405BB97813926425CA22001F3ACF8A47C6EDED2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/source-hashes.json",
+    "sha256": "D1CA4A1FB6F8D6744631946789485E408CA62D263955D56A4805F0E565273C05"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/typecheck.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T020/workspace-state.txt",
+    "sha256": "4967540324F89F6B97E576A45045CE03D7E4DF2A30E2ECEF92FE7CBF01B47446"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/README.md",
+    "sha256": "B8F5F439C037F3D98ABBBCFFF80AA78780EA301DE76D24193EA9D4E3A8038E6D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/api-lint-final.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/api-lint.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/api-typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/api-typecheck.txt",
+    "sha256": "A5B44C9FAB770F69B2B73B45BA5F68C6EB7162A6147F27F2D3D6B969D051F926"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/diff-check-final.txt",
+    "sha256": "E05222033CD2C7B46B6FAD5EC87B44B62F844DBB6F004476498F71D0E3C9875B"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/focused-final.txt",
+    "sha256": "6F0054198E9172D3E32BE4F8A29C937E500BA10EAC3559009728501123FDE629"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/focused-initial.txt",
+    "sha256": "9EC7A46EED9D371124D746DCCC42BFE75C93FA5C5FD8A78BB8DB7C93C1593FD3"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/predecessors.json",
+    "sha256": "88C155282C6A32D4539DE5C9644FC302177818EC5087ED0BD7E937D055B9550E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/result.json",
+    "sha256": "E1929AFA17BC59881D4BC138C0EF23C0B1A37CA8E77DC4EE99C8C24A36574D19"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/routes-regression-final.txt",
+    "sha256": "9C80094B1FC2BCE9CF3D3C67735C7631396160F6DEBBA14D0B0C9D38652B6F4E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/routes-regression.txt",
+    "sha256": "6746560EA86D4FB6BFFC50A844C9BAA756109B86CB83FD8D3156E78A329AD95B"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/source-hashes.json",
+    "sha256": "D5E612CCD154AEE94B714FC1D46FE5FCD39EB5DC3C62AA95F3C01FFF78946C58"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/web-lint-scoped-final.txt",
+    "sha256": "E05222033CD2C7B46B6FAD5EC87B44B62F844DBB6F004476498F71D0E3C9875B"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/web-typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T021/web-typecheck.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/ESCALAMIENTO.md",
+    "sha256": "F7373D6354EF1E40780CF8F0F5ED3E9157022D7FC50EEAAA4E61E8FBECBA998B"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/README.md",
+    "sha256": "01DA7C5344BCE9A44F0A1523B81CAEE258ECA19F39FBC78A99EA7D41721AD80E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-acceptance.txt",
+    "sha256": "C7844AFEDE2A397120D136626486EEE82FC77DCD507B81175ED5261D40897DF7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-completion-final.txt",
+    "sha256": "C1A670ED4E0517C602EEEFDD4622A6DD9B1FB200C461F38366096B0A32DB5B9E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-completion-verified.txt",
+    "sha256": "93C6D9669E4A11F872B64346B0BA732482525913CF8941EDE6BDA33A56BDE907"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-completion.txt",
+    "sha256": "85A80F2478D22B0A9739EF9908B3ADF9ADB68E63DF71E6920DC37335D68A3456"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-dom.html",
+    "sha256": "6F236CECD2662348C35D3884D6D5F11045F2BF67A156EFF040B0BE6210AAE295"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-inspection-pass.txt",
+    "sha256": "49CC920E3F0EBAB0AC572F3CF10D19279880393B2E8AF7B53F3EBC88B1B64E58"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-network-completion.json",
+    "sha256": "0A60F153D030538C3849FDA5E0B6B09BBA16EB19974C5564C467F879D81B0E47"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-ssr.html",
+    "sha256": "92BDF519516754575E9DFEFB8CF5D02F30D1E348EAFD0E8F79D366D81599E977"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/browser-ssr.png",
+    "sha256": "55DB429ED0905C1369EA1DAC0272CE89DFD203EC4399DBE0957F4A87725F37CF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/bundle-completion.json",
+    "sha256": "CE0BE3DD8CA6920C3BEE947479AAC02D2434FD25215F1A2E038702556449B9C2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/bundle-scan-canary.txt",
+    "sha256": "3641EB886D62B7C80CB546B1F304F78A497F47274C56A0BC173CCE9F679313F1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/contracts-build.txt",
+    "sha256": "299D2E8567B991165E9B223F522A249C582243004A6B7BBB17C9818CD4C73429"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/diff-check-acceptance.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/diff-check-repair.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/diff-check.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/editor-completion.txt",
+    "sha256": "EF4E3D60F1E25CD3D060221F0593B825C13C82A92F248910F5E55227029DA7F4"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/export-access-completion.txt",
+    "sha256": "5E6C27A6524940F66A8AEE96BEC3ECB1CBA7AF2715EB40817A766EDE64037246"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/export-access-verified.txt",
+    "sha256": "575AE6DD2661BCBB8A8ADEA52AD44E3EB4BE64455C089045A096E541FB95D5A6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/import-repair-verified.txt",
+    "sha256": "85C08A918D837E98823F371D6037731DEA2CF692A4936A2FFFEE5B8F25646700"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/import-url-final.txt",
+    "sha256": "3D658C50B752B9A1B64FE07CA01B8EC1C032D8B4E42C6A50E994050339E71291"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/lint-acceptance.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/lint-completion.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/lint-final.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/lint-repair.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/lint.txt",
+    "sha256": "26E18605DFAA48AA43AA4D6FCEE342C6870D94730BD053D88F47F7F3A978ABC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/migration-integrity-acceptance.json",
+    "sha256": "F7AE93ECC9DADE884372D4CA265595016139A409EEABE7361EDAA9502085B8CB"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/migration-integrity-repair.json",
+    "sha256": "F7AE93ECC9DADE884372D4CA265595016139A409EEABE7361EDAA9502085B8CB"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/next-production-completion.txt",
+    "sha256": "542A5C42C5989BAAB2DF4B6AC2132A5231FD3E68EF08DCAE2D2F9F7C8DFDEB9D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-acceptance.txt",
+    "sha256": "3681B8618B773FD7D3BE2DE82640BC40CEE09E0E519105BA98A7EA5ECBE00817"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-completion-verified.txt",
+    "sha256": "F687A96254E5FF59157DD217FF6D5841B0FC03D7ACB710AA16B5665FD5D90287"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-completion.txt",
+    "sha256": "E395CFBA14E4404908E3BC56293121CFE3916E610A2305F4866C870CFB9DB999"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-diagnosis.txt",
+    "sha256": "BA8A9E000C913EF29DB4BC4794C69D82F2FEF147DD7B680B421B07142DC23050"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-final.txt",
+    "sha256": "22EB1E56DDFB906E4DE4FDAE317ED0344F295C0DF97DB2F6B9BBE54CCB5BF3A6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-repair-final.txt",
+    "sha256": "90CAAA700D15DEAFE19B591E66FEA81052AF1F1FE131935C924BF3691D975110"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-repair-first.txt",
+    "sha256": "F8021A6D729590B17EA36DAA886441F54C2D7D76AA0C798EAAB8D7E8118A58D1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-repair-source-lock-failure.txt",
+    "sha256": "90CAAA700D15DEAFE19B591E66FEA81052AF1F1FE131935C924BF3691D975110"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-repair-verified.txt",
+    "sha256": "795357AE0874198E6C2C36E04B722A2877A41F0B28743EA10412BC1F045010AF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/postgres-security.txt",
+    "sha256": "5AADAC91FA91940B21966C1E26C8E9D46C676D8DE7961495B7E9E8AA90EDC960"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/predecessors.json",
+    "sha256": "017F1D11E8DD0B91084A0F197BEFA850EE44152FCBA98E197C13DA0B4B2CE6B8"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/regression-completion.txt",
+    "sha256": "92680A80DD2724CEBE507F696476405A6FF790D68AF86165D6353EE735948327"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/regression-final.txt",
+    "sha256": "62FAB3A46A91053B4C97E74EDA11EE69B634D5500DE1C69FDF0589414CC66B7D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/regression-repair.txt",
+    "sha256": "E97388CC57C0D5172126CD16EED5348AC343E44C868D141F2DD6DBF74FE9CB7E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/regression.txt",
+    "sha256": "26F2C5777B29085B0F93E6C91E6B72B2107E1C7E8B33D72185B9C477C761E2C2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/result-before-completion.json",
+    "sha256": "DAE6087CBC77BF162CFFB9AB3C5C74615CBFB3DA0D448991E4F8CC5D5053CB64"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/result-before-runtime-repair.json",
+    "sha256": "B1D5CCC3E0A2A3AD8D861D2256B4E43827C6970E836C2841FF0EFA036E8B40CD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/result.json",
+    "sha256": "96BB2C3D85382367CC66375B7A5DA2B9EE59BE8001BE01F4C5CF1E03D5DE9739"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/routes-final.txt",
+    "sha256": "5281C67DB09CC0A786413F2D07A4446B8F889EA966F976BD91FC5D9E3815FADE"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/routes-serial-final.txt",
+    "sha256": "ECF5407F937D2BF2B5F29A2F6B323E2817462DA5E2745188690045BC740E329C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/run-postgres-security.ps1",
+    "sha256": "DAA71B25BBD2ABE50A710C78F0C70AFF1C721DBFE86FF43B64BA6568A154746F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/scan-client-bundle.cjs",
+    "sha256": "4C145BC36BE603981D1D1C2F318656C47C777C762FC26ADB1F1C4551EB35C9E6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-after.txt",
+    "sha256": "87119D741A4676553E41573195CADC645B672EC3325071BFA176EA7BA55ADC15"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-before-fixture-fixed.txt",
+    "sha256": "6A4571555005FBB962AD2A5BBCC19AD9B6889F455271A43ADBAB58EDF92BB165"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-before.txt",
+    "sha256": "6887346E4DC8C5A99AE2E0C0B905875F2465552620ECB795F36E8B1FB2631968"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-completion.txt",
+    "sha256": "C1765AC59A91809E1D0A59ABEE3BE655908F5AAA7B64F7C6067D7A0E0F60ED20"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-final.txt",
+    "sha256": "2D583371BD9585B1A5282E47C4056171BF7E460A25078CC88BDC95A3216CBA43"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/security-local-final.txt",
+    "sha256": "06DF06438A1628D45A633710D9D29D4AF538FF6F5143C47D5C6DC70CA8ADE09E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/source-hashes.json",
+    "sha256": "ADDB006682120DD72FF68955989C2B789629C5146ADB380E64C31815A70E7D26"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/typecheck-acceptance.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/typecheck-completion.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/typecheck-repair.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/typecheck.txt",
+    "sha256": "145F99D35DF8680F34CFBE19F8FFF3AD5C8B17AB958DF260E3F23F6A1FE59118"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/web-build-canary.txt",
+    "sha256": "2E670DC1D4594702B8BF709514AE4ED7A0365A8E837ABE40FF079FA95377AF76"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/web-build-completion.txt",
+    "sha256": "861CAE3B2DA76E35BFBE5FDADE27BBEAFE299819EC0BD9C11CB18B5DDD957ADF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T022/workspace-final.txt",
+    "sha256": "DEB81A0DF6E52AA5834107846218D2372223C5D3B5234DD14B3264C497552144"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/README.md",
+    "sha256": "D58EE7C9E3BF7CD5601EFA3737E58FCDBD3E14361E81309D13F317BE7C4CEFAF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/actual-storage-after-ui.json",
+    "sha256": "CC3194D0FA6496124FF10FC028025F8C1915F278F52A047DAE48C51CB6C5E035"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-bff-save.json",
+    "sha256": "E97CAC519E6D2BDF1834E62B20315DB54F8FEFD01482C98378B5408EF79CD256"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-conflict-reload.txt",
+    "sha256": "A42545CFA0D7A3A4DE8A6C228E3E67DBB2561E7BD36F92156624633A10BEFCC6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-empty.txt",
+    "sha256": "2148E8B029419CEE1BCEA2E703245D8B8D2DADC5A3CEFAC0EDB03C993349D8DA"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-geometry-keyboard.json",
+    "sha256": "79775BF5601E73F11D1D83585FE503C1291C918BF3D1152CF532923E585033D1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-recovery.txt",
+    "sha256": "D50095EA9B6CE920AEF43B1A12E164DBAE157C7F2BCAB2F0B3E8FF49FACF90C4"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/browser-zoom-200-emulated.json",
+    "sha256": "A6705E3DE716F8BA9724CF84F6E3F4C08A10556164961ACDF28324DB71E40465"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/closure-verification.json",
+    "sha256": "EC9A0E4DD536A8316E85DE329B52DC3222773A5F3E1BE7FC04A85727DAFD9327"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/contracts-build.txt",
+    "sha256": "299D2E8567B991165E9B223F522A249C582243004A6B7BBB17C9818CD4C73429"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/dev-download-qa.txt",
+    "sha256": "E5C0A5B3A4402936518F1BCF80CE50FBD6B69E7AE9B9FBA8C13E929A5A13B0C4"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/dev-qa.txt",
+    "sha256": "94958D4BDF7371CE54B80EA236556623F3B7D2E5F184C1B34366C149382C3447"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/download-verification.json",
+    "sha256": "920ABF1C763C6C6B0716C3844B2C6D886B6226EB811572606B01E10B01AC0968"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v1-before.png",
+    "sha256": "6E438E6225EBE29E7565724DAE7DA6C34624B84AFE60AAFC2EE9EE7B9D85C8A1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-after-conflict-reload.png",
+    "sha256": "E74FD9D441ADF7AB9BCC6162228F9D0C14DB8BCF4FAC3099030CFBA06567B077"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-desktop.png",
+    "sha256": "C01B14D1C9B6725B722CAD24EA772334C0D64B67A3E69AC91161C703ADC112AA"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-mobile.png",
+    "sha256": "2D739431A7ED67DA70FD3BCD7AE4B9CB6212557413A96B8926A5DFFBC3A0F958"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-real-conflict.png",
+    "sha256": "C0BA7957A0DE2FEE110D0068C22371C750139475E11CBE7E1C02D620C09ADDA8"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-real-desktop.png",
+    "sha256": "188527EE848F0019E382B52E0E3424E473FFCF9DFAB36DCB72C9106FA43F921E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-real-mobile.png",
+    "sha256": "8CE2A76AECCB20D291A816B5924AA8BFEF795189C73B6F8FC7AB015410A09EDC"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-recovery-offer.png",
+    "sha256": "9181ABF8388D93435E189B2F9587769F91794EF4D2B48C92AC6EE9A76148A17D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/editor-v2-zoom-200-emulated.png",
+    "sha256": "AD3793041854EF59F9755313F773852EB513CE0F606E963E506AFBEEF3FD52D7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/focused-closure.txt",
+    "sha256": "4E3F2CB4F059023337984A1A693699B3F7EE75A74E7066FA888A8E540F752509"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/focused-final.txt",
+    "sha256": "B5A097E13FC7BA672161F8A25AD8B4E64FA870EB598FB577C17258EE391520E1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/focused-first.txt",
+    "sha256": "98B375FBB740F7035358000E326838B272BC9772165C9017B24B43E397678354"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/http-integration.test.ts",
+    "sha256": "106506FA38E750B4DD5A3F2E5E898120847872C5A7880B0393E5EAA9E9E991A3"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/http-integration.txt",
+    "sha256": "6A62912AEC1F1BD3434520D6E7CEB3913E51352D84718053AE1DD4EB88B7B01D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/http-ready.json",
+    "sha256": "F4E88BC74F1CB823BA33FFA55D7373DF13EB5D23DC7B21ABAB38BB658C5EBCCE"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/http-startup-first.txt",
+    "sha256": "87CE27977BB3CE35041A284AFB08D0E92B3BC6C3328E2002668014686A89DE3C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/lint-closure.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/lint-final.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/lint-first.txt",
+    "sha256": "520968477781DB26288EF0234C018EBD5129D81E4585761FED6E40AC4E55657A"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/lint.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/local-conflict-copy.json",
+    "sha256": "77CB6D6C309F9708985C729BAD7F1581D7700D0EB68241F73E181A945C052672"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/result.json",
+    "sha256": "B80A6F33E719397005F690F5B60F0B6E7AB69C82D8822E10E7C42A2B46A3987C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/source-hashes.json",
+    "sha256": "394307C1B857E8611C3750EFFF33FED8E288A3B746C2A8D41A13BBEA506D84AA"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/state-before.txt",
+    "sha256": "6C57086FD7049AB68232C736127B16D18AADFA9739CE3E5E900CDE5A9BF094B6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/typecheck-closure.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/typecheck-first.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/typecheck.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/vitest.http.config.mts",
+    "sha256": "525C147C7D3B39D5F53670BCA48010F78DCEDC59D7823C6CF2F6B0ED33491C73"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T023/web-test.txt",
+    "sha256": "CEEED22071075778DF87C828E956E2D4ED2B82E60A7CAA83AA42DEEBEF3B897D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/README.md",
+    "sha256": "9FE596A2C1B78C6C61F96C754C76D238BE72903511507D9A075C3FB32420184C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-catalog-tests.txt",
+    "sha256": "04B07B91A4FE98395F9DC239E3A58DDE383A20A28A58C2533457DCC25885D784"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-import-before-catalog.txt",
+    "sha256": "B66F08CBF25F79418B19855A345D32F418EE4AA87661213554BE8066A6B6C647"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-import-isolated.txt",
+    "sha256": "61F6B58D7B62BD623A49F1795B481B29505F4A61863712B7C7474A735F97FCF0"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-lint-closure.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-lint.txt",
+    "sha256": "2E2DE165D58F6326CF9B318FB0C3B349581536506648A9CAAE0A6285C8EE5FFB"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-regression.txt",
+    "sha256": "97E61DC0D3A189C7DB1337819A04AB1278BCCA17AE3ABF4B173850E1F74D79F0"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-tests-first.txt",
+    "sha256": "41C79AC811F3E3E8D2E81F5D6FBCB7B44351AE056E19A5D7C68685397BA69186"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-tests.txt",
+    "sha256": "41C79AC811F3E3E8D2E81F5D6FBCB7B44351AE056E19A5D7C68685397BA69186"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-typecheck-closure.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-typecheck-first.txt",
+    "sha256": "D25B252E9191823D431F2F9339BC18F1160654DFDCD659B768D69514EB70DDD1"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/api-typecheck.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/browser-checks.json",
+    "sha256": "46FE2DE8730523C472788B8ABBADD547DD2CF2165F11DFF7AB584CE2DEF8C015"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/browser-geometry.json",
+    "sha256": "AE5AA28190AC374245C659C7C2FFEC867F44F694177C058BD5E463660BD75ABC"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/browser-save-network.json",
+    "sha256": "5DEF5006E84A4527F226794037C77FDB954D61F6F0F976B03FC093821E291053"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/closure-verification.json",
+    "sha256": "9CA3A1139CBCA401FB83FED35FC59A9897BB0E5457A57388F5764F822CA1E771"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/contracts-build.txt",
+    "sha256": "299D2E8567B991165E9B223F522A249C582243004A6B7BBB17C9818CD4C73429"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/cycle-rejected.png",
+    "sha256": "529726693C1169F3EC21ACD1577547FD0F2DD8EF4EB55D45A6269FB872173873"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/diff-check.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/editor-before.png",
+    "sha256": "04A593E4A6E08E6FE396878CFAD53BE56FB52FC8C8C79862C4100D6F0B5158BB"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/generated-routes-corrupt.txt",
+    "sha256": "80B46681BD12DCA6325DB7D57C75AC41E59429D3D541795EB07A5E2B4922419E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/http-integration-first.txt",
+    "sha256": "60D18D599C3996BE850454C28C180466E71B35E22202E078AFC628093E85ADEE"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/http-integration.test.ts",
+    "sha256": "C60AE9035359604792CD94D6DA7C38A271C06567D52930DA105566BEF5C21A3F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/http-integration.txt",
+    "sha256": "1CDC262FE4264842B6BCE7F2B972BF12DB62A35207D493F5580E12CC8070FD65"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/http-ready.json",
+    "sha256": "9E8255680A4F9FDB462444CA62BF045A0A823F72714D105771E6CA9DF6008F60"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/import-baseline-comparison.json",
+    "sha256": "883DEF87460EB306F700761ED390D289598E89E7AFF870310DBB300EEBC97209"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/issue-focus.json",
+    "sha256": "FAD71C2DBC72DB3E42D965950F2AB6B45E3B3010B973E6E372F1E463413CDFB4"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/next-dev.txt",
+    "sha256": "858C51921CE091D119026238468183CAAD34C6C3ACEE75F7C008F3F5F6032909"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/next-typegen.txt",
+    "sha256": "8B0DB89A1E25137A4CB79143A4EA63AE347E6F5F2247F026D984E133255D3084"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objective-form-final.png",
+    "sha256": "8B7D22EF134ECBAB3174E4E60C4FCF6CE347FDF9B958B4C7DEDA14B380D827C7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objectives-desktop-final.png",
+    "sha256": "3609FB440EEECB09E04DE11CA433D71722C0CD5AA19F0776E4E551F774FF7DBD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objectives-desktop.png",
+    "sha256": "817B46865CFC241C267A2A5CC22F64D9C397D09A92F988428E4093D7707CAFE7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objectives-mobile-controls-final.png",
+    "sha256": "4306FD1EBB4F0C3BF451EDBC83978C0F1EA93DEDCCF964F063A1FA6065E559F2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objectives-mobile-fields.png",
+    "sha256": "1AACB113A28E45E11F37DE190E75A60ACB989A719FFF13E4CA899AD116DE04EF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/objectives-mobile.png",
+    "sha256": "B2F613E56CDBCFCDEC3DDEC2793FB861EEE7347E1DF600F2FD7CFF52B0C89AB7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/provider-before-catalog.ts",
+    "sha256": "6CF72E3D549A99F45544863829D28FA1CBB3A08654F0C12FD5E77BED99570090"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/result.json",
+    "sha256": "4703E0412D29645F28A472F9FB4D637426A6D3BFBAFAF573CDF2CF5287926AF6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/source-binding-focus.json",
+    "sha256": "E27921555A5AFA4B0B62FAB4A373EEDBD4C760A323F70BD0758797B9ABCB058D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/source-hashes.json",
+    "sha256": "E96A76E56535CFC7ACC038235F8E0E6B1232B0AE0EDE89D4BF8BCFECAF17A791"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/sources-desktop-final.png",
+    "sha256": "4306FD1EBB4F0C3BF451EDBC83978C0F1EA93DEDCCF964F063A1FA6065E559F2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/sources-fragment-desktop.png",
+    "sha256": "8B7D22EF134ECBAB3174E4E60C4FCF6CE347FDF9B958B4C7DEDA14B380D827C7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/sources-geometry.json",
+    "sha256": "EDBF3104AD0288F970FF897D2B8CBD4A4F42189E0088051918BCA40AAE558FF8"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/state-before.txt",
+    "sha256": "644CD4D2621F43FBBCE924A892B2EA41E43EBB4786FD72E0C06AC44C66ABA304"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/storage-after-objective-delete.json",
+    "sha256": "20C61C62EE24842E6E8512910528C8EA40AB23C3D14BA2F13B2130D484347313"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/storage-after-ui-save.json",
+    "sha256": "2E56C099F3AA1D9973F10C8C31BCD9F172709ADB44AC5A428F37B35FA6874EA6"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/storage-final-source-created.json",
+    "sha256": "A3E23F64F12D7165947E33B05DF9FB82A4866EF84DE4196DDF811272CF2992A2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/storage-final-source-deleted.json",
+    "sha256": "1C80E5BEA97CCFD4F80B4DC6FE58899371D84A099637A4C5D9D1DEF59C89FCAD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/storage-final.json",
+    "sha256": "440518F830DF0A98B836D6D351B73C3B053CBAF1ED078395D04A9CE93FC295A5"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/t023-preservation.json",
+    "sha256": "E0FE7ABC787D204977368C41653F987C6B9FBA728250E0E5BFFE9CCCE46B36D3"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/vitest.http.config.mts",
+    "sha256": "F66ADB4280CBC254CCF25029C0903AAC77223EEE45BF8E56544AE1930B6413AF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/vitest.import-baseline.config.mts",
+    "sha256": "DBAA4AA0B61A688CCE4AB3C17E67CCB01B28A6BE43F3944922AAAC95D762BB90"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-lint-closure.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-lint-final.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-lint.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-suite-final.txt",
+    "sha256": "430CDB64D3FE6C91EBC7CEB4BF916641249E65CD338AD878D2E7314AB3917499"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-tests-closure.txt",
+    "sha256": "5B6C6C0D8A9124DEF98CED5D9E372CB0F5BAE3000E7BFC4FE4501EE36AB2CC4C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-tests-final.txt",
+    "sha256": "92476B94D3C4DABA9DDDAF6562055E792C3581FE81F80E9909F812341672F760"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-tests.txt",
+    "sha256": "540EE1742DF9D7FFD21CD1D8415BF3DF1243F34B320BCFDD55270962333C1136"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck-closure.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck-final-verified.txt",
+    "sha256": "FBEBFA2B6E3E84333883432577BE5B5BC678A65254AE5E52BA20617D35EA2EAF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck-final.txt",
+    "sha256": "FBEBFA2B6E3E84333883432577BE5B5BC678A65254AE5E52BA20617D35EA2EAF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck-first.txt",
+    "sha256": "E23210BF2BD3928075BE4FF4645DEFBCCB452A0FF7F907504C623781FE9BFF05"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck-generated-race.txt",
+    "sha256": "FBEBFA2B6E3E84333883432577BE5B5BC678A65254AE5E52BA20617D35EA2EAF"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T024/web-typecheck.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/README.md",
+    "sha256": "5CDA03D8E16D25C524F268287B5F4BBC02AB04F6DD95C2BB21963787BD9505F2"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/base-sha.txt",
+    "sha256": "4046B842E909B43EA7659A96D63AA3EFCD8EFB83D01AD16EED31B06B14EF1933"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/browser-checks.json",
+    "sha256": "026FA6CF86E01A6CB8951CF90049AAE86C14A62824533D3E1990349B65214E03"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/browser-geometry.json",
+    "sha256": "470364C6FCA91B20BA5C47D779BF3A80B09CD0CC6E36837DF71B5AEE09F7578C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/card-desktop.png",
+    "sha256": "E1862B0B9E515019EC50D4E3F746FE4BAC03AA77E3A2F01737F90F96EEC46F5B"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/card-mobile.png",
+    "sha256": "714CF493E55CA3B1F526BFCDB03261F1B0ED24561FDA7DE4DCF212B9F2AA44DD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/closure-verification.json",
+    "sha256": "D7734F502016B1C34D4D8319BCC08F9F59964BF8BD7BF1CE05EF3A7861A25F7C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/contracts-build.txt",
+    "sha256": "299D2E8567B991165E9B223F522A249C582243004A6B7BBB17C9818CD4C73429"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/delete-focus.json",
+    "sha256": "B24F8D820C6601CE51C19915FB3794F735AD763CD8AED2A62D7AA342D82579F4"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/diff-check.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/distractor-focus.json",
+    "sha256": "28568E015E58E78B3A8F6602425405E87979CD9E6D7EC1B87F7844A017AD840C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/distractor-pending.png",
+    "sha256": "DA925F3BD42013E1B6191E41CE983FF09996E236FC0317944EC5E9C6086F47E7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/feedback-focus.json",
+    "sha256": "B9ED6BD0AD6A5E717B09A97BD12AA40F12B8234481251E130707A9EED3393625"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/forms-first.txt",
+    "sha256": "D46F13508ACAFEC988D734CCCFB0BB830CFA4EC2B4C3225508BA9F5716EA033A"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/http-integration.test.ts",
+    "sha256": "FA7BFA2340EF0C6B0CDFB893060D668BDC0F82F319921F4803D92D62E31AE1D5"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/http-integration.txt",
+    "sha256": "157E8BFC3A3342691D0A09B3C4DDF07ED0C7E9889239A8478B6A38FA0FD0887C"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/http-ready.json",
+    "sha256": "1A2770667E0F41BB12F7C15E7C7FB89A31F1C9C27D202BCBBB17F2574C8F06DD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/journey-final.png",
+    "sha256": "A18B4B54078C850E335BFCA1E2C6F677BB46C7FC1F97DD48E8212603E5B4A5CC"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/lint-first.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/mobile-focus.json",
+    "sha256": "BF70B753146B705C08600CFD5F80B4C502449B5EA1400C668AE709DFCABD7198"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/next-dev.txt",
+    "sha256": "A31C3814040BFF6E44D8F9E41D5004E917514BEAD8254A9E337C299AE68862B0"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/result.json",
+    "sha256": "887F7D93F775E7099E97F1D05CD492D2EAA93106ABF406E0C35FE861779C3E1F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/source-hashes.json",
+    "sha256": "6181ADA0B067B822C96088D6FF746C9EF7454BE9DC319AAC7CDEC486FBF21760"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/state-after.txt",
+    "sha256": "BEAF71B9EEE7B000AFEFEA3A0BFB26419DA783387407227D0618665B5EB86BA5"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/state-before.txt",
+    "sha256": "355AA3B408DB4C4AC3705A155D7B8181A6CC9C199AAF097F56C47378B1A16B71"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/storage-after-four-ui-created.json",
+    "sha256": "E2FA2339647AC02BA3F5F941F7F7377A437DD3AACAED0ABBA6210E423D868CAC"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/storage-before-ui-save.json",
+    "sha256": "A9BEBAFB1EFFB4AD1C5A75B00A9570FACB823AADB894196C1F3D6C8469B942CE"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/storage-card-created.json",
+    "sha256": "E7DE876E562ECF6C7021758CFA8A28CCFCEC1A2DB28D8B44C53987F229E54C4F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/storage-final.json",
+    "sha256": "9B16FF849CEF7542125FA7E9891570BF3C2ECB277AFC40B9AFC425867B2DB781"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/t023-preservation.json",
+    "sha256": "00328B57A1F40DABDE32B5271E1C9D0FCB482F1F29EC9D58EF89CE3B93506916"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/t024-preservation.json",
+    "sha256": "8D76F31EC6963ED6A97005426D652A08CEF648CF72B42A791639917F3BFAFF32"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/typecheck-first.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/ui-storage-checks.json",
+    "sha256": "D5C86BB13392290D46726FC89B453D87FB08DF71CAE43F96DB98789E886094FD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/vitest.http.config.mts",
+    "sha256": "9B69876A5B8518D830C2166F6C66DC55833BB4BBF9DEEF80A95C424A48F4D498"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/web-focused-final.txt",
+    "sha256": "C87934FD93F13AD725DCA3901191C759A21680A9957FE23AB8BE75AC61491A82"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/web-lint-final.txt",
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/web-suite-final.txt",
+    "sha256": "4BA0E5BEE0B6CD380AFA1C9D4EF9A26410508C68883752ED711748E924C87691"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T025/web-typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/README.md",
+    "sha256": "0127AF90D765178A0C133213ED55ADCB6AF0BB1475545B061A5E1E1F0070D3AB"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/base-sha.txt",
+    "sha256": "4046B842E909B43EA7659A96D63AA3EFCD8EFB83D01AD16EED31B06B14EF1933"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/baseline-hashes.json",
+    "sha256": "2D901E16F656AA1CF291DB056451BF1FF7F6EF16545C1A631F4FE6F5BA8CFF6D"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/before.png",
+    "sha256": "9584A199D4CEF206DC4BE01BB98AFD65BC1A559108D3913F9754CC8F8C9C72DA"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/browser-checks.json",
+    "sha256": "A2E7C21604A7E3092C500255E0F0347805B55D4C6F14F9D9195D16F33CD17CA5"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/closure-verification.json",
+    "sha256": "DF7E0226B08E7E1EC5C9B0291CDA4F5B0294C117DECBAB57DD95BC2FA6B81783"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/contracts-build.txt",
+    "sha256": "299D2E8567B991165E9B223F522A249C582243004A6B7BBB17C9818CD4C73429"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/http-integration.test.ts",
+    "sha256": "4AC06DC80F50CDAB2FCB917DD7AB9CD4B4C2DDA800DF6FCE1213F2BD286A2F95"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/http-integration.txt",
+    "sha256": "9CC9DA714F20D6D04F81F119CA04E5561AE27B24D03296B6656AF91C8A6B1D59"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/http-ready.json",
+    "sha256": "A2B8B76357B4B5E1814A0C439EDA6C2460C252ECC8417B545802885D4ADF52F0"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/p07-case-tests.txt",
+    "sha256": "FE78F5D95F6A13761EB14C6F3A10988BA7D1BB4DE335E2A6ADD45BEFF12BD79F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/responsive.json",
+    "sha256": "1ABDB944CEE772B805AE1D17012D8F3BE8DD489CD8E801017145AA4F650CD690"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/result.json",
+    "sha256": "8EAD650631A71DF96C55725EB6AC0EFF63137093D3584BD58CE93F57F9A45C5F"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/state-after.txt",
+    "sha256": "93444C9760FB91F60D346BAA68DC0787DBB860BFFBD45143788F074176081A15"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/state-before.txt",
+    "sha256": "93444C9760FB91F60D346BAA68DC0787DBB860BFFBD45143788F074176081A15"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/storage-after-ui.json",
+    "sha256": "F89638A8B8861FF34A3CA00F70B6994A39A162210D25C7F7ED3A46E983BFB4CD"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/storage-before-ui.json",
+    "sha256": "3D948968F84E080C6171714FB0AEB9DF6437DACC80CDC6B3BEF512CA7B2760EE"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/storage-final.json",
+    "sha256": "C8FCE41891F1A607380DE9AC95ED6183B7356EC8DB51FCF00CA5473BBAE70B22"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/synthetic-image.png",
+    "sha256": "07231ACD4D6628F6019EEE8308BDA6994D4879E97CAE10A2D87AC502391EA2B3"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/tests-initial.txt",
+    "sha256": "F387F13B149A34E926CDB8ECBC61D0203BFD8E72B063D5B10ED58CB8E1FC7572"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/typecheck-final.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/typecheck-initial.txt",
+    "sha256": "5A3973F79ED9BECD5F23C4FEFF467513814DE7EA381D75A4D2E339AA8B8EDCA9"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/ui-storage-checks.json",
+    "sha256": "70009EB87EF1A89438142C60F195C218B4A7AE62B7C8B6D789FC72A006BEC3E8"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/visual-desktop.png",
+    "sha256": "71BE5EC32B40EB6C2CE30DEE1522F6D78DF6EC20D7915E6BB0191ED50595B058"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/visual-mobile.png",
+    "sha256": "C37802FB3102197A484CA49F5F916895B0FEFC3B86E636EF33B5E3EFBF6C1192"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/visual-tests-initial.txt",
+    "sha256": "4423D03588FA6C882CDB7DE59524BBBA3BB329402A28D2BD7ABC513BE44ED6D7"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/vitest.http.config.mts",
+    "sha256": "4CEFF1AB2128EA0FD0613B101A1FCCC9FB4CD48FEAF529BADB0E9B51CDA5987E"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/web-focused-final.txt",
+    "sha256": "AAF6565A43C60355BD2F521EF5465D65036FAAE217D8A03A9D481E0036A53C25"
+  },
+  {
+    "path": "docs/aprendizaje-guiado/v2/evidencias/T026/web-suite-final.txt",
+    "sha256": "CC6B308DAD375C29BBE04898E3F2D24AF75F3D67B281EEB758AAB3D80258BD84"
+  }
+]

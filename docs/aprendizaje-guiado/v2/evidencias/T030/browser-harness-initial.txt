@@ -1,0 +1,11 @@
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('heading', { name: 'Prueba local T030' }) to be visible
+
+    at go (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T030\browser-check.cjs:26:130)
+    at async main (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T030\browser-check.cjs:31:44) {
+  log: [
+    "  - waiting for getByRole('heading', { name: 'Prueba local T030' }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

@@ -1,0 +1,63 @@
+{
+  "taskId": "T029",
+  "status": "FAIL",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "userRequest": "continua con t029",
+  "scope": "Player frontend implemented and checked; mandatory post-answer sources and constructed intermediate resume/rubric blocked by existing contract. No acceptance PASS.",
+  "dependencies": [
+    { "taskId": "T013", "status": "PASS", "evidence": "../T013/result.json" },
+    { "taskId": "T015", "status": "PASS", "evidence": "../T015/result.json" },
+    { "taskId": "T028", "status": "PASS", "scope": "Local typed-mock acceptance with its recorded limitations", "evidence": "../T028/result.json" }
+  ],
+  "changedFiles": [
+    "apps/web/src/components/learning/v2/client.ts",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/player.test.tsx",
+    "apps/web/src/components/learning/v2/player-fixture.tsx",
+    "apps/web/src/components/learning/v2/renderers/study.tsx",
+    "apps/web/src/components/learning/v2/renderers/choice.tsx",
+    "apps/web/src/components/learning/v2/renderers/short.tsx",
+    "apps/web/src/components/learning/v2/renderers/constructed.tsx",
+    "apps/web/src/components/learning/v2/session-entry.tsx",
+    "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T029/"
+  ],
+  "checks": [
+    { "command": "pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/contracts build", "exitCode": 0, "result": "PASS; initial shell Node22, no contracts changes", "evidence": "contracts-build.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec vitest run [v2 player/client/model/server/map adapter] --maxWorkers=1", "exitCode": 0, "result": "PASS: 53 tests/5 files; later added receipt assertion verified by player-final", "evidence": "web-final.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec vitest run src/components/learning/v2/player.test.tsx --maxWorkers=1", "exitCode": 0, "result": "PASS: final 22 player tests", "evidence": "player-final.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web typecheck", "exitCode": 0, "result": "PASS", "evidence": "typecheck-final.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/web exec eslint [changed web files] --max-warnings=0", "exitCode": 0, "result": "PASS", "evidence": "lint-final.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/api exec vitest run test/guided-v2-grading.test.ts test/guided-v2-attempts.test.ts --maxWorkers=1", "exitCode": 0, "result": "PASS: 19 tests; 12 independent PostgreSQL skipped", "evidence": "api-regression.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/api exec vitest run test/guided-v2-attempts.test.ts --maxWorkers=1", "exitCode": 0, "result": "PASS: 8 tests including new characterization; 12 independent PostgreSQL skipped. Characterization proves blockers, not T029 acceptance.", "evidence": "api-boundary-check.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/api typecheck", "exitCode": 0, "result": "PASS", "evidence": "api-typecheck.txt" },
+    { "command": "Node24.19.0; pnpm.cmd --config.verify-deps-before-run=false --filter @cediah/api exec eslint test/guided-v2-attempts.test.ts --max-warnings=0", "exitCode": 0, "result": "PASS", "evidence": "api-lint.txt" },
+    { "command": "Node24.19.0 browser-check.cjs against local Next localhost with stateful typed mocks", "exitCode": 0, "result": "PASS implemented flows; source and intermediate constructed limitations reproduced. Four viewports, keyboard/focus, axe serious/critical 0 in inspected short-answer states. Not authenticated persistence.", "evidence": "browser-checks.json; browser-final.txt" },
+    { "command": "git diff --check; baseline SHA256 comparison", "exitCode": 0, "result": "PASS: 445/449 prior files unchanged; four intended baseline files changed", "evidence": "diff-check-final.txt; changed-baseline-files.json; final-source-hashes.json" }
+  ],
+  "scopeExceptions": [
+    { "file": "apps/web/src/components/learning/v2/session-entry.tsx", "reason": "Minimum mounting of player in existing v2 dispatcher. No v1/page/transport refactor." },
+    { "file": "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx", "reason": "Minimum development-only QA wrapper with existing NODE_ENV guard, reusable AppShell and HTTP mocks." }
+  ],
+  "issues": [
+    { "id": "T029-feedback-source", "status": "OPEN", "acceptance": "FAIL", "blockingT029": true, "detail": "Feedback lacks sources; source help for accepted/non-active activity returns conflict. Source consulted before response is assisted and does not satisfy unassisted post-answer source." },
+    { "id": "T029-constructed-resume-rubric", "status": "OPEN", "acceptance": "FAIL", "blockingT029": true, "detail": "Server persists submitted text/reveal keys but public GET does not project them; reload loses intermediate visible stage. Reveal omits rubric." },
+    { "id": "T021-upgrade-pending", "status": "OPEN", "blockingT029": false, "detail": "Inherited PARTIAL; no upgrade work here." },
+    { "id": "inherited-T024-api-timeout", "status": "OPEN", "blockingSystemAcceptance": true, "detail": "Not investigated or claimed fixed." }
+  ],
+  "proposedExpansion": { "status": "AWAITING_USER_AUTHORIZATION", "document": "AMPLIACION-PROPUESTA.md", "implemented": false },
+  "notVerified": [
+    "Authenticated BFF/API persistence and full E03/T035 journey",
+    "Full axe/screen-reader audit and native browser zoom 200 percent T037",
+    "Independent PostgreSQL in this turn, global regression, load/performance",
+    "Clinical/editorial review, Hito S, staging and production"
+  ],
+  "nextTaskIds": [],
+  "nextTaskStarted": false,
+  "T030Started": false,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

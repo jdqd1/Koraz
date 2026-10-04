@@ -1,0 +1,172 @@
+{
+  "taskId": "T029",
+  "status": "PASS",
+  "acceptanceScope": "LOCAL",
+  "previousStatus": "FAIL",
+  "date": "2026-10-03",
+  "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "userRequest": "continua con t029",
+  "authorization": {
+    "request": "ok, hazlo",
+    "document": "AMPLIACION-PROPUESTA.md",
+    "implemented": true
+  },
+  "scope": "Player base and authorized DTO/API projection expansion; local contracts/API persistence/HTTP, web and browser typed-mock acceptance. No global system or production acceptance.",
+  "dependencies": [
+    {
+      "taskId": "T013",
+      "status": "PASS",
+      "evidence": "../T013/result.json"
+    },
+    {
+      "taskId": "T015",
+      "status": "PASS",
+      "evidence": "../T015/result.json"
+    },
+    {
+      "taskId": "T028",
+      "status": "PASS",
+      "evidence": "../T028/result.json",
+      "scope": "As documented in predecessor"
+    }
+  ],
+  "changedFiles": [
+    "packages/contracts/src/guided-learning-v2.ts",
+    "apps/api/src/guided-learning/v2/manifests.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/test/guided-v2-contract.test.ts",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "apps/api/test/guided-v2-routes.test.ts",
+    "apps/api/test/guided-v2-security.test.ts",
+    "apps/web/src/components/learning/v2/client.ts",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/player.test.tsx",
+    "apps/web/src/components/learning/v2/player-fixture.tsx",
+    "apps/web/src/components/learning/v2/renderers/study.tsx",
+    "apps/web/src/components/learning/v2/renderers/choice.tsx",
+    "apps/web/src/components/learning/v2/renderers/short.tsx",
+    "apps/web/src/components/learning/v2/renderers/constructed.tsx",
+    "apps/web/src/components/learning/v2/session-entry.tsx",
+    "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T029/"
+  ],
+  "checks": [
+    {
+      "command": "contracts build",
+      "result": "PASS Node24.19.0",
+      "evidence": "ampliacion/contracts-build.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "full web vitest",
+      "result": "410 PASS; 54 files",
+      "evidence": "ampliacion/web-suite-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "focused API vitest isolated",
+      "result": "72 PASS; 19 SKIP PostgreSQL independent; 5 files",
+      "evidence": "ampliacion/api-focused-isolated.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "HTTP regression with new-version source pinning",
+      "result": "12 PASS; 1 file",
+      "evidence": "ampliacion/api-version-pinning-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "API and web typecheck",
+      "result": "PASS",
+      "evidence": "ampliacion/api-typecheck-final.txt; ampliacion/web-typecheck-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "changed API and web ESLint",
+      "result": "PASS",
+      "evidence": "ampliacion/api-lint-final.txt; ampliacion/api-routes-lint-final.txt; ampliacion/web-lint-final.txt",
+      "exitCode": 0
+    },
+    {
+      "command": "browser typed-mock flows and four viewports",
+      "result": "PASS; no overflow, keyboard/focus, axe serious/critical 0 in inspected short-answer states",
+      "evidence": "ampliacion/browser-checks.json",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check; baseline SHA256",
+      "result": "PASS; initial 439/449 unchanged; authorization 445/456 unchanged; all changed files planned",
+      "evidence": "ampliacion/diff-check-final.txt; changed-baseline-files.json; ampliacion/changed-baseline-files.json; ampliacion/final-source-hashes.json",
+      "exitCode": 0
+    }
+  ],
+  "issues": [
+    {
+      "id": "T029-feedback-source",
+      "status": "RESOLVED",
+      "blockingT029": false,
+      "detail": "Explicit correction-only sources from pinned version; no post-answer help or retroactive assistance; assessment segment deferral retained."
+    },
+    {
+      "id": "T029-constructed-resume-rubric",
+      "status": "RESOLVED",
+      "blockingT029": false,
+      "detail": "Own submitted stage and authorized revealed model/rubric resume from server; cleared after acceptance; pre-submit/revoked/foreign access denied."
+    },
+    {
+      "id": "T021-upgrade-pending",
+      "status": "OPEN",
+      "blockingT029": false
+    },
+    {
+      "id": "inherited-T024-api-timeout",
+      "status": "OPEN",
+      "blockingSystemAcceptance": true,
+      "detail": "Separate inherited timeout not investigated or claimed fixed."
+    }
+  ],
+  "priorEvidence": {
+    "result": "ampliacion/result-before.json",
+    "readme": "ampliacion/README-before.md",
+    "initialConcurrentApiTimeout": "ampliacion/api-focused-final.txt",
+    "resolution": "Isolated repetition passed without timeout/assertion changes; final HTTP regression passed."
+  },
+  "scopeExceptions": [
+    {
+      "file": "apps/web/src/components/learning/v2/session-entry.tsx",
+      "reason": "Minimum player mounting"
+    },
+    {
+      "file": "apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx",
+      "reason": "Development-only existing AppShell QA wrapper retaining NODE_ENV guard"
+    },
+    {
+      "files": [
+        "packages/contracts/src/guided-learning-v2.ts",
+        "apps/api/src/guided-learning/v2/manifests.ts",
+        "apps/api/src/providers/postgres-guided-learning-v2.ts",
+        "apps/api/src/guided-learning/v2/routes.ts",
+        "apps/api/test/guided-v2-contract.test.ts",
+        "apps/api/test/guided-v2-attempts.test.ts",
+        "apps/api/test/guided-v2-routes.test.ts",
+        "apps/api/test/guided-v2-security.test.ts"
+      ],
+      "reason": "Explicitly authorized minimal contract/backend expansion"
+    }
+  ],
+  "notVerified": [
+    "Authenticated full BFF/API/browser persistence and E03/T035 journey",
+    "Full axe/screen-reader audit and native browser zoom T037",
+    "Independent PostgreSQL in this turn; full API regression; load/performance",
+    "Clinical/editorial review, Hito S, staging and production"
+  ],
+  "nextTaskIds": [
+    "T030"
+  ],
+  "nextTaskStarted": false,
+  "T030Started": false,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

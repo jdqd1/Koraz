@@ -14,6 +14,8 @@ import {
 import type { LearningHome, LearningHomeTask, LearningPathCard } from "@cediah/contracts";
 import { LearningPreferencesDialog } from "./learning-preferences-dialog";
 import { LearningTaskActions } from "./learning-task-actions";
+import { V2TodayPanel } from "./v2/today-panel";
+import type { V2Home, V2State } from "./v2/model";
 
 function taskCount(task: LearningHomeTask) {
   if (task.kind === "review") {
@@ -28,7 +30,15 @@ function TaskIcon({ task }: { task: LearningHomeTask }) {
     : <Target aria-hidden="true" size={23} />;
 }
 
-export function LearningTodayPanel({ home, paths }: {
+export function LearningTodayPanel({ home, paths, v2Home = null, v2States = [] }: {
+  home: LearningHome | null;
+  paths: LearningPathCard[];
+  v2Home?: V2Home | null;
+  v2States?: V2State[];
+}) {
+  return <>{v2Home ? <V2TodayPanel home={v2Home} states={v2States} /> : null}{home ? <V1TodayPanel home={home} paths={paths} /> : null}</>;
+}
+function V1TodayPanel({ home, paths }: {
   home: LearningHome;
   paths: LearningPathCard[];
 }) {

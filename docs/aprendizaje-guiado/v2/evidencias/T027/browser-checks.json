@@ -1,0 +1,26 @@
+{
+  "localOnly": true,
+  "realNextBffApi": true,
+  "publishedPath": "2fc04cf3-d592-4df4-9ef4-7ba96e588ce0",
+  "importedPath": "4f01ed09-2291-4cc4-8239-c441637bdf3d",
+  "checks": [
+    "validate -> in_review -> approved -> published in isolated DB",
+    "reload preserves confirmed status and revision",
+    "missing source disables commit",
+    "source incidence focuses package.sources.0.binding",
+    "binding resolved then imported draft with approvedBy=null",
+    "imported draft opens in editor",
+    "opening/closing wizard preserves unsaved title and restores trigger focus",
+    "threshold 90 and rationale survive save/reload",
+    "same package identity/revision different content gives recoverable 409",
+    "keyboard Enter switches tabs and opens advanced threshold",
+    "360x800,390x844,768x1024,1440x900: no page overflow, visible fields fit",
+    "checkbox18px,label44px"
+  ],
+  "notVerified": [
+    "full E01/E02 smoke reserved T035",
+    "native browser 200 percent zoom",
+    "full screen reader and axe audit T037",
+    "browser download file bytes: tool download event timed out; UI success and actual HTTP export verified"
+  ]
+}

@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-images.test.ts (7 tests | 1 failed | 6 skipped) 9587ms
+     × projects target identities without geometric solutions or alternative answers 1404ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > projects target identities without geometric solutions or alternative answers
+TypeError: El grafo de la ruta no es válido
+ ❯ ordered src/guided-learning/v2/selection.ts:31:86
+     29| function ordered(definition: RoutePackage) {
+     30|   const graph = analyzeRouteGraph(definition);
+     31|   if (graph.issues.some((issue) => issue.severity === "error") || grap…
+       |                                                                                      ^
+     32|   return graph.orderedObjectiveKeys;
+     33| }
+ ❯ selectGuidedV2NextAction src/guided-learning/v2/selection.ts:85:17
+ ❯ context src/guided-learning/v2/routes.ts:147:21
+ ❯ Object.prepareSnapshot src/guided-learning/v2/routes.ts:202:21
+ ❯ src/providers/postgres-guided-learning-v2.ts:1331:17
+ ❯ v2Receipt src/providers/postgres-guided-learning-v2.ts:922:18
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ DefaultConnectionProvider.provideConnection ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20
+ ❯ Object.invoke src/guided-learning/v2/routes.ts:335:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 skipped (7)
+   Start at  22:43:48
+   Duration  13.37s (transform 1.23s, setup 0ms, import 3.06s, tests 9.59s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-images.test.ts -t "projects target"

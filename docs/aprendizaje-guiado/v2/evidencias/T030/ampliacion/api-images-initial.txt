@@ -1,0 +1,136 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-images.test.ts (7 tests | 6 failed) 4371ms
+     × projects target identities without geometric solutions or alternative answers 125ms
+     × issues only pinned private media with a short expiry and strict request binding 43ms
+     × denies foreign, expired, revoked and completed media before signing 34ms
+     × persists an idempotent accessible transition, resume, modality and original spatial requirement 31ms
+     × rejects stale transition and alternative after revocation without effects 38ms
+     × labels only public markers and grades partial correctness in server 76ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > projects target identities without geometric solutions or alternative answers
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ launch test/guided-v2-images.test.ts:19:33
+     17|   async function launch(key="hotspot") {
+     18|     const response=await post("attempts",{clientAttemptId:v2Id(serial+…
+     19|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     20|   }
+     21|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:22:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > issues only pinned private media with a short expiry and strict request binding
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ launch test/guided-v2-images.test.ts:19:33
+     17|   async function launch(key="hotspot") {
+     18|     const response=await post("attempts",{clientAttemptId:v2Id(serial+…
+     19|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     20|   }
+     21|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:28:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > denies foreign, expired, revoked and completed media before signing
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ launch test/guided-v2-images.test.ts:19:33
+     17|   async function launch(key="hotspot") {
+     18|     const response=await post("attempts",{clientAttemptId:v2Id(serial+…
+     19|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     20|   }
+     21|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:40:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > persists an idempotent accessible transition, resume, modality and original spatial requirement
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ launch test/guided-v2-images.test.ts:19:33
+     17|   async function launch(key="hotspot") {
+     18|     const response=await post("attempts",{clientAttemptId:v2Id(serial+…
+     19|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     20|   }
+     21|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:47:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > rejects stale transition and alternative after revocation without effects
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ launch test/guided-v2-images.test.ts:19:33
+     17|   async function launch(key="hotspot") {
+     18|     const response=await post("attempts",{clientAttemptId:v2Id(serial+…
+     19|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     20|   }
+     21|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:71:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > labels only public markers and grades partial correctness in server
+AssertionError: expected 503 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 503
+
+ ❯ test/guided-v2-images.test.ts:80:232
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 1 passed (7)
+   Start at  22:43:00
+   Duration  7.01s (transform 575ms, setup 0ms, import 2.17s, tests 4.37s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-images.test.ts

@@ -1,0 +1,210 @@
+[
+  {
+    "sequence": 514,
+    "source": {
+      "tabId": 1
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:3100/panel/rutas/d1129ba0-8266-4801-a965-78e6f73da6d5",
+      "frameId": "D8645CC66844C3DEA2EBA288C214B9B8",
+      "hasUserGesture": true,
+      "initiator": {
+        "stack": {
+          "callFrames": [
+            {
+              "columnNumber": 35,
+              "functionName": "request",
+              "lineNumber": 8859,
+              "scriptId": "322",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/apps_web_src_components_learning_editor_1kui_o3._.js"
+            },
+            {
+              "columnNumber": 19,
+              "functionName": "save",
+              "lineNumber": 8906,
+              "scriptId": "322",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/apps_web_src_components_learning_editor_1kui_o3._.js"
+            },
+            {
+              "columnNumber": 41,
+              "functionName": "save",
+              "lineNumber": 9010,
+              "scriptId": "322",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/apps_web_src_components_learning_editor_1kui_o3._.js"
+            },
+            {
+              "columnNumber": 25,
+              "functionName": "save",
+              "lineNumber": 9462,
+              "scriptId": "322",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/apps_web_src_components_learning_editor_1kui_o3._.js"
+            },
+            {
+              "columnNumber": 42,
+              "functionName": "onClick",
+              "lineNumber": 9969,
+              "scriptId": "322",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/apps_web_src_components_learning_editor_1kui_o3._.js"
+            },
+            {
+              "columnNumber": 12,
+              "functionName": "executeDispatch",
+              "lineNumber": 10158,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 73,
+              "functionName": "runWithFiberInDEV",
+              "lineNumber": 760,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 40,
+              "functionName": "processDispatchQueue",
+              "lineNumber": 10184,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 12,
+              "functionName": "",
+              "lineNumber": 10461,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 43,
+              "functionName": "batchedUpdates$1",
+              "lineNumber": 2043,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 8,
+              "functionName": "dispatchEventForPluginEventSystem",
+              "lineNumber": 10260,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 36,
+              "functionName": "dispatchEvent",
+              "lineNumber": 12857,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            },
+            {
+              "columnNumber": 63,
+              "functionName": "dispatchDiscreteEvent",
+              "lineNumber": 12839,
+              "scriptId": "302",
+              "url": "http://127.0.0.1:3100/_next/static/chunks/03fj_next_dist_compiled_react-dom_1jcnagc._.js"
+            }
+          ]
+        },
+        "type": "script"
+      },
+      "loaderId": "599EF0DAEC8D006AB8D82B0B909A3CF9",
+      "redirectHasExtraInfo": false,
+      "request": {
+        "hasPostData": true,
+        "headers": {
+          "Content-Type": "application/json",
+          "Idempotency-Key": "e5d7e4bd-f7b9-4b31-b7e9-69843097a00b",
+          "Referer": "http://127.0.0.1:3100/panel/rutas/d1129ba0-8266-4801-a965-78e6f73da6d5",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Chromium\";v=\"154\", \"Google Chrome\";v=\"154\", \"Not A(Brand\";v=\"99\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Windows\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "PATCH",
+        "mixedContentType": "none",
+        "postData": "{\"package\":{\"schemaVersion\":\"2.0\",\"packageKey\":\"editor-synthetic\",\"revision\":1,\"locale\":\"es\",\"route\":{\"slug\":\"editor-synthetic\",\"title\":\"Título confirmado T024\",\"summary\":\"Ejemplo para verificar guardado y recuperación del editor.\",\"topicLabel\":\"Tema sintético\",\"audience\":\"Estudiantes\",\"discipline\":\"general\",\"coverKey\":\"heart\"},\"policyVersion\":\"guided-v2.0\",\"sources\":[{\"key\":\"source\",\"kind\":\"guide\",\"title\":\"Guía sintética\",\"citation\":\"Fixture de software\",\"locator\":{\"heading\":\"Sección\",\"sectionPath\":[],\"page\":null},\"documentSha256\":\"2b324dfa84fc49bfe4afe27245ac69483ff87d433fbd769e866e61787b35bad5\",\"excerpt\":\"Contenido de ejemplo\",\"url\":null,\"verification\":\"provided\",\"checkedAt\":null},{\"key\":\"source-added\",\"kind\":\"guide\",\"title\":\"Fragmento adicional T024\",\"citation\":\"Fixture de software\",\"locator\":{\"heading\":\"Sección\",\"sectionPath\":[],\"page\":null},\"documentSha256\":\"2b324dfa84fc49bfe4afe27245ac69483ff87d433fbd769e866e61787b35bad5\",\"excerpt\":\"Contenido de ejemplo\",\"url\":null,\"verification\":\"provided\",\"checkedAt\":null},{\"key\":\"fuente-1\",\"kind\":\"guide\",\"title\":\"Fuente creada con teclado\",\"citation\":\"Documento sintético T024, sección de prueba\",\"locator\":{\"heading\":\"Apartado de prueba T024\",\"sectionPath\":[],\"page\":null},\"documentSha256\":\"2b324dfa84fc49bfe4afe27245ac69483ff87d433fbd769e866e61787b35bad5\",\"excerpt\":\"Fragmento sintético creado desde la interfaz.\",\"url\":null,\"verification\":\"provided\",\"checkedAt\":null}],\"assets\":[{\"key\":\"image\",\"mediaType\":\"image\",\"originalFileName\":\"image.png\",\"sha256\":null,\"alt\":\"Diagrama de prueba\",\"caption\":\"\",\"sourceKeys\":[\"source\"],\"rightsStatus\":\"owned\",\"credit\":\"Fixture\",\"width\":100,\"height\":100}],\"objectives\":[{\"key\":\"objective\",\"title\":\"Relacionar los ejemplos\",\"unitKey\":\"unit\",\"verb\":\"relate\",\"criticality\":\"core\",\"required\":true,\"prerequisiteKeys\":[],\"sourceKeys\":[\"source\"],\"comparisonGroup\":null,\"misconceptions\":[]},{\"key\":\"extra\",\"title\":\"Diferenciar los ejemplos\",\"unitKey\":\"unit\",\"verb\":\"differentiate\",\"criticality\":\"supporting\",\"required\":false,\"prerequisiteKeys\":[\"objective\"],\"sourceKeys\":[\"source-added\"],\"comparisonGroup\":null,\"misconceptions\":[]},{\"key\":\"objetivo-1\",\"title\":\"Identificar el ejemplo creado con teclado\",\"unitKey\":\"unit\",\"verb\":\"recall\",\"criticality\":\"core\",\"required\":true,\"prerequisiteKeys\":[\"objective\"],\"sourceKeys\":[\"source-added\"],\"comparisonGroup\":null,\"misconceptions\":[]}],\"units\":[{\"key\":\"unit\",\"title\":\"Unidad de ejemplo\",\"objectiveKeys\":[\"objective\",\"extra\",\"objetivo-1\"],\"activityKeys\":[\"study\",\"choice\",\"short\",\"constructed\",\"match\",\"image\",\"sequence\",\"case\"],\"support\":\"full\",\"estimatedMinutes\":5}],\"activities\":[{\"key\":\"study\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-study\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"study\",\"payload\":{\"body\":\"Texto de ejemplo\",\"focusSpans\":[],\"assetKey\":null,\"scaffold\":\"explanation\",\"videoRange\":null}},{\"key\":\"choice\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-choice\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"single_choice\",\"payload\":{\"options\":[{\"key\":\"a\",\"text\":\"A\"},{\"key\":\"b\",\"text\":\"B\"}],\"correctKey\":\"a\",\"distractorFeedback\":{\"b\":\"Explicación\"}}},{\"key\":\"short\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-short\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"short_answer\",\"payload\":{\"acceptedAnswers\":[\"respuesta\"],\"maxChars\":100,\"modelAnswer\":\"respuesta\",\"normalization\":\"nfkc-lower-space\"}},{\"key\":\"constructed\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-constructed\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"constructed_response\",\"payload\":{\"rubric\":[{\"key\":\"criterion\",\"criterion\":\"Criterio\",\"example\":\"Ejemplo\"}],\"modelAnswer\":\"Ejemplo\",\"verificationActivityKey\":\"choice\"}},{\"key\":\"match\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-match\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"match\",\"payload\":{\"presentation\":\"causal_map\",\"prompts\":[{\"key\":\"p\",\"text\":\"P\"}],\"choices\":[{\"key\":\"c\",\"text\":\"C\"}],\"correctByPrompt\":{\"p\":\"c\"},\"allowReuse\":false,\"edges\":[]}},{\"key\":\"image\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-image\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"image_target\",\"payload\":{\"assetKey\":\"image\",\"mode\":\"hotspot\",\"targets\":[{\"key\":\"target\",\"prompt\":\"Señala\",\"polygon\":[{\"x\":0,\"y\":0},{\"x\":1,\"y\":0},{\"x\":0,\"y\":1}],\"label\":\"\"}],\"labels\":[],\"correctLabelByTarget\":{},\"accessibleAlternativeKey\":\"choice\",\"masking\":\"no_labels\"}},{\"key\":\"sequence\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-sequence\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"sequence\",\"payload\":{\"items\":[{\"key\":\"one\",\"text\":\"1\"},{\"key\":\"two\",\"text\":\"2\"},{\"key\":\"three\",\"text\":\"3\"}],\"acceptedOrders\":[[\"one\",\"two\",\"three\"]],\"whyActivityKey\":null}},{\"key\":\"case\",\"objectiveKey\":\"objective\",\"relatedObjectiveKeys\":[],\"phase\":\"retrieve\",\"required\":true,\"sourceKeys\":[\"source\"],\"representation\":\"text\",\"equivalenceKey\":\"family-case\",\"hints\":[],\"use\":\"learning\",\"prompt\":\"Pregunta sintética\",\"feedback\":{\"explanation\":\"Explicación sintética\",\"commonError\":\"\",\"sourceKeys\":[\"source\"]},\"misconceptionMappings\":[],\"alternativeActivityKey\":null,\"kind\":\"case\",\"payload\":{\"stages\":[{\"key\":\"first\",\"narrative\":\"Etapa 1\",\"childActivityKey\":\"choice\"},{\"key\":\"second\",\"narrative\":\"Etapa 2\",\"childActivityKey\":\"short\"}]}}],\"assessments\":[{\"key\":\"final\",\"kind\":\"final\",\"afterUnitKey\":null,\"objectiveKeys\":[\"objective\"],\"candidateActivityKeys\":[],\"thresholdPercent\":80,\"thresholdRationale\":\"Umbral sintético para comprobar la preservación de la configuración.\"}],\"reviewPlan\":{\"objectiveKeys\":[\"objective\"]},\"editorial\":{\"notes\":\"Borrador sintético. No acredita contenido clínico ni cobertura de publicación.\",\"unresolvedIssues\":[]}},\"bindings\":{\"topicContentId\":\"fa000000-0000-4000-8000-000000000003\",\"sources\":[{\"key\":\"source\",\"sourceContentId\":\"fa000000-0000-4000-8000-000000000005\",\"resourceRevisionId\":\"fa000000-0000-4000-8000-000000000006\"},{\"key\":\"source-added\",\"sourceContentId\":\"fa000000-0000-4000-8000-000000000105\",\"resourceRevisionId\":\"fa000000-0000-4000-8000-000000000106\"},{\"key\":\"fuente-1\",\"sourceContentId\":\"fa000000-0000-4000-8000-000000000105\",\"resourceRevisionId\":\"fa000000-0000-4000-8000-000000000106\"}],\"assets\":[{\"key\":\"image\",\"assetId\":\"fa000000-0000-4000-8000-000000000007\"}]},\"expectedVersion\":3}",
+        "postDataEntries": [
+          {
+            "bytes": "eyJwYWNrYWdlIjp7InNjaGVtYVZlcnNpb24iOiIyLjAiLCJwYWNrYWdlS2V5IjoiZWRpdG9yLXN5bnRoZXRpYyIsInJldmlzaW9uIjoxLCJsb2NhbGUiOiJlcyIsInJvdXRlIjp7InNsdWciOiJlZGl0b3Itc3ludGhldGljIiwidGl0bGUiOiJUw610dWxvIGNvbmZpcm1hZG8gVDAyNCIsInN1bW1hcnkiOiJFamVtcGxvIHBhcmEgdmVyaWZpY2FyIGd1YXJkYWRvIHkgcmVjdXBlcmFjacOzbiBkZWwgZWRpdG9yLiIsInRvcGljTGFiZWwiOiJUZW1hIHNpbnTDqXRpY28iLCJhdWRpZW5jZSI6IkVzdHVkaWFudGVzIiwiZGlzY2lwbGluZSI6ImdlbmVyYWwiLCJjb3ZlcktleSI6ImhlYXJ0In0sInBvbGljeVZlcnNpb24iOiJndWlkZWQtdjIuMCIsInNvdXJjZXMiOlt7ImtleSI6InNvdXJjZSIsImtpbmQiOiJndWlkZSIsInRpdGxlIjoiR3XDrWEgc2ludMOpdGljYSIsImNpdGF0aW9uIjoiRml4dHVyZSBkZSBzb2Z0d2FyZSIsImxvY2F0b3IiOnsiaGVhZGluZyI6IlNlY2Npw7NuIiwic2VjdGlvblBhdGgiOltdLCJwYWdlIjpudWxsfSwiZG9jdW1lbnRTaGEyNTYiOiIyYjMyNGRmYTg0ZmM0OWJmZTRhZmUyNzI0NWFjNjk0ODNmZjg3ZDQzM2ZiZDc2OWU4NjZlNjE3ODdiMzViYWQ1IiwiZXhjZXJwdCI6IkNvbnRlbmlkbyBkZSBlamVtcGxvIiwidXJsIjpudWxsLCJ2ZXJpZmljYXRpb24iOiJwcm92aWRlZCIsImNoZWNrZWRBdCI6bnVsbH0seyJrZXkiOiJzb3VyY2UtYWRkZWQiLCJraW5kIjoiZ3VpZGUiLCJ0aXRsZSI6IkZyYWdtZW50byBhZGljaW9uYWwgVDAyNCIsImNpdGF0aW9uIjoiRml4dHVyZSBkZSBzb2Z0d2FyZSIsImxvY2F0b3IiOnsiaGVhZGluZyI6IlNlY2Npw7NuIiwic2VjdGlvblBhdGgiOltdLCJwYWdlIjpudWxsfSwiZG9jdW1lbnRTaGEyNTYiOiIyYjMyNGRmYTg0ZmM0OWJmZTRhZmUyNzI0NWFjNjk0ODNmZjg3ZDQzM2ZiZDc2OWU4NjZlNjE3ODdiMzViYWQ1IiwiZXhjZXJwdCI6IkNvbnRlbmlkbyBkZSBlamVtcGxvIiwidXJsIjpudWxsLCJ2ZXJpZmljYXRpb24iOiJwcm92aWRlZCIsImNoZWNrZWRBdCI6bnVsbH0seyJrZXkiOiJmdWVudGUtMSIsImtpbmQiOiJndWlkZSIsInRpdGxlIjoiRnVlbnRlIGNyZWFkYSBjb24gdGVjbGFkbyIsImNpdGF0aW9uIjoiRG9jdW1lbnRvIHNpbnTDqXRpY28gVDAyNCwgc2VjY2nDs24gZGUgcHJ1ZWJhIiwibG9jYXRvciI6eyJoZWFkaW5nIjoiQXBhcnRhZG8gZGUgcHJ1ZWJhIFQwMjQiLCJzZWN0aW9uUGF0aCI6W10sInBhZ2UiOm51bGx9LCJkb2N1bWVudFNoYTI1NiI6IjJiMzI0ZGZhODRmYzQ5YmZlNGFmZTI3MjQ1YWM2OTQ4M2ZmODdkNDMzZmJkNzY5ZTg2NmU2MTc4N2IzNWJhZDUiLCJleGNlcnB0IjoiRnJhZ21lbnRvIHNpbnTDqXRpY28gY3JlYWRvIGRlc2RlIGxhIGludGVyZmF6LiIsInVybCI6bnVsbCwidmVyaWZpY2F0aW9uIjoicHJvdmlkZWQiLCJjaGVja2VkQXQiOm51bGx9XSwiYXNzZXRzIjpbeyJrZXkiOiJpbWFnZSIsIm1lZGlhVHlwZSI6ImltYWdlIiwib3JpZ2luYWxGaWxlTmFtZSI6ImltYWdlLnBuZyIsInNoYTI1NiI6bnVsbCwiYWx0IjoiRGlhZ3JhbWEgZGUgcHJ1ZWJhIiwiY2FwdGlvbiI6IiIsInNvdXJjZUtleXMiOlsic291cmNlIl0sInJpZ2h0c1N0YXR1cyI6Im93bmVkIiwiY3JlZGl0IjoiRml4dHVyZSIsIndpZHRoIjoxMDAsImhlaWdodCI6MTAwfV0sIm9iamVjdGl2ZXMiOlt7ImtleSI6Im9iamVjdGl2ZSIsInRpdGxlIjoiUmVsYWNpb25hciBsb3MgZWplbXBsb3MiLCJ1bml0S2V5IjoidW5pdCIsInZlcmIiOiJyZWxhdGUiLCJjcml0aWNhbGl0eSI6ImNvcmUiLCJyZXF1aXJlZCI6dHJ1ZSwicHJlcmVxdWlzaXRlS2V5cyI6W10sInNvdXJjZUtleXMiOlsic291cmNlIl0sImNvbXBhcmlzb25Hcm91cCI6bnVsbCwibWlzY29uY2VwdGlvbnMiOltdfSx7ImtleSI6ImV4dHJhIiwidGl0bGUiOiJEaWZlcmVuY2lhciBsb3MgZWplbXBsb3MiLCJ1bml0S2V5IjoidW5pdCIsInZlcmIiOiJkaWZmZXJlbnRpYXRlIiwiY3JpdGljYWxpdHkiOiJzdXBwb3J0aW5nIiwicmVxdWlyZWQiOmZhbHNlLCJwcmVyZXF1aXNpdGVLZXlzIjpbIm9iamVjdGl2ZSJdLCJzb3VyY2VLZXlzIjpbInNvdXJjZS1hZGRlZCJdLCJjb21wYXJpc29uR3JvdXAiOm51bGwsIm1pc2NvbmNlcHRpb25zIjpbXX0seyJrZXkiOiJvYmpldGl2by0xIiwidGl0bGUiOiJJZGVudGlmaWNhciBlbCBlamVtcGxvIGNyZWFkbyBjb24gdGVjbGFkbyIsInVuaXRLZXkiOiJ1bml0IiwidmVyYiI6InJlY2FsbCIsImNyaXRpY2FsaXR5IjoiY29yZSIsInJlcXVpcmVkIjp0cnVlLCJwcmVyZXF1aXNpdGVLZXlzIjpbIm9iamVjdGl2ZSJdLCJzb3VyY2VLZXlzIjpbInNvdXJjZS1hZGRlZCJdLCJjb21wYXJpc29uR3JvdXAiOm51bGwsIm1pc2NvbmNlcHRpb25zIjpbXX1dLCJ1bml0cyI6W3sia2V5IjoidW5pdCIsInRpdGxlIjoiVW5pZGFkIGRlIGVqZW1wbG8iLCJvYmplY3RpdmVLZXlzIjpbIm9iamVjdGl2ZSIsImV4dHJhIiwib2JqZXRpdm8tMSJdLCJhY3Rpdml0eUtleXMiOlsic3R1ZHkiLCJjaG9pY2UiLCJzaG9ydCIsImNvbnN0cnVjdGVkIiwibWF0Y2giLCJpbWFnZSIsInNlcXVlbmNlIiwiY2FzZSJdLCJzdXBwb3J0IjoiZnVsbCIsImVzdGltYXRlZE1pbnV0ZXMiOjV9XSwiYWN0aXZpdGllcyI6W3sia2V5Ijoic3R1ZHkiLCJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUiLCJyZWxhdGVkT2JqZWN0aXZlS2V5cyI6W10sInBoYXNlIjoicmV0cmlldmUiLCJyZXF1aXJlZCI6dHJ1ZSwic291cmNlS2V5cyI6WyJzb3VyY2UiXSwicmVwcmVzZW50YXRpb24iOiJ0ZXh0IiwiZXF1aXZhbGVuY2VLZXkiOiJmYW1pbHktc3R1ZHkiLCJoaW50cyI6W10sInVzZSI6ImxlYXJuaW5nIiwicHJvbXB0IjoiUHJlZ3VudGEgc2ludMOpdGljYSIsImZlZWRiYWNrIjp7ImV4cGxhbmF0aW9uIjoiRXhwbGljYWNpw7NuIHNpbnTDqXRpY2EiLCJjb21tb25FcnJvciI6IiIsInNvdXJjZUtleXMiOlsic291cmNlIl19LCJtaXNjb25jZXB0aW9uTWFwcGluZ3MiOltdLCJhbHRlcm5hdGl2ZUFjdGl2aXR5S2V5IjpudWxsLCJraW5kIjoic3R1ZHkiLCJwYXlsb2FkIjp7ImJvZHkiOiJUZXh0byBkZSBlamVtcGxvIiwiZm9jdXNTcGFucyI6W10sImFzc2V0S2V5IjpudWxsLCJzY2FmZm9sZCI6ImV4cGxhbmF0aW9uIiwidmlkZW9SYW5nZSI6bnVsbH19LHsia2V5IjoiY2hvaWNlIiwib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlIiwicmVsYXRlZE9iamVjdGl2ZUtleXMiOltdLCJwaGFzZSI6InJldHJpZXZlIiwicmVxdWlyZWQiOnRydWUsInNvdXJjZUtleXMiOlsic291cmNlIl0sInJlcHJlc2VudGF0aW9uIjoidGV4dCIsImVxdWl2YWxlbmNlS2V5IjoiZmFtaWx5LWNob2ljZSIsImhpbnRzIjpbXSwidXNlIjoibGVhcm5pbmciLCJwcm9tcHQiOiJQcmVndW50YSBzaW50w6l0aWNhIiwiZmVlZGJhY2siOnsiZXhwbGFuYXRpb24iOiJFeHBsaWNhY2nDs24gc2ludMOpdGljYSIsImNvbW1vbkVycm9yIjoiIiwic291cmNlS2V5cyI6WyJzb3VyY2UiXX0sIm1pc2NvbmNlcHRpb25NYXBwaW5ncyI6W10sImFsdGVybmF0aXZlQWN0aXZpdHlLZXkiOm51bGwsImtpbmQiOiJzaW5nbGVfY2hvaWNlIiwicGF5bG9hZCI6eyJvcHRpb25zIjpbeyJrZXkiOiJhIiwidGV4dCI6IkEifSx7ImtleSI6ImIiLCJ0ZXh0IjoiQiJ9XSwiY29ycmVjdEtleSI6ImEiLCJkaXN0cmFjdG9yRmVlZGJhY2siOnsiYiI6IkV4cGxpY2FjacOzbiJ9fX0seyJrZXkiOiJzaG9ydCIsIm9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZSIsInJlbGF0ZWRPYmplY3RpdmVLZXlzIjpbXSwicGhhc2UiOiJyZXRyaWV2ZSIsInJlcXVpcmVkIjp0cnVlLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdLCJyZXByZXNlbnRhdGlvbiI6InRleHQiLCJlcXVpdmFsZW5jZUtleSI6ImZhbWlseS1zaG9ydCIsImhpbnRzIjpbXSwidXNlIjoibGVhcm5pbmciLCJwcm9tcHQiOiJQcmVndW50YSBzaW50w6l0aWNhIiwiZmVlZGJhY2siOnsiZXhwbGFuYXRpb24iOiJFeHBsaWNhY2nDs24gc2ludMOpdGljYSIsImNvbW1vbkVycm9yIjoiIiwic291cmNlS2V5cyI6WyJzb3VyY2UiXX0sIm1pc2NvbmNlcHRpb25NYXBwaW5ncyI6W10sImFsdGVybmF0aXZlQWN0aXZpdHlLZXkiOm51bGwsImtpbmQiOiJzaG9ydF9hbnN3ZXIiLCJwYXlsb2FkIjp7ImFjY2VwdGVkQW5zd2VycyI6WyJyZXNwdWVzdGEiXSwibWF4Q2hhcnMiOjEwMCwibW9kZWxBbnN3ZXIiOiJyZXNwdWVzdGEiLCJub3JtYWxpemF0aW9uIjoibmZrYy1sb3dlci1zcGFjZSJ9fSx7ImtleSI6ImNvbnN0cnVjdGVkIiwib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlIiwicmVsYXRlZE9iamVjdGl2ZUtleXMiOltdLCJwaGFzZSI6InJldHJpZXZlIiwicmVxdWlyZWQiOnRydWUsInNvdXJjZUtleXMiOlsic291cmNlIl0sInJlcHJlc2VudGF0aW9uIjoidGV4dCIsImVxdWl2YWxlbmNlS2V5IjoiZmFtaWx5LWNvbnN0cnVjdGVkIiwiaGludHMiOltdLCJ1c2UiOiJsZWFybmluZyIsInByb21wdCI6IlByZWd1bnRhIHNpbnTDqXRpY2EiLCJmZWVkYmFjayI6eyJleHBsYW5hdGlvbiI6IkV4cGxpY2FjacOzbiBzaW50w6l0aWNhIiwiY29tbW9uRXJyb3IiOiIiLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdfSwibWlzY29uY2VwdGlvbk1hcHBpbmdzIjpbXSwiYWx0ZXJuYXRpdmVBY3Rpdml0eUtleSI6bnVsbCwia2luZCI6ImNvbnN0cnVjdGVkX3Jlc3BvbnNlIiwicGF5bG9hZCI6eyJydWJyaWMiOlt7ImtleSI6ImNyaXRlcmlvbiIsImNyaXRlcmlvbiI6IkNyaXRlcmlvIiwiZXhhbXBsZSI6IkVqZW1wbG8ifV0sIm1vZGVsQW5zd2VyIjoiRWplbXBsbyIsInZlcmlmaWNhdGlvbkFjdGl2aXR5S2V5IjoiY2hvaWNlIn19LHsia2V5IjoibWF0Y2giLCJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUiLCJyZWxhdGVkT2JqZWN0aXZlS2V5cyI6W10sInBoYXNlIjoicmV0cmlldmUiLCJyZXF1aXJlZCI6dHJ1ZSwic291cmNlS2V5cyI6WyJzb3VyY2UiXSwicmVwcmVzZW50YXRpb24iOiJ0ZXh0IiwiZXF1aXZhbGVuY2VLZXkiOiJmYW1pbHktbWF0Y2giLCJoaW50cyI6W10sInVzZSI6ImxlYXJuaW5nIiwicHJvbXB0IjoiUHJlZ3VudGEgc2ludMOpdGljYSIsImZlZWRiYWNrIjp7ImV4cGxhbmF0aW9uIjoiRXhwbGljYWNpw7NuIHNpbnTDqXRpY2EiLCJjb21tb25FcnJvciI6IiIsInNvdXJjZUtleXMiOlsic291cmNlIl19LCJtaXNjb25jZXB0aW9uTWFwcGluZ3MiOltdLCJhbHRlcm5hdGl2ZUFjdGl2aXR5S2V5IjpudWxsLCJraW5kIjoibWF0Y2giLCJwYXlsb2FkIjp7InByZXNlbnRhdGlvbiI6ImNhdXNhbF9tYXAiLCJwcm9tcHRzIjpbeyJrZXkiOiJwIiwidGV4dCI6IlAifV0sImNob2ljZXMiOlt7ImtleSI6ImMiLCJ0ZXh0IjoiQyJ9XSwiY29ycmVjdEJ5UHJvbXB0Ijp7InAiOiJjIn0sImFsbG93UmV1c2UiOmZhbHNlLCJlZGdlcyI6W119fSx7ImtleSI6ImltYWdlIiwib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlIiwicmVsYXRlZE9iamVjdGl2ZUtleXMiOltdLCJwaGFzZSI6InJldHJpZXZlIiwicmVxdWlyZWQiOnRydWUsInNvdXJjZUtleXMiOlsic291cmNlIl0sInJlcHJlc2VudGF0aW9uIjoidGV4dCIsImVxdWl2YWxlbmNlS2V5IjoiZmFtaWx5LWltYWdlIiwiaGludHMiOltdLCJ1c2UiOiJsZWFybmluZyIsInByb21wdCI6IlByZWd1bnRhIHNpbnTDqXRpY2EiLCJmZWVkYmFjayI6eyJleHBsYW5hdGlvbiI6IkV4cGxpY2FjacOzbiBzaW50w6l0aWNhIiwiY29tbW9uRXJyb3IiOiIiLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdfSwibWlzY29uY2VwdGlvbk1hcHBpbmdzIjpbXSwiYWx0ZXJuYXRpdmVBY3Rpdml0eUtleSI6bnVsbCwia2luZCI6ImltYWdlX3RhcmdldCIsInBheWxvYWQiOnsiYXNzZXRLZXkiOiJpbWFnZSIsIm1vZGUiOiJob3RzcG90IiwidGFyZ2V0cyI6W3sia2V5IjoidGFyZ2V0IiwicHJvbXB0IjoiU2XDsWFsYSIsInBvbHlnb24iOlt7IngiOjAsInkiOjB9LHsieCI6MSwieSI6MH0seyJ4IjowLCJ5IjoxfV0sImxhYmVsIjoiIn1dLCJsYWJlbHMiOltdLCJjb3JyZWN0TGFiZWxCeVRhcmdldCI6e30sImFjY2Vzc2libGVBbHRlcm5hdGl2ZUtleSI6ImNob2ljZSIsIm1hc2tpbmciOiJub19sYWJlbHMifX0seyJrZXkiOiJzZXF1ZW5jZSIsIm9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZSIsInJlbGF0ZWRPYmplY3RpdmVLZXlzIjpbXSwicGhhc2UiOiJyZXRyaWV2ZSIsInJlcXVpcmVkIjp0cnVlLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdLCJyZXByZXNlbnRhdGlvbiI6InRleHQiLCJlcXVpdmFsZW5jZUtleSI6ImZhbWlseS1zZXF1ZW5jZSIsImhpbnRzIjpbXSwidXNlIjoibGVhcm5pbmciLCJwcm9tcHQiOiJQcmVndW50YSBzaW50w6l0aWNhIiwiZmVlZGJhY2siOnsiZXhwbGFuYXRpb24iOiJFeHBsaWNhY2nDs24gc2ludMOpdGljYSIsImNvbW1vbkVycm9yIjoiIiwic291cmNlS2V5cyI6WyJzb3VyY2UiXX0sIm1pc2NvbmNlcHRpb25NYXBwaW5ncyI6W10sImFsdGVybmF0aXZlQWN0aXZpdHlLZXkiOm51bGwsImtpbmQiOiJzZXF1ZW5jZSIsInBheWxvYWQiOnsiaXRlbXMiOlt7ImtleSI6Im9uZSIsInRleHQiOiIxIn0seyJrZXkiOiJ0d28iLCJ0ZXh0IjoiMiJ9LHsia2V5IjoidGhyZWUiLCJ0ZXh0IjoiMyJ9XSwiYWNjZXB0ZWRPcmRlcnMiOltbIm9uZSIsInR3byIsInRocmVlIl1dLCJ3aHlBY3Rpdml0eUtleSI6bnVsbH19LHsia2V5IjoiY2FzZSIsIm9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZSIsInJlbGF0ZWRPYmplY3RpdmVLZXlzIjpbXSwicGhhc2UiOiJyZXRyaWV2ZSIsInJlcXVpcmVkIjp0cnVlLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdLCJyZXByZXNlbnRhdGlvbiI6InRleHQiLCJlcXVpdmFsZW5jZUtleSI6ImZhbWlseS1jYXNlIiwiaGludHMiOltdLCJ1c2UiOiJsZWFybmluZyIsInByb21wdCI6IlByZWd1bnRhIHNpbnTDqXRpY2EiLCJmZWVkYmFjayI6eyJleHBsYW5hdGlvbiI6IkV4cGxpY2FjacOzbiBzaW50w6l0aWNhIiwiY29tbW9uRXJyb3IiOiIiLCJzb3VyY2VLZXlzIjpbInNvdXJjZSJdfSwibWlzY29uY2VwdGlvbk1hcHBpbmdzIjpbXSwiYWx0ZXJuYXRpdmVBY3Rpdml0eUtleSI6bnVsbCwia2luZCI6ImNhc2UiLCJwYXlsb2FkIjp7InN0YWdlcyI6W3sia2V5IjoiZmlyc3QiLCJuYXJyYXRpdmUiOiJFdGFwYSAxIiwiY2hpbGRBY3Rpdml0eUtleSI6ImNob2ljZSJ9LHsia2V5Ijoic2Vjb25kIiwibmFycmF0aXZlIjoiRXRhcGEgMiIsImNoaWxkQWN0aXZpdHlLZXkiOiJzaG9ydCJ9XX19XSwiYXNzZXNzbWVudHMiOlt7ImtleSI6ImZpbmFsIiwia2luZCI6ImZpbmFsIiwiYWZ0ZXJVbml0S2V5IjpudWxsLCJvYmplY3RpdmVLZXlzIjpbIm9iamVjdGl2ZSJdLCJjYW5kaWRhdGVBY3Rpdml0eUtleXMiOltdLCJ0aHJlc2hvbGRQZXJjZW50Ijo4MCwidGhyZXNob2xkUmF0aW9uYWxlIjoiVW1icmFsIHNpbnTDqXRpY28gcGFyYSBjb21wcm9iYXIgbGEgcHJlc2VydmFjacOzbiBkZSBsYSBjb25maWd1cmFjacOzbi4ifV0sInJldmlld1BsYW4iOnsib2JqZWN0aXZlS2V5cyI6WyJvYmplY3RpdmUiXX0sImVkaXRvcmlhbCI6eyJub3RlcyI6IkJvcnJhZG9yIHNpbnTDqXRpY28uIE5vIGFjcmVkaXRhIGNvbnRlbmlkbyBjbMOtbmljbyBuaSBjb2JlcnR1cmEgZGUgcHVibGljYWNpw7NuLiIsInVucmVzb2x2ZWRJc3N1ZXMiOltdfX0sImJpbmRpbmdzIjp7InRvcGljQ29udGVudElkIjoiZmEwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAzIiwic291cmNlcyI6W3sia2V5Ijoic291cmNlIiwic291cmNlQ29udGVudElkIjoiZmEwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDA1IiwicmVzb3VyY2VSZXZpc2lvbklkIjoiZmEwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDA2In0seyJrZXkiOiJzb3VyY2UtYWRkZWQiLCJzb3VyY2VDb250ZW50SWQiOiJmYTAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAxMDUiLCJyZXNvdXJjZVJldmlzaW9uSWQiOiJmYTAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAxMDYifSx7ImtleSI6ImZ1ZW50ZS0xIiwic291cmNlQ29udGVudElkIjoiZmEwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMTA1IiwicmVzb3VyY2VSZXZpc2lvbklkIjoiZmEwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMTA2In1dLCJhc3NldHMiOlt7ImtleSI6ImltYWdlIiwiYXNzZXRJZCI6ImZhMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwNyJ9XX0sImV4cGVjdGVkVmVyc2lvbiI6M30="
+          }
+        ],
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:3100/api/v2/editor/learning-paths/d1129ba0-8266-4801-a965-78e6f73da6d5"
+      },
+      "requestId": "13548.479",
+      "timestamp": 101950.582778,
+      "type": "Fetch",
+      "wallTime": 1790812150.0359
+    }
+  },
+  {
+    "sequence": 522,
+    "source": {
+      "tabId": 1
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "D8645CC66844C3DEA2EBA288C214B9B8",
+      "hasExtraInfo": true,
+      "loaderId": "599EF0DAEC8D006AB8D82B0B909A3CF9",
+      "requestId": "13548.479",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 18831,
+        "connectionReused": false,
+        "encodedDataLength": 464,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Wed, 30 Sep 2026 23:49:12 GMT",
+          "Keep-Alive": "timeout=5",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+          "Referrer-Policy": "strict-origin-when-cross-origin",
+          "Transfer-Encoding": "chunked",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY",
+          "cache-control": "private, no-store",
+          "content-type": "application/json",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+        },
+        "mimeType": "application/json",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 3100,
+        "responseTime": 1790812152544.382,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "OK",
+        "timing": {
+          "connectEnd": 3.702,
+          "connectStart": 2.217,
+          "dnsEnd": 2.217,
+          "dnsStart": 1.287,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 2504.787,
+          "receiveHeadersStart": 2504.698,
+          "requestTime": 101950.587928,
+          "sendEnd": 4.372,
+          "sendStart": 3.943,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:3100/api/v2/editor/learning-paths/d1129ba0-8266-4801-a965-78e6f73da6d5"
+      },
+      "timestamp": 101953.107948,
+      "type": "Fetch"
+    }
+  }
+]

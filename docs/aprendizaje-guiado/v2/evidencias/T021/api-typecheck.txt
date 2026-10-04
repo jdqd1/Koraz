@@ -1,0 +1,11 @@
+$ tsc --noEmit
+src/guided-learning/v2/routes.ts(287,83): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(selections: readonly SelectExpression<CediahDatabase, "learning_preferences">[]): SelectQueryBuilder<CediahDatabase, "learning_preferences", { ...; }>', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'readonly SelectExpression<CediahDatabase, "learning_preferences">[]'.
+  Overload 2 of 3, '(callback: SelectCallback<CediahDatabase, "learning_preferences">): SelectQueryBuilder<CediahDatabase, "learning_preferences", { [x: string]: any; ... 9 more ...; weekly_goal_days: 2 | ... 2 more ... | null; }>', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'SelectCallback<CediahDatabase, "learning_preferences">'.
+  Overload 3 of 3, '(selection: SelectExpression<CediahDatabase, "learning_preferences">): SelectQueryBuilder<CediahDatabase, "learning_preferences", { ...; }>', gave the following error.
+    Argument of type '"active_enrollment_id"' is not assignable to parameter of type 'SelectExpression<CediahDatabase, "learning_preferences">'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

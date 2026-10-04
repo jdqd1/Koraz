@@ -1,0 +1,88 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > returns 401/404/403 and no-store before provider calls when disabled or outside allowlist 63ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home 165ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > enrollment is pinned, idempotent and has a request receipt 84ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > strict requests reject client scores/extra fields and foreign attempts/enrollments 16ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > server availability blocks reserved practice, early final and deferred tests 180ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions 1090ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission 341ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version 80ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > scheduler eligibility admits actual day7/day30 evaluations on the pinned version 630ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted 4024ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > config defaults are closed and flags are enforced in buildApp 24ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > executes the new BFF and existing forwarder with real origin checks and cookie/header propagation 108ms
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical creation returns the original receipt and one private snapshot
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent identical responses have one effect and replay the same receipt (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 0)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 1)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 2)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 3)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent different responses sharing expectedVersion accept only one (round 4)
+ ↓ test/guided-v2-attempts.test.ts > guided v2 PostgreSQL independent-connection concurrency > concurrent bodies with the same idempotency key conflict without a second effect
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > fixes a private snapshot and resumes the same stage without exposing future answers 99ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > accepts each response once, blocks future answers, and commits completion with the receipt 216ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > persists help as assisted on the server and rejects stale expectedVersion 79ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps constructed text pending until a persisted reveal and self-rating 82ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > resumes a case at the next child without scoring its wrapper twice 79ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > keeps case completion separate within a longer assessment 86ms
+ ✓ test/guided-v2-attempts.test.ts > guided v2 attempt persistence > pauses on withdrawn content without revealing the next item or creating progress 74ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A01 omitted diagnosis or zero active time gives null descriptive efficiency 11ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A02 retention reports eligible, returned and absent learners separately 2ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > retention keeps late observations outside the window mean 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 7 retention7 boundary 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 14 retention7 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 30 retention30 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > includes the day 45 retention30 boundary 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > uses the first final, with missing required objectives as zero 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > descriptive efficiency uses comparable objectives and stops the clock at first final 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > A03 repeated families cannot become transfer by changing their item ID or modality 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"assisted":true} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"gradingSource":"self"} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"gradingSource":"none"} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"newModality":false} 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > transfer excludes ineligible answer {"novelAtPresentation":false} 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > an assisted first exposure prevents claiming transfer on the next attempt 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > diagnostic exposures remain exposed and a later diagnosis cannot create a baseline 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > empty cohorts have null means and zero denominators 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > cohort boundaries, replay and future observations do not change denominators 10ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics, explicit denominators and nulls > never exports identities, answers, prompts or clinical text 1ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > deduplicates semantic replays and unions overlapping device intervals 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > hidden tabs, no interaction and future interaction grant zero time 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 active time > limits ticks to 30 seconds and cuts intervals at 60 seconds inactivity 0ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing student permissions 123ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing content_creator permissions 17ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing coordinator permissions 7ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > uses existing administrator permissions 3ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metric endpoint permissions > rejects reversed date ranges before querying and hides missing versions 3ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > opening/reading grants zero XP; correct recall grants +5 exactly once 385ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > persists heartbeat once, unions devices, cuts inactivity and never creates XP 177ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > automatic mastery grants +10; cache rebuilding and repeated correct answers grant no extra XP 271ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > first consolidation grants +15 once and records actual retention aggregates 562ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > mixed v1/v2 account keeps historical rows and reads strict v1 milestones safely 31ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > ledger failure rolls back response, semantic event, receipt and cache 113ms
+ ✓ test/guided-v2-metrics.test.ts > guided v2 metrics/rewards persisted in isolated PGlite > version/path mismatch returns not_found without revealing cohort information 4ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > does not register or call guided modules while the feature is disabled 322ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires identity and returns only private, validated catalog data 110ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > emits privacy-safe operation observations and protects error responses from caching 103ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > rejects unknown student-controlled fields and scopes enrollment to session identity 38ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > keeps upgrade preview private and requires a strict idempotent adoption 53ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires a UUID idempotency key and a strict attempt payload 43ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > scopes private media reads to the session and rejects unkeyed mutations 28ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > validates and scopes library equivalences to the authenticated account 25ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > serves real home state and never turns a provider failure into zero progress 22ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires idempotency and rejects injected identity on phase-four mutations 23ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > enforces editor capabilities and preview performs no student mutation 28ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > serves readonly current and fixed editor material details with strict inputs 13ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > validates a strict saved version and returns safe field destinations 9ms
+
+ Test Files  4 passed (4)
+      Tests  67 passed | 12 skipped (79)
+   Start at  21:45:15
+   Duration  34.64s (transform 1.77s, setup 0ms, import 10.53s, tests 22.43s, environment 0ms)
+

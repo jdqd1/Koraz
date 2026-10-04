@@ -68,6 +68,10 @@ import { createS3ObjectStorage } from "./providers/s3-object-storage.js";
 import { createS3VideoProvider } from "./providers/s3-video.js";
 import { registerGuidedLearningEditorRoutes } from "./guided-learning/editor-routes.js";
 import { registerGuidedLearningRoutes } from "./guided-learning/routes.js";
+import { registerGuidedV2Routes, createGuidedV2HttpProvider, type GuidedV2HttpProvider } from "./guided-learning/v2/routes.js";
+import { registerGuidedV2MetricsRoutes } from "./guided-learning/v2/metrics.js";
+import { registerGuidedV2EditorImportRoutes, type GuidedV2EditorProvider } from "./guided-learning/v2/editor-routes.js";
+import { createPostgresGuidedLearningV2Provider, createPostgresGuidedV2MetricsService } from "./providers/postgres-guided-learning-v2.js";
 import { registerLearningMapRoutes } from "./learning-map/routes.js";
 import { createPostgresLearningMapProvider } from "./providers/postgres-learning-map.js";
 import {
@@ -79,6 +83,8 @@ type AppDependencies = {
   authService?: AuthService;
   contentProvider?: ContentProvider;
   guidedLearningProvider?: GuidedLearningProvider;
+  guidedLearningV2Provider?: GuidedV2HttpProvider;
+  guidedLearningV2EditorProvider?: GuidedV2EditorProvider;
   learningMapProvider?: import("@cediah/contracts").LearningMapProvider;
   guidedLearningObserver?: GuidedLearningObserver;
   subjectProvider?: SubjectProvider;
@@ -467,7 +473,21 @@ export async function buildApp(
     return reply.header("Cache-Control", "no-store").send(response);
   });
 
+  app.addHook("onRequest", async (request, reply) => {
+    if (request.url.startsWith("/v2/guided-learning/") || request.url.startsWith("/v2/editor/learning-paths")) {
+      reply.header("Cache-Control", "private, no-store");
+      if (!environment.guidedLearningEnabled || !environment.guidedLearningV2Enabled) return reply.status(404).send({ error: "not_found" });
+    }
+  });
   if (environment.guidedLearningEnabled) {
+    await registerGuidedV2Routes(app, { identityProvider,
+      provider: dependencies.guidedLearningV2Provider ?? (database ? createGuidedV2HttpProvider(database, { assetStorage: contentAssetStorage }) : undefined),
+      flags: { enabled: environment.guidedLearningV2Enabled === true, newEnrollments: environment.guidedLearningV2NewEnrollments === true,
+        allowlist: environment.guidedLearningV2Allowlist } });
+    if (environment.guidedLearningV2Enabled) await registerGuidedV2EditorImportRoutes(app, { identityProvider, contentProvider,
+      provider: dependencies.guidedLearningV2EditorProvider ?? (database ? createPostgresGuidedLearningV2Provider(database) : undefined) });
+    if (environment.guidedLearningV2Enabled) await registerGuidedV2MetricsRoutes(app, { identityProvider, contentProvider,
+      provider: database ? createPostgresGuidedV2MetricsService(database) : undefined });
     if (environment.guidedLearningMapEnabled) await registerLearningMapRoutes(app, {
       identityProvider,
       provider: dependencies.learningMapProvider ?? (database ? createPostgresLearningMapProvider(database) : undefined),

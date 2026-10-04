@@ -1,0 +1,27 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T027/http-integration.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T027/http-integration.test.ts [ docs/aprendizaje-guiado/v2/evidencias/T027/http-integration.test.ts ]
+Error: Cannot find package '@cediah/contracts' imported from D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T027/fixture.ts
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T027/fixture.ts:1:1
+      1| import { RoutePackageSchema, type RoutePackage, type RouteActivity } f…
+       | ^
+      2| import { editorV2FixtureRoute } from "../../../../../apps/web/src/comp…
+      3| const digest = "a".repeat(64);
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T027/http-integration.test.ts:13:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  05:53:24
+   Duration  1.66s (transform 455ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run --root ../.. --config docs/aprendizaje-guiado/v2/evidencias/T027/vitest.http.config.mts

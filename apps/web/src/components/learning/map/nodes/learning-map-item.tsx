@@ -5,6 +5,8 @@ import { Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
 import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
+import { v2MapItem, v2MapGroup, v2MapSummary } from "../v2-adapter";
+import v2Styles from "../../v2/styles.module.css";
 export type MapItemAction = "info" | "color";
 export type ItemData = {
   item: MapItem;
@@ -33,6 +35,9 @@ export const LearningMapItem = memo(function LearningMapItem({
   handles?: boolean;
 }) {
   const { item } = data;
+  const v2 = v2MapItem(item), group = v2MapGroup(item);
+  const stateLabel = v2 ? v2.unitKey ? "Objetivos" : "Recorrido" : group ? "Práctica" : statusLabels[item.progress.status];
+  const v2Summary = v2 ? v2MapSummary(v2) : group ? `${group.length} rutas por objetivos · consulta su estado` : null;
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null),
     cancel = useRef<(() => void) | null>(null);
   const clear = () => {
@@ -57,7 +62,7 @@ export const LearningMapItem = memo(function LearningMapItem({
       className={styles.card}
       data-kind={item.kind}
       data-selected={data.selected}
-      aria-label={`${item.title}, ${statusLabels[item.progress.status]}, ${item.childCountLabel}`}
+      aria-label={`${item.title}, ${v2Summary ?? statusLabels[item.progress.status]}, ${item.childCountLabel}`}
     >
       {handles ? (
         <>
@@ -144,15 +149,16 @@ export const LearningMapItem = memo(function LearningMapItem({
           <span className={styles.cardHeading}>
             <strong title={item.title}>{item.title}</strong>
             <span className={styles.badge} data-status={item.progress.status}>
-              {statusLabels[item.progress.status]}
+              {stateLabel}
             </span>
           </span>
           <span className={styles.cardMetric}>
             <span className={styles.percentage}>
-              {item.progress.percentage === null ? "—" : `${item.progress.percentage} %`}
+              {v2?.unitKey || group ? item.childCountLabel : item.progress.percentage === null ? "—" : `${item.progress.percentage} %${v2 ? " de avance" : ""}`}
             </span>
             {item.kind !== "lesson" ? <small>{item.childCountLabel}</small> : null}
           </span>
+          {v2Summary ? <span className={v2Styles.mapSignals} title={v2Summary}>{v2Summary}</span> : null}
           <span className={styles.progressTrack} aria-hidden="true">
             <span data-status={item.progress.status} style={{ width: `${item.progress.percentage ?? 0}%` }} />
           </span>

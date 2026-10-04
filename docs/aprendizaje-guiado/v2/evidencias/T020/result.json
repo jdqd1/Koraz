@@ -1,0 +1,112 @@
+{
+  "taskId": "T020",
+  "status": "PASS",
+  "baseSha": "c6dfa69466ee9cb61cf28d8b78177f6e7dd7ca84",
+  "observedHead": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+  "recordedUtc": "2026-09-30T01:16:55.5635451Z",
+  "predecessors": [
+    "T016: PASS",
+    "T018: PASS",
+    "T019: PASS"
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/metrics.ts",
+    "apps/api/src/guided-learning/rewards.ts",
+    "packages/contracts/src/guided-learning-v2.ts",
+    "database/migrations/0032_guided_v2_rewards.sql",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-metrics.test.ts",
+    "apps/api/test/helpers/guided-v2-db.ts",
+    "apps/api/test/guided-v2-attempts.test.ts",
+    "apps/api/test/guided-v2-scheduler.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T020/"
+  ],
+  "acceptance": {
+    "A01": "PASS: omitted/late diagnosis or zero active time yields null efficiency; comparable objectives only; first final caps efficiency time.",
+    "A02": "PASS: eligible/responded/absent denominators, inclusive windows, late observations excluded from window means, elapsed days reported.",
+    "A03": "PASS: first family exposure and new modality, prior diagnosis/assistance/presentations excluded, breakdown by modality.",
+    "rewards": "PASS: +5/+10/+15 once, zero XP for view/read/help, replay and cache reconstruction do not create new awards, ledger failure rolls back the entire response transaction.",
+    "heartbeat": "PASS: semantic dedupe, hidden/idle/future exclusions, 30-second maximum chunks, 60-second inactivity cutoff, overlapping devices unioned.",
+    "compatibility": "PASS: mixed v1/v2 account, v1 strict milestone reader, explicit DTO union, historical row preserved, unknown reward kind rejected.",
+    "permissions": "PASS: Fastify endpoint injection verifies 401/403/400/404/200, only existing coordinator/admin capability; private no-store aggregate output.",
+    "privacy": "PASS: allowlisted semantic metadata and aggregate export, no free clinical text or user identifiers."
+  },
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "postgres-attempts.txt and postgres-scheduler.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-metrics.test.ts test/guided-v2-contract.test.ts --reporter=verbose",
+      "result": "PASS: 40 (35 T020, 5 contracts)",
+      "exitCode": 0,
+      "evidence": "final-focused-contract.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-metrics.test.ts test/guided-v2-evidence.test.ts test/guided-v2-scheduler.test.ts test/guided-v2-assessments.test.ts test/guided-v2-attempts.test.ts test/guided-learning-catalog.test.ts --reporter=verbose",
+      "result": "PASS: 138, 22 skipped without dedicated PostgreSQL",
+      "exitCode": 0,
+      "evidence": "acceptance-regression.txt"
+    },
+    {
+      "command": "T015/run-postgres-concurrency.ps1 -PostgresBin <existing portable PostgreSQL>",
+      "result": "PASS: 19, including 12 independent-connection PostgreSQL tests",
+      "exitCode": 0,
+      "evidence": "postgres-attempts.txt"
+    },
+    {
+      "command": "T018/run-postgres-concurrency.ps1 -PostgresBin <existing portable PostgreSQL>",
+      "result": "PASS: 31, including 8 PostgreSQL tests; 2 PGlite-only concurrency skips",
+      "exitCode": 0,
+      "evidence": "postgres-scheduler.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "typecheck-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "lint-final.txt"
+    },
+    {
+      "command": "git diff --check -- <T020 files and mechanically necessary fixtures>",
+      "result": "PASS",
+      "exitCode": 0,
+      "evidence": "scoped-diff.txt"
+    }
+  ],
+  "sourceSha256": {
+    "apps/api/src/guided-learning/v2/metrics.ts": "aba322507163bda29a885a5b5f95de43b4d8794db3faf77ef59cea4964ca17b8",
+    "apps/api/src/guided-learning/rewards.ts": "12fcd8208e827ed54928cbc6c94ef2bbefbe0a264efbe5777df22bdfc5ebe9b5",
+    "packages/contracts/src/guided-learning-v2.ts": "31cab3373470485f38b73e69e97517c137ba738904d3339a7c910d8b9235370e",
+    "database/migrations/0032_guided_v2_rewards.sql": "937d5163542988363694825f982f5af5cb7f1564a6895793948cd2f686be7496",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts": "c26b5ea727dc9698ed779471f43e8405c74990334f90777e8bebccf7554cd6a7",
+    "apps/api/test/guided-v2-metrics.test.ts": "30f10a5464cb58c3ef2a4a4b70b3daf49bb45ac0b2796aa749b9aba898f730e8",
+    "apps/api/test/helpers/guided-v2-db.ts": "fc87efd29b5c3ead9d05dcee742fea695929883b1fda43498c1391c2dbc662b5",
+    "apps/api/test/guided-v2-attempts.test.ts": "3db3179b3149d88d1fb9deba28228c542587062fe18c1f22d3f3a5f064ab4b9e",
+    "apps/api/test/guided-v2-scheduler.test.ts": "43c44808074633e4cbf7a6789c3399b64b649a26ab04168dfd3e2dee45ee6c84"
+  },
+  "issues": [],
+  "scopeExceptions": [
+    "Three existing test fixtures advance their migration ceiling from 0031 to 0032; no behavioral changes to those tests."
+  ],
+  "workspaceNotes": [
+    "Concurrent commit e1bbc8f included a partial snapshot of T018/T019/T020 and map work. This chat created no commit and preserved that history."
+  ],
+  "limits": [
+    "No production/staging migration or deployment; isolated local DBs, historical migration 0005 omitted because no fabricated legacy admin identity.",
+    "Endpoint registration is verified in Fastify injection; application mounting and learner heartbeat/feedback dispatch belong to T021.",
+    "Runtime novel_at_presentation remains conservatively false until T021 stores frozen T019 exposure metadata; SQL adapter exclusion verified with a synthetic metadata fixture.",
+    "Heartbeat uses server-confirmed interactions; local interaction instrumentation is not yet connected.",
+    "No E2E/UI/full-suite claim; the final focused run covers the final metric refinements."
+  ],
+  "nextTaskIds": [
+    "T021"
+  ]
+}

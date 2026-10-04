@@ -18,7 +18,7 @@ export default async function LearningPathsEditorPage() {
   }
 
   const canArchive = current.roles.includes("coordinator") || current.roles.includes("administrator");
-  return <LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} />;
+  return <><div className={styles.inlineActions}><Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} /></>;
 }
 
 function EditorGate({ title }: { title: string }) {

@@ -1,0 +1,64 @@
+.tabList {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.stack { display: grid; gap: 20px; min-width: 0; }
+.editor label.checkOption { display: flex; min-height: 44px; box-sizing: border-box; align-items: center; gap: 10px; padding-block: 8px; overflow-wrap: anywhere; }
+.editor .checkOption input[type='checkbox'] { flex: 0 0 18px; width: 18px; height: 18px; min-height: 18px; padding: 0; margin: 0; }
+.issueList { padding-inline-start: 24px; }
+.issueList li { padding-block: 10px; }
+.issueList p { margin-block: 4px; }
+.importWizard { border: 1px solid var(--koraz-line); border-radius: 12px; padding: 12px; }
+.diffRegion { max-height: 440px; max-width: 100%; overflow: auto; }
+.diffRegion table { border-collapse: collapse; width: 100%; }
+.diffRegion th, .diffRegion td { border: 1px solid var(--koraz-line); padding: 10px; text-align: start; vertical-align: top; }
+.diffRegion pre { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 420px; min-width: 160px; }
+.inlineForm { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.inlineForm > div { flex: 1 1 240px; }
+.choices { border: 1px solid var(--koraz-line); border-radius: 10px; padding: 12px; min-width: 0; }
+.choices legend { font-weight: 700; }
+.linkList, .orderList { padding-inline-start: 24px; }
+.linkList li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.orderList li { padding-bottom: 10px; }
+.orderList li > span { display: block; padding-inline: 14px; }
+.editor h3, .editor li, .editor legend { overflow-wrap: anywhere; }
+.editor [data-field-path]:focus-visible { outline: 3px solid var(--koraz-blue); outline-offset: 3px; }
+.editor input[type='file'] { overflow: hidden; }
+.activityCard > div { margin-top: 20px; }
+.activitySummary { cursor: pointer; font-weight: 700; overflow-wrap: anywhere; }
+.activityOption { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.activityOption > div { flex: 1 1 240px; }
+.activitySubcard { min-width: 0; border: 1px solid var(--koraz-line); border-radius: 10px; padding: 16px; }
+.activityDetailGrid { margin-top: 16px; }
+.activitySolution { border-top: 1px solid var(--koraz-line); padding-top: 16px; }
+.activitySolution > div { margin-top: 16px; }
+.activitySummary:focus-visible { outline: 3px solid var(--koraz-blue); outline-offset: 3px; }
+.relationTable { min-width: 0; border: 1px solid var(--koraz-line); border-radius: 10px; padding: 12px; }
+.relationRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-block: 10px; align-items: center; }
+.relationRow + .relationRow { border-top: 1px solid var(--koraz-line); }
+.imageCanvas { position: relative; width: 100%; max-height: 420px; overflow: hidden; background: repeating-linear-gradient(0deg, transparent 0 19px, #d7deee 20px), repeating-linear-gradient(90deg, #f6f8fc 0 19px, #d7deee 20px); border: 1px solid var(--koraz-line); border-radius: 10px; }
+.imageCanvas img, .imageCanvas svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.imageCanvas svg { cursor: crosshair; }
+.polygon { fill: #2468de33; stroke: var(--koraz-blue); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.vertex { fill: var(--koraz-blue); }
+.vertexList { padding-inline-start: 28px; }
+.vertexList li { padding-bottom: 16px; }
+
+@media (max-width: 767px) {
+  .relationRow { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .editor .saveBar {
+    bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  .tabList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

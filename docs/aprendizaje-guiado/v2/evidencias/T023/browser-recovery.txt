@@ -1,0 +1,53 @@
+- complementary "Navegación principal":
+  - navigation:
+    - link:
+      - /url: /dashboard
+      - generic: Inicio
+    - link:
+      - /url: /aprendizaje
+      - generic: Aprendizaje guiado
+    - link:
+      - /url: /asignaturas
+      - generic: Materias
+    - button:
+      - generic: Material de estudio
+- banner:
+  - button "Expandir menú principal":
+  - search "Buscar guías":
+    - combobox "Buscar guías"
+  - heading "Editor de rutas" [level=1]
+  - button "Notificaciones":
+  - link:
+    - /url: /acceder
+- main:
+  - main:
+    - link "Volver a rutas":
+      - /url: /panel/rutas
+    - heading "Recuperación local verificada T023" [level=1]
+    - paragraph: Organiza objetivos, práctica y repaso con las fuentes de la ruta.
+    - strong: Borrador
+    - generic: Revisión 2 · Sin cambios pendientes
+    - tablist "Secciones del editor de rutas":
+      - tab "Datos y fuentes" [selected]
+      - tab "Objetivos"
+      - tab "Recorrido"
+      - tab "Evaluación y repaso"
+      - tab "Revisión"
+    - tabpanel "Datos y fuentes":
+      - region "Datos y fuentes":
+        - text: Paso 1 de 5
+        - heading "Datos y fuentes" [level=2]
+        - paragraph: Los cambios se guardan cuando confirmas el borrador.
+        - group "Datos de la ruta":
+          - generic: Datos de la ruta
+          - text: Título
+          - textbox "Título": Recuperación local verificada T023
+          - text: Descripción
+          - textbox "Descripción": Ejemplo para verificar guardado y recuperación del editor.
+        - paragraph: 1 fuentes · 1 recursos visuales vinculados en el borrador.
+    - paragraph: "Confirmado en esta sesión: 30/9/2026, 18:05:12 · Revisión 2"
+    - strong: Borrador al día
+    - generic: Borrador confirmado por el servidor.
+    - button "Guardar borrador" [disabled]
+- button "Open Next.js Dev Tools":
+- alert

@@ -1,0 +1,278 @@
+{
+  "scope": "Chromium -> Next BFF -> real Fastify services -> fresh isolated PGlite; synthetic cookie identity and synthetic nonmedical content. No mocked learner API receipts.",
+  "checks": [
+    "Initial network and DOM contain only current case child/narrative; attempting a future mandatory child is rejected with 409 and no response persisted",
+    "Six-stage case uses study, sequence, prediction, table, detection and constructed correction; confirmation gates every stage; wrong prediction advances with server score 0; constructed submit/reveal/reload remains current until rating; exactly six child responses, no wrapper score/response. Existing wrapper bookkeeping marks completion once without scoring it",
+    "Sequence completed only with keyboard; focus retained at boundaries, public-label recap follows confirmed orderedKeys; prior study/feedback absent during subsequent recall; four viewports without page overflow",
+    "Lost real HTTP receipt after commit survives refresh; retry uses identical body/key, returns server score 0 and one persisted sequence response; no optimistic advancement",
+    "Worked example is study acknowledgment with score null, independent of scored responses; partial example removed before sequence"
+  ],
+  "viewports": [
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "pageOverflow": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "pageOverflow": false
+    }
+  ],
+  "axe": [
+    {
+      "state": "sequence-mobile",
+      "seriousCritical": 0
+    },
+    {
+      "state": "sequence-confirmed-feedback",
+      "seriousCritical": 0
+    },
+    {
+      "state": "case-constructed-revealed-mobile",
+      "seriousCritical": 0
+    }
+  ],
+  "errors": [],
+  "traffic": [
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/help",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/v2/guided-learning/attempts/b2800000-0000-4000-8000-000000000004/responses",
+      "status": 200,
+      "method": "POST"
+    }
+  ],
+  "status": "PASS",
+  "notVerified": [
+    "Full learner journey T035/T037, native browser zoom, screen-reader audit",
+    "Independent PostgreSQL concurrency, full API regression, production and editorial pilot",
+    "Accepted historical sequence DTO stores orderedKeys without item text; after reload the recap shows saved step count. Full labeled historical recap would require a separately authorized DTO expansion"
+  ]
+}

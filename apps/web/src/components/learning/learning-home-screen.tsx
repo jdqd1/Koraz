@@ -3,6 +3,8 @@ import { ArrowRight, Books, CalendarCheck, ChartLineUp, Medal, Path, Sparkle } f
 import type { LearningEnrollmentProgress, LearningHome, LearningPathCard as LearningPathCardData } from "@cediah/contracts";
 import { LearningPathCard } from "./learning-path-card";
 import { LearningTodayPanel } from "./learning-today-panel";
+import { isV2Card, type V2Card, type V2Home, type V2State } from "./v2/model";
+import { RouteSignals } from "./v2/signals";
 
 type LearningTab = "hoy" | "rutas" | "progreso";
 
@@ -36,15 +38,19 @@ const evidenceLabels = {
   unassessed: "Por comprobar",
 } as const;
 
-export function LearningHomeScreen({ available, home, homeAvailable, paths, progress, tab }: {
+export function LearningHomeScreen({ available, home, homeAvailable, paths, progress, tab, v2Home = null, v2States = [], v2Unavailable = false }: {
   available: boolean;
   home: LearningHome | null;
   homeAvailable: boolean;
-  paths: LearningPathCardData[];
+  paths: Array<LearningPathCardData | V2Card>;
   progress: LearningEnrollmentProgress[];
   tab: LearningTab;
+  v2Home?: V2Home | null;
+  v2States?: V2State[];
+  v2Unavailable?: boolean;
 }) {
-  const enrolled = paths.filter((path) => path.enrollment && path.enrollment.status !== "archived");
+  const enrolled = paths.filter((path): path is LearningPathCardData => !isV2Card(path) && !!path.enrollment && path.enrollment.status !== "archived");
+  const enrolledV2 = paths.filter((path): path is V2Card => isV2Card(path) && !!path.enrollmentId);
 
   return (
     <main className="learning-main" id="learning-main">
@@ -63,6 +69,7 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
           </Link>
         ))}
       </nav>
+      {v2Unavailable ? <p role="alert">No pudimos cargar tus rutas de práctica por objetivos. <Link href={`/aprendizaje?tab=${tab}`}>Reintentar</Link></p> : null}
 
       {tab === "rutas" ? (
         <section aria-labelledby="learning-routes-title" className="learning-section">
@@ -70,11 +77,15 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
             <div><span>Explorar</span><h2 id="learning-routes-title">Rutas disponibles</h2></div>
             <p>Abre la ficha completa antes de inscribirte.</p>
           </div>
-          {paths.length > 0 ? <div className="learning-path-grid">{paths.map((path, index) => <LearningPathCard key={path.id} path={path} priority={index === 0} />)}</div> : <LearningEmpty available={available} />}
+          {paths.length > 0 ? <div className="learning-path-grid">{paths.map((path, index) => <LearningPathCard key={path.id} path={path} priority={index === 0} v2State={isV2Card(path) ? v2States.find(state => state.enrollmentId === path.enrollmentId && state.pathVersionId === path.pathVersionId) ?? null : null} />)}</div> : <LearningEmpty available={available} />}
         </section>
       ) : tab === "progreso" ? (
         <section aria-labelledby="learning-progress-title" className="learning-section">
           <div className="learning-section-heading"><div><span>Tu recorrido</span><h2 id="learning-progress-title">Progreso confirmado</h2></div><p>Avance, evidencia y constancia cuentan cosas distintas.</p></div>
+          {enrolledV2.map(path => {
+            const state = v2States.find(item => item.enrollmentId === path.enrollmentId && item.pathVersionId === path.pathVersionId);
+            return <article className="learning-status-card" data-engine-version="guided-v2" key={path.id}><Link href={`/aprendizaje/rutas/${encodeURIComponent(path.slug)}`}>{path.title}</Link>{state ? <RouteSignals state={state} /> : <p role="status">No pudimos cargar el estado confirmado de esta ruta.</p>}</article>;
+          })}
           {enrolled.length > 0 ? (
             <div className="learning-progress-layout">
               <div className="learning-status-list">
@@ -105,14 +116,15 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
                 </> : <p role="status">No pudimos cargar puntos y constancia. El avance de tus rutas se mantiene arriba.</p>}
               </aside>
             </div>
-          ) : (
+          ) : enrolledV2.length === 0 ? (
             <section className="learning-empty"><span className="learning-empty-icon"><ChartLineUp aria-hidden="true" size={30} /></span><div><h2>Todavía no hay avance que mostrar</h2><p>El progreso aparecerá después de completar actividades guardadas; abrir una pantalla no suma.</p></div><Link className="learning-primary-button" href="/aprendizaje?tab=rutas">Elegir una ruta</Link></section>
-          )}
+          ) : null}
         </section>
       ) : (
         <section aria-labelledby="learning-today-title" className="learning-section">
           <div className="learning-section-heading"><div><span>Tu sesión</span><h2 id="learning-today-title">Para hoy</h2></div></div>
-          {!homeAvailable ? <section className="learning-empty" role="alert"><div><h2>No pudimos cargar tu Inicio</h2><p>No mostraremos contadores en cero ni recomendaciones inventadas. Tu avance guardado no cambió.</p></div><Link className="learning-secondary-button" href="/aprendizaje">Reintentar</Link></section> : home ? <LearningTodayPanel home={home} paths={paths} /> : null}
+          {!homeAvailable ? <section className="learning-empty" role="alert"><div><h2>No pudimos cargar tu Inicio</h2><p>No mostraremos contadores en cero ni recomendaciones inventadas. Tu avance guardado no cambió.</p></div><Link className="learning-secondary-button" href="/aprendizaje?tab=hoy">Reintentar</Link></section> : null}
+          <LearningTodayPanel home={home} paths={paths.filter((path): path is LearningPathCardData => !isV2Card(path))} v2Home={v2Home} v2States={v2States} />
         </section>
       )}
     </main>
