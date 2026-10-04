@@ -1,0 +1,217 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31032
+- Network:       http://127.0.0.1:31032
+✓ Ready in 653ms
+✓ Running next.config.ts took 55ms
+
+○ Compiling proxy ...
+○ Compiling /aprendizaje/repaso ...
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 100s (next.js: 97s, proxy.ts: 441ms, application-code: 1871ms)
+○ Compiling /api/v2/guided-learning/[...path] ...
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 7.5s (next.js: 6.9s, application-code: 581ms)
+ POST /api/v2/guided-learning/attempts 200 in 951ms (next.js: 30ms, application-code: 921ms)
+ GET /api/auth/get-session 404 in 4.8s (next.js: 4.7s, application-code: 115ms)
+○ Compiling /aprendizaje/sesiones/[attemptId] ...
+ GET /aprendizaje/sesiones/de51f939-318a-441d-8d6a-3f6c9b81372a 200 in 20.2s (next.js: 19.4s, proxy.ts: 21ms, application-code: 708ms)
+ POST /api/v2/guided-learning/attempts/de51f939-318a-441d-8d6a-3f6c9b81372a/responses 200 in 304ms (next.js: 40ms, application-code: 264ms)
+ POST /api/v2/guided-learning/attempts/de51f939-318a-441d-8d6a-3f6c9b81372a/responses 200 in 272ms (next.js: 8ms, application-code: 264ms)
+ POST /api/v2/guided-learning/attempts/de51f939-318a-441d-8d6a-3f6c9b81372a/responses 200 in 172ms (next.js: 5ms, application-code: 167ms)
+ POST /api/v2/guided-learning/attempts/de51f939-318a-441d-8d6a-3f6c9b81372a/responses 200 in 195ms (next.js: 5ms, application-code: 190ms)
+ POST /api/v2/guided-learning/attempts/de51f939-318a-441d-8d6a-3f6c9b81372a/complete 200 in 192ms (next.js: 20ms, application-code: 172ms)
+○ Compiling /aprendizaje/repaso ...
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 9.0s (next.js: 7.7s, proxy.ts: 63ms, application-code: 1257ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 158ms (next.js: 49ms, application-code: 109ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 371ms (next.js: 6ms, proxy.ts: 11ms, application-code: 355ms)
+ GET /api/auth/get-session 404 in 51ms (next.js: 28ms, application-code: 23ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 1108ms (next.js: 209ms, proxy.ts: 60ms, application-code: 839ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 183ms (next.js: 42ms, application-code: 142ms)
+ GET /api/auth/get-session 404 in 44ms (next.js: 24ms, application-code: 20ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 756ms (next.js: 28ms, proxy.ts: 96ms, application-code: 632ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 178ms (next.js: 47ms, application-code: 131ms)
+ GET /api/auth/get-session 404 in 118ms (next.js: 56ms, application-code: 62ms)
+ POST /api/v2/guided-learning/attempts 200 in 176ms (next.js: 6ms, application-code: 170ms)
+ GET /aprendizaje/sesiones/1071e39a-29c1-4f5d-b29a-ed77b5e00115 200 in 882ms (next.js: 242ms, proxy.ts: 13ms, application-code: 627ms)
+ POST /api/v2/guided-learning/attempts/1071e39a-29c1-4f5d-b29a-ed77b5e00115/responses 200 in 325ms (next.js: 16ms, application-code: 309ms)
+ POST /api/v2/guided-learning/attempts/1071e39a-29c1-4f5d-b29a-ed77b5e00115/responses 200 in 188ms (next.js: 5ms, application-code: 184ms)
+ POST /api/v2/guided-learning/attempts/1071e39a-29c1-4f5d-b29a-ed77b5e00115/responses 200 in 160ms (next.js: 25ms, application-code: 135ms)
+ POST /api/v2/guided-learning/attempts/1071e39a-29c1-4f5d-b29a-ed77b5e00115/responses 200 in 190ms (next.js: 4ms, application-code: 186ms)
+ POST /api/v2/guided-learning/attempts/1071e39a-29c1-4f5d-b29a-ed77b5e00115/complete 200 in 180ms (next.js: 4ms, application-code: 177ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 386ms (next.js: 7ms, proxy.ts: 7ms, application-code: 373ms)
+ GET /api/auth/get-session 404 in 41ms (next.js: 18ms, application-code: 23ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 80ms (next.js: 15ms, application-code: 65ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 375ms (next.js: 5ms, proxy.ts: 9ms, application-code: 361ms)
+ GET /api/auth/get-session 404 in 33ms (next.js: 15ms, application-code: 18ms)
+ POST /api/v2/guided-learning/attempts 200 in 181ms (next.js: 16ms, application-code: 165ms)
+ GET /aprendizaje/sesiones/2bb24274-508c-462c-af69-3368139e7a67 200 in 184ms (next.js: 42ms, proxy.ts: 9ms, application-code: 133ms)
+ POST /api/v2/guided-learning/attempts/2bb24274-508c-462c-af69-3368139e7a67/responses 200 in 260ms (next.js: 28ms, application-code: 231ms)
+ POST /api/v2/guided-learning/attempts/2bb24274-508c-462c-af69-3368139e7a67/complete 200 in 140ms (next.js: 3ms, application-code: 137ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 318ms (next.js: 6ms, proxy.ts: 10ms, application-code: 302ms)
+ GET /api/auth/get-session 404 in 44ms (next.js: 20ms, application-code: 24ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 88ms (next.js: 21ms, application-code: 67ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 477ms (next.js: 8ms, proxy.ts: 10ms, application-code: 459ms)
+ GET /api/auth/get-session 404 in 38ms (next.js: 20ms, application-code: 18ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 94ms (next.js: 19ms, application-code: 75ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 64ms (next.js: 3ms, application-code: 62ms)
+ POST /api/v2/guided-learning/attempts 200 in 157ms (next.js: 2ms, application-code: 154ms)
+ GET /aprendizaje/sesiones/6ba3770e-4dba-4a20-8eee-9282b39d0384 200 in 325ms (next.js: 32ms, proxy.ts: 17ms, application-code: 276ms)
+ POST /api/v2/guided-learning/attempts/6ba3770e-4dba-4a20-8eee-9282b39d0384/responses 200 in 167ms (next.js: 4ms, application-code: 163ms)
+ POST /api/v2/guided-learning/attempts/6ba3770e-4dba-4a20-8eee-9282b39d0384/complete 200 in 215ms (next.js: 5ms, application-code: 210ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 415ms (next.js: 7ms, proxy.ts: 10ms, application-code: 398ms)
+ GET /api/auth/get-session 404 in 40ms (next.js: 23ms, application-code: 17ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 591ms (next.js: 9ms, proxy.ts: 40ms, application-code: 542ms)
+ GET /api/auth/get-session 404 in 48ms (next.js: 27ms, application-code: 22ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 108ms (next.js: 21ms, application-code: 87ms)
+ POST /api/v2/guided-learning/attempts 200 in 179ms (next.js: 4ms, application-code: 175ms)
+ GET /aprendizaje/sesiones/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b 200 in 247ms (next.js: 32ms, proxy.ts: 11ms, application-code: 204ms)
+ POST /api/v2/guided-learning/attempts/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b/responses 200 in 267ms (next.js: 6ms, application-code: 262ms)
+ POST /api/v2/guided-learning/attempts/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b/responses 200 in 181ms (next.js: 5ms, application-code: 177ms)
+ POST /api/v2/guided-learning/attempts/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b/responses 200 in 191ms (next.js: 20ms, application-code: 171ms)
+ POST /api/v2/guided-learning/attempts/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b/responses 200 in 185ms (next.js: 5ms, application-code: 180ms)
+ POST /api/v2/guided-learning/attempts/2e89c9cc-f2d6-43ce-b951-1ee59e3cc98b/complete 200 in 178ms (next.js: 4ms, application-code: 174ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 344ms (next.js: 6ms, proxy.ts: 10ms, application-code: 328ms)
+ GET /api/auth/get-session 404 in 34ms (next.js: 15ms, application-code: 18ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 92ms (next.js: 21ms, application-code: 72ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 583ms (next.js: 6ms, proxy.ts: 9ms, application-code: 567ms)
+ GET /api/auth/get-session 404 in 642ms (next.js: 218ms, application-code: 423ms)
+ POST /api/v2/guided-learning/attempts 200 in 389ms (next.js: 23ms, application-code: 365ms)
+ GET /aprendizaje/sesiones/29e8a952-ae27-41df-8c52-8f3742212bd1 200 in 1516ms (next.js: 113ms, proxy.ts: 1081ms, application-code: 322ms)
+ POST /api/v2/guided-learning/attempts/29e8a952-ae27-41df-8c52-8f3742212bd1/responses 200 in 244ms (next.js: 27ms, application-code: 217ms)
+ POST /api/v2/guided-learning/attempts/29e8a952-ae27-41df-8c52-8f3742212bd1/complete 200 in 212ms (next.js: 5ms, application-code: 206ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 605ms (next.js: 9ms, proxy.ts: 13ms, application-code: 583ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 90ms (next.js: 24ms, application-code: 67ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 430ms (next.js: 6ms, proxy.ts: 10ms, application-code: 414ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 90ms (next.js: 21ms, application-code: 69ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 90ms (next.js: 3ms, application-code: 87ms)
+ GET /api/auth/get-session 404 in 47ms (next.js: 17ms, application-code: 30ms)
+ POST /api/v2/guided-learning/attempts 200 in 255ms (next.js: 4ms, application-code: 251ms)
+ GET /aprendizaje/sesiones/83137011-320f-423f-bc2f-7ff9449de793 200 in 276ms (next.js: 28ms, proxy.ts: 6ms, application-code: 241ms)
+ POST /api/v2/guided-learning/attempts/83137011-320f-423f-bc2f-7ff9449de793/responses 200 in 220ms (next.js: 3ms, application-code: 216ms)
+ POST /api/v2/guided-learning/attempts/83137011-320f-423f-bc2f-7ff9449de793/complete 200 in 209ms (next.js: 5ms, application-code: 205ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 1141ms (next.js: 6ms, proxy.ts: 12ms, application-code: 1123ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 451ms (next.js: 6ms, proxy.ts: 8ms, application-code: 437ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 119ms (next.js: 25ms, application-code: 94ms)
+ GET /api/auth/get-session 404 in 72ms (next.js: 31ms, application-code: 41ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <PlatformFrame>
+      <AuthenticatedFrame>
+        <AccessProvider roles={[...]}>
+          <PersistentAppShell guidedLearningEnabled={false} viewer={undefined} profilePending={true}>
+            <ShellChrome activeKey="learning" guidedLearningEnabled={false} headerTitle="Koras" viewer={undefined} ...>
+              <div className="app-shell ...">
+                <aside>
+                <div className="app-body">
+                  <header className="app-topbar..." data-active-key="learning">
+                    <div>
+                    <GlobalContentSearch>
+                      <div className="global-con..." ref={{current:null}}>
+                        <form aria-label="Buscar guías" className="global-con..." onSubmit={function handleSubmit} ...>
+                          <MagnifyingGlass>
+                          <input
+                            aria-controls="global-content-search-panel"
+                            aria-expanded={false}
+                            aria-haspopup="dialog"
+                            aria-label="Buscar guías"
+                            aria-autocomplete="list"
+                            autoComplete="off"
+                            onChange={function onChange}
+                            onFocus={function onFocus}
+                            onKeyDown={function onKeyDown}
+                            placeholder="Buscar guías"
+                            ref={{current:null}}
+                            role="combobox"
+                            type="search"
+                            value=""
+-                           style={{caret-color:"transparent"}}
+                          >
+                    ...
+                  ...
+ 
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 460ms (next.js: 18ms, proxy.ts: 35ms, application-code: 406ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 161ms (next.js: 32ms, application-code: 130ms)
+ GET /api/auth/get-session 404 in 80ms (next.js: 23ms, application-code: 58ms)
+ POST /api/v2/guided-learning/attempts 200 in 192ms (next.js: 6ms, application-code: 186ms)
+ GET /aprendizaje/sesiones/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b 200 in 316ms (next.js: 27ms, proxy.ts: 11ms, application-code: 277ms)
+ POST /api/v2/guided-learning/attempts/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b/responses 200 in 302ms (next.js: 4ms, application-code: 298ms)
+ POST /api/v2/guided-learning/attempts/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b/responses 200 in 177ms (next.js: 4ms, application-code: 174ms)
+ POST /api/v2/guided-learning/attempts/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b/responses 200 in 195ms (next.js: 6ms, application-code: 189ms)
+ POST /api/v2/guided-learning/attempts/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b/responses 200 in 234ms (next.js: 22ms, application-code: 213ms)
+ POST /api/v2/guided-learning/attempts/e9b25d00-dd3b-4f1e-8102-6d9051d7f62b/complete 200 in 196ms (next.js: 18ms, application-code: 178ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 477ms (next.js: 9ms, proxy.ts: 10ms, application-code: 458ms)
+ GET /api/auth/get-session 404 in 47ms (next.js: 22ms, application-code: 25ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 88ms (next.js: 17ms, application-code: 71ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 423ms (next.js: 6ms, proxy.ts: 8ms, application-code: 409ms)
+ GET /api/auth/get-session 404 in 41ms (next.js: 15ms, application-code: 26ms)
+ POST /api/v2/guided-learning/attempts 200 in 201ms (next.js: 18ms, application-code: 182ms)
+ GET /aprendizaje/sesiones/b8f2476c-2a4c-4dc9-acc5-336ffdcc6351 200 in 341ms (next.js: 32ms, proxy.ts: 12ms, application-code: 297ms)
+ POST /api/v2/guided-learning/attempts/b8f2476c-2a4c-4dc9-acc5-336ffdcc6351/responses 200 in 195ms (next.js: 4ms, application-code: 190ms)
+ POST /api/v2/guided-learning/attempts/b8f2476c-2a4c-4dc9-acc5-336ffdcc6351/complete 200 in 237ms (next.js: 5ms, application-code: 232ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 722ms (next.js: 8ms, proxy.ts: 11ms, application-code: 703ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 585ms (next.js: 173ms, application-code: 412ms)
+ GET /api/auth/get-session 200 in 175ms (next.js: 95ms, application-code: 80ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 505ms (next.js: 9ms, proxy.ts: 14ms, application-code: 482ms)
+ GET /api/auth/get-session 404 in 34ms (next.js: 21ms, application-code: 13ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 117ms (next.js: 22ms, application-code: 95ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 84ms (next.js: 3ms, application-code: 81ms)
+ POST /api/v2/guided-learning/attempts 200 in 135ms (next.js: 4ms, application-code: 131ms)
+ GET /aprendizaje/sesiones/972bf213-3e62-4931-86ba-3a14d4566f3f 200 in 212ms (next.js: 26ms, proxy.ts: 11ms, application-code: 175ms)
+ POST /api/v2/guided-learning/attempts/972bf213-3e62-4931-86ba-3a14d4566f3f/responses 200 in 170ms (next.js: 4ms, application-code: 166ms)
+ POST /api/v2/guided-learning/attempts/972bf213-3e62-4931-86ba-3a14d4566f3f/complete 200 in 152ms (next.js: 5ms, application-code: 147ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 746ms (next.js: 10ms, proxy.ts: 12ms, application-code: 724ms)
+ GET /api/auth/get-session 404 in 33ms (next.js: 20ms, application-code: 13ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 501ms (next.js: 5ms, proxy.ts: 8ms, application-code: 488ms)
+ GET /api/auth/get-session 404 in 53ms (next.js: 23ms, application-code: 29ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 100ms (next.js: 22ms, application-code: 79ms)
+ POST /api/v2/guided-learning/attempts 200 in 239ms (next.js: 4ms, application-code: 235ms)
+ GET /aprendizaje/sesiones/357605d4-c4e1-4928-96de-00884f38e77d 200 in 308ms (next.js: 34ms, proxy.ts: 8ms, application-code: 266ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 105ms (next.js: 3ms, application-code: 102ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 591ms (next.js: 9ms, proxy.ts: 19ms, application-code: 563ms)
+ GET /api/auth/get-session 404 in 38ms (next.js: 13ms, application-code: 25ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 171ms (next.js: 22ms, application-code: 149ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 650ms (next.js: 7ms, proxy.ts: 11ms, application-code: 632ms)
+ GET /api/auth/get-session 404 in 34ms (next.js: 20ms, application-code: 14ms)
+ POST /api/v2/guided-learning/attempts 200 in 249ms (next.js: 20ms, application-code: 229ms)
+ GET /aprendizaje/sesiones/c401eb97-c972-4166-bd70-1b982533587c 200 in 302ms (next.js: 28ms, proxy.ts: 9ms, application-code: 264ms)
+ POST /api/v2/guided-learning/attempts/c401eb97-c972-4166-bd70-1b982533587c/responses 200 in 320ms (next.js: 5ms, application-code: 316ms)
+ POST /api/v2/guided-learning/attempts/c401eb97-c972-4166-bd70-1b982533587c/complete 200 in 320ms (next.js: 24ms, application-code: 297ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 971ms (next.js: 8ms, proxy.ts: 14ms, application-code: 949ms)
+ GET /api/auth/get-session 404 in 37ms (next.js: 22ms, application-code: 15ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 222ms (next.js: 20ms, application-code: 202ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 420ms (next.js: 6ms, proxy.ts: 9ms, application-code: 405ms)
+ GET /api/auth/get-session 404 in 48ms (next.js: 20ms, application-code: 28ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 120ms (next.js: 20ms, application-code: 101ms)
+ POST /api/v2/guided-learning/attempts 200 in 220ms (next.js: 3ms, application-code: 217ms)
+ GET /aprendizaje/sesiones/2dc160d5-a10c-4d91-921d-1980cef4b408 200 in 350ms (next.js: 33ms, proxy.ts: 9ms, application-code: 308ms)
+ POST /api/v2/guided-learning/attempts/2dc160d5-a10c-4d91-921d-1980cef4b408/responses 200 in 268ms (next.js: 6ms, application-code: 262ms)
+ POST /api/v2/guided-learning/attempts/2dc160d5-a10c-4d91-921d-1980cef4b408/complete 200 in 203ms (next.js: 5ms, application-code: 198ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 557ms (next.js: 5ms, proxy.ts: 9ms, application-code: 544ms)
+ GET /api/auth/get-session 404 in 48ms (next.js: 20ms, application-code: 28ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 106ms (next.js: 19ms, application-code: 87ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 1818ms (next.js: 7ms, proxy.ts: 8ms, application-code: 1802ms)
+ GET /api/auth/get-session 404 in 58ms (next.js: 28ms, application-code: 30ms)
+ POST /api/v2/guided-learning/attempts 200 in 257ms (next.js: 24ms, application-code: 233ms)
+ GET /aprendizaje/sesiones/ef6bdf1c-8fa7-4cc7-925e-09e61d80a181 200 in 379ms (next.js: 46ms, proxy.ts: 16ms, application-code: 317ms)
+ POST /api/v2/guided-learning/attempts/ef6bdf1c-8fa7-4cc7-925e-09e61d80a181/responses 200 in 270ms (next.js: 5ms, application-code: 265ms)
+ POST /api/v2/guided-learning/attempts/ef6bdf1c-8fa7-4cc7-925e-09e61d80a181/complete 200 in 264ms (next.js: 5ms, application-code: 259ms)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 803ms (next.js: 6ms, proxy.ts: 14ms, application-code: 784ms)
+ GET /api/auth/get-session 404 in 48ms (next.js: 26ms, application-code: 22ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 107ms (next.js: 19ms, application-code: 88ms)
+○ Compiling /aprendizaje/rutas/[slug] ...
+ GET /aprendizaje/rutas/t032-route 200 in 41s (next.js: 38.4s, proxy.ts: 12ms, application-code: 2.6s)
+○ Compiling /aprendizaje ...
+ GET /api/auth/get-session 404 in 5.0s (next.js: 3.9s, application-code: 1075ms)
+ GET /aprendizaje?tab=hoy 200 in 17.9s (next.js: 15.5s, proxy.ts: 17ms, application-code: 2.4s)
+ GET /aprendizaje/repaso?motor=guided-v2&ruta=t032-route 200 in 717ms (next.js: 152ms, proxy.ts: 35ms, application-code: 530ms)
+ GET /api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/state 200 in 320ms (next.js: 120ms, application-code: 200ms)
+ GET /api/auth/get-session 404 in 121ms (next.js: 24ms, application-code: 97ms)

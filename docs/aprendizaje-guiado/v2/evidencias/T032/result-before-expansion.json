@@ -1,0 +1,51 @@
+{
+  "taskId": "T032",
+  "status": "NO VERIFICADO",
+  "implementationScope": "Partial local implementation within original file allowlist; contract/API expansion proposed and not applied",
+  "baseSha": "e41c0c1b20adbb9248108c50d7bb0d4bac0ae1e3",
+  "clientDate": "2026-10-04",
+  "timezone": "America/Caracas",
+  "dependencies": [
+    {"taskId": "T017", "status": "PASS", "evidence": "../T017/result.json"},
+    {"taskId": "T018", "status": "PASS", "evidence": "../T018/result.json"},
+    {"taskId": "T019", "status": "PASS", "evidence": "../T019/result.json"},
+    {"taskId": "T028", "status": "PASS", "scope": "LOCAL", "evidence": "../T028/result.json"},
+    {"taskId": "T031", "status": "PASS", "scope": "LOCAL", "evidence": "../T031/result.json"}
+  ],
+  "changedFiles": [
+    "apps/web/src/app/aprendizaje/repaso/page.tsx",
+    "apps/web/src/components/learning/v2/diagnostic.tsx",
+    "apps/web/src/components/learning/v2/gate.tsx",
+    "apps/web/src/components/learning/v2/remediation.tsx",
+    "apps/web/src/components/learning/v2/maintenance.tsx",
+    "apps/web/src/components/learning/v2/review.tsx",
+    "apps/web/src/components/learning/v2/maintenance.module.css",
+    "apps/web/src/components/learning/v2/maintenance.test.tsx",
+    "apps/web/src/components/learning/v2/review-page.test.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T032/"
+  ],
+  "checks": [
+    {"command": "pnpm.cmd --filter @cediah/contracts build", "exitCode": 0, "result": "PASS", "evidence": "contracts-build.txt"},
+    {"command": "pnpm.cmd --filter @cediah/web test", "exitCode": 0, "result": "468 PASS, 59 files before final timezone rendering adjustment", "evidence": "web-suite.txt"},
+    {"command": "pnpm.cmd --filter @cediah/web exec vitest run maintenance.test.tsx review-page.test.tsx model.test.tsx player.test.tsx", "exitCode": 0, "result": "51 PASS, final source", "evidence": "focused-final.txt"},
+    {"command": "pnpm.cmd --filter @cediah/web typecheck", "exitCode": 0, "result": "PASS final", "evidence": "typecheck-final.txt"},
+    {"command": "ESLint 8 changed TS/TSX files --max-warnings=0", "exitCode": 0, "result": "PASS final", "evidence": "lint-final.txt"},
+    {"command": "node apps/web/node_modules/vitest/vitest.mjs run --config docs/aprendizaje-guiado/v2/evidencias/T032/vitest.preview.config.mts", "exitCode": 0, "result": "1 static preview PASS", "evidence": "preview-test-with-fonts.txt"},
+    {"command": "node docs/aprendizaje-guiado/v2/evidencias/T032/browser-preview.cjs", "exitCode": 0, "result": "24 static views without page overflow; six axe states 0 serious/critical; no hydrated/runtime claims", "evidence": "browser-preview.json"},
+    {"command": "git diff --check; tracked diff allowlist and source SHA256", "exitCode": 0, "result": "Only repaso page modified among existing files; zero deleted files", "evidence": "diff-check.txt; preservation.json; source-hashes.json"}
+  ],
+  "issues": [
+    {"id": "T032-missing-public-maintenance-data", "blockingT032": true, "detail": "Diagnostic key/status, review/retention schedule, complete gate reasons, bank exhaustion, available branches and review batch are private only. No guessed targets, local agenda or simulated completion.", "proposal": "AMPLIACION-PROPUESTA.md"},
+    {"id": "inherited-T024-api-timeout", "detail": "Preserved; not investigated or claimed resolved"},
+    {"id": "inherited-T021-upgrade", "detail": "Previous scope retained; no upgrade implemented"}
+  ],
+  "notVerified": ["Full T032 E03/E06/P11-P15", "Optional diagnostic and omission runtime", "Server review batch of ten", "Future local dates, overdue, elapsed retention days and profile timezone", "Bank exhaustion and alternative branches", "Hydrated UI/real BFF persistence T035", "Native zoom and accessibility T037", "PostgreSQL concurrency/grants", "Hito S, editorial acceptance, staging and production"],
+  "nextTaskIds": [],
+  "blockedConsumerTaskIds": ["T033"],
+  "requiredNextAction": "Authorize AMPLIACION-PROPUESTA.md and continue T032 only",
+  "nextTaskStarted": false,
+  "processesClosed": true,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

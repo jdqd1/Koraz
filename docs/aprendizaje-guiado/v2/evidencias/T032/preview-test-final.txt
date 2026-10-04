@@ -1,0 +1,35 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx (1 test | 1 failed) 87ms
+   × exports static review states with the existing learning styles for visual inspection 82ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx > exports static review states with the existing learning styles for visual inspection
+Error: invariant expected app router to be mounted
+ ❯ useRouter node_modules/.pnpm/next@16.3.5_@babel+core@7.2_51fe6abbff86aa6f4245b66019479d71/node_modules/next/src/client/components/navigation.ts:169:10
+ ❯ RouteAction apps/web/src/components/learning/v2/route-action.tsx:10:18
+      8|
+      9| export function RouteAction({ path, state, returnTo }: { path: V2Path;…
+     10|   const router = useRouter();
+       |                  ^
+     11|   const [transport] = useState(() => createV2Launcher());
+     12|   const inFlight = useRef(false);
+ ❯ Object.react_stack_bottom_frame node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:9808:18
+ ❯ renderWithHooks node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5062:19
+ ❯ renderElement node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5497:23
+ ❯ retryNode node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6428:21
+ ❯ renderNodeDestructive node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6367:11
+ ❯ renderNode node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6905:18
+ ❯ renderChildrenArray node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6674:11
+ ❯ retryNode node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6441:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  00:12:49
+   Duration  4.28s (transform 2.41s, setup 0ms, import 3.29s, tests 87ms, environment 0ms)
+

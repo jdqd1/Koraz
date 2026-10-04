@@ -200,6 +200,19 @@ export const V2ObjectiveStateSchema = z.strictObject({
   assisted: z.boolean(), applicationDemonstrated: z.boolean(), reviewDue: z.boolean(),
   firstMasteredAt: Timestamp.nullable(), firstConsolidatedAt: Timestamp.nullable(),
 });
+const MaintenanceMeasurement = z.strictObject({ dueAt: Timestamp.nullable(), acceptedAt: Timestamp.nullable(), elapsedDays: z.number().nonnegative().nullable() });
+export const V2MaintenanceSchema = z.strictObject({
+  generatedAt: Timestamp,
+  timeZone: z.string().refine(value => { try { new Intl.DateTimeFormat("es", { timeZone: value }); return true; } catch { return false; } }, "Zona IANA inválida"),
+  diagnostic: z.strictObject({ status: z.enum(["pending", "completed", "omitted", "unavailable"]), assessmentKey: RouteKeySchema.nullable() }),
+  activities: z.array(z.strictObject({ key: RouteKeySchema, objectiveKey: RouteKeySchema, reason: z.string().min(1) })),
+  reviewBatch: z.array(z.strictObject({ key: RouteKeySchema, objectiveKey: RouteKeySchema, dueAt: Timestamp })).max(10),
+  agenda: z.array(z.strictObject({ objectiveKey: RouteKeySchema, dueAt: Timestamp, retention7: MaintenanceMeasurement, retention30: MaintenanceMeasurement })),
+  gates: z.array(z.strictObject({ unitKey: RouteKeySchema, passed: z.boolean(), score: z.number().min(0).max(100).nullable(), thresholdPercent: z.number().min(0).max(100), missingCoreKeys: Keys, criticalErrorKeys: Keys })),
+  blockers: z.array(z.strictObject({ objectiveKey: RouteKeySchema, blockedBy: Keys })),
+  remediation: z.array(z.strictObject({ objectiveKey: RouteKeySchema, confusion: z.string(), message: z.string(), activityKey: RouteKeySchema.nullable(), bankExhausted: z.boolean(), availableAfter: Timestamp.nullable(), pauseOffered: z.boolean() })),
+  exhaustedBanks: z.array(z.strictObject({ objectiveKey: RouteKeySchema, availableAfter: Timestamp })),
+});
 export const V2RouteStateSchema = z.strictObject({
   engineVersion: V2EngineVersionSchema, enrollmentId: V2EnrollmentIdSchema,
   pathVersionId: V2PathVersionIdSchema, rowVersion: Version,
@@ -209,6 +222,8 @@ export const V2RouteStateSchema = z.strictObject({
   objectives: z.array(V2ObjectiveStateSchema),
   dueReviews: z.number().int().nonnegative(),
   nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1) }),
+  // Additive projection; historical idempotency receipts remain valid without it.
+  maintenance: V2MaintenanceSchema.optional(),
 });
 
 /** Authorized feedback excerpt only; no bindings, editorial flags or resource payloads. */

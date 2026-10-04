@@ -7,6 +7,7 @@ import { safeMapReturnHref } from "../map/map-route";
 import { createV2PlayerClient, V2RequestError, type PlayerAction, type PlayerResult } from "./client";
 import { RouteSignals } from "./signals";
 import { ActivityComposition, SequenceRecap } from "./composition";
+import { MaintenanceSessionSummary } from "./maintenance";
 
 type Feedback = { activityKey: string; explanation: string; commonError: string; score01: number | null; sources?: V2FeedbackSource[]; partialScore01?: number };
 function PartialFeedback({ value }: { value?: number }) {
@@ -103,5 +104,6 @@ export function V2Player({ initialAttempt, initialState, returnTo }: { initialAt
           {activity.kind !== "study" && attempt.purpose !== "assessment" && ["single_choice", "short_answer", "constructed_response"].includes(activity.kind) ? <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 }}><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("hint")}>Necesito ayuda</button><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("source")}>Consultar fuente con ayuda</button></div> : null}
           {help?.activityKey === activity.key && help.kind !== "reveal" ? <aside role="status" style={{ marginTop: 16, whiteSpace: "pre-wrap" }}><h3>{help.kind === "source" ? "Fuente para practicar con ayuda" : "Pista"}</h3><p>{help.text}</p><p>Consulta registrada: práctica con ayuda.</p></aside> : null}
         </section> : <section className="learning-completion-panel"><h2 ref={heading} tabIndex={-1}>Respuestas guardadas</h2><p>Confirma el cierre para consultar el resultado de la sesión.</p><button type="button" className="learning-primary-button" disabled={disabled} onClick={() => void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } })}>Finalizar sesión</button></section>}
+    {state && !pending && attempt.status === "completed" ? <MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /> : null}
   </section>;
 }

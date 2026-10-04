@@ -10,6 +10,7 @@ import {
   V2IdSchemas,
   V2AttemptManifestSchema,
   V2FeedbackSourceSchema,
+  V2MaintenanceSchema,
   V2PersistedResponseSchema,
   V2PublicActivitySchema,
   V2PublicPathSchema,
@@ -31,6 +32,14 @@ const activity = (kind: string, payload: unknown) => RouteActivitySchema.parse({
 const secret = "PRIVATE_SOLUTION_SENTINEL";
 
 describe("guided v2 contracts", () => {
+  it("T032 maintenance is strict, limits review to ten and rejects private nested fields", () => {
+    const shape = { generatedAt: "2026-10-04T00:00:00Z", timeZone: "America/Caracas", diagnostic: { status: "pending", assessmentKey: "diagnosis" }, activities: [], reviewBatch: [], agenda: [], gates: [], blockers: [], remediation: [], exhaustedBanks: [] };
+    expect(V2MaintenanceSchema.parse(shape)).toEqual(shape);
+    for (const value of [{ ...shape, solutions: [] }, { ...shape, diagnostic: { ...shape.diagnostic, candidateActivityKeys: ["reserved"] } },
+      { ...shape, timeZone: "not-a-timezone" }, { ...shape, reviewBatch: Array.from({ length: 11 }, (_, i) => ({ key: `a${i}`, objectiveKey: `o${i}`, dueAt: shape.generatedAt })) }]) {
+      expect(V2MaintenanceSchema.safeParse(value).success).toBe(false);
+    }
+  });
   it("T029 keeps resume stages strict, ties them to the active activity and allowlists feedback sources", () => {
     const active = toV2PublicActivity(activity("constructed_response", { rubric: [{ key: "reason", criterion: "Critério", example: "Ejemplo" }], modelAnswer: secret, verificationActivityKey: null }));
     const manifest = { engineVersion: "guided-v2", attemptId: uuid(4), enrollmentId: uuid(5), pathVersionId: uuid(2), policyVersion: "guided-v2.0", purpose: "activity", rowVersion: 2, status: "open", activeActivity: active, acceptedResponses: [] };

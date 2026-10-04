@@ -161,13 +161,35 @@ async function context(transaction: Tx, userId: string, enrollmentId: string, at
     && evidence.route.completedActivities + evidence.route.dispensedActivities === evidence.route.plannedRequiredActivities) {
     selection.nextAction = { kind: "gate", key: final.key, reason: "Evaluación final disponible; las actividades completadas no implican dominio acreditado" };
   }
+  const preferences = await transaction.selectFrom("learning_preferences").select("timezone").where("user_id", "=", userId).executeTakeFirst();
+  let timeZone = preferences?.timezone ?? "UTC";
+  try { new Intl.DateTimeFormat("es", { timeZone }); } catch { timeZone = "UTC"; }
+  const measurement = (firstMasteredAt: string, dueAt: string | null, acceptedAt: string | null) => ({ dueAt, acceptedAt,
+    elapsedDays: acceptedAt && firstMasteredAt ? Math.max(0, (Date.parse(acceptedAt) - Date.parse(firstMasteredAt)) / 86400000) : null });
+  // Explicit public allowlist: no activity payloads, reserves, sources, mappings or solutions.
+  const maintenance = {
+    generatedAt: at.toISOString(), timeZone,
+    diagnostic: { status: selection.diagnostic.assessmentKey && selection.diagnostic.activityKeys.length ? diagnosticStatus : "unavailable",
+      assessmentKey: diagnosticStatus === "pending" && selection.diagnostic.activityKeys.length ? selection.diagnostic.assessmentKey : null },
+    activities: selection.availableActivities.map(({ key, objectiveKey, reason }) => ({ key, objectiveKey, reason })),
+    reviewBatch: selection.reviewBatch.map(({ key, objectiveKey, dueAt }) => ({ key, objectiveKey, dueAt })),
+    agenda: reviewStates.map(({ objectiveKey, firstMasteredAt, state: review }) => ({ objectiveKey, dueAt: review.dueAt,
+      retention7: measurement(firstMasteredAt, review.retention7DueAt, review.retention7AcceptedAt),
+      retention30: measurement(firstMasteredAt, review.retention30DueAt, review.retention30AcceptedAt) })),
+    gates: evidence.gates.map(({ unitKey, passed, score, thresholdPercent, missingCoreKeys, criticalErrorKeys }) => ({ unitKey, passed, score, thresholdPercent, missingCoreKeys, criticalErrorKeys })),
+    blockers: evidence.availability.filter(item => !item.available).map(({ objectiveKey, blockedBy }) => ({ objectiveKey, blockedBy })),
+    remediation: selection.remediationOffers.map(({ objectiveKey, confusion, message, activityKey, bankExhausted, availableAfter, pauseOffered }) => ({ objectiveKey, confusion, message,
+      activityKey: activityKey && (selection.nextAction.key === activityKey || selection.availableActivities.some(item => item.key === activityKey)) ? activityKey : null,
+      bankExhausted, availableAfter, pauseOffered })),
+    exhaustedBanks: selection.exhaustedBanks.map(({ objectiveKey, availableAfter }) => ({ objectiveKey, availableAfter })),
+  };
   const state = V2RouteStateSchema.parse({ engineVersion: "guided-v2", enrollmentId, pathVersionId: version.id, rowVersion: enrollment.row_version,
     completedActivities: evidence.route.completedActivities, dispensedActivities: evidence.route.dispensedActivities,
     plannedRequiredActivities: evidence.route.plannedRequiredActivities, completedAt: evidence.route.completedAt,
     masteredAt: evidence.route.masteredAt, consolidatedAt: evidence.route.consolidatedAt,
     objectives: evidence.objectives.map(({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated, reviewDue,
       firstMasteredAt, firstConsolidatedAt }) => ({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated,
-      reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length, nextAction: selection.nextAction });
+      reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length, nextAction: selection.nextAction, maintenance });
   return { enrollment, version, definition, evidence, attempts, responses, exposures, reviewStates, selection, state, diagnosticStatus };
 }
 

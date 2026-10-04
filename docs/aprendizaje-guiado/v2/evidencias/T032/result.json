@@ -1,0 +1,183 @@
+{
+  "taskId": "T032",
+  "status": "PASS",
+  "scope": "LOCAL",
+  "baseSha": "e41c0c1b20adbb9248108c50d7bb0d4bac0ae1e3",
+  "clientDate": "2026-10-04",
+  "timezone": "America/Caracas",
+  "authorization": {
+    "request": "haz la t032",
+    "expansion": "AMPLIACION-PROPUESTA.md",
+    "response": "si",
+    "applied": true
+  },
+  "implementationScope": "T032 UI plus explicitly authorized public maintenance projection and minimal route/Today/player mounts; existing selection/evidence/scheduler remain unchanged",
+  "dependencies": [
+    {
+      "taskId": "T017",
+      "status": "PASS",
+      "scope": "As documented by predecessor evidence",
+      "evidence": "../T017/result.json"
+    },
+    {
+      "taskId": "T018",
+      "status": "PASS",
+      "scope": "As documented by predecessor evidence",
+      "evidence": "../T018/result.json"
+    },
+    {
+      "taskId": "T019",
+      "status": "PASS",
+      "scope": "As documented by predecessor evidence",
+      "evidence": "../T019/result.json"
+    },
+    {
+      "taskId": "T028",
+      "status": "PASS",
+      "scope": "As documented by predecessor evidence",
+      "evidence": "../T028/result.json"
+    },
+    {
+      "taskId": "T031",
+      "status": "PASS",
+      "scope": "As documented by predecessor evidence",
+      "evidence": "../T031/result.json"
+    }
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/test/guided-v2-contract.test.ts",
+    "apps/api/test/guided-v2-routes.test.ts",
+    "apps/web/src/app/aprendizaje/repaso/page.tsx",
+    "apps/web/src/components/learning/v2/path-screen.tsx",
+    "apps/web/src/components/learning/v2/player.tsx",
+    "apps/web/src/components/learning/v2/route-action.tsx",
+    "apps/web/src/components/learning/v2/today-panel.tsx",
+    "packages/contracts/src/guided-learning-v2.ts",
+    "apps/web/src/components/learning/v2/diagnostic.tsx",
+    "apps/web/src/components/learning/v2/gate.tsx",
+    "apps/web/src/components/learning/v2/maintenance-fixtures.tsx",
+    "apps/web/src/components/learning/v2/maintenance.module.css",
+    "apps/web/src/components/learning/v2/maintenance.test.tsx",
+    "apps/web/src/components/learning/v2/maintenance.tsx",
+    "apps/web/src/components/learning/v2/remediation.tsx",
+    "apps/web/src/components/learning/v2/review-page.test.tsx",
+    "apps/web/src/components/learning/v2/review.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T032/"
+  ],
+  "checks": [
+    {
+      "result": "PASS",
+      "command": "pnpm --filter @cediah/contracts build",
+      "evidence": "contracts-expanded.txt"
+    },
+    {
+      "result": "473 PASS, 59 files before final summary wording adjustment",
+      "command": "pnpm --filter @cediah/web test",
+      "evidence": "web-suite-expanded.txt"
+    },
+    {
+      "result": "56 PASS, final source",
+      "command": "Web vitest: maintenance, review-page, model, player",
+      "evidence": "web-focused-final.txt"
+    },
+    {
+      "result": "14 PASS, final projection",
+      "command": "API vitest: guided-v2-routes.test.ts",
+      "evidence": "api-routes-projection-final.txt"
+    },
+    {
+      "result": "85 PASS, 10 SKIP (independent PostgreSQL checks not enabled)",
+      "command": "API vitest: guided-v2-contract, selection, scheduler, assessments",
+      "evidence": "api-focused-expanded-final.txt"
+    },
+    {
+      "result": "PASS",
+      "command": "Web and API typecheck",
+      "evidence": [
+        "web-typecheck-final.txt",
+        "api-typecheck-final.txt"
+      ]
+    },
+    {
+      "result": "PASS, zero warnings",
+      "command": "ESLint changed web and API TS/TSX",
+      "evidence": [
+        "web-lint-final.txt",
+        "api-lint-final.txt"
+      ]
+    },
+    {
+      "result": "1 PASS; actual HTTP/provider with isolated PGlite",
+      "command": "vitest.http-maintenance.config.mts",
+      "evidence": "http-maintenance-verified.txt"
+    },
+    {
+      "result": "7 flow checks PASS; 4 viewports no overflow; 3 scoped axe inspections with zero serious/critical",
+      "command": "node browser-maintenance.cjs",
+      "evidence": [
+        "browser-maintenance.json",
+        "browser-maintenance-verified.txt",
+        "next-maintenance-verified.txt"
+      ]
+    },
+    {
+      "result": "PASS; authorized changes only; zero deletions; source SHA256 recorded",
+      "command": "git diff --check and preservation audit",
+      "evidence": [
+        "diff-check.txt",
+        "preservation.json",
+        "source-hashes.json"
+      ]
+    }
+  ],
+  "acceptance": {
+    "P11": "Local browser: completed correct/wrong diagnosis and omission change server support/status, never mastery or review debt",
+    "P12_P13": "Existing scheduler tests plus local UI: server clock/profile zone, read-only overdue state, one chosen review, no lapse from absence",
+    "P14_P15": "Existing selection/assessment tests and HTTP segmented/reserve tests preserved; display batch max10, retention measured on real elapsed days; no reserve payload in maintenance DTO",
+    "E03_E06": "T032 local subflows: critical error -> targeted source explanation; route/Today/player/review share pinned state. Full map/help/eight-kinds/system acceptance remains T035"
+  },
+  "runtimeEvidence": {
+    "content": "Synthetic 13-objective package",
+    "database": "Isolated serialized PGlite",
+    "identity": "Synthetic t030 cookie identity",
+    "serverDate": "Controlled Date with chronological ticks; real networking and timers",
+    "authIssuanceVerified": false,
+    "measurements": "Approximately day10 and day35, preserving fractional server elapsedDays; display rounds to one decimal"
+  },
+  "issues": [
+    {
+      "id": "T032-missing-public-maintenance-data",
+      "blockingT032": false,
+      "resolvedBy": "Authorized strict public projection"
+    },
+    {
+      "id": "harness-shell-auth",
+      "blockingT032": false,
+      "detail": "Existing AppShell GET /api/auth/get-session is 404 in synthetic identity harness; SSR and BFF use real /v1/auth/me identity helper. BetterAuth issuance and global AppShell auth are not verified."
+    },
+    {
+      "id": "inherited-T024-api-timeout",
+      "detail": "Preserved; no claim of resolution or global API/system regression"
+    },
+    {
+      "id": "inherited-T021-upgrade",
+      "detail": "Previous scope retained; no upgrade implemented"
+    }
+  ],
+  "notVerified": [
+    "Full T035 E03/E06/eight-kind journey and large map",
+    "Native zoom, screen reader and complete T037 accessibility audit",
+    "Independent PostgreSQL concurrency/grants in this run",
+    "BetterAuth issuance",
+    "Hito S, editorial/clinical acceptance, staging and production"
+  ],
+  "nextTaskIds": [
+    "T033"
+  ],
+  "nextTaskStarted": false,
+  "processesClosed": true,
+  "committed": false,
+  "deployed": false,
+  "details": "README.md"
+}

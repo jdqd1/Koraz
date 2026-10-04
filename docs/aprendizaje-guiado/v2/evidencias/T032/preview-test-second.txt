@@ -1,0 +1,26 @@
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx [ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx ]
+Error: Cannot find package 'react/jsx-dev-runtime' imported from D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx:12:25
+     10| it("exports static review states with the existing learning styles for…
+     11|   const root = new URL("../../../../../", import.meta.url);
+     12|   let css = await readFile(new URL("apps/web/src/app/learning.css", ro…
+       |                         ^
+     13|   for (const [file, classes] of [["maintenance.module.css", maintenanc…
+     14|     const source = await readFile(new URL(`apps/web/src/components/lea…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:12:21
+   Duration  4.79s (transform 3.29s, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

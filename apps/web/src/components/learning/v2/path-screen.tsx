@@ -5,6 +5,7 @@ import { covers, routeHref, stateMatches, type V2Path, type V2State } from "./mo
 import { safeMapReturnHref } from "../map/map-route";
 import { RouteSignals, ObjectiveList } from "./signals";
 import { RouteAction } from "./route-action";
+import { RouteMaintenance } from "./review";
 
 export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Path; state: V2State | null; focusUnit?: string; returnTo?: string | null }) {
   const confirmed = stateMatches(path, state) ? state : null;
@@ -20,5 +21,6 @@ export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Pat
         <div className="learning-objectives"><strong>Al terminar podrás</strong><ObjectiveList objectives={unit.objectives} state={confirmed} />{safe ? <Link href={routeHref(path.slug, unit.key, safe)}>Ver unidad en la ruta</Link> : null}</div>
       </details>)}</div> : <p role="status">Esta ruta no tiene unidades disponibles.</p>}
     </section>
+    {confirmed ? <RouteMaintenance path={path} state={confirmed} /> : null}
   </main>;
 }

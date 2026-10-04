@@ -1,0 +1,54 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-routes.test.ts (14 tests | 2 failed) 22422ms
+     × T032 reports pending absence and measured real days without a client clock or synthetic lapse 102ms
+     × 12 reserved objectives keep correction private until each ten-item segment is submitted 5085ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > T032 reports pending absence and measured real days without a client clock or synthetic lapse
+AssertionError: expected { …(3) } to deeply equal { …(3) }
+
+- Expected
++ Received
+
+  {
+    "acceptedAt": null,
+-   "dueAt": "2026-09-08T12:00:00.000Z",
++   "dueAt": "2026-09-09T01:53:48.000Z",
+    "elapsedDays": null,
+  }
+
+ ❯ test/guided-v2-routes.test.ts:167:56
+    165|     const current = V2HttpContracts.enrollmentState.response.parse(pen…
+    166|     expect(current.nextAction).toMatchObject({ kind: "retention", key:…
+    167|     expect(current.maintenance!.agenda[0]!.retention7).toEqual({ dueAt…
+       |                                                        ^
+    168|     expect((await pg.query("select objective_key,lapses,retention7_acc…
+    169|     const created = await launch("seven-test", "assessment"); expect(c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-routes.test.ts:211:3
+    209|     expect((await get(`enrollments/${v2Id(8)}/state`)).json().state.co…
+    210|   });
+    211|   it("12 reserved objectives keep correction private until each ten-it…
+       |   ^
+    212|     const route = fixture(), choice = route.activities.find((item) => …
+    213|     route.route.slug = "segments";
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  2 failed | 97 passed | 10 skipped (109)
+   Start at  00:31:47
+   Duration  71.41s (transform 3.73s, setup 0ms, import 36.39s, tests 32.63s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-routes.test.ts test/guided-v2-contract.test.ts test/guided-v2-selection.test.ts test/guided-v2-scheduler.test.ts test/guided-v2-assessments.test.ts

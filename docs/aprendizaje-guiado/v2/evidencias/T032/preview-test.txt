@@ -1,0 +1,25 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web
+
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx [ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx ]
+Error: Cannot find package 'react-dom/server' imported from D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx
+ ❯ docs/aprendizaje-guiado/v2/evidencias/T032/preview.test.tsx:3:1
+      1| import { writeFile, readFile } from "node:fs/promises";
+      2| import { it, vi, expect } from "vitest";
+      3| import { renderToString } from "react-dom/server";
+       | ^
+      4| import { V2ReviewScreen } from "../../../../../apps/web/src/components…
+      5| import { studentFixture } from "../../../../../apps/web/src/components…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:11:36
+   Duration  1.33s (transform 104ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

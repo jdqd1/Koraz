@@ -1,0 +1,15 @@
+.screen { display: grid; gap: 18px; min-width: 0; }
+.screen header, .panel { min-width: 0; overflow-wrap: anywhere; }
+.panel { display: grid; gap: 12px; padding: 18px; border: 1px solid var(--learning-border, #e0e5ed); border-radius: 12px; background: var(--learning-surface, #fff); }
+.panel h2, .panel p { margin: 0; }
+.panel ul { margin: 0; padding-inline-start: 20px; }
+.panel li + li { margin-top: 12px; }
+.panel a { text-decoration: underline; text-underline-offset: 3px; }
+.panel a:focus-visible { outline: 2px solid var(--learning-primary, #2358c3); outline-offset: 4px; }
+.objectives li { display: grid; gap: 6px; }
+.objectives span { font-size: .9rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.schedule { display: grid; gap: 8px; margin-block: 8px; }
+.panel article { min-width: 0; display: grid; gap: 10px; }
+.panel details summary { cursor: pointer; font-weight: 600; }
+@media (max-width: 600px) { .panel { padding: 14px; } }

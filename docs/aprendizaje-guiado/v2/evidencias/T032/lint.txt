@@ -1,0 +1,24 @@
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\v2\maintenance.tsx
+  14:21  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\src\components\learning\v2\maintenance.tsx:14:21
+  12 | export function MaintenanceDate({ value, timeZone }: { value: string; timeZone?: string }) {
+  13 |   const [localZone, setLocalZone] = useState<string | null>(null);
+> 14 |   useEffect(() => { setLocalZone(Intl.DateTimeFormat().resolvedOptions().timeZone); }, []);
+     |                     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |   const zone = timeZone ?? localZone;
+  16 |   return <time dateTime={value}>{zone ? `${formatMaintenanceDate(value, zone)} (${zone})` : `${formatMaintenanceDate(value, "UTC")} (UTC)`}</time>;
+  17 | }  react-hooks/set-state-in-effect
+
+✖ 1 problem (1 error, 0 warnings)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: eslint src/components/learning/v2/diagnostic.tsx src/components/learning/v2/gate.tsx src/components/learning/v2/remediation.tsx src/components/learning/v2/maintenance.tsx src/components/learning/v2/review.tsx src/components/learning/v2/maintenance.test.tsx src/components/learning/v2/review-page.test.tsx src/app/aprendizaje/repaso/page.tsx "--max-warnings=0"

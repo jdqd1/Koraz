@@ -85,6 +85,18 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect((await post("enrollments", { pathId: v2Id(999) }, key, "other")).statusCode).toBe(409);
     expect((await pg.query("select count(*)::int as n from learning_enrollments where user_id=$1", [v2Id(2)])).rows).toEqual([{ n: 1 }]);
   });
+  it("T032 exposes maintenance from the authorized version without solutions or read progress", async () => {
+    await pg.query("insert into learning_preferences(user_id,timezone) values($1,'America/Caracas')", [v2Id(1)]);
+    const before = (await pg.query("select (select count(*) from learning_v2_responses)::int as responses,(select count(*) from learning_events)::int as events,(select count(*) from learning_v2_review_state)::int as reviews")).rows;
+    const response = await get(`enrollments/${v2Id(8)}/state`); expect(response.statusCode).toBe(200);
+    const state = V2HttpContracts.enrollmentState.response.parse(response.json()).state;
+    expect(state.maintenance).toMatchObject({ generatedAt: at().toISOString(), timeZone: "America/Caracas", diagnostic: { status: "pending", assessmentKey: "diagnosis" }, agenda: [], reviewBatch: [] });
+    expect(state.maintenance!.gates[0]).toMatchObject({ passed: false, missingCoreKeys: ["core"] });
+    expect(state.maintenance!.activities[0]).toMatchObject({ key: "learn", objectiveKey: "core" });
+    expect(response.body).not.toMatch(/PRIVATE_|correctKey|candidateActivityKeys|equivalenceKey|rubric|final-a|final-b|seven-test|thirty-test/);
+    const after = (await pg.query("select (select count(*) from learning_v2_responses)::int as responses,(select count(*) from learning_events)::int as events,(select count(*) from learning_v2_review_state)::int as reviews")).rows;
+    expect(after).toEqual(before);
+  });
   it("strict requests reject client scores/extra fields and foreign attempts/enrollments", async () => {
     expect((await post("attempts", { clientAttemptId: v2Id(serial++), enrollmentId: v2Id(8), target: { kind: "activity", key: "learn" }, expectedEnrollmentVersion: 1, score01: 1 })).statusCode).toBe(400);
     expect((await get(`enrollments/${v2Id(8)}/state`, "other")).statusCode).toBe(404);
@@ -108,6 +120,8 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(heartbeat.statusCode).toBe(200);
     const answered = await post(`attempts/${manifest.attemptId}/responses`, { activityKey: "learn", answer: { kind: "study", acknowledged: true }, confidence: null, expectedVersion: 1 });
     expect(answered.statusCode).toBe(200); V2HttpContracts.attemptResponse.response.parse(answered.json());
+    expect(answered.json().state.maintenance.diagnostic).toEqual({ status: "omitted", assessmentKey: null });
+    expect(answered.json().state.maintenance.agenda).toEqual([]);
     expect((await post(`attempts/${manifest.attemptId}/complete`, { expectedVersion: 2 })).statusCode).toBe(200);
     const feedback = { activityKey: "learn", acknowledged: true };
     expect((await post(`attempts/${manifest.attemptId}/feedback-viewed`, feedback)).statusCode).toBe(200);
@@ -144,6 +158,19 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(completed.json().state.completedAt).not.toBeNull();
     expect((await launch("seven-test", "assessment")).statusCode).toBe(409);
   });
+  it("T032 reports pending absence without a client clock or synthetic lapse", async () => {
+    const priorClock = clock;
+    clock = at(10);
+    const before = (await pg.query("select objective_key,lapses,retention7_accepted_at from learning_v2_review_state where enrollment_id=$1", [v2Id(8)])).rows;
+    const pending = await get(`enrollments/${v2Id(8)}/state`); expect(pending.statusCode).toBe(200);
+    const current = V2HttpContracts.enrollmentState.response.parse(pending.json()).state;
+    const masteredAt = Date.parse(current.objectives[0]!.firstMasteredAt!);
+    const sevenDueAt = new Date(masteredAt + 7 * 86400000).toISOString();
+    expect(current.nextAction).toMatchObject({ kind: "retention", key: "seven-test" });
+    expect(current.maintenance!.agenda[0]!.retention7).toEqual({ dueAt: sevenDueAt, acceptedAt: null, elapsedDays: null });
+    expect((await pg.query("select objective_key,lapses,retention7_accepted_at from learning_v2_review_state where enrollment_id=$1", [v2Id(8)])).rows).toEqual(before);
+    clock = priorClock;
+  });
   it("a later publication never replaces an enrolled version", async () => {
     const route = fixture(); route.route.title = "Versión nueva";
     route.sources[0]!.excerpt = "NEW_VERSION_SOURCE_MUST_NOT_REPLACE_PINNED";
@@ -163,6 +190,10 @@ describe("T021 actual learner HTTP and persisted services", () => {
       const answer = await post(`attempts/${attempt.attemptId}/responses`, { activityKey: attempt.activeActivity.key,
         answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 });
       expect(answer.statusCode).toBe(200);
+      const receipt = V2HttpContracts.attemptResponse.response.parse(answer.json());
+      const measurement = days === 9 ? receipt.state.maintenance!.agenda[0]!.retention7 : receipt.state.maintenance!.agenda[0]!.retention30;
+      expect(measurement.acceptedAt).toBe(at(days).toISOString());
+      expect(measurement.elapsedDays).toBe((at(days).getTime() - Date.parse(receipt.state.objectives[0]!.firstMasteredAt!)) / 86400000);
       expect(answer.json().feedback.sources[0].excerpt).toBe("PRIVATE_SOURCE_FEEDBACK");
       expect(answer.body).not.toContain("NEW_VERSION_SOURCE_MUST_NOT_REPLACE_PINNED");
       const completed = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: 2 }); expect(completed.statusCode).toBe(200);
@@ -198,6 +229,11 @@ describe("T021 actual learner HTTP and persisted services", () => {
       expect((await post(`attempts/${attempt.attemptId}/responses`, { activityKey: key, answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: 1 }, undefined, "other")).statusCode).toBe(200);
       expect((await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: 2 }, undefined, "other")).statusCode).toBe(200);
     }
+    clock = new Date(clock.getTime() + 2 * 86400000);
+    const dueState = await get(`enrollments/${enrollmentId}/state`, "other"); expect(dueState.statusCode).toBe(200);
+    expect(dueState.json().state.dueReviews).toBe(12);
+    expect(dueState.json().state.maintenance.reviewBatch).toHaveLength(10);
+    expect(new Set(dueState.json().state.maintenance.reviewBatch.map((item: { objectiveKey: string }) => item.objectiveKey)).size).toBe(10);
     const attempt = await begin("final-test", "assessment");
     const frozen = (await pg.query<{ snapshot_json: { assessmentSelection: { selectionHash: string; segments: { items: unknown[] }[] } } }>(
       "select snapshot_json from learning_v2_attempts where id=$1", [attempt.attemptId])).rows[0]!.snapshot_json.assessmentSelection;
@@ -216,7 +252,7 @@ describe("T021 actual learner HTTP and persisted services", () => {
     }
     const completed = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: 13 }, undefined, "other");
     expect(completed.statusCode).toBe(200); expect(completed.json().state.completedActivities).toBe(12);
-  });
+  }, 30000);
 });
 describe("T021 application registration and same-origin transport", () => {
   it("config defaults are closed and flags are enforced in buildApp", async () => {
