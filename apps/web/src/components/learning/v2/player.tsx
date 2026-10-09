@@ -8,6 +8,7 @@ import { createV2PlayerClient, readV2AttemptImage, V2RequestError, type PlayerAc
 import { RouteSignals } from "./signals";
 import { ActivityComposition, SequenceRecap } from "./composition";
 import { MaintenanceSessionSummary } from "./maintenance";
+import local from "./player.module.css";
 
 type Feedback = { activityKey: string; explanation: string; commonError: string; score01: number | null; sources?: V2FeedbackSource[]; partialScore01?: number };
 function PartialFeedback({ value }: { value?: number }) {
@@ -82,8 +83,9 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
   function respond(answer: Answer) { if (activity && !disabled) void run({ operation: "response", body: { activityKey: activity.key, answer, confidence: null, expectedVersion: attempt.rowVersion } }); }
   function requestHelp(kind: "hint" | "source" | "reveal") { if (activity && !disabled) void run({ operation: "help", body: { activityKey: activity.key, kind, expectedVersion: attempt.rowVersion } }); }
   function next() { setFeedback(null); setHelp(null); }
-  return <section aria-label="Sesión de aprendizaje" className="learning-activity-main" data-engine-version="guided-v2">
-    <header className="learning-activity-header">{preview ? <button type="button" className="learning-secondary-button" onClick={onExit}>Cerrar vista previa</button> : <Link href={safeMapReturnHref(returnTo) ?? "/aprendizaje?tab=hoy"}>Volver a mi aprendizaje</Link>}<div><span>{attempt.purpose === "review" ? "Repaso" : "Aprendizaje guiado"}</span><h1>Tu sesión de aprendizaje</h1></div><div className={`learning-save-state is-${pending ? "pending" : busy ? "saving" : "confirmed"}`} role="status">{pending ? "Pendiente de confirmar" : busy ? preview ? "Simulando…" : "Guardando…" : preview ? "Estado simulado" : "Estado del servidor"}</div></header>
+  const Surface = preview ? "div" : "main";
+  return <Surface><section aria-label="Sesión de aprendizaje" className="learning-activity-main" data-engine-version="guided-v2">
+    <header className={`${local.header} learning-activity-header`}>{preview ? <button type="button" className="learning-secondary-button" onClick={onExit}>Cerrar vista previa</button> : <Link href={safeMapReturnHref(returnTo) ?? "/aprendizaje?tab=hoy"}>Volver a mi aprendizaje</Link>}<div><span>{attempt.purpose === "review" ? "Repaso" : "Aprendizaje guiado"}</span><h1>Tu sesión de aprendizaje</h1></div><div className={`learning-save-state is-${pending ? "pending" : busy ? "saving" : "confirmed"}`} role="status">{pending ? "Pendiente de confirmar" : busy ? preview ? "Simulando…" : "Guardando…" : preview ? "Estado simulado" : "Estado del servidor"}</div></header>
     <p className="learning-activity-message" role="status" aria-live="polite">{message}</p>
     {pending ? <div><p>Hay una solicitud pendiente de confirmar. El servidor debe confirmar su resultado antes de continuar.</p><button type="button" className="learning-primary-button" disabled={busy} onClick={() => void run()}>Reintentar solicitud pendiente</button></div> : null}
     {!pending && message.includes("Recarga") ? <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button> : null}
@@ -108,5 +110,5 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
           {help?.activityKey === activity.key && help.kind !== "reveal" ? <aside role="status" style={{ marginTop: 16, whiteSpace: "pre-wrap" }}><h3>{help.kind === "source" ? "Fuente para practicar con ayuda" : "Pista"}</h3><p>{help.text}</p><p>Consulta registrada: práctica con ayuda.</p></aside> : null}
         </section> : <section className="learning-completion-panel"><h2 ref={heading} tabIndex={-1}>Respuestas guardadas</h2><p>Confirma el cierre para consultar el resultado de la sesión.</p><button type="button" className="learning-primary-button" disabled={disabled} onClick={() => void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } })}>Finalizar sesión</button></section>}
     {state && !pending && attempt.status === "completed" ? <MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /> : null}
-  </section>;
+  </section></Surface>;
 }

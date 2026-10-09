@@ -1,0 +1,103 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > returns 401/403 and maintenance reads with no-store when disabled or outside allowlist 99ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home 61ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > enrollment is pinned, idempotent and has a request receipt 41ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > T032 exposes maintenance from the authorized version without solutions or read progress 19ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > strict requests reject client scores/extra fields and foreign attempts/enrollments 8ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > server availability blocks reserved practice, early final and deferred tests 66ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions 581ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission 188ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > T032 reports pending absence without a client clock or synthetic lapse 23ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version 35ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > scheduler eligibility admits actual day7/day30 evaluations on the pinned version 321ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted 3461ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > config defaults are closed and flags are enforced in buildApp 21ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > executes the new BFF and existing forwarder with real origin checks and cookie/header propagation 126ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > requires content, assessment, policy and modality equality 16ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > invalidates dependent evidence when a transitive prerequisite changes 1ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > publication leaves old enrollment pinned and preview does not adopt 54ms
+ × test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption 133ms
+   → expected { error: 'active_attempt' } to deeply equal { error: 'conflict' }
+ × test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows 16ms
+   → expected 409 to be 200 // Object.is equality
+ × test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2 20ms
+   → expected [ { objectiveKey: 'core', …(2) } ] to deeply equal [ { objectiveKey: 'core', …(1) } ]
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > conversion makes a new blocked draft, preserves importance and never copies recommendedAfter 30ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption
+AssertionError: expected { error: 'active_attempt' } to deeply equal { error: 'conflict' }
+
+- Expected
++ Received
+
+  {
+-   "error": "conflict",
++   "error": "active_attempt",
+  }
+
+ ❯ test/guided-v2-upgrade.test.ts:88:39
+     86|     expect(opened.status).toBe("success"); if (opened.status !== "succ…
+     87|     expect((await get()).json().openAttempt).toBe(true);
+     88|     expect((await post(body)).json()).toEqual({ error: "conflict" });
+       |                                       ^
+     89|     await pg.query("update learning_v2_attempts set status='paused' wh…
+     90|     expect((await post(body)).json()).toEqual({ error: "conflict" });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows
+AssertionError: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ test/guided-v2-upgrade.test.ts:96:69
+     94|     const before = (await pg.query("select id,snapshot_json,status fro…
+     95|     const body = { targetVersionId: v2Id(7), expectedVersion: 1, ackno…
+     96|     const result = await post(body, key); expect(result.statusCode).to…
+       |                                                                     ^
+     97|     expect(V2HttpContracts.upgradeCommit.response.parse(result.json())…
+     98|     expect((await post(body, key)).json()).toEqual(result.json());
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2
+AssertionError: expected [ { objectiveKey: 'core', …(2) } ] to deeply equal [ { objectiveKey: 'core', …(1) } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "objectiveKey": "core",
++     "title": "Recordar un concepto",
+      "willResetEvidence": true,
+    },
+  ]
+
+ ❯ test/guided-v2-upgrade.test.ts:108:44
+    106|     expect(await planLearningEnrollmentUpgrade(db, { enrollmentId: v2I…
+    107|     const preview = await get(v2Id(9), "other"); expect(preview.status…
+    108|     expect(preview.json().objectiveImpact).toEqual([{ objectiveKey: "c…
+       |                                            ^
+    109|     const result = await post({ targetVersionId: v2Id(7), expectedVers…
+    110|     expect(result.statusCode).toBe(200); expect(result.json().state).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 18 passed (21)
+   Start at  12:29:47
+   Duration  13.76s (transform 919ms, setup 0ms, import 3.48s, tests 9.82s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-upgrade.test.ts test/guided-v2-routes.test.ts "--reporter=verbose"

@@ -1,0 +1,853 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../docs/aprendizaje-guiado/v2/evidencias/T037/playwright.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\playwright.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T037/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-accessibility.spec.ts",
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T037/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "360",
+        "name": "360",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-accessibility.spec.ts",
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T037/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "390",
+        "name": "390",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-accessibility.spec.ts",
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T037/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "768",
+        "name": "768",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-accessibility.spec.ts",
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\playwright.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-accessibility.spec.ts",
+      "file": "guided-v2-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 95987,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:18:38.019Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-15cb9a3cf9b4d4313a8b",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 107,
+          "column": 5
+        },
+        {
+          "title": "T037 V03 native browser zoom at 200 percent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22903,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:20:14.368Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-814bcccfc864bcc870c0",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 183,
+          "column": 5
+        },
+        {
+          "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 360000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27649,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:20:37.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-cbfefecca0caa869db6e",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 224,
+          "column": 5
+        },
+        {
+          "title": "T037 V02 tab order, field reachability and modal focus restoration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7328,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:21:04.962Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-001c88c443f70a66407a",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 304,
+          "column": 5
+        },
+        {
+          "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "360",
+              "projectName": "360",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 107749,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:21:26.580Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-4a88ad9c4fe54d90ce3c",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 107,
+          "column": 5
+        },
+        {
+          "title": "T037 V03 native browser zoom at 200 percent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Native zoom uses a dedicated Chromium context once.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                    "line": 184,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "360",
+              "projectName": "360",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 4,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:23:14.754Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Native zoom uses a dedicated Chromium context once.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                        "line": 184,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-5e2af353761887db75ac",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 183,
+          "column": 5
+        },
+        {
+          "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 360000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "360",
+              "projectName": "360",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28137,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:23:14.781Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-44a76c3271b424e9c198",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 224,
+          "column": 5
+        },
+        {
+          "title": "T037 V02 tab order, field reachability and modal focus restoration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "360",
+              "projectName": "360",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7013,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:23:42.936Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-506f1bf4a81bcccb5986",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 304,
+          "column": 5
+        },
+        {
+          "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "390",
+              "projectName": "390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 113658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:23:51.453Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-9d82f808aaae891807ff",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 107,
+          "column": 5
+        },
+        {
+          "title": "T037 V03 native browser zoom at 200 percent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Native zoom uses a dedicated Chromium context once.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                    "line": 184,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "390",
+              "projectName": "390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 4,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:25:45.469Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Native zoom uses a dedicated Chromium context once.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                        "line": 184,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-3fc575e2608712e1c531",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 183,
+          "column": 5
+        },
+        {
+          "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 360000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "390",
+              "projectName": "390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 32324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:25:45.496Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-9e965269f976ac9378f3",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 224,
+          "column": 5
+        },
+        {
+          "title": "T037 V02 tab order, field reachability and modal focus restoration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "390",
+              "projectName": "390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8209,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:26:17.845Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-de3081389094ab8098d1",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 304,
+          "column": 5
+        },
+        {
+          "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768",
+              "projectName": "768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 100789,
+                  "error": {
+                    "message": "Error: admin-3: page overflow\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m769\u001b[39m\nReceived:    \u001b[31m829\u001b[39m",
+                    "stack": "Error: admin-3: page overflow\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m769\u001b[39m\nReceived:    \u001b[31m829\u001b[39m\n    at capture (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:69:61)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:119:5)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                      "column": 61,
+                      "line": 69
+                    },
+                    "snippet": "  67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));\n  68 |   expect.soft(axe.violations.filter(v => [\"serious\", \"critical\"].includes(v.impact ?? \"\")), `${name}: axe`).toEqual([]);\n> 69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);\n     |                                                             ^\n  70 | }\n  71 | async function previewPoint(page: Page, key: string) {\n  72 |   const p = page.locator(\"[data-editor-preview]\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                        "column": 61,
+                        "line": 69
+                      },
+                      "message": "Error: admin-3: page overflow\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m769\u001b[39m\nReceived:    \u001b[31m829\u001b[39m\n\n  67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));\n  68 |   expect.soft(axe.violations.filter(v => [\"serious\", \"critical\"].includes(v.impact ?? \"\")), `${name}: axe`).toEqual([]);\n> 69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);\n     |                                                             ^\n  70 | }\n  71 | async function previewPoint(page: Page, key: string) {\n  72 |   const p = page.locator(\"[data-editor-preview]\");\n    at capture (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:69:61)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:119:5)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:26:27.773Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\browser-artifacts\\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\browser-artifacts\\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T037\\browser-artifacts\\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                    "column": 61,
+                    "line": 69
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-3496468b8be35740cfb7",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 107,
+          "column": 5
+        },
+        {
+          "title": "T037 V03 native browser zoom at 200 percent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Native zoom uses a dedicated Chromium context once.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                    "line": 184,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768",
+              "projectName": "768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 6,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:28:17.360Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Native zoom uses a dedicated Chromium context once.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+                        "line": 184,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-b70f8321e27fb8203eb2",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 183,
+          "column": 5
+        },
+        {
+          "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 360000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768",
+              "projectName": "768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23538,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:28:17.436Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-1ca2afc41aa3b3b7f97d",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 224,
+          "column": 5
+        },
+        {
+          "title": "T037 V02 tab order, field reachability and modal focus restoration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768",
+              "projectName": "768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7241,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:28:41.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-f893dd9abce8c4f0df5b",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 304,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E01 creates a new persisted v2 draft using UI and keyboard",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8146,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/09a70508-cdb9-4622-b2c9-3b55ec4cbbf3\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-06T21:21:12.345Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-89d66a2a8e212519bd02",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 59,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-06T21:18:26.438Z",
+    "duration": 624494.319,
+    "expected": 13,
+    "skipped": 3,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

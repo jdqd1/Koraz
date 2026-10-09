@@ -15,6 +15,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
   const [preset, setPreset] = useState<ActivityPresetV2>("study");
   const [objectiveKey, setObjectiveKey] = useState("");
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
   const surfaceRef = useRef<HTMLDivElement>(null);
   const addRef = useRef<HTMLButtonElement>(null);
   const restoreAddFocus = useRef(false);
@@ -23,6 +24,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
   const validation = activityValidationV2(pkg);
   const formIssues = [...issues, ...validation.issues];
   const selectedObjective = pkg.objectives.some((item) => item.key === objectiveKey) ? objectiveKey : pkg.objectives[0]?.key ?? "";
+  const activityIndices = new Map(pkg.activities.map((activity, index) => [activity.key, index]));
   function change(next: typeof pkg) { if (!disabled) onChange({ ...draft, package: next }); }
   function locate(path: string) { focusFieldIssueV2(surfaceRef.current, path); }
   return <div ref={surfaceRef} className={local.stack}>
@@ -39,9 +41,16 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
       {validation.objectives.filter((group) => group.issues.length).map((group) => <details key={group.objective.key} className={styles.disclosure}><summary>{group.objective.title || "Objetivo sin título"} · {group.issues.length} pendientes</summary><ul>{group.issues.map((issue, index) => <li key={`${issue.path}:${index}`}>{issue.message} {issue.suggestedFix} {issue.path.startsWith("/activities/") ? <button className={styles.textButton} type="button" onClick={() => locate(issue.path)}>Ir a la actividad</button> : null}</li>)}</ul></details>)}
     </section> : null}
     {pkg.units.map((unit) => <section key={unit.key} aria-label={unit.title || "Unidad"} className={local.stack}><h2>{unit.title || "Unidad sin título"}</h2>
-      {unit.activityKeys.map((key) => { const index = pkg.activities.findIndex((item) => item.key === key); const activity = pkg.activities[index]; if (!activity) return <p key={key} role="alert">Hay una actividad ausente en la unidad.</p>; const path = `package.activities.${index}`; const block = activityDeletionBlockV2(pkg, key); const onActivityChange = (next: typeof activity) => change(replaceActivityV2(pkg, next)); const fields = { activity, pkg, path, issues: formIssues, onChange: onActivityChange };
-        return <details key={key} className={`${styles.card} ${local.activityCard}`}><summary className={local.activitySummary}>{activity.kind === "constructed_response" ? "Respuesta construida / tarjeta" : activityTypesV2[activity.kind]} · {activity.prompt || `Actividad ${index + 1} sin consigna`}</summary>
-          <div className={local.stack}><div className={styles.sectionHeading}><h3>{activityTypesV2[activity.kind]}</h3><button className={styles.dangerButton} type="button" disabled={disabled || Boolean(block)} title={block ?? undefined} onClick={() => setDeleting(key)}>Eliminar actividad</button></div>{block ? <p className={styles.fieldHint}>{block}</p> : null}
+      {unit.activityKeys.map((key) => { const index = activityIndices.get(key); const activity = index === undefined ? undefined : pkg.activities[index]; if (!activity || index === undefined) return <p key={key} role="alert">Hay una actividad ausente en la unidad.</p>; const path = `package.activities.${index}`; const expanded = expandedKey === key; const block = expanded ? activityDeletionBlockV2(pkg, key) : null; const onActivityChange = (next: typeof activity) => change(replaceActivityV2(pkg, next)); const fields = { activity, pkg, path, issues: formIssues, onChange: onActivityChange };
+        return <details key={key} open={expanded} className={`${styles.card} ${local.activityCard}`} onToggle={(event) => {
+          const details = event.currentTarget;
+          if (details.open) {
+            const summary = details.querySelector<HTMLElement>("summary");
+            if (summary?.dataset.pendingFieldPath) { pendingFocus.current = summary.dataset.pendingFieldPath; delete summary.dataset.pendingFieldPath; }
+            setExpandedKey(key);
+          } else setExpandedKey((current) => current === key ? null : current);
+        }}><summary data-field-path={expanded ? undefined : path} data-lazy-activity={expanded ? undefined : "true"} className={local.activitySummary}>{activity.kind === "constructed_response" ? "Respuesta construida / tarjeta" : activityTypesV2[activity.kind]} · {activity.prompt || `Actividad ${index + 1} sin consigna`}</summary>
+          {expanded ? <div className={local.stack} data-activity-form={key}><div className={styles.sectionHeading}><h3>{activityTypesV2[activity.kind]}</h3><button className={styles.dangerButton} type="button" disabled={disabled || Boolean(block)} title={block ?? undefined} onClick={() => setDeleting(key)}>Eliminar actividad</button></div>{block ? <p className={styles.fieldHint}>{block}</p> : null}
             <fieldset disabled={disabled} className={styles.fieldset}><div className={local.stack}><ActivityCommonV2 {...fields} />
               {activity.kind === "study" ? <ActivityStudyV2 {...fields} activity={activity} /> : null}
               {activity.kind === "single_choice" ? <ActivityChoiceOptionsV2 {...fields} activity={activity} /> : null}
@@ -54,7 +63,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
                 <ActivityFeedbackV2 {...fields} />
               </div></details>
             </div></fieldset>
-          </div>
+          </div> : null}
         </details>;
       })}
     </section>)}

@@ -1,0 +1,26 @@
+{
+  "taskId": "T038",
+  "request": "continua",
+  "resumedDate": "2026-10-08",
+  "timezone": "America/Caracas",
+  "clusterWasStopped": true,
+  "clusterPathsValidatedBeforeStart": true,
+  "clusterRecoveryCompletedBeforeLoad": true,
+  "controlDatabaseVerifiedByIndependentPsqlBeforeLoad": {
+    "database": "koraz_guided_v2_control_test",
+    "user": "koraz_test",
+    "address": "127.0.0.1",
+    "port": 55435,
+    "exitCode": 0
+  },
+  "startupWrapperExitCode": 2,
+  "startupWrapperObservation": "The launch shell remained open after pg_ctl reported server started. Its subsequent psql probe ran after final shutdown and reported connection refused. Availability before the load was verified independently; the full HTTP/PostgreSQL load and seven regression suites completed before shutdown.",
+  "startupWrapperEvidence": "hotpath-indexed-start-wrapper.txt",
+  "loadDatabase": "koraz_guided_v2_test_3e1086274cc84fc5b709d7d42c8df740",
+  "loadDatabaseCreatedFresh": true,
+  "loadDatabaseClosed": true,
+  "loadEvidence": "hotpath-indexed-final-load.json",
+  "codeAndEnvironmentEffectsIsolated": false,
+  "priorFailuresPreserved": true,
+  "productionConfigurationChanged": false
+}

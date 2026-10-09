@@ -1,0 +1,190 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: guided-v2-journeys.spec.ts >> E02 editorial preview has no learner effects, then publishes with current approval
+- Location: tests\e2e\guided-v2-journeys.spec.ts:72:5
+
+# Error details
+
+```
+TimeoutError: locator.selectOption: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator('[data-editor-preview]').getByLabel('Explorar un punto de la ruta')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary "Navegación principal" [ref=e3]:
+      - navigation [ref=e4]:
+        - generic [ref=e5]:
+          - link [ref=e6] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [aria-hidden]: Inicio
+          - link [ref=e9] [cursor=pointer]:
+            - /url: /aprendizaje
+            - generic [aria-hidden]: Aprendizaje guiado
+          - link [ref=e12] [cursor=pointer]:
+            - /url: /asignaturas
+            - generic [aria-hidden]: Materias
+          - button [ref=e17] [cursor=pointer]:
+            - generic [aria-hidden]: Material de estudio
+          - button [ref=e22] [cursor=pointer]:
+            - generic [aria-hidden]: Administrar
+    - generic [ref=e25]:
+      - banner [ref=e26]:
+        - button "Expandir menú principal" [ref=e28] [cursor=pointer]
+        - search "Buscar guías" [ref=e32]:
+          - combobox "Buscar guías" [ref=e35]
+        - heading "Koras" [level=1] [ref=e37]
+        - generic [ref=e38]:
+          - button "Notificaciones" [ref=e40] [cursor=pointer]
+          - link [ref=e44] [cursor=pointer]:
+            - /url: /acceder
+      - main [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - link "Volver a rutas" [ref=e51] [cursor=pointer]:
+              - /url: /panel/rutas
+            - heading "Ruta editorial T035" [level=1] [ref=e52]
+            - paragraph [ref=e53]: Organiza objetivos, práctica y repaso con las fuentes de la ruta.
+          - generic [ref=e54]:
+            - strong [ref=e55]: Borrador
+            - generic [ref=e56]: Revisión 1 · Sin cambios pendientes
+        - button "Importar archivo de ruta" [ref=e58] [cursor=pointer]
+        - generic [ref=e59]:
+          - tablist "Secciones del editor de rutas" [ref=e60]:
+            - tab "Datos y fuentes" [ref=e61] [cursor=pointer]
+            - tab "Objetivos" [ref=e62] [cursor=pointer]
+            - tab "Recorrido" [ref=e63] [cursor=pointer]
+            - tab "Evaluación y repaso" [ref=e64] [cursor=pointer]
+            - tab "Revisión" [selected] [ref=e65] [cursor=pointer]
+          - tabpanel "Revisión" [ref=e66]:
+            - generic [ref=e67]:
+              - generic [ref=e68]:
+                - heading "Revisión editorial" [level=2] [ref=e69]
+                - paragraph [ref=e70]: Este contenido necesita una revisión vigente antes de publicarse.
+                - paragraph [ref=e71]: La validación comprueba cobertura y fuentes. La aprobación editorial debe comprobar el contenido.
+                - generic [ref=e72]:
+                  - generic [ref=e73]: Nota de revisión o de nueva versión
+                  - textbox "Nota de revisión o de nueva versión" [ref=e74]
+                - generic [ref=e75]:
+                  - button "Validar contenido" [ref=e76] [cursor=pointer]
+                  - button "Enviar a revisión" [ref=e77] [cursor=pointer]
+                - status
+                - paragraph [ref=e78]: Comprobación local de cobertura; aún no confirma catálogo ni permisos.
+                - list [ref=e79]:
+                  - listitem [ref=e80]:
+                    - strong [ref=e81]: "Aviso:"
+                    - text: Diagnóstico limitado por una ruta con menos de cuatro objetivos.
+                    - paragraph [ref=e82]: Registra esta limitación editorial.
+                    - button "Ir al campo" [ref=e83] [cursor=pointer]
+                - generic [ref=e84]:
+                  - generic [ref=e85]: Notas editoriales de la ruta
+                  - textbox "Notas editoriales de la ruta" [ref=e86]: Fixture sintético de integración.
+              - region "Vista previa editorial" [ref=e87]:
+                - heading "Vista previa de la ruta" [level=2] [ref=e88]
+                - status [ref=e89]:
+                  - strong [ref=e90]: Vista previa · no guarda progreso
+                - paragraph [ref=e91]: Comparte las actividades y la corrección del alumno. Los resultados y fechas de esta simulación se mantienen aislados.
+                - generic [ref=e92]:
+                  - paragraph [ref=e93]:
+                    - text: "Reloj simulado:"
+                    - time [ref=e94]: 4/10/2026, 8:00:00 a. m.
+                    - text: (America/Caracas).
+                  - paragraph [ref=e95]: La sesión editorial vence en diez minutos reales. Cerrar o reiniciar descarta sus resultados.
+                  - generic [ref=e96]:
+                    - button "Avanzar 1 día" [ref=e97] [cursor=pointer]
+                    - button "Avanzar 7 días" [ref=e98] [cursor=pointer]
+                    - button "Avanzar 30 días" [ref=e99] [cursor=pointer]
+                    - button "Cerrar vista previa" [ref=e100] [cursor=pointer]
+                  - status
+                  - generic "Estado confirmado de la ruta" [ref=e101]:
+                    - generic [ref=e102]: Recorrido en curso
+                    - generic [ref=e103]: Dominio por comprobar
+                    - generic [ref=e104]: Consolidación pendiente
+                    - generic [ref=e105]: 0 repasos pendientes
+                    - generic [ref=e106]: 0 actividades completadas de 9
+                  - generic [ref=e107]:
+                    - button "Simular diagnóstico" [ref=e108] [cursor=pointer]
+                    - button "Omitir diagnóstico en preview" [ref=e109] [cursor=pointer]
+                  - paragraph [ref=e110]: Siguiente actividad de la rama disponible
+                  - button "Simular siguiente actividad" [ref=e111] [cursor=pointer]
+                  - generic [ref=e112]:
+                    - text: Explorar un punto de la ruta
+                    - combobox "Explorar un punto de la ruta" [ref=e113]:
+                      - option "Elige una actividad o evaluación" [selected]
+                      - 'option "study-1: actividad sintética"'
+                      - 'option "constructed-1: actividad sintética"'
+                      - 'option "choice-1: actividad sintética"'
+                      - 'option "short-1: actividad sintética"'
+                      - 'option "apply-1: actividad sintética"'
+                      - 'option "match-1: actividad sintética"'
+                      - 'option "sequence-1: actividad sintética"'
+                      - 'option "image-1: actividad sintética"'
+                      - 'option "case-1: actividad sintética"'
+                      - 'option "remediate-1: actividad sintética"'
+                      - 'option "diagnostic: diagnostic"'
+                      - 'option "unit_gate: gate"'
+                      - 'option "final: final"'
+                      - 'option "retention7: retention7"'
+                      - 'option "retention30: retention30"'
+                  - button "Abrir punto seleccionado" [disabled] [ref=e114]
+                  - region "Próximos pasos confirmados" [ref=e115]:
+                    - heading "Cómo continuar" [level=2] [ref=e116]
+                    - paragraph [ref=e117]: Siguiente actividad de la rama disponible
+                    - group [ref=e118]:
+                      - generic "Agenda confirmada de la ruta" [ref=e119] [cursor=pointer]
+              - generic [ref=e120]:
+                - heading "Archivos y procedencia" [level=3] [ref=e121]
+                - paragraph [ref=e122]: Verifica el archivo y sus derechos en el catálogo antes de aprobar. Cambiar estos datos invalida la revisión de la copia local.
+                - alert [ref=e123]:
+                  - text: No se pudo leer el catálogo de archivos. Los vínculos guardados se conservan.
+                  - button "Reintentar archivos" [ref=e124] [cursor=pointer]
+                - group "Revisar los archivos de la ruta" [ref=e125]:
+                  - generic [ref=e127]:
+                    - generic [ref=e128]:
+                      - generic [ref=e129]: "Archivo: fixture.png"
+                      - 'combobox "Archivo: fixture.png" [ref=e130]':
+                        - option "Selecciona un archivo revisado"
+                        - option "Vínculo guardado · fixture.png" [selected]
+                    - generic [ref=e131]:
+                      - generic [ref=e132]: Derechos de fixture.png
+                      - combobox "Derechos de fixture.png" [ref=e133]:
+                        - option "Sin verificar"
+                        - option "Propios" [selected]
+                        - option "Con licencia"
+                        - option "Dominio público"
+                    - generic [ref=e134]:
+                      - generic [ref=e135]: Crédito de fixture.png
+                      - textbox "Crédito de fixture.png" [ref=e136]: Fixture del software
+                    - generic [ref=e137]:
+                      - generic [ref=e138]: Texto alternativo de fixture.png
+                      - textbox "Texto alternativo de fixture.png" [ref=e139]: Píxel sintético para comprobar coordenadas
+                    - generic [ref=e140]:
+                      - generic [ref=e141]: Huella del archivo fixture.png
+                      - textbox "Huella del archivo fixture.png" [ref=e142]
+                      - generic [ref=e143]: Copia la huella SHA-256 verificada del archivo. El servidor comprueba el catálogo.
+              - generic [ref=e144]:
+                - heading "Exportar" [level=3] [ref=e145]
+                - paragraph [ref=e146]: Descarga el contenido confirmado. Guarda primero los cambios pendientes.
+                - generic [ref=e147]:
+                  - button "Exportar paquete" [ref=e148] [cursor=pointer]
+                  - button "Descargar cobertura" [ref=e149] [cursor=pointer]
+                - status
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - strong [ref=e152]: Borrador al día
+            - generic [ref=e153]: La versión mostrada procede del servidor.
+          - button "Guardar borrador" [disabled] [ref=e154]
+  - button "Open Next.js Dev Tools" [ref=e160] [cursor=pointer]
+  - alert [ref=e164]
+```

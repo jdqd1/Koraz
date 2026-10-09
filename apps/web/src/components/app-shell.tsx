@@ -133,6 +133,7 @@ function NavigationItem({
     <Link
       className={`sidebar-link ${active ? "is-active" : ""}`.trim()}
       href={item.href}
+      aria-label={item.label}
       aria-current={active ? "page" : undefined}
       onClick={onNavigate}
     >
@@ -171,6 +172,7 @@ function NavigationGroup({
       <div className="sidebar-group-heading">
         <button
           aria-controls={"sidebar-submenu-" + groupKey}
+          aria-label={label}
           aria-expanded={open}
           className={labelClassName}
           type="button"
@@ -569,7 +571,7 @@ function ShellChrome({
               ) : profilePending ? (
                 <span className="profile-avatar" aria-label="Cargando perfil"><UserCircle size={20} /></span>
               ) : (
-                <Link className="profile-trigger profile-sign-in" href="/acceder">
+                <Link className="profile-trigger profile-sign-in" href="/acceder" aria-label="Acceder">
                   <span className="profile-avatar" aria-hidden="true">
                     <UserCircle size={20} weight="fill" />
                   </span>

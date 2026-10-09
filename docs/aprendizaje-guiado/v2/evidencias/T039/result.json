@@ -1,0 +1,244 @@
+{
+  "taskId": "T039",
+  "status": "PASS LOCAL",
+  "recordedUtc": "2026-10-08T21:59:39.649Z",
+  "clientDate": "2026-10-08",
+  "timezone": "America/Caracas",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "scope": "T039: paquete revisado y aprobado por propietario, publicado en test; verificación HTTP de alumno y refuerzo",
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/AMPLIACION-PROPUESTA.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/approved-bound-validation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/approved-import-dry-run.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/artifacts-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/audit-dossier.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/baseline-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/bound-validation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/build-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/case-selection-fix.patch",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/close-approved-dossier.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/dependencies-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/diff-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/export-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/finalize-dossier.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/import-dry-run.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/import-receipt.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/input-audit.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/learner-beginner-before-case-fix.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/learner-beginner.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/learner-reinforcement-before-case-fix.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/learner-reinforcement.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/lint-after-case-fix.log",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/pilot-check-initial-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/pilot-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/portable-validation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/pre-selection-README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/pre-selection-input-audit.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/pre-selection-result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/preservation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/preview-beginner.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/preview-core-error.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/preview-isolation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-audit.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-blocked.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-check-before-case-fix.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-check-harness-audit-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publication-receipt.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/publish-pilot.mts",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/published-server-transcript-before-case-fix.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/published-server-transcript.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/published-test-environment.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/regression-after-case-fix.log",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/resumption-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/resumption.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/scope-authorization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/server-transcript.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/test-environment.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/tests-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/typecheck-after-case-fix.log",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/validation-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/verification-after-case-fix.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/verify-pilot.mts",
+    "docs/aprendizaje-guiado/v2/piloto/ACTA-REVISION.md",
+    "docs/aprendizaje-guiado/v2/piloto/README.md",
+    "docs/aprendizaje-guiado/v2/piloto/REQUISITOS.md",
+    "docs/aprendizaje-guiado/v2/piloto/REVISION-PILOTO.html",
+    "docs/aprendizaje-guiado/v2/piloto/REVISION-PILOTO.md",
+    "docs/aprendizaje-guiado/v2/piloto/afirmaciones.csv",
+    "docs/aprendizaje-guiado/v2/piloto/aprobacion-propietario.json",
+    "docs/aprendizaje-guiado/v2/piloto/assets.csv",
+    "docs/aprendizaje-guiado/v2/piloto/bibliografia-control.md",
+    "docs/aprendizaje-guiado/v2/piloto/build-pilot.mjs",
+    "docs/aprendizaje-guiado/v2/piloto/contenido-piloto.json",
+    "docs/aprendizaje-guiado/v2/piloto/entrada.json",
+    "docs/aprendizaje-guiado/v2/piloto/exportado-test.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/piloto/fuente-seleccionada.json",
+    "docs/aprendizaje-guiado/v2/piloto/manifest-piloto.json",
+    "docs/aprendizaje-guiado/v2/piloto/publicado-test.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/piloto/revision.json",
+    "docs/aprendizaje-guiado/v2/piloto/vascularizacion-abdomen.koraz-route.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-validation.test.ts test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-v2-contract.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "validation-tests.txt",
+      "scope": "Regresión técnica sintética, no validación del piloto curricular"
+    },
+    {
+      "command": "git diff --check -- docs/aprendizaje-guiado/v2/piloto docs/aprendizaje-guiado/v2/evidencias/T039",
+      "exitCode": 0,
+      "result": "PASS",
+      "note": "Untracked additions also require explicit whitespace and JSON inspection"
+    },
+    {
+      "command": "Inspect dossier JSON/CSV, pending states and whitespace",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "artifacts-check.json"
+    },
+    {
+      "command": "Compare baseline file hashes and predecessor result hashes",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": [
+        "preservation.json",
+        "dependencies-check.json"
+      ]
+    },
+    {
+      "command": "node packages/contracts/bin/validate-learning-route.mjs --publish docs/aprendizaje-guiado/v2/piloto/vascularizacion-abdomen.koraz-route.json",
+      "exitCode": 0,
+      "result": "PASS LOCAL",
+      "evidence": "portable-validation.json"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec tsx ../../docs/aprendizaje-guiado/v2/evidencias/T039/verify-pilot.mts",
+      "exitCode": 0,
+      "result": "PASS LOCAL",
+      "evidence": [
+        "pilot-check.json",
+        "import-dry-run.json",
+        "import-receipt.json",
+        "export-check.json",
+        "preview-beginner.json",
+        "preview-core-error.json",
+        "preview-isolation.json"
+      ],
+      "scope": "Fastify inject + PGlite; auth técnica sintética, no matrícula real"
+    },
+    {
+      "command": "Server bound validation",
+      "result": "BLOQUEO ESPERADO",
+      "evidence": "bound-validation.json",
+      "reason": "Única incidencia REVIEW_STALE; no hay aprobación humana del hash actual"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec tsx ../../docs/aprendizaje-guiado/v2/evidencias/T039/publish-pilot.mts",
+      "exitCode": 0,
+      "result": "PASS LOCAL",
+      "evidence": [
+        "publication-check.json",
+        "publication-receipt.json",
+        "approved-bound-validation.json",
+        "learner-beginner.json",
+        "learner-reinforcement.json"
+      ]
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-after-case-fix.log"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "lint-after-case-fix.log"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-v2-selection.test.ts test/guided-v2-case.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS",
+      "testFilesPassed": 3,
+      "testsPassed": 54,
+      "evidence": "regression-after-case-fix.log"
+    }
+  ],
+  "counts": {
+    "failed": 0,
+    "testFiles": 4,
+    "scope": "Synthetic contract/validation regression only",
+    "passed": 29,
+    "skipped": 0
+  },
+  "acceptance": {
+    "humanEditorialApproval": true,
+    "curricularPackageExported": true,
+    "curricularRouteCreated": true,
+    "C01": "PASS DECLARADO POR PROPIETARIO (59/59)",
+    "C02": "PASS DECLARADO POR PROPIETARIO (3/3 referencias, 4/4 fragmentos)",
+    "C03": "NO APLICA (0/0 assets)",
+    "C04": "PASS DECLARADO POR PROPIETARIO",
+    "R02_R12": "PASS LOCAL con aprobación humana; límites indicados",
+    "publishedInTest": true
+  },
+  "issues": [],
+  "inheritedLimitsEvidence": "baseline.json",
+  "notVerified": [
+    "Guía fijada como snapshot local de fragmentos; revisión original de producción no expuesta",
+    "Fuentes y exactitud aprobadas por declaración del propietario; no cotejo independiente de pasajes de libros",
+    "Autenticación técnica de test; Better Auth real no verificado",
+    "PGlite en memoria; PostgreSQL independiente no verificado",
+    "Frontend/browser completo, Hito S, staging y producción fuera de esta evidencia"
+  ],
+  "preservationEvidence": "preservation.json",
+  "deploymentPerformed": false,
+  "databaseModified": "Solo PGlite aislado, cerrado y desechado",
+  "productCodeModified": true,
+  "commitCreated": false,
+  "dependenciesInstalled": false,
+  "dependenciesUpgraded": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "resumeTaskId": null,
+  "nominalSuccessor": "T040",
+  "resumeRequires": [],
+  "resumptionEvidence": "resumption.json",
+  "historicalClosure": "pre-selection-result.json",
+  "sourceReviewDeclaration": "Guías existentes ya revisadas según declaración explícita del propietario",
+  "productionReadOnly": true,
+  "productionWritten": false,
+  "contentHash": "d9f35d39a769027998be0eeb17113e89f0e637af0b353c5bd1378ee77a59cf12",
+  "exportFileSha256": "a548d133de45686de4766a2d980a672cc7fe827a7a651cc9935761d62c0e4b75",
+  "finalAuditEvidence": "artifacts-check.json",
+  "approvalEvidence": "../../piloto/aprobacion-propietario.json",
+  "publicationEvidence": "publication-receipt.json",
+  "learnerEvidence": [
+    "learner-beginner.json",
+    "learner-reinforcement.json"
+  ],
+  "scopeAuthorization": "scope-authorization.json",
+  "productChanges": [
+    {
+      "path": "apps/api/src/guided-learning/v2/routes.ts",
+      "beforeSha256": "c34f77860ed537885acd0bfb321d93d6d54c7078792432f01b64f207143cf441",
+      "afterSha256": "96cba53a31a381ddfe5a3da0eec8077db877b62b8bac56483a3978320434a951",
+      "reason": "Reconocer el contenedor de un caso completado de la versión matriculada al seleccionar la siguiente actividad"
+    }
+  ]
+}

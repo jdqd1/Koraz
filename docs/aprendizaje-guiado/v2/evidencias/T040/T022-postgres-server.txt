@@ -1,0 +1,92 @@
+2026-10-08 18:12:09.968 -04 [7132] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-08 18:12:09.969 -04 [7132] LOG:  listening on IPv4 address "127.0.0.1", port 55422
+2026-10-08 18:12:10.035 -04 [32012] LOG:  database system was shut down at 2026-10-08 18:12:08 -04
+2026-10-08 18:12:10.070 -04 [7132] LOG:  database system is ready to accept connections
+2026-10-08 18:17:10.040 -04 [22676] LOG:  checkpoint starting: time
+2026-10-08 18:18:56.568 -04 [22676] LOG:  checkpoint complete: wrote 1002 buffers (6.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=106.405 s, sync=0.111 s, total=106.529 s; sync files=310, longest=0.003 s, average=0.001 s; distance=4755 kB, estimate=4755 kB; lsn=0/1A19388, redo lsn=0/1A192F8
+2026-10-08 18:19:15.442 -04 [31208] ERROR:  permission denied for table learning_v2_bindings
+2026-10-08 18:19:15.442 -04 [31208] STATEMENT:  select * from learning_v2_bindings
+2026-10-08 18:19:15.485 -04 [17580] ERROR:  permission denied for table learning_v2_bindings
+2026-10-08 18:19:15.485 -04 [17580] STATEMENT:  delete from learning_v2_bindings
+2026-10-08 18:19:15.518 -04 [12248] ERROR:  permission denied for table learning_v2_imports
+2026-10-08 18:19:15.518 -04 [12248] STATEMENT:  select * from learning_v2_imports
+2026-10-08 18:19:15.552 -04 [23876] ERROR:  permission denied for table learning_v2_imports
+2026-10-08 18:19:15.552 -04 [23876] STATEMENT:  delete from learning_v2_imports
+2026-10-08 18:19:15.587 -04 [16048] ERROR:  permission denied for table learning_v2_attempts
+2026-10-08 18:19:15.587 -04 [16048] STATEMENT:  select * from learning_v2_attempts
+2026-10-08 18:19:15.623 -04 [33076] ERROR:  permission denied for table learning_v2_attempts
+2026-10-08 18:19:15.623 -04 [33076] STATEMENT:  delete from learning_v2_attempts
+2026-10-08 18:19:15.655 -04 [4580] ERROR:  permission denied for table learning_v2_responses
+2026-10-08 18:19:15.655 -04 [4580] STATEMENT:  select * from learning_v2_responses
+2026-10-08 18:19:15.684 -04 [23160] ERROR:  permission denied for table learning_v2_responses
+2026-10-08 18:19:15.684 -04 [23160] STATEMENT:  delete from learning_v2_responses
+2026-10-08 18:19:15.718 -04 [6892] ERROR:  permission denied for table learning_v2_objective_state
+2026-10-08 18:19:15.718 -04 [6892] STATEMENT:  select * from learning_v2_objective_state
+2026-10-08 18:19:15.747 -04 [33024] ERROR:  permission denied for table learning_v2_objective_state
+2026-10-08 18:19:15.747 -04 [33024] STATEMENT:  delete from learning_v2_objective_state
+2026-10-08 18:19:15.778 -04 [4836] ERROR:  permission denied for table learning_v2_activity_state
+2026-10-08 18:19:15.778 -04 [4836] STATEMENT:  select * from learning_v2_activity_state
+2026-10-08 18:19:15.805 -04 [25308] ERROR:  permission denied for table learning_v2_activity_state
+2026-10-08 18:19:15.805 -04 [25308] STATEMENT:  delete from learning_v2_activity_state
+2026-10-08 18:19:15.837 -04 [20792] ERROR:  permission denied for table learning_v2_review_state
+2026-10-08 18:19:15.837 -04 [20792] STATEMENT:  select * from learning_v2_review_state
+2026-10-08 18:19:15.870 -04 [22540] ERROR:  permission denied for table learning_v2_review_state
+2026-10-08 18:19:15.870 -04 [22540] STATEMENT:  delete from learning_v2_review_state
+2026-10-08 18:19:15.906 -04 [33712] ERROR:  permission denied for table learning_v2_bindings
+2026-10-08 18:19:15.906 -04 [33712] STATEMENT:  select * from learning_v2_bindings
+2026-10-08 18:19:15.939 -04 [7480] ERROR:  permission denied for table learning_v2_bindings
+2026-10-08 18:19:15.939 -04 [7480] STATEMENT:  delete from learning_v2_bindings
+2026-10-08 18:19:15.968 -04 [32716] ERROR:  permission denied for table learning_v2_imports
+2026-10-08 18:19:15.968 -04 [32716] STATEMENT:  select * from learning_v2_imports
+2026-10-08 18:19:16.120 -04 [33248] ERROR:  permission denied for table learning_v2_imports
+2026-10-08 18:19:16.120 -04 [33248] STATEMENT:  delete from learning_v2_imports
+2026-10-08 18:19:16.160 -04 [34452] ERROR:  permission denied for table learning_v2_attempts
+2026-10-08 18:19:16.160 -04 [34452] STATEMENT:  select * from learning_v2_attempts
+2026-10-08 18:19:16.188 -04 [13792] ERROR:  permission denied for table learning_v2_attempts
+2026-10-08 18:19:16.188 -04 [13792] STATEMENT:  delete from learning_v2_attempts
+2026-10-08 18:19:16.214 -04 [31088] ERROR:  permission denied for table learning_v2_responses
+2026-10-08 18:19:16.214 -04 [31088] STATEMENT:  select * from learning_v2_responses
+2026-10-08 18:19:16.241 -04 [22632] ERROR:  permission denied for table learning_v2_responses
+2026-10-08 18:19:16.241 -04 [22632] STATEMENT:  delete from learning_v2_responses
+2026-10-08 18:19:16.267 -04 [16360] ERROR:  permission denied for table learning_v2_objective_state
+2026-10-08 18:19:16.267 -04 [16360] STATEMENT:  select * from learning_v2_objective_state
+2026-10-08 18:19:16.294 -04 [25160] ERROR:  permission denied for table learning_v2_objective_state
+2026-10-08 18:19:16.294 -04 [25160] STATEMENT:  delete from learning_v2_objective_state
+2026-10-08 18:19:16.321 -04 [15660] ERROR:  permission denied for table learning_v2_activity_state
+2026-10-08 18:19:16.321 -04 [15660] STATEMENT:  select * from learning_v2_activity_state
+2026-10-08 18:19:16.350 -04 [16976] ERROR:  permission denied for table learning_v2_activity_state
+2026-10-08 18:19:16.350 -04 [16976] STATEMENT:  delete from learning_v2_activity_state
+2026-10-08 18:19:16.381 -04 [17292] ERROR:  permission denied for table learning_v2_review_state
+2026-10-08 18:19:16.381 -04 [17292] STATEMENT:  select * from learning_v2_review_state
+2026-10-08 18:19:16.409 -04 [17336] ERROR:  permission denied for table learning_v2_review_state
+2026-10-08 18:19:16.409 -04 [17336] STATEMENT:  delete from learning_v2_review_state
+2026-10-08 18:19:16.439 -04 [15672] ERROR:  permission denied for table learning_v2_responses
+2026-10-08 18:19:16.439 -04 [15672] STATEMENT:  delete from "learning_v2_responses"
+2026-10-08 18:19:16.751 -04 [12864] ERROR:  permission denied for table auth_users
+2026-10-08 18:19:16.751 -04 [12864] STATEMENT:  select * from auth_users
+2026-10-08 18:19:16.777 -04 [22364] ERROR:  permission denied for table auth_sessions
+2026-10-08 18:19:16.777 -04 [22364] STATEMENT:  select * from auth_sessions
+2026-10-08 18:19:16.807 -04 [22504] ERROR:  permission denied for table auth_accounts
+2026-10-08 18:19:16.807 -04 [22504] STATEMENT:  select * from auth_accounts
+2026-10-08 18:19:16.837 -04 [27200] ERROR:  permission denied for table auth_users
+2026-10-08 18:19:16.837 -04 [27200] STATEMENT:  update auth_users set name='spoof'
+2026-10-08 18:19:16.868 -04 [21524] ERROR:  permission denied for table content_items
+2026-10-08 18:19:16.868 -04 [21524] STATEMENT:  update content_items set title='spoof'
+2026-10-08 18:19:16.895 -04 [8988] ERROR:  permission denied for table content_assets
+2026-10-08 18:19:16.895 -04 [8988] STATEMENT:  update content_assets set status='pending'
+2026-10-08 18:19:16.928 -04 [31852] ERROR:  permission denied for table learning_resource_revisions
+2026-10-08 18:19:16.928 -04 [31852] STATEMENT:  update learning_resource_revisions set payload_json='{}'
+2026-10-08 18:19:16.959 -04 [7384] ERROR:  permission denied for table content_assets
+2026-10-08 18:19:16.959 -04 [7384] STATEMENT:  select size_bytes from content_assets
+2026-10-08 18:19:16.991 -04 [29192] ERROR:  permission denied for table audit_log
+2026-10-08 18:19:16.991 -04 [29192] STATEMENT:  select metadata from public.audit_log
+2026-10-08 18:19:17.020 -04 [20584] ERROR:  permission denied for view guided_v2_audit
+2026-10-08 18:19:17.020 -04 [20584] STATEMENT:  delete from private.guided_v2_audit
+2026-10-08 18:19:17.050 -04 [2924] ERROR:  new row violates check option for view "guided_v2_audit"
+2026-10-08 18:19:17.050 -04 [2924] DETAIL:  Failing row contains (actor_user_id, action, target_type, target_id, metadata) = (71000000-0000-4000-8000-000000000001, unrelated_action, learning_path, 71000000-0000-4000-8000-000000000004, {}).
+2026-10-08 18:19:17.050 -04 [2924] STATEMENT:  insert into private.guided_v2_audit(actor_user_id,action,target_type,target_id,metadata) values($1,'unrelated_action','learning_path',$2,'{}')
+2026-10-08 18:19:17.092 -04 [31720] ERROR:  Invalid guided v2 resource kind
+2026-10-08 18:19:17.092 -04 [31720] CONTEXT:  PL/pgSQL function private.lock_guided_v2_catalog(text,uuid) line 17 at RAISE
+2026-10-08 18:19:17.092 -04 [31720] STATEMENT:  select private.lock_guided_v2_catalog('invalid',$1)
+2026-10-08 18:22:10.590 -04 [22676] LOG:  checkpoint starting: time
+2026-10-08 18:23:20.159 -04 [22676] LOG:  checkpoint complete: wrote 651 buffers (4.0%); 1 WAL file(s) added, 0 removed, 0 recycled; write=68.925 s, sync=0.503 s, total=69.570 s; sync files=513, longest=0.006 s, average=0.001 s; distance=4082 kB, estimate=4688 kB; lsn=0/1E15C40, redo lsn=0/1E15BB0

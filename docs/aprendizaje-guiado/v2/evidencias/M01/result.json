@@ -1,0 +1,58 @@
+{
+  "taskId": "M01-0005-closure",
+  "status": "PASS",
+  "scope": "LOCAL PostgreSQL installation profile empty",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "ejecuta el orden que me recomendaste",
+  "authorization": "Base nueva sin catálogo histórico (recomendado)",
+  "decision": "Explicit DATABASE_LEGACY_CONTENT_MODE=empty for new DBs only; restore remains the default. 0005 classified not_applicable with original checksum in a separate exclusion ledger, never marked applied.",
+  "changedFiles": [
+    "apps/api/src/db/migrate.ts",
+    "apps/api/src/db/run-migrations.ts",
+    "apps/api/src/config.ts",
+    "apps/api/src/app.ts",
+    "apps/api/test/guided-v2-bootstrap.test.ts",
+    "apps/api/test/helpers/guided-v2-postgres.ts",
+    "database/README.md"
+  ],
+  "checks": [
+    {
+      "name": "actual PostgreSQL runner and legacy snapshot",
+      "passed": 9,
+      "files": 2,
+      "status": "PASS",
+      "evidence": "tests.txt"
+    },
+    {
+      "name": "api typecheck",
+      "exitCode": 0,
+      "evidence": "typecheck.txt"
+    },
+    {
+      "name": "scoped ESLint",
+      "exitCode": 0,
+      "evidence": "lint.txt"
+    },
+    {
+      "name": "contracts build",
+      "exitCode": 0,
+      "evidence": "contracts-build.txt"
+    }
+  ],
+  "guardrails": [
+    "Refuses fresh exclusion with users/content/later applied migrations.",
+    "Checksum verification applies to both applied and excluded SQL.",
+    "Changing an established empty profile to restoration is rejected.",
+    "Default identity-guarded historical restoration remains unchanged.",
+    "No original SQL migrations changed; no fabricated legacy identity."
+  ],
+  "limitations": [
+    "Historical catalog restoration with the real legacy account is NO VERIFICADO and unnecessary for the user-selected empty installation profile.",
+    "No production/staging migration or backup restore; T041 remains pending.",
+    "Fixture tests preserve v1 version/enrollment/attempt fields through full v2 schema upgrade."
+  ],
+  "nextTaskIds": [
+    "T035"
+  ],
+  "nextTaskStarted": false
+}

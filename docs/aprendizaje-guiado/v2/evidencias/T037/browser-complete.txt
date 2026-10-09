@@ -1,0 +1,96 @@
+[WebServer] (node:13892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:21808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 17 tests using 1 worker
+
+(node:18616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.6m)
+  ok  2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:183:5 › T037 V03 native browser zoom at 200 percent (22.9s)
+  ok  3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:224:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (27.6s)
+  ok  4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:304:5 › T037 V02 tab order, field reachability and modal focus restoration (7.3s)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/09a70508-cdb9-4622-b2c9-3b55ec4cbbf3
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok  5 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:59:5 › E01 creates a new persisted v2 draft using UI and keyboard (8.1s)
+(node:17292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  6 [360] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.8m)
+  -   7 [360] › tests\e2e\guided-v2-accessibility.spec.ts:183:5 › T037 V03 native browser zoom at 200 percent
+  ok  8 [360] › tests\e2e\guided-v2-accessibility.spec.ts:224:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (28.1s)
+  ok  9 [360] › tests\e2e\guided-v2-accessibility.spec.ts:304:5 › T037 V02 tab order, field reachability and modal focus restoration (7.0s)
+(node:16464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 10 [390] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.9m)
+  -  11 [390] › tests\e2e\guided-v2-accessibility.spec.ts:183:5 › T037 V03 native browser zoom at 200 percent
+  ok 12 [390] › tests\e2e\guided-v2-accessibility.spec.ts:224:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (32.3s)
+  ok 13 [390] › tests\e2e\guided-v2-accessibility.spec.ts:304:5 › T037 V02 tab order, field reachability and modal focus restoration (8.2s)
+(node:21716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  14 [768] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.7m)
+(node:7728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  15 [768] › tests\e2e\guided-v2-accessibility.spec.ts:183:5 › T037 V03 native browser zoom at 200 percent
+  ok 16 [768] › tests\e2e\guided-v2-accessibility.spec.ts:224:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (23.5s)
+  ok 17 [768] › tests\e2e\guided-v2-accessibility.spec.ts:304:5 › T037 V02 tab order, field reachability and modal focus restoration (7.2s)
+
+
+  1) [768] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom 
+
+    Error: admin-3: page overflow
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 769
+    Received:    829
+
+      67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));
+      68 |   expect.soft(axe.violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")), `${name}: axe`).toEqual([]);
+    > 69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);
+         |                                                             ^
+      70 | }
+      71 | async function previewPoint(page: Page, key: string) {
+      72 |   const p = page.locator("[data-editor-preview]");
+        at capture (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:69:61)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:119:5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [768] › tests\e2e\guided-v2-accessibility.spec.ts:107:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom 
+  3 skipped
+  13 passed (10.4m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T037/playwright.config.mts

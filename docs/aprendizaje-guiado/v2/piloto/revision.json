@@ -1,0 +1,88 @@
+{
+  "taskId": "T039",
+  "status": "PASS LOCAL",
+  "serverContentHash": "d9f35d39a769027998be0eeb17113e89f0e637af0b353c5bd1378ee77a59cf12",
+  "exportFileSha256": "a548d133de45686de4766a2d980a672cc7fe827a7a651cc9935761d62c0e4b75",
+  "reviewerName": "Propietario de Koraz, usuario de este chat",
+  "reviewActorId": "7a6971eb-01e3-4597-b8d7-6fc638e277cc",
+  "reviewedAt": "2026-10-08 21:45:30 UTC",
+  "approved": true,
+  "approvalEvidence": "aprobacion-propietario.json",
+  "C01": {
+    "status": "PASS DECLARADO POR PROPIETARIO",
+    "totalItems": 59,
+    "reviewedItems": 59,
+    "totalClaims": null,
+    "reviewedClaims": null,
+    "totalCoreItems": 59,
+    "reviewedCoreItems": 59,
+    "totalCaseItems": 3,
+    "reviewedCaseItems": 3,
+    "remainingItemSample": [],
+    "samplingMethod": "Aprobación general del expediente completo presentado; censo 59/59 actividades CORE y 3/3 componentes del caso. Los 418 segmentos están dentro del alcance aprobado, sin registro de lectura campo a campo.",
+    "errorsFound": 0,
+    "correctionsVerified": "No hubo cambios al contenido aprobado",
+    "evidence": [
+      "REVISION-PILOTO.md",
+      "afirmaciones.csv",
+      "aprobacion-propietario.json"
+    ],
+    "totalEditorialSegments": 418,
+    "reviewedEditorialSegments": 418,
+    "errorsFoundScope": "No se comunicaron correcciones en el mensaje de aprobación; no es un recuento de auditoría independiente"
+  },
+  "C02": {
+    "status": "PASS DECLARADO POR PROPIETARIO",
+    "totalReferences": 3,
+    "verifiedReferences": 3,
+    "brokenCitationMarkers": 0,
+    "evidence": [
+      "fuente-seleccionada.json",
+      "bibliografia-control.md",
+      "aprobacion-propietario.json"
+    ],
+    "technicalSourceKeysResolved": "4/4",
+    "identityOnlyCheckedFromPublisher": 2,
+    "originalBookPassagesChecked": 0,
+    "verificationScope": "Tres referencias dentro del expediente aprobado y guía declarada previamente revisada. Comprobación primaria independiente de identidad: 2/3; pasajes originales cotejados por el ejecutor: 0."
+  },
+  "C03": {
+    "status": "NO APLICA",
+    "totalAssets": 0,
+    "reviewedAssets": 0,
+    "rightsVerified": null,
+    "altVerified": null,
+    "cropVerified": null,
+    "evidence": [
+      "assets.csv",
+      "vascularizacion-abdomen.koraz-route.json"
+    ]
+  },
+  "C04": {
+    "status": "PASS DECLARADO POR PROPIETARIO",
+    "topicScopeEvidence": "REVISION-PILOTO.md",
+    "unsupportedDiagnosesOrDoses": 0,
+    "evidence": [
+      "REVISION-PILOTO.md",
+      "aprobacion-propietario.json"
+    ],
+    "reviewScope": "Aceptación del alcance de la ruta y de la cautela sobre hemorroides por aprobación del expediente completo"
+  },
+  "execution": {
+    "portableCliPublish": "PASS LOCAL",
+    "boundServerValidation": "PASS LOCAL, ready=true y 0 issues",
+    "beginnerPreview": "PASS LOCAL",
+    "coreErrorPreview": "PASS LOCAL",
+    "previewHasNoLearnerEffects": "PASS LOCAL, 30 tablas sin cambios",
+    "humanEditorialApproval": "PASS, declaración directa del propietario",
+    "publicationInTest": "PASS LOCAL",
+    "realLearnerBeginnerAndRemediation": "PASS LOCAL HTTP/PGlite",
+    "publishedExportMatchesReviewedPackage": "PASS LOCAL, igualdad exacta de JSON y contentHash",
+    "draftExportMatchesPackage": "PASS LOCAL",
+    "learnerPersistenceAndApplicationRestart": "PASS LOCAL",
+    "retention7And30": "PASS LOCAL, reloj de test"
+  },
+  "issues": [],
+  "notes": "Aprobación humana recibida textualmente: «revisado y aprobado». La aprobación se vincula al paquete exacto presentado, sin modificar su hash. La cuenta de test que ejecuta el workflow es un delegado técnico, no la identidad de producción del propietario.",
+  "reviewActorScope": "UUID real de operador local delegado para registrar la aprobación del propietario; no UUID de su cuenta de producción"
+}

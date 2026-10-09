@@ -1,0 +1,492 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "playwright.guided-v2.config.ts",
+      "--grep",
+      "E0[45]"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\playwright.guided-v2.config.ts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T035/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-*.spec.ts"
+        ],
+        "timeout": 240000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T035/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-*.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../docs/aprendizaje-guiado/v2/evidencias/T035/playwright.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 85812,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Etapa 2: relación sintética', { exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Etapa 2: relación sintética', { exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Etapa 2: relación sintética', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Etapa 2: relación sintética', { exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Etapa 2: relación sintética', { exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Etapa 2: relación sintética', { exact: true })\u001b[22m\n\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:55:217)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:119:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                      "column": 217,
+                      "line": 55
+                    },
+                    "snippet": "  53 |   if(kind===\"sequence\"){await clickCentered(page.getByRole(\"button\",{name:\"Comprobar secuencia\"}));}\n  54 |   if(kind===\"image_target\"){await expect(page.getByLabel(\"Horizontal (%)\")).toBeEnabled();await page.getByLabel(\"Horizontal (%)\").fill(\"20\");await page.getByLabel(\"Vertical (%)\").fill(\"20\");await clickCentered(page.getByRole(\"button\",{name:\"Comprobar respuesta visual\"}));}\n> 55 |   if(kind===\"case\"){await expect(page.getByText(\"Etapa 2: relación sintética\",{exact:true})).toHaveCount(0);await answer(page,\"single_choice\");await expect(page.getByText(\"Etapa 2: relación sintética\",{exact:true})).toBeVisible();await answer(page,\"short_answer\");return;}\n     |                                                                                                                                                                                                                         ^\n  56 |   await feedback(page);\n  57 | }\n  58 | const student=(base:number,mobile:boolean)=>`student-${base+(mobile?10:0)}`;"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "column": 217,
+                        "line": 55
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Etapa 2: relación sintética', { exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Etapa 2: relación sintética', { exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Etapa 2: relación sintética', { exact: true })\u001b[22m\n\n\n  53 |   if(kind===\"sequence\"){await clickCentered(page.getByRole(\"button\",{name:\"Comprobar secuencia\"}));}\n  54 |   if(kind===\"image_target\"){await expect(page.getByLabel(\"Horizontal (%)\")).toBeEnabled();await page.getByLabel(\"Horizontal (%)\").fill(\"20\");await page.getByLabel(\"Vertical (%)\").fill(\"20\");await clickCentered(page.getByRole(\"button\",{name:\"Comprobar respuesta visual\"}));}\n> 55 |   if(kind===\"case\"){await expect(page.getByText(\"Etapa 2: relación sintética\",{exact:true})).toHaveCount(0);await answer(page,\"single_choice\");await expect(page.getByText(\"Etapa 2: relación sintética\",{exact:true})).toBeVisible();await answer(page,\"short_answer\");return;}\n     |                                                                                                                                                                                                                         ^\n  56 |   await feedback(page);\n  57 | }\n  58 | const student=(base:number,mobile:boolean)=>`student-${base+(mobile?10:0)}`;\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:55:217)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:119:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/45ed1c98-d2a6-4b18-81aa-cb9de7687e12\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T21:51:25.954Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "column": 217,
+                    "line": 55
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-80aa05f8d586259be5ed",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 116,
+          "column": 5
+        },
+        {
+          "title": "E05 disconnect before/after commit, reload and two tabs preserve one answer",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 64825,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Finalizar sesión', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Finalizar sesión', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Finalizar sesión', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Finalizar sesión', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Finalizar sesión', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Finalizar sesión', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:137:81)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                      "column": 81,
+                      "line": 137
+                    }
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "column": 81,
+                        "line": 137
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Finalizar sesión', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Finalizar sesión', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Finalizar sesión', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:137:81)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/45ed1c98-d2a6-4b18-81aa-cb9de7687e12\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T21:52:58.195Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E05-dis-5e6e7-wo-tabs-preserve-one-answer-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E05-dis-5e6e7-wo-tabs-preserve-one-answer-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E05-dis-5e6e7-wo-tabs-preserve-one-answer-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "column": 81,
+                    "line": 137
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-36369e702fecfdbb6701",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 126,
+          "column": 5
+        },
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 103512,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar relaciones' })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"submit\" class=\"learning-primary-button\">Comprobar relaciones</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    110 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar relaciones' })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"submit\" class=\"learning-primary-button\">Comprobar relaciones</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    110 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at clickCentered (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:44:152)\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:52:100)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:119:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                      "column": 152,
+                      "line": 44
+                    },
+                    "snippet": "  42 |   await expect(button).toBeVisible();await button.click();\n  43 | }\n> 44 | async function clickCentered(locator:Locator){await locator.evaluate(element=>element.scrollIntoView({block:\"center\",inline:\"nearest\"}));await locator.click();}\n     |                                                                                                                                                        ^\n  45 | async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith(\"__reactProps\") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick===\"function\"))).toBe(true);}\n  46 | async function finish(page:Page|Locator){await page.getByRole(\"button\",{name:\"Finalizar sesión\",exact:true}).click();await expect(page.getByRole(\"heading\",{name:\"Sesión completada\",exact:true})).toBeVisible();}\n  47 | async function answer(page:Page|Locator,kind:string,wrong=false){"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "column": 152,
+                        "line": 44
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar relaciones' })\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"submit\" class=\"learning-primary-button\">Comprobar relaciones</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    110 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - <div class=\"mobile-materials-nav\">…</div> from <nav class=\"mobile-primary-nav\" aria-label=\"Navegación móvil\">…</nav> subtree intercepts pointer events\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n\n  42 |   await expect(button).toBeVisible();await button.click();\n  43 | }\n> 44 | async function clickCentered(locator:Locator){await locator.evaluate(element=>element.scrollIntoView({block:\"center\",inline:\"nearest\"}));await locator.click();}\n     |                                                                                                                                                        ^\n  45 | async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith(\"__reactProps\") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick===\"function\"))).toBe(true);}\n  46 | async function finish(page:Page|Locator){await page.getByRole(\"button\",{name:\"Finalizar sesión\",exact:true}).click();await expect(page.getByRole(\"heading\",{name:\"Sesión completada\",exact:true})).toBeVisible();}\n  47 | async function answer(page:Page|Locator,kind:string,wrong=false){\n    at clickCentered (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:44:152)\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:52:100)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:119:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/45ed1c98-d2a6-4b18-81aa-cb9de7687e12\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T21:54:06.730Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T035\\browser-artifacts\\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "column": 152,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-9ff624f0ce74c12e6580",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 116,
+          "column": 5
+        },
+        {
+          "title": "E05 disconnect before/after commit, reload and two tabs preserve one answer",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "The network and concurrency flow is viewport-independent; E04 owns the required mobile matrix.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "line": 127,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 341,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/45ed1c98-d2a6-4b18-81aa-cb9de7687e12\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T21:56:02.571Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "The network and concurrency flow is viewport-independent; E04 owns the required mobile matrix.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "line": 127,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df5ce8520497fc01d234",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 126,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T21:51:06.099Z",
+    "duration": 303866.92500000005,
+    "expected": 0,
+    "skipped": 1,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

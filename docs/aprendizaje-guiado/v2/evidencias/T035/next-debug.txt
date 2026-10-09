@@ -1,0 +1,15 @@
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://127.0.0.1:31035
+- Network:       http://127.0.0.1:31035
+✓ Ready in 1217ms
+✓ Running next.config.ts took 272ms
+
+○ Compiling /aprendizaje/rutas/[slug] ...
+ GET /aprendizaje/rutas/t035-small 200 in 3.6s (next.js: 163ms, proxy.ts: 1293ms, application-code: 2.1s)
+○ Compiling /api/v2/guided-learning/[...path] ...
+ GET /api/auth/get-session 404 in 50s (next.js: 50s, application-code: 563ms)
+ POST /api/v2/guided-learning/enrollments 200 in 49s (next.js: 48s, application-code: 1123ms)
+ GET /aprendizaje/rutas/t035-small 200 in 268ms (proxy.ts: 28ms)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 4294967295: next dev --webpack --hostname 127.0.0.1 --port 31035

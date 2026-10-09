@@ -12,6 +12,8 @@ import { buildApp } from "../src/app.js";
 import { createGuidedV2HttpProvider, registerGuidedV2Routes, type GuidedV2Flags } from "../src/guided-learning/v2/routes.js";
 import { createGuidedV2Database, seedGuidedV2Runtime, v2Id } from "./helpers/guided-v2-db.js";
 import { readEnvironment } from "../src/config.js";
+import { createGuidedV2DefinitionReader, prepareCachedGuidedV2ActivitySnapshot } from "../src/providers/postgres-guided-learning-v2.js";
+import { prepareGuidedV2AttemptSnapshot } from "../src/guided-learning/v2/service.js";
 
 const epoch = Date.parse("2026-09-01T12:00:00Z");
 const at = (days = 0, seconds = 0) => new Date(epoch + days * 86400000 + seconds * 1000);
@@ -63,9 +65,9 @@ describe("T021 actual learner HTTP and persisted services", () => {
   const get = (path: string, actor = "learner") => app.inject({ url: `/v2/guided-learning/${path}`, headers: { authorization: `Bearer ${actor}` } });
   const post = (path: string, payload: unknown, key = v2Id(serial++), actor = "learner") => app.inject({ method: "POST", url: `/v2/guided-learning/${path}`, payload,
     headers: { authorization: `Bearer ${actor}`, "idempotency-key": key } });
-  it("returns 401/404/403 and no-store before provider calls when disabled or outside allowlist", async () => {
+  it("returns 401/403 and maintenance reads with no-store when disabled or outside allowlist", async () => {
     const anonymous = await app.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state` }); expect(anonymous.statusCode).toBe(401);
-    flags.enabled = false; expect((await get(`enrollments/${v2Id(8)}/state`)).statusCode).toBe(404); flags.enabled = true;
+    flags.enabled = false; const maintained = await get(`enrollments/${v2Id(8)}/state`); expect(maintained.statusCode).toBe(200); expect(maintained.json().state.availability).toBe("maintenance"); flags.enabled = true;
     flags.allowlist = new Set([v2Id(2)]); expect((await get("home")).statusCode).toBe(403); flags.allowlist = undefined;
     flags.newEnrollments = false; expect((await post("enrollments", { pathId: v2Id(4) })).statusCode).toBe(403); flags.newEnrollments = true;
     expect(anonymous.headers["cache-control"]).toBe("private, no-store");
@@ -260,7 +262,12 @@ describe("T021 application registration and same-origin transport", () => {
     expect(environment.guidedLearningV2Enabled).toBe(false); expect(environment.guidedLearningV2NewEnrollments).toBe(false);
     let called = false;
     const app = await buildApp(environment, { identityProvider: identity, guidedLearningV2Provider: { invoke: async () => { called = true; return { status: "not_found" }; } } });
-    try { expect((await app.inject({ url: "/v2/guided-learning/home", headers: { authorization: "Bearer learner" } })).statusCode).toBe(404); expect(called).toBe(false); }
+    try {
+      expect((await app.inject({ url: "/v2/guided-learning/home", headers: { authorization: "Bearer learner" } })).statusCode).toBe(404); expect(called).toBe(true);
+      called = false;
+      const denied = await app.inject({ method: "POST", url: "/v2/guided-learning/enrollments", payload: { pathId: v2Id(4) }, headers: { authorization: "Bearer learner", "idempotency-key": v2Id(80000) } });
+      expect(denied.statusCode).toBe(503); expect(denied.json()).toEqual({ error: "guided_v2_maintenance" }); expect(called).toBe(false);
+    }
     finally { await app.close(); }
   });
   it("executes the new BFF and existing forwarder with real origin checks and cookie/header propagation", async () => {
@@ -304,4 +311,146 @@ describe("T021 application registration and same-origin transport", () => {
     const mixed = await transport.getLearningCatalogByEngine!() as unknown as { status: string; items: { engineVersion: string }[] };
     expect(mixed.status).toBe("ready"); expect(mixed.items).toHaveLength(1); expect(mixed.items[0]!.engineVersion).toBe("guided-v2");
   });
+});
+
+describe("T038 bounded immutable definition cache", () => {
+  let pg: PGlite, database: Kysely<CediahDatabase>;
+  const ids = Array.from({ length: 9 }, (_, index) => v2Id(700 + index));
+  beforeAll(async () => {
+    pg = await createGuidedV2Database(); await seedGuidedV2Runtime(pg); database = databaseFor(pg);
+    for (const [index, id] of ids.entries()) {
+      await pg.query("insert into learning_path_versions(id,path_id,version_number,policy_version,definition_v2_json) values($1,$2,$3,'guided-v2.0',$4)",
+        [id, v2Id(4), index + 20, JSON.stringify(fixture())]);
+      await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [id, v2Id(1)]);
+    }
+  }, 120000);
+  afterAll(async () => { await database?.destroy(); await pg?.close(); });
+  it("shares a deeply immutable value within one client, isolates clients, and expires at 60s", async () => {
+    let clock = 0;
+    const reader = createGuidedV2DefinitionReader(database, { monotonicNow: () => clock });
+    const read = () => database.transaction().execute(tx => reader(tx, ids[0]!));
+    const first = await read(); expect(first).not.toBeNull();
+    expect(Object.isFrozen(first)).toBe(true); expect(Object.isFrozen(first!.activities[0]!.payload)).toBe(true);
+    expect(() => { first!.route.title = "mutated"; }).toThrow();
+    clock = 59999; expect(await read()).toBe(first);
+    clock = 60000; expect(await read()).not.toBe(first);
+    const shared = createGuidedV2DefinitionReader(database);
+    expect(createGuidedV2DefinitionReader(database)).toBe(shared);
+    const anotherClient = databaseFor(pg);
+    try {
+      const isolated = createGuidedV2DefinitionReader(anotherClient);
+      const a = await database.transaction().execute(tx => shared(tx, ids[0]!));
+      const b = await anotherClient.transaction().execute(tx => isolated(tx, ids[0]!));
+      expect(b).toEqual(a); expect(b).not.toBe(a);
+    } finally { await anotherClient.destroy(); }
+  });
+  it("isolates versions and evicts the least recently used beyond eight entries", async () => {
+    const reader = createGuidedV2DefinitionReader(database, { monotonicNow: () => 0 });
+    const read = (id: string) => database.transaction().execute(tx => reader(tx, id));
+    const values = [];
+    for (const id of ids.slice(0, 8)) values.push(await read(id));
+    expect(values[0]).not.toBe(values[1]);
+    expect(await read(ids[0]!)).toBe(values[0]);
+    await read(ids[8]!);
+    expect(await read(ids[1]!)).not.toBe(values[1]);
+    expect(await read(ids[0]!)).toBe(values[0]);
+  });
+  it("reuses content-only preparation without sharing mutable snapshot containers or draft hashes", async () => {
+    const reader = createGuidedV2DefinitionReader(database);
+    const value = await database.transaction().execute(tx => reader(tx, ids[0]!));
+    if (!value) throw new Error("published definition missing");
+    const target = { kind: "activity" as const, key: value.activities[0]!.key };
+    const expected = prepareGuidedV2AttemptSnapshot(value, ids[0]!, target);
+    const first = prepareCachedGuidedV2ActivitySnapshot(value, ids[0]!, target)!;
+    expect(first).toEqual(expected);
+    first.target.key = "changed"; first.activities.pop(); first.orderedKeys.length = 0;
+    expect(prepareCachedGuidedV2ActivitySnapshot(value, ids[0]!, target)).toEqual(expected);
+    expect(prepareCachedGuidedV2ActivitySnapshot(value, ids[1]!, target)?.pathVersionId).toBe(ids[1]);
+    const draft = structuredClone(value);
+    const before = prepareCachedGuidedV2ActivitySnapshot(draft, ids[0]!, target);
+    draft.route.title = "Edited draft";
+    const after = prepareCachedGuidedV2ActivitySnapshot(draft, ids[0]!, target);
+    expect(after).toEqual(prepareGuidedV2AttemptSnapshot(draft, ids[0]!, target));
+    expect(after?.contentHash).not.toBe(before?.contentHash);
+  });
+  it("checks deletion/replacement metadata and never caches draft or invalid definitions", async () => {
+    const reader = createGuidedV2DefinitionReader(database, { monotonicNow: () => 0 });
+    const read = (id: string) => database.transaction().execute(tx => reader(tx, id));
+    const before = await read(ids[8]!);
+    await pg.exec(`begin; select set_config('cediah.deleting_learning_path_id','${v2Id(4)}',true); delete from learning_path_versions where id='${ids[8]}'; commit;`);
+    expect(await read(ids[8]!)).toBeNull();
+    const replacement = fixture(); replacement.route.title = "Replacement";
+    await pg.query("insert into learning_path_versions(id,path_id,version_number,policy_version,definition_v2_json,edit_version) values($1,$2,28,'guided-v2.0',$3,2)",
+      [ids[8], v2Id(4), JSON.stringify(replacement)]);
+    const draft = await read(ids[8]!); expect(draft).not.toBe(before); expect(Object.isFrozen(draft)).toBe(false);
+    expect(await read(ids[8]!)).not.toBe(draft);
+    await pg.query("update learning_path_versions set definition_v2_json=$2 where id=$1", [ids[8], JSON.stringify({ schemaVersion: "2.0" })]);
+    expect(await read(ids[8]!)).toBeNull();
+    await pg.query("update learning_path_versions set definition_v2_json=$2,status='published',published_at=now(),published_by=$3 where id=$1", [ids[8], JSON.stringify(replacement), v2Id(1)]);
+    const published = await read(ids[8]!); expect(published!.route.title).toBe("Replacement"); expect(published).not.toBe(before);
+    expect(await read(ids[8]!)).toBe(published);
+    await expect(pg.query("update learning_path_versions set edit_version=3 where id=$1", [ids[8]])).rejects.toThrow("immutable");
+  });
+  it("enforces the aggregate 8 MiB JSON budget and bypasses oversized definitions", async () => {
+    const reader = createGuidedV2DefinitionReader(database, { monotonicNow: () => 0 });
+    const read = (id: string) => database.transaction().execute(tx => reader(tx, id));
+    const large = fixture();
+    const study = large.activities.find(item => item.kind === "study")!;
+    if (study.kind !== "study") throw new Error("study missing");
+    large.activities.push(...Array.from({ length: 450 }, (_, i) => ({ ...study, key: `large-${i}`, equivalenceKey: `large-family-${i}`, payload: { ...study.payload, body: "a".repeat(10000) } })));
+    const insert = async (n: number, value: unknown) => {
+      const id = v2Id(n);
+      await pg.query("insert into learning_path_versions(id,path_id,version_number,policy_version,definition_v2_json) values($1,$2,$3,'guided-v2.0',$4)", [id, v2Id(4), n, JSON.stringify(value)]);
+      await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [id, v2Id(1)]);
+      return id;
+    };
+    const one = await insert(800, large), two = await insert(801, large);
+    const first = await read(one); expect(await read(one)).toBe(first);
+    await read(two); expect(await read(one)).not.toBe(first);
+    large.activities.push(...large.activities.slice(-450).map((item, i) => ({ ...item, key: `oversize-${i}`, equivalenceKey: `oversize-family-${i}` })));
+    const oversized = await insert(802, large);
+    const oversizedValue = await read(oversized); expect(oversizedValue).not.toBeNull(); expect(await read(oversized)).not.toBe(oversizedValue);
+  }, 120000);
+  it("does not reuse a same-version id from another database", async () => {
+    const reader = createGuidedV2DefinitionReader(database);
+    const first = await database.transaction().execute(tx => reader(tx, ids[0]!));
+    const otherPg = await createGuidedV2Database();
+    let otherDatabase: Kysely<CediahDatabase> | undefined;
+    try {
+      await seedGuidedV2Runtime(otherPg); otherDatabase = databaseFor(otherPg);
+      const otherReader = createGuidedV2DefinitionReader(otherDatabase);
+      expect(await otherDatabase.transaction().execute(tx => otherReader(tx, ids[0]!))).toBeNull();
+      const value = fixture(); value.route.title = "Other database";
+      await otherPg.query("insert into learning_path_versions(id,path_id,version_number,policy_version,definition_v2_json) values($1,$2,20,'guided-v2.0',$3)", [ids[0], v2Id(4), JSON.stringify(value)]);
+      await otherPg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [ids[0], v2Id(1)]);
+      const other = await otherDatabase.transaction().execute(tx => otherReader(tx, ids[0]!));
+      expect(other!.route.title).toBe("Other database"); expect(other).not.toEqual(first);
+      expect(await database.transaction().execute(tx => reader(tx, ids[0]!))).toBe(first);
+    } finally { await otherDatabase?.destroy(); await otherPg.close(); }
+  }, 120000);
+  it("counts a version once when concurrent cold reads fill the byte budget", async () => {
+    const reader = createGuidedV2DefinitionReader(database, { monotonicNow: () => 0 });
+    const medium = fixture(), large = fixture();
+    for (const [value, count] of [[medium, 225], [large, 450]] as const) {
+      const study = value.activities.find(item => item.kind === "study")!;
+      if (study.kind !== "study") throw new Error("study missing");
+      value.activities.push(...Array.from({ length: count }, (_, i) => ({ ...study,
+        key: `concurrent-${i}`, equivalenceKey: `concurrent-family-${i}`,
+        payload: { ...study.payload, body: "a".repeat(10000) } })));
+    }
+    const weight = (value: unknown) => Buffer.byteLength(JSON.stringify(value), "utf8");
+    expect(weight(medium) + weight(large)).toBeLessThan(8 * 1024 * 1024);
+    expect(2 * weight(medium) + weight(large)).toBeGreaterThan(8 * 1024 * 1024);
+    for (const [id, value] of [[v2Id(803), medium], [v2Id(804), large]] as const) {
+      await pg.query("insert into learning_path_versions(id,path_id,version_number,policy_version,definition_v2_json) values($1,$2,$3,'guided-v2.0',$4)", [id, v2Id(4), id === v2Id(803) ? 803 : 804, JSON.stringify(value)]);
+      await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [id, v2Id(1)]);
+    }
+    const cold = await database.transaction().execute(tx => Promise.all([reader(tx, v2Id(803)), reader(tx, v2Id(803))]));
+    expect(cold[0]).toBe(cold[1]);
+    const read = (id: string) => database.transaction().execute(tx => reader(tx, id));
+    const retained = await read(v2Id(803)); expect(cold).toContain(retained);
+    const other = await read(v2Id(804));
+    expect(await read(v2Id(803))).toBe(retained);
+    expect(await read(v2Id(804))).toBe(other);
+  }, 120000);
 });

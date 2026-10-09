@@ -6,6 +6,7 @@ import { addVisualPresetV2, moveEntryV2, type VisualPresetV2 } from "./visual-pr
 import { caseChildrenV2 } from "./case-fields";
 import { imagePointV2 } from "./visual-geometry";
 import { ActivityEditorV2 } from "./activity-editor";
+import { VisualActivityV2 } from "./visual-activity";
 import { createEditorV2State, draftFromRouteV2 } from "./editor-model";
 import { serializeEditorV2 } from "./editor-serialization";
 import { editorV2FixturePackage, editorV2FixtureRoute } from "./editor-fixtures";
@@ -121,9 +122,12 @@ describe("T026 geometry, invalid mappings and public privacy", () => {
   });
   it("renders all eight kinds, composition presets and keyboard alternatives in the existing shell", () => {
     const html = renderToStaticMarkup(<ActivityEditorV2 draft={draftFromRouteV2(editorV2FixtureRoute())} disabled={false} onChange={() => {}} />);
-    for (const label of ["Tabla de comparación", "Micro-mapa de relaciones", "Mecanismo y explicación", "Detección y corrección de errores", "Tabla de correspondencias", "Añadir punto por coordenadas", "Subir etapa 2", "Subir paso 2 del orden 1", "Sin etiquetas", "Alternativa accesible de texto o tabla"]) expect(html).toContain(label);
+    for (const label of ["Tabla de comparación", "Micro-mapa de relaciones", "Mecanismo y explicación", "Detección y corrección de errores"]) expect(html).toContain(label);
+    const pkg = editorV2FixturePackage();
+    const fields = pkg.activities.flatMap((activity, index) => [false, true].map((solution) => renderToStaticMarkup(<VisualActivityV2 activity={activity} pkg={pkg} path={`package.activities.${index}`} issues={[]} onChange={() => {}} solution={solution} />))).join("");
+    for (const label of ["Tabla de correspondencias", "Añadir punto por coordenadas", "Subir etapa 2", "Subir paso 2 del orden 1", "Sin etiquetas", "Alternativa accesible de texto o tabla"]) expect(fields).toContain(label);
     expect(html).not.toContain("Su formulario corresponde a la siguiente ficha");
-    expect(html).toContain("solo edición");
+    expect(html).not.toContain("data-activity-form");
     const image = complete(editorV2FixturePackage().activities.find((item) => item.kind === "image_target")!);
     const next = replaceActivityV2(editorV2FixturePackage(), image);
     const markup = renderToStaticMarkup(<ActivityEditorV2 draft={{...draftFromRouteV2(editorV2FixtureRoute()),package:next}} disabled={false} onChange={() => {}} />);

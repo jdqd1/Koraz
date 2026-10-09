@@ -1,0 +1,285 @@
+{
+  "taskId": "T034",
+  "status": "PASS",
+  "scope": "LOCAL",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "observedHead": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "recordedUtc": "2026-10-04T17:09:03.725Z",
+  "timezone": "America/Caracas",
+  "request": "continua con t034",
+  "authorization": {
+    "originalFicha": "HANDOFF-EJECUTOR.md T034 and section 8.13",
+    "extension": "AMPLIACION-PROPUESTA.md",
+    "additionalFiles": 7,
+    "userReply": "Sí, autorizar la ampliación T034",
+    "evidenceT021Update": "Explicitly listed in the approved proposal; performed only after success DTO checks."
+  },
+  "runtime": {
+    "node": "24.19.0",
+    "pnpm": "11.19.0",
+    "source": "existing Codex bundled runtime",
+    "dependenciesInstalled": false,
+    "apiDatabase": "isolated PGlite",
+    "apiMaxWorkers": 1,
+    "browser": "Chromium"
+  },
+  "changedFiles": [
+    "apps/api/src/app.ts",
+    "apps/api/src/guided-learning/path-upgrade.ts",
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/guided-learning/v2/upgrade.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-routes.test.ts",
+    "apps/api/test/guided-v2-upgrade.test.ts",
+    "apps/web/src/app/aprendizaje/rutas/[slug]/page.tsx",
+    "apps/web/src/components/learning/v2/path-screen.tsx",
+    "apps/web/src/components/learning/v2/route-action.tsx",
+    "apps/web/src/components/learning/v2/upgrade-client.tsx",
+    "apps/web/src/components/learning/v2/upgrade.test.tsx",
+    "apps/web/src/components/learning/v2/upgrade.tsx",
+    "packages/contracts/src/guided-learning-v2.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T021/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T021/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T034/"
+  ],
+  "predecessors": [
+    {
+      "taskId": "T012",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T016",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T021",
+      "originalStatus": "PARTIAL",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "closedBy": "T034",
+      "issue": "upgrade-success-dto-pending"
+    },
+    {
+      "taskId": "T028",
+      "status": "PASS",
+      "scope": "LOCAL"
+    }
+  ],
+  "consultedPriorTask": {
+    "taskId": "T033",
+    "status": "PASS",
+    "scope": "LOCAL"
+  },
+  "checks": [
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "contracts-build",
+      "command": "pnpm --filter @cediah/contracts build",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "T034-final",
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-upgrade.test.ts test/learning-path-catalog.test.ts",
+      "evidence": "upgrade-final-tests.txt",
+      "passed": 10,
+      "skipped": 0,
+      "executedFiles": 1,
+      "note": "Second filter path did not exist. The actual v1 catalog is checked in the next entry."
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "dispatch-conversion-and-v1-catalog-final",
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-upgrade.test.ts test/guided-learning-catalog.test.ts",
+      "evidence": "dispatch-conversion-closure.txt",
+      "passed": 30,
+      "skipped": 0,
+      "executedFiles": 2
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "api-relevant-regression",
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-upgrade.test.ts test/guided-v2-routes.test.ts test/guided-v2-evidence.test.ts test/guided-v2-attempts.test.ts test/guided-v2-workflow.test.ts test/guided-v2-review.test.ts test/guided-learning-catalog.test.ts test/guided-learning-routes.test.ts",
+      "evidence": "api-regression-final.txt",
+      "passed": 99,
+      "skipped": 12,
+      "executedFiles": 7,
+      "note": "guided-v2-review.test.ts did not exist. Scheduler and assessments were then checked by actual filename. This broad run preceded the final conversion no-truncation edge check."
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "upgrade-scheduler-assessments",
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-upgrade.test.ts test/guided-v2-scheduler.test.ts test/guided-v2-assessments.test.ts",
+      "evidence": "upgrade-scheduler-final.txt",
+      "passed": 59,
+      "skipped": 10,
+      "executedFiles": 3,
+      "note": "Counts overlap prior suites. This run preceded the final conversion no-truncation edge check."
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "web-regression",
+      "command": "pnpm --filter @cediah/web test --maxWorkers=1",
+      "evidence": "web-regression-final.txt",
+      "passed": 480,
+      "skipped": 0,
+      "executedFiles": 61
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "api-typecheck",
+      "command": "pnpm --filter @cediah/api typecheck",
+      "evidence": "api-typecheck-final.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "web-typecheck",
+      "command": "pnpm --filter @cediah/web typecheck",
+      "evidence": "web-typecheck-final.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "api-scoped-lint",
+      "command": "pnpm --filter @cediah/api exec eslint src/app.ts src/guided-learning/v2/routes.ts src/providers/postgres-guided-learning-v2.ts test/guided-v2-routes.test.ts --max-warnings=0",
+      "evidence": "api-lint-final.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "api-lint-closure",
+      "command": "pnpm --filter @cediah/api exec eslint src/guided-learning/path-upgrade.ts src/guided-learning/v2/upgrade.ts test/guided-v2-upgrade.test.ts --max-warnings=0",
+      "evidence": "api-lint-closure.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "web-scoped-lint",
+      "command": "pnpm --filter @cediah/web exec eslint src/components/learning/v2/upgrade-client.tsx src/components/learning/v2/upgrade.tsx src/components/learning/v2/upgrade.test.tsx src/components/learning/v2/path-screen.tsx src/components/learning/v2/route-action.tsx src/app/aprendizaje/rutas/[slug]/page.tsx --max-warnings=0",
+      "evidence": "web-lint-final.txt"
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "isolated-http-harness",
+      "command": "pnpm exec vitest run docs/aprendizaje-guiado/v2/evidencias/T034/http-upgrade.test.ts",
+      "evidence": "http-upgrade.txt",
+      "passed": 1,
+      "skipped": 0,
+      "executedFiles": 1,
+      "environment": {
+        "note": "Stop endpoint called after browser checks; servers stopped. Next dev used isolated test env and webpack on port 31034.",
+        "T034_BROWSER_HOLD": "true"
+      }
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "real-browser-local",
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T034/browser-upgrade.cjs",
+      "evidence": "browser-upgrade.json",
+      "checks": 3,
+      "viewports": [
+        1440,
+        768,
+        390,
+        360
+      ],
+      "horizontalOverflow": false,
+      "axeViolationsInUpgradeNotice": 0,
+      "pageErrors": 0,
+      "note": "Real Next SSR/BFF/Fastify/PGlite; synthetic identity. Lost receipt aborted only after backend response. One adoption, rowVersion=2, zero responses/rewards."
+    },
+    {
+      "status": "PASS",
+      "exitCode": 0,
+      "name": "diff-and-unchanged-migrations",
+      "command": "git diff --check; git diff --exit-code HEAD -- database/migrations",
+      "evidence": "final-state.txt"
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "M01",
+      "status": "NO VERIFICADO",
+      "localChecks": "PASS: v1 version/unit/step/option/progress snapshots preserved and old migration files unchanged.",
+      "remaining": "Full blank-database chain blocked by historical 0005 legacy administrator prerequisite."
+    },
+    {
+      "id": "M02",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "evidence": "Existing workflow regression plus converted draft blocked from publication, old published snapshot unchanged."
+    },
+    {
+      "id": "M03",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "evidence": "Explicit incomplete conversion, open/paused attempts block adoption; v1 mastery not imported, consumed history preserved."
+    },
+    {
+      "id": "M04",
+      "status": "PARTIAL",
+      "scope": "LOCAL",
+      "localChecks": "PASS: v1 regression, disabled v2 private history reads, zero projection writes, maintenance UI, mutation/admission blocking.",
+      "remaining": "Backup restoration into separate DB not verified; T041."
+    },
+    {
+      "id": "explicit-adoption-equivalence",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "evidence": "Full fingerprints, transitive prerequisites, CAS, durable exact retry, no duplicate facts or upgrade awards, reset cannot resurrect older evidence."
+    }
+  ],
+  "issues": [
+    {
+      "id": "T021-upgrade-success-dto-pending",
+      "status": "RESOLVED",
+      "evidence": "T021/result.json acceptanceClosedBy and final T034 HTTP/browser checks."
+    },
+    {
+      "id": "conversion-oversized-guide",
+      "status": "RESOLVED",
+      "detail": "Oversized body remains an explicit editorial gap; immutable resource payload unchanged, no silent clipping."
+    },
+    {
+      "id": "historical-0005",
+      "status": "INHERITED",
+      "acceptance": "M01 full chain unverified."
+    },
+    {
+      "id": "T024-api-import-timeout",
+      "status": "INHERITED",
+      "acceptance": "System/Hito S remains blocked; not remediated by T034."
+    },
+    {
+      "id": "backup-restore",
+      "status": "NO VERIFICADO",
+      "taskId": "T041"
+    }
+  ],
+  "limitations": [
+    "Tests overlap; do not sum API counts.",
+    "Independent PostgreSQL, restricted-role grants and concurrency were not rerun; skipped cases are not PASS.",
+    "No BetterAuth issuance, external storage, native zoom or screen-reader/full T037 audit.",
+    "No full T035 system harness, T041 restoration, Hito S, clinical review, staging or production acceptance.",
+    "No automatic enrollment migration, historical fact deletion, schema migration or production flag activation."
+  ],
+  "sourceHashes": "source-hashes.json",
+  "details": "README.md",
+  "harnessStopped": true,
+  "committed": false,
+  "deployed": false,
+  "nextTaskIds": [
+    "T035"
+  ],
+  "nextTaskStarted": false
+}

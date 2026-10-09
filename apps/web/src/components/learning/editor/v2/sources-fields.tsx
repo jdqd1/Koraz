@@ -29,6 +29,8 @@ export function focusFieldIssueV2(surface: HTMLElement | null, path: string) {
   if (!field) field = fields.filter((node) => normalized.startsWith(`${node.dataset.fieldPath}.`)).sort((a, b) => (b.dataset.fieldPath?.length ?? 0) - (a.dataset.fieldPath?.length ?? 0))[0];
   if (!field) field = fields.find((node) => node.dataset.fieldPath?.startsWith(`${normalized}.`));
   if (!field) return false;
+  // A closed activity mounts its form on demand, then restores this exact field.
+  if (field.dataset.lazyActivity) field.dataset.pendingFieldPath = normalized;
   for (let parent = field.parentElement; parent && parent !== surface; parent = parent.parentElement) if (parent instanceof HTMLDetailsElement) parent.open = true;
   field.focus(); field.scrollIntoView({ block: "center" });
   return true;

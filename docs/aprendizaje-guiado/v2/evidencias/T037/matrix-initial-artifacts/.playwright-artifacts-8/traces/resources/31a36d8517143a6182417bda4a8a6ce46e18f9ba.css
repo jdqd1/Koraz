@@ -1,0 +1,70 @@
+.interactive-term-editor-bridge-module__uD474G__trigger { z-index: 1200; color: rgb(23, 32, 51); font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; cursor: pointer; background: rgb(255, 255, 255); border: 1px solid rgba(15, 23, 42, 0.14); border-radius: 999px; align-items: center; gap: 0.34rem; padding: 0.4rem 0.68rem; font-size: 0.78rem; font-weight: 750; display: inline-flex; position: fixed; transform: translate(-50%, calc(100% + 0.5rem)); box-shadow: rgba(15, 23, 42, 0.14) 0px 8px 24px; }
+.interactive-term-editor-bridge-module__uD474G__trigger:hover { color: rgb(29, 78, 216); background: rgb(248, 251, 255); border-color: rgba(37, 99, 235, 0.28); }
+.interactive-term-editor-bridge-module__uD474G__trigger:focus-visible, .interactive-term-editor-bridge-module__uD474G__close:focus-visible, .interactive-term-editor-bridge-module__uD474G__primaryButton:focus-visible, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide:focus-visible, .interactive-term-editor-bridge-module__uD474G__secondaryButton:focus-visible, .interactive-term-editor-bridge-module__uD474G__searchButton:focus-visible, .interactive-term-editor-bridge-module__uD474G__textButton:focus-visible, .interactive-term-editor-bridge-module__uD474G__termButton:focus-visible, .interactive-term-editor-bridge-module__uD474G__input:focus-visible, .interactive-term-editor-bridge-module__uD474G__textarea:focus-visible { outline-offset: 2px; outline: rgb(37, 99, 235) solid 2px; }
+.interactive-term-editor-bridge-module__uD474G__backdrop { z-index: 1300; backdrop-filter: blur(2px); background: rgba(15, 23, 42, 0.42); place-items: center; padding: 1.25rem; display: grid; position: fixed; inset: 0px; }
+.interactive-term-editor-bridge-module__uD474G__dialog { color: rgb(23, 32, 51); background: rgb(255, 255, 255); border: 1px solid rgba(15, 23, 42, 0.1); border-radius: 20px; width: min(560px, 100%); max-height: min(760px, -2.5rem + 100vh); overflow: auto; box-shadow: rgba(15, 23, 42, 0.22) 0px 24px 70px; }
+.interactive-term-editor-bridge-module__uD474G__header { border-bottom: 1px solid rgba(15, 23, 42, 0.07); justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.08rem 1.15rem 0.92rem; display: flex; }
+.interactive-term-editor-bridge-module__uD474G__header h2 { letter-spacing: -0.01em; margin: 0px; font-size: 1.08rem; }
+.interactive-term-editor-bridge-module__uD474G__header p { color: rgb(100, 116, 139); margin: 0.24rem 0px 0px; font-size: 0.81rem; line-height: 1.4; }
+.interactive-term-editor-bridge-module__uD474G__close { color: rgb(100, 116, 139); cursor: pointer; background: 0px 0px; border: 0px; border-radius: 9px; place-items: center; padding: 0.4rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__close:hover { color: rgb(23, 32, 51); background: rgb(241, 245, 249); }
+.interactive-term-editor-bridge-module__uD474G__body { padding: 1rem 1.15rem 1.15rem; }
+.interactive-term-editor-bridge-module__uD474G__selection { background: rgb(248, 250, 252); border: 1px solid rgb(226, 232, 240); border-radius: 12px; gap: 0.2rem; margin-bottom: 0.9rem; padding: 0.68rem 0.78rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__selection span { color: rgb(100, 116, 139); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.68rem; font-weight: 750; }
+.interactive-term-editor-bridge-module__uD474G__selection strong { overflow-wrap: anywhere; font-size: 0.9rem; line-height: 1.4; }
+.interactive-term-editor-bridge-module__uD474G__loading { color: rgb(100, 116, 139); justify-content: center; align-items: center; gap: 0.55rem; min-height: 108px; font-size: 0.82rem; display: flex; }
+.interactive-term-editor-bridge-module__uD474G__loading > span { border-width: 2px; border-style: solid; border-color: rgb(37, 99, 235) rgb(219, 234, 254) rgb(219, 234, 254); border-image: none; border-radius: 50%; width: 16px; height: 16px; animation: 0.8s linear 0s infinite normal none running interactive-term-editor-bridge-module__uD474G__spin; }
+@keyframes interactive-term-editor-bridge-module__uD474G__spin { 
+  100% { transform: rotate(360deg); }
+}
+.interactive-term-editor-bridge-module__uD474G__createPanel, .interactive-term-editor-bridge-module__uD474G__existingPanel { background: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); border-radius: 15px; padding: 0.92rem; }
+.interactive-term-editor-bridge-module__uD474G__panelTitle, .interactive-term-editor-bridge-module__uD474G__existingHeading { align-items: flex-start; gap: 0.65rem; display: flex; }
+.interactive-term-editor-bridge-module__uD474G__panelTitle h3, .interactive-term-editor-bridge-module__uD474G__existingHeading h3 { margin: 0px; font-size: 0.95rem; }
+.interactive-term-editor-bridge-module__uD474G__panelTitle p, .interactive-term-editor-bridge-module__uD474G__existingHeading small { color: rgb(100, 116, 139); margin: 0.16rem 0px 0px; font-size: 0.74rem; line-height: 1.4; display: block; }
+.interactive-term-editor-bridge-module__uD474G__plusIcon, .interactive-term-editor-bridge-module__uD474G__statusIcon { border-radius: 9px; flex: 0 0 auto; place-items: center; width: 30px; height: 30px; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__plusIcon { color: rgb(37, 99, 235); background: rgb(239, 246, 255); }
+.interactive-term-editor-bridge-module__uD474G__statusIcon { color: rgb(5, 150, 105); background: rgb(236, 253, 245); }
+.interactive-term-editor-bridge-module__uD474G__form { gap: 0.72rem; margin-top: 0.85rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__field { gap: 0.32rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__field > span { color: rgb(51, 65, 85); font-size: 0.76rem; font-weight: 750; }
+.interactive-term-editor-bridge-module__uD474G__input, .interactive-term-editor-bridge-module__uD474G__textarea { box-sizing: border-box; color: rgb(23, 32, 51); width: 100%; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; background: rgb(255, 255, 255); border: 1px solid rgb(203, 213, 225); border-radius: 10px; padding: 0.62rem 0.7rem; font-size: 0.86rem; transition: border-color 0.12s, box-shadow 0.12s; }
+.interactive-term-editor-bridge-module__uD474G__input:hover, .interactive-term-editor-bridge-module__uD474G__textarea:hover { border-color: rgb(148, 163, 184); }
+.interactive-term-editor-bridge-module__uD474G__textarea { resize: vertical; min-height: 108px; line-height: 1.46; }
+.interactive-term-editor-bridge-module__uD474G__primaryButton, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide, .interactive-term-editor-bridge-module__uD474G__secondaryButton, .interactive-term-editor-bridge-module__uD474G__searchButton, .interactive-term-editor-bridge-module__uD474G__textButton, .interactive-term-editor-bridge-module__uD474G__termButton { font: inherit; }
+.interactive-term-editor-bridge-module__uD474G__primaryButton, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide, .interactive-term-editor-bridge-module__uD474G__secondaryButton, .interactive-term-editor-bridge-module__uD474G__searchButton { cursor: pointer; border-radius: 10px; padding: 0.58rem 0.78rem; font-size: 0.8rem; font-weight: 750; }
+.interactive-term-editor-bridge-module__uD474G__primaryButton, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide { color: rgb(255, 255, 255); background: rgb(47, 64, 130); border: 1px solid rgb(36, 58, 122); }
+.interactive-term-editor-bridge-module__uD474G__primaryButton { align-items: center; gap: 0.35rem; display: inline-flex; }
+.interactive-term-editor-bridge-module__uD474G__primaryButtonWide { justify-content: center; width: 100%; }
+.interactive-term-editor-bridge-module__uD474G__primaryButton:hover, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide:hover { background: rgb(38, 54, 111); }
+.interactive-term-editor-bridge-module__uD474G__secondaryButton, .interactive-term-editor-bridge-module__uD474G__searchButton { color: rgb(51, 65, 85); background: rgb(255, 255, 255); border: 1px solid rgb(203, 213, 225); }
+.interactive-term-editor-bridge-module__uD474G__secondaryButton:hover, .interactive-term-editor-bridge-module__uD474G__searchButton:hover { background: rgb(248, 250, 252); }
+.interactive-term-editor-bridge-module__uD474G__primaryButton:disabled, .interactive-term-editor-bridge-module__uD474G__primaryButtonWide:disabled, .interactive-term-editor-bridge-module__uD474G__secondaryButton:disabled, .interactive-term-editor-bridge-module__uD474G__searchButton:disabled, .interactive-term-editor-bridge-module__uD474G__termButton:disabled, .interactive-term-editor-bridge-module__uD474G__input:disabled, .interactive-term-editor-bridge-module__uD474G__textarea:disabled { cursor: not-allowed; opacity: 0.56; }
+.interactive-term-editor-bridge-module__uD474G__smartNote { color: rgb(100, 116, 139); margin: 0px; font-size: 0.73rem; line-height: 1.42; }
+.interactive-term-editor-bridge-module__uD474G__definition { color: rgb(51, 65, 85); margin: 0.8rem 0px 0.65rem; font-size: 0.87rem; line-height: 1.52; }
+.interactive-term-editor-bridge-module__uD474G__actions { justify-content: flex-end; gap: 0.5rem; margin-top: 0.82rem; display: flex; }
+.interactive-term-editor-bridge-module__uD474G__suggestions { border-top: 1px solid rgb(238, 242, 247); margin-top: 0.85rem; padding-top: 0.85rem; }
+.interactive-term-editor-bridge-module__uD474G__suggestionsHeading { gap: 0.12rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__suggestionsHeading strong { font-size: 0.8rem; }
+.interactive-term-editor-bridge-module__uD474G__suggestionsHeading span { color: rgb(100, 116, 139); font-size: 0.72rem; line-height: 1.4; }
+.interactive-term-editor-bridge-module__uD474G__results { gap: 0.45rem; margin-top: 0.6rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__termButton { width: 100%; color: inherit; text-align: left; cursor: pointer; background: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); border-radius: 11px; grid-template-columns: 1fr auto; align-items: center; gap: 0.8rem; padding: 0.65rem 0.72rem; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__termButton:hover { background: rgb(248, 251, 255); border-color: rgb(191, 219, 254); }
+.interactive-term-editor-bridge-module__uD474G__termButton strong { font-size: 0.82rem; display: block; }
+.interactive-term-editor-bridge-module__uD474G__termButton small { color: rgb(100, 116, 139); -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-top: 0.14rem; font-size: 0.7rem; line-height: 1.35; display: -webkit-box; overflow: hidden; }
+.interactive-term-editor-bridge-module__uD474G__termButton > span:last-child { color: rgb(37, 99, 235); white-space: nowrap; font-size: 0.72rem; font-weight: 750; }
+.interactive-term-editor-bridge-module__uD474G__searchArea { justify-content: center; margin-top: 0.75rem; display: flex; }
+.interactive-term-editor-bridge-module__uD474G__textButton { color: rgb(71, 85, 105); cursor: pointer; background: 0px 0px; border: 0px; align-items: center; gap: 0.36rem; padding: 0.4rem 0.45rem; font-size: 0.75rem; font-weight: 700; display: inline-flex; }
+.interactive-term-editor-bridge-module__uD474G__textButton:hover { color: rgb(29, 78, 216); }
+.interactive-term-editor-bridge-module__uD474G__searchRow { grid-template-columns: 1fr auto; gap: 0.45rem; width: 100%; display: grid; }
+.interactive-term-editor-bridge-module__uD474G__error, .interactive-term-editor-bridge-module__uD474G__success { border-radius: 10px; margin: 0.72rem 0px 0px; padding: 0.62rem 0.7rem; font-size: 0.78rem; line-height: 1.42; }
+.interactive-term-editor-bridge-module__uD474G__error { color: rgb(153, 27, 27); background: rgb(254, 242, 242); }
+.interactive-term-editor-bridge-module__uD474G__success { color: rgb(22, 101, 52); background: rgb(240, 253, 244); }
+@media (max-width: 640px) {
+  .interactive-term-editor-bridge-module__uD474G__backdrop { align-items: end; padding: 0px; }
+  .interactive-term-editor-bridge-module__uD474G__dialog { border-radius: 20px 20px 0px 0px; width: 100%; max-height: 88vh; }
+  .interactive-term-editor-bridge-module__uD474G__body { padding-bottom: max(1.15rem, env(safe-area-inset-bottom)); }
+  .interactive-term-editor-bridge-module__uD474G__termButton { grid-template-columns: 1fr; }
+  .interactive-term-editor-bridge-module__uD474G__termButton > span:last-child { white-space: normal; }
+  .interactive-term-editor-bridge-module__uD474G__actions { grid-template-columns: 1fr 1fr; display: grid; }
+  .interactive-term-editor-bridge-module__uD474G__primaryButton, .interactive-term-editor-bridge-module__uD474G__secondaryButton { justify-content: center; width: 100%; }
+}

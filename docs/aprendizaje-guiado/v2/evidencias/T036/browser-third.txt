@@ -1,0 +1,14 @@
+TypeError: Cannot read properties of undefined (reading 'map')
+    at file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T036/playwright.config.mts:6:74
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at node:internal/modules/esm/loader:643:26
+    at requireOrImport (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\common\index.js:1081:12)
+    at loadUserConfig (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\common\index.js:1268:46)
+    at loadConfig (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\common\index.js:1275:22)
+    at Object.loadConfigFromFile (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\common\index.js:1490:10)
+    at runTests (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\cli\testActions.js:46:18)
+    at _Command.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\program.js:55:7)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T036/playwright.config.mts --project desktop

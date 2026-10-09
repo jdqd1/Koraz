@@ -1,0 +1,9 @@
+{
+  "id": "performance",
+  "command": "pnpm.cmd --filter @cediah/api exec node --import tsx test/performance/guided-v2-load.mjs --pool-size=20",
+  "exitCode": 1,
+  "result": "FAIL",
+  "startedUtc": "2026-10-08T22:23:36.955Z",
+  "finishedUtc": "2026-10-08T22:23:41.054Z",
+  "evidence": "performance.txt"
+}

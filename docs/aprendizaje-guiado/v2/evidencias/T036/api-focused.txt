@@ -1,0 +1,60 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S06 external logins cannot access v2 tables; runtime is not owner, superuser or bypassrls 2872ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S01 complete student/editor/creator ownership matrix rejects without effects 863ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S02 all foreign attempt/enrollment operations deny IDOR without changes 515ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S03 all public envelopes hide nested private fields, feedback, reserves and premature reveal 1098ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S05 hostile packages, active markup, file URLs, spoofed capabilities and oversized bodies are rejected 791ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S04 topic, source and asset revocation block delivery and accepted-receipt replay while preserving history 598ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S07 hostile/missing/expired identities never create effects, including replay after expiration 301ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S08 v1 enroll/edit/delete cannot consume or erase v2 routes and enrollment history 177ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > I04 concurrent exact requests, conflicting versions, completion and heartbeat each preserve one effect 1554ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details 145ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission 469ms
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint 9ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route 24ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS 236ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes 1307ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 conversion requires ownership/CAS, creates only an incomplete draft and preserves v1 110ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage 174ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys 147ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data 36ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route 22ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays 1700ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers 1943ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow 3719ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time 12507ms
+ ✓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants 125ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details 35ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access 62ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details 21ms
+ ✓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports 6ms
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+ ✓ test/guided-v2-harness.test.ts > T035 disposable database boundary > accepts only the explicit local control database and marker 4ms
+ ✓ test/guided-v2-harness.test.ts > T035 deterministic fixtures > includes all eight kinds in a publishable small route 98ms
+ ✓ test/guided-v2-harness.test.ts > T035 deterministic fixtures > builds the publishable 200-objective route deterministically 885ms
+ ✓ test/guided-v2-harness.test.ts > I04 independent PostgreSQL HTTP transactions > same request concurrently persists one answer and returns the same receipt 1110ms
+ ✓ test/guided-v2-harness.test.ts > I04 independent PostgreSQL HTTP transactions > different concurrent requests at the same version accept once and return 409 once 948ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > requires content, assessment, policy and modality equality 26ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > invalidates dependent evidence when a transitive prerequisite changes 1ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > publication leaves old enrollment pinned and preview does not adopt 189ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption 365ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows 316ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2 513ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > conversion makes a new blocked draft, preserves importance and never copies recommendedAfter 138ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > transfers equivalent v2 evidence from original responses without duplicate rewards, resets changes and never resurrects older mastery 1506ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > flags off permit private history reads with zero writes and deny mutations; admission flag blocks only new enrollments 66ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > convert-v1 HTTP uses ownership, CAS and an idempotent draft receipt 61ms
+
+ Test Files  3 passed (3)
+      Tests  44 passed | 7 skipped (51)
+   Start at  22:34:48
+   Duration  122.92s (transform 1.75s, setup 0ms, import 7.31s, tests 114.41s, environment 0ms)
+

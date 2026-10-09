@@ -416,6 +416,7 @@ a.learning-option:hover { border-color: #a5b4fc; background: var(--learning-soft
   .learning-activity-launcher > section { margin-top: 24px; }
   .learning-activity-launcher .learning-primary-button { width: 100%; }
   .learning-activity-main { padding: 12px 12px calc(52px + env(safe-area-inset-bottom)); }
+  .learning-activity-main[data-engine-version="guided-v2"] { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
   .learning-activity-header { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
   .learning-activity-header > a { grid-column: 1 / -1; }
   .learning-save-state { align-self: start; }

@@ -1010,7 +1010,7 @@
 .workspace {
   --map-canvas: #f8fbff;
   --map-ink: #0c185b;
-  --map-muted: #6174a5;
+  --map-muted: #596b9b;
   --map-primary: #0a52ee;
   --map-line: #e6ecf5;
   --map-icon-well: #edf4ff;
@@ -1019,7 +1019,7 @@
 }
 .header { border-bottom-color: #e8eef8; }
 .header h1 { color: #081451; font-weight: 800; letter-spacing: -.035em; }
-.headerText .status { color: #6174a5; font-weight: 600; }
+.headerText .status { color: var(--map-muted); font-weight: 600; }
 .headerActions .primary { background: #0758ff; border-color: #0758ff; box-shadow: 0 3px 10px rgb(10 82 238 / 15%); }
 .headerActions .viewToggle { background: #f2f6ff; border-color: #edf2fb; color: #0a52ee; }
 .card { width: 200px; border-color: #e7edf6; border-radius: 16px; }
@@ -1324,6 +1324,11 @@ button.originLabel:hover { background: #dfdfdf; }
 .horizontalCanvas[data-mobile="true"] .cardHeading strong { font-size: 12px; }
 .horizontalCanvas[data-mobile="true"] .canvasScroll { height: calc(100% - 96px); }
 .horizontalCanvas[data-mobile="true"] .controls { bottom: calc(96px + env(safe-area-inset-bottom)); }
+
+@media (max-width: 960px) {
+  .horizontalCanvas .canvasScroll { height: calc(100% - 96px); }
+  .horizontalCanvas .controls { bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
 
 @container (max-width: 767px) {
   .canvas[data-mobile="true"] .roadmapMarker { display: none; }

@@ -1,0 +1,371 @@
+/** T038: run with `node --import tsx test/performance/guided-v2-load.mjs` from apps/api.
+ * Only the guarded T035 disposable PostgreSQL harness is supported. No .env is read.
+ */
+/* global process, console, Buffer, fetch, URL, AbortSignal, setTimeout, setInterval, clearInterval, structuredClone */
+import assert from 'node:assert/strict';
+import { randomUUID, createHash } from 'node:crypto';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { cpus, totalmem, platform, release } from 'node:os';
+import { performance } from 'node:perf_hooks';
+import { monitorEventLoopDelay } from 'node:perf_hooks';
+import { AsyncLocalStorage } from 'node:async_hooks';
+import { Session } from 'node:inspector/promises';
+import { setTimeout as delay } from 'node:timers/promises';
+import { Pool } from 'pg';
+import { RoutePackageSchema, validateRoutePackage } from '@cediah/contracts';
+import { guidedV2Fixture, guidedV2FixtureId } from '../helpers/guided-v2-fixtures.ts';
+import { createGuidedV2Server } from '../helpers/guided-v2-server.ts';
+import { createPostgresGuidedLearningV2Provider } from '../../src/providers/postgres-guided-learning-v2.ts';
+
+// Regression runs keep their artifacts separate from the accepted T038 evidence.
+const evidenceTask = process.env.T038_EVIDENCE_TASK ?? 'T038';
+assert.ok(['T038', 'T040'].includes(evidenceTask), 'Unsupported performance evidence task');
+const output = new URL(`../../../../docs/aprendizaje-guiado/v2/evidencias/${evidenceTask}/`, import.meta.url);
+const tag = process.env.T038_RUN_TAG ?? 'final';
+assert.match(tag, /^[a-z0-9-]+$/);
+const smoke = process.argv.includes('--smoke');
+const validationOnly = process.argv.includes('--validation-only');
+const serve = process.argv.includes('--serve');
+const profileOnly = process.argv.includes('--profile-only');
+const tracePerformance = process.argv.includes('--trace-performance');
+const diagnosticArgument = process.argv.find(value => value.startsWith('--diagnostic-seconds='));
+const diagnosticSeconds = diagnosticArgument ? Number(diagnosticArgument.slice('--diagnostic-seconds='.length)) : null;
+assert.ok(diagnosticSeconds === null || [60,90].includes(diagnosticSeconds));
+assert.ok(diagnosticSeconds === null || (tracePerformance && !smoke), 'A short diagnostic requires tracing and never counts as acceptance');
+const poolArgument = process.argv.find(value => value.startsWith('--pool-size='));
+const poolMax = poolArgument ? Number(poolArgument.slice('--pool-size='.length)) : 8;
+assert.ok([8,20].includes(poolMax),'Only explicit 8- or 20-connection test profiles are supported');
+const traceContext = new AsyncLocalStorage();
+const queryTimes = new Map(), requestTimes = {};
+const loopDelay = tracePerformance ? monitorEventLoopDelay({ resolution: 10 }) : null;
+const observe = (sql, elapsed, context) => {
+  if (!tracePerformance) return;
+  const row = queryTimes.get(sql) ?? { count: 0, elapsedMs: 0, durations: [] };
+  row.count++; row.elapsedMs += elapsed; row.durations.push(elapsed); queryTimes.set(sql, row);
+  if (context) { context.queryMs += elapsed; context.queries++; }
+};
+const seconds = diagnosticSeconds ?? (smoke ? 15 : 300);
+const samples = {};
+const failures = [];
+const payloads = {};
+const checks = [];
+let recording = false;
+let queries = [];
+const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const summarize = values => {
+  const sorted = [...values].sort((a,b)=>a-b);
+  const at = fraction => sorted[Math.max(0, Math.ceil(sorted.length*fraction)-1)] ?? null;
+  return { count: sorted.length, p50:at(.5), p95:at(.95), p99:at(.99), max:at(1) };
+};
+async function save(name, value) { await writeFile(new URL(`${tag}-${name}.json`,output),JSON.stringify(value,null,2)+'\n'); }
+
+export function performanceFixture(count=200) {
+  const pkg = guidedV2Fixture(count);
+  const kept = new Set(['study','choice','short','apply','match','sequence','final','retention7','retention30','diagnostic']);
+  pkg.packageKey=`t038-${count}`; pkg.route.slug=`t038-${count}`; pkg.route.title=`Fixture T038 ${count}`;
+  pkg.activities=pkg.activities.filter(a=>kept.has(a.key.replace(/-\d+$/,'')));
+  const requiredCount=Math.floor(count*.7);
+  for(const [index,objective] of pkg.objectives.entries()) {
+    objective.required=index<requiredCount;
+    objective.criticality=objective.required?'core':'supporting';
+  }
+  pkg.activities=pkg.activities.filter(a=>pkg.objectives.find(o=>o.key===a.objectiveKey).required || !['match','final','retention7','retention30'].includes(a.key.replace(/-\d+$/,'')));
+  for(const activity of pkg.activities) {
+    activity.misconceptionMappings=[];
+    if(activity.kind==='sequence') activity.phase='elaborate';
+  }
+  for(let extra=0;pkg.activities.length<count*8;extra++) {
+    const original=pkg.activities.find(a=>a.key===`choice-${extra%requiredCount+1}`);
+    pkg.activities.push({...structuredClone(original),key:`extra-${extra+1}`,equivalenceKey:`extra-family-${extra+1}`});
+  }
+  pkg.units=Array.from({length:30},(_,index)=>({key:`unit-${index+1}`,title:`Unidad ${index+1}`,objectiveKeys:[],activityKeys:[],support:'full',estimatedMinutes:null}));
+  for(const [index,objective] of pkg.objectives.entries()) {
+    const unit=pkg.units[Math.floor(index*30/count)];
+    objective.unitKey=unit.key; objective.misconceptions=[];
+    // A real DAG as well as the many-branch fixture; prerequisite introductions stay server-controlled.
+    objective.prerequisiteKeys=index%7===0 && index>8 ? [pkg.objectives[index-1].key] : [];
+    unit.objectiveKeys.push(objective.key);
+    unit.activityKeys.push(...pkg.activities.filter(a=>a.objectiveKey===objective.key).map(a=>a.key));
+  }
+  pkg.assessments=pkg.assessments.filter(a=>a.kind!=='unit_gate');
+  const activityKeys=new Set(pkg.activities.map(a=>a.key));
+  for(const assessment of pkg.assessments) {
+    assessment.candidateActivityKeys=assessment.candidateActivityKeys.filter(key=>activityKeys.has(key));
+    assessment.objectiveKeys=assessment.objectiveKeys.filter(key=>assessment.kind==='diagnostic'||pkg.objectives.find(o=>o.key===key).required);
+  }
+  for(const unit of pkg.units) pkg.assessments.push({key:`gate-${unit.key}`,kind:'unit_gate',afterUnitKey:unit.key,objectiveKeys:unit.objectiveKeys,
+    candidateActivityKeys:pkg.activities.filter(a=>unit.objectiveKeys.includes(a.objectiveKey) && ['choice','short','apply','sequence'].includes(a.key.replace(/-\d+$/,''))).map(a=>a.key),
+    thresholdPercent:80,thresholdRationale:'Umbral sintético para comprobar el software.'});
+  for(let index=2;index<30;index+=3) {
+    const objectiveKeys=pkg.units.slice(index-2,index+1).flatMap(u=>u.objectiveKeys);
+    pkg.assessments.push({key:`checkpoint-${index+1}`,kind:'checkpoint',afterUnitKey:pkg.units[index].key,objectiveKeys,
+      candidateActivityKeys:pkg.activities.filter(a=>objectiveKeys.includes(a.objectiveKey)&&a.key.startsWith('choice-')).map(a=>a.key),thresholdPercent:80,thresholdRationale:'Umbral sintético para comprobar el software.'});
+  }
+  return RoutePackageSchema.parse(pkg);
+}
+
+async function benchmark() {
+  const scales=[];
+  for(const count of [50,100,200]) {
+    const pkg=performanceFixture(count);
+    assert.equal(pkg.activities.length,count*8); assert.equal(pkg.units.length,30);
+    const warm=validateRoutePackage(pkg); assert.equal(warm.publishable,true,JSON.stringify(warm.issues.slice(0,10)));
+    const runs=[];
+    for(let run=0;run<20;run++) {
+      const start=performance.now(), cpu=process.cpuUsage();
+      const result=validateRoutePackage(pkg);
+      const consumed=process.cpuUsage(cpu);
+      assert.equal(result.publishable,true,JSON.stringify(result.issues));
+      runs.push({run:run+1,wallMs:performance.now()-start,cpuMs:(consumed.user+consumed.system)/1000,issues:result.issues.length});
+    }
+    scales.push({objectives:count,activities:pkg.activities.length,units:30,sha256:digest(pkg),runs,cpu:summarize(runs.map(r=>r.cpuMs)),wall:summarize(runs.map(r=>r.wallMs))});
+  }
+  const full=scales.at(-1);
+  const growth={doubling100to200:full.wall.p50/scales[1].wall.p50,quadrupling50to200:full.wall.p50/scales[0].wall.p50};
+  await save('validator',{scales,growth,status:full.cpu.max<2000?'PASS':'FAIL'});
+  assert.ok(full.cpu.max<2000,'L01 CPU >= 2s');
+  return performanceFixture();
+}
+
+async function main() {
+  await mkdir(output,{recursive:true});
+  const sourceList=JSON.parse(await readFile(new URL('source-hashes.json',output),'utf8'));
+  await save('source-hashes',await Promise.all(sourceList.map(async row=>({path:row.path,
+    sha256:createHash('sha256').update(await readFile(new URL('../../../../'+row.path,import.meta.url))).digest('hex')}))));
+  await save('runtime',{at:new Date().toISOString(),node:process.version,platform:platform(),release:release(),cpu:cpus()[0]?.model,logicalCpus:cpus().length,totalMemoryBytes:totalmem(),durationSeconds:seconds,users:20,poolMax,smoke,argv:process.argv.slice(2)});
+  const pkg=await benchmark();
+  if(validationOnly) return;
+  assert.equal(process.env.NODE_ENV,'test'); assert.equal(process.env.KORAZ_GUIDED_V2_TEST_SERVER,'true');
+  const harness=await createGuidedV2Server();
+  harness.db.pool.options.max=poolMax;
+  let monitorPool, monitorTimer, monitorPending = Promise.resolve(), monitorBusy = false;
+  const waitSamples = [], monitorErrors = [];
+  const stopMonitor = async () => {
+    if (monitorTimer) { clearInterval(monitorTimer); monitorTimer = null; }
+    await monitorPending;
+    if (monitorPool) { await monitorPool.end(); monitorPool = null; }
+  };
+  if (tracePerformance) {
+    harness.app.addHook('onRequest', (request, _reply, done) => traceContext.run({
+      label: String(request.headers['x-t038-label'] ?? 'other'), start: performance.now(),
+      queryMs: 0, queries: 0, poolWaitMs: 0, serializationStart: 0, serializationMs: 0,
+    }, done));
+    harness.app.addHook('preSerialization', (_request, _reply, payload, done) => {
+      const context = traceContext.getStore(); if (context) context.serializationStart = performance.now();
+      done(null, payload);
+    });
+    harness.app.addHook('onSend', (_request, _reply, payload, done) => {
+      const context = traceContext.getStore();
+      if (context?.serializationStart) context.serializationMs += performance.now() - context.serializationStart;
+      done(null, payload);
+    });
+    harness.app.addHook('onResponse', (_request, _reply, done) => {
+      const context = traceContext.getStore();
+      if (context) (requestTimes[context.label] ??= []).push({ wallMs: performance.now() - context.start,
+        queryMs: context.queryMs, poolWaitMs: context.poolWaitMs, queries: context.queries, serializationMs: context.serializationMs });
+      done();
+    });
+    const connect = harness.db.pool.connect;
+    harness.db.pool.connect = function(callback) {
+      const start = performance.now(), context = traceContext.getStore();
+      const acquired = () => { if (context) context.poolWaitMs += performance.now() - start; };
+      if (typeof callback === 'function') return connect.call(this, (error, client, release) => { acquired(); callback(error, client, release); });
+      return connect.call(this).then(client => { acquired(); return client; });
+    };
+  }
+  // Observe executed SQL without values or learner text. The pool hook covers every Kysely connection.
+  const wrapClient=client=>{
+    if(client.t038Wrapped)return; client.t038Wrapped=true;
+    const original=client.query;
+    client.query=function(...args) {
+      const text=typeof args[0]==='string'?args[0]:args[0].text;
+      if(recording) queries.push(text);
+      if (!tracePerformance) return original.apply(this,args);
+      const start=performance.now(), context=traceContext.getStore();
+      const done=()=>observe(text,performance.now()-start,context);
+      const last=args.length-1;
+      if (typeof args[last]==='function') {
+        const callback=args[last]; args[last]=function(...result) { done(); return callback.apply(this,result); };
+        return original.apply(this,args);
+      }
+      return original.apply(this,args).then(result=>{done();return result;},error=>{done();throw error;});
+    };
+  };
+  harness.db.pool.on('acquire',wrapClient);
+  let address;
+  try {
+    const provider=createPostgresGuidedLearningV2Provider(harness.db.database,{now:()=>new Date('2026-10-04T12:00:00Z')});
+    const created=await provider.createDraft({actorUserId:guidedV2FixtureId(1),canCreate:true,canEditAll:true,enforceAccess:true,package:pkg,bindings:harness.bindings});
+    assert.equal(created.status,'success',JSON.stringify(created));
+    const editorial=created.value;
+    let route=editorial;
+    for(const status of ['in_review','approved','published']) {
+      const result=await provider.transitionPath({actorUserId:guidedV2FixtureId(1),canEdit:true,canEditAll:true,canReview:true,canPublish:true,pathId:route.pathId,expectedVersion:route.editVersion,status,reviewNote:'Fixture T038 de software, sin contenido clínico.'});
+      assert.equal(result.status,'success',JSON.stringify(result)); route=result.value;
+    }
+    if(serve) {
+      const draftPkg=structuredClone(pkg); draftPkg.packageKey='t038-editor';draftPkg.route.slug='t038-editor';
+      const draft=await provider.createDraft({actorUserId:guidedV2FixtureId(1),canCreate:true,canEditAll:true,enforceAccess:true,package:draftPkg,bindings:harness.bindings});
+      assert.equal(draft.status,'success');
+      harness.app.get('/__test/t038',async()=>({testOnly:true,database:harness.db.name,pathId:route.pathId,slug:pkg.route.slug,editorPathId:draft.value.pathId,units:30,objectives:200,activities:1600}));
+      harness.app.post('/__test/t038-stop',async()=>{setTimeout(()=>process.emit('SIGTERM'),100);return {stopped:true};});
+      await harness.app.listen({host:'127.0.0.1',port:41035});
+      console.log('T038 browser fixture ready on loopback:41035');
+      await new Promise(resolve=>{process.once('SIGTERM',resolve);process.once('SIGINT',resolve);});
+      return;
+    }
+    address=await harness.app.listen({host:'127.0.0.1',port:0});
+    const target=new URL(address);
+    assert.equal(target.hostname,'127.0.0.1'); assert.equal(target.protocol,'http:');
+    async function request(actor,path,body,label,key=randomUUID(),measure=true) {
+      const started=performance.now();
+      try {
+        const response=await fetch(new URL(path,address),{method:body?'POST':'GET',headers:{cookie:`t035=${actor}`,origin:'http://127.0.0.1:31035',...(tracePerformance?{'x-t038-label':label}:{}),...(body?{'content-type':'application/json','idempotency-key':key}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(120000)});
+        const bytes=await response.text();
+        const elapsed=performance.now()-started;
+        if(measure) (samples[label]??=[]).push(elapsed);
+        payloads[label]=Math.max(payloads[label]??0,Buffer.byteLength(bytes));
+        if(!response.ok) throw new Error(`${label} HTTP ${response.status}: ${bytes.slice(0,200)}`);
+        return JSON.parse(bytes);
+      } catch(error) { failures.push({label,message:String(error)}); throw error; }
+    }
+    const users=[];
+    for(let n=2;n<=(profileOnly?2:21);n++) {
+      const actor=`student-${n}`;
+      if(n===2){queries=[];recording=true;}
+      const {state}=await request(actor,'/v2/guided-learning/enrollments',{pathId:route.pathId},'setup',undefined,false);
+      if(n===2) {
+        recording=false;
+        await save('sql-initialization',{queries:queries.length,objectiveUpserts:queries.filter(q=>q.startsWith('insert into "learning_v2_objective_state"')).length});
+        const initialized=(await harness.db.pool.query('select count(*)::int as total,count(*) filter (where row_version=1)::int as initial from learning_v2_objective_state where enrollment_id=$1',[state.enrollmentId])).rows[0];
+        assert.equal(initialized.total,200);assert.equal(initialized.initial,200);
+        await save('initialization',{...initialized,status:'PASS'});
+      }
+      users.push({actor,state,cycles:0,responses:0,expectedKeys:[]});
+    }
+    const profile=async(user,label)=>{
+      queries=[];recording=true;
+      try { await request(user.actor,`/v2/guided-learning/enrollments/${user.state.enrollmentId}/state`,null,'profile',undefined,false); }
+      finally {recording=false;}
+      const grouped=Object.entries(queries.reduce((all,query)=>(all[query]=(all[query]??0)+1,all),{})).map(([sql,count])=>({sql,count}));
+      await save(`sql-${label}`,{queries:queries.length,grouped});
+    };
+    await profile(users[0],'before-load');
+    if(profileOnly) {
+      const profiler=process.argv.includes('--cpu-profile')?new Session():null;
+      if(profiler){profiler.connect();await profiler.post('Profiler.enable');await profiler.post('Profiler.start');}
+      for(let run=0;run<5;run++) await request(users[0].actor,`/v2/guided-learning/enrollments/${users[0].state.enrollmentId}/state`,null,'state');
+      if(profiler){const {profile}=await profiler.post('Profiler.stop');profiler.disconnect();await save('state-cpu-profile',profile);}
+      await save('single-user',{latencyMs:summarize(samples.state)});
+      if(process.argv.includes('--operation-profile')) {
+        const user=users[0];
+        const observed=async(label,operation)=>{
+          queries=[];recording=true;
+          let result;
+          try{result=await operation();}finally{recording=false;}
+          const definitions=queries.filter(query=>query.includes('from "learning_path_versions"')
+            && (query.startsWith('select *')||query.includes('"definition_v2_json"'))).length;
+          const metadataChecks=queries.filter(query=>query.includes('updated_at::text')
+            && (query.includes('from "learning_path_versions"') || query.includes('join "learning_path_versions" as "version"'))).length;
+          await save(`sql-operation-${label}`,{queries:queries.length,definitions,metadataChecks,sql:queries});
+          assert.ok(definitions<=1,`${label} reads the immutable definition at most once`);
+          assert.ok(metadataChecks>=1,`${label} rechecks current version metadata even with a warm cache`);
+          return result;
+        };
+        const key=user.state.maintenance.activities.find(item=>item.key.startsWith('study-')).key;
+        const {attempt}=await observed('create',()=>request(user.actor,'/v2/guided-learning/attempts',{
+          clientAttemptId:randomUUID(),enrollmentId:user.state.enrollmentId,expectedEnrollmentVersion:user.state.rowVersion,target:{kind:'activity',key}},'create'));
+        const accepted=await observed('response',()=>request(user.actor,`/v2/guided-learning/attempts/${attempt.attemptId}/responses`,{
+          activityKey:key,answer:{kind:'study',acknowledged:true},confidence:null,expectedVersion:attempt.rowVersion},'response'));
+        await observed('complete',()=>request(user.actor,`/v2/guided-learning/attempts/${attempt.attemptId}/complete`,{expectedVersion:accepted.attempt.rowVersion},'complete'));
+      }
+      return;
+    }
+    const started=performance.now();
+    const loopStart=performance.eventLoopUtilization(); loopDelay?.enable();
+    if (tracePerformance) {
+      // Separate read-only observer; it never consumes the application's pool.
+      monitorPool = new Pool({connectionString:harness.db.url,max:1});
+      monitorTimer = setInterval(() => {
+        if (monitorBusy) return;
+        monitorBusy = true;
+        monitorPending = (async () => {
+          try {
+            const result = await monitorPool.query(`select state,wait_event_type,wait_event,count(*)::int as connections
+              from pg_stat_activity where datname=$1 and pid<>pg_backend_pid()
+              group by state,wait_event_type,wait_event`, [harness.db.name]);
+            waitSamples.push({elapsedMs:performance.now()-started,rows:result.rows,memory:process.memoryUsage()});
+          } catch (error) { monitorErrors.push(String(error)); }
+          finally { monitorBusy = false; }
+        })();
+      }, 1000);
+    }
+    const cpuProfiler=process.argv.includes('--cpu-profile')?new Session():null;
+    if(cpuProfiler){cpuProfiler.connect();await cpuProfiler.post('Profiler.enable');await cpuProfiler.post('Profiler.start');}
+    const deadline=started+seconds*1000;
+    console.log(`T038 ${tag}: 20 users, ${seconds}s, ${pkg.objectives.length} objectives/${pkg.activities.length} items, real HTTP/PostgreSQL`);
+    await Promise.all(users.map(async user=>{
+      while(performance.now()<deadline) {
+        try {
+          user.state=(await request(user.actor,`/v2/guided-learning/enrollments/${user.state.enrollmentId}/state`,null,'state')).state;
+          // Select only introduced, server-authorized branches. Avoid the large unit gate in this activity workload.
+          const allowed=user.state.maintenance.activities;
+          const next=allowed.find(a=>!user.expectedKeys.includes(a.key) && /^(study|choice|short|apply)-/.test(a.key));
+          if(!next) { await delay(1000);continue; }
+          const {attempt}=await request(user.actor,'/v2/guided-learning/attempts',{clientAttemptId:randomUUID(),enrollmentId:user.state.enrollmentId,expectedEnrollmentVersion:user.state.rowVersion,target:{kind:'activity',key:next.key}},'create');
+          const active=attempt.activeActivity;
+          assert.ok(active); assert.equal(active.key,next.key);
+          assert.ok(!('activities' in attempt),'Whole bank delivered');
+          const answer=active.kind==='study'?{kind:'study',acknowledged:true}:active.kind==='short_answer'?{kind:'short_answer',text:'respuesta'}:{kind:'single_choice',optionKey:'yes'};
+          const body={activityKey:active.key,answer,confidence:null,expectedVersion:attempt.rowVersion};
+          const key=randomUUID();
+          const accepted=await request(user.actor,`/v2/guided-learning/attempts/${attempt.attemptId}/responses`,body,'response',key);
+          assert.equal(accepted.accepted,true);
+          assert.equal(accepted.feedback.score01,active.kind==='study'?null:1);
+          assert.ok(accepted.state.rowVersion>=user.state.rowVersion);
+          if(user.cycles%10===0) {
+            const replay=await request(user.actor,`/v2/guided-learning/attempts/${attempt.attemptId}/responses`,body,'replay',key);
+            assert.deepEqual(replay,accepted,'Idempotent replay changed the receipt');
+          }
+          user.state=(await request(user.actor,`/v2/guided-learning/attempts/${attempt.attemptId}/complete`,{expectedVersion:accepted.attempt.rowVersion},'complete')).state;
+          user.expectedKeys.push(active.key); user.responses++; user.cycles++;
+        } catch(error) { checks.push({actor:user.actor,error:String(error)}); break; }
+        // At most one learner activity per 5 seconds: below the unchanged 120 responses/minute budget.
+        await delay(Math.min(5000,Math.max(0,deadline-performance.now())));
+      }
+    }));
+    const elapsedMs=performance.now()-started;
+    await stopMonitor();
+    if(cpuProfiler){const {profile}=await cpuProfiler.post('Profiler.stop');cpuProfiler.disconnect();await save('load-cpu-profile',profile);}
+    loopDelay?.disable();
+    if (tracePerformance) await save('performance-trace', {
+      scope:'Diagnostic instrumentation; query time includes driver, database and event-loop delay; overlapping request totals are not additive',
+      databaseWaitSamples:waitSamples, monitorErrors,
+      eventLoop: {...performance.eventLoopUtilization(loopStart), delayP95Ms:loopDelay.percentile(95)/1e6, delayMaxMs:loopDelay.max/1e6},
+      requests:Object.fromEntries(Object.entries(requestTimes).map(([label,rows])=>[label,{count:rows.length,
+        ...Object.fromEntries(['wallMs','queryMs','poolWaitMs','serializationMs','queries'].map(key=>[key,summarize(rows.map(row=>row[key]))]))}])),
+      sql:[...queryTimes].map(([sql,row])=>({sql,count:row.count,elapsedMs:row.elapsedMs,latencyMs:summarize(row.durations)})).sort((a,b)=>b.elapsedMs-a.elapsedMs),
+    });
+    await profile(users[0],'after-load');
+    const consistency=[];
+    for(const user of users) {
+      const rows=(await harness.db.pool.query('select r.activity_key,r.score01,r.assisted from learning_v2_responses r where r.user_id=$1 and r.enrollment_id=$2',[guidedV2FixtureId(Number(user.actor.split('-')[1])),user.state.enrollmentId])).rows;
+      consistency.push({actor:user.actor,cycles:user.cycles,responses:rows.length,uniqueActivities:new Set(rows.map(r=>r.activity_key)).size,expectedResponses:user.responses,correct:rows.every(r=>r.activity_key.startsWith('study-')?r.score01===null:r.score01===1),unassisted:rows.every(r=>!r.assisted)});
+    }
+    const report={at:new Date().toISOString(),smoke,diagnostic:diagnosticSeconds!==null,seconds,elapsedMs,users:20,poolMax,origin:address,database:harness.db.name,fixture:{units:30,objectives:200,activities:1600,sha256:digest(pkg)},latencyMs:Object.fromEntries(Object.entries(samples).map(([key,values])=>[key,summarize(values)])),payloadBytes:payloads,failures,consistencyErrors:checks,consistency,totalRequests:Object.values(samples).reduce((n,rows)=>n+rows.length,0)};
+    const valid=failures.length===0 && checks.length===0 && consistency.every(r=>r.cycles>0 && r.responses===r.expectedResponses && r.uniqueActivities===r.responses && r.correct && r.unassisted);
+    report.status=diagnosticSeconds!==null&&valid?'DIAGNOSTIC':valid && report.latencyMs.state.p95<500 && report.latencyMs.response.p95<1000 && !smoke?'PASS':smoke&&valid?'SMOKE':'FAIL';
+    await save('load',report);
+    await save('latency-samples',samples);
+    console.log(JSON.stringify({status:report.status,latencyMs:report.latencyMs,payloadBytes:payloads,failures:failures.length,consistencyErrors:checks.length}));
+    assert.ok(valid,'Consistency or technical error; inspect load report');
+    if(!smoke && diagnosticSeconds===null) {assert.ok(report.latencyMs.state.p95<500,'L02 state p95 >=500ms');assert.ok(report.latencyMs.response.p95<1000,'L02 response p95 >=1000ms');}
+  } finally {
+    await stopMonitor();
+    const name=harness.db.name;
+    await harness.close();
+    await save('cleanup',{database:name,closed:true,at:new Date().toISOString()});
+  }
+}
+
+main().catch(error=>{console.error(error);process.exitCode=1;});

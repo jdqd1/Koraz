@@ -1,0 +1,523 @@
+{
+  "method": "Latest affected-screen recheck per file/title/project; raw reports retained",
+  "passed": 18,
+  "skipped": 3,
+  "failed": 0,
+  "runs": [
+    {
+      "report": "playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T21:18:26.438Z",
+        "duration": 624494.319,
+        "expected": 13,
+        "skipped": 3,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "errors": []
+    },
+    {
+      "report": "native-final-playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T21:32:50.088Z",
+        "duration": 288620.045,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "errors": []
+    },
+    {
+      "report": "map-final-playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T21:41:12.031Z",
+        "duration": 67485.29699999999,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "errors": []
+    },
+    {
+      "report": "preview-final-playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T21:44:45.367Z",
+        "duration": 310710.327,
+        "expected": 8,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "errors": []
+    },
+    {
+      "report": "closure-playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T21:55:03.652Z",
+        "duration": 841696.3509999999,
+        "expected": 13,
+        "skipped": 3,
+        "unexpected": 5,
+        "flaky": 0
+      },
+      "errors": []
+    },
+    {
+      "report": "reflow-recheck-playwright.json",
+      "stats": {
+        "startTime": "2026-10-06T22:09:53.588Z",
+        "duration": 471535.577,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "errors": []
+    }
+  ],
+  "cases": [
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+      "project": "desktop",
+      "report": "reflow-recheck-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "reflow-recheck-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V03 native browser zoom at 200 percent",
+      "project": "desktop",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "native-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+      "project": "desktop",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02 tab order, field reachability and modal focus restoration",
+      "project": "desktop",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+      "project": "360",
+      "report": "reflow-recheck-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "reflow-recheck-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V03 native browser zoom at 200 percent",
+      "project": "360",
+      "report": "closure-playwright.json",
+      "status": "skipped",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "skipped"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+      "project": "360",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02 tab order, field reachability and modal focus restoration",
+      "project": "360",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+      "project": "390",
+      "report": "reflow-recheck-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "reflow-recheck-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V03 native browser zoom at 200 percent",
+      "project": "390",
+      "report": "closure-playwright.json",
+      "status": "skipped",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "skipped"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+      "project": "390",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02 tab order, field reachability and modal focus restoration",
+      "project": "390",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+      "project": "768",
+      "report": "reflow-recheck-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "native-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "reflow-recheck-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V03 native browser zoom at 200 percent",
+      "project": "768",
+      "report": "closure-playwright.json",
+      "status": "skipped",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "skipped"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "skipped"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+      "project": "768",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V02 tab order, field reachability and modal focus restoration",
+      "project": "768",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "preview-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-journeys.spec.ts",
+      "title": "E01 creates a new persisted v2 draft using UI and keyboard",
+      "project": "desktop",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01 stable map geometry and connections",
+      "project": "desktop",
+      "report": "reflow-recheck-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "native-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "map-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "reflow-recheck-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01 stable map geometry and connections",
+      "project": "360",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "native-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "map-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01 stable map geometry and connections",
+      "project": "390",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "native-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "map-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "file": "guided-v2-accessibility.spec.ts",
+      "title": "T037 V01 stable map geometry and connections",
+      "project": "768",
+      "report": "closure-playwright.json",
+      "status": "passed",
+      "history": [
+        {
+          "report": "native-final-playwright.json",
+          "status": "failed"
+        },
+        {
+          "report": "map-final-playwright.json",
+          "status": "passed"
+        },
+        {
+          "report": "closure-playwright.json",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

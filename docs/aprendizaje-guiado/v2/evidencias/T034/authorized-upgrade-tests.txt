@@ -1,0 +1,16 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > requires content, assessment, policy and modality equality 18ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > invalidates dependent evidence when a transitive prerequisite changes 1ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > publication leaves old enrollment pinned and preview does not adopt 82ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption 150ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows 161ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2 83ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > conversion makes a new blocked draft, preserves importance and never copies recommendedAfter 41ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  12:23:48
+   Duration  7.56s (transform 556ms, setup 0ms, import 2.13s, tests 4.98s, environment 0ms)
+

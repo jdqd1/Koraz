@@ -1,0 +1,13 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-harness.test.ts > T035 deterministic fixtures > includes all eight kinds in a publishable small route 42ms
+ ✓ test/guided-v2-harness.test.ts > T035 deterministic fixtures > builds the publishable 200-objective route deterministically 612ms
+ ✓ test/guided-v2-harness.test.ts > I04 independent PostgreSQL HTTP transactions > same request concurrently persists one answer and returns the same receipt 852ms
+ ✓ test/guided-v2-harness.test.ts > I04 independent PostgreSQL HTTP transactions > different concurrent requests at the same version accept once and return 409 once 1157ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  16:48:32
+   Duration  11.63s (transform 1.46s, setup 0ms, import 3.88s, tests 7.39s, environment 0ms)
+

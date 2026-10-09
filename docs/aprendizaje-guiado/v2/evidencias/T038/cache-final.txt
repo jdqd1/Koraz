@@ -1,0 +1,11 @@
+T038 cache-final: 20 users, 300s, 200 objectives/1600 items, real HTTP/PostgreSQL
+{"status":"FAIL","latencyMs":{"state":{"count":426,"p50":769.3443000000552,"p95":2822.2135000000126,"p99":4567.98940000002,"max":5850.843699999998},"create":{"count":426,"p50":1794.4942999999912,"p95":5370.049499999965,"p99":6394.1101999999955,"max":7489.726399999985},"response":{"count":426,"p50":3286.8836999999985,"p95":8595.463699999964,"p99":10209.84639999998,"max":12266.671299999987},"replay":{"count":60,"p50":2384.3865000000005,"p95":6977.4699000000255,"p99":8079.375300000014,"max":8079.375300000014},"complete":{"count":426,"p50":2312.1896000000124,"p95":7868.544699999999,"p99":9786.408400000015,"max":10268.171600000001}},"payloadBytes":{"setup":68137,"profile":69606,"state":69411,"create":664,"response":70795,"replay":70599,"complete":70435},"failures":0,"consistencyErrors":0}
+AssertionError [ERR_ASSERTION]: L02 state p95 >=500ms
+    at main (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/test/performance/guided-v2-load.mjs:262:24) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

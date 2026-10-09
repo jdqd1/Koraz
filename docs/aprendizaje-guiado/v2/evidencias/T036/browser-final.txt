@@ -1,0 +1,25 @@
+[WebServer] (node:6112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:19216) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:12648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:7576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (24.0s)
+  ok 2 [desktop] › tests\e2e\guided-v2-security.spec.ts:100:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (2.0s)
+(node:2460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (20.9s)
+  ok 4 [mobile] › tests\e2e\guided-v2-security.spec.ts:100:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (2.2s)
+
+  4 passed (1.3m)

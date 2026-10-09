@@ -26,8 +26,9 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
   const inFlight = useRef(false);
   const [busy, setBusy] = useState(false), [message, setMessage] = useState("");
   const confirmed = stateMatches(path, state) ? state : null;
+  const maintenance = path.availability === "maintenance" || confirmed?.availability === "maintenance";
   async function open() {
-    if (inFlight.current) return;
+    if (inFlight.current || maintenance) return;
     inFlight.current = true; setBusy(true); setMessage("");
     try {
       if (!path.enrollmentId && path.access === "available") { await transport.enroll(path.pathId); router.refresh(); return; }
@@ -44,8 +45,8 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
     } catch (error) { setMessage(error instanceof V2RequestError ? error.message : "No pudimos confirmar la apertura de la actividad. Reintenta con conexión."); }
     finally { inFlight.current = false; setBusy(false); }
   }
-  const canStart = !offeredTarget && path.access === "available" && !path.enrollmentId;
-  const canContinue = path.access === "enrolled" && confirmed && (offeredTarget ? authorizedMaintenanceTarget(confirmed, offeredTarget) : confirmed.nextAction.kind !== "none" && !!confirmed.nextAction.key);
+  const canStart = !maintenance && !offeredTarget && path.access === "available" && !path.enrollmentId;
+  const canContinue = !maintenance && path.access === "enrolled" && confirmed && (offeredTarget ? authorizedMaintenanceTarget(confirmed, offeredTarget) : confirmed.nextAction.kind !== "none" && !!confirmed.nextAction.key);
   return <div className={styles.action}>
     {confirmed && showReason ? <p>{confirmed.nextAction.reason}</p> : null}
     {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className="learning-primary-button">{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <p role="alert">No pudimos cargar el estado confirmado. Actualiza la ruta para continuar.</p> : null}

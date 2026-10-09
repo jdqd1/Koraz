@@ -1,0 +1,133 @@
+[WebServer] (node:28360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:23520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:1852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (2.4m)
+(node:15492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent (64ms)
+(node:22828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:194:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (1.1m)
+(node:8036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:253:5 › T037 V02 tab order, field reachability and modal focus restoration (7.1s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator: locator('[data-editor-preview]').getByRole('heading', { name: 'case-short-1: actividad sintética', exact: true })
+    Expected: focused
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeFocused" locator('[data-editor-preview]').getByRole('heading', { name: 'case-short-1: actividad sintética', exact: true }) with timeout 60000ms
+      - waiting for locator('[data-editor-preview]').getByRole('heading', { name: 'case-short-1: actividad sintética', exact: true })
+
+
+      80 |     await keyboard(p.getByRole("button", { name: "Comprobar respuesta visual", exact: true })); }
+      81 |   if (key === "case") { await choice(); await feedback();
+    > 82 |     await expect(p.getByRole("heading", { name: "case-short-1: actividad sintética", exact: true })).toBeFocused();
+         |                                                                                                      ^
+      83 |     await answerPreview(p, "short"); return; }
+      84 |   await feedback();
+      85 | }
+        at answerPreview (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:82:102)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:109:5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent 
+
+    Error: browserType.launchPersistentContext: spawn UNKNOWN
+    Call log:
+      - <launching> C:\Users\josed\AppData\Local\ms-playwright\chromium-1243\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-extensions-except=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T037\native-zoom-extension --load-extension=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T037\native-zoom-extension --user-data-dir=C:\Users\josed\AppData\Local\Temp\playwright_chromiumdev_profile-HcMw2T --remote-debugging-pipe about:blank
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:165:19)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:194:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  locator('[data-editor-preview]').getByLabel('Vertical (%)')
+    Expected: "20"
+    Received: "19.9479"
+    Timeout:  60000ms
+
+    Call log:
+      - Expect "toHaveValue" locator('[data-editor-preview]').getByLabel('Vertical (%)') with timeout 60000ms
+      - waiting for locator('[data-editor-preview]').getByLabel('Vertical (%)')
+        121 × locator resolved to <input min="0" max="100" step="any" type="number" value="19.9479"/>
+            - unexpected value "19.9479"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:220:46)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T037\browser-artifacts\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom 
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent 
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:194:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+  1 passed (4.0m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T037/playwright.config.mts --project desktop

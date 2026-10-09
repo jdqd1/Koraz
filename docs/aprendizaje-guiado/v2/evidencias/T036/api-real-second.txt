@@ -1,0 +1,105 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ × test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S06 external logins cannot access v2 tables; runtime is not owner, superuser or bypassrls 1630ms
+   → permission denied for schema private
+ × test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S01 complete student/editor/creator ownership matrix rejects without effects 1048ms
+   → {"error":"resource_unavailable"}: expected 422 to be 200 // Object.is equality
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S02 all foreign attempt/enrollment operations deny IDOR without changes 580ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S03 all public envelopes hide nested private fields, feedback, reserves and premature reveal 1075ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S05 hostile packages, active markup, file URLs, spoofed capabilities and oversized bodies are rejected 1176ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S04 topic, source and asset revocation block delivery and accepted-receipt replay while preserving history 477ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S07 hostile/missing/expired identities never create effects, including replay after expiration 281ms
+ ✓ test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S08 v1 enroll/edit/delete cannot consume or erase v2 routes and enrollment history 207ms
+ × test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > I04 concurrent exact requests, conflicting versions, completion and heartbeat each preserve one effect 1336ms
+   → expected [ 200, 200 ] to deeply equal [ 200, 409 ]
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S02 denies every foreign attempt/enrollment operation without writes or resource details
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 allowlists nested learner DTOs and blocks reveal before submission
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 browser inspects real production Next SSR and authenticated BFF network before answering
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 rejects students at every available editorial endpoint
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 creator cannot export, validate, version or publish another creator's route
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01 editorial create/read/patch enforce ownership, strict inputs and idempotent CAS
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S05 preview rejects foreign actors, hides solutions/reserves and enforces durable 30/10min without learner writes
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 deferred conversion stays closed after ownership/CAS checks and preserves v1
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects forged identity/score/status and unknown request keys
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S08 legacy enroll, edit and delete reject v2 identities without changing data
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S05 rejects active markup, local URLs and imported capabilities without persisting a route
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > validate-import enforces 10/10 minutes and permits idempotent replays
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S04 revocation blocks new deliveries and replays, preserves accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S03 constructed reveal requires submitted text and preserves the formatively authorized flow
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > 120/minute response budget survives provider recreation, allows exact retries and resets by server time
+ ↓ test/guided-v2-security.test.ts > T022 endpoint authorization and privacy > S06 database roles cannot read private v2 tables; runtime has RLS and minimal grants
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > malformed editor DTOs fail without serializing schema or private field details
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > S07 rejects cross-origin mutation and expired identity before provider access
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > provider failures never serialize private error details
+ ↓ test/guided-v2-security.test.ts > T022 transport safeguards > the public learner projection is free of server credential imports
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 separate anon/authenticated connections have no private table privileges
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 runtime is neither owner nor bypassrls and cannot erase accepted answers
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime can execute the real attempt service
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 restricted runtime executes editorial CRUD/preview with ownership and no learner progress writes
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > S06 lock functions grant no identity/catalog writes, secrets or public execution
+ ↓ test/guided-v2-security.test.ts > T022 disposable PostgreSQL restricted connections > independent runtime connections share the 120/minute budget
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S06 external logins cannot access v2 tables; runtime is not owner, superuser or bypassrls
+error: permission denied for schema private
+ ❯ ../../node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.0/node_modules/pg-pool/index.js:45:11
+ ❯ test/guided-v2-security.test.ts:91:19
+     89|         }
+     90|         for (const signature of ["private.lock_guided_v2_actor(uuid)",…
+     91|           expect((await restricted.query("select has_function_privileg…
+       |                   ^
+     92|         await expect(restricted.query("select * from private.guided_v2…
+     93|       } finally { await restricted.end(); }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 96, severity: 'ERROR', code: '42501', detail: undefined, hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'aclchk.c', routine: 'aclcheck_error' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S01 complete student/editor/creator ownership matrix rejects without effects
+AssertionError: {"error":"resource_unavailable"}: expected 422 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 422
+
+ ❯ test/guided-v2-security.test.ts:122:34
+    120|     const pkg = guidedV2Fixture(); pkg.packageKey = pkg.route.slug = "…
+    121|     const own = await request("POST", "/v2/editor/learning-paths", { p…
+    122|     expect(own.status, own.body).toBe(200); const ownId = JSON.parse(o…
+       |                                  ^
+    123|     expect((await request("GET", `/v2/editor/learning-paths/${ownId}`,…
+    124|     expect((await request("GET", `/v2/editor/learning-paths/${ownId}`,…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > I04 concurrent exact requests, conflicting versions, completion and heartbeat each preserve one effect
+AssertionError: expected [ 200, 200 ] to deeply equal [ 200, 409 ]
+
+- Expected
++ Received
+
+  [
+    200,
+-   409,
++   200,
+  ]
+
+ ❯ test/guided-v2-security.test.ts:223:44
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 6 passed | 27 skipped (36)
+   Start at  22:27:12
+   Duration  23.36s (transform 2.00s, setup 0ms, import 5.49s, tests 17.57s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts -t "T036 real HTTP" "--maxWorkers=1" "--reporter=verbose"

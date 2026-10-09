@@ -1,0 +1,47 @@
+X [ERROR] Could not resolve "react"
+
+    docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:2:44:
+      2 │ import { useEffect, useRef, useState } from "react";
+        ╵                                             ~~~~~~~
+
+  You can mark the path "react" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+X [ERROR] Could not resolve "react-dom/client"
+
+    docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:3:27:
+      3 │ import { createRoot } from "react-dom/client";
+        ╵                            ~~~~~~~~~~~~~~~~~~
+
+  You can mark the path "react-dom/client" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+X [ERROR] Could not resolve "react/jsx-runtime"
+
+    docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:12:9:
+      12 │   return <div ref={surface}><button type="button" onClick={() => f...
+         ╵          ^
+
+  You can mark the path "react/jsx-runtime" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1748
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 3 errors:
+docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:2:44: ERROR: Could not resolve "react"
+docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:3:27: ERROR: Could not resolve "react-dom/client"
+docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx:12:9: ERROR: Could not resolve "react/jsx-runtime"
+    at failureErrorWithLog (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1748:15)
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1207:25
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1159:52
+    at buildResponseToResult (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1205:7)
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:1232:16
+    at responseCallbacks.<computed> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:884:9)
+    at handleIncomingPacket (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:939:12)
+    at Socket.readFromStdout (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\esbuild@0.28.1\node_modules\esbuild\lib\main.js:862:7)
+    at Socket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v24.19.0

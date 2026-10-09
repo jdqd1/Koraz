@@ -1,0 +1,205 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+················································x············
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-evidence.test.ts > guided v2 evidence persisted/rebuilt from source facts > persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable
+AssertionError: expected [ { …(11) }, { …(11) }, …(11) ] to deeply equal [ { …(11) }, { …(11) }, …(11) ]
+
+- Expected
++ Received
+
+@@ -2,11 +2,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "review_scheduled",
+      "id": "4c38cec4-0d7d-4582-a61b-6d664f4fd5e5",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "dueAt": "2026-08-02T12:00:00.000Z",
+        "objectiveKey": "core",
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+@@ -19,11 +19,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "route_started",
+      "id": "7528cf82-e18e-4526-a27e-018861715ad0",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+      },
+      "policy_version": "guided-v2.0",
+@@ -34,11 +34,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "response_accepted",
+      "id": "933ddc32-bc2d-4010-9baf-a413934aaf54",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "activityKey": "recall-a",
+        "responseId": "2b9eeaa9-6650-4de0-8e3a-d6a228361db1",
+        "v2AttemptId": "3f44db7f-9b43-413e-a1b8-ed40bdfb6a85",
+@@ -51,11 +51,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "activity_presented",
+      "id": "c2da47f1-e14a-4ced-934e-9a0a47a279aa",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "targetKey": "recall-a",
+        "v2AttemptId": "3f44db7f-9b43-413e-a1b8-ed40bdfb6a85",
+      },
+@@ -67,11 +67,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "v2_objective_recalled",
+      "id": "c45b220f-ad3e-4065-9dc1-2285f32114a0",
+-     "local_date": 2026-08-01T00:00:00.000Z,
++     "local_date": "2026-08-01",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "objectiveKey": "core",
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+      },
+@@ -83,11 +83,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "activity_presented",
+      "id": "ebcf5eb3-a63c-4920-9844-54d35c325617",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T12:00:00.000Z,
+      "payload_json": {
+        "targetKey": "recall-e",
+        "v2AttemptId": "6de84c26-7428-4035-8f7c-54ffe1fc4071",
+      },
+@@ -99,11 +99,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "review_scheduled",
+      "id": "19fb34e6-08e5-4d32-a13a-0f7ed807c974",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T13:00:00.000Z,
+      "payload_json": {
+        "dueAt": "2026-08-02T12:00:00.000Z",
+        "objectiveKey": "core",
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+@@ -116,11 +116,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "activity_presented",
+      "id": "735d5c2d-5b32-4364-add0-3dba8ebab0fc",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T13:00:00.000Z,
+      "payload_json": {
+        "targetKey": "recall-b",
+        "v2AttemptId": "c120f22e-bdfb-4347-bf52-c7c8fd175730",
+      },
+@@ -132,11 +132,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "response_accepted",
+      "id": "ccc2d5eb-f2ea-411d-9aed-f44391a0a0af",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T13:00:00.000Z,
+      "payload_json": {
+        "activityKey": "recall-b",
+        "responseId": "92d464f8-d692-46aa-8df6-4404b30563e2",
+        "v2AttemptId": "c120f22e-bdfb-4347-bf52-c7c8fd175730",
+@@ -149,11 +149,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "response_accepted",
+      "id": "0be22933-0461-4fc4-85eb-6cfa48b9262e",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T14:00:00.000Z,
+      "payload_json": {
+        "activityKey": "apply",
+        "responseId": "f6656155-7a49-4177-be2e-9f19a100859e",
+        "v2AttemptId": "a99eb2e8-ca75-4203-a92b-f1ebaf831bff",
+@@ -166,11 +166,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "review_scheduled",
+      "id": "61d62dae-9e1c-4bdf-9e1a-50f604a59fb6",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T14:00:00.000Z,
+      "payload_json": {
+        "dueAt": "2026-08-02T12:00:00.000Z",
+        "objectiveKey": "core",
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+@@ -183,11 +183,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "v2_objective_mastered",
+      "id": "d0096cff-5702-48ca-84b7-476b140eb2ab",
+-     "local_date": 2026-08-01T00:00:00.000Z,
++     "local_date": "2026-08-01",
+      "occurred_at": 2026-08-01T14:00:00.000Z,
+      "payload_json": {
+        "objectiveKey": "core",
+        "pathVersionId": "71000000-0000-4000-8000-000000000006",
+      },
+@@ -199,11 +199,11 @@
+    {
+      "attempt_id": null,
+      "enrollment_id": "71000000-0000-4000-8000-000000000008",
+      "event_type": "activity_presented",
+      "id": "d130d4f2-70dc-408d-948e-e9da349c9a77",
+-     "local_date": 2026-10-08T00:00:00.000Z,
++     "local_date": "2026-10-08",
+      "occurred_at": 2026-08-01T14:00:00.000Z,
+      "payload_json": {
+        "targetKey": "apply",
+        "v2AttemptId": "a99eb2e8-ca75-4203-a92b-f1ebaf831bff",
+      },
+
+ ❯ test/guided-v2-evidence.test.ts:348:22
+    346|       const { events, ...batched } = await readGuidedV2SourceFacts(tra…
+    347|       expect(batched).toEqual(await readUpgradeEvidence(transaction, v…
+    348|       expect(events).toEqual(await transaction.selectFrom("learning_ev…
+       |                      ^
+    349|         .where("user_id", "=", v2Id(1)).where("enrollment_id", "=", v2…
+    350|         .where("policy_version", "=", "guided-v2.0").orderBy("occurred…
+ ❯ ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+ ❯ DefaultConnectionProvider.provideConnection ../../../../../../Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20
+ ❯ test/guided-v2-evidence.test.ts:345:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 60 passed (61)
+   Start at  22:16:30
+   Duration  77.50s (transform 3.41s, setup 0ms, import 15.96s, tests 58.87s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-evidence.test.ts test/guided-v2-routes.test.ts test/guided-v2-upgrade.test.ts "--maxWorkers=1" "--reporter=dot"

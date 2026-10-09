@@ -1,0 +1,55 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-bootstrap.test.ts > M01 safe configuration > keeps restore as default and requires an explicit empty profile 7ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 safe configuration > refuses unmarked, remote and unrelated database targets 1ms
+ ↓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > installs every schema migration, classifies 0005 honestly and preserves checksums
+ ↓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > repeats without ledger changes and rejects accidentally switching to restore
+ ↓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > default restore still fails with its exact identity prerequisite; empty mode refuses populated DB
+ ↓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > upgrades the v1 fixture without changing versions, enrollments or attempts
+ ↓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > rejects checksum drift for both applied SQL and an excluded legacy migration
+ ✓ test/legacy-content-migration.test.ts > legacy content restoration migration > contains the reviewed public snapshot without authentication secrets or personal data 12ms
+ ✓ test/legacy-content-migration.test.ts > legacy content restoration migration > binds administrator recovery to the exact new account and old-email fingerprint 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner
+error: relation "auth_users" does not exist
+ ❯ ../../node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.0/node_modules/pg-pool/index.js:45:11
+ ❯ test/guided-v2-bootstrap.test.ts:44:5
+     42|     }
+     43|     legacy = await createGuidedV2Postgres({ directory: previous });
+     44|     await legacy.pool.query(`insert into auth_users(id,name,email) val…
+       |     ^
+     45|       insert into content_items(id,kind,slug,title,summary,topic,autho…
+     46|       insert into learning_paths(id,topic_content_id,slug,title,summar…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 109, severity: 'ERROR', code: '42P01', detail: undefined, hint: undefined, position: '13', internalPosition: undefined, internalQuery: undefined, where: undefined, schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'parse_relation.c', routine: 'parserOpenTable' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner
+error: database "koraz_guided_v2_test_0b9421de75104a249161e04edde06b46" is being accessed by other users
+ ❯ ../../node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.0/node_modules/pg-pool/index.js:45:11
+ ❯ Object.close test/helpers/guided-v2-postgres.ts:39:5
+     37|     await database.destroy();
+     38|     if (!/^koraz_guided_v2_test_[a-f0-9]{32}$/.test(name)) throw new E…
+     39|     await control.query(`drop database "${name}"`); await control.end(…
+       |     ^
+     40|   } };
+     41| }
+ ❯ test/guided-v2-bootstrap.test.ts:54:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { length: 199, severity: 'ERROR', code: '55006', detail: 'There is 1 other session using the database.', hint: undefined, position: undefined, internalPosition: undefined, internalQuery: undefined, where: undefined, schema: undefined, table: undefined, dataType: undefined, constraint: undefined, file: 'dbcommands.c', routine: 'dropdb' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  4 passed | 5 skipped (9)
+   Start at  13:32:20
+   Duration  8.92s (transform 160ms, setup 0ms, import 949ms, tests 7.24s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-bootstrap.test.ts test/legacy-content-migration.test.ts "--reporter=verbose"

@@ -1,0 +1,133 @@
+{
+  "taskId": "T039",
+  "status": "PASS LOCAL",
+  "selection": {
+    "selectedBy": "Propietario de Koraz, usuario de este chat",
+    "selectedAt": "2026-10-08T21:18:30.8808868Z",
+    "guidePathOrCatalogResource": "https://koraz.app/guias/vascularizacion-de-abdomen-y-sistema-porta-hepatico",
+    "guideTitle": "Vascularización de abdomen y sistema porta hepático",
+    "guideRevision": null,
+    "guideFileSha256": "f3be34b3c4f3bf0a9674489ddb34cc4b91e222d94936cde0947d8d7d9591b80b",
+    "topic": "Vascularización del abdomen",
+    "includedSections": [
+      "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+      "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+      "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+      "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+    ],
+    "excludedSections": [
+      "Técnicas quirúrgicas y TIPS",
+      "Variantes raras y conducto venoso persistente",
+      "Reconocimiento espacial por imágenes",
+      "Decisiones diagnósticas o terapéuticas"
+    ],
+    "audience": "Estudiantes universitarios de anatomía con nociones de aparato digestivo",
+    "preferredGuideQuery": "Guía de vascularización del abdomen en la plataforma; otra guía de abdomen si no existe esa",
+    "userAuthorization": "usa alguna guia de abdomen, la de vascularizacion puede ser. yo hare la revision",
+    "existingGuidesReview": {
+      "status": "DECLARADA POR EL PROPIETARIO",
+      "statement": "las guias ya estan revisadas asi que las puedes usar",
+      "routeApprovalIncluded": false
+    },
+    "observedContentId": "2b307ad1-a16f-40d1-9f20-7e598119fd4e",
+    "guideRevisionLimit": "La UI consultada no expone revisión de producción; se fija una revisión local de fragmentos en el catálogo aislado."
+  },
+  "reviewer": {
+    "name": "Propietario de Koraz (usuario de este chat)",
+    "role": "Revisor editorial designado por declaración directa en este chat",
+    "serverActorId": null,
+    "humanApprovalEvidence": "aprobacion-propietario.json",
+    "localWorkflowDelegateActorId": "7a6971eb-01e3-4597-b8d7-6fc638e277cc",
+    "productionAccountIdentity": "No se conoce; el UUID local de delegado no es el del propietario"
+  },
+  "environment": {
+    "name": "Fastify HTTP loopback + PGlite en memoria; datos de test desechados al terminar",
+    "isolatedTestConfirmed": true,
+    "topicContentId": "2894eefa-ac71-4c02-81a0-1ee3066a7b5d",
+    "pathId": "59b76365-a7fb-4011-afae-732e20f49f78",
+    "pathVersionId": "de9b0aa4-a054-4f66-92f5-e5e83ffbe312",
+    "editVersion": 4,
+    "lifetime": "API cerrada y base desechada al finalizar; exportación y evidencia conservadas"
+  },
+  "package": {
+    "path": "vascularizacion-abdomen.koraz-route.json",
+    "exportPath": "exportado-test.koraz-route.json",
+    "exportFileSha256": "a548d133de45686de4766a2d980a672cc7fe827a7a651cc9935761d62c0e4b75",
+    "serverContentHash": "d9f35d39a769027998be0eeb17113e89f0e637af0b353c5bd1378ee77a59cf12",
+    "schemaVersion": "2.0",
+    "policyVersion": "guided-v2.0",
+    "publishedExportPath": "publicado-test.koraz-route.json"
+  },
+  "sources": [
+    {
+      "key": "arterias",
+      "title": "Vascularización de abdomen y sistema porta hepático",
+      "locator": {
+        "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+        "sectionPath": [
+          "Aorta abdominal",
+          "Ramas viscerales impares",
+          "Continuidad entre los territorios arteriales digestivos"
+        ],
+        "page": null
+      },
+      "documentSha256": "ce438e12c59261c0b618ee67f749303c7b9eb731964abb8e03e649981b33562d",
+      "verification": "provided",
+      "resourceRevisionId": "dfaba515-be18-4892-91e5-7b62cb421914",
+      "scope": "Snapshot local, sin atribuir UUID de test a producción"
+    },
+    {
+      "key": "cava",
+      "title": "Vascularización de abdomen y sistema porta hepático",
+      "locator": {
+        "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+        "sectionPath": [
+          "Vena cava inferior",
+          "Formación, trayecto y terminación",
+          "Tributarias viscerales"
+        ],
+        "page": null
+      },
+      "documentSha256": "ce438e12c59261c0b618ee67f749303c7b9eb731964abb8e03e649981b33562d",
+      "verification": "provided",
+      "resourceRevisionId": "dfaba515-be18-4892-91e5-7b62cb421914",
+      "scope": "Snapshot local, sin atribuir UUID de test a producción"
+    },
+    {
+      "key": "porta",
+      "title": "Vascularización de abdomen y sistema porta hepático",
+      "locator": {
+        "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "sectionPath": [
+          "Sistema porta hepático",
+          "Formación",
+          "Trayecto y relaciones",
+          "Terminación"
+        ],
+        "page": null
+      },
+      "documentSha256": "ce438e12c59261c0b618ee67f749303c7b9eb731964abb8e03e649981b33562d",
+      "verification": "provided",
+      "resourceRevisionId": "dfaba515-be18-4892-91e5-7b62cb421914",
+      "scope": "Snapshot local, sin atribuir UUID de test a producción"
+    },
+    {
+      "key": "colaterales",
+      "title": "Vascularización de abdomen y sistema porta hepático",
+      "locator": {
+        "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+        "sectionPath": [
+          "Vías intercavas",
+          "Anastomosis portosistémicas",
+          "Nota clínica y diferencia entre fuentes"
+        ],
+        "page": null
+      },
+      "documentSha256": "ce438e12c59261c0b618ee67f749303c7b9eb731964abb8e03e649981b33562d",
+      "verification": "provided",
+      "resourceRevisionId": "dfaba515-be18-4892-91e5-7b62cb421914",
+      "scope": "Snapshot local, sin atribuir UUID de test a producción"
+    }
+  ],
+  "pending": []
+}

@@ -16,6 +16,19 @@ El migrador:
 
 DATABASE_MIGRATIONS_PATH puede apuntar a otra copia del directorio, por ejemplo dentro de una imagen de despliegue. Si las migraciones se ejecutan en una etapa separada del arranque, configura DATABASE_MIGRATIONS_ENABLED=false en las demás instancias para que exista un único responsable operativo.
 
+Para una instalación nueva sin catálogo histórico, configura explícitamente
+`DATABASE_LEGACY_CONTENT_MODE=empty`. El runner procesa la cadena y registra
+0005 como `not_applicable` en `cediah_schema_migration_exclusions`, con su checksum
+original y motivo `empty_installation`; no la marca como aplicada ni modifica
+su SQL. Solo permite esa decisión antes de migraciones posteriores y sin
+usuarios ni contenido. En reinicios, conserva el modo `empty`: el runner verifica
+también el checksum de la exclusión. No se puede cambiar después a restauración
+histórica mediante 0005 sobre un esquema más nuevo.
+
+El default sigue siendo `restore`, que mantiene la restauración legacy y su
+requisito de identidad exacta. Una base que ya aplicó 0005 conserva su registro y
+verificación habituales. No se fabrica una identidad legacy para las pruebas.
+
 En la producción actual de CEDIAH, Render usa el Transaction Pooler de Supabase. Como ese modo no conserva el advisory lock de sesión, DATABASE_MIGRATIONS_ENABLED permanece en false. Las migraciones se aplican manualmente en Supabase antes del despliegue y se registra su nombre y checksum en public.cediah_schema_migrations. Nunca se debe desplegar código que requiera un esquema nuevo hasta completar y verificar ese paso.
 
 ## Orden actual

@@ -11,6 +11,11 @@
 }
 
 .stack { display: grid; gap: 20px; min-width: 0; }
+.assessmentActions { flex-wrap: wrap; }
+.dialogOverlay { z-index: 180; }
+.dialog { z-index: 181; }
+.editor [data-editor-preview] > label { display: grid; min-width: 0; gap: 8px; }
+.editor [data-editor-preview] > label select { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; box-sizing: border-box; }
 .editor label.checkOption { display: flex; min-height: 44px; box-sizing: border-box; align-items: center; gap: 10px; padding-block: 8px; overflow-wrap: anywhere; }
 .editor .checkOption input[type='checkbox'] { flex: 0 0 18px; width: 18px; height: 18px; min-height: 18px; padding: 0; margin: 0; }
 .issueList { padding-inline-start: 24px; }
@@ -61,4 +66,8 @@
   .tabList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (max-height: 600px) {
+  .editor .saveBar { position: static; }
 }

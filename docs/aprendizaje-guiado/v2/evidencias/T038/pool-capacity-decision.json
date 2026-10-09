@@ -1,0 +1,16 @@
+{
+  "taskId": "T038",
+  "authorization": "hazlo",
+  "decision": "Measure exact 20-user/300-second workload with explicit test pool capacity of 20",
+  "basis": "hotpath-history-diagnostic-performance-trace.json",
+  "observedResponsePoolWaitP95Ms": 1183.7533000000112,
+  "observedResponseQueryP95Ms": 671.8327999999747,
+  "originalHarnessPoolMax": 8,
+  "testedPoolMax": 20,
+  "fichaFixesPoolCapacity": false,
+  "acceptanceLimitsChanged": false,
+  "workloadChanged": false,
+  "productionConfigurationChanged": false,
+  "nextTaskStarted": false,
+  "at": "2026-10-08T02:38:45.5648779Z"
+}

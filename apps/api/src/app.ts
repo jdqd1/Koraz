@@ -304,7 +304,7 @@ export async function buildApp(
     : undefined;
   if (pool && environment.migrationsEnabled !== false && environment.migrationsPath) {
     try {
-      await applySqlMigrations(pool, environment.migrationsPath);
+      await applySqlMigrations(pool, environment.migrationsPath, { legacyContentMode: environment.legacyContentMode });
     } catch (error) {
       await pool.end();
       throw error;
@@ -476,7 +476,7 @@ export async function buildApp(
   app.addHook("onRequest", async (request, reply) => {
     if (request.url.startsWith("/v2/guided-learning/") || request.url.startsWith("/v2/editor/learning-paths")) {
       reply.header("Cache-Control", "private, no-store");
-      if (!environment.guidedLearningEnabled || !environment.guidedLearningV2Enabled) return reply.status(404).send({ error: "not_found" });
+      if (!environment.guidedLearningEnabled || request.url.startsWith("/v2/editor/learning-paths") && !environment.guidedLearningV2Enabled) return reply.status(404).send({ error: "not_found" });
     }
   });
   if (environment.guidedLearningEnabled) {

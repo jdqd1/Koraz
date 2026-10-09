@@ -1,4 +1,4 @@
-import { Kysely, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler,
+import { sql, Kysely, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler,
   type CompiledQuery, type DatabaseConnection, type QueryResult } from "kysely";
 import { beforeAll, afterAll, describe, expect, it } from "vitest";
 import { RoutePackageSchema, type RoutePackage } from "@cediah/contracts";
@@ -6,7 +6,9 @@ import type { PGlite } from "@electric-sql/pglite";
 import type { CediahDatabase } from "../src/db/database.js";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceResponse } from "../src/guided-learning/v2/evidence.js";
 import { evaluateGuidedV2Gate } from "../src/guided-learning/v2/policy.js";
-import { createPostgresGuidedV2AttemptService } from "../src/providers/postgres-guided-learning-v2.js";
+import { createPostgresGuidedV2AttemptService, readGuidedV2SourceFacts, createGuidedV2SnapshotReader, v2RebuildEvidence } from "../src/providers/postgres-guided-learning-v2.js";
+import { readUpgradeEvidence } from "../src/guided-learning/v2/upgrade.js";
+import { parseGuidedV2AttemptSnapshot } from "../src/guided-learning/v2/service.js";
 import { createGuidedV2Database, seedGuidedV2Runtime, v2Id } from "./helpers/guided-v2-db.js";
 
 const start = Date.parse("2026-08-01T12:00:00Z");
@@ -53,6 +55,22 @@ const final = (n: number, correct = true): GuidedV2EvidenceEvent => ({ kind: "fi
 const objective = (events: GuidedV2EvidenceEvent[], route = definition()) => rebuildGuidedV2Evidence(route, events).objectives[0]!;
 
 describe("guided v2 evidence and policy", () => {
+  it("T038 preserves mastery and consolidation history while unrelated objectives change", () => {
+    const route = definition();
+    route.objectives.push({ ...route.objectives[0]!, key: "other", required: false });
+    route.activities.push({ ...route.activities.find((item) => item.key === "recall-a")!, key: "other-answer", objectiveKey: "other" });
+    route.units[0]!.objectiveKeys.push("other");
+    route.units[0]!.activityKeys.push("other-answer");
+    const history = [...mastery(), response(10, "retention-seven", { at: at(8) }), response(11, "retention-thirty", { at: at(31) })];
+    const expected = objective(history, route);
+    expect(expected).toMatchObject({ mastered: true, consolidated: true, firstMasteredAt: at(0, .03), firstConsolidatedAt: at(31) });
+    const unrelated = [response(20, "other-answer", { at: at(15), score01: 0 }, route),
+      response(21, "other-answer", { at: at(32) }, route), { ...final(22), at: at(33) }];
+    expect(objective([...unrelated, ...history], route)).toEqual(expected);
+    expect(rebuildGuidedV2Evidence(route, [...history, ...unrelated], { dueObjectiveKeys: ["other"] }).objectives)
+      .toMatchObject([{ reviewDue: false }, { reviewDue: true, label: "learning" }]);
+  });
+
   it("P08 requires two recall families and an application in a different representation", () => {
     expect(objective(mastery())).toMatchObject({ mastered: true, objectiveScore: 100, label: "mastered", applicationDemonstrated: true, firstMasteredAt: at(0, .03) });
     expect(objective([response(1, "recall-a"), response(2, "recall-b"), response(3, "recall-c")]).mastered).toBe(false);
@@ -284,6 +302,25 @@ describe("guided v2 evidence persisted/rebuilt from source facts", () => {
     return { input, accepted };
   }
 
+  it("T038 rechecks revocation when reusing a definition from an earlier transaction", async () => {
+    const created = await service.create({ userId: v2Id(1), enrollmentId: v2Id(8), clientAttemptId: v2Id(serial++),
+      idempotencyKey: v2Id(serial++), expectedEnrollmentVersion: 1, target: { kind: "activity", key: "recall-e" } });
+    if (created.status !== "success") throw new Error("create failed");
+    let loaded: Parameters<typeof service.respond>[0]["definition"];
+    expect((await service.read({ userId: v2Id(1), attemptId: created.value.attemptId, onDefinition: (value) => { loaded = value; } })).status).toBe("success");
+    expect(loaded?.pathVersionId).toBe(v2Id(6));
+    await pg.query("update content_items set status='draft' where id=$1", [v2Id(3)]);
+    try {
+      expect(await service.respond({ userId: v2Id(1), attemptId: created.value.attemptId, activityKey: "recall-e",
+        idempotencyKey: v2Id(serial++), expectedVersion: 1, confidence: null,
+        answer: { kind: "single_choice", optionKey: "yes" }, definition: loaded })).toEqual({ status: "access_revoked" });
+      expect(await service.complete({ userId: v2Id(1), attemptId: created.value.attemptId,
+        idempotencyKey: v2Id(serial++), expectedVersion: 1, definition: loaded })).toEqual({ status: "access_revoked" });
+      expect((await pg.query("select count(*)::int as total from learning_v2_responses where attempt_id=$1", [created.value.attemptId])).rows)
+        .toEqual([{ total: 0 }]);
+    } finally { await pg.query("update content_items set status='published' where id=$1", [v2Id(3)]); }
+  });
+
   it("persists mastery atomically, reconstructs corrupted cache and keeps replay versions stable", async () => {
     await answer("recall-a");
     clock = new Date(at(0, 1));
@@ -296,6 +333,51 @@ describe("guided v2 evidence persisted/rebuilt from source facts", () => {
     expect(await service.respond(third.input)).toEqual(third.accepted);
     expect(await service.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) })).toEqual(state);
     expect((await pg.query("select row_version from public.learning_v2_objective_state where enrollment_id=$1", [v2Id(8)])).rows).toEqual([{ row_version: cached.rows[0]!.row_version }]);
+    await pg.query("update public.learning_v2_objective_state set first_mastered_at=first_mastered_at+interval '0.000123 seconds' where enrollment_id=$1", [v2Id(8)]);
+    expect(await service.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) })).toEqual(state);
+    expect((await pg.query("select row_version from public.learning_v2_objective_state where enrollment_id=$1", [v2Id(8)])).rows).toEqual([{ row_version: cached.rows[0]!.row_version }]);
+    const rewards = await pg.query("select award_key,reward_kind,xp,event_id,local_date,created_at from learning_rewards where user_id=$1 order by award_key", [v2Id(1)]);
+    expect(rewards.rows).toHaveLength(2);
+    const recalledKey = `v2:${v2Id(6)}:core:v2_objective_recalled`;
+    await pg.query("delete from learning_rewards where user_id=$1 and award_key=$2", [v2Id(1), recalledKey]);
+    expect(await service.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) })).toEqual(state);
+    expect((await pg.query("select award_key,reward_kind,xp,event_id,local_date,created_at from learning_rewards where user_id=$1 order by award_key", [v2Id(1)])).rows).toEqual(rewards.rows);
+    expect((await pg.query("select count(*)::int as total from learning_events where user_id=$1 and semantic_key=$2", [v2Id(1), recalledKey])).rows).toEqual([{ total: 1 }]);
+    await database.transaction().execute(async transaction => {
+      const { events, ...batched } = await readGuidedV2SourceFacts(transaction, v2Id(1), v2Id(8), v2Id(6));
+      expect(batched).toEqual(await readUpgradeEvidence(transaction, v2Id(1), v2Id(8), v2Id(6)));
+      expect(events).toEqual(await transaction.selectFrom("learning_events")
+        .select(["id", "user_id", "enrollment_id", "event_type", "semantic_key", "occurred_at", "policy_version", "payload_json"])
+        .where("user_id", "=", v2Id(1)).where("enrollment_id", "=", v2Id(8))
+        .where("policy_version", "=", "guided-v2.0").orderBy("occurred_at").orderBy("id").execute());
+      const foreign = await readGuidedV2SourceFacts(transaction, v2Id(2), v2Id(8), v2Id(6));
+      expect([foreign.attempts, foreign.responses, foreign.events]).toEqual([[],[],[]]);
+      const readSnapshot = createGuidedV2SnapshotReader();
+      const raw = batched.attempts[0]!.snapshot_json;
+      const firstSnapshot = readSnapshot(batched.attempts[0]!.id, raw);
+      expect(firstSnapshot).toEqual(parseGuidedV2AttemptSnapshot(raw));
+      expect(readSnapshot(batched.attempts[0]!.id, structuredClone(raw))).toBe(firstSnapshot);
+      expect(Object.isFrozen(firstSnapshot?.activities[0])).toBe(true);
+      const changed = { ...structuredClone(firstSnapshot!), pathVersionId: v2Id(77) };
+      expect(readSnapshot(batched.attempts[0]!.id, changed)).toEqual(parseGuidedV2AttemptSnapshot(changed));
+      expect(readSnapshot(batched.attempts[0]!.id, { ...changed, orderedKeys: ["missing"] })).toBeNull();
+      expect(createGuidedV2SnapshotReader()(batched.attempts[0]!.id, raw)).not.toBe(firstSnapshot);
+      const review = await sql<{ dueAt: string }>`select due_at::text as "dueAt" from learning_v2_review_state
+        where enrollment_id=${v2Id(8)}::uuid and objective_key='core'`.execute(transaction);
+      try {
+        await sql`update learning_v2_review_state set due_at=${clock}::timestamptz + interval '0.000123 seconds'
+          where enrollment_id=${v2Id(8)}::uuid and objective_key='core'`.execute(transaction);
+        expect((await v2RebuildEvidence(transaction, v2Id(1), v2Id(8), v2Id(6), clock, { persist: false }))
+          .objectives[0]!.reviewDue).toBe(false);
+        await sql`update learning_v2_review_state set due_at=${clock}::timestamptz - interval '0.000123 seconds'
+          where enrollment_id=${v2Id(8)}::uuid and objective_key='core'`.execute(transaction);
+        expect((await v2RebuildEvidence(transaction, v2Id(1), v2Id(8), v2Id(6), clock, { persist: false }))
+          .objectives[0]!.reviewDue).toBe(true);
+      } finally {
+        await sql`update learning_v2_review_state set due_at=${review.rows[0]!.dueAt}::timestamptz
+          where enrollment_id=${v2Id(8)}::uuid and objective_key='core'`.execute(transaction);
+      }
+    });
     await pg.query("update public.learning_v2_objective_state set evidence_json='{}',error_json='{}',first_mastered_at=null where enrollment_id=$1", [v2Id(8)]);
     expect(await service.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) })).toEqual(state);
     expect(await service.readEvidence({ userId: v2Id(2), enrollmentId: v2Id(8) })).toEqual({ status: "not_found" });

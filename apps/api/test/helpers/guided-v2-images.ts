@@ -13,7 +13,7 @@ export function imageDefinition() {
   const activities = [image("hotspot"), image("labeling","labeling"), { ...base, key:"alternative",equivalenceKey:"alternative",kind:"single_choice",representation:"text",required:false,prompt:"Practica la relación en texto",payload:{options:[{key:"yes",text:"Relación A"},{key:"no",text:"Relación B"}],correctKey:"yes",distractorFeedback:{no:"Revisa la relación textual."}} }, { ...base, key:"match",equivalenceKey:"match",kind:"match",representation:"table",prompt:"Relaciona los cuatro elementos sintéticos",payload:{presentation:"comparison_table",prompts:[1,2,3,4].map(n=>({key:`p${n}`,text:`Elemento ${n}`})),choices:[1,2,3,4].map(n=>({key:`c${n}`,text:`Relación ${n}`})),correctByPrompt:{p1:'c1',p2:'c2',p3:'c3',p4:'c4'},allowReuse:true,edges:[]} }];
   return RoutePackageSchema.parse({schemaVersion:"2.0",packageKey:"t030",revision:1,locale:"es",policyVersion:"guided-v2.0",route:{slug:"t030-images",title:"Práctica visual sintética",summary:"Prueba aislada",topicLabel:"Geometría",audience:"Alumno",discipline:"general",coverKey:"heart"},sources:[],assets:[{key:"figure",mediaType:"image",originalFileName:"synthetic.png",sha256:null,alt:"Figura sintética sin etiquetas ni soluciones",caption:"",sourceKeys:[],rightsStatus:"owned",credit:"Fixture de prueba",width:800,height:400}],objectives:[{key:"objective-a",title:"Identificar una posición",unitKey:"unit",verb:"identify",criticality:"core",required:true,prerequisiteKeys:[],sourceKeys:[],comparisonGroup:null,misconceptions:[]}],units:[{key:"unit",title:"Práctica visual",objectiveKeys:["objective-a"],activityKeys:["hotspot","labeling","alternative","match"],support:"full",estimatedMinutes:5}],activities,assessments:[],reviewPlan:{objectiveKeys:[]},editorial:{notes:"Fixture sintético; no acredita revisión editorial.",unresolvedIssues:[]}});
 }
-export async function createImageHarness() {
+export async function createImageHarness(options: { now?: () => Date } = {}) {
   const pg=await createGuidedV2Database();await seedGuidedV2Runtime(pg);
   await pg.query("update content_items set status='published',catalog_visibility='catalog',published_at=now(),published_by=$2 where id=$1",[v2Id(3),v2Id(1)]);
   const definition=imageDefinition();
@@ -26,10 +26,10 @@ export async function createImageHarness() {
   const database=new Kysely<CediahDatabase>({dialect:{createAdapter:()=>new PostgresAdapter(),createIntrospector:db=>new PostgresIntrospector(db),createQueryCompiler:()=>new PostgresQueryCompiler(),createDriver:()=>({acquireConnection:async()=>connection,beginTransaction:async()=>{await pg.exec('begin');},commitTransaction:async()=>{await pg.exec('commit');},rollbackTransaction:async()=>{await pg.exec('rollback');},destroy:async()=>{},init:async()=>{},releaseConnection:async()=>{}})}});
   const signed: {key:string;expiresInSeconds:number}[]=[];
   const assetStorage={bucket:"test-assets",async createDownloadUrl(input:{key:string;expiresInSeconds:number}){signed.push(input);return `https://t030-media.example.test/figure.png?signature=test-only&n=${signed.length}`;}};
-  const service=createPostgresGuidedV2AttemptService(database,{assetStorage});
+  const service=createPostgresGuidedV2AttemptService(database,{assetStorage,now:options.now});
   const identity={getUser:async(request:{cookie?:string;authorization?:string})=>{const token=request.cookie??request.authorization;return token&&!token.includes("expired")?{id:token.includes("other")?v2Id(2):v2Id(1),email:"t030@example.test",name:"Alumno T030"}:null;}} as unknown as IdentityProvider;
   const app=Fastify();
-  const provider=createGuidedV2HttpProvider(database,{assetStorage});
+  const provider=createGuidedV2HttpProvider(database,{assetStorage,now:options.now});
   await registerGuidedV2Routes(app,{flags:{enabled:true,newEnrollments:true},identityProvider:identity,provider});
   app.get('/v1/auth/me',async()=>({features:{guidedLearning:true,guidedLearningMap:false},roles:['student'],user:{id:v2Id(1),email:'t030@example.test',name:'Alumno T030'}}));
   return {pg,database,app,service,provider,definition,signed,async close(){await app.close();await database.destroy();await pg.close();}};

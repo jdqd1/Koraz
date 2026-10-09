@@ -1,0 +1,233 @@
+Command: pnpm.cmd --filter @cediah/web exec playwright test --config D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.config.mts
+Node: v24.19.0
+Started: 2026-10-08T22:23:41.056Z
+[WebServer] (node:25504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:17428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 26 tests using 1 worker
+
+(node:26020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.0m)
+  ok  2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:199:5 › T037 V03 native browser zoom at 200 percent (14.7s)
+  ok  3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:243:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (13.9s)
+  ok  4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (5.3s)
+  ok  5 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:365:5 › T037 V01 stable map geometry and connections (6.6s)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/86b6a05b-c04e-427a-b6ca-481d1ccdd56c
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok  6 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:59:5 › E01 creates a new persisted v2 draft using UI and keyboard (5.8s)
+  ok  7 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:91:5 › E02 editorial preview has no learner effects, then publishes with current approval (54.8s)
+  x   8 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:121:5 › E03 beginner help and CORE error are confirmed by the server (9.2s)
+(node:21992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/86b6a05b-c04e-427a-b6ca-481d1ccdd56c
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok  9 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:131:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (19.3s)
+  ok 10 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:143:5 › E05 disconnect before/after commit, reload and two tabs preserve one answer (11.8s)
+  ok 11 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:167:5 › E06 home, real map, route, session and review keep the pinned server state (20.4s)
+  ok 12 [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (15.2s)
+  ok 13 [desktop] › tests\e2e\guided-v2-security.spec.ts:100:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (1.3s)
+(node:24172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 14 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.4m)
+  -  15 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:199:5 › T037 V03 native browser zoom at 200 percent
+  ok 16 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:243:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (18.0s)
+  ok 17 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (5.8s)
+  x  18 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:365:5 › T037 V01 stable map geometry and connections (1.1m)
+(node:30664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/86b6a05b-c04e-427a-b6ca-481d1ccdd56c
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  -  19 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:59:5 › E01 creates a new persisted v2 draft using UI and keyboard
+  -  20 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:91:5 › E02 editorial preview has no learner effects, then publishes with current approval
+  -  21 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:121:5 › E03 beginner help and CORE error are confirmed by the server
+  x  22 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:131:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (9.7s)
+(node:23828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/86b6a05b-c04e-427a-b6ca-481d1ccdd56c
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  -  23 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:143:5 › E05 disconnect before/after commit, reload and two tabs preserve one answer
+  -  24 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:167:5 › E06 home, real map, route, session and review keep the pinned server state
+  x  25 [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (4.1m)
+(node:8564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 26 [mobile] › tests\e2e\guided-v2-security.spec.ts:100:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (1.4s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-journeys.spec.ts:121:5 › E03 beginner help and CORE error are confirmed by the server 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Confusión CORE sintética', { exact: true })
+    Expected: visible
+    Error: strict mode violation: getByText('Confusión CORE sintética', { exact: true }) resolved to 2 elements:
+        1) <p>Confusión CORE sintética</p> aka getByRole('region', { name: 'Refuerzo dirigido' }).getByText('Confusión CORE sintética')
+        2) <p>Confusión CORE sintética</p> aka getByText('Confusión CORE sintética').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" getByText('Confusión CORE sintética', { exact: true }) with timeout 60000ms
+      - waiting for getByText('Confusión CORE sintética', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:128:243)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E03-beg-e3539-are-confirmed-by-the-server-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E03-beg-e3539-are-confirmed-by-the-server-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E03-beg-e3539-are-confirmed-by-the-server-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E03-beg-e3539-are-confirmed-by-the-server-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:365:5 › T037 V01 stable map geometry and connections 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.react-flow__node')
+    Expected: 3
+    Received: 4
+    Timeout:  60000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.react-flow__node') with timeout 60000ms
+      - waiting for locator('.react-flow__node')
+        121 × locator resolved to 4 elements
+            - unexpected value "4"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:380:51)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-accessibility-T0-e0212-ap-geometry-and-connections-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-accessibility-T0-e0212-ap-geometry-and-connections-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-accessibility-T0-e0212-ap-geometry-and-connections-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-accessibility-T0-e0212-ap-geometry-and-connections-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › tests\e2e\guided-v2-journeys.spec.ts:131:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+
+    Error: locator.click: Error: strict mode violation: getByText('Refuerzo, repaso y mantenimiento', { exact: true }) resolved to 2 elements:
+        1) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByRole('main').getByText('Refuerzo, repaso y')
+        2) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByText('Refuerzo, repaso y').nth(1)
+
+    Call log:
+      - waiting for getByText('Refuerzo, repaso y mantenimiento', { exact: true })
+
+
+      29 |   await interactive(page);
+      30 |   if(key){const current=await state(page);const branchIndex=current.maintenance.activities.findIndex((activity:{key:string})=>activity.key===key);expect(branchIndex).toBeGreaterThanOrEqual(0);
+    > 31 |     await page.getByText("Refuerzo, repaso y mantenimiento",{exact:true}).click();
+         |                                                                           ^
+      32 |     const branches=page.getByRole("region",{name:"Otras ramas disponibles"});
+      33 |     await branches.getByRole("button",{name:"Practicar este objetivo",exact:true}).nth(branchIndex).click();
+      34 |   }else await page.getByRole("button",{name:"Continuar",exact:true}).first().click();
+        at launch (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:31:75)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:134:21)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages 
+
+    Test timeout of 240000ms exceeded.
+
+    Error: response.text: Test timeout of 240000ms exceeded.
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:35:110)
+        at _Page.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:36:6)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [desktop] › tests\e2e\guided-v2-journeys.spec.ts:121:5 › E03 beginner help and CORE error are confirmed by the server 
+    [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:365:5 › T037 V01 stable map geometry and connections 
+    [mobile] › tests\e2e\guided-v2-journeys.spec.ts:131:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+    [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages 
+  6 skipped
+  16 passed (11.8m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config "D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.config.mts"
+
+Exit code: 1
+Finished: 2026-10-08T22:35:30.154Z

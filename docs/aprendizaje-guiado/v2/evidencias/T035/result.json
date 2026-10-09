@@ -1,0 +1,198 @@
+{
+  "taskId": "T035",
+  "status": "PASS",
+  "scope": "LOCAL: real Fastify/BFF/UI and independent PostgreSQL",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "authorization": {
+    "request": "ejecuta el orden que me recomendaste; continua",
+    "extensions": [
+      {
+        "evidence": "AMPLIACION-PROPUESTA.md",
+        "answer": "Sí, autorizar la ampliación T035"
+      },
+      {
+        "evidence": "AMPLIACION-MOVIL-PROPUESTA.md",
+        "answer": "Sí, autorizar la corrección móvil"
+      }
+    ]
+  },
+  "predecessors": [
+    "T022",
+    "T027",
+    "T032",
+    "T033",
+    "T034"
+  ],
+  "changedFiles": [
+    "apps/api/package.json",
+    "apps/api/test/guided-v2-harness.test.ts",
+    "apps/api/test/helpers/guided-v2-fixtures.ts",
+    "apps/api/test/helpers/guided-v2-postgres.ts",
+    "apps/api/test/helpers/guided-v2-server.ts",
+    "apps/api/test/helpers/guided-v2-tls-cert.pem",
+    "apps/api/test/helpers/guided-v2-tls-key.pem",
+    "apps/web/package.json",
+    "apps/web/playwright.guided-v2.config.ts",
+    "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+    "apps/web/tests/e2e/guided-v2-teardown.ts",
+    "apps/web/src/app/panel/rutas/nueva/page.tsx",
+    "apps/web/src/app/panel/rutas/page.tsx",
+    "apps/web/src/components/learning/editor/v2/new-draft.ts",
+    "apps/web/src/components/learning/editor/v2/new-draft.test.ts",
+    "apps/web/src/app/learning.css"
+  ],
+  "checks": [
+    {
+      "command": "pnpm --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "build-web.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-api.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-web-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec playwright test --config playwright.guided-v2.config.ts",
+      "exitCode": 0,
+      "result": "7 passed, 5 explicitly skipped mobile duplicates, 0 failed/flaky",
+      "evidence": [
+        "playwright-final.txt",
+        "playwright-matrix.json"
+      ]
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec playwright test --config playwright.guided-v2.config.ts --project desktop --grep E02",
+      "exitCode": 0,
+      "result": "1 passed: strengthened full preview after matrix",
+      "evidence": [
+        "playwright-preview-complete.txt",
+        "playwright.json"
+      ]
+    },
+    {
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-harness.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "5 passed, including 2 actual PostgreSQL concurrent transaction tests",
+      "evidence": "i04-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run --maxWorkers=1",
+      "exitCode": 0,
+      "result": "482 passed in 62 files",
+      "evidence": "web-regression-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run --maxWorkers=1 --pool=threads --reporter=verbose",
+      "exitCode": 0,
+      "result": "482 passed in 62 files",
+      "evidence": "web-regression-threads.txt"
+    },
+    {
+      "command": "scoped ESLint API and web; final updated E02 spec",
+      "exitCode": 0,
+      "result": "PASS; no diagnostics",
+      "evidence": [
+        "lint-api-final.txt",
+        "lint-web-final.txt",
+        "lint-journeys-final.txt"
+      ]
+    },
+    {
+      "command": "PostgreSQL control query for each exact browser database name",
+      "exitCode": 0,
+      "result": "0 rows: both disposable databases dropped",
+      "evidence": [
+        "cleanup-verification.txt",
+        "cleanup-preview-verification.txt"
+      ]
+    },
+    {
+      "command": "pg_ctl -D disposable-cluster -m fast -w stop",
+      "exitCode": 0,
+      "result": "PASS: cluster stopped",
+      "evidence": "postgres-stop.txt"
+    },
+    {
+      "command": "git diff --check; unchanged SQL and generated next-env; final test-port inspection",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "final-worktree-check.txt"
+    }
+  ],
+  "fixtures": {
+    "small": {
+      "objectives": 1,
+      "activities": 16,
+      "kinds": 8
+    },
+    "large": {
+      "objectives": 200,
+      "activities": 1814
+    },
+    "syntheticOnly": true
+  },
+  "browserCoverage": {
+    "desktop": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06"
+    ],
+    "mobile": [
+      "E04"
+    ],
+    "previewSupplement": "E02: all eight kinds, diagnosis, remediation, gate, final and retention using simulated clock",
+    "mobileScreenshot": "mobile-controls-after.png"
+  },
+  "issues": [
+    {
+      "status": "RESOLVED",
+      "issue": "Fixed mobile bottom navigation intercepted match submit",
+      "evidence": [
+        "mobile-overlap-before.png",
+        "mobile-controls-after.png"
+      ]
+    },
+    {
+      "status": "RESOLVED",
+      "issue": "Creation entry required explicit v2 empty draft; hydration/assertion/branch selection and test-media CSP corrected",
+      "evidence": "README.md"
+    },
+    {
+      "status": "WARNING",
+      "issue": "Inherited CSS ::highlight build warning; next start output standalone warning",
+      "evidence": [
+        "build-web.txt",
+        "playwright-final.txt"
+      ]
+    },
+    {
+      "status": "NO VERIFICADO",
+      "issue": "T036 restricted DB grants/security matrix, T037 accessibility, T038 load, T041 restore, clinical pilot, Hito S and production are separate acceptance work."
+    }
+  ],
+  "sourceHashes": "source-hashes.json",
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "nextTaskIds": [
+    "T036"
+  ],
+  "nextTaskStarted": false
+}

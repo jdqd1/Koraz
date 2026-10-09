@@ -1,0 +1,11 @@
+2026-10-08 18:12:03.213 -04 [12724] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-08 18:12:03.214 -04 [12724] LOG:  listening on IPv4 address "127.0.0.1", port 55418
+2026-10-08 18:12:03.292 -04 [24996] LOG:  database system was shut down at 2026-10-08 18:12:01 -04
+2026-10-08 18:12:03.334 -04 [12724] LOG:  database system is ready to accept connections
+2026-10-08 18:17:03.273 -04 [21980] LOG:  checkpoint starting: time
+2026-10-08 18:18:50.827 -04 [21980] LOG:  checkpoint complete: wrote 1009 buffers (6.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=107.426 s, sync=0.116 s, total=107.554 s; sync files=310, longest=0.003 s, average=0.001 s; distance=4819 kB, estimate=4819 kB; lsn=0/1A29348, redo lsn=0/1A292B8
+2026-10-08 18:20:51.702 -04 [22032] ERROR:  t018_atomicity
+2026-10-08 18:20:51.702 -04 [22032] CONTEXT:  PL/pgSQL function t018_reject() line 1 at RAISE
+2026-10-08 18:20:51.702 -04 [22032] STATEMENT:  insert into "learning_v2_review_state" ("user_id", "enrollment_id", "path_version_id", "objective_key", "stage", "lapses", "due_at", "last_applied_response_id", "last_extended_at", "retention7_due_at", "retention7_accepted_at", "retention30_due_at", "retention30_accepted_at", "updated_at") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) on conflict ("user_id", "path_version_id", "objective_key") do update set "stage" = $15, "lapses" = $16, "due_at" = $17, "last_applied_response_id" = $18, "last_extended_at" = $19, "retention7_due_at" = $20, "retention7_accepted_at" = $21, "retention30_due_at" = $22, "retention30_accepted_at" = $23, "row_version" = learning_v2_review_state.row_version + 1, "updated_at" = $24 returning *, due_at <= $25 as "dueNow"
+2026-10-08 18:22:03.841 -04 [21980] LOG:  checkpoint starting: time
+2026-10-08 18:23:06.620 -04 [21980] LOG:  checkpoint complete: wrote 590 buffers (3.6%); 1 WAL file(s) added, 0 removed, 0 recycled; write=62.152 s, sync=0.487 s, total=62.780 s; sync files=511, longest=0.018 s, average=0.001 s; distance=3999 kB, estimate=4737 kB; lsn=0/1E110A0, redo lsn=0/1E11010

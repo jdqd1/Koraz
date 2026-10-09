@@ -11,6 +11,7 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:map-server": "tsx test/helpers/learning-map-server.ts",
+    "test:guided-v2-server": "tsx test/helpers/guided-v2-server.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

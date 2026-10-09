@@ -1,0 +1,89 @@
+{
+  "queries": 23,
+  "grouped": [
+    {
+      "sql": "begin",
+      "count": 1
+    },
+    {
+      "sql": "select private.lock_guided_v2_actor($1::uuid) as id",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_enrollments\" where \"id\" = $1 and \"user_id\" = $2",
+      "count": 1
+    },
+    {
+      "sql": "select \"id\", \"definition_v2_json\" from \"learning_path_versions\" where \"id\" = $1 and \"policy_version\" = $2",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_bindings\" where \"path_version_id\" = $1 order by \"kind\", \"local_key\"",
+      "count": 1
+    },
+    {
+      "sql": "select private.lock_guided_v2_catalog($1::text, $2::uuid)",
+      "count": 3
+    },
+    {
+      "sql": "select \"content_assets\".\"status\" as \"asset_status\", \"content_items\".\"status\" as \"content_status\", \"content_items\".\"catalog_visibility\" from \"content_assets\" inner join \"content_items\" on \"content_items\".\"id\" = \"content_assets\".\"content_item_id\" where \"content_assets\".\"id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select \"learning_resources\".\"retired_at\", \"content_items\".\"status\", \"content_items\".\"catalog_visibility\" from \"learning_resource_revisions\" inner join \"learning_resources\" on \"learning_resources\".\"id\" = \"learning_resource_revisions\".\"resource_id\" inner join \"content_items\" on \"content_items\".\"id\" = \"learning_resources\".\"source_content_id\" where \"learning_resource_revisions\".\"id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select \"kind\", \"status\", \"catalog_visibility\" from \"content_items\" where \"id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_enrollment_versions\" where \"enrollment_id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_attempts\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" in ($3) order by \"created_at\"",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_responses\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" in ($3)",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_events\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"policy_version\" = $3 order by \"occurred_at\", \"id\"",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_review_state\" where \"user_id\" = $1 and \"path_version_id\" = $2 order by \"objective_key\" for update",
+      "count": 1
+    },
+    {
+      "sql": "select \"objective_key\" from \"learning_v2_review_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3 and \"due_at\" <= $4",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_objective_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3 order by \"objective_key\" for update",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_events\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"policy_version\" = $3 and \"occurred_at\" <= $4",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_review_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3",
+      "count": 1
+    },
+    {
+      "sql": "select \"timezone\" from \"learning_preferences\" where \"user_id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select \"learning_enrollment_versions\".\"path_version_id\", \"learning_enrollment_versions\".\"previous_version_id\", \"learning_enrollment_versions\".\"adopted_at\", \"learning_enrollment_versions\".\"mapping_json\", \"learning_path_versions\".\"version_number\", \"learning_path_versions\".\"policy_version\" from \"learning_enrollment_versions\" inner join \"learning_path_versions\" on \"learning_path_versions\".\"id\" = \"learning_enrollment_versions\".\"path_version_id\" where \"learning_enrollment_versions\".\"enrollment_id\" = $1 order by \"learning_path_versions\".\"version_number\"",
+      "count": 1
+    },
+    {
+      "sql": "commit",
+      "count": 1
+    }
+  ]
+}

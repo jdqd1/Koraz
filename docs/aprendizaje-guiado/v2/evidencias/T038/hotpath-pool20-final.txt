@@ -1,0 +1,14 @@
+T038 hotpath-pool20-final: 20 users, 300s, 200 objectives/1600 items, real HTTP/PostgreSQL
+{"status":"FAIL","latencyMs":{"state":{"count":896,"p50":192.7509999999893,"p95":599.092799999984,"p99":1438.1203000000023,"max":1609.8268000000025},"create":{"count":896,"p50":383.2881999999954,"p95":968.7267999999967,"p99":1321.1290000000008,"max":1389.3650000000016},"response":{"count":896,"p50":504.6689999999944,"p95":1364.6042000000016,"p99":1553.579600000001,"max":1948.9752000000008},"replay":{"count":100,"p50":460.08889999997336,"p95":1056.2910000000047,"p99":1118.1546999999991,"max":1129.599599999994},"complete":{"count":896,"p50":432.5251999999746,"p95":1025.7134000000005,"p99":1132.8991000000024,"max":1528.3064000000013}},"payloadBytes":{"setup":68137,"profile":70926,"state":70920,"create":667,"response":72115,"replay":71863,"complete":71752},"failures":0,"consistencyErrors":0}
+AssertionError [ERR_ASSERTION]: L02 state p95 >=500ms
+    at main (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/test/performance/guided-v2-load.mjs:358:52) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx test/performance/guided-v2-load.mjs "--pool-size=20"

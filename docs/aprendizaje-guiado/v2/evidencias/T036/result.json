@@ -1,0 +1,88 @@
+{
+  "taskId": "T036",
+  "status": "PASS",
+  "scope": "LOCAL: real Fastify TCP HTTP, Next SSR/RSC/BFF/player and independent restricted PostgreSQL logins",
+  "workDate": "2026-10-04",
+  "timezone": "America/Caracas",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "continua con t036",
+  "authorization": {
+    "ficha": "HANDOFF-EJECUTOR.md T036; section 11 S/I/M",
+    "extensionsRequired": false
+  },
+  "predecessors": [
+    { "taskId": "T022", "status": "PASS", "evidence": "../T022/result.json" },
+    { "taskId": "T034", "status": "PASS", "evidence": "../T034/result.json" },
+    { "taskId": "T035", "status": "PASS", "evidence": "../T035/result.json" }
+  ],
+  "changedFiles": [
+    "apps/api/test/guided-v2-security.test.ts",
+    "apps/web/tests/e2e/guided-v2-security.spec.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T036/"
+  ],
+  "runtime": {
+    "node": "24.19.0",
+    "pnpm": "11.19.0",
+    "dependenciesInstalled": false,
+    "database": "disposable independent PostgreSQL, guard from T035, active migrations",
+    "learningEditorDatabaseLogin": "cediah_runtime",
+    "externalDatabaseLogins": ["anon", "authenticated"],
+    "identity": "synthetic test adapter; roles read from real existing identity subsystem",
+    "browser": "Chromium desktop 1440x900 and iPhone 13 viewport",
+    "build": "existing local web build verified by T035; only tests changed"
+  },
+  "checks": [
+    { "command": "pnpm.cmd --filter @cediah/contracts build", "exitCode": 0, "result": "PASS", "evidence": "contracts-build.txt" },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts test/guided-v2-harness.test.ts test/guided-v2-upgrade.test.ts --maxWorkers=1 --reporter=verbose",
+      "exitCode": 1,
+      "result": "44 passed, 1 S06 timeout at 5000ms, 7 inherited skips. Harness 5 and upgrade 10 passed. Timeout recovered by standalone security rerun without changing timeout.",
+      "evidence": "api-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts --maxWorkers=1 --reporter=verbose",
+      "exitCode": 0,
+      "result": "30 passed, 7 inherited skips; includes all 10 T036 real PostgreSQL/TCP cases and original PGlite/transport regression",
+      "evidence": "api-security-final-serial.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-security.test.ts -t 'S01 complete' --maxWorkers=1 --reporter=verbose",
+      "exitCode": 0,
+      "result": "1 passed after extending student matrix to all 15 editorial operations, including source-catalog and preview-sessions",
+      "evidence": "api-editorial-expanded.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T036/playwright.config.mts",
+      "exitCode": 0,
+      "result": "4 passed, 0 skipped, 0 flaky; desktop and mobile privacy/authorization matrix",
+      "evidence": ["browser-final.txt", "playwright.json", "browser-artifacts/"]
+    },
+    { "command": "pnpm.cmd --filter @cediah/api typecheck", "exitCode": 0, "result": "PASS", "evidence": "typecheck-api-final.txt" },
+    { "command": "pnpm.cmd --filter @cediah/web typecheck", "exitCode": 0, "result": "PASS", "evidence": "typecheck-web-final.txt" },
+    { "command": "pnpm.cmd --filter @cediah/api exec eslint test/guided-v2-security.test.ts --max-warnings=0", "exitCode": 0, "result": "PASS", "evidence": "lint-api-final.txt" },
+    { "command": "pnpm.cmd --filter @cediah/web exec eslint tests/e2e/guided-v2-security.spec.ts --max-warnings=0", "exitCode": 0, "result": "PASS", "evidence": "lint-web-final.txt" },
+    { "command": "SHA-256 comparison of 162 pre-existing files", "exitCode": 0, "result": "PASS: none changed or removed", "evidence": "preservation.json" },
+    { "command": "git diff --check", "exitCode": 0, "result": "PASS", "evidence": "diff-check.txt" },
+    { "command": "PostgreSQL query for exact browser database and active test connections", "exitCode": 0, "result": "0 rows in both checks", "evidence": ["browser-cleanup-verification.txt", "connections-at-close.txt"] },
+    { "command": "pg_ctl -D disposable-cluster -m fast -w stop", "exitCode": 0, "result": "PASS", "evidence": "postgres-stop.txt" }
+  ],
+  "matrix": { "S01": "PASS", "S02": "PASS", "S03": "PASS", "S04": "PASS", "S05": "PASS", "S06": "PASS", "S07": "PASS", "S08": "PASS", "I04": "PASS" },
+  "uniquePassingApiCases": 45,
+  "passingBrowserCases": 4,
+  "confirmedSecurityFindings": 0,
+  "issues": [
+    { "status": "RESOLVED", "issue": "Inherited T022 conversion test expected deferred 409 despite authorized T034 implementation; updated to require incomplete idempotent draft, ownership/CAS and exact v1 preservation." },
+    { "status": "RESOLVED", "issue": "New test setup/schema/fixture/streaming-readiness errors corrected; no product guards or timeout budgets weakened.", "evidence": "README.md" },
+    { "status": "RESOLVED", "issue": "S06 timeout while checks ran concurrently; standalone security suite passed without timeout changes.", "evidence": "api-security-final-serial.txt" },
+    { "status": "WARNING", "issue": "Inherited Next standalone and NO_COLOR warnings.", "evidence": "browser-final.txt" },
+    { "status": "LIMITATION", "issue": "Identity/session expiration uses synthetic adapter; Better Auth cookie issuance, signature and actual expiration were not verified. Learning/editor data, role reads, permissions, revocation and persistence use actual services/storage." },
+    { "status": "LIMITATION", "issue": "Other disposable databases with unrecorded provenance were preserved; exact final browser database was independently confirmed absent and the cluster stopped." },
+    { "status": "NO VERIFICADO", "issue": "T037 accessibility, T038 performance, T041 restore, clinical pilot/review, Hito S, staging and production are separate acceptance work." }
+  ],
+  "sourceHashes": "source-hashes.json",
+  "preservation": "preservation.json",
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "nextTaskIds": ["T037"],
+  "nextTaskStarted": false
+}

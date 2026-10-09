@@ -10,8 +10,9 @@ import {
 import type { DatabaseClient, CediahDatabase } from "../../db/database.js";
 import { resolveGuidedUser, sendGuidedUserError } from "../http.js";
 import { createPostgresGuidedV2AttemptService, createPostgresGuidedV2MetricsService,
-  v2ContentAvailable, v2RebuildEvidence, v2Receipt, v2LockActor } from "../../providers/postgres-guided-learning-v2.js";
-import { parseGuidedV2AttemptSnapshot, prepareGuidedV2AttemptSnapshot } from "./service.js";
+  v2ContentAvailable, v2RebuildEvidence, v2Receipt, v2LockActor, createGuidedV2DefinitionReader, prepareCachedGuidedV2ActivitySnapshot, readGuidedV2SourceFacts, createGuidedV2SnapshotReader,
+  type GuidedV2DefinitionReader, type GuidedV2EvidenceReadFacts, type GuidedV2SnapshotReader } from "../../providers/postgres-guided-learning-v2.js";
+import { parseGuidedV2AttemptSnapshot } from "./service.js";
 import { selectGuidedV2NextAction, selectGuidedV2Diagnostic } from "./selection.js";
 import { selectAssessmentV2, type AssessmentExposureV2, type AssessmentPlanV2 } from "./assessments.js";
 import { reviewDueV2, type ReviewStateV2 } from "./scheduler.js";
@@ -19,6 +20,7 @@ import { hashRoutePackage } from "./validation.js";
 import type { GuidedV2EvidenceEvent } from "./evidence.js";
 import { hashLearningSnapshot } from "../snapshot-hash.js";
 import { guidedV2FeedbackSources } from "./manifests.js";
+import { planGuidedV2Upgrade, adoptGuidedV2Upgrade, acceptsUpgradeFact, readGuidedV2VersionHistory } from "./upgrade.js";
 
 type Tx = Transaction<CediahDatabase>;
 type Failure = { status: string };
@@ -58,7 +60,7 @@ export async function registerGuidedV2Routes(app: FastifyInstance, dependencies:
   for (const endpoint of endpoints) app.route({ method: endpoint.method, url: endpoint.path,
     handler: async (request, reply) => {
       reply.header("Cache-Control", "private, no-store");
-      if (!dependencies.flags.enabled) return reply.status(404).send({ error: "not_found" });
+      const maintenance = !dependencies.flags.enabled;
       const actor = await resolveGuidedUser(request, dependencies.identityProvider);
       if (actor.kind !== "authenticated") return sendGuidedUserError(actor, reply);
       if (dependencies.flags.allowlist?.size && !dependencies.flags.allowlist.has(actor.user.id)) return reply.status(403).send({ error: "forbidden" });
@@ -66,11 +68,12 @@ export async function registerGuidedV2Routes(app: FastifyInstance, dependencies:
       const body = endpoint.body.safeParse(request.body ?? {});
       const headers = endpoint.headers.safeParse(endpoint.method === "GET" ? {} : { idempotencyKey: request.headers["idempotency-key"] });
       if (!params.success || !query.success || !body.success || !headers.success) return reply.status(400).send({ error: "invalid_request" });
+      if (maintenance && (endpoint.method !== "GET" || endpoint.name === "attemptImage")) return reply.status(503).send({ error: "guided_v2_maintenance" });
       if (endpoint.name === "enrollmentCreate" && !dependencies.flags.newEnrollments) return reply.status(403).send({ error: "new_enrollments_disabled" });
       if (!dependencies.provider) return reply.status(503).send({ error: "learning_unavailable" });
       try {
         const result = await dependencies.provider.invoke(endpoint.name, actor.user.id,
-          { ...params.data, ...query.data }, body.data, endpoint.method === "GET" ? "" : String(request.headers["idempotency-key"]));
+          { ...params.data, ...query.data, maintenance }, body.data, endpoint.method === "GET" ? "" : String(request.headers["idempotency-key"]));
         if (result.status !== "success" || !("value" in result)) {
           const status = result.status === "rate_limited" ? 429 : result.status === "not_found" ? 404 : ["forbidden", "access_revoked"].includes(result.status) ? 403
             : ["invalid", "invalid_answer"].includes(result.status) ? 400 : 409;
@@ -86,29 +89,44 @@ export async function registerGuidedV2Routes(app: FastifyInstance, dependencies:
 }
 
 /** Construct policy input from the enrolled version and server receipts, never browser counters. */
-async function context(transaction: Tx, userId: string, enrollmentId: string, at: Date) {
-  const enrollment = await transaction.selectFrom("learning_enrollments").selectAll()
-    .where("id", "=", enrollmentId).where("user_id", "=", userId).executeTakeFirst();
-  if (!enrollment) return null;
-  const version = await transaction.selectFrom("learning_path_versions").selectAll()
-    .where("id", "=", enrollment.path_version_id).where("policy_version", "=", "guided-v2.0").executeTakeFirst();
-  if (!version || enrollment.status !== "active" || !(await v2ContentAvailable(transaction, version.id))) return null;
-  const definition = RoutePackageSchema.parse(version.definition_v2_json);
-  const evidence = await v2RebuildEvidence(transaction, userId, enrollmentId, version.id, at);
-  const attempts = await transaction.selectFrom("learning_v2_attempts").selectAll()
-    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId).where("path_version_id", "=", version.id).orderBy("created_at").execute();
-  const responses = await transaction.selectFrom("learning_v2_responses").selectAll()
-    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId).where("path_version_id", "=", version.id).execute();
-  const events = await transaction.selectFrom("learning_events").selectAll()
-    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId).where("policy_version", "=", "guided-v2.0")
-    .where("occurred_at", "<=", at).execute();
+async function loadContext(transaction: Tx, userId: string, enrollmentId: string, at: Date, readOnly = false, award = true,
+  loaded?: { pathVersionId: string; definition: RoutePackage }, readDefinition?: GuidedV2DefinitionReader, readSnapshot?: GuidedV2SnapshotReader) {
+  const joined = await transaction.selectFrom("learning_enrollments as enrollment")
+    .innerJoin("learning_path_versions as version", "version.id", "enrollment.path_version_id")
+    .selectAll("enrollment").select(["version.id as versionId", "version.policy_version as versionPolicy",
+      "version.status as versionStatus", "version.edit_version as versionEdit"])
+    .select(sql<string>`version.updated_at::text`.as("versionUpdatedAt"))
+    .where("enrollment.id", "=", enrollmentId).where("enrollment.user_id", "=", userId)
+    .where("version.policy_version", "=", "guided-v2.0").executeTakeFirst();
+  if (!joined) return null;
+  const { versionId, versionPolicy, versionStatus, versionEdit, versionUpdatedAt, ...enrollment } = joined;
+  const reuse = loaded?.pathVersionId === enrollment.path_version_id;
+  const version = { id: versionId };
+  if (enrollment.status !== "active") return null;
+  const parsed = reuse ? { success: true as const, data: loaded.definition }
+    : readDefinition ? { success: true as const, data: await readDefinition(transaction, version.id,
+      { id: versionId, policy_version: versionPolicy, status: versionStatus, edit_version: versionEdit, updatedAt: versionUpdatedAt }) }
+      : RoutePackageSchema.safeParse((await transaction.selectFrom("learning_path_versions").select("definition_v2_json")
+        .where("id", "=", versionId).executeTakeFirst())?.definition_v2_json);
+  if (!parsed.success || !parsed.data || !(await v2ContentAvailable(transaction, version.id, { pathVersionId: version.id, definition: parsed.data }))) return null;
+  const definition = parsed.data;
+  const facts = await readGuidedV2SourceFacts(transaction, userId, enrollmentId, version.id);
+  const readFacts: { value?: GuidedV2EvidenceReadFacts } = {};
+  const evidence = await v2RebuildEvidence(transaction, userId, enrollmentId, version.id, at, { persist: !readOnly, award, readSnapshot,
+    loaded: { userId, enrollmentId, pathVersionId: version.id, definition, facts }, onReadFacts: value => { readFacts.value = value; } });
+  const { attempts, responses, versions } = facts;
+  const snapshots = readFacts.value!.snapshots;
+  const snapshotActivities = new Map([...snapshots].map(([key, snapshot]) => [key, new Map(snapshot?.activities.map((item) => [item.key, item]) ?? [])]));
+  const evidenceByKey = new Map(evidence.objectives.map((item) => [item.objectiveKey, item]));
+  // Reuse this operation's fresh source facts. Rebuild writes only reward,
+  // schedule and route metrics; none changes presentation/help exposures.
+  const events = readFacts.value!.events.filter(event => event.occurred_at <= at);
   const exposures: AssessmentExposureV2[] = [];
   const policyEvents: GuidedV2EvidenceEvent[] = [];
   for (const response of responses) exposures.push({ semanticKey: `response:${response.id}`, at: response.accepted_at.toISOString(),
     objectiveKey: response.objective_key, equivalenceKey: response.equivalence_key, modality: response.modality, audience: "student", kind: "response" });
   for (const response of responses) {
-    const snapshot = parseGuidedV2AttemptSnapshot(attempts.find((item) => item.id === response.attempt_id)?.snapshot_json);
-    const activity = snapshot?.activities.find((item) => item.key === response.activity_key);
+    const activity = snapshotActivities.get(response.attempt_id)?.get(response.activity_key);
     if (!activity) continue;
     const grading = response.grading_json;
     policyEvents.push({ kind: "response", id: response.id, semanticKey: `response:${response.id}`, at: response.accepted_at.toISOString(),
@@ -120,9 +138,10 @@ async function context(transaction: Tx, userId: string, enrollmentId: string, at
   for (const event of events) {
     const payload = event.payload_json;
     if (!payload || typeof payload !== "object" || Array.isArray(payload) || typeof payload.v2AttemptId !== "string") continue;
-    const snapshot = parseGuidedV2AttemptSnapshot(attempts.find((item) => item.id === payload.v2AttemptId)?.snapshot_json);
+    const snapshot = snapshots.get(payload.v2AttemptId);
     const key = typeof payload.activityKey === "string" ? payload.activityKey : snapshot?.orderedKeys[0];
-    const activity = snapshot?.activities.find((item) => item.key === key);
+    const activity = key ? snapshotActivities.get(payload.v2AttemptId)?.get(key) : undefined;
+    if (activity && snapshot && !acceptsUpgradeFact(versions, snapshot.pathVersionId, activity.objectiveKey)) continue;
     if (activity && ["activity_presented", "help_requested"].includes(event.event_type)) exposures.push({ semanticKey: event.semantic_key,
       at: event.occurred_at.toISOString(), objectiveKey: activity.objectiveKey, equivalenceKey: activity.equivalenceKey,
       modality: activity.representation, audience: "student", kind: payload.kind === "reveal" ? "reveal" : "presentation" });
@@ -130,26 +149,32 @@ async function context(transaction: Tx, userId: string, enrollmentId: string, at
       semanticKey: event.semantic_key, at: event.occurred_at.toISOString(), activityKey: activity.key,
       ...(payload.kind === "reveal" ? { kind: "reveal" as const } : { kind: "interaction" as const, assisted: event.event_type === "help_requested" }) });
   }
-  const reviews = await transaction.selectFrom("learning_v2_review_state").selectAll()
-    .where("user_id", "=", userId).where("enrollment_id", "=", enrollmentId).where("path_version_id", "=", version.id).execute();
+  const reviews = readFacts.value!.reviews.filter(row => row.user_id === userId && row.enrollment_id === enrollmentId && row.path_version_id === version.id);
   const reviewStates = reviews.map((row) => ({ objectiveKey: row.objective_key,
-    firstMasteredAt: evidence.objectives.find((item) => item.objectiveKey === row.objective_key)?.firstMasteredAt ?? "",
+    firstMasteredAt: evidenceByKey.get(row.objective_key)?.firstMasteredAt ?? "",
     state: { stage: row.stage, lapses: row.lapses, dueAt: row.due_at.toISOString(), lastAppliedResponseId: row.last_applied_response_id,
       lastExtendedAt: row.last_extended_at?.toISOString() ?? null, retention7DueAt: row.retention7_due_at?.toISOString() ?? null,
       retention7AcceptedAt: row.retention7_accepted_at?.toISOString() ?? null, retention30DueAt: row.retention30_due_at?.toISOString() ?? null,
       retention30AcceptedAt: row.retention30_accepted_at?.toISOString() ?? null } as ReviewStateV2 }));
   const due = reviewStates.map((row) => ({ ...row, due: reviewDueV2(row.state, at) })).filter((row) => row.due.kind !== null);
-  const completedAssessmentKeys = attempts.filter((item) => item.status === "completed").flatMap((item) => {
-    const snapshot = parseGuidedV2AttemptSnapshot(item.snapshot_json); return snapshot?.target.kind === "assessment" ? [snapshot.target.key] : [];
+  const completedAssessmentKeys = attempts.filter((item) => item.path_version_id === version.id && item.status === "completed").flatMap((item) => {
+    const snapshot = snapshots.get(item.id); return snapshot?.target.kind === "assessment" ? [snapshot.target.key] : [];
   });
   const diagnosticStatus = definition.assessments.some((item) => item.kind === "diagnostic" && completedAssessmentKeys.includes(item.key))
     ? "completed" as const : attempts.some((item) => item.purpose === "activity") ? "omitted" as const : "pending" as const;
+  const completedCaseKeys = attempts.filter((item) => item.path_version_id === version.id && item.status === "completed").flatMap((item) => {
+    const snapshot = snapshots.get(item.id);
+    return snapshot?.target.kind === "activity"
+      && snapshot.activities.some((activity) => activity.kind === "case" && activity.key === snapshot.target.key)
+      ? [snapshot.target.key] : [];
+  });
+  const sessionAttempts = new Set(responses.filter((response) => at.getTime() - response.accepted_at.getTime() < 86400000).map((response) => response.attempt_id));
   const selection = selectGuidedV2NextAction({ definition, evidence,
-    events: policyEvents, sessionAttemptIds: attempts.filter((item) => responses.some((response) => response.attempt_id === item.id
-      && at.getTime() - response.accepted_at.getTime() < 86400000)).map((item) => item.id), diagnosticStatus,
-    completedActivityKeys: responses.filter((item) => ["learning", "gate"].includes(item.purpose)).map((item) => item.activity_key),
+    events: policyEvents, sessionAttemptIds: attempts.filter((item) => sessionAttempts.has(item.id)).map((item) => item.id), diagnosticStatus,
+    completedActivityKeys: [...responses.filter((item) => ["learning", "gate"].includes(item.purpose)).map((item) => item.activity_key),
+      ...completedCaseKeys],
     dispensedActivityKeys: [], completedAssessmentKeys,
-    openAttempts: attempts.filter((item) => item.status === "in_progress").map((item) => ({ key: item.id,
+    openAttempts: attempts.filter((item) => item.path_version_id === version.id && item.status === "in_progress").map((item) => ({ key: item.id,
       openedAt: events.find((event) => event.semantic_key === `v2-presented:${item.id}`)?.occurred_at.toISOString() ?? item.started_at.toISOString() })),
     retentionDue: due.flatMap((row) => definition.assessments.filter((item) => item.kind === row.due.kind).map((item) => ({ key: item.key, dueAt: row.due.dueAt! }))),
     reviewDue: due.filter((row) => row.due!.kind === "review").flatMap((row) => {
@@ -189,12 +214,17 @@ async function context(transaction: Tx, userId: string, enrollmentId: string, at
     masteredAt: evidence.route.masteredAt, consolidatedAt: evidence.route.consolidatedAt,
     objectives: evidence.objectives.map(({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated, reviewDue,
       firstMasteredAt, firstConsolidatedAt }) => ({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated,
-      reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length, nextAction: selection.nextAction, maintenance });
+    reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length,
+    availability: readOnly ? "maintenance" : "active", versionHistory: await readGuidedV2VersionHistory(transaction, enrollmentId),
+    nextAction: readOnly ? { kind: "none", key: null, reason: "Ruta en mantenimiento; tu versión y tu historial se conservan." } : selection.nextAction, maintenance });
   return { enrollment, version, definition, evidence, attempts, responses, exposures, reviewStates, selection, state, diagnosticStatus };
 }
 
 export function createGuidedV2HttpProvider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> } = {}): GuidedV2HttpProvider {
   const now = () => options.now?.() ?? new Date();
+  const readDefinition = createGuidedV2DefinitionReader(database);
+  const context = (transaction: Tx, userId: string, enrollmentId: string, at: Date, readOnly = false, award = true,
+    loaded?: { pathVersionId: string; definition: RoutePackage }, readSnapshot?: GuidedV2SnapshotReader) => loadContext(transaction, userId, enrollmentId, at, readOnly, award, loaded, readDefinition, readSnapshot);
   const locked = <T>(userId: string, read: (transaction: Tx) => Promise<T>) => database.transaction().execute(async (transaction) => {
     if (!(await v2LockActor(transaction, userId))) throw new Error("Guided v2 actor not found");
     return read(transaction);
@@ -221,9 +251,14 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
     return true;
   });
   const attempts = createPostgresGuidedV2AttemptService(database, { now, assetStorage: options.assetStorage, prepareSnapshot: async (transaction, input) => {
-    const current = await context(transaction, input.userId, input.enrollmentId, input.at);
+    const current = await context(transaction, input.userId, input.enrollmentId, input.at, false, true,
+      { pathVersionId: input.pathVersionId, definition: input.definition });
     if (!current || current.attempts.some((item) => item.status === "in_progress")) return null;
-    const definition: RoutePackage = structuredClone(input.definition);
+    // Only assessment candidate lists are adapted. Activity/review selection
+    // reads the pinned definition without cloning the entire bank.
+    const definition: RoutePackage = input.target.kind === "assessment"
+      ? { ...input.definition, assessments: input.definition.assessments.map((item) => item.key === input.target.key ? { ...item } : item) }
+      : input.definition;
     let novelKeys: string[] = [];
     let assessmentSelection: AssessmentPlanV2 | null = null;
     if (input.target.kind === "assessment") {
@@ -253,8 +288,8 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       if (input.target.kind === "review" ? !current.selection.reviewBatch.some((item) => item.key === key)
         : !current.selection.availableActivities.some((item) => item.key === key) && current.selection.nextAction.key !== key) return null;
     }
-    const snapshot = prepareGuidedV2AttemptSnapshot(definition, input.pathVersionId, input.target);
-    return snapshot ? { ...snapshot, contentHash: hashRoutePackage(input.definition), novelKeys,
+    const snapshot = prepareCachedGuidedV2ActivitySnapshot(definition, input.pathVersionId, input.target);
+    return snapshot ? { ...snapshot, contentHash: definition === input.definition ? snapshot.contentHash : hashRoutePackage(input.definition), novelKeys,
       ...(assessmentSelection ? { assessmentSelection } : {}) } : null;
   } });
   const metrics = createPostgresGuidedV2MetricsService(database, { now });
@@ -286,14 +321,15 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
         : { explanation: "", commonError: "", sources: [] } };
     }) });
   };
-  const state = (userId: string, id: string) => locked(userId, async (transaction) => {
-    const current = await context(transaction, userId, id, now());
+  const state = (userId: string, id: string, maintenance = false, loaded?: { pathVersionId: string; definition: RoutePackage }, readSnapshot?: GuidedV2SnapshotReader) => locked(userId, async (transaction) => {
+    const current = await context(transaction, userId, id, now(), maintenance, true, loaded, readSnapshot);
     return current ? { status: "success", value: { state: current.state } } : { status: "not_found" };
   });
-  const path = (userId: string, slug: string) => locked(userId, async (transaction) => {
+  const path = (userId: string, slug: string, maintenance = false) => locked(userId, async (transaction) => {
     const row = await transaction.selectFrom("learning_paths").selectAll().where("slug", "=", slug).executeTakeFirst();
     if (!row) return { status: "not_found" };
     const enrollment = await transaction.selectFrom("learning_enrollments").selectAll().where("path_id", "=", row.id).where("user_id", "=", userId).executeTakeFirst();
+    if (maintenance && !enrollment) return { status: "not_found" };
     const version = await transaction.selectFrom("learning_path_versions").selectAll().where("id", "=", enrollment?.path_version_id ?? row.published_version_id ?? "00000000-0000-4000-8000-000000000000").executeTakeFirst();
     if (!version || version.policy_version !== "guided-v2.0" || (!enrollment && row.archived_at)
       || !(await v2ContentAvailable(transaction, version.id))) return { status: "not_found" };
@@ -301,12 +337,13 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
     return { status: "success", value: { path: V2PublicPathSchema.parse({ engineVersion: "guided-v2", policyVersion: "guided-v2.0",
       pathId: row.id, pathVersionId: version.id, slug: row.slug, title: definition.route.title, summary: definition.route.summary,
       coverKey: definition.route.coverKey, topicLabel: definition.route.topicLabel, access: enrollment ? enrollment.status === "active" ? "enrolled" : "revoked" : "available",
-      enrollmentId: enrollment?.id ?? null, units: definition.units.map((unit) => ({ key: unit.key, title: unit.title,
+      enrollmentId: enrollment?.id ?? null, availability: maintenance ? "maintenance" : "active", units: definition.units.map((unit) => ({ key: unit.key, title: unit.title,
         objectives: unit.objectiveKeys.map((key) => definition.objectives.find((item) => item.key === key)!).map(({ key, title, criticality }) => ({ key, title, criticality })) })) }) } };
   });
   return { async invoke(name, userId, params, body, key) {
-    if (name === "publicPath") return path(userId, String(params.slug));
-    if (name === "enrollmentState") return state(userId, String(params.id));
+    const maintenance = params.maintenance === true;
+    if (name === "publicPath") return path(userId, String(params.slug), maintenance);
+    if (name === "enrollmentState") return state(userId, String(params.id), maintenance);
     if (name === "enrollmentCreate") {
       return locked(userId, async (transaction) => v2Receipt(transaction, userId, key,
         { method: "POST", route: "/v2/guided-learning/enrollments", body }, async () => {
@@ -333,10 +370,10 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       let dueReviews = 0;
       for (const row of rows) {
         if (params.cursor && row.id <= String(params.cursor)) continue;
-        const result = await path(userId, row.slug);
+        const result = await path(userId, row.slug, maintenance);
         if (result.status !== "success" || !("value" in result) || !result.value) continue;
         const publicPath = V2PublicPathSchema.parse(result.value.path);
-        const enrolled = publicPath.enrollmentId ? await state(userId, publicPath.enrollmentId) : null;
+        const enrolled = publicPath.enrollmentId ? await state(userId, publicPath.enrollmentId, maintenance) : null;
         const routeState = enrolled && "value" in enrolled && enrolled.value ? V2RouteStateSchema.parse(enrolled.value.state) : null;
         if (routeState && publicPath.enrollmentId) { states.set(publicPath.enrollmentId, routeState); dueReviews += routeState.dueReviews; }
         cards.push(V2PathCardSchema.parse({ engineVersion: "guided-v2", policyVersion: "guided-v2.0", id: row.id, pathVersionId: publicPath.pathVersionId,
@@ -359,12 +396,36 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       return result.status === "success" ? { status: "success", value: { attempt: await projectAttempt(result.value, userId) } } : result;
     }
     if (name === "upgradePreview" || name === "upgradeCommit") {
-      const current = await state(userId, String(params.id));
-      // T034 supplies explicit adoption/reset; keep the registered boundary closed meanwhile.
-      return current.status === "success" ? { status: "conflict" } : current;
+      return locked(userId, async transaction => {
+        const id = String(params.id);
+        if (name === "upgradePreview") {
+          const plan = await planGuidedV2Upgrade(transaction, userId, id);
+          if (plan.status !== "success") return plan;
+          if (!(await v2ContentAvailable(transaction, plan.target.id))) return { status: "access_revoked" };
+          return { status: "success", value: { ...plan.preview, availability: maintenance ? "maintenance" : "active" } };
+        }
+        const input = V2HttpContracts.upgradeCommit.body.parse(body);
+        return v2Receipt(transaction, userId, key, { operation: "upgrade", enrollmentId: id, body: input }, async () => {
+          const plan = await planGuidedV2Upgrade(transaction, userId, id, input.targetVersionId);
+          if (plan.status !== "success") return plan;
+          if (plan.enrollment.row_version !== input.expectedVersion) return { status: "version_conflict" };
+          if (plan.enrollment.status !== "active") return { status: "conflict" };
+          if (plan.preview.openAttempt) return { status: "active_attempt" };
+          if (!(await v2ContentAvailable(transaction, plan.target.id))) return { status: "access_revoked" };
+          await adoptGuidedV2Upgrade(transaction, plan, now());
+          const current = await context(transaction, userId, id, now(), false, false);
+          if (!current) throw new Error("Adopted state unavailable");
+          return { status: "success", value: { state: current.state } };
+        }, async () => {
+          const enrollment = await transaction.selectFrom("learning_enrollments").selectAll().where("id", "=", id).where("user_id", "=", userId).executeTakeFirst();
+          return !enrollment ? "not_found" : enrollment.path_version_id !== input.targetVersionId ? "conflict"
+            : !(await v2ContentAvailable(transaction, input.targetVersionId)) ? "access_revoked" : null;
+        });
+      });
     }
     const attemptId = String(params.id);
-    const owned = await attempts.read({ userId, attemptId });
+    let loadedDefinition: { pathVersionId: string; definition: RoutePackage } | undefined;
+    const owned = await attempts.read({ userId, attemptId, onDefinition: (loaded) => { loadedDefinition = loaded; } });
     if (owned.status !== "success") return owned;
     if (name === "attemptGet") return { status: "success", value: { attempt: await projectAttempt(owned.value, userId) } };
     if (name === "attemptImage") return attempts.image({ userId, attemptId, activityKey: String(params.activityKey), expectedVersion: Number(params.expectedVersion) });
@@ -392,11 +453,12 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
     }
     if (name === "attemptResponse" || name === "attemptComplete") {
       if (name === "attemptResponse" && !(await reserveResponse(userId, attemptId, body, key))) return { status: "rate_limited" };
-      const result = name === "attemptResponse" ? await attempts.respond({ ...V2HttpContracts.attemptResponse.body.parse(body), userId, attemptId, idempotencyKey: key })
-        : await attempts.complete({ ...V2HttpContracts.attemptComplete.body.parse(body), userId, attemptId, idempotencyKey: key });
+      const readSnapshot = createGuidedV2SnapshotReader();
+      const result = name === "attemptResponse" ? await attempts.respond({ ...V2HttpContracts.attemptResponse.body.parse(body), userId, attemptId, idempotencyKey: key, definition: loadedDefinition, readSnapshot })
+        : await attempts.complete({ ...V2HttpContracts.attemptComplete.body.parse(body), userId, attemptId, idempotencyKey: key, definition: loadedDefinition, readSnapshot });
       if (result.status !== "success") return result;
       const manifest = await projectAttempt("attempt" in result.value ? result.value.attempt : result.value, userId);
-      const current = await state(userId, manifest.enrollmentId);
+      const current = await state(userId, manifest.enrollmentId, false, loadedDefinition, readSnapshot);
       if (!("value" in current)) return current;
       const feedback = "feedback" in result.value ? result.value.feedback : null;
       return { status: "success", value: name === "attemptComplete" ? { attempt: manifest, ...current.value }

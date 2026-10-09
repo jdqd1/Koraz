@@ -1,0 +1,64 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-source-catalog.test.ts > T024 editorial source catalogue > lists authorized names and actual current hashes without document bodies or writes 37ms
+ ✓ test/guided-v2-source-catalog.test.ts > T024 editorial source catalogue > paginates deterministically and filters a literal search; reviewer can read private guides 32ms
+ ✓ test/guided-v2-source-catalog.test.ts > T024 editorial source catalogue > checks session/role/query and returns the strict DTO privately 74ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > creates one canonical draft, reads it back and leaves v1 step tables empty 78ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > saves and rereads one version with CAS; stale writes do not change metadata 57ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > hashes canonical object keys but preserves source array order 19ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > enforces editor ownership and never trusts imported status or actor 21ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rolls back route metadata and version when a binding FK fails 37ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > rejects writes to published versions 34ms
+ ✓ test/guided-v2-editor-storage.test.ts > guided v2 editorial storage > I02 keeps portable semantics when reimported with different catalog bindings 3015ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > returns 401/403 and maintenance reads with no-store when disabled or outside allowlist 582ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > projects a safe path and explicit engine version in catalog/home 222ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > enrollment is pinned, idempotent and has a request receipt 190ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > T032 exposes maintenance from the authorized version without solutions or read progress 85ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > strict requests reject client scores/extra fields and foreign attempts/enrollments 23ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > server availability blocks reserved practice, early final and deferred tests 256ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > resumes one attempt and commits learning/feedback/heartbeat with server versions 2945ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > selects/fixes one reserved item per objective and exposes correction only on segment submission 1198ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > T032 reports pending absence without a client clock or synthetic lapse 175ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > a later publication never replaces an enrolled version 162ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > scheduler eligibility admits actual day7/day30 evaluations on the pinned version 1606ms
+ ✓ test/guided-v2-routes.test.ts > T021 actual learner HTTP and persisted services > 12 reserved objectives keep correction private until each ten-item segment is submitted 11954ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > config defaults are closed and flags are enforced in buildApp 58ms
+ ✓ test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > executes the new BFF and existing forwarder with real origin checks and cookie/header propagation 316ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01 stores a private 24h session without creating or changing a learning path 233ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reports a missing guide binding precisely and leaves the session unready 71ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > detects a changed guide digest and never auto-links by title 142ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > computes key-based target diff and enforces owner/CAS without mutating the target 124ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > S05 rejects >10 MiB, unknown privileged fields and file URLs 30ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > uses array order and local keys in diffs 5ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > marks an asset digest as unverified when the catalog has no trusted file hash 31ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > reuses an idempotency key only for the same package and bindings 43ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > exposes a validated endpoint with auth, capability and private no-store 551ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > limits validate to 10 sessions per actor per ten minutes 171ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I01/I02 commits once, replays the receipt and exports exact portable content 235ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 updates only the target draft with CAS and rejects reused revision with changed hash 194ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rejects a new import that reuses packageKey and revision with different content 90ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > I03 rechecks the guide after dry-run and preserves the validated session on failure 40ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rejects another actor and an expired session 38ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > rolls back route, version and bindings when closing the import fails 66ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > returns the original receipt after a later edit and rejects stale target CAS 168ms
+ ✓ test/guided-v2-import.test.ts > guided v2 import dry-run > serves commit and export through authenticated editor HTTP routes 128ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > S01 binds approval to the current hash, rejects a second editor's stale publication and preserves the published matrix 266ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > S01 revalidates catalog revisions inside publication and blocks a changed guide 102ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > M02 invalidates review after requested changes and never edits an approved version 112ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > S08 rejects v1 mutations on v2, preserves enrollments and offers archival 312ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > S08 projects a v2 map block without crediting v1 learning progress 141ms
+ ✓ test/guided-v2-workflow.test.ts > guided v2 editorial workflow and v1 guards > M02 resolves roles on the server and returns explicit v1 engine mismatch 35ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > T032 maintenance is strict, limits review to ten and rejects private nested fields 49ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > T029 keeps resume stages strict, ties them to the active activity and allowlists feedback sources 14ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > projects each activity with an explicit allowlist 19ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > exposes labeling markers without solution polygons 1ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > keeps editorial definition and reserved questions out of the public path 10ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > types all §8.10 routes and rejects client supplied scoring fields 4ms
+ ✓ test/guided-v2-contract.test.ts > guided v2 contracts > separates private response, public error, and v1 validation 5ms
+
+ Test Files  6 passed (6)
+      Tests  55 passed (55)
+   Start at  13:22:38
+   Duration  96.59s (transform 2.65s, setup 0ms, import 23.60s, tests 70.11s, environment 1ms)
+

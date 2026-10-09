@@ -1,0 +1,491 @@
+{
+  "status": "PASS_CPU",
+  "method": "Five warmups per scale; 20 measured runs per scale; rotating scale order; no samples excluded; exact same full fixture SHA256 as HTTP load",
+  "scales": [
+    {
+      "objectives": 50,
+      "activities": 400,
+      "units": 30,
+      "sha256": "b963974ce0e967a11fe68bcc3a983353698efadd7b3a52ecff0496d962267af6",
+      "runs": [
+        {
+          "run": 1,
+          "position": 0,
+          "wallMs": 2.7753999999999905,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 2,
+          "position": 2,
+          "wallMs": 3.0732000000000426,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 3,
+          "position": 1,
+          "wallMs": 4.390100000000075,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 4,
+          "position": 0,
+          "wallMs": 2.930500000000052,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 5,
+          "position": 2,
+          "wallMs": 4.6059999999999945,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 6,
+          "position": 1,
+          "wallMs": 3.0363000000000966,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 7,
+          "position": 0,
+          "wallMs": 2.9126999999999725,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 8,
+          "position": 2,
+          "wallMs": 3.152400000000057,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 9,
+          "position": 1,
+          "wallMs": 3.115000000000009,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 10,
+          "position": 0,
+          "wallMs": 2.773700000000076,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 11,
+          "position": 2,
+          "wallMs": 6.645600000000059,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 12,
+          "position": 1,
+          "wallMs": 5.7275999999999385,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 13,
+          "position": 0,
+          "wallMs": 4.195299999999975,
+          "cpuMs": 47,
+          "issues": 0
+        },
+        {
+          "run": 14,
+          "position": 2,
+          "wallMs": 5.604199999999992,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 15,
+          "position": 1,
+          "wallMs": 7.335499999999911,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 16,
+          "position": 0,
+          "wallMs": 4.86830000000009,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 17,
+          "position": 2,
+          "wallMs": 3.103599999999915,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 18,
+          "position": 1,
+          "wallMs": 3.052099999999882,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 19,
+          "position": 0,
+          "wallMs": 2.9434000000001106,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 20,
+          "position": 2,
+          "wallMs": 5.7948999999998705,
+          "cpuMs": 15,
+          "issues": 0
+        }
+      ],
+      "wall": {
+        "count": 20,
+        "p50": 3.115000000000009,
+        "p95": 6.645600000000059,
+        "max": 7.335499999999911
+      },
+      "cpu": {
+        "count": 20,
+        "p50": 0,
+        "p95": 16,
+        "max": 47
+      }
+    },
+    {
+      "objectives": 100,
+      "activities": 800,
+      "units": 30,
+      "sha256": "80a01e518497962c2b9af7baebde1627e9b257c498632c79967412e0f1eba2ac",
+      "runs": [
+        {
+          "run": 1,
+          "position": 1,
+          "wallMs": 7.539200000000051,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 2,
+          "position": 0,
+          "wallMs": 7.441599999999994,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 3,
+          "position": 2,
+          "wallMs": 8.07929999999999,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 4,
+          "position": 1,
+          "wallMs": 9.882000000000062,
+          "cpuMs": 47,
+          "issues": 0
+        },
+        {
+          "run": 5,
+          "position": 0,
+          "wallMs": 8.610599999999977,
+          "cpuMs": 32,
+          "issues": 0
+        },
+        {
+          "run": 6,
+          "position": 2,
+          "wallMs": 6.974000000000046,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 7,
+          "position": 1,
+          "wallMs": 6.231300000000033,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 8,
+          "position": 0,
+          "wallMs": 6.735900000000015,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 9,
+          "position": 2,
+          "wallMs": 6.059600000000046,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 10,
+          "position": 1,
+          "wallMs": 6.574999999999932,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 11,
+          "position": 0,
+          "wallMs": 6.216499999999996,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 12,
+          "position": 2,
+          "wallMs": 7.060200000000009,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 13,
+          "position": 1,
+          "wallMs": 11.31499999999994,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 14,
+          "position": 0,
+          "wallMs": 13.62259999999992,
+          "cpuMs": 47,
+          "issues": 0
+        },
+        {
+          "run": 15,
+          "position": 2,
+          "wallMs": 14.128200000000106,
+          "cpuMs": 63,
+          "issues": 0
+        },
+        {
+          "run": 16,
+          "position": 1,
+          "wallMs": 7.886799999999994,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 17,
+          "position": 0,
+          "wallMs": 8.36200000000008,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 18,
+          "position": 2,
+          "wallMs": 7.070500000000038,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 19,
+          "position": 1,
+          "wallMs": 6.018900000000031,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 20,
+          "position": 0,
+          "wallMs": 12.11889999999994,
+          "cpuMs": 0,
+          "issues": 0
+        }
+      ],
+      "wall": {
+        "count": 20,
+        "p50": 7.441599999999994,
+        "p95": 13.62259999999992,
+        "max": 14.128200000000106
+      },
+      "cpu": {
+        "count": 20,
+        "p50": 0,
+        "p95": 47,
+        "max": 63
+      }
+    },
+    {
+      "objectives": 200,
+      "activities": 1600,
+      "units": 30,
+      "sha256": "2eca6fd7f8d30713253877b10bb311f68d6cec1ca36587cf1e5d6a022f16d372",
+      "runs": [
+        {
+          "run": 1,
+          "position": 2,
+          "wallMs": 15.084299999999985,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 2,
+          "position": 1,
+          "wallMs": 14.115400000000022,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 3,
+          "position": 0,
+          "wallMs": 14.402299999999968,
+          "cpuMs": 0,
+          "issues": 0
+        },
+        {
+          "run": 4,
+          "position": 2,
+          "wallMs": 21.846400000000017,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 5,
+          "position": 1,
+          "wallMs": 15.244299999999953,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 6,
+          "position": 0,
+          "wallMs": 24.602899999999977,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 7,
+          "position": 2,
+          "wallMs": 16.62889999999993,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 8,
+          "position": 1,
+          "wallMs": 14.576800000000048,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 9,
+          "position": 0,
+          "wallMs": 15.68470000000002,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 10,
+          "position": 2,
+          "wallMs": 17.372400000000084,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 11,
+          "position": 1,
+          "wallMs": 19.33159999999998,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 12,
+          "position": 0,
+          "wallMs": 25.425299999999993,
+          "cpuMs": 78,
+          "issues": 0
+        },
+        {
+          "run": 13,
+          "position": 2,
+          "wallMs": 26.32910000000004,
+          "cpuMs": 78,
+          "issues": 0
+        },
+        {
+          "run": 14,
+          "position": 1,
+          "wallMs": 17.463799999999992,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 15,
+          "position": 0,
+          "wallMs": 22.136999999999944,
+          "cpuMs": 63,
+          "issues": 0
+        },
+        {
+          "run": 16,
+          "position": 2,
+          "wallMs": 21.134700000000066,
+          "cpuMs": 32,
+          "issues": 0
+        },
+        {
+          "run": 17,
+          "position": 1,
+          "wallMs": 16.55079999999998,
+          "cpuMs": 16,
+          "issues": 0
+        },
+        {
+          "run": 18,
+          "position": 0,
+          "wallMs": 17.0462,
+          "cpuMs": 15,
+          "issues": 0
+        },
+        {
+          "run": 19,
+          "position": 2,
+          "wallMs": 17.293499999999995,
+          "cpuMs": 31,
+          "issues": 0
+        },
+        {
+          "run": 20,
+          "position": 1,
+          "wallMs": 29.776499999999942,
+          "cpuMs": 32,
+          "issues": 0
+        }
+      ],
+      "wall": {
+        "count": 20,
+        "p50": 17.293499999999995,
+        "p95": 26.32910000000004,
+        "max": 29.776499999999942
+      },
+      "cpu": {
+        "count": 20,
+        "p50": 31,
+        "p95": 78,
+        "max": 78
+      }
+    }
+  ],
+  "growth": {
+    "doubling100to200": 2.3238953988389603,
+    "quadrupling50to200": 5.551685393258409
+  },
+  "at": "2026-10-07T20:54:49.492Z"
+}

@@ -96,12 +96,20 @@ describe("guided v2 import dry-run", () => {
   let pg: PGlite;
   let database: Kysely<CediahDatabase>;
   let provider: ReturnType<typeof createPostgresGuidedLearningV2Provider>;
+  let portableDatabase: Awaited<ReturnType<typeof testDatabase>>;
   beforeAll(async () => {
     ({ pg, database } = await testDatabase());
     await seedImportCatalog(pg);
     provider = createPostgresGuidedLearningV2Provider(database);
+    // Provision both isolated catalogs as fixture setup. The five-second case
+    // budget measures import/replay/export, not another WASM boot and migration chain.
+    portableDatabase = await testDatabase();
+    await seedImportCatalog(portableDatabase.pg, 20);
   }, 120_000);
-  afterAll(async () => { await database?.destroy(); await pg?.close(); });
+  afterAll(async () => {
+    await portableDatabase?.database.destroy(); await portableDatabase?.pg.close();
+    await database?.destroy(); await pg?.close();
+  });
   beforeEach(async () => { await pg.exec("delete from public.learning_v2_imports"); });
 
   it("I01 stores a private 24h session without creating or changing a learning path", async () => {
@@ -261,25 +269,22 @@ describe("guided v2 import dry-run", () => {
     expect(exported).toEqual({ status: "success", value: { package: pkg, bindings: bindings() } });
     expect(JSON.stringify(exported)).not.toMatch(/createdBy|approvedBy|signedUrl|progress/i);
     expect((await pg.query<{ n: number }>("select count(*)::int as n from public.learning_path_steps")).rows[0]!.n).toBe(0);
-    const other = await testDatabase();
-    try {
-      await seedImportCatalog(other.pg, 20);
-      const otherProvider = createPostgresGuidedLearningV2Provider(other.database);
-      const otherBindings = bindings(20);
-      const revalidated = await otherProvider.validateImport({ ...request(), actorUserId: id(21),
-        package: pkg, bindings: otherBindings });
-      expect(revalidated.status).toBe("success");
-      if (revalidated.status !== "success") return;
-      const reimported = await otherProvider.commitImport({ actorUserId: id(21), canCreate: true, canEditAll: false,
-        importId: revalidated.value.importId, idempotencyKey: crypto.randomUUID(),
-        hash: revalidated.value.hash, expectedVersion: null });
-      expect(reimported.status).toBe("success");
-      if (reimported.status !== "success") return;
-      expect(reimported.value.pathId).not.toBe(committed.value.pathId);
-      expect(await otherProvider.exportPath({ actorUserId: id(21), canEdit: true, canEditAll: false,
-        pathId: reimported.value.pathId })).toEqual({ status: "success", value: { package: pkg, bindings: otherBindings } });
-      expect(revalidated.value.hash).toBe(validated.value.hash);
-    } finally { await other.database.destroy(); await other.pg.close(); }
+    const other = portableDatabase;
+    const otherProvider = createPostgresGuidedLearningV2Provider(other.database);
+    const otherBindings = bindings(20);
+    const revalidated = await otherProvider.validateImport({ ...request(), actorUserId: id(21),
+      package: pkg, bindings: otherBindings });
+    expect(revalidated.status).toBe("success");
+    if (revalidated.status !== "success") return;
+    const reimported = await otherProvider.commitImport({ actorUserId: id(21), canCreate: true, canEditAll: false,
+      importId: revalidated.value.importId, idempotencyKey: crypto.randomUUID(),
+      hash: revalidated.value.hash, expectedVersion: null });
+    expect(reimported.status).toBe("success");
+    if (reimported.status !== "success") return;
+    expect(reimported.value.pathId).not.toBe(committed.value.pathId);
+    expect(await otherProvider.exportPath({ actorUserId: id(21), canEdit: true, canEditAll: false,
+      pathId: reimported.value.pathId })).toEqual({ status: "success", value: { package: pkg, bindings: otherBindings } });
+    expect(revalidated.value.hash).toBe(validated.value.hash);
   });
 
   it("I03 updates only the target draft with CAS and rejects reused revision with changed hash", async () => {

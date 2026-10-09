@@ -6,6 +6,7 @@ import { safeMapReturnHref } from "../map/map-route";
 import { RouteSignals, ObjectiveList } from "./signals";
 import { RouteAction } from "./route-action";
 import { RouteMaintenance } from "./review";
+import { V2Upgrade } from "./upgrade";
 
 export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Path; state: V2State | null; focusUnit?: string; returnTo?: string | null }) {
   const confirmed = stateMatches(path, state) ? state : null;
@@ -21,6 +22,8 @@ export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Pat
         <div className="learning-objectives"><strong>Al terminar podrás</strong><ObjectiveList objectives={unit.objectives} state={confirmed} />{safe ? <Link href={routeHref(path.slug, unit.key, safe)}>Ver unidad en la ruta</Link> : null}</div>
       </details>)}</div> : <p role="status">Esta ruta no tiene unidades disponibles.</p>}
     </section>
-    {confirmed ? <RouteMaintenance path={path} state={confirmed} /> : null}
+    {confirmed ? <><V2Upgrade key={`${confirmed.enrollmentId}:${confirmed.rowVersion}`} enrollmentId={confirmed.enrollmentId} expectedVersion={confirmed.rowVersion} disabled={path.availability === "maintenance" || confirmed.availability === "maintenance"} />
+      {confirmed.versionHistory?.length ? <section className="learning-upgrade-card" aria-label="Historial de versiones"><div><h2>Tu historial</h2><ul>{confirmed.versionHistory.map(item => <li key={item.versionNumber}>Versión {item.versionNumber}{item.completedAt ? " · Finalización conservada" : ""}{item.consumedActivities.length ? <ul aria-label="Lecturas previas">{item.consumedActivities.map((title, index) => <li key={index}>{title} · Consumo previo</li>)}</ul> : null}</li>)}</ul></div></section> : null}
+      {confirmed.availability !== "maintenance" ? <RouteMaintenance path={path} state={confirmed} /> : null}</> : path.availability === "maintenance" ? <p role="status">Ruta en mantenimiento. Tu historial se conserva.</p> : null}
   </main>;
 }

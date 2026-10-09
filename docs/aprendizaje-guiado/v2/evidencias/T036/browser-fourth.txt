@@ -1,0 +1,66 @@
+[WebServer] (node:27348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:21576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 2 tests using 1 worker
+
+(node:22856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for seven active formats and future case stages (15.5s)
+(node:6988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\e2e\guided-v2-security.spec.ts:94:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (2.0s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for seven active formats and future case stages 
+
+    Error: {"error":"conflict"}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 409
+
+      10 | async function post(page: Page, path: string, data: unknown, key = crypto.randomUUID()) {
+      11 |   const r = await page.request.post(learner + path, { data, headers: { "idempotency-key": key } });
+    > 12 |   expect(r.status(), await r.text()).toBe(200); return r.json();
+         |                                      ^
+      13 | }
+      14 | async function state(page: Page, enrollmentId: string) {
+      15 |   const r = await page.request.get(learner + `enrollments/${enrollmentId}/state`); expect(r.ok()).toBeTruthy(); return (await r.json()).state;
+        at post (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:12:38)
+        at launch (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:19:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:45:13)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-a3b24-mats-and-future-case-stages-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-a3b24-mats-and-future-case-stages-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-a3b24-mats-and-future-case-stages-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-a3b24-mats-and-future-case-stages-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for seven active formats and future case stages 
+  1 passed (30.4s)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T036/playwright.config.mts --project desktop

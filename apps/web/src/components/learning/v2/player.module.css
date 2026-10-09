@@ -1,0 +1,15 @@
+.header.header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header > div:nth-child(2) {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.header > :first-child,
+.header > div:last-child {
+  flex: 0 1 auto;
+  max-width: 100%;
+}

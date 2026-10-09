@@ -1,0 +1,1354 @@
+{
+  "status": "PASS LOCAL",
+  "scope": "Error CORE simulado, remediación y verificación distinta",
+  "finalState": {
+    "engineVersion": "guided-v2",
+    "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+    "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+    "rowVersion": 9,
+    "completedActivities": 2,
+    "dispensedActivities": 0,
+    "plannedRequiredActivities": 37,
+    "completedAt": null,
+    "masteredAt": null,
+    "consolidatedAt": null,
+    "objectives": [
+      {
+        "objectiveKey": "territorios",
+        "label": "learning",
+        "objectiveScore": 50,
+        "criticalErrorOpen": false,
+        "assisted": false,
+        "applicationDemonstrated": false,
+        "reviewDue": false,
+        "firstMasteredAt": null,
+        "firstConsolidatedAt": null
+      },
+      {
+        "objectiveKey": "retorno",
+        "label": "new",
+        "objectiveScore": null,
+        "criticalErrorOpen": false,
+        "assisted": false,
+        "applicationDemonstrated": false,
+        "reviewDue": false,
+        "firstMasteredAt": null,
+        "firstConsolidatedAt": null
+      },
+      {
+        "objectiveKey": "circuito",
+        "label": "new",
+        "objectiveScore": null,
+        "criticalErrorOpen": false,
+        "assisted": false,
+        "applicationDemonstrated": false,
+        "reviewDue": false,
+        "firstMasteredAt": null,
+        "firstConsolidatedAt": null
+      },
+      {
+        "objectiveKey": "puentes",
+        "label": "new",
+        "objectiveScore": null,
+        "criticalErrorOpen": false,
+        "assisted": false,
+        "applicationDemonstrated": false,
+        "reviewDue": false,
+        "firstMasteredAt": null,
+        "firstConsolidatedAt": null
+      }
+    ],
+    "dueReviews": 0,
+    "nextAction": {
+      "kind": "activity",
+      "key": "territorios-explicar",
+      "reason": "Siguiente actividad de la rama disponible"
+    },
+    "maintenance": {
+      "generatedAt": "2026-10-08T23:00:02.000Z",
+      "timeZone": "America/Caracas",
+      "diagnostic": {
+        "status": "pending",
+        "assessmentKey": "diagnostico"
+      },
+      "activities": [
+        {
+          "key": "territorios-explicar",
+          "objectiveKey": "territorios",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        {
+          "key": "retorno-explicar",
+          "objectiveKey": "retorno",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        {
+          "key": "circuito-explicar",
+          "objectiveKey": "circuito",
+          "reason": "Siguiente actividad de la rama disponible"
+        }
+      ],
+      "reviewBatch": [],
+      "agenda": [
+        {
+          "objectiveKey": "territorios",
+          "dueAt": "2026-10-09T23:00:02.000Z",
+          "retention7": {
+            "dueAt": null,
+            "acceptedAt": null,
+            "elapsedDays": null
+          },
+          "retention30": {
+            "dueAt": null,
+            "acceptedAt": null,
+            "elapsedDays": null
+          }
+        }
+      ],
+      "gates": [
+        {
+          "unitKey": "unidad-sistemica",
+          "passed": false,
+          "score": 25,
+          "thresholdPercent": 80,
+          "missingCoreKeys": [
+            "territorios",
+            "retorno"
+          ],
+          "criticalErrorKeys": []
+        },
+        {
+          "unitKey": "unidad-portal",
+          "passed": false,
+          "score": 0,
+          "thresholdPercent": 80,
+          "missingCoreKeys": [
+            "circuito"
+          ],
+          "criticalErrorKeys": []
+        },
+        {
+          "unitKey": "unidad-colateral",
+          "passed": false,
+          "score": 0,
+          "thresholdPercent": 80,
+          "missingCoreKeys": [
+            "puentes"
+          ],
+          "criticalErrorKeys": []
+        }
+      ],
+      "blockers": [
+        {
+          "objectiveKey": "puentes",
+          "blockedBy": [
+            "retorno",
+            "circuito"
+          ]
+        }
+      ],
+      "remediation": [],
+      "exhaustedBanks": []
+    }
+  },
+  "trace": [
+    {
+      "operation": "clock",
+      "target": null,
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 2,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-remediar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:01.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-remediar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "start",
+      "target": {
+        "kind": "activity",
+        "key": "territorios-remediar"
+      },
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 3,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-remediar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:01.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-remediar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "response",
+      "target": "territorios-remediar",
+      "accepted": true,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 4,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-comprobar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:01.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-comprobar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "complete",
+      "target": null,
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 5,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-comprobar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:01.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-comprobar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "clock",
+      "target": null,
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 6,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-comprobar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:02.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-comprobar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "start",
+      "target": {
+        "kind": "activity",
+        "key": "territorios-comprobar"
+      },
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 7,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "reinforce",
+            "objectiveScore": 0,
+            "criticalErrorOpen": true,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "remediate",
+          "key": "territorios-comprobar",
+          "reason": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:02.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": [
+                "territorios"
+              ]
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [
+            {
+              "objectiveKey": "territorios",
+              "confusion": "Confundir el territorio de la AMS con el de la AMI o considerar aislados los territorios digestivos.",
+              "message": "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar",
+              "activityKey": "territorios-comprobar",
+              "bankExhausted": false,
+              "availableAfter": null,
+              "pauseOffered": false
+            }
+          ],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "response",
+      "target": "territorios-comprobar",
+      "accepted": true,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 8,
+        "completedActivities": 2,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "learning",
+            "objectiveScore": 50,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "territorios-explicar",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:02.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "territorios-explicar",
+              "objectiveKey": "territorios",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "territorios",
+              "dueAt": "2026-10-09T23:00:02.000Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 25,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [],
+          "exhaustedBanks": []
+        }
+      }
+    },
+    {
+      "operation": "complete",
+      "target": null,
+      "accepted": null,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "5e4c8227-865c-4e96-92a9-33a1c220d069",
+        "pathVersionId": "1bc67547-2ae5-4089-b7e0-ab1723a59dd7",
+        "rowVersion": 9,
+        "completedActivities": 2,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 37,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "territorios",
+            "label": "learning",
+            "objectiveScore": 50,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "retorno",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "circuito",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          },
+          {
+            "objectiveKey": "puentes",
+            "label": "new",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "territorios-explicar",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-08T23:00:02.000Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "pending",
+            "assessmentKey": "diagnostico"
+          },
+          "activities": [
+            {
+              "key": "territorios-explicar",
+              "objectiveKey": "territorios",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "retorno-explicar",
+              "objectiveKey": "retorno",
+              "reason": "Siguiente actividad de la rama disponible"
+            },
+            {
+              "key": "circuito-explicar",
+              "objectiveKey": "circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "territorios",
+              "dueAt": "2026-10-09T23:00:02.000Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-sistemica",
+              "passed": false,
+              "score": 25,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "territorios",
+                "retorno"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-portal",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "circuito"
+              ],
+              "criticalErrorKeys": []
+            },
+            {
+              "unitKey": "unidad-colateral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "puentes"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [
+            {
+              "objectiveKey": "puentes",
+              "blockedBy": [
+                "retorno",
+                "circuito"
+              ]
+            }
+          ],
+          "remediation": [],
+          "exhaustedBanks": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+[eval]:1
+require(@playwright/test).chromium.launch({channel:msedge,headless:true}).then(async b=>{console.log(Edge
+        ^
+Expected ',', got '<eof>'
+
+SyntaxError: Invalid or unexpected token
+    at makeContextifyScript (node:internal/vm:194:14)
+    at compileScript (node:internal/process/execution:388:10)
+    at evalTypeScript (node:internal/process/execution:260:22)
+    at node:internal/main/eval_string:71:3
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: node -e "require(@playwright/test).chromium.launch({channel:msedge,headless:true}).then(async b=>{console.log(Edge" launch PASS "+b.version());await b.close()}).catch(e=>{console.error(e.message);process.exitCode=1})"

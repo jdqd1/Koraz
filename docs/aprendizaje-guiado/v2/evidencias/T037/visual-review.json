@@ -1,0 +1,54 @@
+{
+  "taskId": "T037",
+  "status": "PASS",
+  "reviewedOn": "2026-10-06",
+  "reviewer": "Codex",
+  "method": "Visual inspection of actual browser screenshots and viewport comparison sheets with view_image; combined with automated geometry and interaction checks.",
+  "representativeInspection": true,
+  "all135ScreensIndividuallyInspected": false,
+  "humanSignoff": false,
+  "generatedComparisonSheets": 31,
+  "latestInspectedComparisonFiles": [
+    "comparison-admin-0.png",
+    "comparison-admin-3.png",
+    "comparison-keyboard-dialog.png",
+    "comparison-map-loaded-routes.png",
+    "comparison-renderer-study.png",
+    "comparison-renderer-constructed.png",
+    "comparison-renderer-choice.png",
+    "comparison-renderer-short.png",
+    "comparison-renderer-match.png",
+    "comparison-renderer-sequence.png",
+    "comparison-renderer-image.png",
+    "comparison-renderer-case.png",
+    "comparison-learner-loading.png",
+    "comparison-learner-error.png",
+    "comparison-learner-feedback.png",
+    "comparison-learner-zoom200.png",
+    "comparison-image-alternative.png",
+    "comparison-match-table-keyboard.png"
+  ],
+  "additionalActualScreensInspected": [
+    "Final native Edge zoom200 focused editor field and learner route",
+    "Final desktop and 360 learner CSS zoom200 header",
+    "Loaded maps at desktop, 360 and 768 after the control clearance correction",
+    "reflow-recheck-artifacts/guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-390/renderer-study.png",
+    "reflow-recheck-artifacts/guided-v2-accessibility-T0-77cfd-rt-gallery-200-percent-zoom-390/renderer-sequence.png"
+  ],
+  "resolvedFindings": [
+    "Mobile preview button and enlarged learner header wrap within the available width",
+    "Assessment action buttons wrap at 768 without page overflow",
+    "Dialog buttons are visible above the mobile navigation",
+    "Native zoom focused editor field is clear of the save bar",
+    "Loaded map controls are clear of the mobile navigation; connections remain continuous",
+    "Secondary navigation and map loading text contrast corrected",
+    "Enlarged mobile navigation labels stay within their destinations"
+  ],
+  "captureFramingLimit": "Some mobile viewport screenshots have an incomplete or blank framing after scrolling, notably renderer-study and renderer-sequence at 390. Their original full-page captures were inspected and show the corresponding content. Both original captures remain linked in gallery.html; no claim is made that every viewport image is optimally framed. Full-page screenshots can show fixed bars within the captured document.",
+  "screenReader": "NO VERIFICADO",
+  "limits": [
+    "No human accessibility approval or full WCAG certification",
+    "Synthetic image fixture does not verify clinical illustration readability",
+    "Mobile viewport and touch emulation do not replace physical device checks"
+  ]
+}

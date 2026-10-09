@@ -1,0 +1,93 @@
+{
+  "queries": 23,
+  "grouped": [
+    {
+      "sql": "begin",
+      "count": 1
+    },
+    {
+      "sql": "select private.lock_guided_v2_actor($1::uuid) as id",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_enrollments\" where \"id\" = $1 and \"user_id\" = $2",
+      "count": 1
+    },
+    {
+      "sql": "select \"id\", \"policy_version\", \"status\", \"edit_version\", updated_at::text as \"updatedAt\" from \"learning_path_versions\" where \"id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_bindings\" where \"path_version_id\" = $1 order by \"kind\", \"local_key\"",
+      "count": 1
+    },
+    {
+      "sql": "select private.lock_guided_v2_catalog(resource.kind, resource.id)\n    from unnest($1::text[], $2::uuid[]) with ordinality as resource(kind, id, ordinal)\n    order by resource.ordinal",
+      "count": 1
+    },
+    {
+      "sql": "\n    select case resource.kind\n      when 'topic' then exists(select 1 from content_items item where item.id=resource.id\n        and item.kind='topic' and item.status='published' and item.catalog_visibility='catalog')\n      when 'source' then exists(select 1 from learning_resource_revisions revision\n        join learning_resources source on source.id=revision.resource_id\n        join content_items item on item.id=source.source_content_id\n        where revision.id=resource.id and source.retired_at is null\n          and item.status='published' and item.catalog_visibility='catalog')\n      when 'asset' then exists(select 1 from content_assets asset\n        join content_items item on item.id=asset.content_item_id\n        where asset.id=resource.id and asset.status='ready'\n          and item.status='published' and item.catalog_visibility='catalog')\n      else false end as available\n    from unnest($1::text[], $2::uuid[]) as resource(kind,id)",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_enrollment_versions\" where \"enrollment_id\" = $1",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_attempts\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" in ($3) order by \"created_at\"",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_responses\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" in ($3)",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_events\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"policy_version\" = $3 order by \"occurred_at\", \"id\"",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_review_state\" where \"user_id\" = $1 and \"path_version_id\" = $2 order by \"objective_key\" for update",
+      "count": 1
+    },
+    {
+      "sql": "select \"objective_key\" from \"learning_v2_review_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3 and \"due_at\" <= $4",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_objective_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3 order by \"objective_key\" for update",
+      "count": 1
+    },
+    {
+      "sql": "select \"timezone\" from \"learning_preferences\" where \"user_id\" = $1",
+      "count": 2
+    },
+    {
+      "sql": "insert into \"learning_events\" (\"user_id\", \"enrollment_id\", \"attempt_id\", \"event_type\", \"semantic_key\", \"payload_json\", \"policy_version\", \"occurred_at\", \"local_date\", \"timezone\") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) on conflict (\"user_id\", \"semantic_key\") do nothing returning \"id\"",
+      "count": 1
+    },
+    {
+      "sql": "select \"id\" from \"learning_events\" where \"user_id\" = $1 and \"semantic_key\" = $2",
+      "count": 1
+    },
+    {
+      "sql": "\n    insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date,created_at)\n    values ($1,$2,$3,$4,$5,$6::date,$7)\n    on conflict (user_id,award_key) do nothing returning award_key,reward_kind,created_at,xp",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_events\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"policy_version\" = $3 and \"occurred_at\" <= $4",
+      "count": 1
+    },
+    {
+      "sql": "select * from \"learning_v2_review_state\" where \"user_id\" = $1 and \"enrollment_id\" = $2 and \"path_version_id\" = $3",
+      "count": 1
+    },
+    {
+      "sql": "select \"learning_enrollment_versions\".\"path_version_id\", \"learning_enrollment_versions\".\"previous_version_id\", \"learning_enrollment_versions\".\"adopted_at\", \"learning_enrollment_versions\".\"mapping_json\", \"learning_path_versions\".\"version_number\", \"learning_path_versions\".\"policy_version\" from \"learning_enrollment_versions\" inner join \"learning_path_versions\" on \"learning_path_versions\".\"id\" = \"learning_enrollment_versions\".\"path_version_id\" where \"learning_enrollment_versions\".\"enrollment_id\" = $1 order by \"learning_path_versions\".\"version_number\"",
+      "count": 1
+    },
+    {
+      "sql": "commit",
+      "count": 1
+    }
+  ]
+}

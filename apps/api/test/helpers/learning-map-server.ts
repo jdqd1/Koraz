@@ -5,12 +5,13 @@ import { createLearningMapTestDb } from "./learning-map-db.js";
 import { createPostgresGuidedLearningProvider } from "../../src/providers/postgres-guided-learning.js";
 import { createPostgresLearningMapProvider } from "../../src/providers/postgres-learning-map.js";
 import { buildApp } from "../../src/app.js";
+import { createGuidedV2HttpProvider } from "../../src/guided-learning/v2/routes.js";
 if (
   process.env.NODE_ENV !== "test" ||
   process.env.MAP_E2E_TEST_SERVER !== "true"
 )
   throw new Error("Explicit test environment required");
-const { database, pg, close } = await createLearningMapTestDb();
+const { database, pg, close } = await createLearningMapTestDb({ guidedV2: true });
 const creator = randomUUID(),
   student = "c1000000-0000-4000-8000-000000000001",
   other = "c1000000-0000-4000-8000-000000000002",
@@ -140,6 +141,7 @@ const app = await buildApp(
   },
   {
     guidedLearningProvider: guided,
+    guidedLearningV2Provider: createGuidedV2HttpProvider(database),
     learningMapProvider: map,
     identityProvider: {
       getUser: async (r) =>

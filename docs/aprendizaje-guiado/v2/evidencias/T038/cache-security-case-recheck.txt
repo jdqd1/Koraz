@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-security.test.ts (37 tests | 1 failed | 36 skipped) 14233ms
+     × S06 external logins cannot access v2 tables; runtime is not owner, superuser or bypassrls 5033ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-security.test.ts > T036 real HTTP security with restricted PostgreSQL runtime > S06 external logins cannot access v2 tables; runtime is not owner, superuser or bypassrls
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-security.test.ts:96:3
+     94|   afterAll(async () => { await app?.close(); await database?.destroy()…
+     95|
+     96|   it("S06 external logins cannot access v2 tables; runtime is not owne…
+       |   ^
+     97|     const tables = ["bindings", "imports", "attempts", "responses", "o…
+     98|     for (const role of ["anon", "authenticated"]) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 36 skipped (37)
+   Start at  21:02:43
+   Duration  26.11s (transform 3.16s, setup 0ms, import 10.93s, tests 14.23s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-security.test.ts -t "S06 external logins" "--maxWorkers=1"

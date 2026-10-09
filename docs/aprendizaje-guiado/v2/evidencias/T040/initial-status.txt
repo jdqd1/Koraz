@@ -1,0 +1,75 @@
+ M apps/api/package.json
+ M apps/api/src/app.ts
+ M apps/api/src/config.ts
+ M apps/api/src/db/migrate.ts
+ M apps/api/src/db/run-migrations.ts
+ M apps/api/src/guided-learning/path-upgrade.ts
+ M apps/api/src/guided-learning/v2/evidence.ts
+ M apps/api/src/guided-learning/v2/routes.ts
+ M apps/api/src/guided-learning/v2/selection.ts
+ M apps/api/src/providers/postgres-guided-learning-v2.ts
+ M apps/api/test/guided-v2-evidence.test.ts
+ M apps/api/test/guided-v2-import.test.ts
+ M apps/api/test/guided-v2-routes.test.ts
+ M apps/api/test/guided-v2-security.test.ts
+ M apps/api/test/guided-v2-selection.test.ts
+ M apps/web/package.json
+ M apps/web/src/app/aprendizaje/rutas/[slug]/page.tsx
+ M apps/web/src/app/interface-polish.css
+ M apps/web/src/app/learning.css
+ M apps/web/src/app/panel/rutas/nueva/page.tsx
+ M apps/web/src/app/panel/rutas/page.tsx
+ M apps/web/src/app/reference-dashboard.css
+ M apps/web/src/components/app-shell.tsx
+ M apps/web/src/components/learning/editor/v2/activity-editor.tsx
+ M apps/web/src/components/learning/editor/v2/activity-forms.test.tsx
+ M apps/web/src/components/learning/editor/v2/assessment-editor.tsx
+ M apps/web/src/components/learning/editor/v2/editor-shell.tsx
+ M apps/web/src/components/learning/editor/v2/sources-fields.tsx
+ M apps/web/src/components/learning/editor/v2/styles.module.css
+ M apps/web/src/components/learning/editor/v2/use-route-editor.ts
+ M apps/web/src/components/learning/editor/v2/visual-forms.test.tsx
+ M apps/web/src/components/learning/map/learning-map-workspace.tsx
+ M apps/web/src/components/learning/map/learning-map.module.css
+ M apps/web/src/components/learning/v2/path-screen.tsx
+ M apps/web/src/components/learning/v2/player.tsx
+ M apps/web/src/components/learning/v2/route-action.tsx
+ M database/README.md
+ M docs/aprendizaje-guiado/v2/evidencias/T021/README.md
+ M docs/aprendizaje-guiado/v2/evidencias/T021/result.json
+ M docs/aprendizaje-guiado/v2/evidencias/T024/README.md
+ M docs/aprendizaje-guiado/v2/evidencias/T024/result.json
+ M packages/contracts/src/guided-learning-v2.ts
+?? apps/api/src/guided-learning/v2/upgrade.ts
+?? apps/api/test/guided-v2-bootstrap.test.ts
+?? apps/api/test/guided-v2-harness.test.ts
+?? apps/api/test/guided-v2-upgrade.test.ts
+?? apps/api/test/helpers/guided-v2-fixtures.ts
+?? apps/api/test/helpers/guided-v2-postgres.ts
+?? apps/api/test/helpers/guided-v2-server.ts
+?? apps/api/test/helpers/guided-v2-tls-cert.pem
+?? apps/api/test/helpers/guided-v2-tls-key.pem
+?? apps/api/test/performance/
+?? apps/web/playwright.guided-v2.config.ts
+?? apps/web/src/components/learning/editor/v2/new-draft.test.ts
+?? apps/web/src/components/learning/editor/v2/new-draft.ts
+?? apps/web/src/components/learning/v2/player.module.css
+?? apps/web/src/components/learning/v2/upgrade-client.tsx
+?? apps/web/src/components/learning/v2/upgrade.test.tsx
+?? apps/web/src/components/learning/v2/upgrade.tsx
+?? apps/web/tests/e2e/guided-v2-accessibility.spec.ts
+?? apps/web/tests/e2e/guided-v2-journeys.spec.ts
+?? apps/web/tests/e2e/guided-v2-security.spec.ts
+?? apps/web/tests/e2e/guided-v2-teardown.ts
+?? crear_plantilla_carta_trabajo.py
+?? docs/aprendizaje-guiado/v2/evidencias/M01/
+?? docs/aprendizaje-guiado/v2/evidencias/T024/cierre-timeout/
+?? docs/aprendizaje-guiado/v2/evidencias/T034/
+?? docs/aprendizaje-guiado/v2/evidencias/T035/
+?? docs/aprendizaje-guiado/v2/evidencias/T036/
+?? docs/aprendizaje-guiado/v2/evidencias/T037/
+?? docs/aprendizaje-guiado/v2/evidencias/T038/
+?? docs/aprendizaje-guiado/v2/evidencias/T039/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/
+?? docs/aprendizaje-guiado/v2/piloto/
+?? qa_carta_trabajo/

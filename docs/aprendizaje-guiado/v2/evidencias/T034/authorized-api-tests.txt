@@ -1,0 +1,49 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > covers every guided-learning foreign key reported by the database advisor 7ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > creates, validates and publishes a real relational route with four projections 184ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > shows every unit without prerequisite gating and pins an idempotent enrollment 41ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > keeps enrollment writes owned and optimistic 60ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > allows a native video to be skipped for reduced XP while observed coverage earns full XP 283ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > persists and resumes a server-graded quiz without leaking future solutions 111ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > requires flashcard reveal and explicit guide/video completion while one alternative counts once 242ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > builds deterministic review sessions and keeps stale devices from advancing memory twice 202ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > snoozes presentation without changing due dates and filters paused routes 60ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > marks a step skipped without inflating route progress and restores it 20ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > keeps a completed route at one hundred percent while later reviews stay separate 267ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > defers constancy timezone changes to the next local week with optimistic idempotency 27ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > caps review points at twenty per user-local day 42ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > reports insufficient evidence and broken references instead of publishing mocks 58ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > makes published definitions and resource snapshots immutable at the database boundary 9ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > paginates the editorial resource catalog and exposes assessment gaps 8ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > upgrades versions voluntarily, preserves history and transfers only valid equivalences 281ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > offers library tracking only for the exact current resource revision 14ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > keeps historical attempts readable while retired resources cannot launch again 20ms
+ ✓ test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > denies inherited Data API roles and keeps editor preview free of student tracking 13ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > requires content, assessment, policy and modality equality 14ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > invalidates dependent evidence when a transitive prerequisite changes 1ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > publication leaves old enrollment pinned and preview does not adopt 83ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption 97ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows 97ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2 53ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > conversion makes a new blocked draft, preserves importance and never copies recommendedAfter 24ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > does not register or call guided modules while the feature is disabled 126ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires identity and returns only private, validated catalog data 21ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > emits privacy-safe operation observations and protects error responses from caching 21ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > rejects unknown student-controlled fields and scopes enrollment to session identity 11ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > keeps upgrade preview private and requires a strict idempotent adoption 19ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires a UUID idempotency key and a strict attempt payload 10ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > scopes private media reads to the session and rejects unkeyed mutations 8ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > validates and scopes library equivalences to the authenticated account 6ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > serves real home state and never turns a provider failure into zero progress 17ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > requires idempotency and rejects injected identity on phase-four mutations 21ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > enforces editor capabilities and preview performs no student mutation 14ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > serves readonly current and fixed editor material details with strict inputs 9ms
+ ✓ test/guided-learning-routes.test.ts > guided-learning route registration > validates a strict saved version and returns safe field destinations 22ms
+
+ Test Files  3 passed (3)
+      Tests  40 passed (40)
+   Start at  12:21:46
+   Duration  23.38s (transform 1.22s, setup 0ms, import 15.14s, tests 7.40s, environment 0ms)
+

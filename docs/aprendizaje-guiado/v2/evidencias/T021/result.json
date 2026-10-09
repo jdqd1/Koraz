@@ -1,6 +1,6 @@
 {
   "taskId": "T021",
-  "status": "PARTIAL",
+  "status": "PASS",
   "implementationChecks": "PASS",
   "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
   "observedHead": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
@@ -90,8 +90,8 @@
   "issues": [
     {
       "id": "upgrade-success-dto-pending",
-      "status": "OPEN",
-      "detail": "GET/POST upgrade registered and protected but return 409 for owned enrollment until explicit adoption service T034. Full all-endpoints acceptance is pending."
+      "status": "RESOLVED",
+      "detail": "Closed by T034 local HTTP/PGlite and real Next/BFF browser evidence; no system or production acceptance implied."
     }
   ],
   "scopeExceptions": [
@@ -109,7 +109,23 @@
     "No new PostgreSQL concurrency run: 12 dedicated-environment cases skipped.",
     "No deployment, flag activation, browser E2E, external database migration or UI implementation.",
     "BFF executes real source with framework/session/upstream adapters.",
-    "Upgrade success DTOs pending T034."
+    "Original limitations describe the T021 run; later T034 evidence closes successful upgrade DTOs only. Historical migration 0005, inherited T024 timeout, backup T041 and Hito S remain outside this closure."
   ],
-  "details": "README.md"
+  "details": "README.md",
+  "scope": "LOCAL",
+  "originalStatus": "PARTIAL",
+  "acceptanceClosedBy": {
+    "taskId": "T034",
+    "recordedUtc": "2026-10-04T17:06:02.1568062Z",
+    "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+    "status": "PASS",
+    "scope": "LOCAL",
+    "evidence": [
+      "../T034/upgrade-final-tests.txt",
+      "../T034/dispatch-conversion-closure.txt",
+      "../T034/browser-upgrade.json",
+      "../T034/result.json"
+    ],
+    "detail": "GET/POST upgrade now produce successful strict DTOs with ownership, explicit acknowledgment, CAS, durable retry, open-attempt blocking, preserved history and zero v1 mastery imported. Original T021 logs and source hashes remain historical."
+  }
 }

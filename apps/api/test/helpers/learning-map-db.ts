@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import {
   Kysely,
@@ -11,7 +11,7 @@ import {
 } from "kysely";
 import type { CediahDatabase } from "../../src/db/database.js";
 
-export async function createLearningMapTestDb() {
+export async function createLearningMapTestDb(options: { guidedV2?: boolean } = {}) {
   const pg = new PGlite();
   let available = Promise.resolve();
   let release: (() => void) | undefined;
@@ -91,6 +91,12 @@ export async function createLearningMapTestDb() {
   ])
     await migrate(file);
   await migrate("0016_learning_maps.sql");
+  if (options.guidedV2) {
+    const directory = new URL("../../../../database/migrations/", import.meta.url);
+    const files = (await readdir(directory)).filter(file => /^\d+_[a-z0-9_]+\.sql$/.test(file)
+      && file > "0016_learning_maps.sql").sort();
+    for (const file of files) await migrate(file);
+  }
   return {
     pg,
     database,

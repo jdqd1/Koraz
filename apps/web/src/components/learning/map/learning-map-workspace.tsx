@@ -312,7 +312,7 @@ function Workspace() {
     </aside>
   ) : null;
   return (
-    <main className={styles.workspace} ref={root}>
+    <section className={styles.workspace} ref={root} aria-label="Mapa de aprendizaje">
       <div
         data-map-background
         style={{
@@ -483,7 +483,7 @@ function Workspace() {
           onClose={() => setColorItem(null)}
         />
       ) : null}
-    </main>
+    </section>
   );
 }
 export function LearningMapWorkspace({

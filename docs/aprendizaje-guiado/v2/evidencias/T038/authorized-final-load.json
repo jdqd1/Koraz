@@ -1,0 +1,247 @@
+{
+  "at": "2026-10-07T20:52:25.938Z",
+  "smoke": false,
+  "seconds": 300,
+  "elapsedMs": 307045.1097,
+  "users": 20,
+  "origin": "http://127.0.0.1:60116",
+  "database": "koraz_guided_v2_test_3e77796072bc409b8ea6fab0f9f2e8d0",
+  "fixture": {
+    "units": 30,
+    "objectives": 200,
+    "activities": 1600,
+    "sha256": "2eca6fd7f8d30713253877b10bb311f68d6cec1ca36587cf1e5d6a022f16d372"
+  },
+  "latencyMs": {
+    "state": {
+      "count": 417,
+      "p50": 1056.0601000000006,
+      "p95": 1985.324099999998,
+      "p99": 2232.724899999972,
+      "max": 2587.119800000015
+    },
+    "create": {
+      "count": 417,
+      "p50": 2589.5670000000027,
+      "p95": 3345.8672999999835,
+      "p99": 3549.939699999988,
+      "max": 3936.8529999999737
+    },
+    "response": {
+      "count": 417,
+      "p50": 3355.0003000000142,
+      "p95": 4889.247899999995,
+      "p99": 5833.2093999999925,
+      "max": 5997.160399999993
+    },
+    "replay": {
+      "count": 56,
+      "p50": 2939.5593999999983,
+      "p95": 3426.9141999999993,
+      "p99": 3528.7798999999977,
+      "max": 3528.7798999999977
+    },
+    "complete": {
+      "count": 417,
+      "p50": 2480.1295999999857,
+      "p95": 2949.2072000000044,
+      "p99": 3162.0584999999846,
+      "max": 4835.578100000006
+    }
+  },
+  "payloadBytes": {
+    "setup": 68137,
+    "profile": 69411,
+    "state": 69411,
+    "create": 664,
+    "response": 70795,
+    "replay": 70599,
+    "complete": 70435
+  },
+  "failures": [],
+  "consistencyErrors": [],
+  "consistency": [
+    {
+      "actor": "student-2",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-3",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-4",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-5",
+      "cycles": 22,
+      "responses": 22,
+      "uniqueActivities": 22,
+      "expectedResponses": 22,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-6",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-7",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-8",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-9",
+      "cycles": 20,
+      "responses": 20,
+      "uniqueActivities": 20,
+      "expectedResponses": 20,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-10",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-11",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-12",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-13",
+      "cycles": 20,
+      "responses": 20,
+      "uniqueActivities": 20,
+      "expectedResponses": 20,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-14",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-15",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-16",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-17",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-18",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-19",
+      "cycles": 20,
+      "responses": 20,
+      "uniqueActivities": 20,
+      "expectedResponses": 20,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-20",
+      "cycles": 21,
+      "responses": 21,
+      "uniqueActivities": 21,
+      "expectedResponses": 21,
+      "correct": true,
+      "unassisted": true
+    },
+    {
+      "actor": "student-21",
+      "cycles": 20,
+      "responses": 20,
+      "uniqueActivities": 20,
+      "expectedResponses": 20,
+      "correct": true,
+      "unassisted": true
+    }
+  ],
+  "totalRequests": 1724,
+  "status": "FAIL"
+}

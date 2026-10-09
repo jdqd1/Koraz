@@ -1,0 +1,503 @@
+{
+  "taskId": "T038",
+  "status": "FAIL",
+  "scope": "LOCAL synthetic fixtures; real HTTP/Fastify and independent disposable PostgreSQL; isolated actual React component/CSS",
+  "closedAt": "2026-10-07T20:24:33.786Z",
+  "timezone": "America/Caracas",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "continua con t038",
+  "authorization": {
+    "ficha": "HANDOFF-EJECUTOR.md T038; section 11 L01-L03",
+    "extensionsImplemented": false,
+    "proposedExtension": "AMPLIACION-PROPUESTA.md",
+    "proposedExtensionAuthorized": false
+  },
+  "predecessors": [
+    {
+      "task": "T035",
+      "status": "PASS",
+      "evidence": "../T035/result.json"
+    },
+    {
+      "task": "T037",
+      "status": "PASS",
+      "evidence": "../T037/result.json",
+      "requiredByFicha": false
+    }
+  ],
+  "productFiles": [
+    {
+      "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "sha256": "6439245A80A2790A375CAD2EC931F51B212D92250667DB7F78C51AF2EDFAC1EF"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+      "sha256": "7BFE428799FD237E8684E31D9B629107DFFEA6AFB95A59785B7B676487B19109"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+      "sha256": "330B52E6167D7C560FB5FA5B06F22027D700B772885EA635AD782085433966F2"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+      "sha256": "908966FE60B9D8238445F29CD292DCC1B615C39BC6AC767601B258A83105EF92"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+      "sha256": "54BCDC52C37B401C115EE171BC04E1DD972B14C13BA7365361BB8285D45C6686"
+    },
+    {
+      "path": "apps/api/test/performance/guided-v2-load.mjs",
+      "sha256": "D412BE576BCE677F80FFAB03B4837BD04AC732BD81857957E168AB4B73CD4E45"
+    }
+  ],
+  "changedFiles": [
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+    "apps/api/test/performance/guided-v2-load.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/AMPLIACION-PROPUESTA.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-status.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline.cpuprofile",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-api.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-check.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-fixture.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-server-rejected.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-1440.png",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-390.png",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-bundle.css",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-bundle.js",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-browser.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-bundle.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-eight-kinds.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-results.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-small-fixture.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-profile.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/database-cleanup-verification.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/diff-check-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/editor-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/final-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-load.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/payload-summary.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/postgres-start.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/postgres-stop.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/preservation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/profile-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/resources.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/services-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/source-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-baseline.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-initial.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/verify-cleanup.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/verify-preservation.ps1",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/visual-regression-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/visual-regression-recheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-lint-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-typecheck-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/write-result.mjs"
+  ],
+  "acceptance": {
+    "L01": {
+      "status": "PASS",
+      "units": 30,
+      "objectives": 200,
+      "activities": 1600,
+      "runs": 20,
+      "cpuMaxMs": 110,
+      "wallP50Ms": 16.025700000000143,
+      "growth": {
+        "doubling100to200": 1.5281054227494668,
+        "quadrupling50to200": 3.1786302239325805
+      },
+      "evidence": "closure-validator.json"
+    },
+    "L02": {
+      "status": "FAIL",
+      "users": 20,
+      "admissionSeconds": 300,
+      "elapsedMs": 357237.5713,
+      "totalRequests": 496,
+      "technicalErrors": 0,
+      "technicalErrorRate": 0,
+      "consistencyErrors": 0,
+      "latencyMs": {
+        "state": {
+          "count": 119,
+          "p50": 5093.406499999983,
+          "p95": 12540.785200000006,
+          "p99": 16014.747299999995,
+          "max": 16018.957900000001
+        },
+        "create": {
+          "count": 119,
+          "p50": 10415.116500000004,
+          "p95": 31497.138099999996,
+          "p99": 33720.032300000006,
+          "max": 33929.924
+        },
+        "response": {
+          "count": 119,
+          "p50": 18648.784300000014,
+          "p95": 30522.26250000001,
+          "p99": 34172.16969999999,
+          "max": 34400.3877
+        },
+        "replay": {
+          "count": 20,
+          "p50": 14546.563899999994,
+          "p95": 18662.86600000001,
+          "p99": 18820.459799999997,
+          "max": 18820.459799999997
+        },
+        "complete": {
+          "count": 119,
+          "p50": 12765.818099999975,
+          "p95": 19926.564400000032,
+          "p99": 20523.801899999962,
+          "max": 22100.700699999987
+        }
+      },
+      "limits": {
+        "stateP95MsStrictlyBelow": 500,
+        "responseP95MsStrictlyBelow": 1000,
+        "technicalErrorRateStrictlyBelow": 0.01
+      },
+      "evidence": "optimized-load.json",
+      "samplesExcluded": 0,
+      "productionCapacityVerified": false
+    },
+    "L03": {
+      "status": "PASS",
+      "scope": "HTTP manifests and isolated production React component, not Next/BFF/shell",
+      "payload": {
+        "status": "PASS",
+        "publicPathBytes": 17712,
+        "httpStatus": 200,
+        "attemptCreateBytes": 664,
+        "responseBytes": 69787,
+        "thresholdBytes": 102400,
+        "activeOnly": true,
+        "scope": "HTTP manifests; Next/BFF/browser network not verified"
+      },
+      "components": [
+        {
+          "width": 1440,
+          "activities": 1600,
+          "initialForms": 0,
+          "maxForms": 1,
+          "keyboard": true,
+          "draftPreserved": true,
+          "exactFieldFocus": true,
+          "newActivityFocus": true,
+          "httpPersistence": true,
+          "seriousCritical": 0,
+          "eightKinds": [
+            "study",
+            "constructed",
+            "choice",
+            "short",
+            "match",
+            "sequence",
+            "image",
+            "case"
+          ],
+          "controlsVerified": [
+            "Contenido de estudio",
+            "Verificación objetiva del mismo objetivo",
+            "Opción correcta",
+            "Respuesta aceptada 1",
+            "Tabla de correspondencias",
+            "Subir paso 2 del orden 1",
+            "Añadir punto por coordenadas",
+            "Subir etapa 2"
+          ]
+        },
+        {
+          "width": 390,
+          "activities": 1600,
+          "initialForms": 0,
+          "maxForms": 1,
+          "keyboard": true,
+          "draftPreserved": true,
+          "exactFieldFocus": true,
+          "newActivityFocus": true,
+          "httpPersistence": true,
+          "seriousCritical": 0,
+          "eightKinds": [
+            "study",
+            "constructed",
+            "choice",
+            "short",
+            "match",
+            "sequence",
+            "image",
+            "case"
+          ],
+          "controlsVerified": [
+            "Contenido de estudio",
+            "Verificación objetiva del mismo objetivo",
+            "Opción correcta",
+            "Respuesta aceptada 1",
+            "Tabla de correspondencias",
+            "Subir paso 2 del orden 1",
+            "Añadir punto por coordenadas",
+            "Subir etapa 2"
+          ]
+        }
+      ],
+      "evidence": [
+        "payload-summary.json",
+        "component-results.json"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "command": "pnpm --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "node --import ./apps/api/node_modules/tsx/dist/loader.mjs apps/api/test/performance/guided-v2-load.mjs --profile-only",
+      "exitCode": 0,
+      "result": "PASS L01 and one upsert initializes 200 version-1 objective rows",
+      "evidence": [
+        "profile-closure.txt",
+        "closure-validator.json",
+        "closure-sql-initialization.json",
+        "closure-initialization.json"
+      ]
+    },
+    {
+      "command": "node --import ./apps/api/node_modules/tsx/dist/loader.mjs apps/api/test/performance/guided-v2-load.mjs",
+      "exitCode": 1,
+      "result": "FAIL L02 latency; no technical or consistency errors",
+      "evidence": [
+        "optimized-load.txt",
+        "optimized-load.json"
+      ]
+    },
+    {
+      "command": "pnpm --filter @cediah/api exec vitest run test/guided-v2-attempts.test.ts test/guided-v2-routes.test.ts test/guided-v2-metrics.test.ts test/guided-v2-evidence.test.ts test/guided-v2-selection.test.ts test/guided-v2-security.test.ts test/guided-v2-upgrade.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "144 PASS; 29 inherited skips",
+      "evidence": "api-regression.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run src/components/learning/editor/v2 --maxWorkers=1 --pool=threads",
+      "exitCode": 1,
+      "result": "Initial 97 PASS and 1 static rendering expectation failure; retained",
+      "evidence": "editor-regression.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec vitest run src/components/learning/editor/v2/visual-forms.test.tsx --maxWorkers=1 --pool=threads",
+      "exitCode": 0,
+      "result": "19 PASS; latest per-file union gives 98 distinct editor cases PASS",
+      "evidence": "visual-regression-final.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "web-build.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/api exec tsc --noEmit",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "api-typecheck.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec tsc --noEmit",
+      "exitCode": 0,
+      "result": "PASS final source tree after exact generated next-env restoration",
+      "evidence": "web-typecheck-closure.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/api exec eslint src/providers/postgres-guided-learning-v2.ts test/performance/guided-v2-load.mjs --max-warnings=0",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "api-lint-closure.txt"
+    },
+    {
+      "command": "pnpm --filter @cediah/web exec eslint src/components/learning/editor/v2/activity-editor.tsx src/components/learning/editor/v2/sources-fields.tsx src/components/learning/editor/v2/activity-forms.test.tsx src/components/learning/editor/v2/visual-forms.test.tsx --max-warnings=0",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "web-lint-closure.txt"
+    },
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T038/component-check.mjs",
+      "exitCode": 0,
+      "result": "PASS isolated actual component at 1440 and 390px, eight kinds, focus and HTTP persistence",
+      "evidence": [
+        "component-check-eight-kinds.txt",
+        "component-results.json"
+      ]
+    },
+    {
+      "command": "verify-preservation.ps1",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "preservation.json"
+    },
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T038/verify-cleanup.mjs",
+      "exitCode": 0,
+      "result": "PASS five exact disposable databases absent",
+      "evidence": "database-cleanup-verification.json"
+    },
+    {
+      "command": "pg_ctl -D <verified disposable cluster> -m fast -w stop; check owned test ports",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": [
+        "postgres-stop.txt",
+        "services-cleanup.json"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "diff-check-final.txt"
+    }
+  ],
+  "preservation": {
+    "status": "PASS",
+    "baselineFiles": 751,
+    "unchangedFiles": 746,
+    "authorizedChanges": [
+      {
+        "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+        "change": "modified"
+      }
+    ],
+    "newProductFiles": [
+      "apps/api/test/performance/guided-v2-load.mjs"
+    ],
+    "unexpectedChanges": [],
+    "unexpectedNewFiles": []
+  },
+  "cleanup": {
+    "status": "PASS",
+    "databases": [
+      "koraz_guided_v2_test_108247e78056449a88a4ebad1298b3ae",
+      "koraz_guided_v2_test_080e4954e0614d59a037adcbcdd475fd",
+      "koraz_guided_v2_test_5325f9827253437390d7d752e3329177",
+      "koraz_guided_v2_test_493e887b74024c43b7cefff5d92cc3ea",
+      "koraz_guided_v2_test_180ae14117e94586ac01ad7617f4f208"
+    ],
+    "remaining": [],
+    "otherConnections": [],
+    "at": "2026-10-07T20:17:58.107Z"
+  },
+  "services": {
+    "status": "PASS",
+    "portsChecked": [
+      31035,
+      41035,
+      55435
+    ],
+    "listeners": []
+  },
+  "reactReview": {
+    "status": "PASS",
+    "scope": "Stable keys, parent draft state, functional close updates, event-driven expansion, exact focus after mount, keyed lookup, no added dependencies or effect-driven derived state"
+  },
+  "issues": [
+    {
+      "code": "L02_LATENCY",
+      "status": "FAIL",
+      "detail": "Measured state and response p95 exceed the original acceptance limits; no cause is attributed solely to hardware.",
+      "proposal": "AMPLIACION-PROPUESTA.md"
+    },
+    {
+      "code": "UI_SERVER_AUTO_REVIEW_REJECTED",
+      "status": "NO VERIFICADO",
+      "detail": "Automatic review rejected two local Next start attempts with generic blocked by policy; full Next/BFF/shell verification was not run.",
+      "evidence": "browser-server-rejected.json"
+    }
+  ],
+  "notVerified": [
+    "Next/BFF/full-shell browser verification of these changes",
+    "Native 200% zoom and full WCAG certification for these changes",
+    "Better Auth issuance/signature",
+    "Clinical/editorial pilot",
+    "Hito S/system",
+    "Staging and production"
+  ],
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "dependenciesInstalled": false,
+  "dependenciesUpgraded": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "nominalNextTask": "T039",
+  "blockedConsumer": "T040 requires accepted T038"
+}

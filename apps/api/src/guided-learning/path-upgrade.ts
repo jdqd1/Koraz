@@ -207,11 +207,13 @@ export async function planLearningEnrollmentUpgrade(
       "current_version.published_at as current_published_at",
       "current_version.release_notes as current_release_notes",
       "current_version.version_number as current_version_number",
+      "current_version.policy_version as current_policy_version",
     ])
     .where("learning_enrollments.id", "=", input.enrollmentId)
     .where("learning_enrollments.user_id", "=", input.userId)
     .executeTakeFirst();
   if (!enrollment) return { status: "not_found" };
+  if (enrollment.current_policy_version === "guided-v2.0") return { status: "conflict" };
 
   const history = await readHistory(database, enrollment.id);
   const targetId = input.targetPathVersionId ?? enrollment.published_version_id;
@@ -222,7 +224,7 @@ export async function planLearningEnrollmentUpgrade(
   }
 
   const target = await database.selectFrom("learning_path_versions")
-    .select(["created_at", "id", "published_at", "release_notes", "status", "version_number"])
+    .select(["created_at", "id", "published_at", "release_notes", "status", "version_number", "policy_version"])
     .where("id", "=", targetId)
     .where("path_id", "=", enrollment.path_id)
     .executeTakeFirst();
@@ -232,6 +234,10 @@ export async function planLearningEnrollmentUpgrade(
     || !target.published_at
     || target.version_number <= enrollment.current_version_number
   ) return { status: "conflict" };
+
+  // The v1 adoption contract never interprets v2 definitions or transfers v1 mastery.
+  // Engine changes use the explicit acknowledged-reset endpoint under /v2.
+  if (target.policy_version === "guided-v2.0") return { status: "conflict" };
 
   const [current, next, activeAttempt] = await Promise.all([
     readVersionSteps(database, enrollment.path_version_id, enrollment.id),

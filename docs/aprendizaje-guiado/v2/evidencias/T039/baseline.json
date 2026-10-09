@@ -1,0 +1,196 @@
+{
+  "taskId": "T039",
+  "recordedUtc": "2026-10-08T21:11:05.1055597Z",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "node": "v22.22.0",
+  "pnpm": "11.25.0",
+  "statusBefore": [
+    " M apps/api/package.json",
+    " M apps/api/src/app.ts",
+    " M apps/api/src/config.ts",
+    " M apps/api/src/db/migrate.ts",
+    " M apps/api/src/db/run-migrations.ts",
+    " M apps/api/src/guided-learning/path-upgrade.ts",
+    " M apps/api/src/guided-learning/v2/evidence.ts",
+    " M apps/api/src/guided-learning/v2/routes.ts",
+    " M apps/api/src/guided-learning/v2/selection.ts",
+    " M apps/api/src/providers/postgres-guided-learning-v2.ts",
+    " M apps/api/test/guided-v2-evidence.test.ts",
+    " M apps/api/test/guided-v2-import.test.ts",
+    " M apps/api/test/guided-v2-routes.test.ts",
+    " M apps/api/test/guided-v2-security.test.ts",
+    " M apps/api/test/guided-v2-selection.test.ts",
+    " M apps/web/package.json",
+    " M apps/web/src/app/aprendizaje/rutas/[slug]/page.tsx",
+    " M apps/web/src/app/interface-polish.css",
+    " M apps/web/src/app/learning.css",
+    " M apps/web/src/app/panel/rutas/nueva/page.tsx",
+    " M apps/web/src/app/panel/rutas/page.tsx",
+    " M apps/web/src/app/reference-dashboard.css",
+    " M apps/web/src/components/app-shell.tsx",
+    " M apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    " M apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+    " M apps/web/src/components/learning/editor/v2/assessment-editor.tsx",
+    " M apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+    " M apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+    " M apps/web/src/components/learning/editor/v2/styles.module.css",
+    " M apps/web/src/components/learning/editor/v2/use-route-editor.ts",
+    " M apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+    " M apps/web/src/components/learning/map/learning-map-workspace.tsx",
+    " M apps/web/src/components/learning/map/learning-map.module.css",
+    " M apps/web/src/components/learning/v2/path-screen.tsx",
+    " M apps/web/src/components/learning/v2/player.tsx",
+    " M apps/web/src/components/learning/v2/route-action.tsx",
+    " M database/README.md",
+    " M docs/aprendizaje-guiado/v2/evidencias/T021/README.md",
+    " M docs/aprendizaje-guiado/v2/evidencias/T021/result.json",
+    " M docs/aprendizaje-guiado/v2/evidencias/T024/README.md",
+    " M docs/aprendizaje-guiado/v2/evidencias/T024/result.json",
+    " M packages/contracts/src/guided-learning-v2.ts",
+    "?? apps/api/src/guided-learning/v2/upgrade.ts",
+    "?? apps/api/test/guided-v2-bootstrap.test.ts",
+    "?? apps/api/test/guided-v2-harness.test.ts",
+    "?? apps/api/test/guided-v2-upgrade.test.ts",
+    "?? apps/api/test/helpers/guided-v2-fixtures.ts",
+    "?? apps/api/test/helpers/guided-v2-postgres.ts",
+    "?? apps/api/test/helpers/guided-v2-server.ts",
+    "?? apps/api/test/helpers/guided-v2-tls-cert.pem",
+    "?? apps/api/test/helpers/guided-v2-tls-key.pem",
+    "?? apps/api/test/performance/",
+    "?? apps/web/playwright.guided-v2.config.ts",
+    "?? apps/web/src/components/learning/editor/v2/new-draft.test.ts",
+    "?? apps/web/src/components/learning/editor/v2/new-draft.ts",
+    "?? apps/web/src/components/learning/v2/player.module.css",
+    "?? apps/web/src/components/learning/v2/upgrade-client.tsx",
+    "?? apps/web/src/components/learning/v2/upgrade.test.tsx",
+    "?? apps/web/src/components/learning/v2/upgrade.tsx",
+    "?? apps/web/tests/e2e/guided-v2-accessibility.spec.ts",
+    "?? apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+    "?? apps/web/tests/e2e/guided-v2-security.spec.ts",
+    "?? apps/web/tests/e2e/guided-v2-teardown.ts",
+    "?? crear_plantilla_carta_trabajo.py",
+    "?? docs/aprendizaje-guiado/v2/evidencias/M01/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T024/cierre-timeout/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T034/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T035/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T036/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T037/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T038/",
+    "?? docs/aprendizaje-guiado/v2/evidencias/T039/",
+    "?? qa_carta_trabajo/"
+  ],
+  "protectedFileCount": 897,
+  "dependencies": [
+    {
+      "taskId": "T006",
+      "status": "PASS",
+      "baseSha": "a4f13f1a82cbd12a8d83216cf7daa16c9fc6399b",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T006/result.json",
+      "evidenceSha256": "8bbed1ecc9a1c695fdbc02fe84f360a861f62df0bb9898c211a400473947a424",
+      "issues": null,
+      "limits": [
+        "La CLI portátil solo comprueba la estructura editorial; la validez clínica y la disponibilidad real del catálogo requieren revisión y contexto de servidor. La función bound debe ejecutarse dentro de la transacción de publicación cuando se implemente el flujo posterior.",
+        "El bundle autónomo generado en T003 no se regeneró porque packages/contracts/bin/ está fuera de los archivos permitidos de T006. La prueba de publicación usa la CLI no empaquetada y el dist actualizado.",
+        "Los cambios previos de T003, T004, T005 y la reparación del runner API permanecen en el árbol sin commit; T006 solo modificó sus tres archivos autorizados y esta carpeta de evidencia."
+      ],
+      "notVerified": null
+    },
+    {
+      "taskId": "T027",
+      "status": "PASS",
+      "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T027/result.json",
+      "evidenceSha256": "c32f2c99ad3685761d1e95d5ce234f12f2aad44732ac2450b96a6a495c33e19a",
+      "issues": [
+        {
+          "status": "OPEN",
+          "blockingT027": false,
+          "blockingSystemAcceptance": true,
+          "note": "T024 API regression timeout preserved; not claimed fixed.",
+          "id": "inherited-api-import-timeout"
+        },
+        {
+          "blockingT027": false,
+          "status": "OPEN",
+          "note": "Unchanged interactive-term-polish.css ::highlight warning.",
+          "id": "preexisting-next-highlight-warning"
+        },
+        {
+          "blockingT027": false,
+          "status": "LIMITATION",
+          "note": "Uses assets exposed by current content catalogue; retains other existing bindings. No new exhaustive asset catalogue or rights/digest backend changes.",
+          "id": "catalogue-secondary-assets"
+        },
+        {
+          "blockingT027": false,
+          "status": "NO VERIFICADO",
+          "note": "Browser download event timed out. UI success and actual HTTP export verified; downloaded browser file bytes not inspected.",
+          "id": "browser-download-bytes"
+        }
+      ],
+      "limits": null,
+      "notVerified": [
+        "Full E01/E02 smoke reserved to T035",
+        "Student runtime and preview T032",
+        "Native browser zoom 200 percent",
+        "Full axe and screen reader audit T037",
+        "Real medical content, asset bytes and licensing",
+        "Selection of secondary assets not exposed by existing catalogue",
+        "Independent PostgreSQL connections, production, Hito S"
+      ]
+    },
+    {
+      "taskId": "T033",
+      "status": "PASS",
+      "baseSha": "d609e66ba82cdc9b40392a5bb525e5808b47d305",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T033/result.json",
+      "evidenceSha256": "fefd13fefa100741bffd235439a00b0f4e8c8723d349d6857bfa49b751387a85",
+      "issues": [
+        {
+          "id": "preview-attempt-transport-race",
+          "status": "RESOLVED",
+          "detail": "The next player could mount with the previous attempt transport; transport now matches attemptId before rendering"
+        },
+        {
+          "id": "preexisting-impure-css-selector",
+          "status": "RESOLVED",
+          "detail": "Authorized local .dialog focus selector permits real editor webpack compilation"
+        },
+        {
+          "id": "harness-fixture-and-configuration",
+          "status": "RESOLVED",
+          "detail": "Corrected catalog filename, asset revocation fixture, hydration synchronization, relation locator and synthetic CSP origin"
+        },
+        {
+          "id": "parallel-web-run",
+          "status": "SUPERSEDED",
+          "detail": "Stopped slow parallel execution; final serial 60-file run PASS"
+        },
+        {
+          "id": "inherited-T024-api-timeout",
+          "status": "OPEN",
+          "blockingT033": false,
+          "blockingSystemAcceptance": true,
+          "detail": "Preserved; no claim of global API regression closure"
+        },
+        {
+          "id": "synthetic-shell-and-catalog-404",
+          "status": "NO VERIFICADO",
+          "blockingT033": false,
+          "detail": "Harness does not implement BetterAuth shell issuance or private file catalog; existing bindings validated by real provider"
+        }
+      ],
+      "limits": null,
+      "notVerified": [
+        "Independent PostgreSQL concurrency/restricted role grants",
+        "BetterAuth issuance and complete shell authentication",
+        "External storage download/signing service",
+        "Native zoom, screen reader and complete T037 audit",
+        "Full learner E01-E06 system harness T035",
+        "Hito S, clinical/editorial acceptance, staging and production"
+      ]
+    }
+  ],
+  "handoff": "C:/Users/josed/Documents/Codex/2026-09-26/act-a-como-arquitecto-principal-de-2/outputs/koraz-rutas-aprendizaje/HANDOFF-EJECUTOR.md",
+  "handoffSha256": "9bb55057961e6a1bd0089c0ed6b8286dbba89db7bbff51fa53e111c1348b9c01"
+}

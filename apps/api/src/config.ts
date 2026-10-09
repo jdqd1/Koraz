@@ -16,6 +16,7 @@ const EnvironmentSchema = z
     DATABASE_URL: z.string().min(1).optional(),
     DATABASE_MIGRATIONS_ENABLED: z.enum(["true", "false"]).default("true"),
     DATABASE_MIGRATIONS_PATH: z.string().min(1).optional(),
+    DATABASE_LEGACY_CONTENT_MODE: z.enum(["restore", "empty"]).default("restore"),
   GUIDED_LEARNING_ENABLED: z.enum(["true", "false"]).default("false"),
   GUIDED_LEARNING_MAP_ENABLED: z.enum(["true", "false"]).default("false"),
   GUIDED_LEARNING_V2_ENABLED: z.enum(["true", "false"]).default("false"),
@@ -176,6 +177,7 @@ export type ApiEnvironment = {
   guidedLearningV2Allowlist?: ReadonlySet<string>;
   migrationsEnabled?: boolean;
   migrationsPath?: string;
+  legacyContentMode?: "restore" | "empty";
   HOST: string;
   NODE_ENV: "development" | "test" | "production";
   PORT: number;
@@ -273,6 +275,7 @@ export function readEnvironment(source: NodeJS.ProcessEnv = process.env): ApiEnv
     NODE_ENV: environment.NODE_ENV,
     PORT: environment.PORT,
     migrationsEnabled: environment.DATABASE_MIGRATIONS_ENABLED === "true",
+    legacyContentMode: environment.DATABASE_LEGACY_CONTENT_MODE,
     migrationsPath:
       environment.DATABASE_MIGRATIONS_PATH ??
       fileURLToPath(new URL("../../../database/migrations/", import.meta.url)),

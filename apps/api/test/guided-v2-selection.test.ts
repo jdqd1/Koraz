@@ -55,6 +55,27 @@ const completeCore = ["explain", "example", "partial", "recall", "recall-b", "ap
 const errorEvents = (definition: RoutePackage) => [response(definition, "core-recall", 1, { score01: 0, responseKey: "no" }), response(definition, "core-remedy", 2)];
 
 describe("T017 diagnostic and branch progression", () => {
+  it("T038 immutable structural reuse keeps event/evidence inputs fresh and mutable drafts uncached", () => {
+    const definition = fixture();
+    const freeze = (value: unknown): void => { if (value && typeof value === "object") { Object.values(value).forEach(freeze); Object.freeze(value); } };
+    freeze(definition);
+    const initial = select(snapshot(definition));
+    const diagnosis = selectGuidedV2Diagnostic(definition);
+    diagnosis.activityKeys.length = 0;
+    diagnosis.objectiveKeys.push("foreign");
+    diagnosis.uncoveredObjectiveKeys.push("foreign");
+    expect(selectGuidedV2Diagnostic(definition)).toEqual(initial.diagnostic);
+    const separate = select(snapshot(definition));
+    separate.diagnostic.activityKeys.length = 0;
+    expect(select(snapshot(definition)).diagnostic).toEqual(selectGuidedV2Diagnostic(definition));
+    const events = errorEvents(definition);
+    const changed = snapshot(definition, events, { diagnosticStatus: "completed", selectedObjectiveKey: "core" });
+    expect(select(changed)).toEqual(select({ ...changed, definition: structuredClone(definition) }));
+    expect(select(changed)).not.toEqual(initial);
+    const draft = fixture(); select(snapshot(draft));
+    draft.units.reverse();
+    expect(select(snapshot(draft))).toEqual(select(snapshot(structuredClone(draft))));
+  });
   it("P03 preserves editorial root order and an independent optional branch", () => {
     const input = snapshot();
     input.definition.objectives.reverse();

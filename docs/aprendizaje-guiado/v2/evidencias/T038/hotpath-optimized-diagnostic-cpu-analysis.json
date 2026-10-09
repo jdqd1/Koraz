@@ -1,0 +1,647 @@
+{
+  "scope": "Diagnostic CPU samples; inclusive times overlap and must not be summed",
+  "self": [
+    {
+      "functionName": "(idle)",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 4892.790000000001
+    },
+    {
+      "functionName": "writev",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 1177.2509999999986
+    },
+    {
+      "functionName": "post",
+      "scriptId": "208",
+      "url": "node:inspector",
+      "lineNumber": 114,
+      "columnNumber": 6,
+      "ms": 620.956
+    },
+    {
+      "functionName": "v2RebuildEvidence",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 16,
+      "columnNumber": 4718,
+      "ms": 411.66800000000006
+    },
+    {
+      "functionName": "(program)",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 381.4590000000002
+    },
+    {
+      "functionName": "addFields",
+      "scriptId": "1038",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/result.js",
+      "lineNumber": 81,
+      "columnNumber": 11,
+      "ms": 325.8670000000001
+    },
+    {
+      "functionName": "runMicrotasks",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 298.63200000000006
+    },
+    {
+      "functionName": "",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 204.73199999999997
+    },
+    {
+      "functionName": "(garbage collector)",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 198.59000000000012
+    },
+    {
+      "functionName": "loadContext",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 4625,
+      "ms": 190.125
+    },
+    {
+      "functionName": "",
+      "scriptId": "296",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/packages/contracts/dist/guided-learning-v2.js",
+      "lineNumber": 185,
+      "columnNumber": 32,
+      "ms": 179.19500000000002
+    },
+    {
+      "functionName": "parseRow",
+      "scriptId": "1038",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/result.js",
+      "lineNumber": 62,
+      "columnNumber": 10,
+      "ms": 152.32000000000008
+    },
+    {
+      "functionName": "nextTick",
+      "scriptId": "32",
+      "url": "node:internal/process/task_queues",
+      "lineNumber": 112,
+      "columnNumber": 17,
+      "ms": 147.31999999999996
+    },
+    {
+      "functionName": "writeBuffer",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 136.87500000000003
+    },
+    {
+      "functionName": "rebuildGuidedV2Evidence",
+      "scriptId": "589",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/evidence.ts",
+      "lineNumber": 0,
+      "columnNumber": 4241,
+      "ms": 134.00999999999993
+    },
+    {
+      "functionName": "request",
+      "scriptId": "191",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/test/performance/guided-v2-load.mjs",
+      "lineNumber": 200,
+      "columnNumber": 26,
+      "ms": 126.82799999999999
+    },
+    {
+      "functionName": "inst._zod.run",
+      "scriptId": "219",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/core/schemas.js",
+      "lineNumber": 91,
+      "columnNumber": 24,
+      "ms": 126.55400000000002
+    },
+    {
+      "functionName": "runChecks",
+      "scriptId": "219",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/core/schemas.js",
+      "lineNumber": 32,
+      "columnNumber": 26,
+      "ms": 125.10500000000005
+    },
+    {
+      "functionName": "utf8Slice",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 118.26299999999999
+    },
+    {
+      "functionName": "compileQuery",
+      "scriptId": "529",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-compiler/default-query-compiler.js",
+      "lineNumber": 19,
+      "columnNumber": 16,
+      "ms": 95.685
+    },
+    {
+      "functionName": "writevGeneric",
+      "scriptId": "158",
+      "url": "node:internal/stream_base_commons",
+      "lineNumber": 120,
+      "columnNumber": 22,
+      "ms": 95.65500000000002
+    },
+    {
+      "functionName": "",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 6299,
+      "ms": 93.27300000000001
+    },
+    {
+      "functionName": "emit",
+      "scriptId": "22",
+      "url": "node:events",
+      "lineNumber": 455,
+      "columnNumber": 43,
+      "ms": 92.60899999999998
+    },
+    {
+      "functionName": "selectGuidedV2NextAction",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 4723,
+      "ms": 88.69900000000001
+    },
+    {
+      "functionName": "query",
+      "scriptId": "1015",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js",
+      "lineNumber": 667,
+      "columnNumber": 7,
+      "ms": 87.55300000000003
+    },
+    {
+      "functionName": "",
+      "scriptId": "219",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/core/schemas.js",
+      "lineNumber": 965,
+      "columnNumber": 15,
+      "ms": 85.69300000000001
+    },
+    {
+      "functionName": "canonicalJson",
+      "scriptId": "577",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/validation.ts",
+      "lineNumber": 0,
+      "columnNumber": 260,
+      "ms": 72.72900000000001
+    },
+    {
+      "functionName": "where",
+      "scriptId": "340",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/select-query-builder.js",
+      "lineNumber": 34,
+      "columnNumber": 9,
+      "ms": 72.69099999999999
+    },
+    {
+      "functionName": "parseDate",
+      "scriptId": "1022",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/postgres-date@1.0.7/node_modules/postgres-date/index.js",
+      "lineNumber": 7,
+      "columnNumber": 36,
+      "ms": 72.10299999999998
+    },
+    {
+      "functionName": "inst._zod.parse",
+      "scriptId": "219",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/core/schemas.js",
+      "lineNumber": 974,
+      "columnNumber": 22,
+      "ms": 71.52199999999999
+    },
+    {
+      "functionName": "localDate",
+      "scriptId": "585",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/rewards.ts",
+      "lineNumber": 3,
+      "columnNumber": 1460,
+      "ms": 70.08300000000003
+    },
+    {
+      "functionName": "_pulseQueryQueue",
+      "scriptId": "1015",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js",
+      "lineNumber": 615,
+      "columnNumber": 18,
+      "ms": 69.63800000000002
+    },
+    {
+      "functionName": "serialize",
+      "scriptId": "1095",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/reply.js",
+      "lineNumber": 1077,
+      "columnNumber": 19,
+      "ms": 69.524
+    },
+    {
+      "functionName": "now",
+      "scriptId": "0",
+      "url": "",
+      "lineNumber": -1,
+      "columnNumber": -1,
+      "ms": 69.249
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 244,
+      "ms": 68.667
+    },
+    {
+      "functionName": "visitSelectQuery",
+      "scriptId": "529",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-compiler/default-query-compiler.js",
+      "lineNumber": 34,
+      "columnNumber": 20,
+      "ms": 66.346
+    },
+    {
+      "functionName": "inst._zod.parse",
+      "scriptId": "219",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/core/schemas.js",
+      "lineNumber": 681,
+      "columnNumber": 22,
+      "ms": 65.056
+    },
+    {
+      "functionName": "client.query",
+      "scriptId": "191",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/test/performance/guided-v2-load.mjs",
+      "lineNumber": 160,
+      "columnNumber": 25,
+      "ms": 60.81899999999999
+    },
+    {
+      "functionName": "",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 8369,
+      "ms": 57.544999999999995
+    },
+    {
+      "functionName": "",
+      "scriptId": "1015",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/pg@8.23.0/node_modules/pg/lib/client.js",
+      "lineNumber": 688,
+      "columnNumber": 35,
+      "ms": 57.285999999999994
+    }
+  ],
+  "inclusiveProduct": [
+    {
+      "functionName": "loadContext",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 4625,
+      "ms": 1997.7110000000025
+    },
+    {
+      "functionName": "v2RebuildEvidence",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 16,
+      "columnNumber": 4718,
+      "ms": 1822.2589999999993
+    },
+    {
+      "functionName": "selectGuidedV2NextAction",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 4723,
+      "ms": 574.7020000000001
+    },
+    {
+      "functionName": "v2ContentAvailable",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 0,
+      "columnNumber": 49261,
+      "ms": 524.5179999999999
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 2676,
+      "ms": 448.97199999999964
+    },
+    {
+      "functionName": "rebuildGuidedV2Evidence",
+      "scriptId": "589",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/evidence.ts",
+      "lineNumber": 0,
+      "columnNumber": 4241,
+      "ms": 388.4740000000001
+    },
+    {
+      "functionName": "v2AuthorizedAttempt",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 16,
+      "columnNumber": 1813,
+      "ms": 367.96899999999994
+    },
+    {
+      "functionName": "readUpgradeEvidence",
+      "scriptId": "584",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/upgrade.ts",
+      "lineNumber": 0,
+      "columnNumber": 4269,
+      "ms": 363.5810000000001
+    },
+    {
+      "functionName": "v2AttemptManifestFromRow",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 16,
+      "columnNumber": 225,
+      "ms": 274.17
+    },
+    {
+      "functionName": "v2Receipt",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 0,
+      "columnNumber": 47533,
+      "ms": 239.04600000000002
+    },
+    {
+      "functionName": "awardObjectiveV2",
+      "scriptId": "585",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/rewards.ts",
+      "lineNumber": 0,
+      "columnNumber": 570,
+      "ms": 237.18499999999995
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 8402,
+      "ms": 207.50800000000004
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 15978,
+      "ms": 183.502
+    },
+    {
+      "functionName": "",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 6299,
+      "ms": 182.15699999999995
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 15516,
+      "ms": 138.97900000000004
+    },
+    {
+      "functionName": "parseGuidedV2AttemptSnapshot",
+      "scriptId": "576",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/service.ts",
+      "lineNumber": 0,
+      "columnNumber": 6085,
+      "ms": 133.21699999999998
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 16974,
+      "ms": 128.39099999999996
+    },
+    {
+      "functionName": "readGuidedV2VersionHistory",
+      "scriptId": "584",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/upgrade.ts",
+      "lineNumber": 0,
+      "columnNumber": 5071,
+      "ms": 126.48499999999999
+    },
+    {
+      "functionName": "prepareGuidedV2AttemptSnapshot",
+      "scriptId": "576",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/service.ts",
+      "lineNumber": 0,
+      "columnNumber": 4295,
+      "ms": 124.44599999999996
+    },
+    {
+      "functionName": "prepareCachedGuidedV2ActivitySnapshot",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 0,
+      "columnNumber": 1792,
+      "ms": 124.44599999999996
+    },
+    {
+      "functionName": "hashRoutePackage",
+      "scriptId": "577",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/validation.ts",
+      "lineNumber": 0,
+      "columnNumber": 741,
+      "ms": 123.16399999999996
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 22301,
+      "ms": 122.44700000000002
+    },
+    {
+      "functionName": "guidedV2AttemptManifest",
+      "scriptId": "580",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/manifests.ts",
+      "lineNumber": 0,
+      "columnNumber": 1156,
+      "ms": 118.23299999999999
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 11892,
+      "ms": 114.13500000000002
+    },
+    {
+      "functionName": "canonicalJson",
+      "scriptId": "577",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/validation.ts",
+      "lineNumber": 0,
+      "columnNumber": 260,
+      "ms": 111.98799999999997
+    },
+    {
+      "functionName": "upgradeEvidenceVersions",
+      "scriptId": "584",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/upgrade.ts",
+      "lineNumber": 0,
+      "columnNumber": 3143,
+      "ms": 109.52899999999997
+    },
+    {
+      "functionName": "",
+      "scriptId": "577",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/validation.ts",
+      "lineNumber": 0,
+      "columnNumber": 465,
+      "ms": 105.95099999999996
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 0,
+      "columnNumber": 3208,
+      "ms": 97.93300000000005
+    },
+    {
+      "functionName": "hashLearningSnapshot",
+      "scriptId": "301",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/snapshot-hash.ts",
+      "lineNumber": 0,
+      "columnNumber": 523,
+      "ms": 95.012
+    },
+    {
+      "functionName": "",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 8106,
+      "ms": 92.29100000000001
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 15732,
+      "ms": 81.73700000000002
+    },
+    {
+      "functionName": "diagnostic",
+      "scriptId": "578",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/selection.ts",
+      "lineNumber": 0,
+      "columnNumber": 3471,
+      "ms": 80.14300000000003
+    },
+    {
+      "functionName": "v2LockActor",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 0,
+      "columnNumber": 4846,
+      "ms": 78.99100000000001
+    },
+    {
+      "functionName": "localDate",
+      "scriptId": "585",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/rewards.ts",
+      "lineNumber": 3,
+      "columnNumber": 1460,
+      "ms": 70.08300000000003
+    },
+    {
+      "functionName": "guidedV2ItemRevisionHash",
+      "scriptId": "576",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/service.ts",
+      "lineNumber": 0,
+      "columnNumber": 8722,
+      "ms": 70.001
+    },
+    {
+      "functionName": "",
+      "scriptId": "575",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "lineNumber": 27,
+      "columnNumber": 244,
+      "ms": 68.667
+    },
+    {
+      "functionName": "",
+      "scriptId": "589",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/evidence.ts",
+      "lineNumber": 0,
+      "columnNumber": 10164,
+      "ms": 62.50800000000001
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 21784,
+      "ms": 60.870000000000005
+    },
+    {
+      "functionName": "",
+      "scriptId": "593",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/routes.ts",
+      "lineNumber": 0,
+      "columnNumber": 15283,
+      "ms": 58.873
+    },
+    {
+      "functionName": "",
+      "scriptId": "589",
+      "url": "file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/apps/api/src/guided-learning/v2/evidence.ts",
+      "lineNumber": 0,
+      "columnNumber": 4874,
+      "ms": 58.68400000000001
+    }
+  ]
+}

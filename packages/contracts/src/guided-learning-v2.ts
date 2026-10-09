@@ -85,6 +85,8 @@ export const V2IssueSchema = z.strictObject({
     "SOURCE_UNRESOLVED", "SOURCE_CHANGED", "ASSET_REQUIRED", "ASSET_RIGHTS", "ANSWER_INVALID",
     "REVIEW_STALE", "VERSION_CONFLICT", "IDEMPOTENCY_CONFLICT", "ACCESS_REVOKED",
     "ENGINE_VERSION_MISMATCH", "engine_version_mismatch", "VALIDATION_PENDING",
+    "CONVERSION_REVIEW", "CONVERSION_DEPENDENCIES", "CONVERSION_PEDAGOGY", "CONVERSION_RESERVES",
+    "CONVERSION_OBJECTIVE_MISSING", "CONVERSION_RESOURCE_MISSING", "CONVERSION_SOURCES",
   ]),
   severity: z.enum(["error", "warning"]),
   path: z.string(),
@@ -158,6 +160,7 @@ export const V2PublicPathSchema = z.strictObject({
   slug: z.string(), title: z.string(), summary: z.string(), coverKey: RoutePackageSchema.shape.route.shape.coverKey,
   topicLabel: z.string(), access: z.enum(["available", "enrolled", "revoked"]),
   enrollmentId: V2EnrollmentIdSchema.nullable(),
+  availability: z.enum(["active", "maintenance"]).optional(),
   units: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), objectives: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), criticality: RoutePackageSchema.shape.objectives.element.shape.criticality })) })),
 });
 export function toV2PublicPath(bound: V2BoundRouteDefinition, access: z.infer<typeof V2PublicPathSchema>["access"], enrollmentId: V2EnrollmentId | null): z.infer<typeof V2PublicPathSchema> {
@@ -224,6 +227,8 @@ export const V2RouteStateSchema = z.strictObject({
   nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1) }),
   // Additive projection; historical idempotency receipts remain valid without it.
   maintenance: V2MaintenanceSchema.optional(),
+  availability: z.enum(["active", "maintenance"]).optional(),
+  versionHistory: z.array(z.strictObject({ versionNumber: z.number().int().positive(), engineVersion: z.enum(["guided-v1", "guided-v2"]), adoptedAt: Timestamp, completedAt: Timestamp.nullable(), consumedActivities: z.array(z.string()) })).optional(),
 });
 
 /** Authorized feedback excerpt only; no bindings, editorial flags or resource payloads. */
@@ -361,7 +366,7 @@ export const V2HttpContracts = {
   attemptComplete: route("POST", "/v2/guided-learning/attempts/:id/complete", AttemptParams, Empty, ExpectedVersion, z.strictObject({ attempt: V2AttemptManifestSchema, state: V2RouteStateSchema })),
   attemptHeartbeat: route("POST", "/v2/guided-learning/attempts/:id/heartbeat", AttemptParams, Empty, z.strictObject({ clientEventId: Id, visible: z.boolean(), interactionAgeMs: z.number().int().nonnegative().max(600000) }), Ack),
   convertV1: route("POST", "/v2/editor/learning-paths/:id/convert-v1", PathParams, Empty, ExpectedVersion, z.strictObject({ draft: DraftResponse, issues: z.array(V2IssueSchema) })),
-  upgradePreview: route("GET", "/v2/guided-learning/enrollments/:id/upgrade", EnrollmentParams, Empty, Empty, z.strictObject({ targetVersionId: V2PathVersionIdSchema, objectiveImpact: z.array(z.strictObject({ objectiveKey: RouteKeySchema, willResetEvidence: z.boolean() })), openAttempt: z.boolean() })),
+  upgradePreview: route("GET", "/v2/guided-learning/enrollments/:id/upgrade", EnrollmentParams, Empty, Empty, z.strictObject({ targetVersionId: V2PathVersionIdSchema, expectedVersion: Version.optional(), engineChange: z.boolean().optional(), availability: z.enum(["active", "maintenance"]).optional(), objectiveImpact: z.array(z.strictObject({ objectiveKey: RouteKeySchema, title: z.string().optional(), willResetEvidence: z.boolean() })), openAttempt: z.boolean(), consumedActivities: z.array(z.strictObject({ title: z.string(), previousActivityKey: z.string(), consumptionOnly: z.literal(true) })).optional() })),
   upgradeCommit: route("POST", "/v2/guided-learning/enrollments/:id/upgrade", EnrollmentParams, Empty, z.strictObject({ targetVersionId: V2PathVersionIdSchema, expectedVersion: Version, acknowledgedReset: z.literal(true) }), StateResponse),
   editorMetrics: route("GET", "/v2/editor/learning-paths/:id/metrics", PathParams, z.strictObject({ pathVersionId: V2PathVersionIdSchema, cohortStart: Timestamp, cohortEnd: Timestamp }), Empty, z.strictObject({ metrics: V2MetricsSchema })),
 } as const;

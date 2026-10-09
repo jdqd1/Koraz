@@ -1,0 +1,676 @@
+{
+  "taskId": "T038",
+  "status": "FAIL",
+  "closedAt": "2026-10-08T00:11:13.156Z",
+  "timezone": "America/Caracas",
+  "scope": "LOCAL synthetic fixtures; actual HTTP/Fastify; independent disposable PostgreSQL, including restricted runtime security; isolated actual React component",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "continua con t038",
+  "authorization": {
+    "taskId": "T038",
+    "date": "2026-10-07",
+    "userMessage": "autorizo",
+    "proposal": "AMPLIACION-PROPUESTA.md",
+    "approvedFiles": [
+      "apps/api/src/guided-learning/v2/evidence.ts",
+      "apps/api/src/guided-learning/v2/selection.ts",
+      "apps/api/src/guided-learning/v2/routes.ts",
+      "apps/api/test/guided-v2-evidence.test.ts",
+      "apps/api/test/guided-v2-selection.test.ts",
+      "apps/api/test/guided-v2-routes.test.ts"
+    ],
+    "implemented": "Operation-local lookup indexes; replay only changed objective; reuse immutable definition within one HTTP operation; fresh facts and resource checks in every transaction",
+    "acceptanceUnchanged": true,
+    "nextTaskStarted": false,
+    "extensionsImplemented": true,
+    "nextProposal": "AMPLIACION-CACHE-PROPUESTA.md",
+    "nextProposalAuthorized": false,
+    "nextProposalImplemented": false
+  },
+  "predecessors": [
+    {
+      "task": "T035",
+      "status": "PASS",
+      "evidence": "../T035/result.json"
+    },
+    {
+      "task": "T037",
+      "status": "PASS",
+      "evidence": "../T037/result.json",
+      "requiredByFicha": false
+    }
+  ],
+  "productFiles": [
+    {
+      "path": "apps/api/src/guided-learning/v2/evidence.ts",
+      "sha256": "97C9920ED62E359605DE2D52DFDD5DEB6946369ECD1DF8C225576D74E78B63E0"
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/routes.ts",
+      "sha256": "2B34E3B7DEF39CE509F4D810DFFF1CDC8CBF9C23227AA2EAC4995AF049A6C51E"
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/selection.ts",
+      "sha256": "D5412EAE2E524DBAAD51523D1040B383DA8829CACC21102FD155900F9F6F0857"
+    },
+    {
+      "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "sha256": "9F925866AEAE1E4889DC5BB2AE1CFC50465AEE7AEC0E07B5175C2629BFA86448"
+    },
+    {
+      "path": "apps/api/test/guided-v2-evidence.test.ts",
+      "sha256": "4B07E0C6724E4CE012454E97F5EC45BAB1015B74CF8D2B595BB914FF05B80005"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+      "sha256": "7BFE428799FD237E8684E31D9B629107DFFEA6AFB95A59785B7B676487B19109"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+      "sha256": "908966FE60B9D8238445F29CD292DCC1B615C39BC6AC767601B258A83105EF92"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+      "sha256": "330B52E6167D7C560FB5FA5B06F22027D700B772885EA635AD782085433966F2"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+      "sha256": "54BCDC52C37B401C115EE171BC04E1DD972B14C13BA7365361BB8285D45C6686"
+    },
+    {
+      "path": "apps/api/test/performance/guided-v2-load.mjs",
+      "sha256": "30A0EF8AD06176551C18A5A6E7E54416B840ACB94989090DF95CD8923E4CCFD6"
+    }
+  ],
+  "changedFiles": [
+    "apps/api/src/guided-learning/v2/evidence.ts",
+    "apps/api/src/guided-learning/v2/routes.ts",
+    "apps/api/src/guided-learning/v2/selection.ts",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "apps/api/test/guided-v2-evidence.test.ts",
+    "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+    "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+    "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+    "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+    "apps/api/test/performance/guided-v2-load.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/AMPLIACION-CACHE-PROPUESTA.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/AMPLIACION-PROPUESTA.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/api-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-api-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-cleanup-verification-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-cleanup-verification.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-diff-check.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-lint-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-lint-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-new-cases.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-sql-operation-complete.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-sql-operation-create.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-sql-operation-response.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-operation.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-postgres-start.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-postgres-stop.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-profile.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-pure-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-regression-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-resources-during-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-result-verification.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-routes-recheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-security-postgres.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-smoke.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-typecheck-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-typecheck-final-tree.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-typecheck-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/authorized-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-smoke.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-status.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/baseline.cpuprofile",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/before-evidence.mts",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/before-selection.mts",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-api.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-check.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-fixture.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-server-rejected.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/browser-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/closure-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-1440.png",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-390.png",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-bundle.css",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-bundle.js",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-browser.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-bundle.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-eight-kinds.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-check.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-entry.tsx",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-results.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/component-small-fixture.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-profile.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/cpu-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/database-cleanup-verification.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/diff-check-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/differential-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/differential.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/differential.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/differential.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/editor-regression.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/final-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/initial-README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/initial-result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/initial-write-result.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-load.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-sql-after-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/optimized-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/payload-summary.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/postgres-start.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/postgres-stop.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/preservation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/profile-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/reference-integrity.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/resources.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/services-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/source-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-single-user.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-sql-before-load.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-sql-initialization.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-state-cpu-profile.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu-validator.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/targeted-cpu.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-balanced.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-balanced.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-balanced.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-baseline.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/validator-initial.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/verify-cleanup.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/verify-preservation.ps1",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/visual-regression-final.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/visual-regression-recheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-lint-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-lint.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-typecheck-closure.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/web-typecheck.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T038/write-result.mjs"
+  ],
+  "acceptance": {
+    "L01": {
+      "status": "PASS",
+      "units": 30,
+      "objectives": 200,
+      "activities": 1600,
+      "sha256": "2eca6fd7f8d30713253877b10bb311f68d6cec1ca36587cf1e5d6a022f16d372",
+      "runs": 20,
+      "cpuMaxMs": 78,
+      "wallP50Ms": 17.293499999999995,
+      "growth": {
+        "doubling100to200": 2.3238953988389603,
+        "quadrupling50to200": 5.551685393258409
+      },
+      "orderedMeasurement": {
+        "cpuMaxMs": 125,
+        "growth": {
+          "doubling100to200": 6.902763561924329,
+          "quadrupling50to200": 9.675951546454847
+        }
+      },
+      "interpretation": "All full-fixture CPU runs below 2s; balanced repeat shows subquadratic observed scaling. Ordered-run variation retained; this is not an asymptotic complexity proof.",
+      "evidence": [
+        "validator-balanced.json",
+        "authorized-final-validator.json"
+      ]
+    },
+    "L02": {
+      "status": "FAIL",
+      "users": 20,
+      "admissionSeconds": 300,
+      "elapsedMs": 307045.1097,
+      "drainMs": 7045.109699999972,
+      "totalRequests": 1724,
+      "newResponses": 417,
+      "idempotentReplays": 56,
+      "technicalErrors": 0,
+      "technicalErrorRate": 0,
+      "consistencyErrors": 0,
+      "latencyMs": {
+        "state": {
+          "count": 417,
+          "p50": 1056.0601000000006,
+          "p95": 1985.324099999998,
+          "p99": 2232.724899999972,
+          "max": 2587.119800000015
+        },
+        "create": {
+          "count": 417,
+          "p50": 2589.5670000000027,
+          "p95": 3345.8672999999835,
+          "p99": 3549.939699999988,
+          "max": 3936.8529999999737
+        },
+        "response": {
+          "count": 417,
+          "p50": 3355.0003000000142,
+          "p95": 4889.247899999995,
+          "p99": 5833.2093999999925,
+          "max": 5997.160399999993
+        },
+        "replay": {
+          "count": 56,
+          "p50": 2939.5593999999983,
+          "p95": 3426.9141999999993,
+          "p99": 3528.7798999999977,
+          "max": 3528.7798999999977
+        },
+        "complete": {
+          "count": 417,
+          "p50": 2480.1295999999857,
+          "p95": 2949.2072000000044,
+          "p99": 3162.0584999999846,
+          "max": 4835.578100000006
+        }
+      },
+      "limits": {
+        "stateP95MsStrictlyBelow": 500,
+        "responseP95MsStrictlyBelow": 1000,
+        "technicalErrorRateStrictlyBelow": 0.01
+      },
+      "sameFixtureSha256AsPriorRun": true,
+      "improvementPercent": {
+        "stateP95": 84.16906064223157,
+        "responseP95": 83.9813713023404
+      },
+      "samplesExcluded": 0,
+      "hardwareSoleCauseEstablished": false,
+      "evidence": "authorized-final-load.json",
+      "productionCapacityVerified": false
+    },
+    "L03": {
+      "status": "PASS",
+      "scope": "HTTP manifests and isolated production React component; full Next/BFF/shell not verified",
+      "payload": {
+        "status": "PASS",
+        "publicPathBytes": 17712,
+        "publicPathMeasuredInPriorPhase": true,
+        "publicPathProjectionUnchanged": true,
+        "httpStatus": 200,
+        "attemptCreateBytes": 664,
+        "responseBytes": 70795,
+        "stateBytes": 69411,
+        "thresholdBytes": 102400,
+        "activeOnly": true,
+        "scope": "HTTP manifests plus prior isolated component with unchanged web source hashes; Next/BFF/full browser network not verified"
+      },
+      "components": [
+        {
+          "width": 1440,
+          "activities": 1600,
+          "initialForms": 0,
+          "maxForms": 1,
+          "keyboard": true,
+          "draftPreserved": true,
+          "exactFieldFocus": true,
+          "newActivityFocus": true,
+          "httpPersistence": true,
+          "seriousCritical": 0,
+          "eightKinds": [
+            "study",
+            "constructed",
+            "choice",
+            "short",
+            "match",
+            "sequence",
+            "image",
+            "case"
+          ],
+          "controlsVerified": [
+            "Contenido de estudio",
+            "Verificación objetiva del mismo objetivo",
+            "Opción correcta",
+            "Respuesta aceptada 1",
+            "Tabla de correspondencias",
+            "Subir paso 2 del orden 1",
+            "Añadir punto por coordenadas",
+            "Subir etapa 2"
+          ]
+        },
+        {
+          "width": 390,
+          "activities": 1600,
+          "initialForms": 0,
+          "maxForms": 1,
+          "keyboard": true,
+          "draftPreserved": true,
+          "exactFieldFocus": true,
+          "newActivityFocus": true,
+          "httpPersistence": true,
+          "seriousCritical": 0,
+          "eightKinds": [
+            "study",
+            "constructed",
+            "choice",
+            "short",
+            "match",
+            "sequence",
+            "image",
+            "case"
+          ],
+          "controlsVerified": [
+            "Contenido de estudio",
+            "Verificación objetiva del mismo objetivo",
+            "Opción correcta",
+            "Respuesta aceptada 1",
+            "Tabla de correspondencias",
+            "Subir paso 2 del orden 1",
+            "Añadir punto por coordenadas",
+            "Subir etapa 2"
+          ]
+        }
+      ],
+      "uiEvidenceSourceUnchangedDuringExtension": true,
+      "evidence": [
+        "payload-summary.json",
+        "component-results.json"
+      ]
+    }
+  },
+  "counts": {
+    "broad": {
+      "passed": 146,
+      "skipped": 29,
+      "files": 7
+    },
+    "securityPostgres": {
+      "passed": 30,
+      "skipped": 7,
+      "files": 1
+    },
+    "latestDistinctUnion": {
+      "passed": 168,
+      "skipped": 7,
+      "total": 175
+    }
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "detail": "146 PASS / 29 inherited skips, seven affected suites serially",
+      "evidence": "authorized-regression-closure.txt"
+    },
+    {
+      "result": "PASS",
+      "detail": "30 PASS / 7 skips; restricted PostgreSQL security enabled; Next browser flag disabled",
+      "evidence": "authorized-security-postgres.txt"
+    },
+    {
+      "result": "PASS",
+      "detail": "72 exact differential histories against SHA256-verified prior implementations",
+      "evidence": [
+        "differential.json",
+        "reference-integrity.json"
+      ]
+    },
+    {
+      "result": "PASS",
+      "detail": "Two new regressions: unaffected historical timestamps and revocation between transactions",
+      "evidence": "authorized-new-cases.txt"
+    },
+    {
+      "result": "PASS",
+      "detail": "One definition read per create/respond/complete HTTP operation",
+      "evidence": [
+        "authorized-operation-sql-operation-create.json",
+        "authorized-operation-sql-operation-response.json",
+        "authorized-operation-sql-operation-complete.json"
+      ]
+    },
+    {
+      "result": "PASS",
+      "detail": "API final-tree typecheck",
+      "evidence": "authorized-typecheck-final-tree.txt"
+    },
+    {
+      "result": "PASS",
+      "detail": "All ten changed product files accounted for; 751 baseline files checked",
+      "evidence": [
+        "preservation.json",
+        "source-hashes.json"
+      ]
+    },
+    {
+      "result": "PASS",
+      "detail": "API changed-file ESLint",
+      "evidence": "authorized-lint-final.txt"
+    },
+    {
+      "result": "FAIL",
+      "detail": "300s real HTTP/PostgreSQL; both original p95 limits exceeded",
+      "evidence": [
+        "authorized-final-load.json",
+        "authorized-final.txt"
+      ]
+    },
+    {
+      "result": "PASS",
+      "detail": "Balanced validator measurement: 20 runs per scale after five warmups, no samples excluded",
+      "evidence": "validator-balanced.json"
+    },
+    {
+      "result": "PASS",
+      "detail": "Exact disposable database names absent; no other client connections",
+      "evidence": "database-cleanup-verification.json"
+    },
+    {
+      "result": "PASS",
+      "detail": "Owned disposable PostgreSQL stopped; test ports free",
+      "evidence": [
+        "authorized-postgres-stop.txt",
+        "services-cleanup.json"
+      ]
+    },
+    {
+      "result": "PASS",
+      "detail": "git diff --check",
+      "evidence": "authorized-diff-check.txt"
+    },
+    {
+      "result": "PASS",
+      "detail": "Prior contracts build, web build/types/lint, 98 editor cases and isolated actual React browser evidence; four UI source hashes unchanged during this extension",
+      "evidence": [
+        "contracts-build.txt",
+        "web-build.txt",
+        "web-typecheck-closure.txt",
+        "web-lint-closure.txt",
+        "visual-regression-final.txt",
+        "component-results.json",
+        "initial-result.json"
+      ]
+    }
+  ],
+  "preservation": {
+    "status": "PASS",
+    "baselineFiles": 751,
+    "unchangedFiles": 742,
+    "authorizedChanges": [
+      {
+        "path": "apps/api/src/guided-learning/v2/evidence.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/api/src/guided-learning/v2/routes.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/api/src/guided-learning/v2/selection.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/api/test/guided-v2-evidence.test.ts",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+        "change": "modified"
+      },
+      {
+        "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+        "change": "modified"
+      }
+    ],
+    "newProductFiles": [
+      "apps/api/test/performance/guided-v2-load.mjs"
+    ],
+    "unexpectedChanges": [],
+    "unexpectedNewFiles": []
+  },
+  "cleanup": {
+    "status": "PASS",
+    "databases": [
+      "koraz_guided_v2_test_3e77796072bc409b8ea6fab0f9f2e8d0",
+      "koraz_guided_v2_test_098c9865e9f44d72ac4f2aa6b87ddd4c",
+      "koraz_guided_v2_test_26e08d3a1519469c834a6157976880fa",
+      "koraz_guided_v2_test_d8d2607540954b6d840658fb0c34094a",
+      "koraz_guided_v2_test_108247e78056449a88a4ebad1298b3ae",
+      "koraz_guided_v2_test_080e4954e0614d59a037adcbcdd475fd",
+      "koraz_guided_v2_test_5325f9827253437390d7d752e3329177",
+      "koraz_guided_v2_test_493e887b74024c43b7cefff5d92cc3ea",
+      "koraz_guided_v2_test_180ae14117e94586ac01ad7617f4f208",
+      "koraz_guided_v2_test_46d050ae860e44c785f6f39147df1d63"
+    ],
+    "remaining": [],
+    "otherConnections": [],
+    "at": "2026-10-07T20:57:39.569Z"
+  },
+  "services": {
+    "status": "PASS",
+    "at": "2026-10-07T20:57:54.1664175Z",
+    "checkedPorts": [
+      31035,
+      41035,
+      55435
+    ],
+    "listeners": [],
+    "postgresStopped": true
+  },
+  "differential": {
+    "status": "PASS",
+    "cases": 72,
+    "referenceIntegrity": "PASS"
+  },
+  "history": {
+    "previousClosure": "initial-result.json",
+    "earlierApiTimeout": "authorized-api-regression.txt",
+    "serialRecheck": "authorized-routes-recheck.txt",
+    "initialDifferentialModuleFormatError": "differential.txt",
+    "initialCleanupReceiptKindError": "authorized-cleanup-verification.txt"
+  },
+  "issues": [
+    {
+      "code": "L02_LATENCY",
+      "status": "FAIL",
+      "detail": "Measured state p95 1985.32ms and response p95 4889.25ms exceed unchanged limits.",
+      "proposal": "AMPLIACION-CACHE-PROPUESTA.md"
+    },
+    {
+      "code": "UI_SERVER_AUTO_REVIEW_REJECTED",
+      "status": "NO VERIFICADO",
+      "detail": "Automatic review rejected local Next start with generic blocked by policy. Full Next/BFF/shell was not run.",
+      "evidence": "browser-server-rejected.json"
+    }
+  ],
+  "notVerified": [
+    "Next/BFF/full-shell browser verification of these changes",
+    "Native 200% zoom and full WCAG certification for these changes",
+    "Better Auth issuance/signature",
+    "Clinical/editorial pilot",
+    "Hito S/system",
+    "Staging and production"
+  ],
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "dependenciesInstalled": false,
+  "dependenciesUpgraded": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "nominalNextTask": "T039",
+  "blockedConsumer": "T040 requires accepted T038"
+}

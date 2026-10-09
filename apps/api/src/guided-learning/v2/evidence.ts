@@ -1,6 +1,6 @@
 import type { RouteActivity, RoutePackage } from "@cediah/contracts";
 import { evaluateGuidedV2Gate, guidedV2EvidencePolicy as policy, guidedV2InitialActivityKeys,
-  guidedV2ObjectiveAvailability, guidedV2ObjectiveThreshold } from "./policy.js";
+  guidedV2ObjectiveThreshold } from "./policy.js";
 
 type Purpose = "learning" | "diagnostic" | "gate" | "final" | "retention7" | "retention30" | "review" | "preview";
 type BaseEvent = { id: string; semanticKey: string; at: string };
@@ -50,17 +50,15 @@ function retained(runtime: ObjectiveRuntime): boolean {
       && Date.parse(second.at) - Date.parse(first.at) >= policy.retentionSeparationMs));
 }
 
-function objectiveState(definition: RoutePackage, objectiveKey: string, runtime: ObjectiveRuntime): GuidedV2ObjectiveEvidence {
+function objectiveState(objectiveKey: string, runtime: ObjectiveRuntime,
+  explanations: ReadonlySet<RouteActivity["representation"]>, threshold: number): GuidedV2ObjectiveEvidence {
   const window = [...runtime.latestByFamily.values()].sort(compare).slice(-policy.window);
   const score = window.length ? 100 * window.filter((event) => event.score01 === 1).length / window.length : null;
-  const explanations = new Set(definition.activities.filter((activity) => activity.objectiveKey === objectiveKey
-    && activity.kind === "study" && activity.phase === "learn" && activity.payload.scaffold === "explanation")
-    .map((activity) => activity.representation));
   const recall = window.filter((event) => event.score01 === 1 && event.phase === "retrieve").length;
   const application = window.some((event) => event.score01 === 1 && event.phase === "apply"
     && explanations.size > 0 && !explanations.has(event.modality));
   const mastered = window.length >= policy.minFamilies && score !== null
-    && score >= guidedV2ObjectiveThreshold(definition, objectiveKey) && recall >= policy.minRecallFamilies
+    && score >= threshold && recall >= policy.minRecallFamilies
     && application && runtime.errors.size === 0 && window.at(-1)?.score01 === 1;
   const reinforce = runtime.errors.size > 0 || (runtime.lastFailureAt !== null && runtime.lastMasteredAt !== null
     && Date.parse(runtime.lastFailureAt) >= Date.parse(runtime.lastMasteredAt) && !mastered);
@@ -73,12 +71,43 @@ function objectiveState(definition: RoutePackage, objectiveKey: string, runtime:
     openCriticalErrors: [...runtime.errors.values()].sort((a, b) => a.misconceptionKey.localeCompare(b.misconceptionKey)) };
 }
 
-/** Pure replay from server facts. Neither caches, confidence nor client clocks can grant mastery. */
+function buildEvidenceStructure(definition: RoutePackage) {
+  const activities = new Map(definition.activities.map((activity) => [activity.key, activity]));
+  const objectives = new Map(definition.objectives.map((objective) => [objective.key, objective]));
+  const requiredKeys = new Set(definition.objectives.filter((objective) => objective.required).map((objective) => objective.key));
+  const explanations = new Map<string, Set<RouteActivity["representation"]>>();
+  for (const activity of definition.activities) {
+    if (activity.kind !== "study" || activity.phase !== "learn" || activity.payload.scaffold !== "explanation") continue;
+    const modalities = explanations.get(activity.objectiveKey) ?? new Set<RouteActivity["representation"]>();
+    modalities.add(activity.representation);
+    explanations.set(activity.objectiveKey, modalities);
+  }
+  const thresholds = new Map(definition.objectives.map((objective) => [objective.key, guidedV2ObjectiveThreshold(definition, objective.key)]));
+  const caseParents = definition.activities.filter((item) => item.kind === "case");
+  const initial = guidedV2InitialActivityKeys(definition);
+  const units = definition.units.map(unit => ({ key: unit.key, definition: { ...definition,
+    objectives: definition.objectives.filter(objective => objective.unitKey === unit.key),
+    assessments: definition.assessments.filter(assessment => assessment.kind === "unit_gate" && assessment.afterUnitKey === unit.key),
+  } }));
+  return { activities, objectives, requiredKeys, explanations, thresholds, caseParents, initial, initialKeys: new Set(initial), units };
+}
+const evidenceStructures = new WeakMap<RoutePackage, ReturnType<typeof buildEvidenceStructure>>();
+function evidenceStructure(definition: RoutePackage) {
+  const cached = evidenceStructures.get(definition); if (cached) return cached;
+  const value = buildEvidenceStructure(definition);
+  const deeplyFrozen = (item: unknown): boolean => !item || typeof item !== "object"
+    || (Object.isFrozen(item) && Object.values(item).every(deeplyFrozen));
+  if (deeplyFrozen(definition)) evidenceStructures.set(definition, value);
+  return value;
+}
+
+/** Pure replay from server facts. Only immutable content structure is shared;
+ * runtimes, events, decisions and timestamps are rebuilt for every invocation. */
 export function rebuildGuidedV2Evidence(
   definition: RoutePackage, input: readonly GuidedV2EvidenceEvent[],
   options: { dueObjectiveKeys?: readonly string[] } = {},
 ) {
-  const activities = new Map(definition.activities.map((activity) => [activity.key, activity]));
+  const { activities, objectives, requiredKeys, explanations, thresholds, caseParents, initial, initialKeys, units } = evidenceStructure(definition);
   const runtimes = new Map<string, ObjectiveRuntime>(definition.objectives.map((objective) => [objective.key, {
     latestByFamily: new Map(), eligible: [], lastExposure: new Map(), errors: new Map(),
     interacted: false, assisted: false, lastFailureAt: null, firstMasteredAt: null,
@@ -88,17 +117,19 @@ export function rebuildGuidedV2Evidence(
   const dispensed = new Map<string, string>();
   const completedChildren = new Map<string, Set<string>>();
   const seen = new Set<string>();
-  const initial = guidedV2InitialActivityKeys(definition);
   let final: { score: number; thresholdPercent: number; at: string } | null = null;
   let completedAt: string | null = null;
   let masteredAt: string | null = null;
   let consolidatedAt: string | null = null;
-  let states = definition.objectives.map((objective) => objectiveState(definition, objective.key, runtimes.get(objective.key)!));
+  const stateFor = (key: string) => objectiveState(key, runtimes.get(key)!, explanations.get(key) ?? new Set(), thresholds.get(key)!);
+  const states = definition.objectives.map((objective) => stateFor(objective.key));
+  const stateIndex = new Map(states.map((state, index) => [state.objectiveKey, index]));
 
   for (const raw of [...input].sort(compare)) {
     if (!Number.isFinite(Date.parse(raw.at)) || seen.has(raw.semanticKey)) continue;
     seen.add(raw.semanticKey);
     const event = { ...raw, at: iso(raw.at) };
+    let changedObjectiveKey: string | null = null;
     if (event.kind === "final") {
       const assessment = definition.assessments.find((item) => item.kind === "final" && item.key === event.assessmentKey);
       if (!assessment || !event.valid) continue;
@@ -114,8 +145,9 @@ export function rebuildGuidedV2Evidence(
       const activity = activities.get(event.activityKey);
       const runtime = activity && runtimes.get(activity.objectiveKey);
       if (!activity || !runtime) continue;
+      changedObjectiveKey = activity.objectiveKey;
       if (event.kind === "dispense") {
-        if (initial.includes(activity.key) && event.reason.trim()) dispensed.set(activity.key, event.reason);
+        if (initialKeys.has(activity.key) && event.reason.trim()) dispensed.set(activity.key, event.reason);
       } else if (event.kind === "interaction" || event.kind === "reveal") {
         runtime.interacted = true;
         runtime.assisted = event.kind === "reveal" || event.assisted;
@@ -132,7 +164,7 @@ export function rebuildGuidedV2Evidence(
         const children = completedChildren.get(event.attemptId) ?? new Set<string>();
         if (initialResponse) children.add(activity.key);
         completedChildren.set(event.attemptId, children);
-        for (const parent of definition.activities.filter((item) => item.kind === "case")) {
+        for (const parent of caseParents) {
           if (parent.kind === "case" && parent.payload.stages.every((stage) => children.has(stage.childActivityKey))) completed.add(parent.key);
         }
         const previous = runtime.lastExposure.get(event.equivalenceKey);
@@ -141,7 +173,7 @@ export function rebuildGuidedV2Evidence(
           && (previous === undefined || Date.parse(event.at) - previous >= policy.reuseMs);
         // Any accepted response/reveal resets reuse, not just previously eligible ones.
         runtime.lastExposure.set(event.equivalenceKey, Date.parse(event.at));
-        const objective = definition.objectives.find((item) => item.key === activity.objectiveKey)!;
+        const objective = objectives.get(activity.objectiveKey)!;
         if (eligible) {
           runtime.latestByFamily.set(event.equivalenceKey, event);
           runtime.eligible.push(event);
@@ -165,33 +197,50 @@ export function rebuildGuidedV2Evidence(
         }
       }
     }
-    states = definition.objectives.map((objective) => {
-      const runtime = runtimes.get(objective.key)!;
-      const next = objectiveState(definition, objective.key, runtime);
-      const before = states.find((item) => item.objectiveKey === objective.key)!;
+    // Each non-final fact changes one objective runtime. Unrelated objectives
+    // retain exactly the same state and historical timestamps at this event.
+    if (changedObjectiveKey !== null) {
+      const runtime = runtimes.get(changedObjectiveKey)!;
+      const next = stateFor(changedObjectiveKey);
+      const index = stateIndex.get(changedObjectiveKey)!;
+      const before = states[index]!;
       if (next.mastered && !before.mastered) {
         runtime.firstMasteredAt ??= event.at;
         runtime.lastMasteredAt = event.at;
       }
       if (next.mastered && retained(runtime)) runtime.firstConsolidatedAt ??= event.at;
-      return objectiveState(definition, objective.key, runtime);
-    });
-    const requiredStates = states.filter((state) => definition.objectives.some((objective) => objective.required && objective.key === state.objectiveKey));
-    const routeCompleted = initial.length > 0 && initial.every((key) => completed.has(key) || dispensed.has(key)) && final !== null;
-    const routeMastered = requiredStates.length > 0 && requiredStates.every((state) => state.mastered)
-      && final !== null && final.score >= final.thresholdPercent;
-    if (routeCompleted) completedAt ??= event.at;
-    if (routeMastered) masteredAt ??= event.at;
-    if (routeMastered && requiredStates.every((state) => state.consolidated)) consolidatedAt ??= event.at;
+      states[index] = stateFor(changedObjectiveKey);
+    }
+    // None of the route-level achievements can occur before an accepted final.
+    // Keep objective history current, without scanning all objectives per fact
+    // while this necessary condition is absent.
+    if (final !== null) {
+      const requiredStates = states.filter((state) => requiredKeys.has(state.objectiveKey));
+      const routeCompleted = initial.length > 0 && initial.every((key) => completed.has(key) || dispensed.has(key));
+      const routeMastered = requiredStates.length > 0 && requiredStates.every((state) => state.mastered)
+        && final.score >= final.thresholdPercent;
+      if (routeCompleted) completedAt ??= event.at;
+      if (routeMastered) masteredAt ??= event.at;
+      if (routeMastered && requiredStates.every((state) => state.consolidated)) consolidatedAt ??= event.at;
+    }
   }
-  const requiredStates = states.filter((state) => definition.objectives.some((objective) => objective.required && objective.key === state.objectiveKey));
+  const requiredStates = states.filter((state) => requiredKeys.has(state.objectiveKey));
   const routeMastered = requiredStates.length > 0 && requiredStates.every((state) => state.mastered)
     && final !== null && final.score >= final.thresholdPercent;
+  const byKey = new Map(states.map(state => [state.objectiveKey, state]));
+  const gates = units.map(unit => evaluateGuidedV2Gate(unit.definition, unit.key,
+    unit.definition.objectives.map(objective => byKey.get(objective.key)!)));
+  const gatesByUnit = new Map(gates.map(gate => [gate.unitKey, gate]));
   return {
     policyVersion: policy.version,
     objectives: states.map((state) => ({ ...state, reviewDue: options.dueObjectiveKeys?.includes(state.objectiveKey) ?? false })),
-    gates: definition.units.map((unit) => evaluateGuidedV2Gate(definition, unit.key, states)),
-    availability: guidedV2ObjectiveAvailability(definition, states),
+    gates,
+    availability: definition.objectives.map(objective => ({ objectiveKey: objective.key,
+      blockedBy: objective.prerequisiteKeys.filter(key => {
+        const prerequisite = objectives.get(key);
+        return !byKey.get(key)?.mastered || (prerequisite?.criticality === "core" && !gatesByUnit.get(prerequisite.unitKey)?.passed);
+      }),
+    })).map(item => ({ objectiveKey: item.objectiveKey, available: item.blockedBy.length === 0, blockedBy: item.blockedBy })),
     route: {
       completed: completedAt !== null, mastered: routeMastered,
       consolidated: routeMastered && requiredStates.every((state) => state.consolidated),

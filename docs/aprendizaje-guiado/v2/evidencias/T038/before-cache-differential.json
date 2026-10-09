@@ -1,0 +1,584 @@
+{
+  "status": "PASS",
+  "seed": 38107,
+  "cases": 72,
+  "comparison": "deepStrictEqual against frozen pre-authorization implementations; same-time events, deduplication, all event kinds, retention dates, assistance, invalid responses, critical errors, branch selection, due reviews",
+  "results": [
+    {
+      "run": 0,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 2.1988999999999805,
+      "afterMs": 1.605199999999968
+    },
+    {
+      "run": 1,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.137200000000007,
+      "afterMs": 0.5595000000000141
+    },
+    {
+      "run": 2,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 5.6784000000000106,
+      "afterMs": 0.8234999999999673
+    },
+    {
+      "run": 3,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.9741999999999962,
+      "afterMs": 0.8727000000000089
+    },
+    {
+      "run": 4,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.0160000000000196,
+      "afterMs": 0.5006000000000199
+    },
+    {
+      "run": 5,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.7024999999999864,
+      "afterMs": 0.5630999999999631
+    },
+    {
+      "run": 6,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.6983000000000175,
+      "afterMs": 0.6044000000000551
+    },
+    {
+      "run": 7,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.7513000000000147,
+      "afterMs": 0.6187999999999647
+    },
+    {
+      "run": 8,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.741999999999962,
+      "afterMs": 1.399000000000001
+    },
+    {
+      "run": 9,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.581299999999942,
+      "afterMs": 0.5016000000000531
+    },
+    {
+      "run": 10,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.4115000000000464,
+      "afterMs": 0.6006000000000995
+    },
+    {
+      "run": 11,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 4.669999999999959,
+      "afterMs": 0.544399999999996
+    },
+    {
+      "run": 12,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.1985999999999422,
+      "afterMs": 1.0217000000000098
+    },
+    {
+      "run": 13,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.7617999999999938,
+      "afterMs": 0.4198000000000093
+    },
+    {
+      "run": 14,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.5407000000000153,
+      "afterMs": 0.4921999999999116
+    },
+    {
+      "run": 15,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.004099999999994,
+      "afterMs": 0.836400000000026
+    },
+    {
+      "run": 16,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 2.7964999999999236,
+      "afterMs": 1.1938000000000102
+    },
+    {
+      "run": 17,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 6.019400000000019,
+      "afterMs": 0.6953999999999496
+    },
+    {
+      "run": 18,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 3.192800000000034,
+      "afterMs": 2.898900000000026
+    },
+    {
+      "run": 19,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 2.353399999999965,
+      "afterMs": 4.3870999999999185
+    },
+    {
+      "run": 20,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.2423,
+      "afterMs": 0.5199999999999818
+    },
+    {
+      "run": 21,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.44489999999996144,
+      "afterMs": 0.36950000000001637
+    },
+    {
+      "run": 22,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.3956999999999198,
+      "afterMs": 0.4975000000000591
+    },
+    {
+      "run": 23,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 2.8764000000001033,
+      "afterMs": 0.5512999999999693
+    },
+    {
+      "run": 24,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.6066000000000713,
+      "afterMs": 0.4454999999999245
+    },
+    {
+      "run": 25,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.1105000000000018,
+      "afterMs": 1.4682000000000244
+    },
+    {
+      "run": 26,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 2.777500000000032,
+      "afterMs": 0.4678000000000111
+    },
+    {
+      "run": 27,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.336999999999989,
+      "afterMs": 0.47270000000003165
+    },
+    {
+      "run": 28,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.2087999999999965,
+      "afterMs": 0.5013000000000147
+    },
+    {
+      "run": 29,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.840599999999995,
+      "afterMs": 0.5384999999999991
+    },
+    {
+      "run": 30,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.7176000000000613,
+      "afterMs": 0.6387999999999465
+    },
+    {
+      "run": 31,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.592899999999986,
+      "afterMs": 0.3936999999999671
+    },
+    {
+      "run": 32,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.3794000000000324,
+      "afterMs": 0.7720000000000482
+    },
+    {
+      "run": 33,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.8844000000000278,
+      "afterMs": 0.8589999999999236
+    },
+    {
+      "run": 34,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.6253000000000384,
+      "afterMs": 0.9564000000000306
+    },
+    {
+      "run": 35,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 4.5475999999999885,
+      "afterMs": 0.9977999999999838
+    },
+    {
+      "run": 36,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.3998000000000275,
+      "afterMs": 1.3877999999999702
+    },
+    {
+      "run": 37,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.7316000000000713,
+      "afterMs": 0.9339999999999691
+    },
+    {
+      "run": 38,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 2.4956000000000813,
+      "afterMs": 0.5213999999999714
+    },
+    {
+      "run": 39,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.4218000000000757,
+      "afterMs": 1.318899999999985
+    },
+    {
+      "run": 40,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.5562999999999647,
+      "afterMs": 0.36439999999993233
+    },
+    {
+      "run": 41,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.7626000000000204,
+      "afterMs": 0.433400000000006
+    },
+    {
+      "run": 42,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 1.053700000000049,
+      "afterMs": 0.6440000000000055
+    },
+    {
+      "run": 43,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.6024999999999636,
+      "afterMs": 0.3766000000000531
+    },
+    {
+      "run": 44,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.7333999999999605,
+      "afterMs": 0.42820000000006075
+    },
+    {
+      "run": 45,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.8040999999999485,
+      "afterMs": 0.7175000000000864
+    },
+    {
+      "run": 46,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.4855999999999767,
+      "afterMs": 0.33600000000001273
+    },
+    {
+      "run": 47,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 2.1557000000000244,
+      "afterMs": 0.6040000000000418
+    },
+    {
+      "run": 48,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.415300000000002,
+      "afterMs": 0.36799999999993815
+    },
+    {
+      "run": 49,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.661200000000008,
+      "afterMs": 0.45230000000003656
+    },
+    {
+      "run": 50,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.7189999999999372,
+      "afterMs": 0.42079999999998563
+    },
+    {
+      "run": 51,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.8269999999999982,
+      "afterMs": 0.7964000000000624
+    },
+    {
+      "run": 52,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 2.057800000000043,
+      "afterMs": 0.8233999999999924
+    },
+    {
+      "run": 53,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.8898000000000366,
+      "afterMs": 0.8605999999999767
+    },
+    {
+      "run": 54,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.9977000000000089,
+      "afterMs": 0.8970000000000482
+    },
+    {
+      "run": 55,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 1.1452000000000453,
+      "afterMs": 0.7198000000000775
+    },
+    {
+      "run": 56,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 3.06899999999996,
+      "afterMs": 1.0168999999999642
+    },
+    {
+      "run": 57,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.7232999999999947,
+      "afterMs": 0.592200000000048
+    },
+    {
+      "run": 58,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.5540999999999485,
+      "afterMs": 0.38239999999996144
+    },
+    {
+      "run": 59,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.7187999999999874,
+      "afterMs": 0.40660000000002583
+    },
+    {
+      "run": 60,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.47919999999999163,
+      "afterMs": 1.1270999999999276
+    },
+    {
+      "run": 61,
+      "objectives": 3,
+      "activities": 36,
+      "events": 106,
+      "beforeMs": 0.5462999999999738,
+      "afterMs": 0.369199999999978
+    },
+    {
+      "run": 62,
+      "objectives": 12,
+      "activities": 122,
+      "events": 106,
+      "beforeMs": 1.8240999999999303,
+      "afterMs": 0.59050000000002
+    },
+    {
+      "run": 63,
+      "objectives": 1,
+      "activities": 16,
+      "events": 106,
+      "beforeMs": 0.5973000000000184,
+      "afterMs": 0.5374000000000478
+    },
+    {
+      "run": 64,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 376.5211999999999,
+      "afterMs": 7.657699999999977
+    },
+    {
+      "run": 65,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 324.7957000000001,
+      "afterMs": 7.682499999999891
+    },
+    {
+      "run": 66,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 290.29499999999985,
+      "afterMs": 10.705899999999929
+    },
+    {
+      "run": 67,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 283.3904000000002,
+      "afterMs": 4.137299999999868
+    },
+    {
+      "run": 68,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 251.1884,
+      "afterMs": 2.5884000000000924
+    },
+    {
+      "run": 69,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 338.0490999999997,
+      "afterMs": 3.503099999999904
+    },
+    {
+      "run": 70,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 279.3654999999999,
+      "afterMs": 4.027099999999791
+    },
+    {
+      "run": 71,
+      "objectives": 200,
+      "activities": 1814,
+      "events": 106,
+      "beforeMs": 237.8726999999999,
+      "afterMs": 4.469300000000203
+    }
+  ]
+}

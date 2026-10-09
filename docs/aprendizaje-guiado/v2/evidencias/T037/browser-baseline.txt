@@ -1,0 +1,30 @@
+[WebServer] (node:27896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:27544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg-pool@3.14.0_pg@8.23.0\node_modules\pg-pool\index.js:45
+[WebServer]     Error.captureStackTrace(err)
+[WebServer]           ^
+[WebServer] 
+[WebServer] Error: connect ECONNREFUSED 127.0.0.1:55435
+[WebServer]     at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg-pool@3.14.0_pg@8.23.0\node_modules\pg-pool\index.js:45:11
+[WebServer]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[WebServer]     at async createGuidedV2Postgres (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-postgres.ts:20:3)
+[WebServer]     at async createGuidedV2Server (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-server.ts:16:12)
+[WebServer]     at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-server.ts:80:17) {
+[WebServer]   errno: -4078,
+[WebServer]   code: 'ECONNREFUSED',
+[WebServer]   syscall: 'connect',
+[WebServer]   address: '127.0.0.1',
+[WebServer]   port: 55435
+[WebServer] }
+[WebServer] 
+[WebServer] Node.js v24.19.0
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T037/playwright.config.mts --project desktop

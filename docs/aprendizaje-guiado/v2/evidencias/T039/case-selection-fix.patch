@@ -1,0 +1,21 @@
+diff --git a/apps/api/src/guided-learning/v2/routes.ts b/apps/api/src/guided-learning/v2/routes.ts
+--- a/apps/api/src/guided-learning/v2/routes.ts
++++ b/apps/api/src/guided-learning/v2/routes.ts
+@@ -162,9 +162,16 @@
+   const diagnosticStatus = definition.assessments.some((item) => item.kind === "diagnostic" && completedAssessmentKeys.includes(item.key))
+     ? "completed" as const : attempts.some((item) => item.purpose === "activity") ? "omitted" as const : "pending" as const;
++  const completedCaseKeys = attempts.filter((item) => item.path_version_id === version.id && item.status === "completed").flatMap((item) => {
++    const snapshot = snapshots.get(item.id);
++    return snapshot?.target.kind === "activity"
++      && snapshot.activities.some((activity) => activity.kind === "case" && activity.key === snapshot.target.key)
++      ? [snapshot.target.key] : [];
++  });
+   const sessionAttempts = new Set(responses.filter((response) => at.getTime() - response.accepted_at.getTime() < 86400000).map((response) => response.attempt_id));
+   const selection = selectGuidedV2NextAction({ definition, evidence,
+     events: policyEvents, sessionAttemptIds: attempts.filter((item) => sessionAttempts.has(item.id)).map((item) => item.id), diagnosticStatus,
+-    completedActivityKeys: responses.filter((item) => ["learning", "gate"].includes(item.purpose)).map((item) => item.activity_key),
++    completedActivityKeys: [...responses.filter((item) => ["learning", "gate"].includes(item.purpose)).map((item) => item.activity_key),
++      ...completedCaseKeys],
+     dispensedActivityKeys: [], completedAssessmentKeys,
+     openAttempts: attempts.filter((item) => item.path_version_id === version.id && item.status === "in_progress").map((item) => ({ key: item.id,
+       openedAt: events.find((event) => event.semantic_key === `v2-presented:${item.id}`)?.occurred_at.toISOString() ?? item.started_at.toISOString() })),

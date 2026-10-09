@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "baselineFiles": 751,
+  "unchangedFiles": 739,
+  "authorizedChanges": [
+    {
+      "path": "apps/api/src/guided-learning/v2/evidence.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/routes.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/selection.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/test/guided-v2-evidence.test.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/test/guided-v2-routes.test.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/test/guided-v2-security.test.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/api/test/guided-v2-selection.test.ts",
+      "change": "modified"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-editor.tsx",
+      "change": "modified"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/activity-forms.test.tsx",
+      "change": "modified"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/sources-fields.tsx",
+      "change": "modified"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/visual-forms.test.tsx",
+      "change": "modified"
+    }
+  ],
+  "newProductFiles": [
+    "apps/api/test/performance/guided-v2-load.mjs"
+  ],
+  "unexpectedChanges": [],
+  "unexpectedNewFiles": []
+}

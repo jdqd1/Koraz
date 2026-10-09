@@ -1,0 +1,30 @@
+[WebServer] (node:27032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:17776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:27080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 5 tests using 2 workers
+
+(node:10472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (3.1m)
+  ok 2 [360] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (3.5m)
+  ok 3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:365:5 › T037 V01 stable map geometry and connections (19.2s)
+(node:25764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [768] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (2.6m)
+  ok 5 [390] › tests\e2e\guided-v2-accessibility.spec.ts:108:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (3.6m)
+
+  5 passed (7.9m)

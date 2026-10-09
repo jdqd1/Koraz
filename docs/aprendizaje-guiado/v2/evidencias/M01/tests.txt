@@ -1,0 +1,18 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-bootstrap.test.ts > M01 safe configuration > keeps restore as default and requires an explicit empty profile 5ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 safe configuration > refuses unmarked, remote and unrelated database targets 1ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > installs every schema migration, classifies 0005 honestly and preserves checksums 14ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > repeats without ledger changes and rejects accidentally switching to restore 37ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > default restore still fails with its exact identity prerequisite; empty mode refuses populated DB 185ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > upgrades the v1 fixture without changing versions, enrollments or attempts 94ms
+ ✓ test/guided-v2-bootstrap.test.ts > M01 actual PostgreSQL migration runner > rejects checksum drift for both applied SQL and an excluded legacy migration 13ms
+ ✓ test/legacy-content-migration.test.ts > legacy content restoration migration > contains the reviewed public snapshot without authentication secrets or personal data 10ms
+ ✓ test/legacy-content-migration.test.ts > legacy content restoration migration > binds administrator recovery to the exact new account and old-email fingerprint 3ms
+
+ Test Files  2 passed (2)
+      Tests  9 passed (9)
+   Start at  13:34:12
+   Duration  5.71s (transform 103ms, setup 0ms, import 504ms, tests 4.81s, environment 0ms)
+

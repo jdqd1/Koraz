@@ -1,0 +1,78 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > P12 extends once per rolling 24h, uses actual acceptance and caps stage at four 3ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > P13 three semantic failures yield 10min/10min/1d; duplicates never add lapses 1ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"assisted":true}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"assisted":true,"score01":0}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"score01":0.5}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"self","selfRating":"hard"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"self","selfRating":"good"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > assistance, partial and self-reports only schedule one day ({"gradingSource":"none","score01":null,"assisted":true}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > self again reinforces; changing session resets immediate retries, never stability 1ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"purpose":"diagnostic"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"purpose":"preview"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"valid":false}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"phase":"learn"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > does not create debt for ineligible responses ({"gradingSource":"none"}) 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > retention dates use first mastery, late day7 pushes day30, and absence never fails 1ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > failed retention records the measurement and keeps reinforcement; assisted cannot accept it 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 pure scheduler > UTC is invariant across offsets and daylight-saving boundaries 0ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > diagnosis/reading create no debt; assisted and self-reported answers do not extend stability 325ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > partial objective correctness schedules one day without adding a lapse or mastery 51ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > creates one debt before route completion, replays receipts and repairs caches without extending 163ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > same session has two immediate retries, then one day; success cannot erase reinforcement 89ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > persists first mastery dates and deferred measurements; absence does not mutate agenda 199ms
+ ✓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > agenda write failure rolls back response, receipt, event, evidence and attempt version 50ms
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > independent devices cannot extend twice at the exact 24h boundary
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler pglite transactions > concurrent failure/correct responses leave reinforcement and one lapse
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > diagnosis/reading create no debt; assisted and self-reported answers do not extend stability
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > partial objective correctness schedules one day without adding a lapse or mastery
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > creates one debt before route completion, replays receipts and repairs caches without extending
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > same session has two immediate retries, then one day; success cannot erase reinforcement
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > persists first mastery dates and deferred measurements; absence does not mutate agenda
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > agenda write failure rolls back response, receipt, event, evidence and attempt version
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > independent devices cannot extend twice at the exact 24h boundary
+ ↓ test/guided-v2-scheduler.test.ts > guided v2 scheduler postgres transactions > concurrent failure/correct responses leave reinforcement and one lapse
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > requires content, assessment, policy and modality equality 25ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 objective equivalence > invalidates dependent evidence when a transitive prerequisite changes 1ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > publication leaves old enrollment pinned and preview does not adopt 152ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > ownership, acknowledgement, CAS and open attempts are enforced before adoption 314ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > adopts once, replays exact receipt and preserves historical rows 217ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > v1 engine change resets mastery and the v1 adoption dispatcher refuses v2 161ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > conversion makes a new blocked draft, preserves importance and never copies recommendedAfter 238ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > transfers equivalent v2 evidence from original responses without duplicate rewards, resets changes and never resurrects older mastery 1358ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > flags off permit private history reads with zero writes and deny mutations; admission flag blocks only new enrollments 72ms
+ ✓ test/guided-v2-upgrade.test.ts > T034 real HTTP adoption and history > convert-v1 HTTP uses ownership, CAS and an idempotent draft receipt 64ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P14 mixes recent/prior introduced units, prioritizes unresolved CORE and excludes the future unit 78ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > CORE critical errors come before unevidenced CORE and rotation never skips required objectives 92ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P15 pools are disjoint by family and malformed reserve sharing is rejected 36ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > final and deferred tests cover every required objective in segments of ten and use distinct reserves 113ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > missing banks block explicitly and never substitute another reserve or a practice item 11ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > deferred selection consumes UTC agenda, includes overdue objectives before route completion, and records actual days 45ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > day30 respects a late first measurement plus seven days and does not synthesize an absence failure 25ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > final cannot silently omit unintroduced required objectives or objectives omitted editorially 18ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > optional objectives do not increase the final denominator 53ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > avoids exposed/equivalent families when an independent candidate remains 68ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > P15 repeating a failed final is not novel transfer, even when the activity ID changes 32ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > first presentation in a new representation is eligible metadata, not an awarded transfer score 169ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > reveal and learner preview exposures count, editor preview/future events do not, duplicates are stable 213ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > the private selection is immutable and detached from later editorial changes 96ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > selection is deterministic even if exposure input order changes 67ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > coverage remains incomplete after the first ten; omissions score zero in the full denominator 81ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > unknown/duplicated answers and unknown segments cannot forge coverage 24ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > self and assisted answers cannot inflate objective scores 81ms
+ ✓ test/guided-v2-assessments.test.ts > T019 frozen assessment selection > unknown assessments, invalid UTC, foreign introduction and cyclic DAG fail explicitly 36ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved final-test item 36ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved retention7-test item 24ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > P15 practice/student preview expose no reserved retention30-test item 31ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > public projection delivers the active question only, no private solution, hint, family or future prompt 17ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > feedback is withheld until the entire segment is submitted, then reveals that segment only 97ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > existing attempt projection hides reserved items in ordinary activity/review and defers assessment feedback 76ms
+ ✓ test/guided-v2-assessments.test.ts > T019 public assessment manifests > invalid segment or position cannot project a future item 108ms
+
+ Test Files  3 passed (3)
+      Tests  59 passed | 10 skipped (69)
+   Start at  12:46:38
+   Duration  18.37s (transform 561ms, setup 0ms, import 2.55s, tests 14.04s, environment 1ms)
+

@@ -18,10 +18,282 @@ import { readEnvironment } from "../src/config.js";
 import { registerGuidedLearningRoutes } from "../src/guided-learning/routes.js";
 import { registerGuidedLearningEditorRoutes } from "../src/guided-learning/editor-routes.js";
 import { createPostgresGuidedLearningProvider } from "../src/providers/postgres-guided-learning.js";
+import { randomUUID } from "node:crypto";
+import { createGuidedV2Server } from "./helpers/guided-v2-server.js";
+import { guidedV2Fixture, guidedV2FixtureId } from "./helpers/guided-v2-fixtures.js";
+import { createPostgresContentProvider } from "../src/providers/postgres-content.js";
+import { createPostgresLearningMapProvider } from "../src/providers/postgres-learning-map.js";
 const identity = { getUser: async (request: { authorization?: string; cookie?: string }) => {
   const token = request.authorization ?? request.cookie;
   return token && !token.includes("expired") ? { id: token.includes("other") ? v2Id(2) : v2Id(1) } : null;
 } } as unknown as IdentityProvider;
+
+/** T036 uses TCP HTTP and separate PostgreSQL logins, never SET ROLE on an owner connection. */
+describe.skipIf(process.env.KORAZ_GUIDED_V2_TEST_SERVER !== "true")("T036 real HTTP security with restricted PostgreSQL runtime", () => {
+  let h: Awaited<ReturnType<typeof createGuidedV2Server>>;
+  let database: Kysely<CediahDatabase>, pool: Pool, app: Awaited<ReturnType<typeof buildApp>>, root: string;
+  const id = guidedV2FixtureId;
+  const prefix = "/v2/guided-learning/";
+  async function request(method: string, path: string, body?: unknown, actor = "student-20", key: string = randomUUID(), extra: Record<string, string> = {}) {
+    const response = await fetch(root + path, { method, headers: { cookie: `t035=${actor}`, "idempotency-key": key,
+      ...(body === undefined ? {} : { "content-type": "application/json" }), ...extra }, body: body === undefined ? undefined : JSON.stringify(body) });
+    return { status: response.status, body: await response.text(), cache: response.headers.get("cache-control") };
+  }
+  const post = (path: string, body: unknown, actor?: string, key?: string) => request("POST", prefix + path, body, actor, key);
+  async function start(actor: string, key = "study-1", enrollmentId?: string, kind = "activity") {
+    const enrollment = enrollmentId ? JSON.parse((await request("GET", prefix + `enrollments/${enrollmentId}/state`, undefined, actor)).body)
+      : JSON.parse((await post("enrollments", { pathId: h.fixtures.small!.pathId }, actor)).body);
+    const response = await post("attempts", { clientAttemptId: randomUUID(), enrollmentId: enrollment.state.enrollmentId,
+      target: { kind, key }, expectedEnrollmentVersion: enrollment.state.rowVersion }, actor);
+    expect(response.status, response.body).toBe(200); return JSON.parse(response.body).attempt;
+  }
+  const studyBody = (version = 1) => ({ activityKey: "study-1", answer: { kind: "study", acknowledged: true }, confidence: null, expectedVersion: version });
+  async function accepted(actor: string) {
+    const attempt = await start(actor), key = randomUUID(), body = studyBody();
+    const response = await post(`attempts/${attempt.attemptId}/responses`, body, actor, key);
+    expect(response.status, response.body).toBe(200); return { attempt, key, body, response };
+  }
+  async function contend(actor: number, operations: Array<() => ReturnType<typeof post>>) {
+    const lock = await h.db.pool.connect();
+    let waiting = 0, pending: Promise<Awaited<ReturnType<typeof post>>[]> | undefined;
+    try {
+      await lock.query("begin"); await lock.query("select id from auth_users where id=$1 for update", [id(actor)]);
+      pending = Promise.all(operations.map(operation => operation()));
+      const deadline = Date.now() + 5000;
+      while (waiting < operations.length && Date.now() < deadline) {
+        waiting = (await h.db.pool.query("select count(*)::int n from pg_stat_activity where application_name='t036-restricted-http' and wait_event_type='Lock'")).rows[0].n;
+        if (waiting < operations.length) await new Promise(resolve => setTimeout(resolve, 20));
+      }
+    } finally { await lock.query("commit"); lock.release(); }
+    const replies = await pending!;
+    expect(waiting, "Both independent runtime connections must overlap on PostgreSQL locks").toBe(operations.length);
+    return replies;
+  }
+  beforeAll(async () => {
+    h = await createGuidedV2Server();
+    await h.db.pool.query("insert into user_roles(user_id,role,assigned_by) values($1,'content_creator',$3),($2,'content_creator',$3)", [id(30), id(31), id(1)]);
+    const url = new URL(h.db.url); url.username = "cediah_runtime";
+    pool = new Pool({ connectionString: url.href, max: 6, application_name: "t036-restricted-http" });
+    database = new Kysely<CediahDatabase>({ dialect: new PostgresDialect({ pool }) });
+    const now = () => new Date("2026-10-04T12:00:00Z");
+    app = await buildApp(readEnvironment({ NODE_ENV: "test", GUIDED_LEARNING_ENABLED: "true", GUIDED_LEARNING_MAP_ENABLED: "true", GUIDED_LEARNING_V2_ENABLED: "true",
+      GUIDED_LEARNING_V2_NEW_ENROLLMENTS: "true", WEB_ORIGINS: "http://127.0.0.1:31035" }), {
+      identityProvider: { getUser: async input => { const token = /t035=([^;]+)/.exec(input.cookie ?? "")?.[1];
+        const n = token === "editor" ? 1 : Number(token?.replace("student-", ""));
+        return Number.isInteger(n) && n >= 1 && n <= 40 ? { id: id(n), email: `t036-${n}@example.test` } : null; } } as IdentityProvider,
+      // Existing identity/role subsystem is separate from the restricted learning runtime.
+      // Roles are read from real storage, never supplied as request capabilities.
+      contentProvider: createPostgresContentProvider(h.db.database),
+      guidedLearningProvider: createPostgresGuidedLearningProvider(database),
+      learningMapProvider: createPostgresLearningMapProvider(h.db.database),
+      guidedLearningV2Provider: createGuidedV2HttpProvider(database, { now, assetStorage: { bucket: "test-assets", createDownloadUrl: async () => "https://127.0.0.1:41036/fixture.png" } }),
+      guidedLearningV2EditorProvider: createPostgresGuidedLearningV2Provider(database, { now }),
+    });
+    root = await app.listen({ host: "127.0.0.1", port: 0 });
+  }, 120000);
+  afterAll(async () => { await app?.close(); await database?.destroy(); await h?.close(); });
+
+  const privateV2Tables = ["bindings", "imports", "attempts", "responses", "objective_state", "activity_state", "review_state"].map(name => `learning_v2_${name}`);
+  for (const role of ["anon", "authenticated"]) {
+    it(`S06 ${role} login cannot access any v2 table or lock function`, async () => {
+      const columns = (await h.db.pool.query<{ table_name: string; column_name: string }>(
+        "select distinct on(table_name) table_name,column_name from information_schema.columns where table_schema='public' and table_name=any($1::text[]) order by table_name,ordinal_position", [privateV2Tables])).rows;
+      expect(columns).toHaveLength(privateV2Tables.length);
+      const byTable = new Map(columns.map(row => [row.table_name, row.column_name]));
+      const url = new URL(h.db.url); url.username = role;
+      const restricted = new Pool({ connectionString: url.href, max: 1 });
+      try {
+        expect((await restricted.query("select current_user as actor")).rows).toEqual([{ actor: role }]);
+        for (const table of privateV2Tables) {
+          const column = byTable.get(table)!;
+          for (const statement of [`select * from ${table}`, `insert into ${table} default values`, `update ${table} set ${column}=${column}`, `delete from ${table}`])
+            await expect(restricted.query(statement)).rejects.toMatchObject({ code: "42501" });
+        }
+        for (const signature of ["private.lock_guided_v2_actor(uuid)", "private.lock_guided_v2_catalog(text,uuid)"])
+          expect((await h.db.pool.query("select has_function_privilege($1,$2,'EXECUTE') allowed", [role, signature])).rows).toEqual([{ allowed: false }]);
+        await expect(restricted.query("select * from private.guided_v2_audit")).rejects.toMatchObject({ code: "42501" });
+      } finally { await restricted.end(); }
+    });
+  }
+  it("S06 runtime is not owner, superuser or bypassrls and cannot change private facts", async () => {
+    expect((await pool.query("select current_user as actor,rolsuper,rolbypassrls from pg_roles where rolname=current_user")).rows)
+      .toEqual([{ actor: "cediah_runtime", rolsuper: false, rolbypassrls: false }]);
+    expect((await h.db.pool.query("select relname from pg_class where relname=any($1) and (not relrowsecurity or pg_get_userbyid(relowner)='cediah_runtime')", [privateV2Tables])).rows).toEqual([]);
+    for (const query of ["select * from auth_users", "select * from auth_sessions", "select * from auth_accounts", "update content_items set title='spoof'",
+      "update content_assets set status='pending'", "update learning_resource_revisions set payload_json='{}'", "delete from learning_v2_responses", "update learning_v2_responses set score01=1", "select * from audit_log"])
+      await expect(pool.query(query)).rejects.toMatchObject({ code: "42501" });
+  });
+
+  it("S01 complete student/editor/creator ownership matrix rejects without effects", async () => {
+    const pathId = h.fixtures.editorial!.pathId, base = `/v2/editor/learning-paths/${pathId}`;
+    const previewId = randomUUID();
+    const before = await h.counts();
+    for (const [method, path, body] of [
+      ["GET", base, undefined], ["POST", "/v2/editor/learning-paths", {}], ["PATCH", base, {}], ["POST", base + "/preview", {}],
+      ["GET", base + "/export", undefined], ["POST", base + "/validate", {}], ["POST", base + "/transition", {}],
+      ["POST", base + "/versions", {}], ["POST", base + "/convert-v1", {}], ["POST", "/v2/editor/learning-paths/imports/validate", {}],
+      ["POST", `/v2/editor/learning-paths/imports/${randomUUID()}/commit`, {}],
+      ["GET", "/v2/editor/learning-paths/source-catalog", undefined], ["POST", base + "/preview-sessions", {}],
+      ["POST", base + `/preview-sessions/${previewId}/actions`, {}], ["POST", base + `/preview-sessions/${previewId}/image`, {}],
+    ] as const) expect((await request(method, path, body)).status, path).toBe(403);
+    for (const [method, suffix, body] of [["GET", "", undefined], ["GET", "/export", undefined],
+      ["PATCH", "", { package: guidedV2Fixture(), bindings: h.bindings, expectedVersion: 1 }],
+      ["POST", "/validate", { expectedVersion: 1 }], ["POST", "/transition", { expectedVersion: 1, status: "published", reviewNote: "Synthetic" }],
+      ["POST", "/versions", { expectedVersion: 1, releaseNotes: "Synthetic" }]] as const) {
+      const response = await request(method, base + suffix, body, "student-30"); expect([403, 404], response.body).toContain(response.status);
+    }
+    expect(await h.counts()).toEqual(before);
+    expect((await request("GET", base, undefined, "editor")).status).toBe(200);
+    const pkg = guidedV2Fixture(); pkg.packageKey = pkg.route.slug = "t036-own-draft";
+    // The creator owns the synthetic image; importing an image owned by the
+    // administrator correctly requires proof of rights.
+    await h.db.pool.query("update content_assets set owner_user_id=$1 where id=$2", [id(30), id(124)]);
+    try {
+    const own = await request("POST", "/v2/editor/learning-paths", { package: pkg, bindings: h.bindings }, "student-30");
+    expect(own.status, own.body).toBe(200); const ownId = JSON.parse(own.body).pathId;
+    expect((await request("GET", `/v2/editor/learning-paths/${ownId}`, undefined, "student-30")).status).toBe(200);
+    expect((await request("GET", `/v2/editor/learning-paths/${ownId}`, undefined, "student-31")).status).toBe(404);
+    expect((await request("POST", `/v2/editor/learning-paths/${ownId}/transition`, { expectedVersion: 1, status: "published", reviewNote: "Synthetic" }, "student-30")).status).toBe(403);
+    } finally { await h.db.pool.query("update content_assets set owner_user_id=$1 where id=$2", [id(1), id(124)]); }
+  });
+
+  it("S02 all foreign attempt/enrollment operations deny IDOR without changes", async () => {
+    const a = await start("student-20"), base = prefix + `attempts/${a.attemptId}`, before = await h.counts();
+    for (const [method, url, body] of [["GET", base, undefined], ["GET", prefix + `enrollments/${a.enrollmentId}/state`, undefined],
+      ["GET", prefix + `enrollments/${a.enrollmentId}/upgrade`, undefined],
+      ["POST", prefix + `enrollments/${a.enrollmentId}/upgrade`, { targetVersionId: h.fixtures.small!.versionId, expectedVersion: 1, acknowledgedReset: true }],
+      ["POST", prefix + "attempts", { clientAttemptId: randomUUID(), enrollmentId: a.enrollmentId, target: { kind: "activity", key: "study-1" }, expectedEnrollmentVersion: 1 }],
+      ["GET", base + "/image?activityKey=image-1&expectedVersion=1", undefined], ["POST", base + "/help", { activityKey: "study-1", kind: "source", expectedVersion: 1 }],
+      ["POST", base + "/alternative", { activityKey: "study-1", expectedVersion: 1 }], ["POST", base + "/responses", studyBody()],
+      ["POST", base + "/complete", { expectedVersion: 1 }], ["POST", base + "/heartbeat", { clientEventId: randomUUID(), visible: true, interactionAgeMs: 0 }],
+      ["POST", base + "/feedback-viewed", { activityKey: "study-1", acknowledged: true }]] as const) {
+      const r = await request(method, url, body, "student-21"); expect(r.status, r.body).toBe(404); expect(JSON.parse(r.body)).toEqual({ error: "not_found" });
+      expect(r.cache).toBe("private, no-store");
+    }
+    expect(await h.counts()).toEqual(before);
+    expect((await h.db.pool.query("select row_version,status from learning_v2_attempts where id=$1", [a.attemptId])).rows).toEqual([{ row_version: 1, status: "in_progress" }]);
+  });
+
+  it("S03 all public envelopes hide nested private fields, feedback, reserves and premature reveal", async () => {
+    const a = await start("student-22");
+    for (const path of ["paths", "home", "paths/t035-small", `enrollments/${a.enrollmentId}/state`, `attempts/${a.attemptId}`]) {
+      const r = await request("GET", prefix + path, undefined, "student-22"); expect(r.status, r.body).toBe(200);
+      expect(r.body).not.toMatch(/correctKey|correctByPrompt|correctLabelByTarget|acceptedAnswers|acceptedOrders|modelAnswer|rubric|polygon|snapshot_json|definition_v2_json|Explicación sintética confirmada\.|Recupera la relación del ejemplo\.|final-1|retention7-1|retention30-1/);
+    }
+    expect((await post(`attempts/${a.attemptId}/help`, { activityKey: "constructed-1", kind: "reveal", expectedVersion: 1 }, "student-22")).status).toBe(409);
+  });
+
+  it("S05 hostile packages, active markup, file URLs, spoofed capabilities and oversized bodies are rejected", async () => {
+    const before = await h.counts();
+    for (const pkg of [ { ...guidedV2Fixture(), role: "administrator", status: "published" },
+      { ...guidedV2Fixture(), editorial: { notes: "<script>globalThis.__t036=true</script>", unresolvedIssues: [] } },
+      { ...guidedV2Fixture(), sources: guidedV2Fixture().sources.map(source => ({ ...source, url: "file:///private" })) } ]) {
+      const r = await request("POST", "/v2/editor/learning-paths/imports/validate", { package: pkg, bindings: h.bindings, targetPathId: null, expectedVersion: null }, "student-31");
+      expect(r.status, r.body).toBe(400); expect(r.body).not.toContain("globalThis");
+    }
+    expect((await request("POST", "/v2/editor/learning-paths/imports/validate", { package: "x".repeat(10 * 1024 * 1024 + 1) }, "student-31")).status).toBe(413);
+    expect(await h.counts()).toEqual(before);
+    const a = await start("student-23"), count = await h.counts();
+    for (const extra of [{ userId: id(24) }, { role: "administrator" }, { score01: 1 }, { status: "completed" }])
+      expect((await post(`attempts/${a.attemptId}/responses`, { ...studyBody(), ...extra }, "student-23")).status).toBe(400);
+    expect(await h.counts()).toEqual(count);
+  });
+
+  it("S04 topic, source and asset revocation block delivery and accepted-receipt replay while preserving history", async () => {
+    const { attempt: a, key, body } = await accepted("student-24");
+    const history = (await h.db.pool.query("select * from learning_v2_responses where attempt_id=$1", [a.attemptId])).rows;
+    for (const [withdraw, restore] of [["update content_items set catalog_visibility='guided_only' where id='" + id(120) + "'", "update content_items set catalog_visibility='catalog' where id='" + id(120) + "'"],
+      ["update content_items set status='draft' where id='" + id(121) + "'", "update content_items set status='published' where id='" + id(121) + "'"],
+      ["update content_assets set status='pending',finalized_at=null where id='" + id(124) + "'", "update content_assets set status='ready',finalized_at=now() where id='" + id(124) + "'"]]) {
+      await h.db.pool.query(withdraw!);
+      try {
+        for (const r of [await request("GET", prefix + `attempts/${a.attemptId}`, undefined, "student-24"), await post(`attempts/${a.attemptId}/responses`, body, "student-24", key),
+          await request("GET", prefix + `attempts/${a.attemptId}/image?activityKey=image-1&expectedVersion=2`, undefined, "student-24")]) {
+          expect(r.status, r.body).toBe(403); expect(JSON.parse(r.body)).toEqual({ error: "access_revoked" }); expect(r.body).not.toContain("https:");
+        }
+        expect((await h.db.pool.query("select * from learning_v2_responses where attempt_id=$1", [a.attemptId])).rows).toEqual(history);
+      } finally { await h.db.pool.query(restore!); }
+    }
+  });
+
+  it("S07 hostile/missing/expired identities never create effects, including replay after expiration", async () => {
+    const before = await h.counts(), key = randomUUID(), body = { pathId: h.fixtures.small!.pathId };
+    for (const [actor, headers, expected] of [["student-25", { origin: "https://hostile.example" }, 403], ["expired", {}, 401], ["", {}, 401]] as const) {
+      const r = await request("POST", prefix + "enrollments", body, actor, key, headers); expect(r.status, r.body).toBe(expected);
+    }
+    expect(await h.counts()).toEqual(before);
+    expect((await post("enrollments", body, "student-25", key)).status).toBe(200);
+    const after = await h.counts(); expect((await post("enrollments", body, "expired", key)).status).toBe(401); expect(await h.counts()).toEqual(after);
+  });
+
+  it("S08 v1 enroll/edit/delete cannot consume or erase v2 routes and enrollment history", async () => {
+    const pathId = h.fixtures.small!.pathId, before = await h.counts();
+    for (const [method, path, body, actor] of [["POST", "/v1/guided-learning/enrollments", { pathId }, "student-26"],
+      ["GET", `/v1/editor/learning-paths/${pathId}`, undefined, "editor"],
+      ["DELETE", `/v1/editor/learning-paths/${pathId}`, { expectedVersion: 1 }, "editor"]] as const) {
+      const r = await request(method, path, body, actor); expect(r.status, r.body).toBe(409); expect(JSON.parse(r.body)).toEqual({ error: "engine_version_mismatch" });
+    }
+    expect(await h.counts()).toEqual(before);
+    const ensured = await request("POST", "/v1/guided-learning/map/ensure", {}, "student-26"); expect(ensured.status, ensured.body).toBe(200);
+    const initial = JSON.parse(ensured.body);
+    const created = await request("POST", "/v1/guided-learning/map/nodes", { expectedVersion: initial.structuralVersion, title: "Nodo T036", iconKey: "heart", items: [] }, "student-26");
+    expect(created.status, created.body).toBe(200); const map = JSON.parse(created.body);
+    const node = (await h.db.pool.query("select id from learning_map_nodes where map_id=$1 order by created_at limit 1", [map.mapId])).rows[0];
+    const progressBefore = Object.fromEntries(Object.entries(await h.counts()).filter(([table]) => !table.startsWith("learning_map")));
+    const projected = await request("POST", "/v1/guided-learning/map/complete-block", { expectedVersion: map.structuralVersion, nodeId: node.id, pathId }, "student-26");
+    expect(projected.status, projected.body).toBe(200);
+    expect(Object.fromEntries(Object.entries(await h.counts()).filter(([table]) => !table.startsWith("learning_map")))).toEqual(progressBefore);
+  });
+
+  it("I04 repeated scored application grants mastery, agenda and rewards exactly once", async () => {
+    const actor = "student-37";
+    for (const key of ["study-1", "constructed-1", "choice-1", "short-1"]) {
+      const a = await start(actor, key);
+      const answer = key === "study-1" ? { kind: "study", acknowledged: true } : key === "constructed-1" ? { kind: "constructed_response", text: "Una relación sintética.", selfRating: null }
+        : key === "short-1" ? { kind: "short_answer", text: "respuesta" } : { kind: "single_choice", optionKey: "yes" };
+      let r = await post(`attempts/${a.attemptId}/responses`, { activityKey: key, answer, confidence: null, expectedVersion: a.rowVersion }, actor);
+      expect(r.status, r.body).toBe(200);
+      if (key === "constructed-1") {
+        const revealed = await post(`attempts/${a.attemptId}/help`, { activityKey: key, kind: "reveal", expectedVersion: JSON.parse(r.body).attempt.rowVersion }, actor);
+        expect(revealed.status, revealed.body).toBe(200);
+        r = await post(`attempts/${a.attemptId}/responses`, { activityKey: key, answer: { ...answer, selfRating: "good" }, confidence: null, expectedVersion: JSON.parse(revealed.body).attempt.rowVersion }, actor);
+        expect(r.status, r.body).toBe(200);
+      }
+      expect((await post(`attempts/${a.attemptId}/complete`, { expectedVersion: JSON.parse(r.body).attempt.rowVersion }, actor)).status).toBe(200);
+    }
+    const a = await start(actor, "apply-1"), key = randomUUID();
+    const body = { activityKey: "apply-1", answer: { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: a.rowVersion };
+    const replies = await contend(37, [() => post(`attempts/${a.attemptId}/responses`, body, actor, key), () => post(`attempts/${a.attemptId}/responses`, body, actor, key)]);
+    expect(replies.map(r => r.status)).toEqual([200, 200]); expect(JSON.parse(replies[0]!.body)).toEqual(JSON.parse(replies[1]!.body));
+    const state = JSON.parse(replies[0]!.body).state; expect(state.objectives[0].firstMasteredAt).not.toBeNull();
+    expect((await h.db.pool.query("select count(*)::int n from learning_v2_review_state where user_id=$1", [id(37)])).rows).toEqual([{ n: 1 }]);
+    expect((await h.db.pool.query("select reward_kind,count(*)::int n from learning_rewards where user_id=$1 group by reward_kind order by reward_kind", [id(37)])).rows)
+      .toEqual([{ reward_kind: "v2_objective_mastered", n: 1 }, { reward_kind: "v2_objective_recalled", n: 1 }]);
+    const before = await h.counts(); expect((await post(`attempts/${a.attemptId}/responses`, body, actor, key)).status).toBe(200); expect(await h.counts()).toEqual(before);
+  });
+
+  it("I04 concurrent exact requests, conflicting versions, completion and heartbeat each preserve one effect", async () => {
+    const a = await start("student-27"), key = randomUUID();
+    const responses = await contend(27, [() => post(`attempts/${a.attemptId}/responses`, studyBody(), "student-27", key), () => post(`attempts/${a.attemptId}/responses`, studyBody(), "student-27", key)]);
+    expect(responses.map(r => r.status)).toEqual([200, 200]); expect(JSON.parse(responses[0]!.body)).toEqual(JSON.parse(responses[1]!.body));
+    const before = await h.counts(); expect((await post(`attempts/${a.attemptId}/responses`, { ...studyBody(), confidence: "sure" }, "student-27", key)).status).toBe(409); expect(await h.counts()).toEqual(before);
+    const version = JSON.parse(responses[0]!.body).attempt.rowVersion, completeKey = randomUUID();
+    const completions = await contend(27, [() => post(`attempts/${a.attemptId}/complete`, { expectedVersion: version }, "student-27", completeKey), () => post(`attempts/${a.attemptId}/complete`, { expectedVersion: version }, "student-27", completeKey)]);
+    expect(completions.map(r => r.status)).toEqual([200, 200]); expect(JSON.parse(completions[0]!.body)).toEqual(JSON.parse(completions[1]!.body));
+    expect((await h.db.pool.query("select count(*)::int n from learning_v2_responses where attempt_id=$1", [a.attemptId])).rows).toEqual([{ n: 1 }]);
+    for (const semantic of [`v2-response:${a.attemptId}:study-1`, `v2-complete:${a.attemptId}`])
+      expect((await h.db.pool.query("select count(*)::int n from learning_events where semantic_key=$1", [semantic])).rows).toEqual([{ n: 1 }]);
+    const other = await start("student-28"), eventId = randomUUID(), heartbeatKey = randomUUID();
+    const hb = { clientEventId: eventId, visible: true, interactionAgeMs: 0 };
+    expect((await contend(28, [() => post(`attempts/${other.attemptId}/heartbeat`, hb, "student-28", heartbeatKey), () => post(`attempts/${other.attemptId}/heartbeat`, hb, "student-28", heartbeatKey)])).map(r => r.status)).toEqual([200, 200]);
+    const events = (await h.db.pool.query("select semantic_key from learning_events where user_id=$1 and event_type='heartbeat'", [id(28)])).rows; expect(events).toHaveLength(1);
+    const scored = await start("student-29", "diagnostic", undefined, "assessment");
+    const race = await contend(29, ["yes", "no"].map(optionKey => () => post(`attempts/${scored.attemptId}/responses`, {
+      activityKey: "diagnostic-1", answer: { kind: "single_choice", optionKey }, confidence: null, expectedVersion: scored.rowVersion }, "student-29")));
+    expect(race.map(r => r.status).sort()).toEqual([200, 409]);
+    expect((await h.db.pool.query("select count(*)::int n from learning_v2_responses where attempt_id=$1", [scored.attemptId])).rows).toEqual([{ n: 1 }]);
+  });
+});
 function fixture() {
   const base = { objectiveKey: "core", relatedObjectiveKeys: [], phase: "retrieve", required: true, sourceKeys: [], representation: "text",
     hints: ["PRIVATE_HINT"], use: "learning", prompt: "Pregunta", feedback: { explanation: "PRIVATE_FEEDBACK", commonError: "PRIVATE_ERROR", sourceKeys: [] },
@@ -237,7 +509,7 @@ describe("T022 endpoint authorization and privacy", () => {
       expect(after).toEqual(before);
     } finally { roles = ["student"]; }
   });
-  it("S08 deferred conversion stays closed after ownership/CAS checks and preserves v1", async () => {
+  it("S08 conversion requires ownership/CAS, creates only an incomplete draft and preserves v1", async () => {
     roles = ["content_creator"];
     try {
       const oldPath = v2Id(801), oldVersion = v2Id(802);
@@ -248,11 +520,19 @@ describe("T022 endpoint authorization and privacy", () => {
       expect((await post(url, { expectedVersion: 1 }, "other")).statusCode).toBe(404);
       expect((await post(url, { expectedVersion: 2 })).statusCode).toBe(409);
       const key = v2Id(serial++), request = { method: "POST" as const, url, payload: { expectedVersion: 1 }, headers: { authorization: "Bearer learner", "idempotency-key": key } };
-      const converted = await app.inject(request); expect(converted.statusCode, converted.body).toBe(409);
-      expect(converted.json()).toEqual({ error: "conflict" });
+      const converted = await app.inject(request); expect(converted.statusCode, converted.body).toBe(200);
+      const value = V2HttpContracts.convertV1.response.parse(converted.json());
+      expect(value.draft.pathId).toBe(oldPath); expect(value.draft.status).toBe("draft");
+      expect(value.draft.pathVersionId).not.toBe(oldVersion);
+      expect(value.issues.filter(issue => issue.severity === "error").map(issue => issue.code)).toEqual(expect.arrayContaining([
+        "CONVERSION_REVIEW", "CONVERSION_DEPENDENCIES", "CONVERSION_PEDAGOGY", "CONVERSION_RESERVES", "CONVERSION_SOURCES",
+      ]));
       expect((await app.inject(request)).json()).toEqual(converted.json());
       expect((await pg.query("select * from learning_path_versions where id=$1", [oldVersion])).rows).toEqual(before);
-      expect((await pg.query("select count(*)::int n from learning_path_versions where path_id=$1", [oldPath])).rows).toEqual([{ n: 1 }]);
+      expect((await pg.query("select count(*)::int n from learning_path_versions where path_id=$1", [oldPath])).rows).toEqual([{ n: 2 }]);
+      expect((await pg.query("select status,policy_version,published_at,published_by from learning_path_versions where id=$1", [value.draft.pathVersionId])).rows)
+        .toEqual([{ status: "draft", policy_version: "guided-v2.0", published_at: null, published_by: null }]);
+      expect((await pg.query("select count(*)::int n from learning_enrollments where path_version_id=$1", [value.draft.pathVersionId])).rows).toEqual([{ n: 0 }]);
     } finally { roles = ["student"]; }
   });
   it("S01/S07 full application mounts every editorial endpoint and checks flags/origin before storage", async () => {

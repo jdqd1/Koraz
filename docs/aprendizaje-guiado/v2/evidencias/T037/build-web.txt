@@ -1,0 +1,43 @@
+$ next build
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.ts took 260ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 33.3s
+  Running TypeScript ...
+tests/e2e/guided-v2-accessibility.spec.ts(99,21): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+Failed to type check.
+
+Turbopack build encountered 1 warning:
+./apps/web/src/app/interactive-term-polish.css:19:13
+Warning: Parsing CSS source code failed
+  17 | }
+  18 |
+> 19 | ::highlight(koraz-editor-interactive-terms) {
+     |             ^
+  20 |   color: inherit;
+  21 |   background-color: color-mix(in srgb, var(--koraz-mint) 18%, transparent);
+  22 |   text-decoration-line: underline;
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of apps/web/src/app/interactive-term-polish.css:
+./apps/web/src/app/interactive-term-polish.css:19:13
+  17 | }
+  18 |
+> 19 | ::highlight(koraz-editor-interactive-terms) {
+     |             ^
+  20 |   color: inherit;
+  21 |   background-color: color-mix(in srgb, var(--koraz-mint) 18%, transparent);
+  22 |   text-decoration-line: underline;
+
+Import trace:
+  Client Component Browser:
+    ./apps/web/src/app/interactive-term-polish.css [Client Component Browser]
+    ./apps/web/src/app/layout.tsx [Server Component]
+
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 build: `next build`
+Exit status 1

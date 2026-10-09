@@ -1,0 +1,8 @@
+file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T038/verify-cleanup.mjs:9
+  if(!closed || !/^koraz_guided_v2_test_[a-f0-9]{32}$/.test(database))throw new Error('Invalid disposable cleanup receipt');
+                                                                            ^
+
+Error: Invalid disposable cleanup receipt
+    at file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T038/verify-cleanup.mjs:9:77
+
+Node.js v24.19.0

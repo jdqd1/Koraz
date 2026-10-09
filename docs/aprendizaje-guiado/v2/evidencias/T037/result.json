@@ -1,0 +1,255 @@
+{
+  "taskId": "T037",
+  "status": "PASS",
+  "scope": "LOCAL: synthetic fixtures, real Fastify/BFF/Next UI and independent disposable PostgreSQL",
+  "closedAt": "2026-10-06T22:20:26.036Z",
+  "timezone": "America/Caracas",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "continua con t037; continua",
+  "authorization": {
+    "ficha": "HANDOFF-EJECUTOR.md T037, section 8.12, V01-V05",
+    "extensionsRequired": false
+  },
+  "predecessors": [
+    {
+      "task": "T035",
+      "status": "PASS",
+      "evidence": "../T035/result.json"
+    },
+    {
+      "task": "T036",
+      "status": "PASS",
+      "evidence": "../T036/result.json"
+    }
+  ],
+  "productFiles": [
+    {
+      "path": "apps/web/src/app/interface-polish.css",
+      "sha256": "460EAAA7F003304B615A7C35F61E8F280724F1F8C337052100E2F0DC598D0C1C"
+    },
+    {
+      "path": "apps/web/src/app/reference-dashboard.css",
+      "sha256": "FC1ED250EAAB95A536AF985B8D316E8115305E286BFF14D78031311B393E89CD"
+    },
+    {
+      "path": "apps/web/src/components/app-shell.tsx",
+      "sha256": "0610ABF099F949C0B19B926053449CD29C6BBAD8F5681E900AEE40E3537DF899"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/editor-shell.tsx",
+      "sha256": "2F67A152DF47CC18016A2FC7292EF72D58BB1A7D2751F14BC2D9F835FCE1CC00"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/use-route-editor.ts",
+      "sha256": "0218F79BF99F7EB38ABC784729332E5F87F63A9064095B2CBEF5FEFC5FFF02BD"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/styles.module.css",
+      "sha256": "3C03064BFBEFA0A9213200C0C9C8D7A081D01CDF0162814B6171A0154F7C7CE3"
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/v2/assessment-editor.tsx",
+      "sha256": "947D614B1D07B7943F2BA5A029141A3F1B454B172200749D9A379C11229E6CD1"
+    },
+    {
+      "path": "apps/web/src/components/learning/map/learning-map-workspace.tsx",
+      "sha256": "EE5D84EDEC4CA4ACA1A7C214BAC1046A7809DB8A7379C79E23ECF9C8428A4F59"
+    },
+    {
+      "path": "apps/web/src/components/learning/map/learning-map.module.css",
+      "sha256": "876E769E02DD508878B035666669A0E38BD92D132506E765D79D31897EC01883"
+    },
+    {
+      "path": "apps/web/src/components/learning/v2/player.tsx",
+      "sha256": "85925E17319D1125AC6FC30BBB2DAE5367804D248E663B26E0CB71DCCE3735D2"
+    },
+    {
+      "path": "apps/web/src/components/learning/v2/player.module.css",
+      "sha256": "A5FF74A1B1748203CC26AEA65DEB2371A5480D1BD0804CB1B3ECC2BD67DF75E3"
+    }
+  ],
+  "testFile": "apps/web/tests/e2e/guided-v2-accessibility.spec.ts",
+  "preservation": {
+    "status": "PASS",
+    "baselineFiles": 1921,
+    "unchangedFiles": 1911,
+    "existingFilesModified": 10,
+    "newProductFiles": [
+      "apps/web/src/components/learning/v2/player.module.css"
+    ],
+    "unexpectedChanges": [],
+    "evidence": "preservation.json"
+  },
+  "checks": {
+    "commands": {
+      "contractsBuild": {
+        "exitCode": 0,
+        "log": "contracts-build.txt"
+      },
+      "productionBuild": {
+        "exitCode": 0,
+        "log": "build-web-header-final.txt"
+      },
+      "webTypecheck": {
+        "exitCode": 0,
+        "log": "typecheck-final-state.txt"
+      },
+      "affectedFilesLint": {
+        "exitCode": 0,
+        "log": "lint-final-state.txt"
+      },
+      "initialBroadWebRegression": {
+        "exitCode": 0,
+        "passed": 482,
+        "files": 62,
+        "log": "web-regression.txt"
+      },
+      "editorMapRegression": {
+        "exitCode": 0,
+        "passed": 135,
+        "files": 12,
+        "log": "affected-regression-closure.txt"
+      },
+      "finalPlayerRegression": {
+        "exitCode": 0,
+        "passed": 112,
+        "files": 10,
+        "log": "player-regression-closure.txt"
+      },
+      "diffCheck": {
+        "exitCode": 0,
+        "log": "diff-check-final.txt"
+      }
+    },
+    "browser": {
+      "status": "PASS",
+      "passed": 18,
+      "intentionalSkips": 3,
+      "failed": 0,
+      "method": "Latest affected-screen recheck per file/title/project; raw reports retained",
+      "rawCompleteRun": {
+        "startTime": "2026-10-06T21:55:03.652Z",
+        "duration": 841696.3509999999,
+        "expected": 13,
+        "skipped": 3,
+        "unexpected": 5,
+        "flaky": 0
+      },
+      "affectedScreenRecheck": {
+        "startTime": "2026-10-06T22:09:53.588Z",
+        "duration": 471535.577,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "reasonForSkips": "Native browser zoom runs once in desktop Edge; small viewport projects intentionally skip that case",
+      "reports": [
+        "closure-playwright.json",
+        "reflow-recheck-playwright.json",
+        "browser-matrix-summary.json"
+      ],
+      "logs": [
+        "browser-closure.txt",
+        "browser-reflow-recheck.txt"
+      ]
+    },
+    "axe": {
+      "status": "PASS",
+      "auditedScreens": 135,
+      "seriousCritical": 0,
+      "pageOverflows": 0,
+      "exclusions": [],
+      "evidence": "audit-summary.json"
+    },
+    "screenshots": {
+      "auditedScreens": 135,
+      "viewportAndFullPagePngs": 270,
+      "gallery": "gallery.html"
+    },
+    "regressions": [
+      {
+        "passed": 482,
+        "files": 62,
+        "log": "web-regression.txt",
+        "stage": "Initial broad web regression"
+      },
+      {
+        "passed": 135,
+        "files": 12,
+        "log": "affected-regression-closure.txt",
+        "stage": "Editor and map after local dialog corrections"
+      },
+      {
+        "passed": 112,
+        "files": 10,
+        "log": "player-regression-closure.txt",
+        "stage": "Final v2 player, including scoped CSS module"
+      }
+    ],
+    "regressionCountsOverlap": true,
+    "visual": {
+      "status": "PASS",
+      "evidence": "visual-review.json",
+      "humanSignoff": false
+    },
+    "cleanup": {
+      "status": "PASS",
+      "database": "database-cleanup-verification.json",
+      "services": "services-cleanup.json"
+    }
+  },
+  "checklist": {
+    "V01": {
+      "status": "PASS",
+      "evidence": "audit-summary.json"
+    },
+    "V02": {
+      "status": "PASS",
+      "evidence": "closure-playwright.json",
+      "coverage": "E01 keyboard creation/persistence, Tab, tabs, matching, sequence, dialog pointer centers/cancel/Escape/restored focus"
+    },
+    "V03": {
+      "status": "PASS",
+      "viewports": [
+        "1440x900",
+        "360x800",
+        "390x844",
+        "768x1024"
+      ],
+      "zoom": "CSS 200% on all viewports; native Edge 200%, CSS viewport 720x450/DPR2; focused field center and corners reachable",
+      "evidence": "gallery.html"
+    },
+    "V04": {
+      "accessibilityTree": "PASS",
+      "screenReader": "NO VERIFICADO",
+      "evidence": [
+        "accessibility-tree-summary.json",
+        "screen-reader.json"
+      ],
+      "fullWcagCertification": false
+    },
+    "V05": {
+      "status": "PASS",
+      "coverage": "Touch/pointer, letterboxing, <=1 rendered pixel, preserved normalized coordinates at image zoom200, arrows and server-confirmed text alternative",
+      "imageFixture": "Synthetic one-pixel image"
+    }
+  },
+  "notes": [
+    "Earlier failing runs retained. The complete 21-case run is closure-playwright.json; affected-screen rechecks are reflow-recheck-playwright.json. Latest per-case outcomes are explicit in browser-matrix-summary.json.",
+    "CSS and labels remain within T037; server-authoritative learning behavior and eight activity kinds are preserved.",
+    "React review found no new data fetching, effect-driven derived state, request state or additional dependency."
+  ],
+  "notVerified": [
+    "Spoken screen-reader output",
+    "Physical mobile devices",
+    "Clinical image readability/content",
+    "Better Auth cookie issuance/signature",
+    "Full WCAG or human accessibility certification",
+    "Hito S/system, staging and production"
+  ],
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "nextTaskStarted": false,
+  "nextTask": "T038"
+}

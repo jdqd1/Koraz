@@ -4,6 +4,9 @@ import { LearningPathsEditorIndex } from "@/components/learning/editor/learning-
 import styles from "@/components/learning/editor/route-editor.module.css";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getLearningEditorWorkspace } from "@/lib/server/guided-learning-api";
+import { requestContentApi } from "@/lib/server/content-api";
+import { getApiRequestCookie } from "@/lib/server/api-session";
+import { editorV2CatalogAvailable } from "@/components/learning/editor/v2/new-draft";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +21,9 @@ export default async function LearningPathsEditorPage() {
   }
 
   const canArchive = current.roles.includes("coordinator") || current.roles.includes("administrator");
-  return <><div className={styles.inlineActions}><Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} /></>;
+  const session = await getApiRequestCookie();
+  const v2Catalog = session.status === "ready" ? await requestContentApi({ cookie: session.cookie, method: "GET", path: "/v2/editor/learning-paths/source-catalog?limit=1" }) : { status: 401, body: null };
+  return <><div className={styles.inlineActions}>{editorV2CatalogAvailable(v2Catalog) ? <Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=v2">Crear ruta v2</Link> : null}<Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} /></>;
 }
 
 function EditorGate({ title }: { title: string }) {

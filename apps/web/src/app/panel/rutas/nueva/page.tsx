@@ -5,6 +5,9 @@ import { getCurrentUser } from "@/lib/server/current-user";
 import { getLearningEditorResources } from "@/lib/server/guided-learning-api";
 import { ImportWizardV2 } from "@/components/learning/editor/v2/import-wizard";
 import styles from "@/components/learning/editor/route-editor.module.css";
+import { requestContentApi } from "@/lib/server/content-api";
+import { getApiRequestCookie } from "@/lib/server/api-session";
+import { editorV2CatalogAvailable, newEditorV2Draft } from "@/components/learning/editor/v2/new-draft";
 
 export const dynamic = "force-dynamic";
 
@@ -13,9 +16,16 @@ export default async function NewLearningPathPage({ searchParams }: { searchPara
   if (current.status === "anonymous") redirect("/acceder?next=/panel/rutas/nueva");
   if (current.status !== "authenticated") return <EditorUnavailable />;
   if (!current.features.guidedLearning) notFound();
+  const canReview = current.roles.includes("coordinator") || current.roles.includes("administrator");
+  if ((await searchParams).mode === "v2") {
+    const session = await getApiRequestCookie();
+    if (session.status !== "ready") return <EditorUnavailable />;
+    const catalog = await requestContentApi({ cookie: session.cookie, method: "GET", path: "/v2/editor/learning-paths/source-catalog?limit=1" });
+    if (!editorV2CatalogAvailable(catalog)) return <EditorUnavailable forbidden={catalog.status === 403} />;
+    return <LearningRouteEditor actorUserId={current.user.id} canPublish={canReview} canReview={canReview} initialV2Draft={newEditorV2Draft(crypto.randomUUID())} initialResources={[]} resourceNextCursor={null} resourceTopics={[]} routeTopics={[]} />;
+  }
   const resources = await getLearningEditorResources();
   if (resources.status !== "ready") return <EditorUnavailable forbidden={resources.status === "forbidden"} />;
-  const canReview = current.roles.includes("coordinator") || current.roles.includes("administrator");
   if ((await searchParams).mode === "import") return <main className={styles.editor} data-editor-surface><Link href="/panel/rutas" className={styles.backLink}>Volver a rutas</Link><ImportWizardV2 /></main>;
 
   return <LearningRouteEditor actorUserId={current.user.id} canPublish={canReview} canReview={canReview} initialResources={resources.items} resourceNextCursor={resources.nextCursor} resourceTopics={resources.resourceTopics} routeTopics={resources.topics} />;

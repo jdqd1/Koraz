@@ -1,0 +1,68 @@
+[WebServer] (node:9804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:13704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:26872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (52.8s)
+  ok 2 [desktop] › tests\e2e\guided-v2-security.spec.ts:97:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (3.3s)
+(node:8812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages (28.6s)
+(node:23404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\guided-v2-security.spec.ts:97:5 › T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes (2.5s)
+
+
+  1) [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-engine-version="guided-v2"]')
+    Expected: visible
+    Error: strict mode violation: locator('[data-engine-version="guided-v2"]') resolved to 2 elements:
+        1) <section class="learning-activity-main" data-engine-version="guided-v2" aria-label="Sesión de aprendizaje">…</section> aka getByRole('region', { name: 'Sesión de aprendizaje' })
+        2) <section class="learning-activity-main" data-engine-version="guided-v2" aria-label="Sesión de aprendizaje">…</section> aka getByLabel('Sesión de aprendizaje').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" locator('[data-engine-version="guided-v2"]') with timeout 60000ms
+      - waiting for locator('[data-engine-version="guided-v2"]')
+        - locator resolved to <section class="learning-activity-main" data-engine-version="guided-v2" aria-label="Sesión de aprendizaje">…</section>
+        - unexpected value "hidden"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-security.spec.ts:54:69)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T036\browser-artifacts\guided-v2-security-T036-S0-42cd7-rmat-and-future-case-stages-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile] › tests\e2e\guided-v2-security.spec.ts:25:5 › T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages 
+  3 passed (2.3m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T036/playwright.config.mts

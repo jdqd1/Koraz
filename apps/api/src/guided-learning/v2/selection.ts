@@ -37,6 +37,39 @@ function editorialActivities(definition: RoutePackage): RouteActivity[] {
   return [...definition.activities].sort((a, b) => (rank.get(a.key) ?? keys.length)
     - (rank.get(b.key) ?? keys.length) || compare(a.key, b.key));
 }
+function buildStructure(definition: RoutePackage) {
+  const order = ordered(definition), activities = editorialActivities(definition);
+  const activityByKey = new Map(activities.map((item) => [item.key, item]));
+  const objectiveByKey = new Map(definition.objectives.map((item) => [item.key, item]));
+  const rankByKey = new Map(order.map((key, index) => [key, index]));
+  const activitiesByObjective = new Map<string, RouteActivity[]>();
+  for (const item of activities) {
+    const pool = activitiesByObjective.get(item.objectiveKey) ?? [];
+    pool.push(item); activitiesByObjective.set(item.objectiveKey, pool);
+  }
+  const unitByObjective = new Map<string, RoutePackage["units"][number]>();
+  const unitByKey = new Map(definition.units.map((unit) => [unit.key, unit]));
+  const unitActivityKeys = new Map(definition.units.map((unit) => [unit.key, new Set(unit.activityKeys)]));
+  for (const unit of definition.units) for (const key of unit.objectiveKeys) {
+    if (!unitByObjective.has(key)) unitByObjective.set(key, unit);
+  }
+  const children = new Set(activities.flatMap((item) => item.kind === "case"
+    ? item.payload.stages.map((stage) => stage.childActivityKey) : []));
+  return { order, activities, activityByKey, objectiveByKey, rankByKey, activitiesByObjective, unitByObjective, unitByKey, unitActivityKeys, children,
+    diagnosis: diagnostic(definition, order, activities) };
+}
+const structures = new WeakMap<RoutePackage, ReturnType<typeof buildStructure>>();
+function structure(definition: RoutePackage) {
+  const cached = structures.get(definition);
+  if (cached) return cached;
+  const result = buildStructure(definition);
+  const deeplyFrozen = (value: unknown): boolean => !value || typeof value !== "object"
+    || (Object.isFrozen(value) && Object.values(value).every(deeplyFrozen));
+  // Mutable editorial/preview inputs are always rebuilt; only immutable content
+  // can retain structural indexes. No learner-dependent input is stored here.
+  if (deeplyFrozen(definition)) structures.set(definition, result);
+  return result;
+}
 function independent(activity: RouteActivity | undefined) {
   return !!activity && activity.kind !== "study" && activity.kind !== "case"
     && activity.kind !== "constructed_response" && activity.phase !== "remediate";
@@ -55,13 +88,22 @@ function facts(snapshot: GuidedV2SelectionSnapshot, now: number) {
 
 /** A diagnostic samples roots and representative CORE only; missing coverage is explicit. */
 export function selectGuidedV2Diagnostic(definition: RoutePackage) {
-  const order = ordered(definition);
+  return copyDiagnostic(structure(definition).diagnosis);
+}
+
+function copyDiagnostic(value: ReturnType<typeof diagnostic>) {
+  return { ...value, activityKeys: [...value.activityKeys], objectiveKeys: [...value.objectiveKeys],
+    uncoveredObjectiveKeys: [...value.uncoveredObjectiveKeys] };
+}
+
+function diagnostic(definition: RoutePackage, order: string[], activities: RouteActivity[]) {
+  const objectivesByKey = new Map(definition.objectives.map((item) => [item.key, item]));
   const assessment = definition.assessments.find((item) => item.kind === "diagnostic");
   const candidates = new Set(assessment?.candidateActivityKeys ?? []);
-  const pool = editorialActivities(definition).filter((item) => candidates.has(item.key)
+  const pool = activities.filter((item) => candidates.has(item.key)
     && item.use === "diagnostic" && independent(item));
   const objectives = order.filter((key) => {
-    const objective = definition.objectives.find((item) => item.key === key)!;
+    const objective = objectivesByKey.get(key)!;
     return objective.prerequisiteKeys.length === 0 || objective.criticality === "core";
   });
   const selected: RouteActivity[] = [];
@@ -82,12 +124,22 @@ export function selectGuidedV2Diagnostic(definition: RoutePackage) {
 export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, nowUtc: string) {
   const now = utc(nowUtc);
   const { definition, evidence } = snapshot;
-  const order = ordered(definition);
+  const { order, activityByKey, objectiveByKey, rankByKey, activitiesByObjective,
+    unitByObjective, unitByKey, unitActivityKeys, children, diagnosis } = structure(definition);
   if (snapshot.selectedObjectiveKey && !order.includes(snapshot.selectedObjectiveKey)) {
     throw new TypeError("La rama seleccionada no pertenece a la versión matriculada");
   }
-  const activities = editorialActivities(definition);
   const events = facts(snapshot, now);
+  // Evidence and event indexes are fresh for every authorized operation.
+  const evidenceByKey = new Map(evidence.objectives.map((item) => [item.objectiveKey, item]));
+  const responsesByObjective = new Map<string, Extract<GuidedV2EvidenceEvent, { kind: "response" }>[]>();
+  const latestInteraction = new Map<string, number>();
+  for (const event of events) {
+    if (event.kind === "interaction" || event.kind === "response") latestInteraction.set(event.activityKey, utc(event.at));
+    if (event.kind !== "response") continue;
+    const responses = responsesByObjective.get(event.objectiveKey) ?? [];
+    responses.push(event); responsesByObjective.set(event.objectiveKey, responses);
+  }
   const completed = new Set([...snapshot.completedActivityKeys, ...snapshot.dispensedActivityKeys]);
   const available = new Set(evidence.availability.filter((item) => item.available).map((item) => item.objectiveKey));
   const sessions = new Set(snapshot.sessionAttemptIds);
@@ -95,21 +147,21 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
   const exposure = new Map<string, number>();
   for (const event of events) {
     if (event.kind !== "response" && event.kind !== "reveal") continue;
-    const activity = activities.find((item) => item.key === event.activityKey);
+    const activity = activityByKey.get(event.activityKey);
     if (activity) exposure.set(activity.equivalenceKey, utc(event.at));
   }
   const eligibleAt = (activity: RouteActivity) => (exposure.get(activity.equivalenceKey) ?? -Infinity) + reuseMs;
   const support = order.map((objectiveKey) => {
-    const pool = activities.filter((item) => item.objectiveKey === objectiveKey && practice(item));
-    const diagnostic = snapshot.diagnosticStatus === "completed" ? events.filter((event) => event.kind === "response"
-      && event.objectiveKey === objectiveKey && event.purpose === "diagnostic" && event.gradingSource === "server"
+    const pool = (activitiesByObjective.get(objectiveKey) ?? []).filter(practice);
+    const responses = responsesByObjective.get(objectiveKey) ?? [];
+    const diagnostic = snapshot.diagnosticStatus === "completed" ? responses.filter((event) => event.purpose === "diagnostic" && event.gradingSource === "server"
       && !event.assisted).at(-1) : undefined;
     let failures = 0;
     let lastFailureAt = -Infinity;
-    for (const event of events) {
-      if (event.kind !== "response" || event.objectiveKey !== objectiveKey || !sessions.has(event.attemptId)
+    for (const event of responses) {
+      if (!sessions.has(event.attemptId)
         || !["learning", "gate", "review"].includes(event.purpose) || event.gradingSource !== "server"
-        || event.score01 === null || !independent(activities.find((item) => item.key === event.activityKey)!)) continue;
+        || event.score01 === null || !independent(activityByKey.get(event.activityKey))) continue;
       failures = event.score01 === 1 ? 0 : failures + 1;
       if (event.score01 !== 1) lastFailureAt = utc(event.at);
     }
@@ -117,8 +169,7 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
       ? pool.find((item) => independent(item) && eligibleAt(item) <= now)?.key ?? null : null;
     const explanation = pool.find((item) => item.kind === "study" && item.payload.scaffold === "explanation");
     const reinforcedExplanationKey = failures >= guidedV2PolicySnapshot.consecutiveFailuresBeforeSupport
-      && explanation && !events.some((event) => (event.kind === "interaction" || event.kind === "response")
-        && event.activityKey === explanation.key && utc(event.at) > lastFailureAt) ? explanation.key : null;
+      && explanation && !((latestInteraction.get(explanation.key) ?? -Infinity) > lastFailureAt) ? explanation.key : null;
     return { objectiveKey, mode: checkActivityKey ? "offer_check" as const : "full" as const,
       checkActivityKey, consecutiveFailures: failures,
       reinforcedExplanationKey,
@@ -130,18 +181,16 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
       independentActivityKeys: pool.filter(independent).map((item) => item.key) };
   });
   const supportByKey = new Map(support.map((item) => [item.objectiveKey, item]));
-  const children = new Set(activities.flatMap((item) => item.kind === "case"
-    ? item.payload.stages.map((stage) => stage.childActivityKey) : []));
   const initial = order.flatMap((objectiveKey) => {
     if (!available.has(objectiveKey) || supportByKey.get(objectiveKey)!.retryLimitReached) return [];
     const adaptation = supportByKey.get(objectiveKey)!;
-    const unit = definition.units.find((item) => item.objectiveKeys.includes(objectiveKey))!;
-    const pool = activities.filter((item) => item.objectiveKey === objectiveKey && unit.activityKeys.includes(item.key)
+    const unit = unitByObjective.get(objectiveKey)!;
+    const pool = (activitiesByObjective.get(objectiveKey) ?? []).filter((item) => unitActivityKeys.get(unit.key)!.has(item.key)
       && practice(item) && item.required && item.phase !== "remediate" && !children.has(item.key)
       && !completed.has(item.key));
     const check = pool.find((item) => item.key === adaptation.checkActivityKey);
     const scaffold = adaptation.scaffoldActivityKeys.map((key) => pool.find((item) => item.key === key)).find(Boolean);
-    const reinforced = activities.find((item) => item.key === adaptation.reinforcedExplanationKey);
+    const reinforced = activityByKey.get(adaptation.reinforcedExplanationKey ?? "");
     const activity = reinforced ?? check ?? scaffold ?? pool.find((item) => item.kind === "study" || eligibleAt(item) <= now);
     return activity ? [{ kind: "activity" as const, key: activity.key, objectiveKey,
       reason: check ? "Ir a comprobar este objetivo; el diagnóstico no otorga dominio" : "Siguiente actividad de la rama disponible" }] : [];
@@ -150,21 +199,21 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
   const visit = (key: string) => {
     if (branch.has(key)) return;
     branch.add(key);
-    definition.objectives.find((item) => item.key === key)!.prerequisiteKeys.forEach(visit);
+    objectiveByKey.get(key)!.prerequisiteKeys.forEach(visit);
   };
   if (snapshot.selectedObjectiveKey) visit(snapshot.selectedObjectiveKey);
   else if (initial[0]) visit(initial[0].objectiveKey);
-  const blocking = order.find((key) => branch.has(key) && definition.objectives.find((item) => item.key === key)!.criticality === "core"
-    && evidence.objectives.find((item) => item.objectiveKey === key)?.criticalErrorOpen);
+  const blocking = order.find((key) => branch.has(key) && objectiveByKey.get(key)!.criticality === "core"
+    && evidenceByKey.get(key)?.criticalErrorOpen);
   const remediationOffers = order.flatMap((objectiveKey) => {
-    const objective = definition.objectives.find((item) => item.key === objectiveKey)!;
-    const error = evidence.objectives.find((item) => item.objectiveKey === objectiveKey)?.openCriticalErrors[0];
+    const objective = objectiveByKey.get(objectiveKey)!;
+    const error = evidenceByKey.get(objectiveKey)?.openCriticalErrors[0];
     if (!error) return [];
     const misconception = objective?.misconceptions.find((item) => item.key === error?.misconceptionKey);
-    const verification = activities.filter((item) => misconception?.verificationActivityKeys.includes(item.key)
-      && item.objectiveKey === objectiveKey && practice(item) && independent(item));
-    const remediation = misconception ? activities.find((item) => item.key === misconception.remediationActivityKey
-      && item.objectiveKey === objectiveKey && practice(item)) : undefined;
+    const verification = (activitiesByObjective.get(objectiveKey) ?? []).filter((item) => misconception?.verificationActivityKeys.includes(item.key)
+      && practice(item) && independent(item));
+    const candidate = misconception ? activityByKey.get(misconception.remediationActivityKey) : undefined;
+    const remediation = candidate?.objectiveKey === objectiveKey && practice(candidate) ? candidate : undefined;
     const verificationAt = (item: RouteActivity) => Math.max(eligibleAt(item),
       item.equivalenceKey === error?.equivalenceKey ? utc(error.openedAt) + reuseMs : -Infinity);
     const verificationItem = verification.find((item) => verificationAt(item) <= now);
@@ -182,15 +231,15 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
         : paused ? "Puedes pausar, elegir otra rama o repasar después" : "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar" }];
   });
   const remediationInfo = remediationOffers.find((item) => item.objectiveKey === blocking) ?? null;
-  const rank = (key: string) => order.indexOf(key);
+  const rank = (key: string) => rankByKey.get(key) ?? -1;
   const weights = { core: 4, high_yield: 3, supporting: 2, detail: 1 };
   const dueReviews = snapshot.reviewDue.filter((item) => utc(item.dueAt) <= now
-    && evidence.objectives.some((state) => state.objectiveKey === item.objectiveKey && state.label !== "new"))
-    .sort((a, b) => Number(!!evidence.objectives.find((item) => item.objectiveKey === b.objectiveKey)?.criticalErrorOpen)
-      - Number(!!evidence.objectives.find((item) => item.objectiveKey === a.objectiveKey)?.criticalErrorOpen)
+    && evidenceByKey.has(item.objectiveKey) && evidenceByKey.get(item.objectiveKey)!.label !== "new")
+    .sort((a, b) => Number(!!evidenceByKey.get(b.objectiveKey)?.criticalErrorOpen)
+      - Number(!!evidenceByKey.get(a.objectiveKey)?.criticalErrorOpen)
       || utc(a.dueAt) - utc(b.dueAt)
-      || weights[definition.objectives.find((item) => item.key === b.objectiveKey)!.criticality]
-      - weights[definition.objectives.find((item) => item.key === a.objectiveKey)!.criticality]
+      || weights[objectiveByKey.get(b.objectiveKey)!.criticality]
+      - weights[objectiveByKey.get(a.objectiveKey)!.criticality]
       || rank(a.objectiveKey) - rank(b.objectiveKey) || compare(a.key, b.key));
   const reviewBatch = dueReviews.filter((item, i, all) => all.findIndex((other) => other.objectiveKey === item.objectiveKey) === i)
     .slice(0, guidedV2PolicySnapshot.review.batchLimit);
@@ -199,9 +248,9 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     && !snapshot.completedAssessmentKeys.includes(item.key)).sort((a, b) => utc(a.dueAt) - utc(b.dueAt) || compare(a.key, b.key));
   const gate = definition.assessments.find((item) => ["unit_gate", "checkpoint"].includes(item.kind)
     && !snapshot.completedAssessmentKeys.includes(item.key) && item.objectiveKeys.every((key) => available.has(key))
-    && !!item.afterUnitKey && definition.units.find((unit) => unit.key === item.afterUnitKey)!.activityKeys
-      .filter((key) => activities.find((activity) => activity.key === key)?.required && !children.has(key)
-        && activities.some((activity) => activity.key === key && practice(activity) && activity.phase !== "remediate"))
+    && !!item.afterUnitKey && unitByKey.get(item.afterUnitKey)!.activityKeys
+      .filter((key) => { const activity = activityByKey.get(key); return activity?.required && !children.has(key)
+        && practice(activity) && activity.phase !== "remediate"; })
       .every((key) => completed.has(key))
     && (item.kind === "unit_gate" ? !evidence.gates.find((state) => state.unitKey === item.afterUnitKey)?.passed
       : !!evidence.gates.find((state) => state.unitKey === item.afterUnitKey)?.passed));
@@ -211,7 +260,7 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
   const selectedRemediation = remediationOffers.find((item) => item.objectiveKey === (snapshot.selectedObjectiveKey ?? selected?.objectiveKey));
   const exhaustedBanks = order.flatMap((objectiveKey) => {
     if (!available.has(objectiveKey)) return [];
-    const candidates = activities.filter((item) => item.objectiveKey === objectiveKey && practice(item)
+    const candidates = (activitiesByObjective.get(objectiveKey) ?? []).filter((item) => practice(item)
       && item.required && independent(item) && !children.has(item.key) && !completed.has(item.key));
     if (!candidates.length || candidates.some((item) => eligibleAt(item) <= now)) return [];
     return [{ objectiveKey, bankExhausted: true as const, availableAfter: new Date(Math.min(...candidates.map(eligibleAt))).toISOString(),
@@ -233,7 +282,7 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     : { kind: "none", key: null, reason: selectedRemediation.message };
   else if (selected) nextAction = { kind: "activity", key: selected.key, reason: selected.reason };
   else if (exhaustedBanks[0]) nextAction.reason = `La práctica sigue disponible; la próxima comprobación será después de ${exhaustedBanks[0].availableAfter}`;
-  return { nextAction, diagnostic: selectGuidedV2Diagnostic(definition), support, remediation: remediationInfo,
+  return { nextAction, diagnostic: copyDiagnostic(diagnosis), support, remediation: remediationInfo,
     exhaustedBanks, remediationOffers,
     reviewBatch, availableActivities: initial.filter((item) => item.objectiveKey !== blocking),
     pauseOffers: support.filter((item) => item.retryLimitReached).map((item) => ({ objectiveKey: item.objectiveKey,

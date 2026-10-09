@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "taskId": "T039",
+  "scopeAuthorization": "scope-authorization.json",
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "typecheck-after-case-fix.log"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "lint-after-case-fix.log"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-routes.test.ts test/guided-v2-selection.test.ts test/guided-v2-case.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS",
+      "testFilesPassed": 3,
+      "testsPassed": 54,
+      "evidence": "regression-after-case-fix.log"
+    }
+  ],
+  "actualHttpJourneys": {
+    "status": "PASS LOCAL",
+    "evidence": "publication-check.json",
+    "beginnerPersistedResponses": 57,
+    "reinforcementPersistedResponses": 58,
+    "beforeFixEvidence": [
+      "learner-beginner-before-case-fix.json",
+      "learner-reinforcement-before-case-fix.json"
+    ]
+  },
+  "limits": "HTTP loopback y PGlite aislado; sin PostgreSQL independiente, Better Auth real, frontend completo, staging o producción"
+}

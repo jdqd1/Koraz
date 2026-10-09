@@ -43,6 +43,7 @@ export function useRouteEditorV2(input: {
   const [recoveryDismissed, setRecoveryDismissed] = useState(false);
   const recoveryCandidate = recoveryDismissed ? null : recoverySnapshot.candidate;
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
+  const navigationTrigger = useRef<HTMLAnchorElement | null>(null);
   const leavingConfirmed = useRef(false);
   useEffect(() => {
     function beforeUnload(event: BeforeUnloadEvent) {
@@ -56,6 +57,7 @@ export function useRouteEditorV2(input: {
       if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
       event.preventDefault();
       event.stopPropagation();
+      navigationTrigger.current = anchor;
       setPendingNavigation(anchor.href);
     }
     window.addEventListener("beforeunload", beforeUnload);
@@ -76,6 +78,7 @@ export function useRouteEditorV2(input: {
     recover() { if (recoveryCandidate && controller.recover(recoveryCandidate)) setRecoveryDismissed(true); },
     discardRecovery() { controller.discardRecovery(); setRecoveryDismissed(true); },
     pendingNavigation, setPendingNavigation,
+    restoreNavigationFocus() { if (navigationTrigger.current?.isConnected) navigationTrigger.current.focus(); },
     leave() { if (pendingNavigation) { leavingConfirmed.current = true; window.location.assign(pendingNavigation); } },
     async saveAndLeave() { if (await controller.save()) { if (pendingNavigation) window.location.assign(pendingNavigation); } },
   };

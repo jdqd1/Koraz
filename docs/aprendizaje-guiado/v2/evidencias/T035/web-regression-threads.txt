@@ -1,0 +1,491 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > links source, asset and topic incidences to their exact binding controls 4ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > offers recoverable asset bindings and editorial metadata at exact field paths 104ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > reads portable JSON or an editorial export without copying approval/progress 39ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > counts multibyte content against the byte limit 19ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > does not fabricate a bank or a threshold justification 5ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > filters reserves, objectives and case children without changing the package 5ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 portable import and assessment setup > round-trips assessment configuration and review plan 18ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > limits creator actions in draft 7ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > limits creator actions in changes_requested 4ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > limits creator actions in in_review 2ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > limits creator actions in approved 2ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > limits creator actions in published 3ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > exposes approve and publish only at the corresponding status and capability 5ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > never gives creators an authorized publish button; blocks stale approval 23ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > cannot replace unsaved local edits with a workflow confirmation 5ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > accepts a confirmed new draft version even when its edit counter restarts 4ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > describes source/revision recovery and keeps server incidence details 6ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 roles, confirmed state and recovery > sends one explicit idempotency key and expected version in workflow requests 10ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards importValidate privately using its response contract 20ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards importCommit privately using its response contract 5ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards editorValidate privately using its response contract 4ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards editorTransition privately using its response contract 6ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards editorVersion privately using its response contract 3ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > forwards editorExport privately using its response contract 7ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx > T027 BFF workflow routes > rejects cross-origin writes and unsupported routes 2ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes match with stable geometry, order and references 64ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes image_target with stable geometry, order and references 15ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes sequence with stable geometry, order and references 10ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes case with stable geometry, order and references 11ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes comparison with stable geometry, order and references 13ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes causal_map with stable geometry, order and references 7ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes mechanism with stable geometry, order and references 7ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > creates and serializes error with stable geometry, order and references 8ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > does not invent content, asset keys or case children; incomplete fields remain recoverable 11ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > reorders case children exactly once in the same unit, without copying activities 5ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 complete builder and composition round-trip > excludes nested, shared, reserved, wrong-objective and self children from case selectors 3ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > blocks saving invalid geometry instead of silently repairing it: {"x":0,"y":0} 2ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > blocks saving invalid geometry instead of silently repairing it: {"x":0,"y":0} 2ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > blocks saving invalid geometry instead of silently repairing it: {"x":0,"y":0} 1ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > blocks saving invalid geometry instead of silently repairing it: {"x":-0.1,"y":0} 2ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > uses contain rectangle at zoom, in landscape and portrait; excludes bands and includes border 1ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > rejects duplicate orders and incomplete match/label mappings with field paths 3ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > keeps solutions, geometry, edges, mappings and future case stages out of public DTOs 3ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx > T026 geometry, invalid mappings and public privacy > renders all eight kinds, composition presets and keyboard alternatives in the existing shell 256ms
+ ✓ src/components/learning/editor/unit-card.test.tsx > unit cards > shows every objective without exposing stable keys 50ms
+ ✓ src/components/learning/editor/unit-card.test.tsx > unit cards > detects whether an objective is complete or referenced 1ms
+ ✓ src/components/learning/editor/unit-card.test.tsx > unit cards > removes a unit locally and cleans dependencies without deleting material data 3ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > keeps consumption, mastery, consolidation and due review independent on every surface 76ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > retains previous achievement while displaying current critical reinforcement and blocker 24ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > due reviews offer Repasar without inventing a due date or rewarding a view 17ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > rejects state belonging to a different enrollment or adopted version 6ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > preserves pinned v1 enrollment and gives v2 priority only when enrolled or unenrolled 4ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > keeps v1 card markup and distinguishes missing/revoked state from zeros 17ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > renders empty units and does not make a none action launchable 16ms
+ ✓ src/components/learning/v2/model.test.tsx > T028 shared learner state > maps server-selected action kinds and encodes only safe map return URLs 4ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > forwards the T024 source catalogue privately and rejects invalid query/session/DTO 46ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > dispatches a bound v2 route to five sections and keeps v1 in its existing shell 180ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > loads v2 only on the explicit legacy engine mismatch 17ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > does not mask a legacy 401 as permission to load v2 2ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > does not mask a legacy 403 as permission to load v2 1ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > does not mask a legacy 404 as permission to load v2 0ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > does not mask a legacy 503 as permission to load v2 1ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > does not mask a legacy 409 as permission to load v2 0ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > keeps v1 loading on its original endpoint 8ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > forwards PATCH with the existing session, origin check, key, CAS and private cache 11ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > rejects cross-origin mutations, anonymous reads and unsupported path suffixes 10ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx > T023 web dispatch and BFF > creates through the POST contract and preserves 409 errors through the BFF 12ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > keeps current reinforcement and historical mastery separate 57ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > offers confirmed review and continuing without declaring a queue completed 9ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > does not invent missing schedules, diagnosis targets or unlocks 5ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > rejects missing state before showing dates, counters or start controls 3ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > rejects foreign state before showing dates, counters or start controls 2ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > rejects revoked state before showing dates, counters or start controls 2ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > shows server consolidation dates rather than deriving a new achievement 20ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > formats midnight boundaries in the requested zone without changing the instant 6ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > keeps omission and retention language neutral and avoids made-up dates 20ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > opens only the current server-selected review with enrollment CAS and replay identity 69ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > offers diagnosis and omission through two distinct authorized server targets 25ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > does not open any new offer while a server attempt must be resumed 20ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > uses server time and profile zone for overdue dates, regardless of the browser clock 22ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > shows accepted real retention days and waits for the first measurement before offering the second 47ms
+ ✓ src/components/learning/v2/maintenance.test.tsx > T032 confirmed maintenance presentation > keeps exhausted verification unlaunchable and provides another authorized branch with an exact date 14ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx > T028 map projection > retains topic navigation and reads the same confirmed state at root, block and unit 37ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx > T028 map projection > map buttons are navigation only and never expose a completion checkbox 9ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx > T028 map projection > blocks v2 completion mutations while preserving existing layout and v1 operations 5ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx > T028 map projection > keeps disabled v2 identical to v1 and surfaces outages rather than zeroing progress 4ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx > T028 map projection > does not launch from missing state, changed version or nonexistent units 4ms
+ ✓ src/components/learning/map/map-helpers.test.ts > map navigation and layout > round trips hierarchy and rejects return URL attacks 11ms
+ ✓ src/components/learning/map/map-helpers.test.ts > map navigation and layout > 200 items are deterministic; inserting and dropping only moves the new item 14ms
+ ✓ src/components/learning/map/map-helpers.test.ts > map navigation and layout > bounds cache and snapshot fields without private progress 11ms
+ ✓ src/components/learning/map/map-helpers.test.ts > map navigation and layout > fixture counts and all edge endpoints remain consistent 7ms
+ ✓ src/components/learning/map/map-helpers.test.ts > layout transport > keeps confirmed moves when returning through an older cached level 61ms
+ ✓ src/components/learning/map/map-helpers.test.ts > layout transport > retries a lost response unchanged and preserves a newer drag 66ms
+ ✓ src/components/learning/map/map-helpers.test.ts > layout transport > never overwrites a conflict without an explicit choice 59ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > creates study without losing imported families or adding contract fields 68ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > creates single_choice without losing imported families or adding contract fields 14ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > creates short_answer without losing imported families or adding contract fields 16ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > creates constructed_response without losing imported families or adding contract fields 7ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > creates card without losing imported families or adding contract fields 10ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > preserves incomplete local input and reports missing fields instead of fabricating content 8ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 activity creation and portable round-trip > keeps activities in the new objective's unit while preserving other activity membership 4ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > changing the correct option requires feedback for the formerly correct one and keeps remaining distractors 5ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > uses the shared validator to identify missing distractor explanation and source feedback by objective 15ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > offers only objective checks in learning or gate, on the same objective, excluding reserves and self-report 5ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > does not put correct answers, aliases, model or rubric into public activity DTOs 2ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > blocks deletion used by a case, verification or assessment and safely removes an unlinked activity 4ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx > T025 feedback, objective verification and private solutions > renders all four editors, a separate editorial disclosure and explicit formative card wording 135ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > edit → save → reload retains every v2 field and clears recovery only after confirmation 121ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > 409 keeps the full local copy and CAS base, disables retry and waits for explicit reload 34ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > retries an uncertain response with the identical body and key even after local recovery 16ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > locks simultaneous saves and edits until the confirmed result 18ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > does not repeat POST if creation was accepted but the follow-up GET failed 13ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > failed or mismatched reads never overwrite the local conflict copy 13ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts > T023 confirmed save and recovery > reports unavailable storage and still preserves the in-memory draft 5ms
+ ✓ src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > provides Spanish profiles/banner and blocks unconfirmed route opening 73ms
+ ✓ src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > intercepts player retries and never sends a learner URL or persists progress 81ms
+ ✓ src/components/learning/editor/v2/preview.test.tsx > T033 shared preview UI and closed editorial transport > checks signed image context and routes its read only through preview 16ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 objective forms and shared DAG rules > rejects a self-loop and a longer cycle before applying an edge, with names 27ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 objective forms and shared DAG rules > rejects duplicate/missing prerequisites and keeps independent branches 18ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 objective forms and shared DAG rules > moves an objective and all its primary activities together, preserving other units 3ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 objective forms and shared DAG rules > blocks deletion of linked activities/evaluations and removes safe unit/review/edge references 4ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 objective forms and shared DAG rules > renders named accessible controls, immutable CORE requirement and no UUID tasks 26ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 sources and route basics > pins only a real catalogue revision and resets fragment/verification on a document change 5ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 sources and route basics > blocks deleting a source used in feedback, assets or objectives 2ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 sources and route basics > locates an unresolved guide and the missing verification/link of an external reference 4ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 sources and route basics > normalizes JSON pointers and connects field errors to their input 1ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx > T024 sources and route basics > shows route metadata and source locator fields without requiring catalogue UUID input 18ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > retains exact body/key across a lost response and page refresh 45ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > prevents changing an uncertain answer before confirmation 2ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 401 separate from acceptance 2ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 403 separate from acceptance 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 404 separate from acceptance 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 409 separate from acceptance 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 422 separate from acceptance 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps server rejection 429 separate from acceptance 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps 500 uncertain with stable retry identity 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps 502 uncertain with stable retry identity 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > keeps 503 uncertain with stable retry identity 1ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > does not accept malformed or foreign response receipts 6ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > requires the accepted answer and next step to match the server manifest 3ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > sends assistance to the help endpoint with CAS and accepts only its typed receipt 3ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > finishes with a server receipt and never invents a local completion 2ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > falls back to in-memory retry when sessionStorage is unavailable 2ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > renders only public study content and native controls 21ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > renders only public single_choice content and native controls 5ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > renders only public short_answer content and native controls 11ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > renders only public constructed_response content and native controls 4ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > removes prior study and feedback from the recall DOM, including hidden HTML 3ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > resumes completed history with confirmed feedback without awarding mastery 3ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > shows server partial feedback in resumed history while mastery remains pending 2ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > resumes submitted and revealed constructed stages only from the server manifest 6ms
+ ✓ src/components/learning/v2/player.test.tsx > T029 transport and confirmed player rendering > restores feedback provenance in confirmed history and keeps it out of the next recall DOM 6ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > sends expectedVersion when validating and parses the confirmed version 47ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 400 failure status and code 2ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 401 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 403 failure status and code 0ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 404 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 409 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 422 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 429 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves the safe 503 failure status and code 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > does not mistake an error or malformed success for a validation result 4ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > passes the query signal through and safely encodes filters and detail paths 8ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > preserves cancellation and converts other network failures 2ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > unwraps successful reads and throws a safe typed query error for failures 1ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > uses the explicit mutation endpoints 5ms
+ ✓ src/components/learning/editor/editor-api.test.ts > editor API > sends a version-checked route deletion 3ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > waits for playback, sends once during concurrent events and uses the server total 58ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > retries a lost response and reconciles a server-deduplicated playback 4ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > retains playback intent while hidden or offline and sends on return 2ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > does not share browser suppression across mounts or accounts 2ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > lets an in-flight guide read finish after the reader unmounts 5ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > bounds retries, recovers after reconnecting and cancels on unmount 7ms
+ ✓ src/lib/content-view-tracker.test.ts > reliable playback receipts > never confirms malformed receipts or retries forbidden content 3ms
+ ✓ src/components/learning/v2/upgrade.test.tsx > T034 upgrade transport and notice > requires explicit acknowledgement and renders maintenance without an action 13ms
+ ✓ src/components/learning/v2/upgrade.test.tsx > T034 upgrade transport and notice > reads the strict preview without a mutation 33ms
+ ✓ src/components/learning/v2/upgrade.test.tsx > T034 upgrade transport and notice > recovers a lost receipt after recreation with the exact body and key 8ms
+ ✓ src/components/learning/v2/upgrade.test.tsx > T034 upgrade transport and notice > definite CAS rejection clears the pending request and never changes client progress 2ms
+ ✓ src/lib/content-transition-route.test.ts > editor content transition endpoint > approves and publishes in one browser action 63ms
+ ✓ src/lib/content-transition-route.test.ts > editor content transition endpoint > does not publish when approval fails 4ms
+ ✓ src/lib/content-transition-route.test.ts > editor content transition endpoint > forwards other transitions unchanged 7ms
+ ✓ src/lib/content-transition-route.test.ts > editor content transition endpoint > rejects invalid transition payloads before contacting the API 4ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > retries a lost enrollment receipt with the same identity and never calls a v1 mutation 72ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > sends CAS and retains the attempt ID/key after an ambiguous response 8ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > resumes by reading an owned attempt without creating another 2ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > never accepts an HTTP 401 as success 3ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > never accepts an HTTP 403 as success 2ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > never accepts an HTTP 404 as success 2ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > never accepts an HTTP 409 as success 2ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > never accepts an HTTP 503 as success 2ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > rejects private fields in public state rather than displaying them 6ms
+ ✓ src/components/learning/v2/client.test.ts > T028 launcher and reader > reads all catalog pages and detects a looping cursor 4ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > preserves every kind, private authored payload and portable relationship 42ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > serializes an allowlist and never sends identity, approval or runtime fields 11ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > marks the prior review stale after any content or binding change 5ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > blocks editing during a mutation and of published content 3ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > uses stable local keys before persistence without fabricated catalogue UUIDs 1ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > retains an unfinished text field locally but prevents sending it 9ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts > T023 v2 model, reducer and serialization > isolates recovery by actor, path, version and engine, and rejects expiry/corruption 7ms
+ ✓ src/components/learning/v2/renderers/visual-client.test.ts > T030 image resource and accessible transport > binds media reads to active key, version and asset without caching 49ms
+ ✓ src/components/learning/v2/renderers/visual-client.test.ts > T030 image resource and accessible transport > rejects foreign, stale, expired, insecure and leaked image resources 10ms
+ ✓ src/components/learning/v2/renderers/visual-client.test.ts > T030 image resource and accessible transport > retries accessible transitions with the same identity and validates confirmed variant 22ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > preserves the original v1 launcher and duration 11ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > links the active v2 route explicitly without replacing v1 16ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > loads the pinned v2 state and mounts maintenance 12ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > keeps unauthorized v2 lookup from silently launching v1 1ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > keeps forbidden v2 lookup from silently launching v1 1ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > keeps not_found v2 lookup from silently launching v1 1ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > keeps unavailable v2 lookup from silently launching v1 1ms
+ ✓ src/components/learning/v2/review-page.test.tsx > T032 review page dispatch > preserves unavailable state rather than rendering zero due reviews 3ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid new state 2ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid ready state 6ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid errors state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid limited state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid legacy state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid published state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid archived state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid empty-catalog state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid long state 3ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > builds a schema-valid off-page state 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > contains the exact ready, error, limited, legacy and long scenarios 4ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > enforces expectedVersion and mutates only its in-memory copy 3ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > deletes the matching route version, including a published route 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > provides deterministic failures and stale validation without blind retries 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > keeps read-only details and catalog operations free of editorial writes 1ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > guards fixture routes outside development 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 1 cards at 320px without overlaps 3ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 3 cards at 320px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 6 cards at 320px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 8 cards at 320px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 100 cards at 320px without overlaps 7ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 1 cards at 390px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 3 cards at 390px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 6 cards at 390px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 8 cards at 390px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 100 cards at 390px without overlaps 5ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 1 cards at 767px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 3 cards at 767px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 6 cards at 767px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 8 cards at 767px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 100 cards at 767px without overlaps 4ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 1 cards at 1024px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 3 cards at 1024px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 6 cards at 1024px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 8 cards at 1024px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 100 cards at 1024px without overlaps 4ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 1 cards at 1440px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 3 cards at 1440px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 6 cards at 1440px without overlaps 0ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 8 cards at 1440px without overlaps 1ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts > horizontal level layout > centers the origin across 100 cards at 1440px without overlaps 9ms
+ ✓ src/lib/request-origin.test.ts > same-origin view requests > accepts the public Host when Next listens on another address 28ms
+ ✓ src/lib/request-origin.test.ts > same-origin view requests > accepts HTTPS behind the deployment proxy 1ms
+ ✓ src/lib/request-origin.test.ts > same-origin view requests > rejects foreign, sibling, null, or malformed origins 2ms
+ ✓ src/lib/request-origin.test.ts > same-origin view requests > rejects cross-site fetch metadata even without an origin 0ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > permits adjacent movements while preserving every item and ignores boundaries 3ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > rejects missing, repeated, foreign or invalid-size item sets without grading an order 2ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > mounts sequence in the actual player and disables the entire response during pending 22ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > recaps only the server accepted order with public labels, without local correctness 2ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > shows the current authorized case child without a wrapper response or future-stage controls 4ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > does not fabricate a child or permit skipping when given only a public wrapper 1ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > keeps worked_example study separate from independent recall 6ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > keeps partial_example study separate from independent recall 4ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > reuses single_choice for prediction, error or causal explanation without private models 4ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > reuses short_answer for prediction, error or causal explanation without private models 3ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > reuses constructed_response for prediction, error or causal explanation without private models 3ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > renders comparison_table using the existing matching controls 2ms
+ ✓ src/components/learning/v2/composition.test.tsx > T031 sequences and existing-kind compositions > renders causal_map using the existing matching controls 1ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > keeps a v1 enrolled route and attempt on the legacy API 34ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > dispatches a v2 route only after legacy absence/mismatch (404) and a validated v2 DTO 8ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > dispatches a v2 route only after legacy absence/mismatch (409) and a validated v2 DTO 2ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > dispatches a v2 session read while preserving the owned snapshot 2ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > does not mask a legacy error 401 as authority to try another engine 1ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > does not mask a legacy error 403 as authority to try another engine 0ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > does not mask a legacy error 503 as authority to try another engine 0ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > does not mask a legacy error 409 as authority to try another engine 0ms
+ ✓ src/components/learning/v2/server.test.ts > T028 page dispatch > rejects malformed/private v2 DTOs and retains denied state 1ms
+ ✓ src/components/learning/editor/route-basics.test.tsx > route basics > renders only understandable route fields with contract limits 13ms
+ ✓ src/components/learning/editor/route-basics.test.tsx > route basics > selects a topic only when it is the sole published choice 0ms
+ ✓ src/components/learning/editor/route-basics.test.tsx > route basics > associates safe field errors and keeps the empty-topic action viable 3ms
+ ✓ src/components/learning/editor/route-basics.test.tsx > route basics > uses a click and keyboard button for an authorized help family 4ms
+ ✓ src/components/learning/editor/learning-paths-editor-index.test.tsx > learning paths editor index > offers a clearly labelled delete action for an existing route 14ms
+ ✓ src/components/learning/editor/learning-paths-editor-index.test.tsx > learning paths editor index > offers both archiving and deletion when the route has publication history 2ms
+ ✓ src/components/learning/editor/learning-paths-editor-index.test.tsx > learning paths editor index > offers restoration for archived routes with publication permission 3ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > forwards only a validated choice and returns no aggregate counts 8ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > does not expose aggregate counts on reads either 1ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > rejects foreign origins before contacting the API 1ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > requires a session for both reads and writes 1ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > rejects malformed JSON, unsupported choices and identity/count overrides 4ms
+ ✓ src/lib/content-reaction-route.test.ts > private browser reaction endpoint > fails closed for invalid upstream data and unavailable persistence 1ms
+ ✓ src/components/learning/learning-visual-fixtures.test.ts > guided learning visual fixtures > keeps every visual state within the public contracts 16ms
+ ✓ src/components/learning/learning-visual-fixtures.test.ts > guided learning visual fixtures > covers empty, dense, complete and long-title states without fake production data 0ms
+ ✓ src/lib/content-search.test.ts > published content search > finds accent-insensitive matches inside a guide and returns a short context 5ms
+ ✓ src/lib/content-search.test.ts > published content search > orders the strongest title match first and limits videos to four 2ms
+ ✓ src/lib/content-search.test.ts > published content search > maps normalized matches back to the accented source text 0ms
+ ✓ src/lib/content-search.test.ts > published content search > exposes full guide text and a focused excerpt for catalog searches 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > same relative point at 1440 x 360 2ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > same relative point at 360 x 300 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > same relative point at 768 x 1024 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > same relative point at 2880 x 720 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects vertical and horizontal letterboxing 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects unavailable or invalid image size 0 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects unavailable or invalid image size -1 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects unavailable or invalid image size NaN 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects unavailable or invalid image size Infinity 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > rejects nonfinite and outside points 0ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > requires complete known relations and honors reuse 1ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > renders accessible pairs selectors without solutions 8ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > renders accessible comparison_table selectors without solutions 1ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > renders accessible causal_map selectors without solutions 1ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > blocks image submissions without authorized media or hotspot identity 1ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > never substitutes a different asset binding 1ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx > T030 geometry and public renderers > labels numbered public markers without mappings or polygons 2ms
+ ✓ src/lib/learning-editor-route.test.ts > learning editor BFF allowlist > forwards a validated current material detail and keeps it private 9ms
+ ✓ src/lib/learning-editor-route.test.ts > learning editor BFF allowlist > rejects invalid detail identifiers, projections and extra query keys locally 1ms
+ ✓ src/lib/learning-editor-route.test.ts > learning editor BFF allowlist > allows only the exact fixed-material path 1ms
+ ✓ src/lib/supabase/environment.test.ts > removed Supabase browser configuration > does not expose a client-side configuration API 4ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unit_required into a concise problem, location, solution and action 2ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns objective_required into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns essential_step_required into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns option_required into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns default_option_required into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unknown_objective into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unknown_resource_item into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unknown_mapping_item into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unknown_mapping_objective into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns question_explanation_required into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns unknown_prerequisite into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns cyclic_recommendation into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns objective_understanding_missing into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns objective_retrieval_missing into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns objective_mapping_missing into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns insufficient_evidence into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns limited_evidence into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns resource_unavailable into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns topic_unavailable into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns duplicate_objective into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns duplicate_step_key into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns duplicate_unit_key into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > turns resource_changed into a concise problem, location, solution and action 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > states the exact shortfall for standard evidence 0ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > opens the existing empty activity instead of creating an unrelated one 1ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > uses confirmed context before a misleading legacy path 1ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > uses only strict legacy paths and never prints an untrusted path 1ms
+ ✓ src/components/learning/editor/editor-issues.test.ts > editor issue presentation > deduplicates identical findings but retains the same code at another location 1ms
+ ✓ src/lib/video-views.test.ts > video playback count labels > formats empty, singular, plural and large counts 2ms
+ ✓ src/lib/video-views.test.ts > video playback count labels > never renders invalid or negative counts 0ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > keeps only the configured HTTPS origin 1ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > rejects unsafe policy input:  0ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > rejects unsafe policy input: http://localhost:9000 0ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > rejects unsafe policy input: https://user:password@private.example.test 0ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > rejects unsafe policy input: data:image/png;base64,test 0ms
+ ✓ src/lib/auth/environment.test.ts > private content image origin > rejects unsafe policy input: https://private.example.test; img-src * 0ms
+ ✓ src/lib/auth/environment.test.ts > public auth environment > accepts a valid Turnstile site key 0ms
+ ✓ src/lib/auth/environment.test.ts > public auth environment > rejects malformed Turnstile site keys 0ms
+ ✓ src/lib/auth/environment.test.ts > public video storage origin > returns only the origin of an HTTPS storage URL 0ms
+ ✓ src/lib/auth/environment.test.ts > public video storage origin > rejects an unsafe storage URL: http://storage.example.com 0ms
+ ✓ src/lib/auth/environment.test.ts > public video storage origin > rejects an unsafe storage URL: https://user:password@storage.example.com 0ms
+ ✓ src/lib/auth/environment.test.ts > public video storage origin > rejects an unsafe storage URL: javascript:alert(1) 0ms
+ ✓ src/lib/content-view-route.test.ts > browser view endpoint > returns authoritative totals and invalidates stale catalog counts after a new view 7ms
+ ✓ src/lib/content-view-route.test.ts > browser view endpoint > returns repeated-view totals without invalidating catalogs 1ms
+ ✓ src/lib/content-view-route.test.ts > browser view endpoint > rejects foreign origins and anonymous visitors before writing 1ms
+ ✓ src/lib/content-view-route.test.ts > browser view endpoint > does not confirm invalid upstream totals 2ms
+ ✓ src/lib/learning-map-route.test.ts > map BFF allowlist and trust boundary > forwards only the explicit paths and methods 10ms
+ ✓ src/lib/learning-map-route.test.ts > map BFF allowlist and trust boundary > rejects foreign origins and anonymous requests before forwarding mutations 2ms
+ ✓ src/lib/learning-map-route.test.ts > map BFF allowlist and trust boundary > validates upstream DTOs and keeps successful responses private 2ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > removes a unit by id and cleans incoming dependencies in every remaining unit 3ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > permits removing the last unit and treats a missing id as an exact no-op 0ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > changes a label without rebuilding config, completion rule or identities 1ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > updates item mappings without rebuilding unrelated option configuration 1ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > promotes exactly one remaining option after removing the recommended one 1ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > allows zero options and preserves the activity 0ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > reassigns a referenced objective explicitly and deduplicates ids without changing items 1ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > reorders arrays without rewriting explicit dependencies 0ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > resets only material-specific fields during an explicit replacement 0ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts > route editor reducer > blocks mutations while an operation is active 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > extracts every visual blockquote callout regardless of its label 2ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > includes clinical correlations and unlabeled visual callouts 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > keeps compatibility with semantic Punto clave labels outside blockquotes 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > does not treat headings or ordinary clinical-correlation paragraphs as visual callouts 1ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > does not duplicate a callout because blockquote and paragraph nodes are nested 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > appends every imported callout without deleting manual publisher entries 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > merges visual callouts with manual points without duplicates for the reader 0ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > recognizes visual callouts and selected passages as linked 1ms
+ ✓ src/lib/guide-key-points.test.ts > guide key points > allows manual study points that are not linked to guide text 0ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts > editor recovery > isolates cache keys by actor and route 6ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts > editor recovery > roundtrips incomplete local text without accepting extra properties 6ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts > editor recovery > roundtrips a hydrated route with fixed material configuration 4ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts > editor recovery > expires at 24 hours and rejects future or malformed entries 1ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts > editor recovery > requires the same base version and recovers only after an explicit action 0ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts > route editor serialization > trims author text and omits only blank unreferenced objectives 5ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts > route editor serialization > returns an objective target when a referenced objective is blank 2ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts > route editor serialization > maps contract errors to stable entity ids instead of array positions 0ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts > route editor serialization > serializes an update with the confirmed expected version 1ms
+ ✓ src/lib/guide-citations.test.ts > Vancouver guide citations > parses individual, grouped and ranged citations 2ms
+ ✓ src/lib/guide-citations.test.ts > Vancouver guide citations > rejects text that is not a Vancouver numeric citation 0ms
+ ✓ src/lib/guide-citations.test.ts > Vancouver guide citations > indexes numbered references after a Referencias heading and preserves source links 1ms
+ ✓ src/lib/guide-citations.test.ts > Vancouver guide citations > indexes references in an ordered list by their Vancouver order 0ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > freezes a deterministic slug only after the draft is locally valid 5ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > never validates when saving fails and preserves the failure 1ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > validates the confirmed editVersion rather than a stale render 1ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > rejects ready from an unconfirmed version (8) 0ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > rejects ready from an unconfirmed version (undefined) 0ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts > route editor orchestration > does not reinterpret a server error as validation success 0ms
+ ✓ src/components/learning/editor/route-preview.test.ts > local route preview > sums only the recommended option of each activity 1ms
+ ✓ src/components/learning/editor/route-preview.test.ts > local route preview > does not present a partial duration as an exact total 0ms
+ ✓ src/lib/content-practice-links.test.ts > shared practice catalogs > exposes video questions in both sections without altering or cloning stored content 2ms
+ ✓ src/lib/content-practice-links.test.ts > shared practice catalogs > shows one canonical resource for a video and linked guide regardless of order 2ms
+ ✓ src/lib/content-practice-links.test.ts > shared practice catalogs > resolves direct links to the same questions and reflects subsequent edits 1ms
+ ✓ src/lib/content-practice-links.test.ts > shared practice catalogs > preserves independent practice sets while skipping drafts and empty companions 0ms
+ ✓ src/lib/content-practice-links.test.ts > shared practice catalogs > does not revive old embedded questions when the canonical guide is empty or replaced 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > keeps retryable status 401 queued 1ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > keeps retryable status 429 queued 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > keeps retryable status 500 queued 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > keeps retryable status 503 queued 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 200 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 400 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 403 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 404 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 409 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > does not retry final status 422 0ms
+ ✓ src/lib/learning-mutation-queue.test.ts > guided-learning mutation retry policy > partitions identical idempotency keys by account 1ms
+ ✓ src/components/learning/editor/v2/new-draft.test.ts > new v2 draft > opens an incomplete blank draft without invented resources, activities or evidence 5ms
+ ✓ src/components/learning/editor/v2/new-draft.test.ts > new v2 draft > requires a server-authorized strict catalog before offering creation 1ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > lists an embedded guide without copying its body or video asset 1ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > lists a linked guide only once, and excludes empty video guides 1ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > uses the linked guide as the source for the document and every companion resource 0ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > keeps the embedded guide as the fallback for videos without a linked guide 0ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > removes a linked guide from publications without deleting its record 1ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > keeps independent and orphaned guides reachable for editing 0ms
+ ✓ src/lib/content-guide-links.test.ts > video-linked guides > finds the most recently updated linked guide without reordering the workspace 0ms
+ ✓ src/lib/auth/validation.test.ts > auth validation > normalizes a valid email without changing the password 3ms
+ ✓ src/lib/auth/validation.test.ts > auth validation > does not apply the new-password policy to existing accounts 0ms
+ ✓ src/lib/auth/validation.test.ts > auth validation > requires a strong, confirmed password for registration 1ms
+ ✓ src/lib/auth/validation.test.ts > auth validation > accepts a strong registration password 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > keeps same-origin paths and their query string 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: https://evil.example/path 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: //evil.example/path 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: /\evil.example/path 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: /%5cevil.example/path 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: /%2f%2fevil.example/path 0ms
+ ✓ src/lib/auth/validation.test.ts > safe auth redirects > rejects an unsafe redirect target: /path%0d%0aSet-Cookie:test 0ms
+ ✓ src/components/learning/editor/editor-model.test.ts > route editor model > hydrates every inherited objective and customized configuration without recalculating it 3ms
+ ✓ src/components/learning/editor/editor-model.test.ts > route editor model > selects a topic only when exactly one exists 0ms
+ ✓ src/components/learning/editor/editor-model.test.ts > route editor model > creates permanent UUID-derived keys rather than positional keys 0ms
+ ✓ src/components/learning/editor/editor-model.test.ts > route editor model > creates a selected material as one required activity with format defaults 0ms
+ ✓ src/components/learning/editor/editor-model.test.ts > route editor model > keeps one creation id and produces a bounded, deterministic slug 0ms
+ ✓ src/components/learning/editor/editor-workflow.test.ts > editor workflow capabilities > sends new and editable drafts through the guarded review command 2ms
+ ✓ src/components/learning/editor/editor-workflow.test.ts > editor workflow capabilities > shows review and publication actions only to existing capabilities 0ms
+ ✓ src/components/learning/editor/editor-workflow.test.ts > editor workflow capabilities > allows a new version only from a non-archived published route 0ms
+ ✓ src/components/learning/editor/editor-workflow.test.ts > editor workflow capabilities > offers archiving for a later draft that retains a published version 0ms
+ ✓ src/components/learning/activities/video-observation.test.ts > video observation batching > compacts frequent contiguous time updates into a valid range 2ms
+ ✓ src/components/learning/activities/video-observation.test.ts > video observation batching > respects the API limits without dropping remaining coverage 1ms
+ ✓ src/components/learning/activities/video-observation.test.ts > video observation batching > rounds browser media duration up so the final playback position remains valid 1ms
+ ✓ src/lib/quiz-import.test.ts > parseQuizImportFile > normalizes a valid Spanish quiz import file 2ms
+ ✓ src/lib/quiz-import.test.ts > parseQuizImportFile > allows an omitted explanation 0ms
+ ✓ src/lib/quiz-import.test.ts > parseQuizImportFile > rejects a correct answer outside the available options 0ms
+ ✓ src/lib/quiz-import.test.ts > parseQuizImportFile > rejects malformed JSON 1ms
+ ✓ src/lib/content-order.test.ts > dashboard ordering > sorts recent publications by publication date, not their edit date or input order 2ms
+ ✓ src/lib/content-order.test.ts > dashboard ordering > puts the most viewed first and uses recent date only to break ties 0ms
+ ✓ src/lib/content-order.test.ts > manual topic ordering > places explicitly ordered content first and keeps unlisted content stable 0ms
+ ✓ src/lib/key-points-import.test.ts > parseKeyPointsImportFile > normalizes and returns valid key points 2ms
+ ✓ src/lib/key-points-import.test.ts > parseKeyPointsImportFile > removes duplicates inside the same file 0ms
+ ✓ src/lib/key-points-import.test.ts > parseKeyPointsImportFile > rejects malformed JSON 0ms
+ ✓ src/lib/key-points-import.test.ts > parseKeyPointsImportFile > rejects points longer than 500 characters 1ms
+ ✓ src/lib/content-editing.test.ts > published content edits > allows changing the title of a published video 1ms
+ ✓ src/lib/content-editing.test.ts > published content edits > allows changing the title of a published guide 0ms
+ ✓ src/lib/content-editing.test.ts > published content edits > allows combining a title change with organization changes 0ms
+ ✓ src/lib/content-editing.test.ts > published content edits > allows editing the full content of a published guide 0ms
+ ✓ src/lib/content-editing.test.ts > published content edits > keeps the published guide slug stable while editing 0ms
+ ✓ src/lib/content-editing.test.ts > published content edits > continues rejecting editorial content changes for other published content 0ms
+ ✓ src/lib/guide-markdown.test.ts > guide Markdown highlights > converts ==text== into the native highlight mark while parsing pasted Markdown 2ms
+ ✓ src/lib/guide-markdown.test.ts > guide Markdown highlights > recognizes the second closing equals sign while typing 0ms
+ ✓ src/lib/guide-markdown.test.ts > guide Markdown highlights > normalizes raw highlight markers already stored in rich-text documents 0ms
+ ✓ src/lib/guide-markdown.test.ts > guide Markdown highlights > does not interpret highlight markers inside code 0ms
+ ✓ src/components/learning/editor/editor-query-provider.test.ts > editor query isolation > uses the fixed editor GET defaults 2ms
+ ✓ src/components/learning/editor/editor-query-provider.test.ts > editor query isolation > separates catalog filters, current detail and fixed detail keys 1ms
+ ✓ src/components/learning/editor/editor-query-provider.test.ts > editor query isolation > derives deduplicated resources from active pages 0ms
+ ✓ src/lib/study-progress.test.ts > study sessions > uses completed items instead of the visible question number 2ms
+ ✓ src/lib/study-progress.test.ts > study sessions > gives appropriate feedback for low, partial and high scores 0ms
+ ✓ src/lib/platform-routes.test.ts > persistent platform frame > keeps the frame on shared-shell screens 2ms
+ ✓ src/lib/platform-routes.test.ts > persistent platform frame > does not add duplicate chrome to public or standalone layouts 0ms
+
+ Test Files  62 passed (62)
+      Tests  482 passed (482)
+   Start at  22:12:49
+   Duration  143.07s (transform 3.44s, setup 0ms, import 122.07s, tests 3.98s, environment 8ms)
+

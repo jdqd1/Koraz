@@ -1,0 +1,158 @@
+{
+  "taskId": "T039",
+  "status": "NO VERIFICADO",
+  "recordedUtc": "2026-10-08T21:14:17.5114503Z",
+  "clientDate": "2026-10-08",
+  "timezone": "America/Caracas",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "scope": "Preparación documental y verificación técnica focalizada; piloto curricular pendiente",
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T039/artifacts-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/baseline-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/build-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/contracts-build.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/dependencies-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/diff-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/input-audit.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/preservation.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/tests-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T039/validation-tests.txt",
+    "docs/aprendizaje-guiado/v2/piloto/ACTA-REVISION.md",
+    "docs/aprendizaje-guiado/v2/piloto/afirmaciones.csv",
+    "docs/aprendizaje-guiado/v2/piloto/assets.csv",
+    "docs/aprendizaje-guiado/v2/piloto/entrada.json",
+    "docs/aprendizaje-guiado/v2/piloto/README.md",
+    "docs/aprendizaje-guiado/v2/piloto/REQUISITOS.md",
+    "docs/aprendizaje-guiado/v2/piloto/revision.json"
+  ],
+  "checks": [
+    {
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-validation.test.ts test/guided-v2-graph.test.ts test/guided-v2-package.test.ts test/guided-v2-contract.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "validation-tests.txt",
+      "scope": "Regresión técnica sintética, no validación del piloto curricular"
+    },
+    {
+      "command": "git diff --check -- docs/aprendizaje-guiado/v2/piloto docs/aprendizaje-guiado/v2/evidencias/T039",
+      "exitCode": 0,
+      "result": "PASS",
+      "note": "Untracked additions also require explicit whitespace and JSON inspection"
+    },
+    {
+      "command": "Inspect dossier JSON/CSV, pending states and whitespace",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "artifacts-check.json"
+    },
+    {
+      "command": "Compare baseline file hashes and predecessor result hashes",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": [
+        "preservation.json",
+        "dependencies-check.json"
+      ]
+    },
+    {
+      "command": "CLI --publish on real pilot package",
+      "exitCode": null,
+      "result": "NO VERIFICADO",
+      "evidence": "input-audit.json",
+      "reason": "Awaiting selected guide/topic and identified human reviewer; no curricular package exists"
+    },
+    {
+      "command": "Server validation and authorized publication of real pilot",
+      "exitCode": null,
+      "result": "NO VERIFICADO",
+      "evidence": "input-audit.json",
+      "reason": "Awaiting selected guide/topic and identified human reviewer; no curricular package exists"
+    },
+    {
+      "command": "C01-C04 human clinical/editorial review",
+      "exitCode": null,
+      "result": "NO VERIFICADO",
+      "evidence": "input-audit.json",
+      "reason": "Awaiting selected guide/topic and identified human reviewer; no curricular package exists"
+    },
+    {
+      "command": "Beginner and remediation pilot journeys with persistence",
+      "exitCode": null,
+      "result": "NO VERIFICADO",
+      "evidence": "input-audit.json",
+      "reason": "Awaiting selected guide/topic and identified human reviewer; no curricular package exists"
+    }
+  ],
+  "counts": {
+    "failed": 0,
+    "testFiles": 4,
+    "scope": "Synthetic contract/validation regression only",
+    "passed": 29,
+    "skipped": 0
+  },
+  "acceptance": {
+    "humanEditorialApproval": false,
+    "curricularPackageExported": false,
+    "C01": "NO VERIFICADO",
+    "C03": "NO VERIFICADO",
+    "R02_R12": "NO VERIFICADO",
+    "curricularRouteCreated": false,
+    "C04": "NO VERIFICADO",
+    "publishedInTest": false,
+    "C02": "NO VERIFICADO"
+  },
+  "issues": [
+    {
+      "id": "GUIDE_SELECTION_MISSING",
+      "status": "NO VERIFICADO",
+      "owner": "propietario/revisor",
+      "detail": "Falta guía curricular/revisión exacta seleccionada para el piloto."
+    },
+    {
+      "id": "TOPIC_SELECTION_MISSING",
+      "status": "NO VERIFICADO",
+      "owner": "propietario/revisor",
+      "detail": "Falta tema y alcance del piloto."
+    },
+    {
+      "id": "HUMAN_REVIEWER_MISSING",
+      "status": "NO VERIFICADO",
+      "owner": "propietario",
+      "detail": "Falta identificar al revisor médico/editorial humano y obtener aprobación del contentHash exacto."
+    }
+  ],
+  "inheritedLimitsEvidence": "baseline.json",
+  "notVerified": [
+    "Contenido curricular y revisión científica C01-C04",
+    "R02-R12 aplicados al piloto",
+    "CLI --publish y servidor sobre un paquete curricular real",
+    "Recorridos principiante/refuerzo del piloto",
+    "Publicación del piloto en test",
+    "Hito S, staging y producción"
+  ],
+  "preservationEvidence": "preservation.json",
+  "deploymentPerformed": false,
+  "databaseModified": false,
+  "productCodeModified": false,
+  "commitCreated": false,
+  "dependenciesInstalled": false,
+  "dependenciesUpgraded": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "resumeTaskId": "T039",
+  "nominalSuccessor": "T040",
+  "resumeRequires": [
+    "Guía/revisión seleccionada",
+    "Tema/alcance seleccionado",
+    "Revisor médico/editorial humano identificado"
+  ]
+}

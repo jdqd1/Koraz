@@ -1,0 +1,62 @@
+{
+  "checks": [
+    "keyboard preview and acknowledgement required",
+    "lost receipt recovery preserves body/key and one adoption",
+    "maintenance keeps history and removes mutation controls"
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:31034/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/upgrade",
+      "body": "{\"targetVersionId\":\"71000000-0000-4000-8000-000000000007\",\"expectedVersion\":1,\"acknowledgedReset\":true}",
+      "key": "51983591-ae07-4165-abdd-f5a494134a58"
+    },
+    {
+      "url": "http://127.0.0.1:31034/api/v2/guided-learning/enrollments/71000000-0000-4000-8000-000000000008/upgrade",
+      "body": "{\"targetVersionId\":\"71000000-0000-4000-8000-000000000007\",\"expectedVersion\":1,\"acknowledgedReset\":true}",
+      "key": "51983591-ae07-4165-abdd-f5a494134a58"
+    }
+  ],
+  "errors": [],
+  "viewports": [
+    {
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "width": 768,
+      "scroll": 768
+    },
+    {
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "width": 360,
+      "scroll": 360
+    }
+  ],
+  "axe": [],
+  "database": {
+    "rows": [
+      {
+        "path_version_id": "71000000-0000-4000-8000-000000000007",
+        "row_version": 2
+      }
+    ],
+    "histories": [
+      {
+        "n": 1
+      }
+    ],
+    "responses": [
+      {
+        "n": 0
+      }
+    ],
+    "rewards": [
+      {
+        "n": 0
+      }
+    ]
+  }
+}

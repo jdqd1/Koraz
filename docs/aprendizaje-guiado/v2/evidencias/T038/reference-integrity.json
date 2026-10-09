@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "method": "Restore only relocated import paths and compare exact SHA256 with pre-T038 baseline",
+  "results": [
+    {
+      "path": "apps/api/src/guided-learning/v2/evidence.ts",
+      "reference": "before-evidence.mts",
+      "baselineSha256": "D372402650074DF454023C4F8268DB855C1AFB61AE99D158664265E77EADA4B5",
+      "status": "PASS"
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/selection.ts",
+      "reference": "before-selection.mts",
+      "baselineSha256": "AE950E1CA7F9CA389DE142DB567896620B0210F50896A718F8B735C0A30FD3B2",
+      "status": "PASS"
+    }
+  ]
+}

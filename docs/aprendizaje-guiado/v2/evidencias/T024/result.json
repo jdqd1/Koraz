@@ -1,7 +1,7 @@
 {
   "taskId": "T024",
   "status": "PASS",
-  "scope": "Local acceptance criteria of T024; E01 remains partial and broader API regression has a reproduced import timeout.",
+  "scope": "Local T024 PASS; import timeout resolved by cierre-timeout evidence. Full system acceptance remains separate.",
   "date": "2026-09-30",
   "completedAt": "2026-10-01T00:25:47.091Z",
   "baseSha": "e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a",
@@ -173,10 +173,10 @@
   "issues": [
     {
       "id": "import-regression-timeout",
-      "status": "OPEN",
+      "status": "RESOLVED",
       "blockingT024": false,
-      "blockingSystemAcceptance": true,
-      "note": "I01/I02 creates a second PGlite and applies migrations within a 5000ms case. Same timeout reproduced without T024 catalogue method. No assertions or timeout altered; no claim of complete API suite PASS."
+      "blockingSystemAcceptance": false,
+      "note": "Closed 2026-10-04 by moving the second isolated DB boot/migrations to existing beforeAll fixture setup; original 5000ms test budget and all portability/idempotency assertions preserved. Broad relevant regression 55 PASS; two isolated repeats 18/18 PASS each. The historical failure logs remain preserved."
     },
     {
       "id": "generated-next-types",
@@ -203,5 +203,10 @@
   ],
   "nextTaskStarted": false,
   "committed": false,
-  "deployed": false
+  "deployed": false,
+  "closure": {
+    "recordedUtc": "2026-10-04T17:28:54.0578431Z",
+    "evidence": "cierre-timeout/README.md",
+    "result": "cierre-timeout/result.json"
+  }
 }

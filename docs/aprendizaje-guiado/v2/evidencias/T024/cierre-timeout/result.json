@@ -1,0 +1,44 @@
+{
+  "taskId": "T024-import-timeout",
+  "status": "PASS",
+  "scope": "LOCAL",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "request": "ejecuta el orden que me recomendaste",
+  "cause": "Secondary PGlite boot and historical migrations occurred inside the 5000ms roundtrip test. Fixture setup moved to existing 120000ms beforeAll; test budget and assertions unchanged.",
+  "baseline": {
+    "passed": 18,
+    "failed": 0,
+    "note": "Historical timeout was intermittent; this baseline passed without code changes."
+  },
+  "checks": [
+    {
+      "evidence": "after-regression.txt",
+      "passed": 55,
+      "exitCode": 0
+    },
+    {
+      "evidence": "repeat-1.txt",
+      "passed": 18,
+      "roundtripMs": 270,
+      "exitCode": 0
+    },
+    {
+      "evidence": "repeat-2.txt",
+      "passed": 18,
+      "exitCode": 0
+    },
+    {
+      "evidence": "lint.txt",
+      "exitCode": 0
+    }
+  ],
+  "changedFiles": [
+    "apps/api/test/guided-v2-import.test.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T024/"
+  ],
+  "limitations": [
+    "This closes the historical import timeout; no claim of full Hito S or production."
+  ],
+  "nextStage": "M01/0005",
+  "nextTaskStarted": false
+}

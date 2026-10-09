@@ -1,5 +1,10 @@
 # T024 — Formularios de datos, fuentes, objetivos y prerrequisitos
 
+Actualización 04/10/2026: el timeout descrito como pendiente en este registro
+histórico está **RESUELTO**. Ver [cierre-timeout](cierre-timeout/README.md):
+55 pruebas de regresión relevantes y dos repeticiones de 18/18, sin aumentar
+el timeout ni retirar assertions. Los resultados originales de abajo se conservan.
+
 **Resultado: PASS local de T024. Fecha: 30/09/2026.** Base: `e1bbc8f9154b5cfe9fb6d5de3562fc11ff4fb30a`. La regresión API ampliada conserva un timeout, explicado abajo; no se presenta como PASS. E01 sigue siendo parcial hasta completar las fichas del constructor.
 
 La solicitud ejecutada fue «continua con t024». El handoff se utilizó como especificación de esa ficha, sin ejecutar sus tareas posteriores. Dependencias: T005 y T023, ambas con evidencia PASS. T025 no se inició. No se hizo commit ni despliegue.

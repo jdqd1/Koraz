@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/editor/v2/new-draft.test.ts (2 tests | 1 failed) 20ms
+     × requires a server-authorized strict catalog before offering creation 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/editor/v2/new-draft.test.ts > new v2 draft > requires a server-authorized strict catalog before offering creation
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/components/learning/editor/v2/new-draft.test.ts:15:57
+     13|   it("requires a server-authorized strict catalog before offering crea…
+     14|     const body = {items:[],nextCursor:null,topics:[],assets:[]};
+     15|     expect(editorV2CatalogAvailable({status:200,body})).toBe(true);
+       |                                                         ^
+     16|     for (const status of [401,403,404,503]) expect(editorV2CatalogAvai…
+     17|     expect(editorV2CatalogAvailable({status:200,body:{}})).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  13:43:47
+   Duration  952ms (transform 240ms, setup 0ms, import 529ms, tests 20ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/editor/v2/new-draft.test.ts

@@ -4,10 +4,11 @@ import { createImageHarness } from "./helpers/guided-v2-images.js";
 import { v2Id } from "./helpers/guided-v2-db.js";
 
 describe("T030 authorized active images and accessible detours",()=>{
-  let h:Awaited<ReturnType<typeof createImageHarness>>,serial=93000;
-  beforeAll(async()=>{h=await createImageHarness();},120000);
+  let h:Awaited<ReturnType<typeof createImageHarness>>,serial=93000,clock=new Date();
+  beforeAll(async()=>{h=await createImageHarness({now:()=>clock});},120000);
   afterAll(async()=>{await h?.close();});
   beforeEach(async()=>{
+    clock=new Date();
     await h.pg.exec("delete from learning_v2_responses; delete from learning_v2_activity_state; delete from learning_v2_review_state; delete from learning_v2_objective_state; delete from learning_events; delete from learning_mutation_receipts; delete from learning_v2_attempts;");
     await h.pg.query("update content_assets set status='ready',finalized_at=now() where id=$1",[v2Id(10)]);
     await h.pg.query("update learning_enrollments set status='active' where id=$1",[v2Id(8)]);h.signed.length=0;
@@ -100,5 +101,19 @@ describe("T030 authorized active images and accessible detours",()=>{
     const resumed=(await get(`attempts/${attempt.attemptId}`)).json().attempt;
     expect(resumed.acceptedResponses[0]).toMatchObject({score01:0,feedback:{partialScore01:.75}});
     expect(result.json().state.masteredAt).toBeNull();
+  });
+  it("refreshes server-time recommendations on retry while preserving the receipt and one response",async()=>{
+    const attempt=await launch('match'),key=v2Id(serial++);
+    const body={activityKey:'match',expectedVersion:1,answer:{kind:'match',pairs:{p1:'c1',p2:'c2',p3:'c3',p4:'c3'}},confidence:null};
+    const first=await post(`attempts/${attempt.attemptId}/responses`,body,key);
+    expect(first.statusCode).toBe(200);
+    const accepted=first.json();
+    expect(accepted.state.maintenance.generatedAt).toBe(clock.toISOString());
+    clock=new Date(clock.getTime()+1000);
+    const retry=await post(`attempts/${attempt.attemptId}/responses`,body,key);
+    expect(retry.statusCode).toBe(200);
+    expect(retry.json()).toEqual({...accepted,state:{...accepted.state,maintenance:{...accepted.state.maintenance,generatedAt:clock.toISOString()}}});
+    expect((await h.pg.query('select count(*)::int n from learning_v2_responses where attempt_id=$1',[attempt.attemptId])).rows).toEqual([{n:1}]);
+    expect((await h.pg.query("select count(*)::int n from learning_events where semantic_key=$1",[`v2-response:${attempt.attemptId}:match`])).rows).toEqual([{n:1}]);
   });
 });

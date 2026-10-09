@@ -4,6 +4,7 @@ import { LearningPathScreen } from "@/components/learning/learning-path-screen";
 import { getLearningProgress, getLearningUpgradePreview, getLearningV2State } from "@/lib/server/guided-learning-api";
 import { getPathForEngine } from "@/components/learning/v2/server";
 import { V2PathScreen } from "@/components/learning/v2/path-screen";
+import { V2Upgrade } from "@/components/learning/v2/upgrade";
 import { safeMapReturnHref } from "@/components/learning/map/map-route";
 
 export const dynamic = "force-dynamic";
@@ -28,5 +29,6 @@ export default async function LearningPathPage({ params, searchParams }: { param
     : [null, null];
   const requestedUnit = query.leccion;
   const focusUnit = result.path.version.units.find(unit => unit.stableKey === requestedUnit)?.stableKey;
-  return <LearningPathScreen path={result.path} progress={progress?.status === "ready" ? progress.progress : null} upgrade={upgrade?.status === "ready" ? upgrade : null} focusUnit={focusUnit} />;
+  return <><LearningPathScreen path={result.path} progress={progress?.status === "ready" ? progress.progress : null} upgrade={upgrade?.status === "ready" ? upgrade : null} focusUnit={focusUnit} />
+    {result.path.enrollment && upgrade?.status === "unavailable" ? <div className="learning-main"><V2Upgrade enrollmentId={result.path.enrollment.id} expectedVersion={result.path.enrollment.rowVersion} /></div> : null}</>;
 }

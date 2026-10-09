@@ -1,0 +1,79 @@
+Command: pnpm.cmd --filter @cediah/web test --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/web-test.json
+Node: v24.19.0
+Started: 2026-10-08T22:21:41.714Z
+$ vitest run "--maxWorkers=1" "--reporter=default" "--reporter=json" "--outputFile=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/web-test.json"
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ✓ src/components/learning/v2/maintenance.test.tsx (15 tests) 117ms
+ ✓ src/components/learning/v2/client.test.ts (10 tests) 46ms
+ ✓ src/components/learning/editor/v2/review-workflow.test.tsx (25 tests) 129ms
+ ✓ src/components/learning/v2/player.test.tsx (25 tests) 62ms
+ ✓ src/components/learning/v2/review-page.test.tsx (8 tests) 42ms
+ ✓ src/components/learning/map/map-helpers.test.ts (7 tests) 207ms
+ ✓ src/components/learning/v2/renderers/visual-client.test.ts (3 tests) 43ms
+ ✓ src/components/learning/editor/v2/editor-web.test.tsx (12 tests) 67ms
+ ✓ src/components/learning/v2/upgrade.test.tsx (4 tests) 32ms
+ ✓ src/components/learning/v2/model.test.tsx (8 tests) 82ms
+ ✓ src/components/learning/editor/v2/editor-controller.test.ts (7 tests) 66ms
+ ✓ src/components/learning/editor/v2/activity-forms.test.tsx (13 tests) 55ms
+ ✓ src/components/learning/editor/v2/preview.test.tsx (3 tests) 49ms
+ ✓ src/components/learning/map/map-horizontal-layout.test.ts (25 tests) 29ms
+ ✓ src/components/learning/editor/v2/sources-objectives.test.tsx (10 tests) 55ms
+ ✓ src/components/learning/map/v2-adapter.test.tsx (5 tests) 34ms
+ ✓ src/components/learning/v2/composition.test.tsx (13 tests) 26ms
+ ✓ src/components/learning/editor/v2/editor-model.test.ts (7 tests) 41ms
+ ✓ src/components/learning/editor/learning-paths-editor-index.test.tsx (3 tests) 22ms
+ ✓ src/components/learning/editor/v2/visual-forms.test.tsx (19 tests) 90ms
+ ✓ src/components/learning/editor/editor-api.test.ts (15 tests) 39ms
+ ✓ src/components/learning/v2/server.test.ts (9 tests) 19ms
+ ✓ src/components/learning/editor/route-basics.test.tsx (4 tests) 24ms
+ ✓ src/components/learning/v2/renderers/visual.test.tsx (17 tests) 18ms
+ ✓ src/lib/content-view-tracker.test.ts (7 tests) 48ms
+ ✓ src/components/learning/learning-visual-fixtures.test.ts (2 tests) 18ms
+ ✓ src/components/learning/editor/editor-recovery.test.ts (5 tests) 14ms
+ ✓ src/lib/content-reaction-route.test.ts (6 tests) 17ms
+ ✓ src/lib/content-transition-route.test.ts (4 tests) 33ms
+ ✓ src/lib/content-search.test.ts (4 tests) 32ms
+ ✓ src/lib/learning-map-route.test.ts (3 tests) 11ms
+ ✓ src/lib/request-origin.test.ts (4 tests) 27ms
+ ✓ src/components/learning/editor/unit-card.test.tsx (3 tests) 20ms
+ ✓ src/components/learning/editor/editor-fixtures.test.ts (16 tests) 23ms
+ ✓ src/lib/supabase/environment.test.ts (1 test) 9ms
+ ✓ src/lib/learning-editor-route.test.ts (3 tests) 11ms
+ ✓ src/lib/content-view-route.test.ts (4 tests) 19ms
+ ✓ src/components/learning/editor/v2/new-draft.test.ts (2 tests) 8ms
+ ✓ src/components/learning/editor/editor-issues.test.ts (28 tests) 12ms
+ ✓ src/lib/content-practice-links.test.ts (5 tests) 6ms
+ ✓ src/lib/guide-key-points.test.ts (9 tests) 6ms
+ ✓ src/components/learning/editor/editor-model.test.ts (5 tests) 23ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts (4 tests) 9ms
+ ✓ src/lib/auth/environment.test.ts (12 tests) 5ms
+ ✓ src/components/learning/editor/editor-reducer.test.ts (10 tests) 8ms
+ ✓ src/components/learning/editor/use-route-editor.test.ts (6 tests) 8ms
+ ✓ src/components/learning/editor/route-preview.test.ts (2 tests) 3ms
+ ✓ src/lib/content-guide-links.test.ts (7 tests) 7ms
+ ✓ src/lib/video-views.test.ts (2 tests) 3ms
+ ✓ src/components/learning/editor/editor-query-provider.test.ts (3 tests) 4ms
+ ✓ src/lib/key-points-import.test.ts (4 tests) 4ms
+ ✓ src/lib/auth/validation.test.ts (11 tests) 9ms
+ ✓ src/lib/guide-citations.test.ts (4 tests) 6ms
+ ✓ src/lib/guide-markdown.test.ts (4 tests) 4ms
+ ✓ src/lib/learning-mutation-queue.test.ts (11 tests) 5ms
+ ✓ src/lib/quiz-import.test.ts (4 tests) 4ms
+ ✓ src/lib/content-editing.test.ts (6 tests) 3ms
+ ✓ src/components/learning/editor/editor-workflow.test.ts (4 tests) 4ms
+ ✓ src/components/learning/activities/video-observation.test.ts (3 tests) 3ms
+ ✓ src/lib/study-progress.test.ts (2 tests) 3ms
+ ✓ src/lib/content-order.test.ts (3 tests) 3ms
+ ✓ src/lib/platform-routes.test.ts (2 tests) 3ms
+
+ Test Files  62 passed (62)
+      Tests  482 passed (482)
+   Start at  18:21:43
+   Duration  113.68s (transform 2.55s, setup 0ms, import 99.34s, tests 1.83s, environment 5ms)
+
+JSON report written to D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T040/web-test.json
+
+Exit code: 0
+Finished: 2026-10-08T22:23:36.954Z

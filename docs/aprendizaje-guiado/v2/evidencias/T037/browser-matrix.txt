@@ -1,0 +1,46 @@
+[WebServer] (node:8812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:6632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:21280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 16 tests using 1 worker
+
+(node:8444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (2.0m)
+(node:3812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent (22.3s)
+(node:23692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:195:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (1.2m)
+(node:6724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:268:5 › T037 V02 tab order, field reachability and modal focus restoration (10.0s)
+(node:26620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   5 [360] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (2.1m)
+(node:22808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -   6 [360] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent
+  x   7 [360] › tests\e2e\guided-v2-accessibility.spec.ts:195:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (1.2m)
+(node:10416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   8 [360] › tests\e2e\guided-v2-accessibility.spec.ts:268:5 › T037 V02 tab order, field reachability and modal focus restoration (6.0s)
+(node:24672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   9 [390] › tests\e2e\guided-v2-accessibility.spec.ts:91:5 › T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom (1.5m)
+(node:12820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  10 [390] › tests\e2e\guided-v2-accessibility.spec.ts:162:5 › T037 V03 native browser zoom at 200 percent
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../docs/aprendizaje-guiado/v2/evidencias/T037/playwright.config.mts

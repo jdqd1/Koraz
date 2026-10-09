@@ -10,7 +10,7 @@ async function run() {
 
   const pool = new Pool({ connectionString: environment.databaseUrl });
   try {
-    const migrations = await applySqlMigrations(pool, environment.migrationsPath);
+    const migrations = await applySqlMigrations(pool, environment.migrationsPath, { legacyContentMode: environment.legacyContentMode });
     for (const migration of migrations) {
       process.stdout.write(`${migration.status}: ${migration.fileName}\n`);
     }
