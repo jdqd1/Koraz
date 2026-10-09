@@ -1,0 +1,143 @@
+ M apps/api/test/guided-v2-images.test.ts
+ M apps/web/src/components/learning/editor/editor-fixtures.test.ts
+ M apps/web/src/components/learning/editor/editor-fixtures.ts
+ M apps/web/tests/e2e/route-editor.spec.ts
+ M docs/aprendizaje-guiado/v2/evidencias/T040/T015-postgres-server.txt
+ M docs/aprendizaje-guiado/v2/evidencias/T040/T018-postgres-server.txt
+ M docs/aprendizaje-guiado/v2/evidencias/T040/T022-postgres-server.txt
+ M docs/aprendizaje-guiado/v2/evidencias/T040/audit.mjs
+ M docs/aprendizaje-guiado/v2/evidencias/T040/postgres-server.txt
+ M docs/aprendizaje-guiado/v2/evidencias/T040/run-check.mjs
+ M docs/aprendizaje-guiado/v2/evidencias/T040/source-hashes.json
+ M docs/aprendizaje-guiado/v2/evidencias/T040/teardown.mts
+ M docs/aprendizaje-guiado/v2/registro-ejecucion.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/55415-postgres-stop.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/55418-postgres-stop.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/55422-postgres-stop.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/55435-postgres-stop.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/README.md
+?? docs/aprendizaje-guiado/v2/evidencias/T040/REPARACION-LEGADO-PROPUESTA.md
+?? docs/aprendizaje-guiado/v2/evidencias/T040/accessibility-summary.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-recheck.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-images-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-lint-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-lint-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-typecheck-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/api-typecheck-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/artifact-integrity.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/baseline-compatibility.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/before-authorized-repair/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/close-authorized-repair.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/closure-check.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/closure-check.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/collect-browser-evidence.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/compare-baseline.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/counts-and-omissions.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/database-cleanup-verification.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-editor-repair-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-editor-repair-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-editor-repair-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-editor-repair.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-guided-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-guided-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-confirmed-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-confirmed.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-large-editor.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-production-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-production.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-legacy-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-security-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/e2e-security-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/editor-repair-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/editor-repair-final-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/final-status.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/finalize.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/guided-recheck-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/head-movement.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-confirmed-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-confirmed-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-final-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-final-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-fixture-check.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-package.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-recheck-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor-recheck-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/large-editor.spec.ts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/legacy-final-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/legacy-production-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/legacy-recheck-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/manifest-summary.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/performance-recheck-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/performance-recheck.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-editor-repair-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-editor-repair.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-guided-recheck.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-large-editor-confirmed.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-large-editor-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-large-editor-recheck.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-large-editor.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-legacy-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-legacy-production.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-legacy-recheck.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright-security-recheck.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.editor-repair-final.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.editor-repair.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.large-editor-confirmed.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.large-editor-final.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.large-editor-recheck.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.large-editor.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.legacy-final.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.legacy-production.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/playwright.legacy-recheck.config.mts
+?? docs/aprendizaje-guiado/v2/evidencias/T040/prepare-large-editor.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/preservation.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/recheck-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/record-repair-authorization.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/registry-mutation.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/registry.before.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-initialization.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-latency-samples.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-load.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-runtime.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-source-hashes.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-sql-after-load.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-sql-before-load.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-sql-initialization.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/regression-final-validator.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/repair-authorization.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/repair-registry-mutation.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/result.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/security-recheck-browser-artifacts/
+?? docs/aprendizaje-guiado/v2/evidencias/T040/security-recheck-cleanup.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/services-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/update-registry.mjs
+?? docs/aprendizaje-guiado/v2/evidencias/T040/verify-services.ps1
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair-final.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-lint-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-lint-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-lint-repair-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-lint-repair.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-typecheck-final-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-typecheck-final.txt
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-typecheck-repair-exit.json
+?? docs/aprendizaje-guiado/v2/evidencias/T040/web-typecheck-repair.txt

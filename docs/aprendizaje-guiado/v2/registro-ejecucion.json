@@ -884,9 +884,33 @@
         "T037",
         "T038"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T040/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T040/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T040/counts-and-omissions.json"
+      ],
+      "issues": [
+        {
+          "code": "SCREEN_READER",
+          "status": "NO VERIFICADO",
+          "detail": "V04: salida hablada no inspeccionada."
+        },
+        {
+          "code": "M04_BACKUP_RESTORE",
+          "status": "NO VERIFICADO EN T040",
+          "owner": "T041"
+        }
+      ],
+      "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+      "recordedUtc": "2026-10-09T03:07:29.938Z",
+      "nextTaskStarted": false,
+      "nextTaskIds": [
+        "T041"
+      ],
+      "acceptanceComplete": false,
+      "regressionStatus": "PASS LOCAL SIN REGRESIONES NUEVAS DETECTADAS",
+      "repairAuthorization": "docs/aprendizaje-guiado/v2/evidencias/T040/repair-authorization.json"
     },
     {
       "taskId": "T041",

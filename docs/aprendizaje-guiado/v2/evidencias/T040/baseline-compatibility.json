@@ -1,0 +1,40 @@
+{
+  "taskId": "T040",
+  "baselineSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+  "videoPolicyCommit": "1f9f434099cdef5712eb5d858fdfcd830eb40c1e",
+  "compared": [
+    {
+      "path": "apps/web/src/components/learning/editor/material-picker.tsx",
+      "comparison": "Relevant failing tests and fixture fields; whole module for picker/options; normalized CRLF/LF",
+      "baselineSha256": "04507a0abea763a168e0d69fb52ff160dd165f71872c488f1ec2fab83b2c5178",
+      "currentSha256": "04507a0abea763a168e0d69fb52ff160dd165f71872c488f1ec2fab83b2c5178",
+      "unchangedSinceT001": true
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/activity-options.tsx",
+      "comparison": "Relevant failing tests and fixture fields; whole module for picker/options; normalized CRLF/LF",
+      "baselineSha256": "08ce8be455632bd817bf90bab290d6c0e1bf2c9881ca5efa6a0964f3c8b74ebd",
+      "currentSha256": "08ce8be455632bd817bf90bab290d6c0e1bf2c9881ca5efa6a0964f3c8b74ebd",
+      "unchangedSinceT001": true
+    },
+    {
+      "path": "apps/web/src/components/learning/editor/editor-fixtures.ts",
+      "comparison": "Relevant failing tests and fixture fields; whole module for picker/options; normalized CRLF/LF",
+      "baselineSha256": "3acd77cb63133ed9ef2f8425fdd22686fc68605fced1b2fde743d8d110c099e0",
+      "currentSha256": "3acd77cb63133ed9ef2f8425fdd22686fc68605fced1b2fde743d8d110c099e0",
+      "unchangedSinceT001": true
+    },
+    {
+      "path": "apps/web/tests/e2e/route-editor.spec.ts",
+      "comparison": "Relevant failing tests and fixture fields; whole module for picker/options; normalized CRLF/LF",
+      "baselineSha256": "aba399de4597c2a75d5e0900a92d9f936a041b8202bba862d40066dd777ee282",
+      "currentSha256": "aba399de4597c2a75d5e0900a92d9f936a041b8202bba862d40066dd777ee282",
+      "unchangedSinceT001": true
+    }
+  ],
+  "findings": [
+    "Off-page fixture contains only a video-only resource on its first page; the established picker excludes video-only resources.",
+    "The legacy test expects a visible Video alternative; the established options editor explicitly hides video alternatives."
+  ],
+  "classification": "Preexisting source/test incompatibility, unchanged since T001; four failures preserved, not counted as PASS"
+}

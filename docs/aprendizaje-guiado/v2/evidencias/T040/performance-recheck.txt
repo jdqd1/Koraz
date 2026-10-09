@@ -1,0 +1,8 @@
+Command: pnpm.cmd --filter @cediah/api exec node --import tsx test/performance/guided-v2-load.mjs --pool-size=20
+Node: v24.19.0
+Started: 2026-10-09T02:00:25.098Z
+T038 regression-final: 20 users, 300s, 200 objectives/1600 items, real HTTP/PostgreSQL
+{"status":"PASS","latencyMs":{"state":{"count":1036,"p50":95.30840000000899,"p95":237.1595999999554,"p99":735.6173999999992,"max":836.0641999999971},"create":{"count":1036,"p50":208.96649999998044,"p95":425.23100000002887,"p99":705.4942999999985,"max":746.0699999999997},"response":{"count":1036,"p50":266.8572999999742,"p95":532.1965999999957,"p99":1072.8433000000005,"max":1140.1542000000009},"replay":{"count":120,"p50":239.73010000001523,"p95":690.3997999999992,"p99":809.0354000000007,"max":811.0098999999973},"complete":{"count":1036,"p50":210.9822999999742,"p95":400.82910000000265,"p99":711.5119999999879,"max":857.2258999999976}},"payloadBytes":{"setup":68137,"profile":71429,"state":71423,"create":667,"response":72618,"replay":72562,"complete":72255},"failures":0,"consistencyErrors":0}
+
+Exit code: 0
+Finished: 2026-10-09T02:05:51.763Z

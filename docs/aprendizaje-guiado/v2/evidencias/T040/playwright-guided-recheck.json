@@ -1,0 +1,481 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.recheck.config.mts",
+      "--grep",
+      "E02|E03|E04|stable map"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\playwright.recheck.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T040/recheck-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-*.spec.ts"
+        ],
+        "timeout": 240000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T040/recheck-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-*.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\playwright-guided-recheck.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-accessibility.spec.ts",
+      "file": "guided-v2-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T037 V01 stable map geometry and connections",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15170,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:06:24.090Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-5d999b18b421bb92aff3",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 365,
+          "column": 5
+        },
+        {
+          "title": "T037 V01 stable map geometry and connections",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:08:09.012Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "978d235ae8bc13c714c0-11276316b59ab0c14c11",
+          "file": "guided-v2-accessibility.spec.ts",
+          "line": 365,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 48878,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/06711c63-bb11-478d-b774-ef9f91e92b96\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:06:39.616Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df97010ae10e154fc97f",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 91,
+          "column": 5
+        },
+        {
+          "title": "E03 beginner help and CORE error are confirmed by the server",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11939,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:07:32.598Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-f7b442c190a6dc884e9e",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 121,
+          "column": 5
+        },
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21650,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:07:44.553Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-80aa05f8d586259be5ed",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 131,
+          "column": 5
+        },
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "The editorial workflow is covered once; E04 owns the required mobile matrix.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "line": 92,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 274,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/06711c63-bb11-478d-b774-ef9f91e92b96\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:08:24.699Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "The editorial workflow is covered once; E04 owns the required mobile matrix.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "line": 92,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-c5a7ba66526793144670",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 91,
+          "column": 5
+        },
+        {
+          "title": "E03 beginner help and CORE error are confirmed by the server",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "The server-confirmed remediation flow is covered once; E04 owns the required mobile matrix.",
+                  "location": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "line": 122,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 253,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:08:27.586Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "The server-confirmed remediation flow is covered once; E04 owns the required mobile matrix.",
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "line": 122,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-3ed6ef89dadf3472c00b",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 121,
+          "column": 5
+        },
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41558,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T02:08:27.853Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-9ff624f0ce74c12e6580",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 131,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T02:05:56.075Z",
+    "duration": 198481.441,
+    "expected": 6,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

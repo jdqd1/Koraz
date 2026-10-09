@@ -20,6 +20,12 @@ const env = { ...process.env, PATH: `${runtime}/node/bin${delimiter}${runtime}/b
 // Production/environment DATABASE_URL is never used by these opt-in harnesses.
 delete env.DATABASE_URL;
 const commands = {
+  'e2e-editor-repair-final': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.editor-repair-final.config.mts`, 'route-editor.spec.ts', '--grep', 'mantiene material fijado|contenido heredado conserva'],
+  'web-editor-repair-final': ['--filter', '@cediah/web', 'exec', 'vitest', 'run', 'src/components/learning/editor/editor-fixtures.test.ts', 'src/components/learning/editor/editor-model.test.ts', 'src/components/learning/editor/editor-serialization.test.ts', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/web-editor-repair-final.json`],
+  'web-editor-repair': ['--filter', '@cediah/web', 'exec', 'vitest', 'run', 'src/components/learning/editor/editor-fixtures.test.ts', 'src/components/learning/editor/editor-model.test.ts', 'src/components/learning/editor/editor-serialization.test.ts', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/web-editor-repair.json`],
+  'web-lint-repair': ['--filter', '@cediah/web', 'lint'],
+  'web-typecheck-repair': ['--filter', '@cediah/web', 'typecheck'],
+  'e2e-editor-repair': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.editor-repair.config.mts`, 'route-editor.spec.ts', '--grep', 'mantiene material fijado|contenido heredado conserva'],
   'contracts-build': ['--filter', '@cediah/contracts', 'build'],
   build: ['build'], typecheck: ['typecheck'], lint: ['lint'],
   'api-test': ['--filter', '@cediah/api', 'test', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/api-test.json`],
@@ -28,13 +34,21 @@ const commands = {
   'e2e-legacy': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.legacy.config.mts`],
   performance: ['--filter', '@cediah/api', 'exec', 'node', '--import', 'tsx', 'test/performance/guided-v2-load.mjs', '--pool-size=20'],
   'performance-recheck': ['--filter', '@cediah/api', 'exec', 'node', '--import', 'tsx', 'test/performance/guided-v2-load.mjs', '--pool-size=20'],
-  'api-images-recheck': ['--filter', '@cediah/api', 'exec', 'vitest', 'run', 'test/guided-v2-images.test.ts', 'test/guided-v2-preview.test.ts', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/api-images-recheck.json`],
+  'api-images-recheck': ['--filter', '@cediah/api', 'exec', 'vitest', 'run', 'test/guided-v2-images.test.ts', 'test/guided-v2-preview.test.ts', 'test/learning-map-storage.test.ts', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/api-images-recheck.json`],
+  'api-images-final': ['--filter', '@cediah/api', 'exec', 'vitest', 'run', 'test/guided-v2-images.test.ts', '--maxWorkers=1', '--reporter=default', '--reporter=json', `--outputFile=${evidence}/api-images-final.json`],
   'api-typecheck-final': ['--filter', '@cediah/api', 'typecheck'],
   'api-lint-final': ['--filter', '@cediah/api', 'lint'],
   'web-lint-final': ['--filter', '@cediah/web', 'lint'],
   'web-typecheck-final': ['--filter', '@cediah/web', 'typecheck'],
   'e2e-guided-recheck': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.recheck.config.mts`, '--grep', 'E02|E03|E04|stable map'],
   'e2e-security-recheck': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.security-recheck.config.mts`, '--project', 'mobile', '--grep', 'S03'],
+  'e2e-legacy-recheck': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.legacy-recheck.config.mts`, 'learning-map-persistence.spec.ts'],
+  'e2e-large-editor': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.large-editor.config.mts`],
+  'e2e-legacy-final': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.legacy-final.config.mts`, 'learning-map-persistence.spec.ts'],
+  'e2e-legacy-production': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.legacy-production.config.mts`, 'learning-map-persistence.spec.ts'],
+  'e2e-large-editor-final': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.large-editor-final.config.mts`],
+  'e2e-large-editor-recheck': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.large-editor-recheck.config.mts`],
+  'e2e-large-editor-confirmed': ['--filter', '@cediah/web', 'exec', 'playwright', 'test', '--config', `${evidence}/playwright.large-editor-confirmed.config.mts`],
 };
 function hash(path) { return createHash('sha256').update(readFileSync(resolve(root, path))).digest('hex'); }
 if (process.argv[2] === 'baseline') {
@@ -60,7 +74,11 @@ if (process.argv[2] === 'baseline') {
     console.log(`START ${id} ${startedUtc}`);
     const checkEnv = id.startsWith('performance') ? { ...env, NODE_ENV: 'test', T038_RUN_TAG: id === 'performance' ? 'regression' : 'regression-final' }
       : id === 'e2e-guided-recheck' ? { ...env, T040_BROWSER_RUN: 'guided-recheck' }
-      : id === 'e2e-security-recheck' ? { ...env, T040_BROWSER_RUN: 'security-recheck' } : env;
+      : id === 'e2e-security-recheck' ? { ...env, T040_BROWSER_RUN: 'security-recheck' }
+      : id === 'e2e-large-editor' ? { ...env, T040_BROWSER_RUN: 'large-editor' }
+      : id === 'e2e-large-editor-final' ? { ...env, T040_BROWSER_RUN: 'large-editor-final' }
+      : id === 'e2e-large-editor-recheck' ? { ...env, T040_BROWSER_RUN: 'large-editor-recheck' }
+      : id === 'e2e-large-editor-confirmed' ? { ...env, T040_BROWSER_RUN: 'large-editor-confirmed' } : env;
     const child = spawn(process.execPath, [pnpm, ...args], { cwd: root, env: checkEnv, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
     for (const stream of [child.stdout, child.stderr]) stream.on('data', data => log.write(data));
     const exitCode = await new Promise((done, reject) => { child.once('error', reject); child.once('exit', code => done(code)); });

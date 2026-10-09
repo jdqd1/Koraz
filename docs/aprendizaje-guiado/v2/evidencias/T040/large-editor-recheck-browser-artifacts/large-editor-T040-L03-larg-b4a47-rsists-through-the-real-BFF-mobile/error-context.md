@@ -1,0 +1,7050 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: large-editor.spec.ts >> T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF
+- Location: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:5:5
+
+# Error details
+
+```
+TimeoutError: locator.fill: Timeout 60000ms exceeded.
+Call log:
+  - waiting for getByLabel('Consigna', { exact: true })
+    - locator resolved to <textarea rows="3" id="_r_15_" required="" maxlength="4000" aria-invalid="false" data-field-path="package.activities.0.prompt">Edición T040 mobile</textarea>
+    - fill("")
+  - attempting fill action
+    2 × waiting for element to be visible, enabled and editable
+      - element is not enabled
+    - retrying fill action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and editable
+      - element is not enabled
+    - retrying fill action
+      - waiting 100ms
+    104 × waiting for element to be visible, enabled and editable
+        - element is not enabled
+      - retrying fill action
+        - waiting 500ms
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - complementary "Navegación principal" [ref=f1e3]:
+      - navigation [ref=f1e4]:
+        - generic [ref=f1e5]:
+          - link "Inicio" [ref=f1e6] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [aria-hidden]: Inicio
+          - link "Aprendizaje guiado" [ref=f1e9] [cursor=pointer]:
+            - /url: /aprendizaje
+            - generic [aria-hidden]: Aprendizaje guiado
+          - link "Materias" [ref=f1e12] [cursor=pointer]:
+            - /url: /asignaturas
+            - generic [aria-hidden]: Materias
+          - button "Material de estudio" [ref=f1e17] [cursor=pointer]:
+            - generic [aria-hidden]: Material de estudio
+          - button "Administrar" [ref=f1e22] [cursor=pointer]:
+            - generic [aria-hidden]: Administrar
+    - generic [ref=f1e25]:
+      - banner [ref=f1e26]:
+        - button "Expandir menú principal" [ref=f1e28] [cursor=pointer]
+        - search "Buscar guías" [ref=f1e32]:
+          - combobox "Buscar guías" [ref=f1e35]
+        - heading "Koras" [level=1] [ref=f1e37]
+        - generic [ref=f1e38]:
+          - button "Notificaciones" [ref=f1e40] [cursor=pointer]
+          - link "Acceder" [ref=f1e44] [cursor=pointer]:
+            - /url: /acceder
+      - main [ref=f1e48]:
+        - generic [ref=f1e49]:
+          - generic [ref=f1e50]:
+            - link "Volver a rutas" [ref=f1e51] [cursor=pointer]:
+              - /url: /panel/rutas
+            - heading "Editor grande T040 mobile" [level=1] [ref=f1e52]
+            - paragraph [ref=f1e53]: Organiza objetivos, práctica y repaso con las fuentes de la ruta.
+          - generic [ref=f1e54]:
+            - strong [ref=f1e55]: Borrador
+            - generic [ref=f1e56]: Revisión 2 · Sin cambios pendientes
+        - button "Importar archivo de ruta" [disabled] [ref=f1e58]
+        - generic [ref=f1e59]:
+          - tablist "Secciones del editor de rutas" [ref=f1e60]:
+            - tab "Datos y fuentes" [ref=f1e61] [cursor=pointer]
+            - tab "Objetivos" [ref=f1e62] [cursor=pointer]
+            - tab "Recorrido" [selected] [ref=f1e63] [cursor=pointer]
+            - tab "Evaluación y repaso" [ref=f1e64] [cursor=pointer]
+            - tab "Revisión" [ref=f1e65] [cursor=pointer]
+          - tabpanel "Recorrido" [ref=f1e66]:
+            - generic [ref=f1e67]:
+              - generic [ref=f1e68]:
+                - generic [ref=f1e70]:
+                  - text: Paso 3 de 5
+                  - heading "Recorrido" [level=2] [ref=f1e71]
+                  - paragraph [ref=f1e72]: Organiza estudio y práctica por objetivo. Abre una actividad para editarla.
+                - group [ref=f1e73]:
+                  - generic [ref=f1e74]:
+                    - generic [ref=f1e75]:
+                      - generic [ref=f1e76]: Tipo de nueva actividad
+                      - combobox "Tipo de nueva actividad" [disabled] [ref=f1e77]:
+                        - option "Estudio" [disabled] [selected]
+                        - option "Elección única" [disabled]
+                        - option "Respuesta breve" [disabled]
+                        - option "Respuesta construida" [disabled]
+                        - option "Tarjeta de recuperación" [disabled]
+                        - option "Relaciones" [disabled]
+                        - 'option "Imagen: señalar o etiquetar" [disabled]'
+                        - option "Secuencia" [disabled]
+                        - option "Caso progresivo" [disabled]
+                        - option "Tabla de comparación" [disabled]
+                        - option "Micro-mapa de relaciones" [disabled]
+                        - option "Mecanismo y explicación" [disabled]
+                        - option "Detección y corrección de errores" [disabled]
+                    - generic [ref=f1e78]:
+                      - generic [ref=f1e79]: Objetivo de nueva actividad
+                      - combobox "Objetivo de nueva actividad" [disabled] [ref=f1e80]:
+                        - option "Aplicar el ejemplo 1" [disabled] [selected]
+                        - option "Aplicar el ejemplo 2" [disabled]
+                        - option "Aplicar el ejemplo 3" [disabled]
+                        - option "Aplicar el ejemplo 4" [disabled]
+                        - option "Aplicar el ejemplo 5" [disabled]
+                        - option "Aplicar el ejemplo 6" [disabled]
+                        - option "Aplicar el ejemplo 7" [disabled]
+                        - option "Aplicar el ejemplo 8" [disabled]
+                        - option "Aplicar el ejemplo 9" [disabled]
+                        - option "Aplicar el ejemplo 10" [disabled]
+                        - option "Aplicar el ejemplo 11" [disabled]
+                        - option "Aplicar el ejemplo 12" [disabled]
+                        - option "Aplicar el ejemplo 13" [disabled]
+                        - option "Aplicar el ejemplo 14" [disabled]
+                        - option "Aplicar el ejemplo 15" [disabled]
+                        - option "Aplicar el ejemplo 16" [disabled]
+                        - option "Aplicar el ejemplo 17" [disabled]
+                        - option "Aplicar el ejemplo 18" [disabled]
+                        - option "Aplicar el ejemplo 19" [disabled]
+                        - option "Aplicar el ejemplo 20" [disabled]
+                        - option "Aplicar el ejemplo 21" [disabled]
+                        - option "Aplicar el ejemplo 22" [disabled]
+                        - option "Aplicar el ejemplo 23" [disabled]
+                        - option "Aplicar el ejemplo 24" [disabled]
+                        - option "Aplicar el ejemplo 25" [disabled]
+                        - option "Aplicar el ejemplo 26" [disabled]
+                        - option "Aplicar el ejemplo 27" [disabled]
+                        - option "Aplicar el ejemplo 28" [disabled]
+                        - option "Aplicar el ejemplo 29" [disabled]
+                        - option "Aplicar el ejemplo 30" [disabled]
+                        - option "Aplicar el ejemplo 31" [disabled]
+                        - option "Aplicar el ejemplo 32" [disabled]
+                        - option "Aplicar el ejemplo 33" [disabled]
+                        - option "Aplicar el ejemplo 34" [disabled]
+                        - option "Aplicar el ejemplo 35" [disabled]
+                        - option "Aplicar el ejemplo 36" [disabled]
+                        - option "Aplicar el ejemplo 37" [disabled]
+                        - option "Aplicar el ejemplo 38" [disabled]
+                        - option "Aplicar el ejemplo 39" [disabled]
+                        - option "Aplicar el ejemplo 40" [disabled]
+                        - option "Aplicar el ejemplo 41" [disabled]
+                        - option "Aplicar el ejemplo 42" [disabled]
+                        - option "Aplicar el ejemplo 43" [disabled]
+                        - option "Aplicar el ejemplo 44" [disabled]
+                        - option "Aplicar el ejemplo 45" [disabled]
+                        - option "Aplicar el ejemplo 46" [disabled]
+                        - option "Aplicar el ejemplo 47" [disabled]
+                        - option "Aplicar el ejemplo 48" [disabled]
+                        - option "Aplicar el ejemplo 49" [disabled]
+                        - option "Aplicar el ejemplo 50" [disabled]
+                        - option "Aplicar el ejemplo 51" [disabled]
+                        - option "Aplicar el ejemplo 52" [disabled]
+                        - option "Aplicar el ejemplo 53" [disabled]
+                        - option "Aplicar el ejemplo 54" [disabled]
+                        - option "Aplicar el ejemplo 55" [disabled]
+                        - option "Aplicar el ejemplo 56" [disabled]
+                        - option "Aplicar el ejemplo 57" [disabled]
+                        - option "Aplicar el ejemplo 58" [disabled]
+                        - option "Aplicar el ejemplo 59" [disabled]
+                        - option "Aplicar el ejemplo 60" [disabled]
+                        - option "Aplicar el ejemplo 61" [disabled]
+                        - option "Aplicar el ejemplo 62" [disabled]
+                        - option "Aplicar el ejemplo 63" [disabled]
+                        - option "Aplicar el ejemplo 64" [disabled]
+                        - option "Aplicar el ejemplo 65" [disabled]
+                        - option "Aplicar el ejemplo 66" [disabled]
+                        - option "Aplicar el ejemplo 67" [disabled]
+                        - option "Aplicar el ejemplo 68" [disabled]
+                        - option "Aplicar el ejemplo 69" [disabled]
+                        - option "Aplicar el ejemplo 70" [disabled]
+                        - option "Aplicar el ejemplo 71" [disabled]
+                        - option "Aplicar el ejemplo 72" [disabled]
+                        - option "Aplicar el ejemplo 73" [disabled]
+                        - option "Aplicar el ejemplo 74" [disabled]
+                        - option "Aplicar el ejemplo 75" [disabled]
+                        - option "Aplicar el ejemplo 76" [disabled]
+                        - option "Aplicar el ejemplo 77" [disabled]
+                        - option "Aplicar el ejemplo 78" [disabled]
+                        - option "Aplicar el ejemplo 79" [disabled]
+                        - option "Aplicar el ejemplo 80" [disabled]
+                        - option "Aplicar el ejemplo 81" [disabled]
+                        - option "Aplicar el ejemplo 82" [disabled]
+                        - option "Aplicar el ejemplo 83" [disabled]
+                        - option "Aplicar el ejemplo 84" [disabled]
+                        - option "Aplicar el ejemplo 85" [disabled]
+                        - option "Aplicar el ejemplo 86" [disabled]
+                        - option "Aplicar el ejemplo 87" [disabled]
+                        - option "Aplicar el ejemplo 88" [disabled]
+                        - option "Aplicar el ejemplo 89" [disabled]
+                        - option "Aplicar el ejemplo 90" [disabled]
+                        - option "Aplicar el ejemplo 91" [disabled]
+                        - option "Aplicar el ejemplo 92" [disabled]
+                        - option "Aplicar el ejemplo 93" [disabled]
+                        - option "Aplicar el ejemplo 94" [disabled]
+                        - option "Aplicar el ejemplo 95" [disabled]
+                        - option "Aplicar el ejemplo 96" [disabled]
+                        - option "Aplicar el ejemplo 97" [disabled]
+                        - option "Aplicar el ejemplo 98" [disabled]
+                        - option "Aplicar el ejemplo 99" [disabled]
+                        - option "Aplicar el ejemplo 100" [disabled]
+                        - option "Aplicar el ejemplo 101" [disabled]
+                        - option "Aplicar el ejemplo 102" [disabled]
+                        - option "Aplicar el ejemplo 103" [disabled]
+                        - option "Aplicar el ejemplo 104" [disabled]
+                        - option "Aplicar el ejemplo 105" [disabled]
+                        - option "Aplicar el ejemplo 106" [disabled]
+                        - option "Aplicar el ejemplo 107" [disabled]
+                        - option "Aplicar el ejemplo 108" [disabled]
+                        - option "Aplicar el ejemplo 109" [disabled]
+                        - option "Aplicar el ejemplo 110" [disabled]
+                        - option "Aplicar el ejemplo 111" [disabled]
+                        - option "Aplicar el ejemplo 112" [disabled]
+                        - option "Aplicar el ejemplo 113" [disabled]
+                        - option "Aplicar el ejemplo 114" [disabled]
+                        - option "Aplicar el ejemplo 115" [disabled]
+                        - option "Aplicar el ejemplo 116" [disabled]
+                        - option "Aplicar el ejemplo 117" [disabled]
+                        - option "Aplicar el ejemplo 118" [disabled]
+                        - option "Aplicar el ejemplo 119" [disabled]
+                        - option "Aplicar el ejemplo 120" [disabled]
+                        - option "Aplicar el ejemplo 121" [disabled]
+                        - option "Aplicar el ejemplo 122" [disabled]
+                        - option "Aplicar el ejemplo 123" [disabled]
+                        - option "Aplicar el ejemplo 124" [disabled]
+                        - option "Aplicar el ejemplo 125" [disabled]
+                        - option "Aplicar el ejemplo 126" [disabled]
+                        - option "Aplicar el ejemplo 127" [disabled]
+                        - option "Aplicar el ejemplo 128" [disabled]
+                        - option "Aplicar el ejemplo 129" [disabled]
+                        - option "Aplicar el ejemplo 130" [disabled]
+                        - option "Aplicar el ejemplo 131" [disabled]
+                        - option "Aplicar el ejemplo 132" [disabled]
+                        - option "Aplicar el ejemplo 133" [disabled]
+                        - option "Aplicar el ejemplo 134" [disabled]
+                        - option "Aplicar el ejemplo 135" [disabled]
+                        - option "Aplicar el ejemplo 136" [disabled]
+                        - option "Aplicar el ejemplo 137" [disabled]
+                        - option "Aplicar el ejemplo 138" [disabled]
+                        - option "Aplicar el ejemplo 139" [disabled]
+                        - option "Aplicar el ejemplo 140" [disabled]
+                        - option "Aplicar el ejemplo 141" [disabled]
+                        - option "Aplicar el ejemplo 142" [disabled]
+                        - option "Aplicar el ejemplo 143" [disabled]
+                        - option "Aplicar el ejemplo 144" [disabled]
+                        - option "Aplicar el ejemplo 145" [disabled]
+                        - option "Aplicar el ejemplo 146" [disabled]
+                        - option "Aplicar el ejemplo 147" [disabled]
+                        - option "Aplicar el ejemplo 148" [disabled]
+                        - option "Aplicar el ejemplo 149" [disabled]
+                        - option "Aplicar el ejemplo 150" [disabled]
+                        - option "Aplicar el ejemplo 151" [disabled]
+                        - option "Aplicar el ejemplo 152" [disabled]
+                        - option "Aplicar el ejemplo 153" [disabled]
+                        - option "Aplicar el ejemplo 154" [disabled]
+                        - option "Aplicar el ejemplo 155" [disabled]
+                        - option "Aplicar el ejemplo 156" [disabled]
+                        - option "Aplicar el ejemplo 157" [disabled]
+                        - option "Aplicar el ejemplo 158" [disabled]
+                        - option "Aplicar el ejemplo 159" [disabled]
+                        - option "Aplicar el ejemplo 160" [disabled]
+                        - option "Aplicar el ejemplo 161" [disabled]
+                        - option "Aplicar el ejemplo 162" [disabled]
+                        - option "Aplicar el ejemplo 163" [disabled]
+                        - option "Aplicar el ejemplo 164" [disabled]
+                        - option "Aplicar el ejemplo 165" [disabled]
+                        - option "Aplicar el ejemplo 166" [disabled]
+                        - option "Aplicar el ejemplo 167" [disabled]
+                        - option "Aplicar el ejemplo 168" [disabled]
+                        - option "Aplicar el ejemplo 169" [disabled]
+                        - option "Aplicar el ejemplo 170" [disabled]
+                        - option "Aplicar el ejemplo 171" [disabled]
+                        - option "Aplicar el ejemplo 172" [disabled]
+                        - option "Aplicar el ejemplo 173" [disabled]
+                        - option "Aplicar el ejemplo 174" [disabled]
+                        - option "Aplicar el ejemplo 175" [disabled]
+                        - option "Aplicar el ejemplo 176" [disabled]
+                        - option "Aplicar el ejemplo 177" [disabled]
+                        - option "Aplicar el ejemplo 178" [disabled]
+                        - option "Aplicar el ejemplo 179" [disabled]
+                        - option "Aplicar el ejemplo 180" [disabled]
+                        - option "Aplicar el ejemplo 181" [disabled]
+                        - option "Aplicar el ejemplo 182" [disabled]
+                        - option "Aplicar el ejemplo 183" [disabled]
+                        - option "Aplicar el ejemplo 184" [disabled]
+                        - option "Aplicar el ejemplo 185" [disabled]
+                        - option "Aplicar el ejemplo 186" [disabled]
+                        - option "Aplicar el ejemplo 187" [disabled]
+                        - option "Aplicar el ejemplo 188" [disabled]
+                        - option "Aplicar el ejemplo 189" [disabled]
+                        - option "Aplicar el ejemplo 190" [disabled]
+                        - option "Aplicar el ejemplo 191" [disabled]
+                        - option "Aplicar el ejemplo 192" [disabled]
+                        - option "Aplicar el ejemplo 193" [disabled]
+                        - option "Aplicar el ejemplo 194" [disabled]
+                        - option "Aplicar el ejemplo 195" [disabled]
+                        - option "Aplicar el ejemplo 196" [disabled]
+                        - option "Aplicar el ejemplo 197" [disabled]
+                        - option "Aplicar el ejemplo 198" [disabled]
+                        - option "Aplicar el ejemplo 199" [disabled]
+                        - option "Aplicar el ejemplo 200" [disabled]
+                    - button "Añadir actividad" [disabled] [ref=f1e81]
+              - region "Unidad 1" [ref=f1e82]:
+                - heading "Unidad 1" [level=2] [ref=f1e83]
+                - group [ref=f1e84]:
+                  - generic "Estudio · Edición T040 mobile" [active] [ref=f1e85] [cursor=pointer]
+                  - generic [ref=f1e86]:
+                    - generic [ref=f1e87]:
+                      - heading "Estudio" [level=3] [ref=f1e88]
+                      - button "Eliminar actividad" [disabled] [ref=f1e89]
+                    - group [ref=f1e90]:
+                      - generic [ref=f1e91]:
+                        - generic [ref=f1e92]:
+                          - generic [ref=f1e93]:
+                            - generic [ref=f1e94]:
+                              - generic [ref=f1e95]: Consigna
+                              - textbox "Consigna" [disabled] [ref=f1e96]: Edición T040 mobile
+                            - generic [ref=f1e97]:
+                              - generic [ref=f1e98]: Objetivo principal
+                              - combobox "Objetivo principal" [disabled] [ref=f1e99]:
+                                - option "Aplicar el ejemplo 1" [disabled] [selected]
+                                - option "Aplicar el ejemplo 2" [disabled]
+                                - option "Aplicar el ejemplo 3" [disabled]
+                                - option "Aplicar el ejemplo 4" [disabled]
+                                - option "Aplicar el ejemplo 5" [disabled]
+                                - option "Aplicar el ejemplo 6" [disabled]
+                                - option "Aplicar el ejemplo 7" [disabled]
+                                - option "Aplicar el ejemplo 8" [disabled]
+                                - option "Aplicar el ejemplo 9" [disabled]
+                                - option "Aplicar el ejemplo 10" [disabled]
+                                - option "Aplicar el ejemplo 11" [disabled]
+                                - option "Aplicar el ejemplo 12" [disabled]
+                                - option "Aplicar el ejemplo 13" [disabled]
+                                - option "Aplicar el ejemplo 14" [disabled]
+                                - option "Aplicar el ejemplo 15" [disabled]
+                                - option "Aplicar el ejemplo 16" [disabled]
+                                - option "Aplicar el ejemplo 17" [disabled]
+                                - option "Aplicar el ejemplo 18" [disabled]
+                                - option "Aplicar el ejemplo 19" [disabled]
+                                - option "Aplicar el ejemplo 20" [disabled]
+                                - option "Aplicar el ejemplo 21" [disabled]
+                                - option "Aplicar el ejemplo 22" [disabled]
+                                - option "Aplicar el ejemplo 23" [disabled]
+                                - option "Aplicar el ejemplo 24" [disabled]
+                                - option "Aplicar el ejemplo 25" [disabled]
+                                - option "Aplicar el ejemplo 26" [disabled]
+                                - option "Aplicar el ejemplo 27" [disabled]
+                                - option "Aplicar el ejemplo 28" [disabled]
+                                - option "Aplicar el ejemplo 29" [disabled]
+                                - option "Aplicar el ejemplo 30" [disabled]
+                                - option "Aplicar el ejemplo 31" [disabled]
+                                - option "Aplicar el ejemplo 32" [disabled]
+                                - option "Aplicar el ejemplo 33" [disabled]
+                                - option "Aplicar el ejemplo 34" [disabled]
+                                - option "Aplicar el ejemplo 35" [disabled]
+                                - option "Aplicar el ejemplo 36" [disabled]
+                                - option "Aplicar el ejemplo 37" [disabled]
+                                - option "Aplicar el ejemplo 38" [disabled]
+                                - option "Aplicar el ejemplo 39" [disabled]
+                                - option "Aplicar el ejemplo 40" [disabled]
+                                - option "Aplicar el ejemplo 41" [disabled]
+                                - option "Aplicar el ejemplo 42" [disabled]
+                                - option "Aplicar el ejemplo 43" [disabled]
+                                - option "Aplicar el ejemplo 44" [disabled]
+                                - option "Aplicar el ejemplo 45" [disabled]
+                                - option "Aplicar el ejemplo 46" [disabled]
+                                - option "Aplicar el ejemplo 47" [disabled]
+                                - option "Aplicar el ejemplo 48" [disabled]
+                                - option "Aplicar el ejemplo 49" [disabled]
+                                - option "Aplicar el ejemplo 50" [disabled]
+                                - option "Aplicar el ejemplo 51" [disabled]
+                                - option "Aplicar el ejemplo 52" [disabled]
+                                - option "Aplicar el ejemplo 53" [disabled]
+                                - option "Aplicar el ejemplo 54" [disabled]
+                                - option "Aplicar el ejemplo 55" [disabled]
+                                - option "Aplicar el ejemplo 56" [disabled]
+                                - option "Aplicar el ejemplo 57" [disabled]
+                                - option "Aplicar el ejemplo 58" [disabled]
+                                - option "Aplicar el ejemplo 59" [disabled]
+                                - option "Aplicar el ejemplo 60" [disabled]
+                                - option "Aplicar el ejemplo 61" [disabled]
+                                - option "Aplicar el ejemplo 62" [disabled]
+                                - option "Aplicar el ejemplo 63" [disabled]
+                                - option "Aplicar el ejemplo 64" [disabled]
+                                - option "Aplicar el ejemplo 65" [disabled]
+                                - option "Aplicar el ejemplo 66" [disabled]
+                                - option "Aplicar el ejemplo 67" [disabled]
+                                - option "Aplicar el ejemplo 68" [disabled]
+                                - option "Aplicar el ejemplo 69" [disabled]
+                                - option "Aplicar el ejemplo 70" [disabled]
+                                - option "Aplicar el ejemplo 71" [disabled]
+                                - option "Aplicar el ejemplo 72" [disabled]
+                                - option "Aplicar el ejemplo 73" [disabled]
+                                - option "Aplicar el ejemplo 74" [disabled]
+                                - option "Aplicar el ejemplo 75" [disabled]
+                                - option "Aplicar el ejemplo 76" [disabled]
+                                - option "Aplicar el ejemplo 77" [disabled]
+                                - option "Aplicar el ejemplo 78" [disabled]
+                                - option "Aplicar el ejemplo 79" [disabled]
+                                - option "Aplicar el ejemplo 80" [disabled]
+                                - option "Aplicar el ejemplo 81" [disabled]
+                                - option "Aplicar el ejemplo 82" [disabled]
+                                - option "Aplicar el ejemplo 83" [disabled]
+                                - option "Aplicar el ejemplo 84" [disabled]
+                                - option "Aplicar el ejemplo 85" [disabled]
+                                - option "Aplicar el ejemplo 86" [disabled]
+                                - option "Aplicar el ejemplo 87" [disabled]
+                                - option "Aplicar el ejemplo 88" [disabled]
+                                - option "Aplicar el ejemplo 89" [disabled]
+                                - option "Aplicar el ejemplo 90" [disabled]
+                                - option "Aplicar el ejemplo 91" [disabled]
+                                - option "Aplicar el ejemplo 92" [disabled]
+                                - option "Aplicar el ejemplo 93" [disabled]
+                                - option "Aplicar el ejemplo 94" [disabled]
+                                - option "Aplicar el ejemplo 95" [disabled]
+                                - option "Aplicar el ejemplo 96" [disabled]
+                                - option "Aplicar el ejemplo 97" [disabled]
+                                - option "Aplicar el ejemplo 98" [disabled]
+                                - option "Aplicar el ejemplo 99" [disabled]
+                                - option "Aplicar el ejemplo 100" [disabled]
+                                - option "Aplicar el ejemplo 101" [disabled]
+                                - option "Aplicar el ejemplo 102" [disabled]
+                                - option "Aplicar el ejemplo 103" [disabled]
+                                - option "Aplicar el ejemplo 104" [disabled]
+                                - option "Aplicar el ejemplo 105" [disabled]
+                                - option "Aplicar el ejemplo 106" [disabled]
+                                - option "Aplicar el ejemplo 107" [disabled]
+                                - option "Aplicar el ejemplo 108" [disabled]
+                                - option "Aplicar el ejemplo 109" [disabled]
+                                - option "Aplicar el ejemplo 110" [disabled]
+                                - option "Aplicar el ejemplo 111" [disabled]
+                                - option "Aplicar el ejemplo 112" [disabled]
+                                - option "Aplicar el ejemplo 113" [disabled]
+                                - option "Aplicar el ejemplo 114" [disabled]
+                                - option "Aplicar el ejemplo 115" [disabled]
+                                - option "Aplicar el ejemplo 116" [disabled]
+                                - option "Aplicar el ejemplo 117" [disabled]
+                                - option "Aplicar el ejemplo 118" [disabled]
+                                - option "Aplicar el ejemplo 119" [disabled]
+                                - option "Aplicar el ejemplo 120" [disabled]
+                                - option "Aplicar el ejemplo 121" [disabled]
+                                - option "Aplicar el ejemplo 122" [disabled]
+                                - option "Aplicar el ejemplo 123" [disabled]
+                                - option "Aplicar el ejemplo 124" [disabled]
+                                - option "Aplicar el ejemplo 125" [disabled]
+                                - option "Aplicar el ejemplo 126" [disabled]
+                                - option "Aplicar el ejemplo 127" [disabled]
+                                - option "Aplicar el ejemplo 128" [disabled]
+                                - option "Aplicar el ejemplo 129" [disabled]
+                                - option "Aplicar el ejemplo 130" [disabled]
+                                - option "Aplicar el ejemplo 131" [disabled]
+                                - option "Aplicar el ejemplo 132" [disabled]
+                                - option "Aplicar el ejemplo 133" [disabled]
+                                - option "Aplicar el ejemplo 134" [disabled]
+                                - option "Aplicar el ejemplo 135" [disabled]
+                                - option "Aplicar el ejemplo 136" [disabled]
+                                - option "Aplicar el ejemplo 137" [disabled]
+                                - option "Aplicar el ejemplo 138" [disabled]
+                                - option "Aplicar el ejemplo 139" [disabled]
+                                - option "Aplicar el ejemplo 140" [disabled]
+                                - option "Aplicar el ejemplo 141" [disabled]
+                                - option "Aplicar el ejemplo 142" [disabled]
+                                - option "Aplicar el ejemplo 143" [disabled]
+                                - option "Aplicar el ejemplo 144" [disabled]
+                                - option "Aplicar el ejemplo 145" [disabled]
+                                - option "Aplicar el ejemplo 146" [disabled]
+                                - option "Aplicar el ejemplo 147" [disabled]
+                                - option "Aplicar el ejemplo 148" [disabled]
+                                - option "Aplicar el ejemplo 149" [disabled]
+                                - option "Aplicar el ejemplo 150" [disabled]
+                                - option "Aplicar el ejemplo 151" [disabled]
+                                - option "Aplicar el ejemplo 152" [disabled]
+                                - option "Aplicar el ejemplo 153" [disabled]
+                                - option "Aplicar el ejemplo 154" [disabled]
+                                - option "Aplicar el ejemplo 155" [disabled]
+                                - option "Aplicar el ejemplo 156" [disabled]
+                                - option "Aplicar el ejemplo 157" [disabled]
+                                - option "Aplicar el ejemplo 158" [disabled]
+                                - option "Aplicar el ejemplo 159" [disabled]
+                                - option "Aplicar el ejemplo 160" [disabled]
+                                - option "Aplicar el ejemplo 161" [disabled]
+                                - option "Aplicar el ejemplo 162" [disabled]
+                                - option "Aplicar el ejemplo 163" [disabled]
+                                - option "Aplicar el ejemplo 164" [disabled]
+                                - option "Aplicar el ejemplo 165" [disabled]
+                                - option "Aplicar el ejemplo 166" [disabled]
+                                - option "Aplicar el ejemplo 167" [disabled]
+                                - option "Aplicar el ejemplo 168" [disabled]
+                                - option "Aplicar el ejemplo 169" [disabled]
+                                - option "Aplicar el ejemplo 170" [disabled]
+                                - option "Aplicar el ejemplo 171" [disabled]
+                                - option "Aplicar el ejemplo 172" [disabled]
+                                - option "Aplicar el ejemplo 173" [disabled]
+                                - option "Aplicar el ejemplo 174" [disabled]
+                                - option "Aplicar el ejemplo 175" [disabled]
+                                - option "Aplicar el ejemplo 176" [disabled]
+                                - option "Aplicar el ejemplo 177" [disabled]
+                                - option "Aplicar el ejemplo 178" [disabled]
+                                - option "Aplicar el ejemplo 179" [disabled]
+                                - option "Aplicar el ejemplo 180" [disabled]
+                                - option "Aplicar el ejemplo 181" [disabled]
+                                - option "Aplicar el ejemplo 182" [disabled]
+                                - option "Aplicar el ejemplo 183" [disabled]
+                                - option "Aplicar el ejemplo 184" [disabled]
+                                - option "Aplicar el ejemplo 185" [disabled]
+                                - option "Aplicar el ejemplo 186" [disabled]
+                                - option "Aplicar el ejemplo 187" [disabled]
+                                - option "Aplicar el ejemplo 188" [disabled]
+                                - option "Aplicar el ejemplo 189" [disabled]
+                                - option "Aplicar el ejemplo 190" [disabled]
+                                - option "Aplicar el ejemplo 191" [disabled]
+                                - option "Aplicar el ejemplo 192" [disabled]
+                                - option "Aplicar el ejemplo 193" [disabled]
+                                - option "Aplicar el ejemplo 194" [disabled]
+                                - option "Aplicar el ejemplo 195" [disabled]
+                                - option "Aplicar el ejemplo 196" [disabled]
+                                - option "Aplicar el ejemplo 197" [disabled]
+                                - option "Aplicar el ejemplo 198" [disabled]
+                                - option "Aplicar el ejemplo 199" [disabled]
+                                - option "Aplicar el ejemplo 200" [disabled]
+                            - generic [ref=f1e100]:
+                              - generic [ref=f1e101]: Fase de aprendizaje
+                              - combobox "Fase de aprendizaje" [disabled] [ref=f1e102]:
+                                - option "Activar conocimientos" [disabled]
+                                - option "Aprender" [disabled] [selected]
+                                - option "Recuperar" [disabled]
+                                - option "Elaborar" [disabled]
+                                - option "Aplicar" [disabled]
+                                - option "Reforzar" [disabled]
+                            - generic [ref=f1e103]:
+                              - checkbox "Actividad requerida" [checked] [disabled] [ref=f1e104]
+                              - text: Actividad requerida
+                          - group "Fuentes de la actividad" [ref=f1e105]:
+                            - generic [ref=f1e107]:
+                              - checkbox "Guía T035" [checked] [disabled] [ref=f1e108]
+                              - text: Guía T035
+                          - group [ref=f1e109]:
+                            - generic "Organización y ayudas" [ref=f1e110] [cursor=pointer]
+                            - option "Aprendizaje" [disabled] [selected]
+                            - option "Diagnóstico" [disabled]
+                            - option "Comprobación de unidad" [disabled]
+                            - option "Reserva final" [disabled]
+                            - option "Reserva a 7 días" [disabled]
+                            - option "Reserva a 30 días" [disabled]
+                            - option "Texto" [disabled] [selected]
+                            - option "Imagen" [disabled]
+                            - option "Tabla" [disabled]
+                            - option "Diagrama" [disabled]
+                            - option "Caso" [disabled]
+                            - option "Video" [disabled]
+                            - option "Familia actual" [disabled] [selected]
+                            - 'option "choice-1: actividad sintética" [disabled]'
+                            - 'option "short-1: actividad sintética" [disabled]'
+                            - 'option "apply-1: actividad sintética" [disabled]'
+                            - 'option "match-1: actividad sintética" [disabled]'
+                            - 'option "sequence-1: actividad sintética" [disabled]'
+                            - 'option "final-1: actividad sintética" [disabled]'
+                            - 'option "retention7-1: actividad sintética" [disabled]'
+                            - 'option "retention30-1: actividad sintética" [disabled]'
+                            - 'option "diagnostic-1: actividad sintética" [disabled]'
+                            - 'option "study-2: actividad sintética" [disabled]'
+                            - 'option "choice-2: actividad sintética" [disabled]'
+                            - 'option "short-2: actividad sintética" [disabled]'
+                            - 'option "apply-2: actividad sintética" [disabled]'
+                            - 'option "match-2: actividad sintética" [disabled]'
+                            - 'option "sequence-2: actividad sintética" [disabled]'
+                            - 'option "final-2: actividad sintética" [disabled]'
+                            - 'option "retention7-2: actividad sintética" [disabled]'
+                            - 'option "retention30-2: actividad sintética" [disabled]'
+                            - 'option "diagnostic-2: actividad sintética" [disabled]'
+                            - 'option "study-3: actividad sintética" [disabled]'
+                            - 'option "choice-3: actividad sintética" [disabled]'
+                            - 'option "short-3: actividad sintética" [disabled]'
+                            - 'option "apply-3: actividad sintética" [disabled]'
+                            - 'option "match-3: actividad sintética" [disabled]'
+                            - 'option "sequence-3: actividad sintética" [disabled]'
+                            - 'option "final-3: actividad sintética" [disabled]'
+                            - 'option "retention7-3: actividad sintética" [disabled]'
+                            - 'option "retention30-3: actividad sintética" [disabled]'
+                            - 'option "diagnostic-3: actividad sintética" [disabled]'
+                            - 'option "study-4: actividad sintética" [disabled]'
+                            - 'option "choice-4: actividad sintética" [disabled]'
+                            - 'option "short-4: actividad sintética" [disabled]'
+                            - 'option "apply-4: actividad sintética" [disabled]'
+                            - 'option "match-4: actividad sintética" [disabled]'
+                            - 'option "sequence-4: actividad sintética" [disabled]'
+                            - 'option "final-4: actividad sintética" [disabled]'
+                            - 'option "retention7-4: actividad sintética" [disabled]'
+                            - 'option "retention30-4: actividad sintética" [disabled]'
+                            - 'option "diagnostic-4: actividad sintética" [disabled]'
+                            - 'option "study-5: actividad sintética" [disabled]'
+                            - 'option "choice-5: actividad sintética" [disabled]'
+                            - 'option "short-5: actividad sintética" [disabled]'
+                            - 'option "apply-5: actividad sintética" [disabled]'
+                            - 'option "match-5: actividad sintética" [disabled]'
+                            - 'option "sequence-5: actividad sintética" [disabled]'
+                            - 'option "final-5: actividad sintética" [disabled]'
+                            - 'option "retention7-5: actividad sintética" [disabled]'
+                            - 'option "retention30-5: actividad sintética" [disabled]'
+                            - 'option "diagnostic-5: actividad sintética" [disabled]'
+                            - 'option "study-6: actividad sintética" [disabled]'
+                            - 'option "choice-6: actividad sintética" [disabled]'
+                            - 'option "short-6: actividad sintética" [disabled]'
+                            - 'option "apply-6: actividad sintética" [disabled]'
+                            - 'option "match-6: actividad sintética" [disabled]'
+                            - 'option "sequence-6: actividad sintética" [disabled]'
+                            - 'option "final-6: actividad sintética" [disabled]'
+                            - 'option "retention7-6: actividad sintética" [disabled]'
+                            - 'option "retention30-6: actividad sintética" [disabled]'
+                            - 'option "diagnostic-6: actividad sintética" [disabled]'
+                            - 'option "study-7: actividad sintética" [disabled]'
+                            - 'option "choice-7: actividad sintética" [disabled]'
+                            - 'option "short-7: actividad sintética" [disabled]'
+                            - 'option "apply-7: actividad sintética" [disabled]'
+                            - 'option "match-7: actividad sintética" [disabled]'
+                            - 'option "sequence-7: actividad sintética" [disabled]'
+                            - 'option "final-7: actividad sintética" [disabled]'
+                            - 'option "retention7-7: actividad sintética" [disabled]'
+                            - 'option "retention30-7: actividad sintética" [disabled]'
+                            - 'option "diagnostic-7: actividad sintética" [disabled]'
+                            - 'option "study-8: actividad sintética" [disabled]'
+                            - 'option "choice-8: actividad sintética" [disabled]'
+                            - 'option "short-8: actividad sintética" [disabled]'
+                            - 'option "apply-8: actividad sintética" [disabled]'
+                            - 'option "match-8: actividad sintética" [disabled]'
+                            - 'option "sequence-8: actividad sintética" [disabled]'
+                            - 'option "final-8: actividad sintética" [disabled]'
+                            - 'option "retention7-8: actividad sintética" [disabled]'
+                            - 'option "retention30-8: actividad sintética" [disabled]'
+                            - 'option "diagnostic-8: actividad sintética" [disabled]'
+                            - 'option "study-9: actividad sintética" [disabled]'
+                            - 'option "choice-9: actividad sintética" [disabled]'
+                            - 'option "short-9: actividad sintética" [disabled]'
+                            - 'option "apply-9: actividad sintética" [disabled]'
+                            - 'option "match-9: actividad sintética" [disabled]'
+                            - 'option "sequence-9: actividad sintética" [disabled]'
+                            - 'option "final-9: actividad sintética" [disabled]'
+                            - 'option "retention7-9: actividad sintética" [disabled]'
+                            - 'option "retention30-9: actividad sintética" [disabled]'
+                            - 'option "study-10: actividad sintética" [disabled]'
+                            - 'option "choice-10: actividad sintética" [disabled]'
+                            - 'option "short-10: actividad sintética" [disabled]'
+                            - 'option "apply-10: actividad sintética" [disabled]'
+                            - 'option "match-10: actividad sintética" [disabled]'
+                            - 'option "sequence-10: actividad sintética" [disabled]'
+                            - 'option "final-10: actividad sintética" [disabled]'
+                            - 'option "retention7-10: actividad sintética" [disabled]'
+                            - 'option "retention30-10: actividad sintética" [disabled]'
+                            - 'option "study-11: actividad sintética" [disabled]'
+                            - 'option "choice-11: actividad sintética" [disabled]'
+                            - 'option "short-11: actividad sintética" [disabled]'
+                            - 'option "apply-11: actividad sintética" [disabled]'
+                            - 'option "match-11: actividad sintética" [disabled]'
+                            - 'option "sequence-11: actividad sintética" [disabled]'
+                            - 'option "final-11: actividad sintética" [disabled]'
+                            - 'option "retention7-11: actividad sintética" [disabled]'
+                            - 'option "retention30-11: actividad sintética" [disabled]'
+                            - 'option "study-12: actividad sintética" [disabled]'
+                            - 'option "choice-12: actividad sintética" [disabled]'
+                            - 'option "short-12: actividad sintética" [disabled]'
+                            - 'option "apply-12: actividad sintética" [disabled]'
+                            - 'option "match-12: actividad sintética" [disabled]'
+                            - 'option "sequence-12: actividad sintética" [disabled]'
+                            - 'option "final-12: actividad sintética" [disabled]'
+                            - 'option "retention7-12: actividad sintética" [disabled]'
+                            - 'option "retention30-12: actividad sintética" [disabled]'
+                            - 'option "study-13: actividad sintética" [disabled]'
+                            - 'option "choice-13: actividad sintética" [disabled]'
+                            - 'option "short-13: actividad sintética" [disabled]'
+                            - 'option "apply-13: actividad sintética" [disabled]'
+                            - 'option "match-13: actividad sintética" [disabled]'
+                            - 'option "sequence-13: actividad sintética" [disabled]'
+                            - 'option "final-13: actividad sintética" [disabled]'
+                            - 'option "retention7-13: actividad sintética" [disabled]'
+                            - 'option "retention30-13: actividad sintética" [disabled]'
+                            - 'option "study-14: actividad sintética" [disabled]'
+                            - 'option "choice-14: actividad sintética" [disabled]'
+                            - 'option "short-14: actividad sintética" [disabled]'
+                            - 'option "apply-14: actividad sintética" [disabled]'
+                            - 'option "match-14: actividad sintética" [disabled]'
+                            - 'option "sequence-14: actividad sintética" [disabled]'
+                            - 'option "final-14: actividad sintética" [disabled]'
+                            - 'option "retention7-14: actividad sintética" [disabled]'
+                            - 'option "retention30-14: actividad sintética" [disabled]'
+                            - 'option "study-15: actividad sintética" [disabled]'
+                            - 'option "choice-15: actividad sintética" [disabled]'
+                            - 'option "short-15: actividad sintética" [disabled]'
+                            - 'option "apply-15: actividad sintética" [disabled]'
+                            - 'option "match-15: actividad sintética" [disabled]'
+                            - 'option "sequence-15: actividad sintética" [disabled]'
+                            - 'option "final-15: actividad sintética" [disabled]'
+                            - 'option "retention7-15: actividad sintética" [disabled]'
+                            - 'option "retention30-15: actividad sintética" [disabled]'
+                            - 'option "study-16: actividad sintética" [disabled]'
+                            - 'option "choice-16: actividad sintética" [disabled]'
+                            - 'option "short-16: actividad sintética" [disabled]'
+                            - 'option "apply-16: actividad sintética" [disabled]'
+                            - 'option "match-16: actividad sintética" [disabled]'
+                            - 'option "sequence-16: actividad sintética" [disabled]'
+                            - 'option "final-16: actividad sintética" [disabled]'
+                            - 'option "retention7-16: actividad sintética" [disabled]'
+                            - 'option "retention30-16: actividad sintética" [disabled]'
+                            - 'option "study-17: actividad sintética" [disabled]'
+                            - 'option "choice-17: actividad sintética" [disabled]'
+                            - 'option "short-17: actividad sintética" [disabled]'
+                            - 'option "apply-17: actividad sintética" [disabled]'
+                            - 'option "match-17: actividad sintética" [disabled]'
+                            - 'option "sequence-17: actividad sintética" [disabled]'
+                            - 'option "final-17: actividad sintética" [disabled]'
+                            - 'option "retention7-17: actividad sintética" [disabled]'
+                            - 'option "retention30-17: actividad sintética" [disabled]'
+                            - 'option "study-18: actividad sintética" [disabled]'
+                            - 'option "choice-18: actividad sintética" [disabled]'
+                            - 'option "short-18: actividad sintética" [disabled]'
+                            - 'option "apply-18: actividad sintética" [disabled]'
+                            - 'option "match-18: actividad sintética" [disabled]'
+                            - 'option "sequence-18: actividad sintética" [disabled]'
+                            - 'option "final-18: actividad sintética" [disabled]'
+                            - 'option "retention7-18: actividad sintética" [disabled]'
+                            - 'option "retention30-18: actividad sintética" [disabled]'
+                            - 'option "study-19: actividad sintética" [disabled]'
+                            - 'option "choice-19: actividad sintética" [disabled]'
+                            - 'option "short-19: actividad sintética" [disabled]'
+                            - 'option "apply-19: actividad sintética" [disabled]'
+                            - 'option "match-19: actividad sintética" [disabled]'
+                            - 'option "sequence-19: actividad sintética" [disabled]'
+                            - 'option "final-19: actividad sintética" [disabled]'
+                            - 'option "retention7-19: actividad sintética" [disabled]'
+                            - 'option "retention30-19: actividad sintética" [disabled]'
+                            - 'option "study-20: actividad sintética" [disabled]'
+                            - 'option "choice-20: actividad sintética" [disabled]'
+                            - 'option "short-20: actividad sintética" [disabled]'
+                            - 'option "apply-20: actividad sintética" [disabled]'
+                            - 'option "match-20: actividad sintética" [disabled]'
+                            - 'option "sequence-20: actividad sintética" [disabled]'
+                            - 'option "final-20: actividad sintética" [disabled]'
+                            - 'option "retention7-20: actividad sintética" [disabled]'
+                            - 'option "retention30-20: actividad sintética" [disabled]'
+                            - 'option "study-21: actividad sintética" [disabled]'
+                            - 'option "choice-21: actividad sintética" [disabled]'
+                            - 'option "short-21: actividad sintética" [disabled]'
+                            - 'option "apply-21: actividad sintética" [disabled]'
+                            - 'option "match-21: actividad sintética" [disabled]'
+                            - 'option "sequence-21: actividad sintética" [disabled]'
+                            - 'option "final-21: actividad sintética" [disabled]'
+                            - 'option "retention7-21: actividad sintética" [disabled]'
+                            - 'option "retention30-21: actividad sintética" [disabled]'
+                            - 'option "study-22: actividad sintética" [disabled]'
+                            - 'option "choice-22: actividad sintética" [disabled]'
+                            - 'option "short-22: actividad sintética" [disabled]'
+                            - 'option "apply-22: actividad sintética" [disabled]'
+                            - 'option "match-22: actividad sintética" [disabled]'
+                            - 'option "sequence-22: actividad sintética" [disabled]'
+                            - 'option "final-22: actividad sintética" [disabled]'
+                            - 'option "retention7-22: actividad sintética" [disabled]'
+                            - 'option "retention30-22: actividad sintética" [disabled]'
+                            - 'option "study-23: actividad sintética" [disabled]'
+                            - 'option "choice-23: actividad sintética" [disabled]'
+                            - 'option "short-23: actividad sintética" [disabled]'
+                            - 'option "apply-23: actividad sintética" [disabled]'
+                            - 'option "match-23: actividad sintética" [disabled]'
+                            - 'option "sequence-23: actividad sintética" [disabled]'
+                            - 'option "final-23: actividad sintética" [disabled]'
+                            - 'option "retention7-23: actividad sintética" [disabled]'
+                            - 'option "retention30-23: actividad sintética" [disabled]'
+                            - 'option "study-24: actividad sintética" [disabled]'
+                            - 'option "choice-24: actividad sintética" [disabled]'
+                            - 'option "short-24: actividad sintética" [disabled]'
+                            - 'option "apply-24: actividad sintética" [disabled]'
+                            - 'option "match-24: actividad sintética" [disabled]'
+                            - 'option "sequence-24: actividad sintética" [disabled]'
+                            - 'option "final-24: actividad sintética" [disabled]'
+                            - 'option "retention7-24: actividad sintética" [disabled]'
+                            - 'option "retention30-24: actividad sintética" [disabled]'
+                            - 'option "study-25: actividad sintética" [disabled]'
+                            - 'option "choice-25: actividad sintética" [disabled]'
+                            - 'option "short-25: actividad sintética" [disabled]'
+                            - 'option "apply-25: actividad sintética" [disabled]'
+                            - 'option "match-25: actividad sintética" [disabled]'
+                            - 'option "sequence-25: actividad sintética" [disabled]'
+                            - 'option "final-25: actividad sintética" [disabled]'
+                            - 'option "retention7-25: actividad sintética" [disabled]'
+                            - 'option "retention30-25: actividad sintética" [disabled]'
+                            - 'option "study-26: actividad sintética" [disabled]'
+                            - 'option "choice-26: actividad sintética" [disabled]'
+                            - 'option "short-26: actividad sintética" [disabled]'
+                            - 'option "apply-26: actividad sintética" [disabled]'
+                            - 'option "match-26: actividad sintética" [disabled]'
+                            - 'option "sequence-26: actividad sintética" [disabled]'
+                            - 'option "final-26: actividad sintética" [disabled]'
+                            - 'option "retention7-26: actividad sintética" [disabled]'
+                            - 'option "retention30-26: actividad sintética" [disabled]'
+                            - 'option "study-27: actividad sintética" [disabled]'
+                            - 'option "choice-27: actividad sintética" [disabled]'
+                            - 'option "short-27: actividad sintética" [disabled]'
+                            - 'option "apply-27: actividad sintética" [disabled]'
+                            - 'option "match-27: actividad sintética" [disabled]'
+                            - 'option "sequence-27: actividad sintética" [disabled]'
+                            - 'option "final-27: actividad sintética" [disabled]'
+                            - 'option "retention7-27: actividad sintética" [disabled]'
+                            - 'option "retention30-27: actividad sintética" [disabled]'
+                            - 'option "study-28: actividad sintética" [disabled]'
+                            - 'option "choice-28: actividad sintética" [disabled]'
+                            - 'option "short-28: actividad sintética" [disabled]'
+                            - 'option "apply-28: actividad sintética" [disabled]'
+                            - 'option "match-28: actividad sintética" [disabled]'
+                            - 'option "sequence-28: actividad sintética" [disabled]'
+                            - 'option "final-28: actividad sintética" [disabled]'
+                            - 'option "retention7-28: actividad sintética" [disabled]'
+                            - 'option "retention30-28: actividad sintética" [disabled]'
+                            - 'option "study-29: actividad sintética" [disabled]'
+                            - 'option "choice-29: actividad sintética" [disabled]'
+                            - 'option "short-29: actividad sintética" [disabled]'
+                            - 'option "apply-29: actividad sintética" [disabled]'
+                            - 'option "match-29: actividad sintética" [disabled]'
+                            - 'option "sequence-29: actividad sintética" [disabled]'
+                            - 'option "final-29: actividad sintética" [disabled]'
+                            - 'option "retention7-29: actividad sintética" [disabled]'
+                            - 'option "retention30-29: actividad sintética" [disabled]'
+                            - 'option "study-30: actividad sintética" [disabled]'
+                            - 'option "choice-30: actividad sintética" [disabled]'
+                            - 'option "short-30: actividad sintética" [disabled]'
+                            - 'option "apply-30: actividad sintética" [disabled]'
+                            - 'option "match-30: actividad sintética" [disabled]'
+                            - 'option "sequence-30: actividad sintética" [disabled]'
+                            - 'option "final-30: actividad sintética" [disabled]'
+                            - 'option "retention7-30: actividad sintética" [disabled]'
+                            - 'option "retention30-30: actividad sintética" [disabled]'
+                            - 'option "study-31: actividad sintética" [disabled]'
+                            - 'option "choice-31: actividad sintética" [disabled]'
+                            - 'option "short-31: actividad sintética" [disabled]'
+                            - 'option "apply-31: actividad sintética" [disabled]'
+                            - 'option "match-31: actividad sintética" [disabled]'
+                            - 'option "sequence-31: actividad sintética" [disabled]'
+                            - 'option "final-31: actividad sintética" [disabled]'
+                            - 'option "retention7-31: actividad sintética" [disabled]'
+                            - 'option "retention30-31: actividad sintética" [disabled]'
+                            - 'option "study-32: actividad sintética" [disabled]'
+                            - 'option "choice-32: actividad sintética" [disabled]'
+                            - 'option "short-32: actividad sintética" [disabled]'
+                            - 'option "apply-32: actividad sintética" [disabled]'
+                            - 'option "match-32: actividad sintética" [disabled]'
+                            - 'option "sequence-32: actividad sintética" [disabled]'
+                            - 'option "final-32: actividad sintética" [disabled]'
+                            - 'option "retention7-32: actividad sintética" [disabled]'
+                            - 'option "retention30-32: actividad sintética" [disabled]'
+                            - 'option "study-33: actividad sintética" [disabled]'
+                            - 'option "choice-33: actividad sintética" [disabled]'
+                            - 'option "short-33: actividad sintética" [disabled]'
+                            - 'option "apply-33: actividad sintética" [disabled]'
+                            - 'option "match-33: actividad sintética" [disabled]'
+                            - 'option "sequence-33: actividad sintética" [disabled]'
+                            - 'option "final-33: actividad sintética" [disabled]'
+                            - 'option "retention7-33: actividad sintética" [disabled]'
+                            - 'option "retention30-33: actividad sintética" [disabled]'
+                            - 'option "study-34: actividad sintética" [disabled]'
+                            - 'option "choice-34: actividad sintética" [disabled]'
+                            - 'option "short-34: actividad sintética" [disabled]'
+                            - 'option "apply-34: actividad sintética" [disabled]'
+                            - 'option "match-34: actividad sintética" [disabled]'
+                            - 'option "sequence-34: actividad sintética" [disabled]'
+                            - 'option "final-34: actividad sintética" [disabled]'
+                            - 'option "retention7-34: actividad sintética" [disabled]'
+                            - 'option "retention30-34: actividad sintética" [disabled]'
+                            - 'option "study-35: actividad sintética" [disabled]'
+                            - 'option "choice-35: actividad sintética" [disabled]'
+                            - 'option "short-35: actividad sintética" [disabled]'
+                            - 'option "apply-35: actividad sintética" [disabled]'
+                            - 'option "match-35: actividad sintética" [disabled]'
+                            - 'option "sequence-35: actividad sintética" [disabled]'
+                            - 'option "final-35: actividad sintética" [disabled]'
+                            - 'option "retention7-35: actividad sintética" [disabled]'
+                            - 'option "retention30-35: actividad sintética" [disabled]'
+                            - 'option "study-36: actividad sintética" [disabled]'
+                            - 'option "choice-36: actividad sintética" [disabled]'
+                            - 'option "short-36: actividad sintética" [disabled]'
+                            - 'option "apply-36: actividad sintética" [disabled]'
+                            - 'option "match-36: actividad sintética" [disabled]'
+                            - 'option "sequence-36: actividad sintética" [disabled]'
+                            - 'option "final-36: actividad sintética" [disabled]'
+                            - 'option "retention7-36: actividad sintética" [disabled]'
+                            - 'option "retention30-36: actividad sintética" [disabled]'
+                            - 'option "study-37: actividad sintética" [disabled]'
+                            - 'option "choice-37: actividad sintética" [disabled]'
+                            - 'option "short-37: actividad sintética" [disabled]'
+                            - 'option "apply-37: actividad sintética" [disabled]'
+                            - 'option "match-37: actividad sintética" [disabled]'
+                            - 'option "sequence-37: actividad sintética" [disabled]'
+                            - 'option "final-37: actividad sintética" [disabled]'
+                            - 'option "retention7-37: actividad sintética" [disabled]'
+                            - 'option "retention30-37: actividad sintética" [disabled]'
+                            - 'option "study-38: actividad sintética" [disabled]'
+                            - 'option "choice-38: actividad sintética" [disabled]'
+                            - 'option "short-38: actividad sintética" [disabled]'
+                            - 'option "apply-38: actividad sintética" [disabled]'
+                            - 'option "match-38: actividad sintética" [disabled]'
+                            - 'option "sequence-38: actividad sintética" [disabled]'
+                            - 'option "final-38: actividad sintética" [disabled]'
+                            - 'option "retention7-38: actividad sintética" [disabled]'
+                            - 'option "retention30-38: actividad sintética" [disabled]'
+                            - 'option "study-39: actividad sintética" [disabled]'
+                            - 'option "choice-39: actividad sintética" [disabled]'
+                            - 'option "short-39: actividad sintética" [disabled]'
+                            - 'option "apply-39: actividad sintética" [disabled]'
+                            - 'option "match-39: actividad sintética" [disabled]'
+                            - 'option "sequence-39: actividad sintética" [disabled]'
+                            - 'option "final-39: actividad sintética" [disabled]'
+                            - 'option "retention7-39: actividad sintética" [disabled]'
+                            - 'option "retention30-39: actividad sintética" [disabled]'
+                            - 'option "study-40: actividad sintética" [disabled]'
+                            - 'option "choice-40: actividad sintética" [disabled]'
+                            - 'option "short-40: actividad sintética" [disabled]'
+                            - 'option "apply-40: actividad sintética" [disabled]'
+                            - 'option "match-40: actividad sintética" [disabled]'
+                            - 'option "sequence-40: actividad sintética" [disabled]'
+                            - 'option "final-40: actividad sintética" [disabled]'
+                            - 'option "retention7-40: actividad sintética" [disabled]'
+                            - 'option "retention30-40: actividad sintética" [disabled]'
+                            - 'option "study-41: actividad sintética" [disabled]'
+                            - 'option "choice-41: actividad sintética" [disabled]'
+                            - 'option "short-41: actividad sintética" [disabled]'
+                            - 'option "apply-41: actividad sintética" [disabled]'
+                            - 'option "match-41: actividad sintética" [disabled]'
+                            - 'option "sequence-41: actividad sintética" [disabled]'
+                            - 'option "final-41: actividad sintética" [disabled]'
+                            - 'option "retention7-41: actividad sintética" [disabled]'
+                            - 'option "retention30-41: actividad sintética" [disabled]'
+                            - 'option "study-42: actividad sintética" [disabled]'
+                            - 'option "choice-42: actividad sintética" [disabled]'
+                            - 'option "short-42: actividad sintética" [disabled]'
+                            - 'option "apply-42: actividad sintética" [disabled]'
+                            - 'option "match-42: actividad sintética" [disabled]'
+                            - 'option "sequence-42: actividad sintética" [disabled]'
+                            - 'option "final-42: actividad sintética" [disabled]'
+                            - 'option "retention7-42: actividad sintética" [disabled]'
+                            - 'option "retention30-42: actividad sintética" [disabled]'
+                            - 'option "study-43: actividad sintética" [disabled]'
+                            - 'option "choice-43: actividad sintética" [disabled]'
+                            - 'option "short-43: actividad sintética" [disabled]'
+                            - 'option "apply-43: actividad sintética" [disabled]'
+                            - 'option "match-43: actividad sintética" [disabled]'
+                            - 'option "sequence-43: actividad sintética" [disabled]'
+                            - 'option "final-43: actividad sintética" [disabled]'
+                            - 'option "retention7-43: actividad sintética" [disabled]'
+                            - 'option "retention30-43: actividad sintética" [disabled]'
+                            - 'option "study-44: actividad sintética" [disabled]'
+                            - 'option "choice-44: actividad sintética" [disabled]'
+                            - 'option "short-44: actividad sintética" [disabled]'
+                            - 'option "apply-44: actividad sintética" [disabled]'
+                            - 'option "match-44: actividad sintética" [disabled]'
+                            - 'option "sequence-44: actividad sintética" [disabled]'
+                            - 'option "final-44: actividad sintética" [disabled]'
+                            - 'option "retention7-44: actividad sintética" [disabled]'
+                            - 'option "retention30-44: actividad sintética" [disabled]'
+                            - 'option "study-45: actividad sintética" [disabled]'
+                            - 'option "choice-45: actividad sintética" [disabled]'
+                            - 'option "short-45: actividad sintética" [disabled]'
+                            - 'option "apply-45: actividad sintética" [disabled]'
+                            - 'option "match-45: actividad sintética" [disabled]'
+                            - 'option "sequence-45: actividad sintética" [disabled]'
+                            - 'option "final-45: actividad sintética" [disabled]'
+                            - 'option "retention7-45: actividad sintética" [disabled]'
+                            - 'option "retention30-45: actividad sintética" [disabled]'
+                            - 'option "study-46: actividad sintética" [disabled]'
+                            - 'option "choice-46: actividad sintética" [disabled]'
+                            - 'option "short-46: actividad sintética" [disabled]'
+                            - 'option "apply-46: actividad sintética" [disabled]'
+                            - 'option "match-46: actividad sintética" [disabled]'
+                            - 'option "sequence-46: actividad sintética" [disabled]'
+                            - 'option "final-46: actividad sintética" [disabled]'
+                            - 'option "retention7-46: actividad sintética" [disabled]'
+                            - 'option "retention30-46: actividad sintética" [disabled]'
+                            - 'option "study-47: actividad sintética" [disabled]'
+                            - 'option "choice-47: actividad sintética" [disabled]'
+                            - 'option "short-47: actividad sintética" [disabled]'
+                            - 'option "apply-47: actividad sintética" [disabled]'
+                            - 'option "match-47: actividad sintética" [disabled]'
+                            - 'option "sequence-47: actividad sintética" [disabled]'
+                            - 'option "final-47: actividad sintética" [disabled]'
+                            - 'option "retention7-47: actividad sintética" [disabled]'
+                            - 'option "retention30-47: actividad sintética" [disabled]'
+                            - 'option "study-48: actividad sintética" [disabled]'
+                            - 'option "choice-48: actividad sintética" [disabled]'
+                            - 'option "short-48: actividad sintética" [disabled]'
+                            - 'option "apply-48: actividad sintética" [disabled]'
+                            - 'option "match-48: actividad sintética" [disabled]'
+                            - 'option "sequence-48: actividad sintética" [disabled]'
+                            - 'option "final-48: actividad sintética" [disabled]'
+                            - 'option "retention7-48: actividad sintética" [disabled]'
+                            - 'option "retention30-48: actividad sintética" [disabled]'
+                            - 'option "study-49: actividad sintética" [disabled]'
+                            - 'option "choice-49: actividad sintética" [disabled]'
+                            - 'option "short-49: actividad sintética" [disabled]'
+                            - 'option "apply-49: actividad sintética" [disabled]'
+                            - 'option "match-49: actividad sintética" [disabled]'
+                            - 'option "sequence-49: actividad sintética" [disabled]'
+                            - 'option "final-49: actividad sintética" [disabled]'
+                            - 'option "retention7-49: actividad sintética" [disabled]'
+                            - 'option "retention30-49: actividad sintética" [disabled]'
+                            - 'option "study-50: actividad sintética" [disabled]'
+                            - 'option "choice-50: actividad sintética" [disabled]'
+                            - 'option "short-50: actividad sintética" [disabled]'
+                            - 'option "apply-50: actividad sintética" [disabled]'
+                            - 'option "match-50: actividad sintética" [disabled]'
+                            - 'option "sequence-50: actividad sintética" [disabled]'
+                            - 'option "final-50: actividad sintética" [disabled]'
+                            - 'option "retention7-50: actividad sintética" [disabled]'
+                            - 'option "retention30-50: actividad sintética" [disabled]'
+                            - 'option "study-51: actividad sintética" [disabled]'
+                            - 'option "choice-51: actividad sintética" [disabled]'
+                            - 'option "short-51: actividad sintética" [disabled]'
+                            - 'option "apply-51: actividad sintética" [disabled]'
+                            - 'option "match-51: actividad sintética" [disabled]'
+                            - 'option "sequence-51: actividad sintética" [disabled]'
+                            - 'option "final-51: actividad sintética" [disabled]'
+                            - 'option "retention7-51: actividad sintética" [disabled]'
+                            - 'option "retention30-51: actividad sintética" [disabled]'
+                            - 'option "study-52: actividad sintética" [disabled]'
+                            - 'option "choice-52: actividad sintética" [disabled]'
+                            - 'option "short-52: actividad sintética" [disabled]'
+                            - 'option "apply-52: actividad sintética" [disabled]'
+                            - 'option "match-52: actividad sintética" [disabled]'
+                            - 'option "sequence-52: actividad sintética" [disabled]'
+                            - 'option "final-52: actividad sintética" [disabled]'
+                            - 'option "retention7-52: actividad sintética" [disabled]'
+                            - 'option "retention30-52: actividad sintética" [disabled]'
+                            - 'option "study-53: actividad sintética" [disabled]'
+                            - 'option "choice-53: actividad sintética" [disabled]'
+                            - 'option "short-53: actividad sintética" [disabled]'
+                            - 'option "apply-53: actividad sintética" [disabled]'
+                            - 'option "match-53: actividad sintética" [disabled]'
+                            - 'option "sequence-53: actividad sintética" [disabled]'
+                            - 'option "final-53: actividad sintética" [disabled]'
+                            - 'option "retention7-53: actividad sintética" [disabled]'
+                            - 'option "retention30-53: actividad sintética" [disabled]'
+                            - 'option "study-54: actividad sintética" [disabled]'
+                            - 'option "choice-54: actividad sintética" [disabled]'
+                            - 'option "short-54: actividad sintética" [disabled]'
+                            - 'option "apply-54: actividad sintética" [disabled]'
+                            - 'option "match-54: actividad sintética" [disabled]'
+                            - 'option "sequence-54: actividad sintética" [disabled]'
+                            - 'option "final-54: actividad sintética" [disabled]'
+                            - 'option "retention7-54: actividad sintética" [disabled]'
+                            - 'option "retention30-54: actividad sintética" [disabled]'
+                            - 'option "study-55: actividad sintética" [disabled]'
+                            - 'option "choice-55: actividad sintética" [disabled]'
+                            - 'option "short-55: actividad sintética" [disabled]'
+                            - 'option "apply-55: actividad sintética" [disabled]'
+                            - 'option "match-55: actividad sintética" [disabled]'
+                            - 'option "sequence-55: actividad sintética" [disabled]'
+                            - 'option "final-55: actividad sintética" [disabled]'
+                            - 'option "retention7-55: actividad sintética" [disabled]'
+                            - 'option "retention30-55: actividad sintética" [disabled]'
+                            - 'option "study-56: actividad sintética" [disabled]'
+                            - 'option "choice-56: actividad sintética" [disabled]'
+                            - 'option "short-56: actividad sintética" [disabled]'
+                            - 'option "apply-56: actividad sintética" [disabled]'
+                            - 'option "match-56: actividad sintética" [disabled]'
+                            - 'option "sequence-56: actividad sintética" [disabled]'
+                            - 'option "final-56: actividad sintética" [disabled]'
+                            - 'option "retention7-56: actividad sintética" [disabled]'
+                            - 'option "retention30-56: actividad sintética" [disabled]'
+                            - 'option "study-57: actividad sintética" [disabled]'
+                            - 'option "choice-57: actividad sintética" [disabled]'
+                            - 'option "short-57: actividad sintética" [disabled]'
+                            - 'option "apply-57: actividad sintética" [disabled]'
+                            - 'option "match-57: actividad sintética" [disabled]'
+                            - 'option "sequence-57: actividad sintética" [disabled]'
+                            - 'option "final-57: actividad sintética" [disabled]'
+                            - 'option "retention7-57: actividad sintética" [disabled]'
+                            - 'option "retention30-57: actividad sintética" [disabled]'
+                            - 'option "study-58: actividad sintética" [disabled]'
+                            - 'option "choice-58: actividad sintética" [disabled]'
+                            - 'option "short-58: actividad sintética" [disabled]'
+                            - 'option "apply-58: actividad sintética" [disabled]'
+                            - 'option "match-58: actividad sintética" [disabled]'
+                            - 'option "sequence-58: actividad sintética" [disabled]'
+                            - 'option "final-58: actividad sintética" [disabled]'
+                            - 'option "retention7-58: actividad sintética" [disabled]'
+                            - 'option "retention30-58: actividad sintética" [disabled]'
+                            - 'option "study-59: actividad sintética" [disabled]'
+                            - 'option "choice-59: actividad sintética" [disabled]'
+                            - 'option "short-59: actividad sintética" [disabled]'
+                            - 'option "apply-59: actividad sintética" [disabled]'
+                            - 'option "match-59: actividad sintética" [disabled]'
+                            - 'option "sequence-59: actividad sintética" [disabled]'
+                            - 'option "final-59: actividad sintética" [disabled]'
+                            - 'option "retention7-59: actividad sintética" [disabled]'
+                            - 'option "retention30-59: actividad sintética" [disabled]'
+                            - 'option "study-60: actividad sintética" [disabled]'
+                            - 'option "choice-60: actividad sintética" [disabled]'
+                            - 'option "short-60: actividad sintética" [disabled]'
+                            - 'option "apply-60: actividad sintética" [disabled]'
+                            - 'option "match-60: actividad sintética" [disabled]'
+                            - 'option "sequence-60: actividad sintética" [disabled]'
+                            - 'option "final-60: actividad sintética" [disabled]'
+                            - 'option "retention7-60: actividad sintética" [disabled]'
+                            - 'option "retention30-60: actividad sintética" [disabled]'
+                            - 'option "study-61: actividad sintética" [disabled]'
+                            - 'option "choice-61: actividad sintética" [disabled]'
+                            - 'option "short-61: actividad sintética" [disabled]'
+                            - 'option "apply-61: actividad sintética" [disabled]'
+                            - 'option "match-61: actividad sintética" [disabled]'
+                            - 'option "sequence-61: actividad sintética" [disabled]'
+                            - 'option "final-61: actividad sintética" [disabled]'
+                            - 'option "retention7-61: actividad sintética" [disabled]'
+                            - 'option "retention30-61: actividad sintética" [disabled]'
+                            - 'option "study-62: actividad sintética" [disabled]'
+                            - 'option "choice-62: actividad sintética" [disabled]'
+                            - 'option "short-62: actividad sintética" [disabled]'
+                            - 'option "apply-62: actividad sintética" [disabled]'
+                            - 'option "match-62: actividad sintética" [disabled]'
+                            - 'option "sequence-62: actividad sintética" [disabled]'
+                            - 'option "final-62: actividad sintética" [disabled]'
+                            - 'option "retention7-62: actividad sintética" [disabled]'
+                            - 'option "retention30-62: actividad sintética" [disabled]'
+                            - 'option "study-63: actividad sintética" [disabled]'
+                            - 'option "choice-63: actividad sintética" [disabled]'
+                            - 'option "short-63: actividad sintética" [disabled]'
+                            - 'option "apply-63: actividad sintética" [disabled]'
+                            - 'option "match-63: actividad sintética" [disabled]'
+                            - 'option "sequence-63: actividad sintética" [disabled]'
+                            - 'option "final-63: actividad sintética" [disabled]'
+                            - 'option "retention7-63: actividad sintética" [disabled]'
+                            - 'option "retention30-63: actividad sintética" [disabled]'
+                            - 'option "study-64: actividad sintética" [disabled]'
+                            - 'option "choice-64: actividad sintética" [disabled]'
+                            - 'option "short-64: actividad sintética" [disabled]'
+                            - 'option "apply-64: actividad sintética" [disabled]'
+                            - 'option "match-64: actividad sintética" [disabled]'
+                            - 'option "sequence-64: actividad sintética" [disabled]'
+                            - 'option "final-64: actividad sintética" [disabled]'
+                            - 'option "retention7-64: actividad sintética" [disabled]'
+                            - 'option "retention30-64: actividad sintética" [disabled]'
+                            - 'option "study-65: actividad sintética" [disabled]'
+                            - 'option "choice-65: actividad sintética" [disabled]'
+                            - 'option "short-65: actividad sintética" [disabled]'
+                            - 'option "apply-65: actividad sintética" [disabled]'
+                            - 'option "match-65: actividad sintética" [disabled]'
+                            - 'option "sequence-65: actividad sintética" [disabled]'
+                            - 'option "final-65: actividad sintética" [disabled]'
+                            - 'option "retention7-65: actividad sintética" [disabled]'
+                            - 'option "retention30-65: actividad sintética" [disabled]'
+                            - 'option "study-66: actividad sintética" [disabled]'
+                            - 'option "choice-66: actividad sintética" [disabled]'
+                            - 'option "short-66: actividad sintética" [disabled]'
+                            - 'option "apply-66: actividad sintética" [disabled]'
+                            - 'option "match-66: actividad sintética" [disabled]'
+                            - 'option "sequence-66: actividad sintética" [disabled]'
+                            - 'option "final-66: actividad sintética" [disabled]'
+                            - 'option "retention7-66: actividad sintética" [disabled]'
+                            - 'option "retention30-66: actividad sintética" [disabled]'
+                            - 'option "study-67: actividad sintética" [disabled]'
+                            - 'option "choice-67: actividad sintética" [disabled]'
+                            - 'option "short-67: actividad sintética" [disabled]'
+                            - 'option "apply-67: actividad sintética" [disabled]'
+                            - 'option "match-67: actividad sintética" [disabled]'
+                            - 'option "sequence-67: actividad sintética" [disabled]'
+                            - 'option "final-67: actividad sintética" [disabled]'
+                            - 'option "retention7-67: actividad sintética" [disabled]'
+                            - 'option "retention30-67: actividad sintética" [disabled]'
+                            - 'option "study-68: actividad sintética" [disabled]'
+                            - 'option "choice-68: actividad sintética" [disabled]'
+                            - 'option "short-68: actividad sintética" [disabled]'
+                            - 'option "apply-68: actividad sintética" [disabled]'
+                            - 'option "match-68: actividad sintética" [disabled]'
+                            - 'option "sequence-68: actividad sintética" [disabled]'
+                            - 'option "final-68: actividad sintética" [disabled]'
+                            - 'option "retention7-68: actividad sintética" [disabled]'
+                            - 'option "retention30-68: actividad sintética" [disabled]'
+                            - 'option "study-69: actividad sintética" [disabled]'
+                            - 'option "choice-69: actividad sintética" [disabled]'
+                            - 'option "short-69: actividad sintética" [disabled]'
+                            - 'option "apply-69: actividad sintética" [disabled]'
+                            - 'option "match-69: actividad sintética" [disabled]'
+                            - 'option "sequence-69: actividad sintética" [disabled]'
+                            - 'option "final-69: actividad sintética" [disabled]'
+                            - 'option "retention7-69: actividad sintética" [disabled]'
+                            - 'option "retention30-69: actividad sintética" [disabled]'
+                            - 'option "study-70: actividad sintética" [disabled]'
+                            - 'option "choice-70: actividad sintética" [disabled]'
+                            - 'option "short-70: actividad sintética" [disabled]'
+                            - 'option "apply-70: actividad sintética" [disabled]'
+                            - 'option "match-70: actividad sintética" [disabled]'
+                            - 'option "sequence-70: actividad sintética" [disabled]'
+                            - 'option "final-70: actividad sintética" [disabled]'
+                            - 'option "retention7-70: actividad sintética" [disabled]'
+                            - 'option "retention30-70: actividad sintética" [disabled]'
+                            - 'option "study-71: actividad sintética" [disabled]'
+                            - 'option "choice-71: actividad sintética" [disabled]'
+                            - 'option "short-71: actividad sintética" [disabled]'
+                            - 'option "apply-71: actividad sintética" [disabled]'
+                            - 'option "match-71: actividad sintética" [disabled]'
+                            - 'option "sequence-71: actividad sintética" [disabled]'
+                            - 'option "final-71: actividad sintética" [disabled]'
+                            - 'option "retention7-71: actividad sintética" [disabled]'
+                            - 'option "retention30-71: actividad sintética" [disabled]'
+                            - 'option "study-72: actividad sintética" [disabled]'
+                            - 'option "choice-72: actividad sintética" [disabled]'
+                            - 'option "short-72: actividad sintética" [disabled]'
+                            - 'option "apply-72: actividad sintética" [disabled]'
+                            - 'option "match-72: actividad sintética" [disabled]'
+                            - 'option "sequence-72: actividad sintética" [disabled]'
+                            - 'option "final-72: actividad sintética" [disabled]'
+                            - 'option "retention7-72: actividad sintética" [disabled]'
+                            - 'option "retention30-72: actividad sintética" [disabled]'
+                            - 'option "study-73: actividad sintética" [disabled]'
+                            - 'option "choice-73: actividad sintética" [disabled]'
+                            - 'option "short-73: actividad sintética" [disabled]'
+                            - 'option "apply-73: actividad sintética" [disabled]'
+                            - 'option "match-73: actividad sintética" [disabled]'
+                            - 'option "sequence-73: actividad sintética" [disabled]'
+                            - 'option "final-73: actividad sintética" [disabled]'
+                            - 'option "retention7-73: actividad sintética" [disabled]'
+                            - 'option "retention30-73: actividad sintética" [disabled]'
+                            - 'option "study-74: actividad sintética" [disabled]'
+                            - 'option "choice-74: actividad sintética" [disabled]'
+                            - 'option "short-74: actividad sintética" [disabled]'
+                            - 'option "apply-74: actividad sintética" [disabled]'
+                            - 'option "match-74: actividad sintética" [disabled]'
+                            - 'option "sequence-74: actividad sintética" [disabled]'
+                            - 'option "final-74: actividad sintética" [disabled]'
+                            - 'option "retention7-74: actividad sintética" [disabled]'
+                            - 'option "retention30-74: actividad sintética" [disabled]'
+                            - 'option "study-75: actividad sintética" [disabled]'
+                            - 'option "choice-75: actividad sintética" [disabled]'
+                            - 'option "short-75: actividad sintética" [disabled]'
+                            - 'option "apply-75: actividad sintética" [disabled]'
+                            - 'option "match-75: actividad sintética" [disabled]'
+                            - 'option "sequence-75: actividad sintética" [disabled]'
+                            - 'option "final-75: actividad sintética" [disabled]'
+                            - 'option "retention7-75: actividad sintética" [disabled]'
+                            - 'option "retention30-75: actividad sintética" [disabled]'
+                            - 'option "study-76: actividad sintética" [disabled]'
+                            - 'option "choice-76: actividad sintética" [disabled]'
+                            - 'option "short-76: actividad sintética" [disabled]'
+                            - 'option "apply-76: actividad sintética" [disabled]'
+                            - 'option "match-76: actividad sintética" [disabled]'
+                            - 'option "sequence-76: actividad sintética" [disabled]'
+                            - 'option "final-76: actividad sintética" [disabled]'
+                            - 'option "retention7-76: actividad sintética" [disabled]'
+                            - 'option "retention30-76: actividad sintética" [disabled]'
+                            - 'option "study-77: actividad sintética" [disabled]'
+                            - 'option "choice-77: actividad sintética" [disabled]'
+                            - 'option "short-77: actividad sintética" [disabled]'
+                            - 'option "apply-77: actividad sintética" [disabled]'
+                            - 'option "match-77: actividad sintética" [disabled]'
+                            - 'option "sequence-77: actividad sintética" [disabled]'
+                            - 'option "final-77: actividad sintética" [disabled]'
+                            - 'option "retention7-77: actividad sintética" [disabled]'
+                            - 'option "retention30-77: actividad sintética" [disabled]'
+                            - 'option "study-78: actividad sintética" [disabled]'
+                            - 'option "choice-78: actividad sintética" [disabled]'
+                            - 'option "short-78: actividad sintética" [disabled]'
+                            - 'option "apply-78: actividad sintética" [disabled]'
+                            - 'option "match-78: actividad sintética" [disabled]'
+                            - 'option "sequence-78: actividad sintética" [disabled]'
+                            - 'option "final-78: actividad sintética" [disabled]'
+                            - 'option "retention7-78: actividad sintética" [disabled]'
+                            - 'option "retention30-78: actividad sintética" [disabled]'
+                            - 'option "study-79: actividad sintética" [disabled]'
+                            - 'option "choice-79: actividad sintética" [disabled]'
+                            - 'option "short-79: actividad sintética" [disabled]'
+                            - 'option "apply-79: actividad sintética" [disabled]'
+                            - 'option "match-79: actividad sintética" [disabled]'
+                            - 'option "sequence-79: actividad sintética" [disabled]'
+                            - 'option "final-79: actividad sintética" [disabled]'
+                            - 'option "retention7-79: actividad sintética" [disabled]'
+                            - 'option "retention30-79: actividad sintética" [disabled]'
+                            - 'option "study-80: actividad sintética" [disabled]'
+                            - 'option "choice-80: actividad sintética" [disabled]'
+                            - 'option "short-80: actividad sintética" [disabled]'
+                            - 'option "apply-80: actividad sintética" [disabled]'
+                            - 'option "match-80: actividad sintética" [disabled]'
+                            - 'option "sequence-80: actividad sintética" [disabled]'
+                            - 'option "final-80: actividad sintética" [disabled]'
+                            - 'option "retention7-80: actividad sintética" [disabled]'
+                            - 'option "retention30-80: actividad sintética" [disabled]'
+                            - 'option "study-81: actividad sintética" [disabled]'
+                            - 'option "choice-81: actividad sintética" [disabled]'
+                            - 'option "short-81: actividad sintética" [disabled]'
+                            - 'option "apply-81: actividad sintética" [disabled]'
+                            - 'option "match-81: actividad sintética" [disabled]'
+                            - 'option "sequence-81: actividad sintética" [disabled]'
+                            - 'option "final-81: actividad sintética" [disabled]'
+                            - 'option "retention7-81: actividad sintética" [disabled]'
+                            - 'option "retention30-81: actividad sintética" [disabled]'
+                            - 'option "study-82: actividad sintética" [disabled]'
+                            - 'option "choice-82: actividad sintética" [disabled]'
+                            - 'option "short-82: actividad sintética" [disabled]'
+                            - 'option "apply-82: actividad sintética" [disabled]'
+                            - 'option "match-82: actividad sintética" [disabled]'
+                            - 'option "sequence-82: actividad sintética" [disabled]'
+                            - 'option "final-82: actividad sintética" [disabled]'
+                            - 'option "retention7-82: actividad sintética" [disabled]'
+                            - 'option "retention30-82: actividad sintética" [disabled]'
+                            - 'option "study-83: actividad sintética" [disabled]'
+                            - 'option "choice-83: actividad sintética" [disabled]'
+                            - 'option "short-83: actividad sintética" [disabled]'
+                            - 'option "apply-83: actividad sintética" [disabled]'
+                            - 'option "match-83: actividad sintética" [disabled]'
+                            - 'option "sequence-83: actividad sintética" [disabled]'
+                            - 'option "final-83: actividad sintética" [disabled]'
+                            - 'option "retention7-83: actividad sintética" [disabled]'
+                            - 'option "retention30-83: actividad sintética" [disabled]'
+                            - 'option "study-84: actividad sintética" [disabled]'
+                            - 'option "choice-84: actividad sintética" [disabled]'
+                            - 'option "short-84: actividad sintética" [disabled]'
+                            - 'option "apply-84: actividad sintética" [disabled]'
+                            - 'option "match-84: actividad sintética" [disabled]'
+                            - 'option "sequence-84: actividad sintética" [disabled]'
+                            - 'option "final-84: actividad sintética" [disabled]'
+                            - 'option "retention7-84: actividad sintética" [disabled]'
+                            - 'option "retention30-84: actividad sintética" [disabled]'
+                            - 'option "study-85: actividad sintética" [disabled]'
+                            - 'option "choice-85: actividad sintética" [disabled]'
+                            - 'option "short-85: actividad sintética" [disabled]'
+                            - 'option "apply-85: actividad sintética" [disabled]'
+                            - 'option "match-85: actividad sintética" [disabled]'
+                            - 'option "sequence-85: actividad sintética" [disabled]'
+                            - 'option "final-85: actividad sintética" [disabled]'
+                            - 'option "retention7-85: actividad sintética" [disabled]'
+                            - 'option "retention30-85: actividad sintética" [disabled]'
+                            - 'option "study-86: actividad sintética" [disabled]'
+                            - 'option "choice-86: actividad sintética" [disabled]'
+                            - 'option "short-86: actividad sintética" [disabled]'
+                            - 'option "apply-86: actividad sintética" [disabled]'
+                            - 'option "match-86: actividad sintética" [disabled]'
+                            - 'option "sequence-86: actividad sintética" [disabled]'
+                            - 'option "final-86: actividad sintética" [disabled]'
+                            - 'option "retention7-86: actividad sintética" [disabled]'
+                            - 'option "retention30-86: actividad sintética" [disabled]'
+                            - 'option "study-87: actividad sintética" [disabled]'
+                            - 'option "choice-87: actividad sintética" [disabled]'
+                            - 'option "short-87: actividad sintética" [disabled]'
+                            - 'option "apply-87: actividad sintética" [disabled]'
+                            - 'option "match-87: actividad sintética" [disabled]'
+                            - 'option "sequence-87: actividad sintética" [disabled]'
+                            - 'option "final-87: actividad sintética" [disabled]'
+                            - 'option "retention7-87: actividad sintética" [disabled]'
+                            - 'option "retention30-87: actividad sintética" [disabled]'
+                            - 'option "study-88: actividad sintética" [disabled]'
+                            - 'option "choice-88: actividad sintética" [disabled]'
+                            - 'option "short-88: actividad sintética" [disabled]'
+                            - 'option "apply-88: actividad sintética" [disabled]'
+                            - 'option "match-88: actividad sintética" [disabled]'
+                            - 'option "sequence-88: actividad sintética" [disabled]'
+                            - 'option "final-88: actividad sintética" [disabled]'
+                            - 'option "retention7-88: actividad sintética" [disabled]'
+                            - 'option "retention30-88: actividad sintética" [disabled]'
+                            - 'option "study-89: actividad sintética" [disabled]'
+                            - 'option "choice-89: actividad sintética" [disabled]'
+                            - 'option "short-89: actividad sintética" [disabled]'
+                            - 'option "apply-89: actividad sintética" [disabled]'
+                            - 'option "match-89: actividad sintética" [disabled]'
+                            - 'option "sequence-89: actividad sintética" [disabled]'
+                            - 'option "final-89: actividad sintética" [disabled]'
+                            - 'option "retention7-89: actividad sintética" [disabled]'
+                            - 'option "retention30-89: actividad sintética" [disabled]'
+                            - 'option "study-90: actividad sintética" [disabled]'
+                            - 'option "choice-90: actividad sintética" [disabled]'
+                            - 'option "short-90: actividad sintética" [disabled]'
+                            - 'option "apply-90: actividad sintética" [disabled]'
+                            - 'option "match-90: actividad sintética" [disabled]'
+                            - 'option "sequence-90: actividad sintética" [disabled]'
+                            - 'option "final-90: actividad sintética" [disabled]'
+                            - 'option "retention7-90: actividad sintética" [disabled]'
+                            - 'option "retention30-90: actividad sintética" [disabled]'
+                            - 'option "study-91: actividad sintética" [disabled]'
+                            - 'option "choice-91: actividad sintética" [disabled]'
+                            - 'option "short-91: actividad sintética" [disabled]'
+                            - 'option "apply-91: actividad sintética" [disabled]'
+                            - 'option "match-91: actividad sintética" [disabled]'
+                            - 'option "sequence-91: actividad sintética" [disabled]'
+                            - 'option "final-91: actividad sintética" [disabled]'
+                            - 'option "retention7-91: actividad sintética" [disabled]'
+                            - 'option "retention30-91: actividad sintética" [disabled]'
+                            - 'option "study-92: actividad sintética" [disabled]'
+                            - 'option "choice-92: actividad sintética" [disabled]'
+                            - 'option "short-92: actividad sintética" [disabled]'
+                            - 'option "apply-92: actividad sintética" [disabled]'
+                            - 'option "match-92: actividad sintética" [disabled]'
+                            - 'option "sequence-92: actividad sintética" [disabled]'
+                            - 'option "final-92: actividad sintética" [disabled]'
+                            - 'option "retention7-92: actividad sintética" [disabled]'
+                            - 'option "retention30-92: actividad sintética" [disabled]'
+                            - 'option "study-93: actividad sintética" [disabled]'
+                            - 'option "choice-93: actividad sintética" [disabled]'
+                            - 'option "short-93: actividad sintética" [disabled]'
+                            - 'option "apply-93: actividad sintética" [disabled]'
+                            - 'option "match-93: actividad sintética" [disabled]'
+                            - 'option "sequence-93: actividad sintética" [disabled]'
+                            - 'option "final-93: actividad sintética" [disabled]'
+                            - 'option "retention7-93: actividad sintética" [disabled]'
+                            - 'option "retention30-93: actividad sintética" [disabled]'
+                            - 'option "study-94: actividad sintética" [disabled]'
+                            - 'option "choice-94: actividad sintética" [disabled]'
+                            - 'option "short-94: actividad sintética" [disabled]'
+                            - 'option "apply-94: actividad sintética" [disabled]'
+                            - 'option "match-94: actividad sintética" [disabled]'
+                            - 'option "sequence-94: actividad sintética" [disabled]'
+                            - 'option "final-94: actividad sintética" [disabled]'
+                            - 'option "retention7-94: actividad sintética" [disabled]'
+                            - 'option "retention30-94: actividad sintética" [disabled]'
+                            - 'option "study-95: actividad sintética" [disabled]'
+                            - 'option "choice-95: actividad sintética" [disabled]'
+                            - 'option "short-95: actividad sintética" [disabled]'
+                            - 'option "apply-95: actividad sintética" [disabled]'
+                            - 'option "match-95: actividad sintética" [disabled]'
+                            - 'option "sequence-95: actividad sintética" [disabled]'
+                            - 'option "final-95: actividad sintética" [disabled]'
+                            - 'option "retention7-95: actividad sintética" [disabled]'
+                            - 'option "retention30-95: actividad sintética" [disabled]'
+                            - 'option "study-96: actividad sintética" [disabled]'
+                            - 'option "choice-96: actividad sintética" [disabled]'
+                            - 'option "short-96: actividad sintética" [disabled]'
+                            - 'option "apply-96: actividad sintética" [disabled]'
+                            - 'option "match-96: actividad sintética" [disabled]'
+                            - 'option "sequence-96: actividad sintética" [disabled]'
+                            - 'option "final-96: actividad sintética" [disabled]'
+                            - 'option "retention7-96: actividad sintética" [disabled]'
+                            - 'option "retention30-96: actividad sintética" [disabled]'
+                            - 'option "study-97: actividad sintética" [disabled]'
+                            - 'option "choice-97: actividad sintética" [disabled]'
+                            - 'option "short-97: actividad sintética" [disabled]'
+                            - 'option "apply-97: actividad sintética" [disabled]'
+                            - 'option "match-97: actividad sintética" [disabled]'
+                            - 'option "sequence-97: actividad sintética" [disabled]'
+                            - 'option "final-97: actividad sintética" [disabled]'
+                            - 'option "retention7-97: actividad sintética" [disabled]'
+                            - 'option "retention30-97: actividad sintética" [disabled]'
+                            - 'option "study-98: actividad sintética" [disabled]'
+                            - 'option "choice-98: actividad sintética" [disabled]'
+                            - 'option "short-98: actividad sintética" [disabled]'
+                            - 'option "apply-98: actividad sintética" [disabled]'
+                            - 'option "match-98: actividad sintética" [disabled]'
+                            - 'option "sequence-98: actividad sintética" [disabled]'
+                            - 'option "final-98: actividad sintética" [disabled]'
+                            - 'option "retention7-98: actividad sintética" [disabled]'
+                            - 'option "retention30-98: actividad sintética" [disabled]'
+                            - 'option "study-99: actividad sintética" [disabled]'
+                            - 'option "choice-99: actividad sintética" [disabled]'
+                            - 'option "short-99: actividad sintética" [disabled]'
+                            - 'option "apply-99: actividad sintética" [disabled]'
+                            - 'option "match-99: actividad sintética" [disabled]'
+                            - 'option "sequence-99: actividad sintética" [disabled]'
+                            - 'option "final-99: actividad sintética" [disabled]'
+                            - 'option "retention7-99: actividad sintética" [disabled]'
+                            - 'option "retention30-99: actividad sintética" [disabled]'
+                            - 'option "study-100: actividad sintética" [disabled]'
+                            - 'option "choice-100: actividad sintética" [disabled]'
+                            - 'option "short-100: actividad sintética" [disabled]'
+                            - 'option "apply-100: actividad sintética" [disabled]'
+                            - 'option "match-100: actividad sintética" [disabled]'
+                            - 'option "sequence-100: actividad sintética" [disabled]'
+                            - 'option "final-100: actividad sintética" [disabled]'
+                            - 'option "retention7-100: actividad sintética" [disabled]'
+                            - 'option "retention30-100: actividad sintética" [disabled]'
+                            - 'option "study-101: actividad sintética" [disabled]'
+                            - 'option "choice-101: actividad sintética" [disabled]'
+                            - 'option "short-101: actividad sintética" [disabled]'
+                            - 'option "apply-101: actividad sintética" [disabled]'
+                            - 'option "match-101: actividad sintética" [disabled]'
+                            - 'option "sequence-101: actividad sintética" [disabled]'
+                            - 'option "final-101: actividad sintética" [disabled]'
+                            - 'option "retention7-101: actividad sintética" [disabled]'
+                            - 'option "retention30-101: actividad sintética" [disabled]'
+                            - 'option "study-102: actividad sintética" [disabled]'
+                            - 'option "choice-102: actividad sintética" [disabled]'
+                            - 'option "short-102: actividad sintética" [disabled]'
+                            - 'option "apply-102: actividad sintética" [disabled]'
+                            - 'option "match-102: actividad sintética" [disabled]'
+                            - 'option "sequence-102: actividad sintética" [disabled]'
+                            - 'option "final-102: actividad sintética" [disabled]'
+                            - 'option "retention7-102: actividad sintética" [disabled]'
+                            - 'option "retention30-102: actividad sintética" [disabled]'
+                            - 'option "study-103: actividad sintética" [disabled]'
+                            - 'option "choice-103: actividad sintética" [disabled]'
+                            - 'option "short-103: actividad sintética" [disabled]'
+                            - 'option "apply-103: actividad sintética" [disabled]'
+                            - 'option "match-103: actividad sintética" [disabled]'
+                            - 'option "sequence-103: actividad sintética" [disabled]'
+                            - 'option "final-103: actividad sintética" [disabled]'
+                            - 'option "retention7-103: actividad sintética" [disabled]'
+                            - 'option "retention30-103: actividad sintética" [disabled]'
+                            - 'option "study-104: actividad sintética" [disabled]'
+                            - 'option "choice-104: actividad sintética" [disabled]'
+                            - 'option "short-104: actividad sintética" [disabled]'
+                            - 'option "apply-104: actividad sintética" [disabled]'
+                            - 'option "match-104: actividad sintética" [disabled]'
+                            - 'option "sequence-104: actividad sintética" [disabled]'
+                            - 'option "final-104: actividad sintética" [disabled]'
+                            - 'option "retention7-104: actividad sintética" [disabled]'
+                            - 'option "retention30-104: actividad sintética" [disabled]'
+                            - 'option "study-105: actividad sintética" [disabled]'
+                            - 'option "choice-105: actividad sintética" [disabled]'
+                            - 'option "short-105: actividad sintética" [disabled]'
+                            - 'option "apply-105: actividad sintética" [disabled]'
+                            - 'option "match-105: actividad sintética" [disabled]'
+                            - 'option "sequence-105: actividad sintética" [disabled]'
+                            - 'option "final-105: actividad sintética" [disabled]'
+                            - 'option "retention7-105: actividad sintética" [disabled]'
+                            - 'option "retention30-105: actividad sintética" [disabled]'
+                            - 'option "study-106: actividad sintética" [disabled]'
+                            - 'option "choice-106: actividad sintética" [disabled]'
+                            - 'option "short-106: actividad sintética" [disabled]'
+                            - 'option "apply-106: actividad sintética" [disabled]'
+                            - 'option "match-106: actividad sintética" [disabled]'
+                            - 'option "sequence-106: actividad sintética" [disabled]'
+                            - 'option "final-106: actividad sintética" [disabled]'
+                            - 'option "retention7-106: actividad sintética" [disabled]'
+                            - 'option "retention30-106: actividad sintética" [disabled]'
+                            - 'option "study-107: actividad sintética" [disabled]'
+                            - 'option "choice-107: actividad sintética" [disabled]'
+                            - 'option "short-107: actividad sintética" [disabled]'
+                            - 'option "apply-107: actividad sintética" [disabled]'
+                            - 'option "match-107: actividad sintética" [disabled]'
+                            - 'option "sequence-107: actividad sintética" [disabled]'
+                            - 'option "final-107: actividad sintética" [disabled]'
+                            - 'option "retention7-107: actividad sintética" [disabled]'
+                            - 'option "retention30-107: actividad sintética" [disabled]'
+                            - 'option "study-108: actividad sintética" [disabled]'
+                            - 'option "choice-108: actividad sintética" [disabled]'
+                            - 'option "short-108: actividad sintética" [disabled]'
+                            - 'option "apply-108: actividad sintética" [disabled]'
+                            - 'option "match-108: actividad sintética" [disabled]'
+                            - 'option "sequence-108: actividad sintética" [disabled]'
+                            - 'option "final-108: actividad sintética" [disabled]'
+                            - 'option "retention7-108: actividad sintética" [disabled]'
+                            - 'option "retention30-108: actividad sintética" [disabled]'
+                            - 'option "study-109: actividad sintética" [disabled]'
+                            - 'option "choice-109: actividad sintética" [disabled]'
+                            - 'option "short-109: actividad sintética" [disabled]'
+                            - 'option "apply-109: actividad sintética" [disabled]'
+                            - 'option "match-109: actividad sintética" [disabled]'
+                            - 'option "sequence-109: actividad sintética" [disabled]'
+                            - 'option "final-109: actividad sintética" [disabled]'
+                            - 'option "retention7-109: actividad sintética" [disabled]'
+                            - 'option "retention30-109: actividad sintética" [disabled]'
+                            - 'option "study-110: actividad sintética" [disabled]'
+                            - 'option "choice-110: actividad sintética" [disabled]'
+                            - 'option "short-110: actividad sintética" [disabled]'
+                            - 'option "apply-110: actividad sintética" [disabled]'
+                            - 'option "match-110: actividad sintética" [disabled]'
+                            - 'option "sequence-110: actividad sintética" [disabled]'
+                            - 'option "final-110: actividad sintética" [disabled]'
+                            - 'option "retention7-110: actividad sintética" [disabled]'
+                            - 'option "retention30-110: actividad sintética" [disabled]'
+                            - 'option "study-111: actividad sintética" [disabled]'
+                            - 'option "choice-111: actividad sintética" [disabled]'
+                            - 'option "short-111: actividad sintética" [disabled]'
+                            - 'option "apply-111: actividad sintética" [disabled]'
+                            - 'option "match-111: actividad sintética" [disabled]'
+                            - 'option "sequence-111: actividad sintética" [disabled]'
+                            - 'option "final-111: actividad sintética" [disabled]'
+                            - 'option "retention7-111: actividad sintética" [disabled]'
+                            - 'option "retention30-111: actividad sintética" [disabled]'
+                            - 'option "study-112: actividad sintética" [disabled]'
+                            - 'option "choice-112: actividad sintética" [disabled]'
+                            - 'option "short-112: actividad sintética" [disabled]'
+                            - 'option "apply-112: actividad sintética" [disabled]'
+                            - 'option "match-112: actividad sintética" [disabled]'
+                            - 'option "sequence-112: actividad sintética" [disabled]'
+                            - 'option "final-112: actividad sintética" [disabled]'
+                            - 'option "retention7-112: actividad sintética" [disabled]'
+                            - 'option "retention30-112: actividad sintética" [disabled]'
+                            - 'option "study-113: actividad sintética" [disabled]'
+                            - 'option "choice-113: actividad sintética" [disabled]'
+                            - 'option "short-113: actividad sintética" [disabled]'
+                            - 'option "apply-113: actividad sintética" [disabled]'
+                            - 'option "match-113: actividad sintética" [disabled]'
+                            - 'option "sequence-113: actividad sintética" [disabled]'
+                            - 'option "final-113: actividad sintética" [disabled]'
+                            - 'option "retention7-113: actividad sintética" [disabled]'
+                            - 'option "retention30-113: actividad sintética" [disabled]'
+                            - 'option "study-114: actividad sintética" [disabled]'
+                            - 'option "choice-114: actividad sintética" [disabled]'
+                            - 'option "short-114: actividad sintética" [disabled]'
+                            - 'option "apply-114: actividad sintética" [disabled]'
+                            - 'option "match-114: actividad sintética" [disabled]'
+                            - 'option "sequence-114: actividad sintética" [disabled]'
+                            - 'option "final-114: actividad sintética" [disabled]'
+                            - 'option "retention7-114: actividad sintética" [disabled]'
+                            - 'option "retention30-114: actividad sintética" [disabled]'
+                            - 'option "study-115: actividad sintética" [disabled]'
+                            - 'option "choice-115: actividad sintética" [disabled]'
+                            - 'option "short-115: actividad sintética" [disabled]'
+                            - 'option "apply-115: actividad sintética" [disabled]'
+                            - 'option "match-115: actividad sintética" [disabled]'
+                            - 'option "sequence-115: actividad sintética" [disabled]'
+                            - 'option "final-115: actividad sintética" [disabled]'
+                            - 'option "retention7-115: actividad sintética" [disabled]'
+                            - 'option "retention30-115: actividad sintética" [disabled]'
+                            - 'option "study-116: actividad sintética" [disabled]'
+                            - 'option "choice-116: actividad sintética" [disabled]'
+                            - 'option "short-116: actividad sintética" [disabled]'
+                            - 'option "apply-116: actividad sintética" [disabled]'
+                            - 'option "match-116: actividad sintética" [disabled]'
+                            - 'option "sequence-116: actividad sintética" [disabled]'
+                            - 'option "final-116: actividad sintética" [disabled]'
+                            - 'option "retention7-116: actividad sintética" [disabled]'
+                            - 'option "retention30-116: actividad sintética" [disabled]'
+                            - 'option "study-117: actividad sintética" [disabled]'
+                            - 'option "choice-117: actividad sintética" [disabled]'
+                            - 'option "short-117: actividad sintética" [disabled]'
+                            - 'option "apply-117: actividad sintética" [disabled]'
+                            - 'option "match-117: actividad sintética" [disabled]'
+                            - 'option "sequence-117: actividad sintética" [disabled]'
+                            - 'option "final-117: actividad sintética" [disabled]'
+                            - 'option "retention7-117: actividad sintética" [disabled]'
+                            - 'option "retention30-117: actividad sintética" [disabled]'
+                            - 'option "study-118: actividad sintética" [disabled]'
+                            - 'option "choice-118: actividad sintética" [disabled]'
+                            - 'option "short-118: actividad sintética" [disabled]'
+                            - 'option "apply-118: actividad sintética" [disabled]'
+                            - 'option "match-118: actividad sintética" [disabled]'
+                            - 'option "sequence-118: actividad sintética" [disabled]'
+                            - 'option "final-118: actividad sintética" [disabled]'
+                            - 'option "retention7-118: actividad sintética" [disabled]'
+                            - 'option "retention30-118: actividad sintética" [disabled]'
+                            - 'option "study-119: actividad sintética" [disabled]'
+                            - 'option "choice-119: actividad sintética" [disabled]'
+                            - 'option "short-119: actividad sintética" [disabled]'
+                            - 'option "apply-119: actividad sintética" [disabled]'
+                            - 'option "match-119: actividad sintética" [disabled]'
+                            - 'option "sequence-119: actividad sintética" [disabled]'
+                            - 'option "final-119: actividad sintética" [disabled]'
+                            - 'option "retention7-119: actividad sintética" [disabled]'
+                            - 'option "retention30-119: actividad sintética" [disabled]'
+                            - 'option "study-120: actividad sintética" [disabled]'
+                            - 'option "choice-120: actividad sintética" [disabled]'
+                            - 'option "short-120: actividad sintética" [disabled]'
+                            - 'option "apply-120: actividad sintética" [disabled]'
+                            - 'option "match-120: actividad sintética" [disabled]'
+                            - 'option "sequence-120: actividad sintética" [disabled]'
+                            - 'option "final-120: actividad sintética" [disabled]'
+                            - 'option "retention7-120: actividad sintética" [disabled]'
+                            - 'option "retention30-120: actividad sintética" [disabled]'
+                            - 'option "study-121: actividad sintética" [disabled]'
+                            - 'option "choice-121: actividad sintética" [disabled]'
+                            - 'option "short-121: actividad sintética" [disabled]'
+                            - 'option "apply-121: actividad sintética" [disabled]'
+                            - 'option "match-121: actividad sintética" [disabled]'
+                            - 'option "sequence-121: actividad sintética" [disabled]'
+                            - 'option "final-121: actividad sintética" [disabled]'
+                            - 'option "retention7-121: actividad sintética" [disabled]'
+                            - 'option "retention30-121: actividad sintética" [disabled]'
+                            - 'option "study-122: actividad sintética" [disabled]'
+                            - 'option "choice-122: actividad sintética" [disabled]'
+                            - 'option "short-122: actividad sintética" [disabled]'
+                            - 'option "apply-122: actividad sintética" [disabled]'
+                            - 'option "match-122: actividad sintética" [disabled]'
+                            - 'option "sequence-122: actividad sintética" [disabled]'
+                            - 'option "final-122: actividad sintética" [disabled]'
+                            - 'option "retention7-122: actividad sintética" [disabled]'
+                            - 'option "retention30-122: actividad sintética" [disabled]'
+                            - 'option "study-123: actividad sintética" [disabled]'
+                            - 'option "choice-123: actividad sintética" [disabled]'
+                            - 'option "short-123: actividad sintética" [disabled]'
+                            - 'option "apply-123: actividad sintética" [disabled]'
+                            - 'option "match-123: actividad sintética" [disabled]'
+                            - 'option "sequence-123: actividad sintética" [disabled]'
+                            - 'option "final-123: actividad sintética" [disabled]'
+                            - 'option "retention7-123: actividad sintética" [disabled]'
+                            - 'option "retention30-123: actividad sintética" [disabled]'
+                            - 'option "study-124: actividad sintética" [disabled]'
+                            - 'option "choice-124: actividad sintética" [disabled]'
+                            - 'option "short-124: actividad sintética" [disabled]'
+                            - 'option "apply-124: actividad sintética" [disabled]'
+                            - 'option "match-124: actividad sintética" [disabled]'
+                            - 'option "sequence-124: actividad sintética" [disabled]'
+                            - 'option "final-124: actividad sintética" [disabled]'
+                            - 'option "retention7-124: actividad sintética" [disabled]'
+                            - 'option "retention30-124: actividad sintética" [disabled]'
+                            - 'option "study-125: actividad sintética" [disabled]'
+                            - 'option "choice-125: actividad sintética" [disabled]'
+                            - 'option "short-125: actividad sintética" [disabled]'
+                            - 'option "apply-125: actividad sintética" [disabled]'
+                            - 'option "match-125: actividad sintética" [disabled]'
+                            - 'option "sequence-125: actividad sintética" [disabled]'
+                            - 'option "final-125: actividad sintética" [disabled]'
+                            - 'option "retention7-125: actividad sintética" [disabled]'
+                            - 'option "retention30-125: actividad sintética" [disabled]'
+                            - 'option "study-126: actividad sintética" [disabled]'
+                            - 'option "choice-126: actividad sintética" [disabled]'
+                            - 'option "short-126: actividad sintética" [disabled]'
+                            - 'option "apply-126: actividad sintética" [disabled]'
+                            - 'option "match-126: actividad sintética" [disabled]'
+                            - 'option "sequence-126: actividad sintética" [disabled]'
+                            - 'option "final-126: actividad sintética" [disabled]'
+                            - 'option "retention7-126: actividad sintética" [disabled]'
+                            - 'option "retention30-126: actividad sintética" [disabled]'
+                            - 'option "study-127: actividad sintética" [disabled]'
+                            - 'option "choice-127: actividad sintética" [disabled]'
+                            - 'option "short-127: actividad sintética" [disabled]'
+                            - 'option "apply-127: actividad sintética" [disabled]'
+                            - 'option "match-127: actividad sintética" [disabled]'
+                            - 'option "sequence-127: actividad sintética" [disabled]'
+                            - 'option "final-127: actividad sintética" [disabled]'
+                            - 'option "retention7-127: actividad sintética" [disabled]'
+                            - 'option "retention30-127: actividad sintética" [disabled]'
+                            - 'option "study-128: actividad sintética" [disabled]'
+                            - 'option "choice-128: actividad sintética" [disabled]'
+                            - 'option "short-128: actividad sintética" [disabled]'
+                            - 'option "apply-128: actividad sintética" [disabled]'
+                            - 'option "match-128: actividad sintética" [disabled]'
+                            - 'option "sequence-128: actividad sintética" [disabled]'
+                            - 'option "final-128: actividad sintética" [disabled]'
+                            - 'option "retention7-128: actividad sintética" [disabled]'
+                            - 'option "retention30-128: actividad sintética" [disabled]'
+                            - 'option "study-129: actividad sintética" [disabled]'
+                            - 'option "choice-129: actividad sintética" [disabled]'
+                            - 'option "short-129: actividad sintética" [disabled]'
+                            - 'option "apply-129: actividad sintética" [disabled]'
+                            - 'option "match-129: actividad sintética" [disabled]'
+                            - 'option "sequence-129: actividad sintética" [disabled]'
+                            - 'option "final-129: actividad sintética" [disabled]'
+                            - 'option "retention7-129: actividad sintética" [disabled]'
+                            - 'option "retention30-129: actividad sintética" [disabled]'
+                            - 'option "study-130: actividad sintética" [disabled]'
+                            - 'option "choice-130: actividad sintética" [disabled]'
+                            - 'option "short-130: actividad sintética" [disabled]'
+                            - 'option "apply-130: actividad sintética" [disabled]'
+                            - 'option "match-130: actividad sintética" [disabled]'
+                            - 'option "sequence-130: actividad sintética" [disabled]'
+                            - 'option "final-130: actividad sintética" [disabled]'
+                            - 'option "retention7-130: actividad sintética" [disabled]'
+                            - 'option "retention30-130: actividad sintética" [disabled]'
+                            - 'option "study-131: actividad sintética" [disabled]'
+                            - 'option "choice-131: actividad sintética" [disabled]'
+                            - 'option "short-131: actividad sintética" [disabled]'
+                            - 'option "apply-131: actividad sintética" [disabled]'
+                            - 'option "match-131: actividad sintética" [disabled]'
+                            - 'option "sequence-131: actividad sintética" [disabled]'
+                            - 'option "final-131: actividad sintética" [disabled]'
+                            - 'option "retention7-131: actividad sintética" [disabled]'
+                            - 'option "retention30-131: actividad sintética" [disabled]'
+                            - 'option "study-132: actividad sintética" [disabled]'
+                            - 'option "choice-132: actividad sintética" [disabled]'
+                            - 'option "short-132: actividad sintética" [disabled]'
+                            - 'option "apply-132: actividad sintética" [disabled]'
+                            - 'option "match-132: actividad sintética" [disabled]'
+                            - 'option "sequence-132: actividad sintética" [disabled]'
+                            - 'option "final-132: actividad sintética" [disabled]'
+                            - 'option "retention7-132: actividad sintética" [disabled]'
+                            - 'option "retention30-132: actividad sintética" [disabled]'
+                            - 'option "study-133: actividad sintética" [disabled]'
+                            - 'option "choice-133: actividad sintética" [disabled]'
+                            - 'option "short-133: actividad sintética" [disabled]'
+                            - 'option "apply-133: actividad sintética" [disabled]'
+                            - 'option "match-133: actividad sintética" [disabled]'
+                            - 'option "sequence-133: actividad sintética" [disabled]'
+                            - 'option "final-133: actividad sintética" [disabled]'
+                            - 'option "retention7-133: actividad sintética" [disabled]'
+                            - 'option "retention30-133: actividad sintética" [disabled]'
+                            - 'option "study-134: actividad sintética" [disabled]'
+                            - 'option "choice-134: actividad sintética" [disabled]'
+                            - 'option "short-134: actividad sintética" [disabled]'
+                            - 'option "apply-134: actividad sintética" [disabled]'
+                            - 'option "match-134: actividad sintética" [disabled]'
+                            - 'option "sequence-134: actividad sintética" [disabled]'
+                            - 'option "final-134: actividad sintética" [disabled]'
+                            - 'option "retention7-134: actividad sintética" [disabled]'
+                            - 'option "retention30-134: actividad sintética" [disabled]'
+                            - 'option "study-135: actividad sintética" [disabled]'
+                            - 'option "choice-135: actividad sintética" [disabled]'
+                            - 'option "short-135: actividad sintética" [disabled]'
+                            - 'option "apply-135: actividad sintética" [disabled]'
+                            - 'option "match-135: actividad sintética" [disabled]'
+                            - 'option "sequence-135: actividad sintética" [disabled]'
+                            - 'option "final-135: actividad sintética" [disabled]'
+                            - 'option "retention7-135: actividad sintética" [disabled]'
+                            - 'option "retention30-135: actividad sintética" [disabled]'
+                            - 'option "study-136: actividad sintética" [disabled]'
+                            - 'option "choice-136: actividad sintética" [disabled]'
+                            - 'option "short-136: actividad sintética" [disabled]'
+                            - 'option "apply-136: actividad sintética" [disabled]'
+                            - 'option "match-136: actividad sintética" [disabled]'
+                            - 'option "sequence-136: actividad sintética" [disabled]'
+                            - 'option "final-136: actividad sintética" [disabled]'
+                            - 'option "retention7-136: actividad sintética" [disabled]'
+                            - 'option "retention30-136: actividad sintética" [disabled]'
+                            - 'option "study-137: actividad sintética" [disabled]'
+                            - 'option "choice-137: actividad sintética" [disabled]'
+                            - 'option "short-137: actividad sintética" [disabled]'
+                            - 'option "apply-137: actividad sintética" [disabled]'
+                            - 'option "match-137: actividad sintética" [disabled]'
+                            - 'option "sequence-137: actividad sintética" [disabled]'
+                            - 'option "final-137: actividad sintética" [disabled]'
+                            - 'option "retention7-137: actividad sintética" [disabled]'
+                            - 'option "retention30-137: actividad sintética" [disabled]'
+                            - 'option "study-138: actividad sintética" [disabled]'
+                            - 'option "choice-138: actividad sintética" [disabled]'
+                            - 'option "short-138: actividad sintética" [disabled]'
+                            - 'option "apply-138: actividad sintética" [disabled]'
+                            - 'option "match-138: actividad sintética" [disabled]'
+                            - 'option "sequence-138: actividad sintética" [disabled]'
+                            - 'option "final-138: actividad sintética" [disabled]'
+                            - 'option "retention7-138: actividad sintética" [disabled]'
+                            - 'option "retention30-138: actividad sintética" [disabled]'
+                            - 'option "study-139: actividad sintética" [disabled]'
+                            - 'option "choice-139: actividad sintética" [disabled]'
+                            - 'option "short-139: actividad sintética" [disabled]'
+                            - 'option "apply-139: actividad sintética" [disabled]'
+                            - 'option "match-139: actividad sintética" [disabled]'
+                            - 'option "sequence-139: actividad sintética" [disabled]'
+                            - 'option "final-139: actividad sintética" [disabled]'
+                            - 'option "retention7-139: actividad sintética" [disabled]'
+                            - 'option "retention30-139: actividad sintética" [disabled]'
+                            - 'option "study-140: actividad sintética" [disabled]'
+                            - 'option "choice-140: actividad sintética" [disabled]'
+                            - 'option "short-140: actividad sintética" [disabled]'
+                            - 'option "apply-140: actividad sintética" [disabled]'
+                            - 'option "match-140: actividad sintética" [disabled]'
+                            - 'option "sequence-140: actividad sintética" [disabled]'
+                            - 'option "final-140: actividad sintética" [disabled]'
+                            - 'option "retention7-140: actividad sintética" [disabled]'
+                            - 'option "retention30-140: actividad sintética" [disabled]'
+                            - 'option "study-141: actividad sintética" [disabled]'
+                            - 'option "choice-141: actividad sintética" [disabled]'
+                            - 'option "short-141: actividad sintética" [disabled]'
+                            - 'option "apply-141: actividad sintética" [disabled]'
+                            - 'option "sequence-141: actividad sintética" [disabled]'
+                            - 'option "study-142: actividad sintética" [disabled]'
+                            - 'option "choice-142: actividad sintética" [disabled]'
+                            - 'option "short-142: actividad sintética" [disabled]'
+                            - 'option "apply-142: actividad sintética" [disabled]'
+                            - 'option "sequence-142: actividad sintética" [disabled]'
+                            - 'option "study-143: actividad sintética" [disabled]'
+                            - 'option "choice-143: actividad sintética" [disabled]'
+                            - 'option "short-143: actividad sintética" [disabled]'
+                            - 'option "apply-143: actividad sintética" [disabled]'
+                            - 'option "sequence-143: actividad sintética" [disabled]'
+                            - 'option "study-144: actividad sintética" [disabled]'
+                            - 'option "choice-144: actividad sintética" [disabled]'
+                            - 'option "short-144: actividad sintética" [disabled]'
+                            - 'option "apply-144: actividad sintética" [disabled]'
+                            - 'option "sequence-144: actividad sintética" [disabled]'
+                            - 'option "study-145: actividad sintética" [disabled]'
+                            - 'option "choice-145: actividad sintética" [disabled]'
+                            - 'option "short-145: actividad sintética" [disabled]'
+                            - 'option "apply-145: actividad sintética" [disabled]'
+                            - 'option "sequence-145: actividad sintética" [disabled]'
+                            - 'option "study-146: actividad sintética" [disabled]'
+                            - 'option "choice-146: actividad sintética" [disabled]'
+                            - 'option "short-146: actividad sintética" [disabled]'
+                            - 'option "apply-146: actividad sintética" [disabled]'
+                            - 'option "sequence-146: actividad sintética" [disabled]'
+                            - 'option "study-147: actividad sintética" [disabled]'
+                            - 'option "choice-147: actividad sintética" [disabled]'
+                            - 'option "short-147: actividad sintética" [disabled]'
+                            - 'option "apply-147: actividad sintética" [disabled]'
+                            - 'option "sequence-147: actividad sintética" [disabled]'
+                            - 'option "study-148: actividad sintética" [disabled]'
+                            - 'option "choice-148: actividad sintética" [disabled]'
+                            - 'option "short-148: actividad sintética" [disabled]'
+                            - 'option "apply-148: actividad sintética" [disabled]'
+                            - 'option "sequence-148: actividad sintética" [disabled]'
+                            - 'option "study-149: actividad sintética" [disabled]'
+                            - 'option "choice-149: actividad sintética" [disabled]'
+                            - 'option "short-149: actividad sintética" [disabled]'
+                            - 'option "apply-149: actividad sintética" [disabled]'
+                            - 'option "sequence-149: actividad sintética" [disabled]'
+                            - 'option "study-150: actividad sintética" [disabled]'
+                            - 'option "choice-150: actividad sintética" [disabled]'
+                            - 'option "short-150: actividad sintética" [disabled]'
+                            - 'option "apply-150: actividad sintética" [disabled]'
+                            - 'option "sequence-150: actividad sintética" [disabled]'
+                            - 'option "study-151: actividad sintética" [disabled]'
+                            - 'option "choice-151: actividad sintética" [disabled]'
+                            - 'option "short-151: actividad sintética" [disabled]'
+                            - 'option "apply-151: actividad sintética" [disabled]'
+                            - 'option "sequence-151: actividad sintética" [disabled]'
+                            - 'option "study-152: actividad sintética" [disabled]'
+                            - 'option "choice-152: actividad sintética" [disabled]'
+                            - 'option "short-152: actividad sintética" [disabled]'
+                            - 'option "apply-152: actividad sintética" [disabled]'
+                            - 'option "sequence-152: actividad sintética" [disabled]'
+                            - 'option "study-153: actividad sintética" [disabled]'
+                            - 'option "choice-153: actividad sintética" [disabled]'
+                            - 'option "short-153: actividad sintética" [disabled]'
+                            - 'option "apply-153: actividad sintética" [disabled]'
+                            - 'option "sequence-153: actividad sintética" [disabled]'
+                            - 'option "study-154: actividad sintética" [disabled]'
+                            - 'option "choice-154: actividad sintética" [disabled]'
+                            - 'option "short-154: actividad sintética" [disabled]'
+                            - 'option "apply-154: actividad sintética" [disabled]'
+                            - 'option "sequence-154: actividad sintética" [disabled]'
+                            - 'option "study-155: actividad sintética" [disabled]'
+                            - 'option "choice-155: actividad sintética" [disabled]'
+                            - 'option "short-155: actividad sintética" [disabled]'
+                            - 'option "apply-155: actividad sintética" [disabled]'
+                            - 'option "sequence-155: actividad sintética" [disabled]'
+                            - 'option "study-156: actividad sintética" [disabled]'
+                            - 'option "choice-156: actividad sintética" [disabled]'
+                            - 'option "short-156: actividad sintética" [disabled]'
+                            - 'option "apply-156: actividad sintética" [disabled]'
+                            - 'option "sequence-156: actividad sintética" [disabled]'
+                            - 'option "study-157: actividad sintética" [disabled]'
+                            - 'option "choice-157: actividad sintética" [disabled]'
+                            - 'option "short-157: actividad sintética" [disabled]'
+                            - 'option "apply-157: actividad sintética" [disabled]'
+                            - 'option "sequence-157: actividad sintética" [disabled]'
+                            - 'option "study-158: actividad sintética" [disabled]'
+                            - 'option "choice-158: actividad sintética" [disabled]'
+                            - 'option "short-158: actividad sintética" [disabled]'
+                            - 'option "apply-158: actividad sintética" [disabled]'
+                            - 'option "sequence-158: actividad sintética" [disabled]'
+                            - 'option "study-159: actividad sintética" [disabled]'
+                            - 'option "choice-159: actividad sintética" [disabled]'
+                            - 'option "short-159: actividad sintética" [disabled]'
+                            - 'option "apply-159: actividad sintética" [disabled]'
+                            - 'option "sequence-159: actividad sintética" [disabled]'
+                            - 'option "study-160: actividad sintética" [disabled]'
+                            - 'option "choice-160: actividad sintética" [disabled]'
+                            - 'option "short-160: actividad sintética" [disabled]'
+                            - 'option "apply-160: actividad sintética" [disabled]'
+                            - 'option "sequence-160: actividad sintética" [disabled]'
+                            - 'option "study-161: actividad sintética" [disabled]'
+                            - 'option "choice-161: actividad sintética" [disabled]'
+                            - 'option "short-161: actividad sintética" [disabled]'
+                            - 'option "apply-161: actividad sintética" [disabled]'
+                            - 'option "sequence-161: actividad sintética" [disabled]'
+                            - 'option "study-162: actividad sintética" [disabled]'
+                            - 'option "choice-162: actividad sintética" [disabled]'
+                            - 'option "short-162: actividad sintética" [disabled]'
+                            - 'option "apply-162: actividad sintética" [disabled]'
+                            - 'option "sequence-162: actividad sintética" [disabled]'
+                            - 'option "study-163: actividad sintética" [disabled]'
+                            - 'option "choice-163: actividad sintética" [disabled]'
+                            - 'option "short-163: actividad sintética" [disabled]'
+                            - 'option "apply-163: actividad sintética" [disabled]'
+                            - 'option "sequence-163: actividad sintética" [disabled]'
+                            - 'option "study-164: actividad sintética" [disabled]'
+                            - 'option "choice-164: actividad sintética" [disabled]'
+                            - 'option "short-164: actividad sintética" [disabled]'
+                            - 'option "apply-164: actividad sintética" [disabled]'
+                            - 'option "sequence-164: actividad sintética" [disabled]'
+                            - 'option "study-165: actividad sintética" [disabled]'
+                            - 'option "choice-165: actividad sintética" [disabled]'
+                            - 'option "short-165: actividad sintética" [disabled]'
+                            - 'option "apply-165: actividad sintética" [disabled]'
+                            - 'option "sequence-165: actividad sintética" [disabled]'
+                            - 'option "study-166: actividad sintética" [disabled]'
+                            - 'option "choice-166: actividad sintética" [disabled]'
+                            - 'option "short-166: actividad sintética" [disabled]'
+                            - 'option "apply-166: actividad sintética" [disabled]'
+                            - 'option "sequence-166: actividad sintética" [disabled]'
+                            - 'option "study-167: actividad sintética" [disabled]'
+                            - 'option "choice-167: actividad sintética" [disabled]'
+                            - 'option "short-167: actividad sintética" [disabled]'
+                            - 'option "apply-167: actividad sintética" [disabled]'
+                            - 'option "sequence-167: actividad sintética" [disabled]'
+                            - 'option "study-168: actividad sintética" [disabled]'
+                            - 'option "choice-168: actividad sintética" [disabled]'
+                            - 'option "short-168: actividad sintética" [disabled]'
+                            - 'option "apply-168: actividad sintética" [disabled]'
+                            - 'option "sequence-168: actividad sintética" [disabled]'
+                            - 'option "study-169: actividad sintética" [disabled]'
+                            - 'option "choice-169: actividad sintética" [disabled]'
+                            - 'option "short-169: actividad sintética" [disabled]'
+                            - 'option "apply-169: actividad sintética" [disabled]'
+                            - 'option "sequence-169: actividad sintética" [disabled]'
+                            - 'option "study-170: actividad sintética" [disabled]'
+                            - 'option "choice-170: actividad sintética" [disabled]'
+                            - 'option "short-170: actividad sintética" [disabled]'
+                            - 'option "apply-170: actividad sintética" [disabled]'
+                            - 'option "sequence-170: actividad sintética" [disabled]'
+                            - 'option "study-171: actividad sintética" [disabled]'
+                            - 'option "choice-171: actividad sintética" [disabled]'
+                            - 'option "short-171: actividad sintética" [disabled]'
+                            - 'option "apply-171: actividad sintética" [disabled]'
+                            - 'option "sequence-171: actividad sintética" [disabled]'
+                            - 'option "study-172: actividad sintética" [disabled]'
+                            - 'option "choice-172: actividad sintética" [disabled]'
+                            - 'option "short-172: actividad sintética" [disabled]'
+                            - 'option "apply-172: actividad sintética" [disabled]'
+                            - 'option "sequence-172: actividad sintética" [disabled]'
+                            - 'option "study-173: actividad sintética" [disabled]'
+                            - 'option "choice-173: actividad sintética" [disabled]'
+                            - 'option "short-173: actividad sintética" [disabled]'
+                            - 'option "apply-173: actividad sintética" [disabled]'
+                            - 'option "sequence-173: actividad sintética" [disabled]'
+                            - 'option "study-174: actividad sintética" [disabled]'
+                            - 'option "choice-174: actividad sintética" [disabled]'
+                            - 'option "short-174: actividad sintética" [disabled]'
+                            - 'option "apply-174: actividad sintética" [disabled]'
+                            - 'option "sequence-174: actividad sintética" [disabled]'
+                            - 'option "study-175: actividad sintética" [disabled]'
+                            - 'option "choice-175: actividad sintética" [disabled]'
+                            - 'option "short-175: actividad sintética" [disabled]'
+                            - 'option "apply-175: actividad sintética" [disabled]'
+                            - 'option "sequence-175: actividad sintética" [disabled]'
+                            - 'option "study-176: actividad sintética" [disabled]'
+                            - 'option "choice-176: actividad sintética" [disabled]'
+                            - 'option "short-176: actividad sintética" [disabled]'
+                            - 'option "apply-176: actividad sintética" [disabled]'
+                            - 'option "sequence-176: actividad sintética" [disabled]'
+                            - 'option "study-177: actividad sintética" [disabled]'
+                            - 'option "choice-177: actividad sintética" [disabled]'
+                            - 'option "short-177: actividad sintética" [disabled]'
+                            - 'option "apply-177: actividad sintética" [disabled]'
+                            - 'option "sequence-177: actividad sintética" [disabled]'
+                            - 'option "study-178: actividad sintética" [disabled]'
+                            - 'option "choice-178: actividad sintética" [disabled]'
+                            - 'option "short-178: actividad sintética" [disabled]'
+                            - 'option "apply-178: actividad sintética" [disabled]'
+                            - 'option "sequence-178: actividad sintética" [disabled]'
+                            - 'option "study-179: actividad sintética" [disabled]'
+                            - 'option "choice-179: actividad sintética" [disabled]'
+                            - 'option "short-179: actividad sintética" [disabled]'
+                            - 'option "apply-179: actividad sintética" [disabled]'
+                            - 'option "sequence-179: actividad sintética" [disabled]'
+                            - 'option "study-180: actividad sintética" [disabled]'
+                            - 'option "choice-180: actividad sintética" [disabled]'
+                            - 'option "short-180: actividad sintética" [disabled]'
+                            - 'option "apply-180: actividad sintética" [disabled]'
+                            - 'option "sequence-180: actividad sintética" [disabled]'
+                            - 'option "study-181: actividad sintética" [disabled]'
+                            - 'option "choice-181: actividad sintética" [disabled]'
+                            - 'option "short-181: actividad sintética" [disabled]'
+                            - 'option "apply-181: actividad sintética" [disabled]'
+                            - 'option "sequence-181: actividad sintética" [disabled]'
+                            - 'option "study-182: actividad sintética" [disabled]'
+                            - 'option "choice-182: actividad sintética" [disabled]'
+                            - 'option "short-182: actividad sintética" [disabled]'
+                            - 'option "apply-182: actividad sintética" [disabled]'
+                            - 'option "sequence-182: actividad sintética" [disabled]'
+                            - 'option "study-183: actividad sintética" [disabled]'
+                            - 'option "choice-183: actividad sintética" [disabled]'
+                            - 'option "short-183: actividad sintética" [disabled]'
+                            - 'option "apply-183: actividad sintética" [disabled]'
+                            - 'option "sequence-183: actividad sintética" [disabled]'
+                            - 'option "study-184: actividad sintética" [disabled]'
+                            - 'option "choice-184: actividad sintética" [disabled]'
+                            - 'option "short-184: actividad sintética" [disabled]'
+                            - 'option "apply-184: actividad sintética" [disabled]'
+                            - 'option "sequence-184: actividad sintética" [disabled]'
+                            - 'option "study-185: actividad sintética" [disabled]'
+                            - 'option "choice-185: actividad sintética" [disabled]'
+                            - 'option "short-185: actividad sintética" [disabled]'
+                            - 'option "apply-185: actividad sintética" [disabled]'
+                            - 'option "sequence-185: actividad sintética" [disabled]'
+                            - 'option "study-186: actividad sintética" [disabled]'
+                            - 'option "choice-186: actividad sintética" [disabled]'
+                            - 'option "short-186: actividad sintética" [disabled]'
+                            - 'option "apply-186: actividad sintética" [disabled]'
+                            - 'option "sequence-186: actividad sintética" [disabled]'
+                            - 'option "study-187: actividad sintética" [disabled]'
+                            - 'option "choice-187: actividad sintética" [disabled]'
+                            - 'option "short-187: actividad sintética" [disabled]'
+                            - 'option "apply-187: actividad sintética" [disabled]'
+                            - 'option "sequence-187: actividad sintética" [disabled]'
+                            - 'option "study-188: actividad sintética" [disabled]'
+                            - 'option "choice-188: actividad sintética" [disabled]'
+                            - 'option "short-188: actividad sintética" [disabled]'
+                            - 'option "apply-188: actividad sintética" [disabled]'
+                            - 'option "sequence-188: actividad sintética" [disabled]'
+                            - 'option "study-189: actividad sintética" [disabled]'
+                            - 'option "choice-189: actividad sintética" [disabled]'
+                            - 'option "short-189: actividad sintética" [disabled]'
+                            - 'option "apply-189: actividad sintética" [disabled]'
+                            - 'option "sequence-189: actividad sintética" [disabled]'
+                            - 'option "study-190: actividad sintética" [disabled]'
+                            - 'option "choice-190: actividad sintética" [disabled]'
+                            - 'option "short-190: actividad sintética" [disabled]'
+                            - 'option "apply-190: actividad sintética" [disabled]'
+                            - 'option "sequence-190: actividad sintética" [disabled]'
+                            - 'option "study-191: actividad sintética" [disabled]'
+                            - 'option "choice-191: actividad sintética" [disabled]'
+                            - 'option "short-191: actividad sintética" [disabled]'
+                            - 'option "apply-191: actividad sintética" [disabled]'
+                            - 'option "sequence-191: actividad sintética" [disabled]'
+                            - 'option "study-192: actividad sintética" [disabled]'
+                            - 'option "choice-192: actividad sintética" [disabled]'
+                            - 'option "short-192: actividad sintética" [disabled]'
+                            - 'option "apply-192: actividad sintética" [disabled]'
+                            - 'option "sequence-192: actividad sintética" [disabled]'
+                            - 'option "study-193: actividad sintética" [disabled]'
+                            - 'option "choice-193: actividad sintética" [disabled]'
+                            - 'option "short-193: actividad sintética" [disabled]'
+                            - 'option "apply-193: actividad sintética" [disabled]'
+                            - 'option "sequence-193: actividad sintética" [disabled]'
+                            - 'option "study-194: actividad sintética" [disabled]'
+                            - 'option "choice-194: actividad sintética" [disabled]'
+                            - 'option "short-194: actividad sintética" [disabled]'
+                            - 'option "apply-194: actividad sintética" [disabled]'
+                            - 'option "sequence-194: actividad sintética" [disabled]'
+                            - 'option "study-195: actividad sintética" [disabled]'
+                            - 'option "choice-195: actividad sintética" [disabled]'
+                            - 'option "short-195: actividad sintética" [disabled]'
+                            - 'option "apply-195: actividad sintética" [disabled]'
+                            - 'option "sequence-195: actividad sintética" [disabled]'
+                            - 'option "study-196: actividad sintética" [disabled]'
+                            - 'option "choice-196: actividad sintética" [disabled]'
+                            - 'option "short-196: actividad sintética" [disabled]'
+                            - 'option "apply-196: actividad sintética" [disabled]'
+                            - 'option "sequence-196: actividad sintética" [disabled]'
+                            - 'option "study-197: actividad sintética" [disabled]'
+                            - 'option "choice-197: actividad sintética" [disabled]'
+                            - 'option "short-197: actividad sintética" [disabled]'
+                            - 'option "apply-197: actividad sintética" [disabled]'
+                            - 'option "sequence-197: actividad sintética" [disabled]'
+                            - 'option "study-198: actividad sintética" [disabled]'
+                            - 'option "choice-198: actividad sintética" [disabled]'
+                            - 'option "short-198: actividad sintética" [disabled]'
+                            - 'option "apply-198: actividad sintética" [disabled]'
+                            - 'option "sequence-198: actividad sintética" [disabled]'
+                            - 'option "study-199: actividad sintética" [disabled]'
+                            - 'option "choice-199: actividad sintética" [disabled]'
+                            - 'option "short-199: actividad sintética" [disabled]'
+                            - 'option "apply-199: actividad sintética" [disabled]'
+                            - 'option "sequence-199: actividad sintética" [disabled]'
+                            - 'option "study-200: actividad sintética" [disabled]'
+                            - 'option "choice-200: actividad sintética" [disabled]'
+                            - 'option "short-200: actividad sintética" [disabled]'
+                            - 'option "apply-200: actividad sintética" [disabled]'
+                            - 'option "sequence-200: actividad sintética" [disabled]'
+                            - 'option "choice-1: actividad sintética" [disabled]'
+                            - 'option "choice-2: actividad sintética" [disabled]'
+                            - 'option "choice-3: actividad sintética" [disabled]'
+                            - 'option "choice-4: actividad sintética" [disabled]'
+                            - 'option "choice-5: actividad sintética" [disabled]'
+                            - 'option "choice-6: actividad sintética" [disabled]'
+                            - 'option "choice-7: actividad sintética" [disabled]'
+                            - 'option "choice-8: actividad sintética" [disabled]'
+                            - 'option "choice-9: actividad sintética" [disabled]'
+                            - 'option "choice-10: actividad sintética" [disabled]'
+                            - 'option "choice-11: actividad sintética" [disabled]'
+                            - 'option "choice-12: actividad sintética" [disabled]'
+                            - 'option "choice-13: actividad sintética" [disabled]'
+                            - 'option "choice-14: actividad sintética" [disabled]'
+                            - 'option "choice-15: actividad sintética" [disabled]'
+                            - 'option "choice-16: actividad sintética" [disabled]'
+                            - 'option "choice-17: actividad sintética" [disabled]'
+                            - 'option "choice-18: actividad sintética" [disabled]'
+                            - 'option "choice-19: actividad sintética" [disabled]'
+                            - 'option "choice-20: actividad sintética" [disabled]'
+                            - 'option "choice-21: actividad sintética" [disabled]'
+                            - 'option "choice-22: actividad sintética" [disabled]'
+                            - 'option "choice-23: actividad sintética" [disabled]'
+                            - 'option "choice-24: actividad sintética" [disabled]'
+                            - 'option "choice-25: actividad sintética" [disabled]'
+                            - 'option "choice-26: actividad sintética" [disabled]'
+                            - 'option "choice-27: actividad sintética" [disabled]'
+                            - 'option "choice-28: actividad sintética" [disabled]'
+                            - 'option "choice-29: actividad sintética" [disabled]'
+                            - 'option "choice-30: actividad sintética" [disabled]'
+                            - 'option "choice-31: actividad sintética" [disabled]'
+                            - 'option "choice-32: actividad sintética" [disabled]'
+                            - option "Sin alternativa" [disabled] [selected]
+                            - 'option "choice-1: actividad sintética" [disabled]'
+                            - 'option "short-1: actividad sintética" [disabled]'
+                            - 'option "apply-1: actividad sintética" [disabled]'
+                            - 'option "match-1: actividad sintética" [disabled]'
+                            - 'option "sequence-1: actividad sintética" [disabled]'
+                            - 'option "final-1: actividad sintética" [disabled]'
+                            - 'option "retention7-1: actividad sintética" [disabled]'
+                            - 'option "retention30-1: actividad sintética" [disabled]'
+                            - 'option "diagnostic-1: actividad sintética" [disabled]'
+                            - 'option "study-2: actividad sintética" [disabled]'
+                            - 'option "choice-2: actividad sintética" [disabled]'
+                            - 'option "short-2: actividad sintética" [disabled]'
+                            - 'option "apply-2: actividad sintética" [disabled]'
+                            - 'option "match-2: actividad sintética" [disabled]'
+                            - 'option "sequence-2: actividad sintética" [disabled]'
+                            - 'option "final-2: actividad sintética" [disabled]'
+                            - 'option "retention7-2: actividad sintética" [disabled]'
+                            - 'option "retention30-2: actividad sintética" [disabled]'
+                            - 'option "diagnostic-2: actividad sintética" [disabled]'
+                            - 'option "study-3: actividad sintética" [disabled]'
+                            - 'option "choice-3: actividad sintética" [disabled]'
+                            - 'option "short-3: actividad sintética" [disabled]'
+                            - 'option "apply-3: actividad sintética" [disabled]'
+                            - 'option "match-3: actividad sintética" [disabled]'
+                            - 'option "sequence-3: actividad sintética" [disabled]'
+                            - 'option "final-3: actividad sintética" [disabled]'
+                            - 'option "retention7-3: actividad sintética" [disabled]'
+                            - 'option "retention30-3: actividad sintética" [disabled]'
+                            - 'option "diagnostic-3: actividad sintética" [disabled]'
+                            - 'option "study-4: actividad sintética" [disabled]'
+                            - 'option "choice-4: actividad sintética" [disabled]'
+                            - 'option "short-4: actividad sintética" [disabled]'
+                            - 'option "apply-4: actividad sintética" [disabled]'
+                            - 'option "match-4: actividad sintética" [disabled]'
+                            - 'option "sequence-4: actividad sintética" [disabled]'
+                            - 'option "final-4: actividad sintética" [disabled]'
+                            - 'option "retention7-4: actividad sintética" [disabled]'
+                            - 'option "retention30-4: actividad sintética" [disabled]'
+                            - 'option "diagnostic-4: actividad sintética" [disabled]'
+                            - 'option "study-5: actividad sintética" [disabled]'
+                            - 'option "choice-5: actividad sintética" [disabled]'
+                            - 'option "short-5: actividad sintética" [disabled]'
+                            - 'option "apply-5: actividad sintética" [disabled]'
+                            - 'option "match-5: actividad sintética" [disabled]'
+                            - 'option "sequence-5: actividad sintética" [disabled]'
+                            - 'option "final-5: actividad sintética" [disabled]'
+                            - 'option "retention7-5: actividad sintética" [disabled]'
+                            - 'option "retention30-5: actividad sintética" [disabled]'
+                            - 'option "diagnostic-5: actividad sintética" [disabled]'
+                            - 'option "study-6: actividad sintética" [disabled]'
+                            - 'option "choice-6: actividad sintética" [disabled]'
+                            - 'option "short-6: actividad sintética" [disabled]'
+                            - 'option "apply-6: actividad sintética" [disabled]'
+                            - 'option "match-6: actividad sintética" [disabled]'
+                            - 'option "sequence-6: actividad sintética" [disabled]'
+                            - 'option "final-6: actividad sintética" [disabled]'
+                            - 'option "retention7-6: actividad sintética" [disabled]'
+                            - 'option "retention30-6: actividad sintética" [disabled]'
+                            - 'option "diagnostic-6: actividad sintética" [disabled]'
+                            - 'option "study-7: actividad sintética" [disabled]'
+                            - 'option "choice-7: actividad sintética" [disabled]'
+                            - 'option "short-7: actividad sintética" [disabled]'
+                            - 'option "apply-7: actividad sintética" [disabled]'
+                            - 'option "match-7: actividad sintética" [disabled]'
+                            - 'option "sequence-7: actividad sintética" [disabled]'
+                            - 'option "final-7: actividad sintética" [disabled]'
+                            - 'option "retention7-7: actividad sintética" [disabled]'
+                            - 'option "retention30-7: actividad sintética" [disabled]'
+                            - 'option "diagnostic-7: actividad sintética" [disabled]'
+                            - 'option "study-8: actividad sintética" [disabled]'
+                            - 'option "choice-8: actividad sintética" [disabled]'
+                            - 'option "short-8: actividad sintética" [disabled]'
+                            - 'option "apply-8: actividad sintética" [disabled]'
+                            - 'option "match-8: actividad sintética" [disabled]'
+                            - 'option "sequence-8: actividad sintética" [disabled]'
+                            - 'option "final-8: actividad sintética" [disabled]'
+                            - 'option "retention7-8: actividad sintética" [disabled]'
+                            - 'option "retention30-8: actividad sintética" [disabled]'
+                            - 'option "diagnostic-8: actividad sintética" [disabled]'
+                            - 'option "study-9: actividad sintética" [disabled]'
+                            - 'option "choice-9: actividad sintética" [disabled]'
+                            - 'option "short-9: actividad sintética" [disabled]'
+                            - 'option "apply-9: actividad sintética" [disabled]'
+                            - 'option "match-9: actividad sintética" [disabled]'
+                            - 'option "sequence-9: actividad sintética" [disabled]'
+                            - 'option "final-9: actividad sintética" [disabled]'
+                            - 'option "retention7-9: actividad sintética" [disabled]'
+                            - 'option "retention30-9: actividad sintética" [disabled]'
+                            - 'option "study-10: actividad sintética" [disabled]'
+                            - 'option "choice-10: actividad sintética" [disabled]'
+                            - 'option "short-10: actividad sintética" [disabled]'
+                            - 'option "apply-10: actividad sintética" [disabled]'
+                            - 'option "match-10: actividad sintética" [disabled]'
+                            - 'option "sequence-10: actividad sintética" [disabled]'
+                            - 'option "final-10: actividad sintética" [disabled]'
+                            - 'option "retention7-10: actividad sintética" [disabled]'
+                            - 'option "retention30-10: actividad sintética" [disabled]'
+                            - 'option "study-11: actividad sintética" [disabled]'
+                            - 'option "choice-11: actividad sintética" [disabled]'
+                            - 'option "short-11: actividad sintética" [disabled]'
+                            - 'option "apply-11: actividad sintética" [disabled]'
+                            - 'option "match-11: actividad sintética" [disabled]'
+                            - 'option "sequence-11: actividad sintética" [disabled]'
+                            - 'option "final-11: actividad sintética" [disabled]'
+                            - 'option "retention7-11: actividad sintética" [disabled]'
+                            - 'option "retention30-11: actividad sintética" [disabled]'
+                            - 'option "study-12: actividad sintética" [disabled]'
+                            - 'option "choice-12: actividad sintética" [disabled]'
+                            - 'option "short-12: actividad sintética" [disabled]'
+                            - 'option "apply-12: actividad sintética" [disabled]'
+                            - 'option "match-12: actividad sintética" [disabled]'
+                            - 'option "sequence-12: actividad sintética" [disabled]'
+                            - 'option "final-12: actividad sintética" [disabled]'
+                            - 'option "retention7-12: actividad sintética" [disabled]'
+                            - 'option "retention30-12: actividad sintética" [disabled]'
+                            - 'option "study-13: actividad sintética" [disabled]'
+                            - 'option "choice-13: actividad sintética" [disabled]'
+                            - 'option "short-13: actividad sintética" [disabled]'
+                            - 'option "apply-13: actividad sintética" [disabled]'
+                            - 'option "match-13: actividad sintética" [disabled]'
+                            - 'option "sequence-13: actividad sintética" [disabled]'
+                            - 'option "final-13: actividad sintética" [disabled]'
+                            - 'option "retention7-13: actividad sintética" [disabled]'
+                            - 'option "retention30-13: actividad sintética" [disabled]'
+                            - 'option "study-14: actividad sintética" [disabled]'
+                            - 'option "choice-14: actividad sintética" [disabled]'
+                            - 'option "short-14: actividad sintética" [disabled]'
+                            - 'option "apply-14: actividad sintética" [disabled]'
+                            - 'option "match-14: actividad sintética" [disabled]'
+                            - 'option "sequence-14: actividad sintética" [disabled]'
+                            - 'option "final-14: actividad sintética" [disabled]'
+                            - 'option "retention7-14: actividad sintética" [disabled]'
+                            - 'option "retention30-14: actividad sintética" [disabled]'
+                            - 'option "study-15: actividad sintética" [disabled]'
+                            - 'option "choice-15: actividad sintética" [disabled]'
+                            - 'option "short-15: actividad sintética" [disabled]'
+                            - 'option "apply-15: actividad sintética" [disabled]'
+                            - 'option "match-15: actividad sintética" [disabled]'
+                            - 'option "sequence-15: actividad sintética" [disabled]'
+                            - 'option "final-15: actividad sintética" [disabled]'
+                            - 'option "retention7-15: actividad sintética" [disabled]'
+                            - 'option "retention30-15: actividad sintética" [disabled]'
+                            - 'option "study-16: actividad sintética" [disabled]'
+                            - 'option "choice-16: actividad sintética" [disabled]'
+                            - 'option "short-16: actividad sintética" [disabled]'
+                            - 'option "apply-16: actividad sintética" [disabled]'
+                            - 'option "match-16: actividad sintética" [disabled]'
+                            - 'option "sequence-16: actividad sintética" [disabled]'
+                            - 'option "final-16: actividad sintética" [disabled]'
+                            - 'option "retention7-16: actividad sintética" [disabled]'
+                            - 'option "retention30-16: actividad sintética" [disabled]'
+                            - 'option "study-17: actividad sintética" [disabled]'
+                            - 'option "choice-17: actividad sintética" [disabled]'
+                            - 'option "short-17: actividad sintética" [disabled]'
+                            - 'option "apply-17: actividad sintética" [disabled]'
+                            - 'option "match-17: actividad sintética" [disabled]'
+                            - 'option "sequence-17: actividad sintética" [disabled]'
+                            - 'option "final-17: actividad sintética" [disabled]'
+                            - 'option "retention7-17: actividad sintética" [disabled]'
+                            - 'option "retention30-17: actividad sintética" [disabled]'
+                            - 'option "study-18: actividad sintética" [disabled]'
+                            - 'option "choice-18: actividad sintética" [disabled]'
+                            - 'option "short-18: actividad sintética" [disabled]'
+                            - 'option "apply-18: actividad sintética" [disabled]'
+                            - 'option "match-18: actividad sintética" [disabled]'
+                            - 'option "sequence-18: actividad sintética" [disabled]'
+                            - 'option "final-18: actividad sintética" [disabled]'
+                            - 'option "retention7-18: actividad sintética" [disabled]'
+                            - 'option "retention30-18: actividad sintética" [disabled]'
+                            - 'option "study-19: actividad sintética" [disabled]'
+                            - 'option "choice-19: actividad sintética" [disabled]'
+                            - 'option "short-19: actividad sintética" [disabled]'
+                            - 'option "apply-19: actividad sintética" [disabled]'
+                            - 'option "match-19: actividad sintética" [disabled]'
+                            - 'option "sequence-19: actividad sintética" [disabled]'
+                            - 'option "final-19: actividad sintética" [disabled]'
+                            - 'option "retention7-19: actividad sintética" [disabled]'
+                            - 'option "retention30-19: actividad sintética" [disabled]'
+                            - 'option "study-20: actividad sintética" [disabled]'
+                            - 'option "choice-20: actividad sintética" [disabled]'
+                            - 'option "short-20: actividad sintética" [disabled]'
+                            - 'option "apply-20: actividad sintética" [disabled]'
+                            - 'option "match-20: actividad sintética" [disabled]'
+                            - 'option "sequence-20: actividad sintética" [disabled]'
+                            - 'option "final-20: actividad sintética" [disabled]'
+                            - 'option "retention7-20: actividad sintética" [disabled]'
+                            - 'option "retention30-20: actividad sintética" [disabled]'
+                            - 'option "study-21: actividad sintética" [disabled]'
+                            - 'option "choice-21: actividad sintética" [disabled]'
+                            - 'option "short-21: actividad sintética" [disabled]'
+                            - 'option "apply-21: actividad sintética" [disabled]'
+                            - 'option "match-21: actividad sintética" [disabled]'
+                            - 'option "sequence-21: actividad sintética" [disabled]'
+                            - 'option "final-21: actividad sintética" [disabled]'
+                            - 'option "retention7-21: actividad sintética" [disabled]'
+                            - 'option "retention30-21: actividad sintética" [disabled]'
+                            - 'option "study-22: actividad sintética" [disabled]'
+                            - 'option "choice-22: actividad sintética" [disabled]'
+                            - 'option "short-22: actividad sintética" [disabled]'
+                            - 'option "apply-22: actividad sintética" [disabled]'
+                            - 'option "match-22: actividad sintética" [disabled]'
+                            - 'option "sequence-22: actividad sintética" [disabled]'
+                            - 'option "final-22: actividad sintética" [disabled]'
+                            - 'option "retention7-22: actividad sintética" [disabled]'
+                            - 'option "retention30-22: actividad sintética" [disabled]'
+                            - 'option "study-23: actividad sintética" [disabled]'
+                            - 'option "choice-23: actividad sintética" [disabled]'
+                            - 'option "short-23: actividad sintética" [disabled]'
+                            - 'option "apply-23: actividad sintética" [disabled]'
+                            - 'option "match-23: actividad sintética" [disabled]'
+                            - 'option "sequence-23: actividad sintética" [disabled]'
+                            - 'option "final-23: actividad sintética" [disabled]'
+                            - 'option "retention7-23: actividad sintética" [disabled]'
+                            - 'option "retention30-23: actividad sintética" [disabled]'
+                            - 'option "study-24: actividad sintética" [disabled]'
+                            - 'option "choice-24: actividad sintética" [disabled]'
+                            - 'option "short-24: actividad sintética" [disabled]'
+                            - 'option "apply-24: actividad sintética" [disabled]'
+                            - 'option "match-24: actividad sintética" [disabled]'
+                            - 'option "sequence-24: actividad sintética" [disabled]'
+                            - 'option "final-24: actividad sintética" [disabled]'
+                            - 'option "retention7-24: actividad sintética" [disabled]'
+                            - 'option "retention30-24: actividad sintética" [disabled]'
+                            - 'option "study-25: actividad sintética" [disabled]'
+                            - 'option "choice-25: actividad sintética" [disabled]'
+                            - 'option "short-25: actividad sintética" [disabled]'
+                            - 'option "apply-25: actividad sintética" [disabled]'
+                            - 'option "match-25: actividad sintética" [disabled]'
+                            - 'option "sequence-25: actividad sintética" [disabled]'
+                            - 'option "final-25: actividad sintética" [disabled]'
+                            - 'option "retention7-25: actividad sintética" [disabled]'
+                            - 'option "retention30-25: actividad sintética" [disabled]'
+                            - 'option "study-26: actividad sintética" [disabled]'
+                            - 'option "choice-26: actividad sintética" [disabled]'
+                            - 'option "short-26: actividad sintética" [disabled]'
+                            - 'option "apply-26: actividad sintética" [disabled]'
+                            - 'option "match-26: actividad sintética" [disabled]'
+                            - 'option "sequence-26: actividad sintética" [disabled]'
+                            - 'option "final-26: actividad sintética" [disabled]'
+                            - 'option "retention7-26: actividad sintética" [disabled]'
+                            - 'option "retention30-26: actividad sintética" [disabled]'
+                            - 'option "study-27: actividad sintética" [disabled]'
+                            - 'option "choice-27: actividad sintética" [disabled]'
+                            - 'option "short-27: actividad sintética" [disabled]'
+                            - 'option "apply-27: actividad sintética" [disabled]'
+                            - 'option "match-27: actividad sintética" [disabled]'
+                            - 'option "sequence-27: actividad sintética" [disabled]'
+                            - 'option "final-27: actividad sintética" [disabled]'
+                            - 'option "retention7-27: actividad sintética" [disabled]'
+                            - 'option "retention30-27: actividad sintética" [disabled]'
+                            - 'option "study-28: actividad sintética" [disabled]'
+                            - 'option "choice-28: actividad sintética" [disabled]'
+                            - 'option "short-28: actividad sintética" [disabled]'
+                            - 'option "apply-28: actividad sintética" [disabled]'
+                            - 'option "match-28: actividad sintética" [disabled]'
+                            - 'option "sequence-28: actividad sintética" [disabled]'
+                            - 'option "final-28: actividad sintética" [disabled]'
+                            - 'option "retention7-28: actividad sintética" [disabled]'
+                            - 'option "retention30-28: actividad sintética" [disabled]'
+                            - 'option "study-29: actividad sintética" [disabled]'
+                            - 'option "choice-29: actividad sintética" [disabled]'
+                            - 'option "short-29: actividad sintética" [disabled]'
+                            - 'option "apply-29: actividad sintética" [disabled]'
+                            - 'option "match-29: actividad sintética" [disabled]'
+                            - 'option "sequence-29: actividad sintética" [disabled]'
+                            - 'option "final-29: actividad sintética" [disabled]'
+                            - 'option "retention7-29: actividad sintética" [disabled]'
+                            - 'option "retention30-29: actividad sintética" [disabled]'
+                            - 'option "study-30: actividad sintética" [disabled]'
+                            - 'option "choice-30: actividad sintética" [disabled]'
+                            - 'option "short-30: actividad sintética" [disabled]'
+                            - 'option "apply-30: actividad sintética" [disabled]'
+                            - 'option "match-30: actividad sintética" [disabled]'
+                            - 'option "sequence-30: actividad sintética" [disabled]'
+                            - 'option "final-30: actividad sintética" [disabled]'
+                            - 'option "retention7-30: actividad sintética" [disabled]'
+                            - 'option "retention30-30: actividad sintética" [disabled]'
+                            - 'option "study-31: actividad sintética" [disabled]'
+                            - 'option "choice-31: actividad sintética" [disabled]'
+                            - 'option "short-31: actividad sintética" [disabled]'
+                            - 'option "apply-31: actividad sintética" [disabled]'
+                            - 'option "match-31: actividad sintética" [disabled]'
+                            - 'option "sequence-31: actividad sintética" [disabled]'
+                            - 'option "final-31: actividad sintética" [disabled]'
+                            - 'option "retention7-31: actividad sintética" [disabled]'
+                            - 'option "retention30-31: actividad sintética" [disabled]'
+                            - 'option "study-32: actividad sintética" [disabled]'
+                            - 'option "choice-32: actividad sintética" [disabled]'
+                            - 'option "short-32: actividad sintética" [disabled]'
+                            - 'option "apply-32: actividad sintética" [disabled]'
+                            - 'option "match-32: actividad sintética" [disabled]'
+                            - 'option "sequence-32: actividad sintética" [disabled]'
+                            - 'option "final-32: actividad sintética" [disabled]'
+                            - 'option "retention7-32: actividad sintética" [disabled]'
+                            - 'option "retention30-32: actividad sintética" [disabled]'
+                            - 'option "study-33: actividad sintética" [disabled]'
+                            - 'option "choice-33: actividad sintética" [disabled]'
+                            - 'option "short-33: actividad sintética" [disabled]'
+                            - 'option "apply-33: actividad sintética" [disabled]'
+                            - 'option "match-33: actividad sintética" [disabled]'
+                            - 'option "sequence-33: actividad sintética" [disabled]'
+                            - 'option "final-33: actividad sintética" [disabled]'
+                            - 'option "retention7-33: actividad sintética" [disabled]'
+                            - 'option "retention30-33: actividad sintética" [disabled]'
+                            - 'option "study-34: actividad sintética" [disabled]'
+                            - 'option "choice-34: actividad sintética" [disabled]'
+                            - 'option "short-34: actividad sintética" [disabled]'
+                            - 'option "apply-34: actividad sintética" [disabled]'
+                            - 'option "match-34: actividad sintética" [disabled]'
+                            - 'option "sequence-34: actividad sintética" [disabled]'
+                            - 'option "final-34: actividad sintética" [disabled]'
+                            - 'option "retention7-34: actividad sintética" [disabled]'
+                            - 'option "retention30-34: actividad sintética" [disabled]'
+                            - 'option "study-35: actividad sintética" [disabled]'
+                            - 'option "choice-35: actividad sintética" [disabled]'
+                            - 'option "short-35: actividad sintética" [disabled]'
+                            - 'option "apply-35: actividad sintética" [disabled]'
+                            - 'option "match-35: actividad sintética" [disabled]'
+                            - 'option "sequence-35: actividad sintética" [disabled]'
+                            - 'option "final-35: actividad sintética" [disabled]'
+                            - 'option "retention7-35: actividad sintética" [disabled]'
+                            - 'option "retention30-35: actividad sintética" [disabled]'
+                            - 'option "study-36: actividad sintética" [disabled]'
+                            - 'option "choice-36: actividad sintética" [disabled]'
+                            - 'option "short-36: actividad sintética" [disabled]'
+                            - 'option "apply-36: actividad sintética" [disabled]'
+                            - 'option "match-36: actividad sintética" [disabled]'
+                            - 'option "sequence-36: actividad sintética" [disabled]'
+                            - 'option "final-36: actividad sintética" [disabled]'
+                            - 'option "retention7-36: actividad sintética" [disabled]'
+                            - 'option "retention30-36: actividad sintética" [disabled]'
+                            - 'option "study-37: actividad sintética" [disabled]'
+                            - 'option "choice-37: actividad sintética" [disabled]'
+                            - 'option "short-37: actividad sintética" [disabled]'
+                            - 'option "apply-37: actividad sintética" [disabled]'
+                            - 'option "match-37: actividad sintética" [disabled]'
+                            - 'option "sequence-37: actividad sintética" [disabled]'
+                            - 'option "final-37: actividad sintética" [disabled]'
+                            - 'option "retention7-37: actividad sintética" [disabled]'
+                            - 'option "retention30-37: actividad sintética" [disabled]'
+                            - 'option "study-38: actividad sintética" [disabled]'
+                            - 'option "choice-38: actividad sintética" [disabled]'
+                            - 'option "short-38: actividad sintética" [disabled]'
+                            - 'option "apply-38: actividad sintética" [disabled]'
+                            - 'option "match-38: actividad sintética" [disabled]'
+                            - 'option "sequence-38: actividad sintética" [disabled]'
+                            - 'option "final-38: actividad sintética" [disabled]'
+                            - 'option "retention7-38: actividad sintética" [disabled]'
+                            - 'option "retention30-38: actividad sintética" [disabled]'
+                            - 'option "study-39: actividad sintética" [disabled]'
+                            - 'option "choice-39: actividad sintética" [disabled]'
+                            - 'option "short-39: actividad sintética" [disabled]'
+                            - 'option "apply-39: actividad sintética" [disabled]'
+                            - 'option "match-39: actividad sintética" [disabled]'
+                            - 'option "sequence-39: actividad sintética" [disabled]'
+                            - 'option "final-39: actividad sintética" [disabled]'
+                            - 'option "retention7-39: actividad sintética" [disabled]'
+                            - 'option "retention30-39: actividad sintética" [disabled]'
+                            - 'option "study-40: actividad sintética" [disabled]'
+                            - 'option "choice-40: actividad sintética" [disabled]'
+                            - 'option "short-40: actividad sintética" [disabled]'
+                            - 'option "apply-40: actividad sintética" [disabled]'
+                            - 'option "match-40: actividad sintética" [disabled]'
+                            - 'option "sequence-40: actividad sintética" [disabled]'
+                            - 'option "final-40: actividad sintética" [disabled]'
+                            - 'option "retention7-40: actividad sintética" [disabled]'
+                            - 'option "retention30-40: actividad sintética" [disabled]'
+                            - 'option "study-41: actividad sintética" [disabled]'
+                            - 'option "choice-41: actividad sintética" [disabled]'
+                            - 'option "short-41: actividad sintética" [disabled]'
+                            - 'option "apply-41: actividad sintética" [disabled]'
+                            - 'option "match-41: actividad sintética" [disabled]'
+                            - 'option "sequence-41: actividad sintética" [disabled]'
+                            - 'option "final-41: actividad sintética" [disabled]'
+                            - 'option "retention7-41: actividad sintética" [disabled]'
+                            - 'option "retention30-41: actividad sintética" [disabled]'
+                            - 'option "study-42: actividad sintética" [disabled]'
+                            - 'option "choice-42: actividad sintética" [disabled]'
+                            - 'option "short-42: actividad sintética" [disabled]'
+                            - 'option "apply-42: actividad sintética" [disabled]'
+                            - 'option "match-42: actividad sintética" [disabled]'
+                            - 'option "sequence-42: actividad sintética" [disabled]'
+                            - 'option "final-42: actividad sintética" [disabled]'
+                            - 'option "retention7-42: actividad sintética" [disabled]'
+                            - 'option "retention30-42: actividad sintética" [disabled]'
+                            - 'option "study-43: actividad sintética" [disabled]'
+                            - 'option "choice-43: actividad sintética" [disabled]'
+                            - 'option "short-43: actividad sintética" [disabled]'
+                            - 'option "apply-43: actividad sintética" [disabled]'
+                            - 'option "match-43: actividad sintética" [disabled]'
+                            - 'option "sequence-43: actividad sintética" [disabled]'
+                            - 'option "final-43: actividad sintética" [disabled]'
+                            - 'option "retention7-43: actividad sintética" [disabled]'
+                            - 'option "retention30-43: actividad sintética" [disabled]'
+                            - 'option "study-44: actividad sintética" [disabled]'
+                            - 'option "choice-44: actividad sintética" [disabled]'
+                            - 'option "short-44: actividad sintética" [disabled]'
+                            - 'option "apply-44: actividad sintética" [disabled]'
+                            - 'option "match-44: actividad sintética" [disabled]'
+                            - 'option "sequence-44: actividad sintética" [disabled]'
+                            - 'option "final-44: actividad sintética" [disabled]'
+                            - 'option "retention7-44: actividad sintética" [disabled]'
+                            - 'option "retention30-44: actividad sintética" [disabled]'
+                            - 'option "study-45: actividad sintética" [disabled]'
+                            - 'option "choice-45: actividad sintética" [disabled]'
+                            - 'option "short-45: actividad sintética" [disabled]'
+                            - 'option "apply-45: actividad sintética" [disabled]'
+                            - 'option "match-45: actividad sintética" [disabled]'
+                            - 'option "sequence-45: actividad sintética" [disabled]'
+                            - 'option "final-45: actividad sintética" [disabled]'
+                            - 'option "retention7-45: actividad sintética" [disabled]'
+                            - 'option "retention30-45: actividad sintética" [disabled]'
+                            - 'option "study-46: actividad sintética" [disabled]'
+                            - 'option "choice-46: actividad sintética" [disabled]'
+                            - 'option "short-46: actividad sintética" [disabled]'
+                            - 'option "apply-46: actividad sintética" [disabled]'
+                            - 'option "match-46: actividad sintética" [disabled]'
+                            - 'option "sequence-46: actividad sintética" [disabled]'
+                            - 'option "final-46: actividad sintética" [disabled]'
+                            - 'option "retention7-46: actividad sintética" [disabled]'
+                            - 'option "retention30-46: actividad sintética" [disabled]'
+                            - 'option "study-47: actividad sintética" [disabled]'
+                            - 'option "choice-47: actividad sintética" [disabled]'
+                            - 'option "short-47: actividad sintética" [disabled]'
+                            - 'option "apply-47: actividad sintética" [disabled]'
+                            - 'option "match-47: actividad sintética" [disabled]'
+                            - 'option "sequence-47: actividad sintética" [disabled]'
+                            - 'option "final-47: actividad sintética" [disabled]'
+                            - 'option "retention7-47: actividad sintética" [disabled]'
+                            - 'option "retention30-47: actividad sintética" [disabled]'
+                            - 'option "study-48: actividad sintética" [disabled]'
+                            - 'option "choice-48: actividad sintética" [disabled]'
+                            - 'option "short-48: actividad sintética" [disabled]'
+                            - 'option "apply-48: actividad sintética" [disabled]'
+                            - 'option "match-48: actividad sintética" [disabled]'
+                            - 'option "sequence-48: actividad sintética" [disabled]'
+                            - 'option "final-48: actividad sintética" [disabled]'
+                            - 'option "retention7-48: actividad sintética" [disabled]'
+                            - 'option "retention30-48: actividad sintética" [disabled]'
+                            - 'option "study-49: actividad sintética" [disabled]'
+                            - 'option "choice-49: actividad sintética" [disabled]'
+                            - 'option "short-49: actividad sintética" [disabled]'
+                            - 'option "apply-49: actividad sintética" [disabled]'
+                            - 'option "match-49: actividad sintética" [disabled]'
+                            - 'option "sequence-49: actividad sintética" [disabled]'
+                            - 'option "final-49: actividad sintética" [disabled]'
+                            - 'option "retention7-49: actividad sintética" [disabled]'
+                            - 'option "retention30-49: actividad sintética" [disabled]'
+                            - 'option "study-50: actividad sintética" [disabled]'
+                            - 'option "choice-50: actividad sintética" [disabled]'
+                            - 'option "short-50: actividad sintética" [disabled]'
+                            - 'option "apply-50: actividad sintética" [disabled]'
+                            - 'option "match-50: actividad sintética" [disabled]'
+                            - 'option "sequence-50: actividad sintética" [disabled]'
+                            - 'option "final-50: actividad sintética" [disabled]'
+                            - 'option "retention7-50: actividad sintética" [disabled]'
+                            - 'option "retention30-50: actividad sintética" [disabled]'
+                            - 'option "study-51: actividad sintética" [disabled]'
+                            - 'option "choice-51: actividad sintética" [disabled]'
+                            - 'option "short-51: actividad sintética" [disabled]'
+                            - 'option "apply-51: actividad sintética" [disabled]'
+                            - 'option "match-51: actividad sintética" [disabled]'
+                            - 'option "sequence-51: actividad sintética" [disabled]'
+                            - 'option "final-51: actividad sintética" [disabled]'
+                            - 'option "retention7-51: actividad sintética" [disabled]'
+                            - 'option "retention30-51: actividad sintética" [disabled]'
+                            - 'option "study-52: actividad sintética" [disabled]'
+                            - 'option "choice-52: actividad sintética" [disabled]'
+                            - 'option "short-52: actividad sintética" [disabled]'
+                            - 'option "apply-52: actividad sintética" [disabled]'
+                            - 'option "match-52: actividad sintética" [disabled]'
+                            - 'option "sequence-52: actividad sintética" [disabled]'
+                            - 'option "final-52: actividad sintética" [disabled]'
+                            - 'option "retention7-52: actividad sintética" [disabled]'
+                            - 'option "retention30-52: actividad sintética" [disabled]'
+                            - 'option "study-53: actividad sintética" [disabled]'
+                            - 'option "choice-53: actividad sintética" [disabled]'
+                            - 'option "short-53: actividad sintética" [disabled]'
+                            - 'option "apply-53: actividad sintética" [disabled]'
+                            - 'option "match-53: actividad sintética" [disabled]'
+                            - 'option "sequence-53: actividad sintética" [disabled]'
+                            - 'option "final-53: actividad sintética" [disabled]'
+                            - 'option "retention7-53: actividad sintética" [disabled]'
+                            - 'option "retention30-53: actividad sintética" [disabled]'
+                            - 'option "study-54: actividad sintética" [disabled]'
+                            - 'option "choice-54: actividad sintética" [disabled]'
+                            - 'option "short-54: actividad sintética" [disabled]'
+                            - 'option "apply-54: actividad sintética" [disabled]'
+                            - 'option "match-54: actividad sintética" [disabled]'
+                            - 'option "sequence-54: actividad sintética" [disabled]'
+                            - 'option "final-54: actividad sintética" [disabled]'
+                            - 'option "retention7-54: actividad sintética" [disabled]'
+                            - 'option "retention30-54: actividad sintética" [disabled]'
+                            - 'option "study-55: actividad sintética" [disabled]'
+                            - 'option "choice-55: actividad sintética" [disabled]'
+                            - 'option "short-55: actividad sintética" [disabled]'
+                            - 'option "apply-55: actividad sintética" [disabled]'
+                            - 'option "match-55: actividad sintética" [disabled]'
+                            - 'option "sequence-55: actividad sintética" [disabled]'
+                            - 'option "final-55: actividad sintética" [disabled]'
+                            - 'option "retention7-55: actividad sintética" [disabled]'
+                            - 'option "retention30-55: actividad sintética" [disabled]'
+                            - 'option "study-56: actividad sintética" [disabled]'
+                            - 'option "choice-56: actividad sintética" [disabled]'
+                            - 'option "short-56: actividad sintética" [disabled]'
+                            - 'option "apply-56: actividad sintética" [disabled]'
+                            - 'option "match-56: actividad sintética" [disabled]'
+                            - 'option "sequence-56: actividad sintética" [disabled]'
+                            - 'option "final-56: actividad sintética" [disabled]'
+                            - 'option "retention7-56: actividad sintética" [disabled]'
+                            - 'option "retention30-56: actividad sintética" [disabled]'
+                            - 'option "study-57: actividad sintética" [disabled]'
+                            - 'option "choice-57: actividad sintética" [disabled]'
+                            - 'option "short-57: actividad sintética" [disabled]'
+                            - 'option "apply-57: actividad sintética" [disabled]'
+                            - 'option "match-57: actividad sintética" [disabled]'
+                            - 'option "sequence-57: actividad sintética" [disabled]'
+                            - 'option "final-57: actividad sintética" [disabled]'
+                            - 'option "retention7-57: actividad sintética" [disabled]'
+                            - 'option "retention30-57: actividad sintética" [disabled]'
+                            - 'option "study-58: actividad sintética" [disabled]'
+                            - 'option "choice-58: actividad sintética" [disabled]'
+                            - 'option "short-58: actividad sintética" [disabled]'
+                            - 'option "apply-58: actividad sintética" [disabled]'
+                            - 'option "match-58: actividad sintética" [disabled]'
+                            - 'option "sequence-58: actividad sintética" [disabled]'
+                            - 'option "final-58: actividad sintética" [disabled]'
+                            - 'option "retention7-58: actividad sintética" [disabled]'
+                            - 'option "retention30-58: actividad sintética" [disabled]'
+                            - 'option "study-59: actividad sintética" [disabled]'
+                            - 'option "choice-59: actividad sintética" [disabled]'
+                            - 'option "short-59: actividad sintética" [disabled]'
+                            - 'option "apply-59: actividad sintética" [disabled]'
+                            - 'option "match-59: actividad sintética" [disabled]'
+                            - 'option "sequence-59: actividad sintética" [disabled]'
+                            - 'option "final-59: actividad sintética" [disabled]'
+                            - 'option "retention7-59: actividad sintética" [disabled]'
+                            - 'option "retention30-59: actividad sintética" [disabled]'
+                            - 'option "study-60: actividad sintética" [disabled]'
+                            - 'option "choice-60: actividad sintética" [disabled]'
+                            - 'option "short-60: actividad sintética" [disabled]'
+                            - 'option "apply-60: actividad sintética" [disabled]'
+                            - 'option "match-60: actividad sintética" [disabled]'
+                            - 'option "sequence-60: actividad sintética" [disabled]'
+                            - 'option "final-60: actividad sintética" [disabled]'
+                            - 'option "retention7-60: actividad sintética" [disabled]'
+                            - 'option "retention30-60: actividad sintética" [disabled]'
+                            - 'option "study-61: actividad sintética" [disabled]'
+                            - 'option "choice-61: actividad sintética" [disabled]'
+                            - 'option "short-61: actividad sintética" [disabled]'
+                            - 'option "apply-61: actividad sintética" [disabled]'
+                            - 'option "match-61: actividad sintética" [disabled]'
+                            - 'option "sequence-61: actividad sintética" [disabled]'
+                            - 'option "final-61: actividad sintética" [disabled]'
+                            - 'option "retention7-61: actividad sintética" [disabled]'
+                            - 'option "retention30-61: actividad sintética" [disabled]'
+                            - 'option "study-62: actividad sintética" [disabled]'
+                            - 'option "choice-62: actividad sintética" [disabled]'
+                            - 'option "short-62: actividad sintética" [disabled]'
+                            - 'option "apply-62: actividad sintética" [disabled]'
+                            - 'option "match-62: actividad sintética" [disabled]'
+                            - 'option "sequence-62: actividad sintética" [disabled]'
+                            - 'option "final-62: actividad sintética" [disabled]'
+                            - 'option "retention7-62: actividad sintética" [disabled]'
+                            - 'option "retention30-62: actividad sintética" [disabled]'
+                            - 'option "study-63: actividad sintética" [disabled]'
+                            - 'option "choice-63: actividad sintética" [disabled]'
+                            - 'option "short-63: actividad sintética" [disabled]'
+                            - 'option "apply-63: actividad sintética" [disabled]'
+                            - 'option "match-63: actividad sintética" [disabled]'
+                            - 'option "sequence-63: actividad sintética" [disabled]'
+                            - 'option "final-63: actividad sintética" [disabled]'
+                            - 'option "retention7-63: actividad sintética" [disabled]'
+                            - 'option "retention30-63: actividad sintética" [disabled]'
+                            - 'option "study-64: actividad sintética" [disabled]'
+                            - 'option "choice-64: actividad sintética" [disabled]'
+                            - 'option "short-64: actividad sintética" [disabled]'
+                            - 'option "apply-64: actividad sintética" [disabled]'
+                            - 'option "match-64: actividad sintética" [disabled]'
+                            - 'option "sequence-64: actividad sintética" [disabled]'
+                            - 'option "final-64: actividad sintética" [disabled]'
+                            - 'option "retention7-64: actividad sintética" [disabled]'
+                            - 'option "retention30-64: actividad sintética" [disabled]'
+                            - 'option "study-65: actividad sintética" [disabled]'
+                            - 'option "choice-65: actividad sintética" [disabled]'
+                            - 'option "short-65: actividad sintética" [disabled]'
+                            - 'option "apply-65: actividad sintética" [disabled]'
+                            - 'option "match-65: actividad sintética" [disabled]'
+                            - 'option "sequence-65: actividad sintética" [disabled]'
+                            - 'option "final-65: actividad sintética" [disabled]'
+                            - 'option "retention7-65: actividad sintética" [disabled]'
+                            - 'option "retention30-65: actividad sintética" [disabled]'
+                            - 'option "study-66: actividad sintética" [disabled]'
+                            - 'option "choice-66: actividad sintética" [disabled]'
+                            - 'option "short-66: actividad sintética" [disabled]'
+                            - 'option "apply-66: actividad sintética" [disabled]'
+                            - 'option "match-66: actividad sintética" [disabled]'
+                            - 'option "sequence-66: actividad sintética" [disabled]'
+                            - 'option "final-66: actividad sintética" [disabled]'
+                            - 'option "retention7-66: actividad sintética" [disabled]'
+                            - 'option "retention30-66: actividad sintética" [disabled]'
+                            - 'option "study-67: actividad sintética" [disabled]'
+                            - 'option "choice-67: actividad sintética" [disabled]'
+                            - 'option "short-67: actividad sintética" [disabled]'
+                            - 'option "apply-67: actividad sintética" [disabled]'
+                            - 'option "match-67: actividad sintética" [disabled]'
+                            - 'option "sequence-67: actividad sintética" [disabled]'
+                            - 'option "final-67: actividad sintética" [disabled]'
+                            - 'option "retention7-67: actividad sintética" [disabled]'
+                            - 'option "retention30-67: actividad sintética" [disabled]'
+                            - 'option "study-68: actividad sintética" [disabled]'
+                            - 'option "choice-68: actividad sintética" [disabled]'
+                            - 'option "short-68: actividad sintética" [disabled]'
+                            - 'option "apply-68: actividad sintética" [disabled]'
+                            - 'option "match-68: actividad sintética" [disabled]'
+                            - 'option "sequence-68: actividad sintética" [disabled]'
+                            - 'option "final-68: actividad sintética" [disabled]'
+                            - 'option "retention7-68: actividad sintética" [disabled]'
+                            - 'option "retention30-68: actividad sintética" [disabled]'
+                            - 'option "study-69: actividad sintética" [disabled]'
+                            - 'option "choice-69: actividad sintética" [disabled]'
+                            - 'option "short-69: actividad sintética" [disabled]'
+                            - 'option "apply-69: actividad sintética" [disabled]'
+                            - 'option "match-69: actividad sintética" [disabled]'
+                            - 'option "sequence-69: actividad sintética" [disabled]'
+                            - 'option "final-69: actividad sintética" [disabled]'
+                            - 'option "retention7-69: actividad sintética" [disabled]'
+                            - 'option "retention30-69: actividad sintética" [disabled]'
+                            - 'option "study-70: actividad sintética" [disabled]'
+                            - 'option "choice-70: actividad sintética" [disabled]'
+                            - 'option "short-70: actividad sintética" [disabled]'
+                            - 'option "apply-70: actividad sintética" [disabled]'
+                            - 'option "match-70: actividad sintética" [disabled]'
+                            - 'option "sequence-70: actividad sintética" [disabled]'
+                            - 'option "final-70: actividad sintética" [disabled]'
+                            - 'option "retention7-70: actividad sintética" [disabled]'
+                            - 'option "retention30-70: actividad sintética" [disabled]'
+                            - 'option "study-71: actividad sintética" [disabled]'
+                            - 'option "choice-71: actividad sintética" [disabled]'
+                            - 'option "short-71: actividad sintética" [disabled]'
+                            - 'option "apply-71: actividad sintética" [disabled]'
+                            - 'option "match-71: actividad sintética" [disabled]'
+                            - 'option "sequence-71: actividad sintética" [disabled]'
+                            - 'option "final-71: actividad sintética" [disabled]'
+                            - 'option "retention7-71: actividad sintética" [disabled]'
+                            - 'option "retention30-71: actividad sintética" [disabled]'
+                            - 'option "study-72: actividad sintética" [disabled]'
+                            - 'option "choice-72: actividad sintética" [disabled]'
+                            - 'option "short-72: actividad sintética" [disabled]'
+                            - 'option "apply-72: actividad sintética" [disabled]'
+                            - 'option "match-72: actividad sintética" [disabled]'
+                            - 'option "sequence-72: actividad sintética" [disabled]'
+                            - 'option "final-72: actividad sintética" [disabled]'
+                            - 'option "retention7-72: actividad sintética" [disabled]'
+                            - 'option "retention30-72: actividad sintética" [disabled]'
+                            - 'option "study-73: actividad sintética" [disabled]'
+                            - 'option "choice-73: actividad sintética" [disabled]'
+                            - 'option "short-73: actividad sintética" [disabled]'
+                            - 'option "apply-73: actividad sintética" [disabled]'
+                            - 'option "match-73: actividad sintética" [disabled]'
+                            - 'option "sequence-73: actividad sintética" [disabled]'
+                            - 'option "final-73: actividad sintética" [disabled]'
+                            - 'option "retention7-73: actividad sintética" [disabled]'
+                            - 'option "retention30-73: actividad sintética" [disabled]'
+                            - 'option "study-74: actividad sintética" [disabled]'
+                            - 'option "choice-74: actividad sintética" [disabled]'
+                            - 'option "short-74: actividad sintética" [disabled]'
+                            - 'option "apply-74: actividad sintética" [disabled]'
+                            - 'option "match-74: actividad sintética" [disabled]'
+                            - 'option "sequence-74: actividad sintética" [disabled]'
+                            - 'option "final-74: actividad sintética" [disabled]'
+                            - 'option "retention7-74: actividad sintética" [disabled]'
+                            - 'option "retention30-74: actividad sintética" [disabled]'
+                            - 'option "study-75: actividad sintética" [disabled]'
+                            - 'option "choice-75: actividad sintética" [disabled]'
+                            - 'option "short-75: actividad sintética" [disabled]'
+                            - 'option "apply-75: actividad sintética" [disabled]'
+                            - 'option "match-75: actividad sintética" [disabled]'
+                            - 'option "sequence-75: actividad sintética" [disabled]'
+                            - 'option "final-75: actividad sintética" [disabled]'
+                            - 'option "retention7-75: actividad sintética" [disabled]'
+                            - 'option "retention30-75: actividad sintética" [disabled]'
+                            - 'option "study-76: actividad sintética" [disabled]'
+                            - 'option "choice-76: actividad sintética" [disabled]'
+                            - 'option "short-76: actividad sintética" [disabled]'
+                            - 'option "apply-76: actividad sintética" [disabled]'
+                            - 'option "match-76: actividad sintética" [disabled]'
+                            - 'option "sequence-76: actividad sintética" [disabled]'
+                            - 'option "final-76: actividad sintética" [disabled]'
+                            - 'option "retention7-76: actividad sintética" [disabled]'
+                            - 'option "retention30-76: actividad sintética" [disabled]'
+                            - 'option "study-77: actividad sintética" [disabled]'
+                            - 'option "choice-77: actividad sintética" [disabled]'
+                            - 'option "short-77: actividad sintética" [disabled]'
+                            - 'option "apply-77: actividad sintética" [disabled]'
+                            - 'option "match-77: actividad sintética" [disabled]'
+                            - 'option "sequence-77: actividad sintética" [disabled]'
+                            - 'option "final-77: actividad sintética" [disabled]'
+                            - 'option "retention7-77: actividad sintética" [disabled]'
+                            - 'option "retention30-77: actividad sintética" [disabled]'
+                            - 'option "study-78: actividad sintética" [disabled]'
+                            - 'option "choice-78: actividad sintética" [disabled]'
+                            - 'option "short-78: actividad sintética" [disabled]'
+                            - 'option "apply-78: actividad sintética" [disabled]'
+                            - 'option "match-78: actividad sintética" [disabled]'
+                            - 'option "sequence-78: actividad sintética" [disabled]'
+                            - 'option "final-78: actividad sintética" [disabled]'
+                            - 'option "retention7-78: actividad sintética" [disabled]'
+                            - 'option "retention30-78: actividad sintética" [disabled]'
+                            - 'option "study-79: actividad sintética" [disabled]'
+                            - 'option "choice-79: actividad sintética" [disabled]'
+                            - 'option "short-79: actividad sintética" [disabled]'
+                            - 'option "apply-79: actividad sintética" [disabled]'
+                            - 'option "match-79: actividad sintética" [disabled]'
+                            - 'option "sequence-79: actividad sintética" [disabled]'
+                            - 'option "final-79: actividad sintética" [disabled]'
+                            - 'option "retention7-79: actividad sintética" [disabled]'
+                            - 'option "retention30-79: actividad sintética" [disabled]'
+                            - 'option "study-80: actividad sintética" [disabled]'
+                            - 'option "choice-80: actividad sintética" [disabled]'
+                            - 'option "short-80: actividad sintética" [disabled]'
+                            - 'option "apply-80: actividad sintética" [disabled]'
+                            - 'option "match-80: actividad sintética" [disabled]'
+                            - 'option "sequence-80: actividad sintética" [disabled]'
+                            - 'option "final-80: actividad sintética" [disabled]'
+                            - 'option "retention7-80: actividad sintética" [disabled]'
+                            - 'option "retention30-80: actividad sintética" [disabled]'
+                            - 'option "study-81: actividad sintética" [disabled]'
+                            - 'option "choice-81: actividad sintética" [disabled]'
+                            - 'option "short-81: actividad sintética" [disabled]'
+                            - 'option "apply-81: actividad sintética" [disabled]'
+                            - 'option "match-81: actividad sintética" [disabled]'
+                            - 'option "sequence-81: actividad sintética" [disabled]'
+                            - 'option "final-81: actividad sintética" [disabled]'
+                            - 'option "retention7-81: actividad sintética" [disabled]'
+                            - 'option "retention30-81: actividad sintética" [disabled]'
+                            - 'option "study-82: actividad sintética" [disabled]'
+                            - 'option "choice-82: actividad sintética" [disabled]'
+                            - 'option "short-82: actividad sintética" [disabled]'
+                            - 'option "apply-82: actividad sintética" [disabled]'
+                            - 'option "match-82: actividad sintética" [disabled]'
+                            - 'option "sequence-82: actividad sintética" [disabled]'
+                            - 'option "final-82: actividad sintética" [disabled]'
+                            - 'option "retention7-82: actividad sintética" [disabled]'
+                            - 'option "retention30-82: actividad sintética" [disabled]'
+                            - 'option "study-83: actividad sintética" [disabled]'
+                            - 'option "choice-83: actividad sintética" [disabled]'
+                            - 'option "short-83: actividad sintética" [disabled]'
+                            - 'option "apply-83: actividad sintética" [disabled]'
+                            - 'option "match-83: actividad sintética" [disabled]'
+                            - 'option "sequence-83: actividad sintética" [disabled]'
+                            - 'option "final-83: actividad sintética" [disabled]'
+                            - 'option "retention7-83: actividad sintética" [disabled]'
+                            - 'option "retention30-83: actividad sintética" [disabled]'
+                            - 'option "study-84: actividad sintética" [disabled]'
+                            - 'option "choice-84: actividad sintética" [disabled]'
+                            - 'option "short-84: actividad sintética" [disabled]'
+                            - 'option "apply-84: actividad sintética" [disabled]'
+                            - 'option "match-84: actividad sintética" [disabled]'
+                            - 'option "sequence-84: actividad sintética" [disabled]'
+                            - 'option "final-84: actividad sintética" [disabled]'
+                            - 'option "retention7-84: actividad sintética" [disabled]'
+                            - 'option "retention30-84: actividad sintética" [disabled]'
+                            - 'option "study-85: actividad sintética" [disabled]'
+                            - 'option "choice-85: actividad sintética" [disabled]'
+                            - 'option "short-85: actividad sintética" [disabled]'
+                            - 'option "apply-85: actividad sintética" [disabled]'
+                            - 'option "match-85: actividad sintética" [disabled]'
+                            - 'option "sequence-85: actividad sintética" [disabled]'
+                            - 'option "final-85: actividad sintética" [disabled]'
+                            - 'option "retention7-85: actividad sintética" [disabled]'
+                            - 'option "retention30-85: actividad sintética" [disabled]'
+                            - 'option "study-86: actividad sintética" [disabled]'
+                            - 'option "choice-86: actividad sintética" [disabled]'
+                            - 'option "short-86: actividad sintética" [disabled]'
+                            - 'option "apply-86: actividad sintética" [disabled]'
+                            - 'option "match-86: actividad sintética" [disabled]'
+                            - 'option "sequence-86: actividad sintética" [disabled]'
+                            - 'option "final-86: actividad sintética" [disabled]'
+                            - 'option "retention7-86: actividad sintética" [disabled]'
+                            - 'option "retention30-86: actividad sintética" [disabled]'
+                            - 'option "study-87: actividad sintética" [disabled]'
+                            - 'option "choice-87: actividad sintética" [disabled]'
+                            - 'option "short-87: actividad sintética" [disabled]'
+                            - 'option "apply-87: actividad sintética" [disabled]'
+                            - 'option "match-87: actividad sintética" [disabled]'
+                            - 'option "sequence-87: actividad sintética" [disabled]'
+                            - 'option "final-87: actividad sintética" [disabled]'
+                            - 'option "retention7-87: actividad sintética" [disabled]'
+                            - 'option "retention30-87: actividad sintética" [disabled]'
+                            - 'option "study-88: actividad sintética" [disabled]'
+                            - 'option "choice-88: actividad sintética" [disabled]'
+                            - 'option "short-88: actividad sintética" [disabled]'
+                            - 'option "apply-88: actividad sintética" [disabled]'
+                            - 'option "match-88: actividad sintética" [disabled]'
+                            - 'option "sequence-88: actividad sintética" [disabled]'
+                            - 'option "final-88: actividad sintética" [disabled]'
+                            - 'option "retention7-88: actividad sintética" [disabled]'
+                            - 'option "retention30-88: actividad sintética" [disabled]'
+                            - 'option "study-89: actividad sintética" [disabled]'
+                            - 'option "choice-89: actividad sintética" [disabled]'
+                            - 'option "short-89: actividad sintética" [disabled]'
+                            - 'option "apply-89: actividad sintética" [disabled]'
+                            - 'option "match-89: actividad sintética" [disabled]'
+                            - 'option "sequence-89: actividad sintética" [disabled]'
+                            - 'option "final-89: actividad sintética" [disabled]'
+                            - 'option "retention7-89: actividad sintética" [disabled]'
+                            - 'option "retention30-89: actividad sintética" [disabled]'
+                            - 'option "study-90: actividad sintética" [disabled]'
+                            - 'option "choice-90: actividad sintética" [disabled]'
+                            - 'option "short-90: actividad sintética" [disabled]'
+                            - 'option "apply-90: actividad sintética" [disabled]'
+                            - 'option "match-90: actividad sintética" [disabled]'
+                            - 'option "sequence-90: actividad sintética" [disabled]'
+                            - 'option "final-90: actividad sintética" [disabled]'
+                            - 'option "retention7-90: actividad sintética" [disabled]'
+                            - 'option "retention30-90: actividad sintética" [disabled]'
+                            - 'option "study-91: actividad sintética" [disabled]'
+                            - 'option "choice-91: actividad sintética" [disabled]'
+                            - 'option "short-91: actividad sintética" [disabled]'
+                            - 'option "apply-91: actividad sintética" [disabled]'
+                            - 'option "match-91: actividad sintética" [disabled]'
+                            - 'option "sequence-91: actividad sintética" [disabled]'
+                            - 'option "final-91: actividad sintética" [disabled]'
+                            - 'option "retention7-91: actividad sintética" [disabled]'
+                            - 'option "retention30-91: actividad sintética" [disabled]'
+                            - 'option "study-92: actividad sintética" [disabled]'
+                            - 'option "choice-92: actividad sintética" [disabled]'
+                            - 'option "short-92: actividad sintética" [disabled]'
+                            - 'option "apply-92: actividad sintética" [disabled]'
+                            - 'option "match-92: actividad sintética" [disabled]'
+                            - 'option "sequence-92: actividad sintética" [disabled]'
+                            - 'option "final-92: actividad sintética" [disabled]'
+                            - 'option "retention7-92: actividad sintética" [disabled]'
+                            - 'option "retention30-92: actividad sintética" [disabled]'
+                            - 'option "study-93: actividad sintética" [disabled]'
+                            - 'option "choice-93: actividad sintética" [disabled]'
+                            - 'option "short-93: actividad sintética" [disabled]'
+                            - 'option "apply-93: actividad sintética" [disabled]'
+                            - 'option "match-93: actividad sintética" [disabled]'
+                            - 'option "sequence-93: actividad sintética" [disabled]'
+                            - 'option "final-93: actividad sintética" [disabled]'
+                            - 'option "retention7-93: actividad sintética" [disabled]'
+                            - 'option "retention30-93: actividad sintética" [disabled]'
+                            - 'option "study-94: actividad sintética" [disabled]'
+                            - 'option "choice-94: actividad sintética" [disabled]'
+                            - 'option "short-94: actividad sintética" [disabled]'
+                            - 'option "apply-94: actividad sintética" [disabled]'
+                            - 'option "match-94: actividad sintética" [disabled]'
+                            - 'option "sequence-94: actividad sintética" [disabled]'
+                            - 'option "final-94: actividad sintética" [disabled]'
+                            - 'option "retention7-94: actividad sintética" [disabled]'
+                            - 'option "retention30-94: actividad sintética" [disabled]'
+                            - 'option "study-95: actividad sintética" [disabled]'
+                            - 'option "choice-95: actividad sintética" [disabled]'
+                            - 'option "short-95: actividad sintética" [disabled]'
+                            - 'option "apply-95: actividad sintética" [disabled]'
+                            - 'option "match-95: actividad sintética" [disabled]'
+                            - 'option "sequence-95: actividad sintética" [disabled]'
+                            - 'option "final-95: actividad sintética" [disabled]'
+                            - 'option "retention7-95: actividad sintética" [disabled]'
+                            - 'option "retention30-95: actividad sintética" [disabled]'
+                            - 'option "study-96: actividad sintética" [disabled]'
+                            - 'option "choice-96: actividad sintética" [disabled]'
+                            - 'option "short-96: actividad sintética" [disabled]'
+                            - 'option "apply-96: actividad sintética" [disabled]'
+                            - 'option "match-96: actividad sintética" [disabled]'
+                            - 'option "sequence-96: actividad sintética" [disabled]'
+                            - 'option "final-96: actividad sintética" [disabled]'
+                            - 'option "retention7-96: actividad sintética" [disabled]'
+                            - 'option "retention30-96: actividad sintética" [disabled]'
+                            - 'option "study-97: actividad sintética" [disabled]'
+                            - 'option "choice-97: actividad sintética" [disabled]'
+                            - 'option "short-97: actividad sintética" [disabled]'
+                            - 'option "apply-97: actividad sintética" [disabled]'
+                            - 'option "match-97: actividad sintética" [disabled]'
+                            - 'option "sequence-97: actividad sintética" [disabled]'
+                            - 'option "final-97: actividad sintética" [disabled]'
+                            - 'option "retention7-97: actividad sintética" [disabled]'
+                            - 'option "retention30-97: actividad sintética" [disabled]'
+                            - 'option "study-98: actividad sintética" [disabled]'
+                            - 'option "choice-98: actividad sintética" [disabled]'
+                            - 'option "short-98: actividad sintética" [disabled]'
+                            - 'option "apply-98: actividad sintética" [disabled]'
+                            - 'option "match-98: actividad sintética" [disabled]'
+                            - 'option "sequence-98: actividad sintética" [disabled]'
+                            - 'option "final-98: actividad sintética" [disabled]'
+                            - 'option "retention7-98: actividad sintética" [disabled]'
+                            - 'option "retention30-98: actividad sintética" [disabled]'
+                            - 'option "study-99: actividad sintética" [disabled]'
+                            - 'option "choice-99: actividad sintética" [disabled]'
+                            - 'option "short-99: actividad sintética" [disabled]'
+                            - 'option "apply-99: actividad sintética" [disabled]'
+                            - 'option "match-99: actividad sintética" [disabled]'
+                            - 'option "sequence-99: actividad sintética" [disabled]'
+                            - 'option "final-99: actividad sintética" [disabled]'
+                            - 'option "retention7-99: actividad sintética" [disabled]'
+                            - 'option "retention30-99: actividad sintética" [disabled]'
+                            - 'option "study-100: actividad sintética" [disabled]'
+                            - 'option "choice-100: actividad sintética" [disabled]'
+                            - 'option "short-100: actividad sintética" [disabled]'
+                            - 'option "apply-100: actividad sintética" [disabled]'
+                            - 'option "match-100: actividad sintética" [disabled]'
+                            - 'option "sequence-100: actividad sintética" [disabled]'
+                            - 'option "final-100: actividad sintética" [disabled]'
+                            - 'option "retention7-100: actividad sintética" [disabled]'
+                            - 'option "retention30-100: actividad sintética" [disabled]'
+                            - 'option "study-101: actividad sintética" [disabled]'
+                            - 'option "choice-101: actividad sintética" [disabled]'
+                            - 'option "short-101: actividad sintética" [disabled]'
+                            - 'option "apply-101: actividad sintética" [disabled]'
+                            - 'option "match-101: actividad sintética" [disabled]'
+                            - 'option "sequence-101: actividad sintética" [disabled]'
+                            - 'option "final-101: actividad sintética" [disabled]'
+                            - 'option "retention7-101: actividad sintética" [disabled]'
+                            - 'option "retention30-101: actividad sintética" [disabled]'
+                            - 'option "study-102: actividad sintética" [disabled]'
+                            - 'option "choice-102: actividad sintética" [disabled]'
+                            - 'option "short-102: actividad sintética" [disabled]'
+                            - 'option "apply-102: actividad sintética" [disabled]'
+                            - 'option "match-102: actividad sintética" [disabled]'
+                            - 'option "sequence-102: actividad sintética" [disabled]'
+                            - 'option "final-102: actividad sintética" [disabled]'
+                            - 'option "retention7-102: actividad sintética" [disabled]'
+                            - 'option "retention30-102: actividad sintética" [disabled]'
+                            - 'option "study-103: actividad sintética" [disabled]'
+                            - 'option "choice-103: actividad sintética" [disabled]'
+                            - 'option "short-103: actividad sintética" [disabled]'
+                            - 'option "apply-103: actividad sintética" [disabled]'
+                            - 'option "match-103: actividad sintética" [disabled]'
+                            - 'option "sequence-103: actividad sintética" [disabled]'
+                            - 'option "final-103: actividad sintética" [disabled]'
+                            - 'option "retention7-103: actividad sintética" [disabled]'
+                            - 'option "retention30-103: actividad sintética" [disabled]'
+                            - 'option "study-104: actividad sintética" [disabled]'
+                            - 'option "choice-104: actividad sintética" [disabled]'
+                            - 'option "short-104: actividad sintética" [disabled]'
+                            - 'option "apply-104: actividad sintética" [disabled]'
+                            - 'option "match-104: actividad sintética" [disabled]'
+                            - 'option "sequence-104: actividad sintética" [disabled]'
+                            - 'option "final-104: actividad sintética" [disabled]'
+                            - 'option "retention7-104: actividad sintética" [disabled]'
+                            - 'option "retention30-104: actividad sintética" [disabled]'
+                            - 'option "study-105: actividad sintética" [disabled]'
+                            - 'option "choice-105: actividad sintética" [disabled]'
+                            - 'option "short-105: actividad sintética" [disabled]'
+                            - 'option "apply-105: actividad sintética" [disabled]'
+                            - 'option "match-105: actividad sintética" [disabled]'
+                            - 'option "sequence-105: actividad sintética" [disabled]'
+                            - 'option "final-105: actividad sintética" [disabled]'
+                            - 'option "retention7-105: actividad sintética" [disabled]'
+                            - 'option "retention30-105: actividad sintética" [disabled]'
+                            - 'option "study-106: actividad sintética" [disabled]'
+                            - 'option "choice-106: actividad sintética" [disabled]'
+                            - 'option "short-106: actividad sintética" [disabled]'
+                            - 'option "apply-106: actividad sintética" [disabled]'
+                            - 'option "match-106: actividad sintética" [disabled]'
+                            - 'option "sequence-106: actividad sintética" [disabled]'
+                            - 'option "final-106: actividad sintética" [disabled]'
+                            - 'option "retention7-106: actividad sintética" [disabled]'
+                            - 'option "retention30-106: actividad sintética" [disabled]'
+                            - 'option "study-107: actividad sintética" [disabled]'
+                            - 'option "choice-107: actividad sintética" [disabled]'
+                            - 'option "short-107: actividad sintética" [disabled]'
+                            - 'option "apply-107: actividad sintética" [disabled]'
+                            - 'option "match-107: actividad sintética" [disabled]'
+                            - 'option "sequence-107: actividad sintética" [disabled]'
+                            - 'option "final-107: actividad sintética" [disabled]'
+                            - 'option "retention7-107: actividad sintética" [disabled]'
+                            - 'option "retention30-107: actividad sintética" [disabled]'
+                            - 'option "study-108: actividad sintética" [disabled]'
+                            - 'option "choice-108: actividad sintética" [disabled]'
+                            - 'option "short-108: actividad sintética" [disabled]'
+                            - 'option "apply-108: actividad sintética" [disabled]'
+                            - 'option "match-108: actividad sintética" [disabled]'
+                            - 'option "sequence-108: actividad sintética" [disabled]'
+                            - 'option "final-108: actividad sintética" [disabled]'
+                            - 'option "retention7-108: actividad sintética" [disabled]'
+                            - 'option "retention30-108: actividad sintética" [disabled]'
+                            - 'option "study-109: actividad sintética" [disabled]'
+                            - 'option "choice-109: actividad sintética" [disabled]'
+                            - 'option "short-109: actividad sintética" [disabled]'
+                            - 'option "apply-109: actividad sintética" [disabled]'
+                            - 'option "match-109: actividad sintética" [disabled]'
+                            - 'option "sequence-109: actividad sintética" [disabled]'
+                            - 'option "final-109: actividad sintética" [disabled]'
+                            - 'option "retention7-109: actividad sintética" [disabled]'
+                            - 'option "retention30-109: actividad sintética" [disabled]'
+                            - 'option "study-110: actividad sintética" [disabled]'
+                            - 'option "choice-110: actividad sintética" [disabled]'
+                            - 'option "short-110: actividad sintética" [disabled]'
+                            - 'option "apply-110: actividad sintética" [disabled]'
+                            - 'option "match-110: actividad sintética" [disabled]'
+                            - 'option "sequence-110: actividad sintética" [disabled]'
+                            - 'option "final-110: actividad sintética" [disabled]'
+                            - 'option "retention7-110: actividad sintética" [disabled]'
+                            - 'option "retention30-110: actividad sintética" [disabled]'
+                            - 'option "study-111: actividad sintética" [disabled]'
+                            - 'option "choice-111: actividad sintética" [disabled]'
+                            - 'option "short-111: actividad sintética" [disabled]'
+                            - 'option "apply-111: actividad sintética" [disabled]'
+                            - 'option "match-111: actividad sintética" [disabled]'
+                            - 'option "sequence-111: actividad sintética" [disabled]'
+                            - 'option "final-111: actividad sintética" [disabled]'
+                            - 'option "retention7-111: actividad sintética" [disabled]'
+                            - 'option "retention30-111: actividad sintética" [disabled]'
+                            - 'option "study-112: actividad sintética" [disabled]'
+                            - 'option "choice-112: actividad sintética" [disabled]'
+                            - 'option "short-112: actividad sintética" [disabled]'
+                            - 'option "apply-112: actividad sintética" [disabled]'
+                            - 'option "match-112: actividad sintética" [disabled]'
+                            - 'option "sequence-112: actividad sintética" [disabled]'
+                            - 'option "final-112: actividad sintética" [disabled]'
+                            - 'option "retention7-112: actividad sintética" [disabled]'
+                            - 'option "retention30-112: actividad sintética" [disabled]'
+                            - 'option "study-113: actividad sintética" [disabled]'
+                            - 'option "choice-113: actividad sintética" [disabled]'
+                            - 'option "short-113: actividad sintética" [disabled]'
+                            - 'option "apply-113: actividad sintética" [disabled]'
+                            - 'option "match-113: actividad sintética" [disabled]'
+                            - 'option "sequence-113: actividad sintética" [disabled]'
+                            - 'option "final-113: actividad sintética" [disabled]'
+                            - 'option "retention7-113: actividad sintética" [disabled]'
+                            - 'option "retention30-113: actividad sintética" [disabled]'
+                            - 'option "study-114: actividad sintética" [disabled]'
+                            - 'option "choice-114: actividad sintética" [disabled]'
+                            - 'option "short-114: actividad sintética" [disabled]'
+                            - 'option "apply-114: actividad sintética" [disabled]'
+                            - 'option "match-114: actividad sintética" [disabled]'
+                            - 'option "sequence-114: actividad sintética" [disabled]'
+                            - 'option "final-114: actividad sintética" [disabled]'
+                            - 'option "retention7-114: actividad sintética" [disabled]'
+                            - 'option "retention30-114: actividad sintética" [disabled]'
+                            - 'option "study-115: actividad sintética" [disabled]'
+                            - 'option "choice-115: actividad sintética" [disabled]'
+                            - 'option "short-115: actividad sintética" [disabled]'
+                            - 'option "apply-115: actividad sintética" [disabled]'
+                            - 'option "match-115: actividad sintética" [disabled]'
+                            - 'option "sequence-115: actividad sintética" [disabled]'
+                            - 'option "final-115: actividad sintética" [disabled]'
+                            - 'option "retention7-115: actividad sintética" [disabled]'
+                            - 'option "retention30-115: actividad sintética" [disabled]'
+                            - 'option "study-116: actividad sintética" [disabled]'
+                            - 'option "choice-116: actividad sintética" [disabled]'
+                            - 'option "short-116: actividad sintética" [disabled]'
+                            - 'option "apply-116: actividad sintética" [disabled]'
+                            - 'option "match-116: actividad sintética" [disabled]'
+                            - 'option "sequence-116: actividad sintética" [disabled]'
+                            - 'option "final-116: actividad sintética" [disabled]'
+                            - 'option "retention7-116: actividad sintética" [disabled]'
+                            - 'option "retention30-116: actividad sintética" [disabled]'
+                            - 'option "study-117: actividad sintética" [disabled]'
+                            - 'option "choice-117: actividad sintética" [disabled]'
+                            - 'option "short-117: actividad sintética" [disabled]'
+                            - 'option "apply-117: actividad sintética" [disabled]'
+                            - 'option "match-117: actividad sintética" [disabled]'
+                            - 'option "sequence-117: actividad sintética" [disabled]'
+                            - 'option "final-117: actividad sintética" [disabled]'
+                            - 'option "retention7-117: actividad sintética" [disabled]'
+                            - 'option "retention30-117: actividad sintética" [disabled]'
+                            - 'option "study-118: actividad sintética" [disabled]'
+                            - 'option "choice-118: actividad sintética" [disabled]'
+                            - 'option "short-118: actividad sintética" [disabled]'
+                            - 'option "apply-118: actividad sintética" [disabled]'
+                            - 'option "match-118: actividad sintética" [disabled]'
+                            - 'option "sequence-118: actividad sintética" [disabled]'
+                            - 'option "final-118: actividad sintética" [disabled]'
+                            - 'option "retention7-118: actividad sintética" [disabled]'
+                            - 'option "retention30-118: actividad sintética" [disabled]'
+                            - 'option "study-119: actividad sintética" [disabled]'
+                            - 'option "choice-119: actividad sintética" [disabled]'
+                            - 'option "short-119: actividad sintética" [disabled]'
+                            - 'option "apply-119: actividad sintética" [disabled]'
+                            - 'option "match-119: actividad sintética" [disabled]'
+                            - 'option "sequence-119: actividad sintética" [disabled]'
+                            - 'option "final-119: actividad sintética" [disabled]'
+                            - 'option "retention7-119: actividad sintética" [disabled]'
+                            - 'option "retention30-119: actividad sintética" [disabled]'
+                            - 'option "study-120: actividad sintética" [disabled]'
+                            - 'option "choice-120: actividad sintética" [disabled]'
+                            - 'option "short-120: actividad sintética" [disabled]'
+                            - 'option "apply-120: actividad sintética" [disabled]'
+                            - 'option "match-120: actividad sintética" [disabled]'
+                            - 'option "sequence-120: actividad sintética" [disabled]'
+                            - 'option "final-120: actividad sintética" [disabled]'
+                            - 'option "retention7-120: actividad sintética" [disabled]'
+                            - 'option "retention30-120: actividad sintética" [disabled]'
+                            - 'option "study-121: actividad sintética" [disabled]'
+                            - 'option "choice-121: actividad sintética" [disabled]'
+                            - 'option "short-121: actividad sintética" [disabled]'
+                            - 'option "apply-121: actividad sintética" [disabled]'
+                            - 'option "match-121: actividad sintética" [disabled]'
+                            - 'option "sequence-121: actividad sintética" [disabled]'
+                            - 'option "final-121: actividad sintética" [disabled]'
+                            - 'option "retention7-121: actividad sintética" [disabled]'
+                            - 'option "retention30-121: actividad sintética" [disabled]'
+                            - 'option "study-122: actividad sintética" [disabled]'
+                            - 'option "choice-122: actividad sintética" [disabled]'
+                            - 'option "short-122: actividad sintética" [disabled]'
+                            - 'option "apply-122: actividad sintética" [disabled]'
+                            - 'option "match-122: actividad sintética" [disabled]'
+                            - 'option "sequence-122: actividad sintética" [disabled]'
+                            - 'option "final-122: actividad sintética" [disabled]'
+                            - 'option "retention7-122: actividad sintética" [disabled]'
+                            - 'option "retention30-122: actividad sintética" [disabled]'
+                            - 'option "study-123: actividad sintética" [disabled]'
+                            - 'option "choice-123: actividad sintética" [disabled]'
+                            - 'option "short-123: actividad sintética" [disabled]'
+                            - 'option "apply-123: actividad sintética" [disabled]'
+                            - 'option "match-123: actividad sintética" [disabled]'
+                            - 'option "sequence-123: actividad sintética" [disabled]'
+                            - 'option "final-123: actividad sintética" [disabled]'
+                            - 'option "retention7-123: actividad sintética" [disabled]'
+                            - 'option "retention30-123: actividad sintética" [disabled]'
+                            - 'option "study-124: actividad sintética" [disabled]'
+                            - 'option "choice-124: actividad sintética" [disabled]'
+                            - 'option "short-124: actividad sintética" [disabled]'
+                            - 'option "apply-124: actividad sintética" [disabled]'
+                            - 'option "match-124: actividad sintética" [disabled]'
+                            - 'option "sequence-124: actividad sintética" [disabled]'
+                            - 'option "final-124: actividad sintética" [disabled]'
+                            - 'option "retention7-124: actividad sintética" [disabled]'
+                            - 'option "retention30-124: actividad sintética" [disabled]'
+                            - 'option "study-125: actividad sintética" [disabled]'
+                            - 'option "choice-125: actividad sintética" [disabled]'
+                            - 'option "short-125: actividad sintética" [disabled]'
+                            - 'option "apply-125: actividad sintética" [disabled]'
+                            - 'option "match-125: actividad sintética" [disabled]'
+                            - 'option "sequence-125: actividad sintética" [disabled]'
+                            - 'option "final-125: actividad sintética" [disabled]'
+                            - 'option "retention7-125: actividad sintética" [disabled]'
+                            - 'option "retention30-125: actividad sintética" [disabled]'
+                            - 'option "study-126: actividad sintética" [disabled]'
+                            - 'option "choice-126: actividad sintética" [disabled]'
+                            - 'option "short-126: actividad sintética" [disabled]'
+                            - 'option "apply-126: actividad sintética" [disabled]'
+                            - 'option "match-126: actividad sintética" [disabled]'
+                            - 'option "sequence-126: actividad sintética" [disabled]'
+                            - 'option "final-126: actividad sintética" [disabled]'
+                            - 'option "retention7-126: actividad sintética" [disabled]'
+                            - 'option "retention30-126: actividad sintética" [disabled]'
+                            - 'option "study-127: actividad sintética" [disabled]'
+                            - 'option "choice-127: actividad sintética" [disabled]'
+                            - 'option "short-127: actividad sintética" [disabled]'
+                            - 'option "apply-127: actividad sintética" [disabled]'
+                            - 'option "match-127: actividad sintética" [disabled]'
+                            - 'option "sequence-127: actividad sintética" [disabled]'
+                            - 'option "final-127: actividad sintética" [disabled]'
+                            - 'option "retention7-127: actividad sintética" [disabled]'
+                            - 'option "retention30-127: actividad sintética" [disabled]'
+                            - 'option "study-128: actividad sintética" [disabled]'
+                            - 'option "choice-128: actividad sintética" [disabled]'
+                            - 'option "short-128: actividad sintética" [disabled]'
+                            - 'option "apply-128: actividad sintética" [disabled]'
+                            - 'option "match-128: actividad sintética" [disabled]'
+                            - 'option "sequence-128: actividad sintética" [disabled]'
+                            - 'option "final-128: actividad sintética" [disabled]'
+                            - 'option "retention7-128: actividad sintética" [disabled]'
+                            - 'option "retention30-128: actividad sintética" [disabled]'
+                            - 'option "study-129: actividad sintética" [disabled]'
+                            - 'option "choice-129: actividad sintética" [disabled]'
+                            - 'option "short-129: actividad sintética" [disabled]'
+                            - 'option "apply-129: actividad sintética" [disabled]'
+                            - 'option "match-129: actividad sintética" [disabled]'
+                            - 'option "sequence-129: actividad sintética" [disabled]'
+                            - 'option "final-129: actividad sintética" [disabled]'
+                            - 'option "retention7-129: actividad sintética" [disabled]'
+                            - 'option "retention30-129: actividad sintética" [disabled]'
+                            - 'option "study-130: actividad sintética" [disabled]'
+                            - 'option "choice-130: actividad sintética" [disabled]'
+                            - 'option "short-130: actividad sintética" [disabled]'
+                            - 'option "apply-130: actividad sintética" [disabled]'
+                            - 'option "match-130: actividad sintética" [disabled]'
+                            - 'option "sequence-130: actividad sintética" [disabled]'
+                            - 'option "final-130: actividad sintética" [disabled]'
+                            - 'option "retention7-130: actividad sintética" [disabled]'
+                            - 'option "retention30-130: actividad sintética" [disabled]'
+                            - 'option "study-131: actividad sintética" [disabled]'
+                            - 'option "choice-131: actividad sintética" [disabled]'
+                            - 'option "short-131: actividad sintética" [disabled]'
+                            - 'option "apply-131: actividad sintética" [disabled]'
+                            - 'option "match-131: actividad sintética" [disabled]'
+                            - 'option "sequence-131: actividad sintética" [disabled]'
+                            - 'option "final-131: actividad sintética" [disabled]'
+                            - 'option "retention7-131: actividad sintética" [disabled]'
+                            - 'option "retention30-131: actividad sintética" [disabled]'
+                            - 'option "study-132: actividad sintética" [disabled]'
+                            - 'option "choice-132: actividad sintética" [disabled]'
+                            - 'option "short-132: actividad sintética" [disabled]'
+                            - 'option "apply-132: actividad sintética" [disabled]'
+                            - 'option "match-132: actividad sintética" [disabled]'
+                            - 'option "sequence-132: actividad sintética" [disabled]'
+                            - 'option "final-132: actividad sintética" [disabled]'
+                            - 'option "retention7-132: actividad sintética" [disabled]'
+                            - 'option "retention30-132: actividad sintética" [disabled]'
+                            - 'option "study-133: actividad sintética" [disabled]'
+                            - 'option "choice-133: actividad sintética" [disabled]'
+                            - 'option "short-133: actividad sintética" [disabled]'
+                            - 'option "apply-133: actividad sintética" [disabled]'
+                            - 'option "match-133: actividad sintética" [disabled]'
+                            - 'option "sequence-133: actividad sintética" [disabled]'
+                            - 'option "final-133: actividad sintética" [disabled]'
+                            - 'option "retention7-133: actividad sintética" [disabled]'
+                            - 'option "retention30-133: actividad sintética" [disabled]'
+                            - 'option "study-134: actividad sintética" [disabled]'
+                            - 'option "choice-134: actividad sintética" [disabled]'
+                            - 'option "short-134: actividad sintética" [disabled]'
+                            - 'option "apply-134: actividad sintética" [disabled]'
+                            - 'option "match-134: actividad sintética" [disabled]'
+                            - 'option "sequence-134: actividad sintética" [disabled]'
+                            - 'option "final-134: actividad sintética" [disabled]'
+                            - 'option "retention7-134: actividad sintética" [disabled]'
+                            - 'option "retention30-134: actividad sintética" [disabled]'
+                            - 'option "study-135: actividad sintética" [disabled]'
+                            - 'option "choice-135: actividad sintética" [disabled]'
+                            - 'option "short-135: actividad sintética" [disabled]'
+                            - 'option "apply-135: actividad sintética" [disabled]'
+                            - 'option "match-135: actividad sintética" [disabled]'
+                            - 'option "sequence-135: actividad sintética" [disabled]'
+                            - 'option "final-135: actividad sintética" [disabled]'
+                            - 'option "retention7-135: actividad sintética" [disabled]'
+                            - 'option "retention30-135: actividad sintética" [disabled]'
+                            - 'option "study-136: actividad sintética" [disabled]'
+                            - 'option "choice-136: actividad sintética" [disabled]'
+                            - 'option "short-136: actividad sintética" [disabled]'
+                            - 'option "apply-136: actividad sintética" [disabled]'
+                            - 'option "match-136: actividad sintética" [disabled]'
+                            - 'option "sequence-136: actividad sintética" [disabled]'
+                            - 'option "final-136: actividad sintética" [disabled]'
+                            - 'option "retention7-136: actividad sintética" [disabled]'
+                            - 'option "retention30-136: actividad sintética" [disabled]'
+                            - 'option "study-137: actividad sintética" [disabled]'
+                            - 'option "choice-137: actividad sintética" [disabled]'
+                            - 'option "short-137: actividad sintética" [disabled]'
+                            - 'option "apply-137: actividad sintética" [disabled]'
+                            - 'option "match-137: actividad sintética" [disabled]'
+                            - 'option "sequence-137: actividad sintética" [disabled]'
+                            - 'option "final-137: actividad sintética" [disabled]'
+                            - 'option "retention7-137: actividad sintética" [disabled]'
+                            - 'option "retention30-137: actividad sintética" [disabled]'
+                            - 'option "study-138: actividad sintética" [disabled]'
+                            - 'option "choice-138: actividad sintética" [disabled]'
+                            - 'option "short-138: actividad sintética" [disabled]'
+                            - 'option "apply-138: actividad sintética" [disabled]'
+                            - 'option "match-138: actividad sintética" [disabled]'
+                            - 'option "sequence-138: actividad sintética" [disabled]'
+                            - 'option "final-138: actividad sintética" [disabled]'
+                            - 'option "retention7-138: actividad sintética" [disabled]'
+                            - 'option "retention30-138: actividad sintética" [disabled]'
+                            - 'option "study-139: actividad sintética" [disabled]'
+                            - 'option "choice-139: actividad sintética" [disabled]'
+                            - 'option "short-139: actividad sintética" [disabled]'
+                            - 'option "apply-139: actividad sintética" [disabled]'
+                            - 'option "match-139: actividad sintética" [disabled]'
+                            - 'option "sequence-139: actividad sintética" [disabled]'
+                            - 'option "final-139: actividad sintética" [disabled]'
+                            - 'option "retention7-139: actividad sintética" [disabled]'
+                            - 'option "retention30-139: actividad sintética" [disabled]'
+                            - 'option "study-140: actividad sintética" [disabled]'
+                            - 'option "choice-140: actividad sintética" [disabled]'
+                            - 'option "short-140: actividad sintética" [disabled]'
+                            - 'option "apply-140: actividad sintética" [disabled]'
+                            - 'option "match-140: actividad sintética" [disabled]'
+                            - 'option "sequence-140: actividad sintética" [disabled]'
+                            - 'option "final-140: actividad sintética" [disabled]'
+                            - 'option "retention7-140: actividad sintética" [disabled]'
+                            - 'option "retention30-140: actividad sintética" [disabled]'
+                            - 'option "study-141: actividad sintética" [disabled]'
+                            - 'option "choice-141: actividad sintética" [disabled]'
+                            - 'option "short-141: actividad sintética" [disabled]'
+                            - 'option "apply-141: actividad sintética" [disabled]'
+                            - 'option "sequence-141: actividad sintética" [disabled]'
+                            - 'option "study-142: actividad sintética" [disabled]'
+                            - 'option "choice-142: actividad sintética" [disabled]'
+                            - 'option "short-142: actividad sintética" [disabled]'
+                            - 'option "apply-142: actividad sintética" [disabled]'
+                            - 'option "sequence-142: actividad sintética" [disabled]'
+                            - 'option "study-143: actividad sintética" [disabled]'
+                            - 'option "choice-143: actividad sintética" [disabled]'
+                            - 'option "short-143: actividad sintética" [disabled]'
+                            - 'option "apply-143: actividad sintética" [disabled]'
+                            - 'option "sequence-143: actividad sintética" [disabled]'
+                            - 'option "study-144: actividad sintética" [disabled]'
+                            - 'option "choice-144: actividad sintética" [disabled]'
+                            - 'option "short-144: actividad sintética" [disabled]'
+                            - 'option "apply-144: actividad sintética" [disabled]'
+                            - 'option "sequence-144: actividad sintética" [disabled]'
+                            - 'option "study-145: actividad sintética" [disabled]'
+                            - 'option "choice-145: actividad sintética" [disabled]'
+                            - 'option "short-145: actividad sintética" [disabled]'
+                            - 'option "apply-145: actividad sintética" [disabled]'
+                            - 'option "sequence-145: actividad sintética" [disabled]'
+                            - 'option "study-146: actividad sintética" [disabled]'
+                            - 'option "choice-146: actividad sintética" [disabled]'
+                            - 'option "short-146: actividad sintética" [disabled]'
+                            - 'option "apply-146: actividad sintética" [disabled]'
+                            - 'option "sequence-146: actividad sintética" [disabled]'
+                            - 'option "study-147: actividad sintética" [disabled]'
+                            - 'option "choice-147: actividad sintética" [disabled]'
+                            - 'option "short-147: actividad sintética" [disabled]'
+                            - 'option "apply-147: actividad sintética" [disabled]'
+                            - 'option "sequence-147: actividad sintética" [disabled]'
+                            - 'option "study-148: actividad sintética" [disabled]'
+                            - 'option "choice-148: actividad sintética" [disabled]'
+                            - 'option "short-148: actividad sintética" [disabled]'
+                            - 'option "apply-148: actividad sintética" [disabled]'
+                            - 'option "sequence-148: actividad sintética" [disabled]'
+                            - 'option "study-149: actividad sintética" [disabled]'
+                            - 'option "choice-149: actividad sintética" [disabled]'
+                            - 'option "short-149: actividad sintética" [disabled]'
+                            - 'option "apply-149: actividad sintética" [disabled]'
+                            - 'option "sequence-149: actividad sintética" [disabled]'
+                            - 'option "study-150: actividad sintética" [disabled]'
+                            - 'option "choice-150: actividad sintética" [disabled]'
+                            - 'option "short-150: actividad sintética" [disabled]'
+                            - 'option "apply-150: actividad sintética" [disabled]'
+                            - 'option "sequence-150: actividad sintética" [disabled]'
+                            - 'option "study-151: actividad sintética" [disabled]'
+                            - 'option "choice-151: actividad sintética" [disabled]'
+                            - 'option "short-151: actividad sintética" [disabled]'
+                            - 'option "apply-151: actividad sintética" [disabled]'
+                            - 'option "sequence-151: actividad sintética" [disabled]'
+                            - 'option "study-152: actividad sintética" [disabled]'
+                            - 'option "choice-152: actividad sintética" [disabled]'
+                            - 'option "short-152: actividad sintética" [disabled]'
+                            - 'option "apply-152: actividad sintética" [disabled]'
+                            - 'option "sequence-152: actividad sintética" [disabled]'
+                            - 'option "study-153: actividad sintética" [disabled]'
+                            - 'option "choice-153: actividad sintética" [disabled]'
+                            - 'option "short-153: actividad sintética" [disabled]'
+                            - 'option "apply-153: actividad sintética" [disabled]'
+                            - 'option "sequence-153: actividad sintética" [disabled]'
+                            - 'option "study-154: actividad sintética" [disabled]'
+                            - 'option "choice-154: actividad sintética" [disabled]'
+                            - 'option "short-154: actividad sintética" [disabled]'
+                            - 'option "apply-154: actividad sintética" [disabled]'
+                            - 'option "sequence-154: actividad sintética" [disabled]'
+                            - 'option "study-155: actividad sintética" [disabled]'
+                            - 'option "choice-155: actividad sintética" [disabled]'
+                            - 'option "short-155: actividad sintética" [disabled]'
+                            - 'option "apply-155: actividad sintética" [disabled]'
+                            - 'option "sequence-155: actividad sintética" [disabled]'
+                            - 'option "study-156: actividad sintética" [disabled]'
+                            - 'option "choice-156: actividad sintética" [disabled]'
+                            - 'option "short-156: actividad sintética" [disabled]'
+                            - 'option "apply-156: actividad sintética" [disabled]'
+                            - 'option "sequence-156: actividad sintética" [disabled]'
+                            - 'option "study-157: actividad sintética" [disabled]'
+                            - 'option "choice-157: actividad sintética" [disabled]'
+                            - 'option "short-157: actividad sintética" [disabled]'
+                            - 'option "apply-157: actividad sintética" [disabled]'
+                            - 'option "sequence-157: actividad sintética" [disabled]'
+                            - 'option "study-158: actividad sintética" [disabled]'
+                            - 'option "choice-158: actividad sintética" [disabled]'
+                            - 'option "short-158: actividad sintética" [disabled]'
+                            - 'option "apply-158: actividad sintética" [disabled]'
+                            - 'option "sequence-158: actividad sintética" [disabled]'
+                            - 'option "study-159: actividad sintética" [disabled]'
+                            - 'option "choice-159: actividad sintética" [disabled]'
+                            - 'option "short-159: actividad sintética" [disabled]'
+                            - 'option "apply-159: actividad sintética" [disabled]'
+                            - 'option "sequence-159: actividad sintética" [disabled]'
+                            - 'option "study-160: actividad sintética" [disabled]'
+                            - 'option "choice-160: actividad sintética" [disabled]'
+                            - 'option "short-160: actividad sintética" [disabled]'
+                            - 'option "apply-160: actividad sintética" [disabled]'
+                            - 'option "sequence-160: actividad sintética" [disabled]'
+                            - 'option "study-161: actividad sintética" [disabled]'
+                            - 'option "choice-161: actividad sintética" [disabled]'
+                            - 'option "short-161: actividad sintética" [disabled]'
+                            - 'option "apply-161: actividad sintética" [disabled]'
+                            - 'option "sequence-161: actividad sintética" [disabled]'
+                            - 'option "study-162: actividad sintética" [disabled]'
+                            - 'option "choice-162: actividad sintética" [disabled]'
+                            - 'option "short-162: actividad sintética" [disabled]'
+                            - 'option "apply-162: actividad sintética" [disabled]'
+                            - 'option "sequence-162: actividad sintética" [disabled]'
+                            - 'option "study-163: actividad sintética" [disabled]'
+                            - 'option "choice-163: actividad sintética" [disabled]'
+                            - 'option "short-163: actividad sintética" [disabled]'
+                            - 'option "apply-163: actividad sintética" [disabled]'
+                            - 'option "sequence-163: actividad sintética" [disabled]'
+                            - 'option "study-164: actividad sintética" [disabled]'
+                            - 'option "choice-164: actividad sintética" [disabled]'
+                            - 'option "short-164: actividad sintética" [disabled]'
+                            - 'option "apply-164: actividad sintética" [disabled]'
+                            - 'option "sequence-164: actividad sintética" [disabled]'
+                            - 'option "study-165: actividad sintética" [disabled]'
+                            - 'option "choice-165: actividad sintética" [disabled]'
+                            - 'option "short-165: actividad sintética" [disabled]'
+                            - 'option "apply-165: actividad sintética" [disabled]'
+                            - 'option "sequence-165: actividad sintética" [disabled]'
+                            - 'option "study-166: actividad sintética" [disabled]'
+                            - 'option "choice-166: actividad sintética" [disabled]'
+                            - 'option "short-166: actividad sintética" [disabled]'
+                            - 'option "apply-166: actividad sintética" [disabled]'
+                            - 'option "sequence-166: actividad sintética" [disabled]'
+                            - 'option "study-167: actividad sintética" [disabled]'
+                            - 'option "choice-167: actividad sintética" [disabled]'
+                            - 'option "short-167: actividad sintética" [disabled]'
+                            - 'option "apply-167: actividad sintética" [disabled]'
+                            - 'option "sequence-167: actividad sintética" [disabled]'
+                            - 'option "study-168: actividad sintética" [disabled]'
+                            - 'option "choice-168: actividad sintética" [disabled]'
+                            - 'option "short-168: actividad sintética" [disabled]'
+                            - 'option "apply-168: actividad sintética" [disabled]'
+                            - 'option "sequence-168: actividad sintética" [disabled]'
+                            - 'option "study-169: actividad sintética" [disabled]'
+                            - 'option "choice-169: actividad sintética" [disabled]'
+                            - 'option "short-169: actividad sintética" [disabled]'
+                            - 'option "apply-169: actividad sintética" [disabled]'
+                            - 'option "sequence-169: actividad sintética" [disabled]'
+                            - 'option "study-170: actividad sintética" [disabled]'
+                            - 'option "choice-170: actividad sintética" [disabled]'
+                            - 'option "short-170: actividad sintética" [disabled]'
+                            - 'option "apply-170: actividad sintética" [disabled]'
+                            - 'option "sequence-170: actividad sintética" [disabled]'
+                            - 'option "study-171: actividad sintética" [disabled]'
+                            - 'option "choice-171: actividad sintética" [disabled]'
+                            - 'option "short-171: actividad sintética" [disabled]'
+                            - 'option "apply-171: actividad sintética" [disabled]'
+                            - 'option "sequence-171: actividad sintética" [disabled]'
+                            - 'option "study-172: actividad sintética" [disabled]'
+                            - 'option "choice-172: actividad sintética" [disabled]'
+                            - 'option "short-172: actividad sintética" [disabled]'
+                            - 'option "apply-172: actividad sintética" [disabled]'
+                            - 'option "sequence-172: actividad sintética" [disabled]'
+                            - 'option "study-173: actividad sintética" [disabled]'
+                            - 'option "choice-173: actividad sintética" [disabled]'
+                            - 'option "short-173: actividad sintética" [disabled]'
+                            - 'option "apply-173: actividad sintética" [disabled]'
+                            - 'option "sequence-173: actividad sintética" [disabled]'
+                            - 'option "study-174: actividad sintética" [disabled]'
+                            - 'option "choice-174: actividad sintética" [disabled]'
+                            - 'option "short-174: actividad sintética" [disabled]'
+                            - 'option "apply-174: actividad sintética" [disabled]'
+                            - 'option "sequence-174: actividad sintética" [disabled]'
+                            - 'option "study-175: actividad sintética" [disabled]'
+                            - 'option "choice-175: actividad sintética" [disabled]'
+                            - 'option "short-175: actividad sintética" [disabled]'
+                            - 'option "apply-175: actividad sintética" [disabled]'
+                            - 'option "sequence-175: actividad sintética" [disabled]'
+                            - 'option "study-176: actividad sintética" [disabled]'
+                            - 'option "choice-176: actividad sintética" [disabled]'
+                            - 'option "short-176: actividad sintética" [disabled]'
+                            - 'option "apply-176: actividad sintética" [disabled]'
+                            - 'option "sequence-176: actividad sintética" [disabled]'
+                            - 'option "study-177: actividad sintética" [disabled]'
+                            - 'option "choice-177: actividad sintética" [disabled]'
+                            - 'option "short-177: actividad sintética" [disabled]'
+                            - 'option "apply-177: actividad sintética" [disabled]'
+                            - 'option "sequence-177: actividad sintética" [disabled]'
+                            - 'option "study-178: actividad sintética" [disabled]'
+                            - 'option "choice-178: actividad sintética" [disabled]'
+                            - 'option "short-178: actividad sintética" [disabled]'
+                            - 'option "apply-178: actividad sintética" [disabled]'
+                            - 'option "sequence-178: actividad sintética" [disabled]'
+                            - 'option "study-179: actividad sintética" [disabled]'
+                            - 'option "choice-179: actividad sintética" [disabled]'
+                            - 'option "short-179: actividad sintética" [disabled]'
+                            - 'option "apply-179: actividad sintética" [disabled]'
+                            - 'option "sequence-179: actividad sintética" [disabled]'
+                            - 'option "study-180: actividad sintética" [disabled]'
+                            - 'option "choice-180: actividad sintética" [disabled]'
+                            - 'option "short-180: actividad sintética" [disabled]'
+                            - 'option "apply-180: actividad sintética" [disabled]'
+                            - 'option "sequence-180: actividad sintética" [disabled]'
+                            - 'option "study-181: actividad sintética" [disabled]'
+                            - 'option "choice-181: actividad sintética" [disabled]'
+                            - 'option "short-181: actividad sintética" [disabled]'
+                            - 'option "apply-181: actividad sintética" [disabled]'
+                            - 'option "sequence-181: actividad sintética" [disabled]'
+                            - 'option "study-182: actividad sintética" [disabled]'
+                            - 'option "choice-182: actividad sintética" [disabled]'
+                            - 'option "short-182: actividad sintética" [disabled]'
+                            - 'option "apply-182: actividad sintética" [disabled]'
+                            - 'option "sequence-182: actividad sintética" [disabled]'
+                            - 'option "study-183: actividad sintética" [disabled]'
+                            - 'option "choice-183: actividad sintética" [disabled]'
+                            - 'option "short-183: actividad sintética" [disabled]'
+                            - 'option "apply-183: actividad sintética" [disabled]'
+                            - 'option "sequence-183: actividad sintética" [disabled]'
+                            - 'option "study-184: actividad sintética" [disabled]'
+                            - 'option "choice-184: actividad sintética" [disabled]'
+                            - 'option "short-184: actividad sintética" [disabled]'
+                            - 'option "apply-184: actividad sintética" [disabled]'
+                            - 'option "sequence-184: actividad sintética" [disabled]'
+                            - 'option "study-185: actividad sintética" [disabled]'
+                            - 'option "choice-185: actividad sintética" [disabled]'
+                            - 'option "short-185: actividad sintética" [disabled]'
+                            - 'option "apply-185: actividad sintética" [disabled]'
+                            - 'option "sequence-185: actividad sintética" [disabled]'
+                            - 'option "study-186: actividad sintética" [disabled]'
+                            - 'option "choice-186: actividad sintética" [disabled]'
+                            - 'option "short-186: actividad sintética" [disabled]'
+                            - 'option "apply-186: actividad sintética" [disabled]'
+                            - 'option "sequence-186: actividad sintética" [disabled]'
+                            - 'option "study-187: actividad sintética" [disabled]'
+                            - 'option "choice-187: actividad sintética" [disabled]'
+                            - 'option "short-187: actividad sintética" [disabled]'
+                            - 'option "apply-187: actividad sintética" [disabled]'
+                            - 'option "sequence-187: actividad sintética" [disabled]'
+                            - 'option "study-188: actividad sintética" [disabled]'
+                            - 'option "choice-188: actividad sintética" [disabled]'
+                            - 'option "short-188: actividad sintética" [disabled]'
+                            - 'option "apply-188: actividad sintética" [disabled]'
+                            - 'option "sequence-188: actividad sintética" [disabled]'
+                            - 'option "study-189: actividad sintética" [disabled]'
+                            - 'option "choice-189: actividad sintética" [disabled]'
+                            - 'option "short-189: actividad sintética" [disabled]'
+                            - 'option "apply-189: actividad sintética" [disabled]'
+                            - 'option "sequence-189: actividad sintética" [disabled]'
+                            - 'option "study-190: actividad sintética" [disabled]'
+                            - 'option "choice-190: actividad sintética" [disabled]'
+                            - 'option "short-190: actividad sintética" [disabled]'
+                            - 'option "apply-190: actividad sintética" [disabled]'
+                            - 'option "sequence-190: actividad sintética" [disabled]'
+                            - 'option "study-191: actividad sintética" [disabled]'
+                            - 'option "choice-191: actividad sintética" [disabled]'
+                            - 'option "short-191: actividad sintética" [disabled]'
+                            - 'option "apply-191: actividad sintética" [disabled]'
+                            - 'option "sequence-191: actividad sintética" [disabled]'
+                            - 'option "study-192: actividad sintética" [disabled]'
+                            - 'option "choice-192: actividad sintética" [disabled]'
+                            - 'option "short-192: actividad sintética" [disabled]'
+                            - 'option "apply-192: actividad sintética" [disabled]'
+                            - 'option "sequence-192: actividad sintética" [disabled]'
+                            - 'option "study-193: actividad sintética" [disabled]'
+                            - 'option "choice-193: actividad sintética" [disabled]'
+                            - 'option "short-193: actividad sintética" [disabled]'
+                            - 'option "apply-193: actividad sintética" [disabled]'
+                            - 'option "sequence-193: actividad sintética" [disabled]'
+                            - 'option "study-194: actividad sintética" [disabled]'
+                            - 'option "choice-194: actividad sintética" [disabled]'
+                            - 'option "short-194: actividad sintética" [disabled]'
+                            - 'option "apply-194: actividad sintética" [disabled]'
+                            - 'option "sequence-194: actividad sintética" [disabled]'
+                            - 'option "study-195: actividad sintética" [disabled]'
+                            - 'option "choice-195: actividad sintética" [disabled]'
+                            - 'option "short-195: actividad sintética" [disabled]'
+                            - 'option "apply-195: actividad sintética" [disabled]'
+                            - 'option "sequence-195: actividad sintética" [disabled]'
+                            - 'option "study-196: actividad sintética" [disabled]'
+                            - 'option "choice-196: actividad sintética" [disabled]'
+                            - 'option "short-196: actividad sintética" [disabled]'
+                            - 'option "apply-196: actividad sintética" [disabled]'
+                            - 'option "sequence-196: actividad sintética" [disabled]'
+                            - 'option "study-197: actividad sintética" [disabled]'
+                            - 'option "choice-197: actividad sintética" [disabled]'
+                            - 'option "short-197: actividad sintética" [disabled]'
+                            - 'option "apply-197: actividad sintética" [disabled]'
+                            - 'option "sequence-197: actividad sintética" [disabled]'
+                            - 'option "study-198: actividad sintética" [disabled]'
+                            - 'option "choice-198: actividad sintética" [disabled]'
+                            - 'option "short-198: actividad sintética" [disabled]'
+                            - 'option "apply-198: actividad sintética" [disabled]'
+                            - 'option "sequence-198: actividad sintética" [disabled]'
+                            - 'option "study-199: actividad sintética" [disabled]'
+                            - 'option "choice-199: actividad sintética" [disabled]'
+                            - 'option "short-199: actividad sintética" [disabled]'
+                            - 'option "apply-199: actividad sintética" [disabled]'
+                            - 'option "sequence-199: actividad sintética" [disabled]'
+                            - 'option "study-200: actividad sintética" [disabled]'
+                            - 'option "choice-200: actividad sintética" [disabled]'
+                            - 'option "short-200: actividad sintética" [disabled]'
+                            - 'option "apply-200: actividad sintética" [disabled]'
+                            - 'option "sequence-200: actividad sintética" [disabled]'
+                            - 'option "choice-1: actividad sintética" [disabled]'
+                            - 'option "choice-2: actividad sintética" [disabled]'
+                            - 'option "choice-3: actividad sintética" [disabled]'
+                            - 'option "choice-4: actividad sintética" [disabled]'
+                            - 'option "choice-5: actividad sintética" [disabled]'
+                            - 'option "choice-6: actividad sintética" [disabled]'
+                            - 'option "choice-7: actividad sintética" [disabled]'
+                            - 'option "choice-8: actividad sintética" [disabled]'
+                            - 'option "choice-9: actividad sintética" [disabled]'
+                            - 'option "choice-10: actividad sintética" [disabled]'
+                            - 'option "choice-11: actividad sintética" [disabled]'
+                            - 'option "choice-12: actividad sintética" [disabled]'
+                            - 'option "choice-13: actividad sintética" [disabled]'
+                            - 'option "choice-14: actividad sintética" [disabled]'
+                            - 'option "choice-15: actividad sintética" [disabled]'
+                            - 'option "choice-16: actividad sintética" [disabled]'
+                            - 'option "choice-17: actividad sintética" [disabled]'
+                            - 'option "choice-18: actividad sintética" [disabled]'
+                            - 'option "choice-19: actividad sintética" [disabled]'
+                            - 'option "choice-20: actividad sintética" [disabled]'
+                            - 'option "choice-21: actividad sintética" [disabled]'
+                            - 'option "choice-22: actividad sintética" [disabled]'
+                            - 'option "choice-23: actividad sintética" [disabled]'
+                            - 'option "choice-24: actividad sintética" [disabled]'
+                            - 'option "choice-25: actividad sintética" [disabled]'
+                            - 'option "choice-26: actividad sintética" [disabled]'
+                            - 'option "choice-27: actividad sintética" [disabled]'
+                            - 'option "choice-28: actividad sintética" [disabled]'
+                            - 'option "choice-29: actividad sintética" [disabled]'
+                            - 'option "choice-30: actividad sintética" [disabled]'
+                            - 'option "choice-31: actividad sintética" [disabled]'
+                            - 'option "choice-32: actividad sintética" [disabled]'
+                        - generic [ref=f1e111]:
+                          - paragraph [ref=f1e112]: La lectura registra completitud. No acredita dominio del objetivo.
+                          - generic [ref=f1e113]:
+                            - generic [ref=f1e114]: Contenido de estudio
+                            - textbox "Contenido de estudio" [disabled] [ref=f1e115]: Contenido sintético para comprobar el software.
+                            - generic [ref=f1e116]: Para señalar un fragmento, selecciónalo en el texto y pulsa Añadir señal. Editar el texto retira las señales para volver a ubicarlas.
+                          - button "Añadir señal al fragmento seleccionado" [disabled] [ref=f1e117]
+                          - generic [ref=f1e118]:
+                            - generic [ref=f1e119]: Apoyo del ejemplo
+                            - combobox "Apoyo del ejemplo" [disabled] [ref=f1e120]:
+                              - option "Explicación" [disabled] [selected]
+                              - option "Ejemplo resuelto" [disabled]
+                              - option "Ejemplo parcial" [disabled]
+                          - group [ref=f1e121]:
+                            - generic "Recurso visual vinculado" [ref=f1e122] [cursor=pointer]
+                            - option "Sin recurso" [disabled] [selected]
+                            - option "Fixture" [disabled]
+                        - group [ref=f1e123]:
+                          - generic "Solución y feedback · solo edición" [ref=f1e124] [cursor=pointer]
+                - group [ref=f1e125]:
+                  - 'generic "Elección única · choice-1: actividad sintética" [ref=f1e126] [cursor=pointer]'
+                - group [ref=f1e127]:
+                  - 'generic "Respuesta breve · short-1: actividad sintética" [ref=f1e128] [cursor=pointer]'
+                - group [ref=f1e129]:
+                  - 'generic "Elección única · apply-1: actividad sintética" [ref=f1e130] [cursor=pointer]'
+                - group [ref=f1e131]:
+                  - 'generic "Relaciones · match-1: actividad sintética" [ref=f1e132] [cursor=pointer]'
+                - group [ref=f1e133]:
+                  - 'generic "Secuencia · sequence-1: actividad sintética" [ref=f1e134] [cursor=pointer]'
+                - group [ref=f1e135]:
+                  - 'generic "Elección única · final-1: actividad sintética" [ref=f1e136] [cursor=pointer]'
+                - group [ref=f1e137]:
+                  - 'generic "Elección única · retention7-1: actividad sintética" [ref=f1e138] [cursor=pointer]'
+                - group [ref=f1e139]:
+                  - 'generic "Elección única · retention30-1: actividad sintética" [ref=f1e140] [cursor=pointer]'
+                - group [ref=f1e141]:
+                  - 'generic "Elección única · diagnostic-1: actividad sintética" [ref=f1e142] [cursor=pointer]'
+                - group [ref=f1e143]:
+                  - 'generic "Elección única · choice-1: actividad sintética" [ref=f1e144] [cursor=pointer]'
+                - group [ref=f1e145]:
+                  - 'generic "Estudio · study-2: actividad sintética" [ref=f1e146] [cursor=pointer]'
+                - group [ref=f1e147]:
+                  - 'generic "Elección única · choice-2: actividad sintética" [ref=f1e148] [cursor=pointer]'
+                - group [ref=f1e149]:
+                  - 'generic "Respuesta breve · short-2: actividad sintética" [ref=f1e150] [cursor=pointer]'
+                - group [ref=f1e151]:
+                  - 'generic "Elección única · apply-2: actividad sintética" [ref=f1e152] [cursor=pointer]'
+                - group [ref=f1e153]:
+                  - 'generic "Relaciones · match-2: actividad sintética" [ref=f1e154] [cursor=pointer]'
+                - group [ref=f1e155]:
+                  - 'generic "Secuencia · sequence-2: actividad sintética" [ref=f1e156] [cursor=pointer]'
+                - group [ref=f1e157]:
+                  - 'generic "Elección única · final-2: actividad sintética" [ref=f1e158] [cursor=pointer]'
+                - group [ref=f1e159]:
+                  - 'generic "Elección única · retention7-2: actividad sintética" [ref=f1e160] [cursor=pointer]'
+                - group [ref=f1e161]:
+                  - 'generic "Elección única · retention30-2: actividad sintética" [ref=f1e162] [cursor=pointer]'
+                - group [ref=f1e163]:
+                  - 'generic "Elección única · diagnostic-2: actividad sintética" [ref=f1e164] [cursor=pointer]'
+                - group [ref=f1e165]:
+                  - 'generic "Elección única · choice-2: actividad sintética" [ref=f1e166] [cursor=pointer]'
+                - group [ref=f1e167]:
+                  - 'generic "Estudio · study-3: actividad sintética" [ref=f1e168] [cursor=pointer]'
+                - group [ref=f1e169]:
+                  - 'generic "Elección única · choice-3: actividad sintética" [ref=f1e170] [cursor=pointer]'
+                - group [ref=f1e171]:
+                  - 'generic "Respuesta breve · short-3: actividad sintética" [ref=f1e172] [cursor=pointer]'
+                - group [ref=f1e173]:
+                  - 'generic "Elección única · apply-3: actividad sintética" [ref=f1e174] [cursor=pointer]'
+                - group [ref=f1e175]:
+                  - 'generic "Relaciones · match-3: actividad sintética" [ref=f1e176] [cursor=pointer]'
+                - group [ref=f1e177]:
+                  - 'generic "Secuencia · sequence-3: actividad sintética" [ref=f1e178] [cursor=pointer]'
+                - group [ref=f1e179]:
+                  - 'generic "Elección única · final-3: actividad sintética" [ref=f1e180] [cursor=pointer]'
+                - group [ref=f1e181]:
+                  - 'generic "Elección única · retention7-3: actividad sintética" [ref=f1e182] [cursor=pointer]'
+                - group [ref=f1e183]:
+                  - 'generic "Elección única · retention30-3: actividad sintética" [ref=f1e184] [cursor=pointer]'
+                - group [ref=f1e185]:
+                  - 'generic "Elección única · diagnostic-3: actividad sintética" [ref=f1e186] [cursor=pointer]'
+                - group [ref=f1e187]:
+                  - 'generic "Elección única · choice-3: actividad sintética" [ref=f1e188] [cursor=pointer]'
+                - group [ref=f1e189]:
+                  - 'generic "Estudio · study-4: actividad sintética" [ref=f1e190] [cursor=pointer]'
+                - group [ref=f1e191]:
+                  - 'generic "Elección única · choice-4: actividad sintética" [ref=f1e192] [cursor=pointer]'
+                - group [ref=f1e193]:
+                  - 'generic "Respuesta breve · short-4: actividad sintética" [ref=f1e194] [cursor=pointer]'
+                - group [ref=f1e195]:
+                  - 'generic "Elección única · apply-4: actividad sintética" [ref=f1e196] [cursor=pointer]'
+                - group [ref=f1e197]:
+                  - 'generic "Relaciones · match-4: actividad sintética" [ref=f1e198] [cursor=pointer]'
+                - group [ref=f1e199]:
+                  - 'generic "Secuencia · sequence-4: actividad sintética" [ref=f1e200] [cursor=pointer]'
+                - group [ref=f1e201]:
+                  - 'generic "Elección única · final-4: actividad sintética" [ref=f1e202] [cursor=pointer]'
+                - group [ref=f1e203]:
+                  - 'generic "Elección única · retention7-4: actividad sintética" [ref=f1e204] [cursor=pointer]'
+                - group [ref=f1e205]:
+                  - 'generic "Elección única · retention30-4: actividad sintética" [ref=f1e206] [cursor=pointer]'
+                - group [ref=f1e207]:
+                  - 'generic "Elección única · diagnostic-4: actividad sintética" [ref=f1e208] [cursor=pointer]'
+                - group [ref=f1e209]:
+                  - 'generic "Elección única · choice-4: actividad sintética" [ref=f1e210] [cursor=pointer]'
+                - group [ref=f1e211]:
+                  - 'generic "Estudio · study-5: actividad sintética" [ref=f1e212] [cursor=pointer]'
+                - group [ref=f1e213]:
+                  - 'generic "Elección única · choice-5: actividad sintética" [ref=f1e214] [cursor=pointer]'
+                - group [ref=f1e215]:
+                  - 'generic "Respuesta breve · short-5: actividad sintética" [ref=f1e216] [cursor=pointer]'
+                - group [ref=f1e217]:
+                  - 'generic "Elección única · apply-5: actividad sintética" [ref=f1e218] [cursor=pointer]'
+                - group [ref=f1e219]:
+                  - 'generic "Relaciones · match-5: actividad sintética" [ref=f1e220] [cursor=pointer]'
+                - group [ref=f1e221]:
+                  - 'generic "Secuencia · sequence-5: actividad sintética" [ref=f1e222] [cursor=pointer]'
+                - group [ref=f1e223]:
+                  - 'generic "Elección única · final-5: actividad sintética" [ref=f1e224] [cursor=pointer]'
+                - group [ref=f1e225]:
+                  - 'generic "Elección única · retention7-5: actividad sintética" [ref=f1e226] [cursor=pointer]'
+                - group [ref=f1e227]:
+                  - 'generic "Elección única · retention30-5: actividad sintética" [ref=f1e228] [cursor=pointer]'
+                - group [ref=f1e229]:
+                  - 'generic "Elección única · diagnostic-5: actividad sintética" [ref=f1e230] [cursor=pointer]'
+                - group [ref=f1e231]:
+                  - 'generic "Elección única · choice-5: actividad sintética" [ref=f1e232] [cursor=pointer]'
+                - group [ref=f1e233]:
+                  - 'generic "Estudio · study-6: actividad sintética" [ref=f1e234] [cursor=pointer]'
+                - group [ref=f1e235]:
+                  - 'generic "Elección única · choice-6: actividad sintética" [ref=f1e236] [cursor=pointer]'
+                - group [ref=f1e237]:
+                  - 'generic "Respuesta breve · short-6: actividad sintética" [ref=f1e238] [cursor=pointer]'
+                - group [ref=f1e239]:
+                  - 'generic "Elección única · apply-6: actividad sintética" [ref=f1e240] [cursor=pointer]'
+                - group [ref=f1e241]:
+                  - 'generic "Relaciones · match-6: actividad sintética" [ref=f1e242] [cursor=pointer]'
+                - group [ref=f1e243]:
+                  - 'generic "Secuencia · sequence-6: actividad sintética" [ref=f1e244] [cursor=pointer]'
+                - group [ref=f1e245]:
+                  - 'generic "Elección única · final-6: actividad sintética" [ref=f1e246] [cursor=pointer]'
+                - group [ref=f1e247]:
+                  - 'generic "Elección única · retention7-6: actividad sintética" [ref=f1e248] [cursor=pointer]'
+                - group [ref=f1e249]:
+                  - 'generic "Elección única · retention30-6: actividad sintética" [ref=f1e250] [cursor=pointer]'
+                - group [ref=f1e251]:
+                  - 'generic "Elección única · diagnostic-6: actividad sintética" [ref=f1e252] [cursor=pointer]'
+                - group [ref=f1e253]:
+                  - 'generic "Elección única · choice-6: actividad sintética" [ref=f1e254] [cursor=pointer]'
+                - group [ref=f1e255]:
+                  - 'generic "Estudio · study-7: actividad sintética" [ref=f1e256] [cursor=pointer]'
+                - group [ref=f1e257]:
+                  - 'generic "Elección única · choice-7: actividad sintética" [ref=f1e258] [cursor=pointer]'
+                - group [ref=f1e259]:
+                  - 'generic "Respuesta breve · short-7: actividad sintética" [ref=f1e260] [cursor=pointer]'
+                - group [ref=f1e261]:
+                  - 'generic "Elección única · apply-7: actividad sintética" [ref=f1e262] [cursor=pointer]'
+                - group [ref=f1e263]:
+                  - 'generic "Relaciones · match-7: actividad sintética" [ref=f1e264] [cursor=pointer]'
+                - group [ref=f1e265]:
+                  - 'generic "Secuencia · sequence-7: actividad sintética" [ref=f1e266] [cursor=pointer]'
+                - group [ref=f1e267]:
+                  - 'generic "Elección única · final-7: actividad sintética" [ref=f1e268] [cursor=pointer]'
+                - group [ref=f1e269]:
+                  - 'generic "Elección única · retention7-7: actividad sintética" [ref=f1e270] [cursor=pointer]'
+                - group [ref=f1e271]:
+                  - 'generic "Elección única · retention30-7: actividad sintética" [ref=f1e272] [cursor=pointer]'
+                - group [ref=f1e273]:
+                  - 'generic "Elección única · diagnostic-7: actividad sintética" [ref=f1e274] [cursor=pointer]'
+                - group [ref=f1e275]:
+                  - 'generic "Elección única · choice-7: actividad sintética" [ref=f1e276] [cursor=pointer]'
+              - region "Unidad 2" [ref=f1e277]:
+                - heading "Unidad 2" [level=2] [ref=f1e278]
+                - group [ref=f1e279]:
+                  - 'generic "Estudio · study-8: actividad sintética" [ref=f1e280] [cursor=pointer]'
+                - group [ref=f1e281]:
+                  - 'generic "Elección única · choice-8: actividad sintética" [ref=f1e282] [cursor=pointer]'
+                - group [ref=f1e283]:
+                  - 'generic "Respuesta breve · short-8: actividad sintética" [ref=f1e284] [cursor=pointer]'
+                - group [ref=f1e285]:
+                  - 'generic "Elección única · apply-8: actividad sintética" [ref=f1e286] [cursor=pointer]'
+                - group [ref=f1e287]:
+                  - 'generic "Relaciones · match-8: actividad sintética" [ref=f1e288] [cursor=pointer]'
+                - group [ref=f1e289]:
+                  - 'generic "Secuencia · sequence-8: actividad sintética" [ref=f1e290] [cursor=pointer]'
+                - group [ref=f1e291]:
+                  - 'generic "Elección única · final-8: actividad sintética" [ref=f1e292] [cursor=pointer]'
+                - group [ref=f1e293]:
+                  - 'generic "Elección única · retention7-8: actividad sintética" [ref=f1e294] [cursor=pointer]'
+                - group [ref=f1e295]:
+                  - 'generic "Elección única · retention30-8: actividad sintética" [ref=f1e296] [cursor=pointer]'
+                - group [ref=f1e297]:
+                  - 'generic "Elección única · diagnostic-8: actividad sintética" [ref=f1e298] [cursor=pointer]'
+                - group [ref=f1e299]:
+                  - 'generic "Elección única · choice-8: actividad sintética" [ref=f1e300] [cursor=pointer]'
+                - group [ref=f1e301]:
+                  - 'generic "Estudio · study-9: actividad sintética" [ref=f1e302] [cursor=pointer]'
+                - group [ref=f1e303]:
+                  - 'generic "Elección única · choice-9: actividad sintética" [ref=f1e304] [cursor=pointer]'
+                - group [ref=f1e305]:
+                  - 'generic "Respuesta breve · short-9: actividad sintética" [ref=f1e306] [cursor=pointer]'
+                - group [ref=f1e307]:
+                  - 'generic "Elección única · apply-9: actividad sintética" [ref=f1e308] [cursor=pointer]'
+                - group [ref=f1e309]:
+                  - 'generic "Relaciones · match-9: actividad sintética" [ref=f1e310] [cursor=pointer]'
+                - group [ref=f1e311]:
+                  - 'generic "Secuencia · sequence-9: actividad sintética" [ref=f1e312] [cursor=pointer]'
+                - group [ref=f1e313]:
+                  - 'generic "Elección única · final-9: actividad sintética" [ref=f1e314] [cursor=pointer]'
+                - group [ref=f1e315]:
+                  - 'generic "Elección única · retention7-9: actividad sintética" [ref=f1e316] [cursor=pointer]'
+                - group [ref=f1e317]:
+                  - 'generic "Elección única · retention30-9: actividad sintética" [ref=f1e318] [cursor=pointer]'
+                - group [ref=f1e319]:
+                  - 'generic "Elección única · choice-9: actividad sintética" [ref=f1e320] [cursor=pointer]'
+                - group [ref=f1e321]:
+                  - 'generic "Estudio · study-10: actividad sintética" [ref=f1e322] [cursor=pointer]'
+                - group [ref=f1e323]:
+                  - 'generic "Elección única · choice-10: actividad sintética" [ref=f1e324] [cursor=pointer]'
+                - group [ref=f1e325]:
+                  - 'generic "Respuesta breve · short-10: actividad sintética" [ref=f1e326] [cursor=pointer]'
+                - group [ref=f1e327]:
+                  - 'generic "Elección única · apply-10: actividad sintética" [ref=f1e328] [cursor=pointer]'
+                - group [ref=f1e329]:
+                  - 'generic "Relaciones · match-10: actividad sintética" [ref=f1e330] [cursor=pointer]'
+                - group [ref=f1e331]:
+                  - 'generic "Secuencia · sequence-10: actividad sintética" [ref=f1e332] [cursor=pointer]'
+                - group [ref=f1e333]:
+                  - 'generic "Elección única · final-10: actividad sintética" [ref=f1e334] [cursor=pointer]'
+                - group [ref=f1e335]:
+                  - 'generic "Elección única · retention7-10: actividad sintética" [ref=f1e336] [cursor=pointer]'
+                - group [ref=f1e337]:
+                  - 'generic "Elección única · retention30-10: actividad sintética" [ref=f1e338] [cursor=pointer]'
+                - group [ref=f1e339]:
+                  - 'generic "Elección única · choice-10: actividad sintética" [ref=f1e340] [cursor=pointer]'
+                - group [ref=f1e341]:
+                  - 'generic "Estudio · study-11: actividad sintética" [ref=f1e342] [cursor=pointer]'
+                - group [ref=f1e343]:
+                  - 'generic "Elección única · choice-11: actividad sintética" [ref=f1e344] [cursor=pointer]'
+                - group [ref=f1e345]:
+                  - 'generic "Respuesta breve · short-11: actividad sintética" [ref=f1e346] [cursor=pointer]'
+                - group [ref=f1e347]:
+                  - 'generic "Elección única · apply-11: actividad sintética" [ref=f1e348] [cursor=pointer]'
+                - group [ref=f1e349]:
+                  - 'generic "Relaciones · match-11: actividad sintética" [ref=f1e350] [cursor=pointer]'
+                - group [ref=f1e351]:
+                  - 'generic "Secuencia · sequence-11: actividad sintética" [ref=f1e352] [cursor=pointer]'
+                - group [ref=f1e353]:
+                  - 'generic "Elección única · final-11: actividad sintética" [ref=f1e354] [cursor=pointer]'
+                - group [ref=f1e355]:
+                  - 'generic "Elección única · retention7-11: actividad sintética" [ref=f1e356] [cursor=pointer]'
+                - group [ref=f1e357]:
+                  - 'generic "Elección única · retention30-11: actividad sintética" [ref=f1e358] [cursor=pointer]'
+                - group [ref=f1e359]:
+                  - 'generic "Elección única · choice-11: actividad sintética" [ref=f1e360] [cursor=pointer]'
+                - group [ref=f1e361]:
+                  - 'generic "Estudio · study-12: actividad sintética" [ref=f1e362] [cursor=pointer]'
+                - group [ref=f1e363]:
+                  - 'generic "Elección única · choice-12: actividad sintética" [ref=f1e364] [cursor=pointer]'
+                - group [ref=f1e365]:
+                  - 'generic "Respuesta breve · short-12: actividad sintética" [ref=f1e366] [cursor=pointer]'
+                - group [ref=f1e367]:
+                  - 'generic "Elección única · apply-12: actividad sintética" [ref=f1e368] [cursor=pointer]'
+                - group [ref=f1e369]:
+                  - 'generic "Relaciones · match-12: actividad sintética" [ref=f1e370] [cursor=pointer]'
+                - group [ref=f1e371]:
+                  - 'generic "Secuencia · sequence-12: actividad sintética" [ref=f1e372] [cursor=pointer]'
+                - group [ref=f1e373]:
+                  - 'generic "Elección única · final-12: actividad sintética" [ref=f1e374] [cursor=pointer]'
+                - group [ref=f1e375]:
+                  - 'generic "Elección única · retention7-12: actividad sintética" [ref=f1e376] [cursor=pointer]'
+                - group [ref=f1e377]:
+                  - 'generic "Elección única · retention30-12: actividad sintética" [ref=f1e378] [cursor=pointer]'
+                - group [ref=f1e379]:
+                  - 'generic "Elección única · choice-12: actividad sintética" [ref=f1e380] [cursor=pointer]'
+                - group [ref=f1e381]:
+                  - 'generic "Estudio · study-13: actividad sintética" [ref=f1e382] [cursor=pointer]'
+                - group [ref=f1e383]:
+                  - 'generic "Elección única · choice-13: actividad sintética" [ref=f1e384] [cursor=pointer]'
+                - group [ref=f1e385]:
+                  - 'generic "Respuesta breve · short-13: actividad sintética" [ref=f1e386] [cursor=pointer]'
+                - group [ref=f1e387]:
+                  - 'generic "Elección única · apply-13: actividad sintética" [ref=f1e388] [cursor=pointer]'
+                - group [ref=f1e389]:
+                  - 'generic "Relaciones · match-13: actividad sintética" [ref=f1e390] [cursor=pointer]'
+                - group [ref=f1e391]:
+                  - 'generic "Secuencia · sequence-13: actividad sintética" [ref=f1e392] [cursor=pointer]'
+                - group [ref=f1e393]:
+                  - 'generic "Elección única · final-13: actividad sintética" [ref=f1e394] [cursor=pointer]'
+                - group [ref=f1e395]:
+                  - 'generic "Elección única · retention7-13: actividad sintética" [ref=f1e396] [cursor=pointer]'
+                - group [ref=f1e397]:
+                  - 'generic "Elección única · retention30-13: actividad sintética" [ref=f1e398] [cursor=pointer]'
+                - group [ref=f1e399]:
+                  - 'generic "Elección única · choice-13: actividad sintética" [ref=f1e400] [cursor=pointer]'
+                - group [ref=f1e401]:
+                  - 'generic "Estudio · study-14: actividad sintética" [ref=f1e402] [cursor=pointer]'
+                - group [ref=f1e403]:
+                  - 'generic "Elección única · choice-14: actividad sintética" [ref=f1e404] [cursor=pointer]'
+                - group [ref=f1e405]:
+                  - 'generic "Respuesta breve · short-14: actividad sintética" [ref=f1e406] [cursor=pointer]'
+                - group [ref=f1e407]:
+                  - 'generic "Elección única · apply-14: actividad sintética" [ref=f1e408] [cursor=pointer]'
+                - group [ref=f1e409]:
+                  - 'generic "Relaciones · match-14: actividad sintética" [ref=f1e410] [cursor=pointer]'
+                - group [ref=f1e411]:
+                  - 'generic "Secuencia · sequence-14: actividad sintética" [ref=f1e412] [cursor=pointer]'
+                - group [ref=f1e413]:
+                  - 'generic "Elección única · final-14: actividad sintética" [ref=f1e414] [cursor=pointer]'
+                - group [ref=f1e415]:
+                  - 'generic "Elección única · retention7-14: actividad sintética" [ref=f1e416] [cursor=pointer]'
+                - group [ref=f1e417]:
+                  - 'generic "Elección única · retention30-14: actividad sintética" [ref=f1e418] [cursor=pointer]'
+                - group [ref=f1e419]:
+                  - 'generic "Elección única · choice-14: actividad sintética" [ref=f1e420] [cursor=pointer]'
+              - region "Unidad 3" [ref=f1e421]:
+                - heading "Unidad 3" [level=2] [ref=f1e422]
+                - group [ref=f1e423]:
+                  - 'generic "Estudio · study-15: actividad sintética" [ref=f1e424] [cursor=pointer]'
+                - group [ref=f1e425]:
+                  - 'generic "Elección única · choice-15: actividad sintética" [ref=f1e426] [cursor=pointer]'
+                - group [ref=f1e427]:
+                  - 'generic "Respuesta breve · short-15: actividad sintética" [ref=f1e428] [cursor=pointer]'
+                - group [ref=f1e429]:
+                  - 'generic "Elección única · apply-15: actividad sintética" [ref=f1e430] [cursor=pointer]'
+                - group [ref=f1e431]:
+                  - 'generic "Relaciones · match-15: actividad sintética" [ref=f1e432] [cursor=pointer]'
+                - group [ref=f1e433]:
+                  - 'generic "Secuencia · sequence-15: actividad sintética" [ref=f1e434] [cursor=pointer]'
+                - group [ref=f1e435]:
+                  - 'generic "Elección única · final-15: actividad sintética" [ref=f1e436] [cursor=pointer]'
+                - group [ref=f1e437]:
+                  - 'generic "Elección única · retention7-15: actividad sintética" [ref=f1e438] [cursor=pointer]'
+                - group [ref=f1e439]:
+                  - 'generic "Elección única · retention30-15: actividad sintética" [ref=f1e440] [cursor=pointer]'
+                - group [ref=f1e441]:
+                  - 'generic "Elección única · choice-15: actividad sintética" [ref=f1e442] [cursor=pointer]'
+                - group [ref=f1e443]:
+                  - 'generic "Estudio · study-16: actividad sintética" [ref=f1e444] [cursor=pointer]'
+                - group [ref=f1e445]:
+                  - 'generic "Elección única · choice-16: actividad sintética" [ref=f1e446] [cursor=pointer]'
+                - group [ref=f1e447]:
+                  - 'generic "Respuesta breve · short-16: actividad sintética" [ref=f1e448] [cursor=pointer]'
+                - group [ref=f1e449]:
+                  - 'generic "Elección única · apply-16: actividad sintética" [ref=f1e450] [cursor=pointer]'
+                - group [ref=f1e451]:
+                  - 'generic "Relaciones · match-16: actividad sintética" [ref=f1e452] [cursor=pointer]'
+                - group [ref=f1e453]:
+                  - 'generic "Secuencia · sequence-16: actividad sintética" [ref=f1e454] [cursor=pointer]'
+                - group [ref=f1e455]:
+                  - 'generic "Elección única · final-16: actividad sintética" [ref=f1e456] [cursor=pointer]'
+                - group [ref=f1e457]:
+                  - 'generic "Elección única · retention7-16: actividad sintética" [ref=f1e458] [cursor=pointer]'
+                - group [ref=f1e459]:
+                  - 'generic "Elección única · retention30-16: actividad sintética" [ref=f1e460] [cursor=pointer]'
+                - group [ref=f1e461]:
+                  - 'generic "Elección única · choice-16: actividad sintética" [ref=f1e462] [cursor=pointer]'
+                - group [ref=f1e463]:
+                  - 'generic "Estudio · study-17: actividad sintética" [ref=f1e464] [cursor=pointer]'
+                - group [ref=f1e465]:
+                  - 'generic "Elección única · choice-17: actividad sintética" [ref=f1e466] [cursor=pointer]'
+                - group [ref=f1e467]:
+                  - 'generic "Respuesta breve · short-17: actividad sintética" [ref=f1e468] [cursor=pointer]'
+                - group [ref=f1e469]:
+                  - 'generic "Elección única · apply-17: actividad sintética" [ref=f1e470] [cursor=pointer]'
+                - group [ref=f1e471]:
+                  - 'generic "Relaciones · match-17: actividad sintética" [ref=f1e472] [cursor=pointer]'
+                - group [ref=f1e473]:
+                  - 'generic "Secuencia · sequence-17: actividad sintética" [ref=f1e474] [cursor=pointer]'
+                - group [ref=f1e475]:
+                  - 'generic "Elección única · final-17: actividad sintética" [ref=f1e476] [cursor=pointer]'
+                - group [ref=f1e477]:
+                  - 'generic "Elección única · retention7-17: actividad sintética" [ref=f1e478] [cursor=pointer]'
+                - group [ref=f1e479]:
+                  - 'generic "Elección única · retention30-17: actividad sintética" [ref=f1e480] [cursor=pointer]'
+                - group [ref=f1e481]:
+                  - 'generic "Elección única · choice-17: actividad sintética" [ref=f1e482] [cursor=pointer]'
+                - group [ref=f1e483]:
+                  - 'generic "Estudio · study-18: actividad sintética" [ref=f1e484] [cursor=pointer]'
+                - group [ref=f1e485]:
+                  - 'generic "Elección única · choice-18: actividad sintética" [ref=f1e486] [cursor=pointer]'
+                - group [ref=f1e487]:
+                  - 'generic "Respuesta breve · short-18: actividad sintética" [ref=f1e488] [cursor=pointer]'
+                - group [ref=f1e489]:
+                  - 'generic "Elección única · apply-18: actividad sintética" [ref=f1e490] [cursor=pointer]'
+                - group [ref=f1e491]:
+                  - 'generic "Relaciones · match-18: actividad sintética" [ref=f1e492] [cursor=pointer]'
+                - group [ref=f1e493]:
+                  - 'generic "Secuencia · sequence-18: actividad sintética" [ref=f1e494] [cursor=pointer]'
+                - group [ref=f1e495]:
+                  - 'generic "Elección única · final-18: actividad sintética" [ref=f1e496] [cursor=pointer]'
+                - group [ref=f1e497]:
+                  - 'generic "Elección única · retention7-18: actividad sintética" [ref=f1e498] [cursor=pointer]'
+                - group [ref=f1e499]:
+                  - 'generic "Elección única · retention30-18: actividad sintética" [ref=f1e500] [cursor=pointer]'
+                - group [ref=f1e501]:
+                  - 'generic "Elección única · choice-18: actividad sintética" [ref=f1e502] [cursor=pointer]'
+                - group [ref=f1e503]:
+                  - 'generic "Estudio · study-19: actividad sintética" [ref=f1e504] [cursor=pointer]'
+                - group [ref=f1e505]:
+                  - 'generic "Elección única · choice-19: actividad sintética" [ref=f1e506] [cursor=pointer]'
+                - group [ref=f1e507]:
+                  - 'generic "Respuesta breve · short-19: actividad sintética" [ref=f1e508] [cursor=pointer]'
+                - group [ref=f1e509]:
+                  - 'generic "Elección única · apply-19: actividad sintética" [ref=f1e510] [cursor=pointer]'
+                - group [ref=f1e511]:
+                  - 'generic "Relaciones · match-19: actividad sintética" [ref=f1e512] [cursor=pointer]'
+                - group [ref=f1e513]:
+                  - 'generic "Secuencia · sequence-19: actividad sintética" [ref=f1e514] [cursor=pointer]'
+                - group [ref=f1e515]:
+                  - 'generic "Elección única · final-19: actividad sintética" [ref=f1e516] [cursor=pointer]'
+                - group [ref=f1e517]:
+                  - 'generic "Elección única · retention7-19: actividad sintética" [ref=f1e518] [cursor=pointer]'
+                - group [ref=f1e519]:
+                  - 'generic "Elección única · retention30-19: actividad sintética" [ref=f1e520] [cursor=pointer]'
+                - group [ref=f1e521]:
+                  - 'generic "Elección única · choice-19: actividad sintética" [ref=f1e522] [cursor=pointer]'
+                - group [ref=f1e523]:
+                  - 'generic "Estudio · study-20: actividad sintética" [ref=f1e524] [cursor=pointer]'
+                - group [ref=f1e525]:
+                  - 'generic "Elección única · choice-20: actividad sintética" [ref=f1e526] [cursor=pointer]'
+                - group [ref=f1e527]:
+                  - 'generic "Respuesta breve · short-20: actividad sintética" [ref=f1e528] [cursor=pointer]'
+                - group [ref=f1e529]:
+                  - 'generic "Elección única · apply-20: actividad sintética" [ref=f1e530] [cursor=pointer]'
+                - group [ref=f1e531]:
+                  - 'generic "Relaciones · match-20: actividad sintética" [ref=f1e532] [cursor=pointer]'
+                - group [ref=f1e533]:
+                  - 'generic "Secuencia · sequence-20: actividad sintética" [ref=f1e534] [cursor=pointer]'
+                - group [ref=f1e535]:
+                  - 'generic "Elección única · final-20: actividad sintética" [ref=f1e536] [cursor=pointer]'
+                - group [ref=f1e537]:
+                  - 'generic "Elección única · retention7-20: actividad sintética" [ref=f1e538] [cursor=pointer]'
+                - group [ref=f1e539]:
+                  - 'generic "Elección única · retention30-20: actividad sintética" [ref=f1e540] [cursor=pointer]'
+                - group [ref=f1e541]:
+                  - 'generic "Elección única · choice-20: actividad sintética" [ref=f1e542] [cursor=pointer]'
+              - region "Unidad 4" [ref=f1e543]:
+                - heading "Unidad 4" [level=2] [ref=f1e544]
+                - group [ref=f1e545]:
+                  - 'generic "Estudio · study-21: actividad sintética" [ref=f1e546] [cursor=pointer]'
+                - group [ref=f1e547]:
+                  - 'generic "Elección única · choice-21: actividad sintética" [ref=f1e548] [cursor=pointer]'
+                - group [ref=f1e549]:
+                  - 'generic "Respuesta breve · short-21: actividad sintética" [ref=f1e550] [cursor=pointer]'
+                - group [ref=f1e551]:
+                  - 'generic "Elección única · apply-21: actividad sintética" [ref=f1e552] [cursor=pointer]'
+                - group [ref=f1e553]:
+                  - 'generic "Relaciones · match-21: actividad sintética" [ref=f1e554] [cursor=pointer]'
+                - group [ref=f1e555]:
+                  - 'generic "Secuencia · sequence-21: actividad sintética" [ref=f1e556] [cursor=pointer]'
+                - group [ref=f1e557]:
+                  - 'generic "Elección única · final-21: actividad sintética" [ref=f1e558] [cursor=pointer]'
+                - group [ref=f1e559]:
+                  - 'generic "Elección única · retention7-21: actividad sintética" [ref=f1e560] [cursor=pointer]'
+                - group [ref=f1e561]:
+                  - 'generic "Elección única · retention30-21: actividad sintética" [ref=f1e562] [cursor=pointer]'
+                - group [ref=f1e563]:
+                  - 'generic "Elección única · choice-21: actividad sintética" [ref=f1e564] [cursor=pointer]'
+                - group [ref=f1e565]:
+                  - 'generic "Estudio · study-22: actividad sintética" [ref=f1e566] [cursor=pointer]'
+                - group [ref=f1e567]:
+                  - 'generic "Elección única · choice-22: actividad sintética" [ref=f1e568] [cursor=pointer]'
+                - group [ref=f1e569]:
+                  - 'generic "Respuesta breve · short-22: actividad sintética" [ref=f1e570] [cursor=pointer]'
+                - group [ref=f1e571]:
+                  - 'generic "Elección única · apply-22: actividad sintética" [ref=f1e572] [cursor=pointer]'
+                - group [ref=f1e573]:
+                  - 'generic "Relaciones · match-22: actividad sintética" [ref=f1e574] [cursor=pointer]'
+                - group [ref=f1e575]:
+                  - 'generic "Secuencia · sequence-22: actividad sintética" [ref=f1e576] [cursor=pointer]'
+                - group [ref=f1e577]:
+                  - 'generic "Elección única · final-22: actividad sintética" [ref=f1e578] [cursor=pointer]'
+                - group [ref=f1e579]:
+                  - 'generic "Elección única · retention7-22: actividad sintética" [ref=f1e580] [cursor=pointer]'
+                - group [ref=f1e581]:
+                  - 'generic "Elección única · retention30-22: actividad sintética" [ref=f1e582] [cursor=pointer]'
+                - group [ref=f1e583]:
+                  - 'generic "Elección única · choice-22: actividad sintética" [ref=f1e584] [cursor=pointer]'
+                - group [ref=f1e585]:
+                  - 'generic "Estudio · study-23: actividad sintética" [ref=f1e586] [cursor=pointer]'
+                - group [ref=f1e587]:
+                  - 'generic "Elección única · choice-23: actividad sintética" [ref=f1e588] [cursor=pointer]'
+                - group [ref=f1e589]:
+                  - 'generic "Respuesta breve · short-23: actividad sintética" [ref=f1e590] [cursor=pointer]'
+                - group [ref=f1e591]:
+                  - 'generic "Elección única · apply-23: actividad sintética" [ref=f1e592] [cursor=pointer]'
+                - group [ref=f1e593]:
+                  - 'generic "Relaciones · match-23: actividad sintética" [ref=f1e594] [cursor=pointer]'
+                - group [ref=f1e595]:
+                  - 'generic "Secuencia · sequence-23: actividad sintética" [ref=f1e596] [cursor=pointer]'
+                - group [ref=f1e597]:
+                  - 'generic "Elección única · final-23: actividad sintética" [ref=f1e598] [cursor=pointer]'
+                - group [ref=f1e599]:
+                  - 'generic "Elección única · retention7-23: actividad sintética" [ref=f1e600] [cursor=pointer]'
+                - group [ref=f1e601]:
+                  - 'generic "Elección única · retention30-23: actividad sintética" [ref=f1e602] [cursor=pointer]'
+                - group [ref=f1e603]:
+                  - 'generic "Elección única · choice-23: actividad sintética" [ref=f1e604] [cursor=pointer]'
+                - group [ref=f1e605]:
+                  - 'generic "Estudio · study-24: actividad sintética" [ref=f1e606] [cursor=pointer]'
+                - group [ref=f1e607]:
+                  - 'generic "Elección única · choice-24: actividad sintética" [ref=f1e608] [cursor=pointer]'
+                - group [ref=f1e609]:
+                  - 'generic "Respuesta breve · short-24: actividad sintética" [ref=f1e610] [cursor=pointer]'
+                - group [ref=f1e611]:
+                  - 'generic "Elección única · apply-24: actividad sintética" [ref=f1e612] [cursor=pointer]'
+                - group [ref=f1e613]:
+                  - 'generic "Relaciones · match-24: actividad sintética" [ref=f1e614] [cursor=pointer]'
+                - group [ref=f1e615]:
+                  - 'generic "Secuencia · sequence-24: actividad sintética" [ref=f1e616] [cursor=pointer]'
+                - group [ref=f1e617]:
+                  - 'generic "Elección única · final-24: actividad sintética" [ref=f1e618] [cursor=pointer]'
+                - group [ref=f1e619]:
+                  - 'generic "Elección única · retention7-24: actividad sintética" [ref=f1e620] [cursor=pointer]'
+                - group [ref=f1e621]:
+                  - 'generic "Elección única · retention30-24: actividad sintética" [ref=f1e622] [cursor=pointer]'
+                - group [ref=f1e623]:
+                  - 'generic "Elección única · choice-24: actividad sintética" [ref=f1e624] [cursor=pointer]'
+                - group [ref=f1e625]:
+                  - 'generic "Estudio · study-25: actividad sintética" [ref=f1e626] [cursor=pointer]'
+                - group [ref=f1e627]:
+                  - 'generic "Elección única · choice-25: actividad sintética" [ref=f1e628] [cursor=pointer]'
+                - group [ref=f1e629]:
+                  - 'generic "Respuesta breve · short-25: actividad sintética" [ref=f1e630] [cursor=pointer]'
+                - group [ref=f1e631]:
+                  - 'generic "Elección única · apply-25: actividad sintética" [ref=f1e632] [cursor=pointer]'
+                - group [ref=f1e633]:
+                  - 'generic "Relaciones · match-25: actividad sintética" [ref=f1e634] [cursor=pointer]'
+                - group [ref=f1e635]:
+                  - 'generic "Secuencia · sequence-25: actividad sintética" [ref=f1e636] [cursor=pointer]'
+                - group [ref=f1e637]:
+                  - 'generic "Elección única · final-25: actividad sintética" [ref=f1e638] [cursor=pointer]'
+                - group [ref=f1e639]:
+                  - 'generic "Elección única · retention7-25: actividad sintética" [ref=f1e640] [cursor=pointer]'
+                - group [ref=f1e641]:
+                  - 'generic "Elección única · retention30-25: actividad sintética" [ref=f1e642] [cursor=pointer]'
+                - group [ref=f1e643]:
+                  - 'generic "Elección única · choice-25: actividad sintética" [ref=f1e644] [cursor=pointer]'
+                - group [ref=f1e645]:
+                  - 'generic "Estudio · study-26: actividad sintética" [ref=f1e646] [cursor=pointer]'
+                - group [ref=f1e647]:
+                  - 'generic "Elección única · choice-26: actividad sintética" [ref=f1e648] [cursor=pointer]'
+                - group [ref=f1e649]:
+                  - 'generic "Respuesta breve · short-26: actividad sintética" [ref=f1e650] [cursor=pointer]'
+                - group [ref=f1e651]:
+                  - 'generic "Elección única · apply-26: actividad sintética" [ref=f1e652] [cursor=pointer]'
+                - group [ref=f1e653]:
+                  - 'generic "Relaciones · match-26: actividad sintética" [ref=f1e654] [cursor=pointer]'
+                - group [ref=f1e655]:
+                  - 'generic "Secuencia · sequence-26: actividad sintética" [ref=f1e656] [cursor=pointer]'
+                - group [ref=f1e657]:
+                  - 'generic "Elección única · final-26: actividad sintética" [ref=f1e658] [cursor=pointer]'
+                - group [ref=f1e659]:
+                  - 'generic "Elección única · retention7-26: actividad sintética" [ref=f1e660] [cursor=pointer]'
+                - group [ref=f1e661]:
+                  - 'generic "Elección única · retention30-26: actividad sintética" [ref=f1e662] [cursor=pointer]'
+                - group [ref=f1e663]:
+                  - 'generic "Elección única · choice-26: actividad sintética" [ref=f1e664] [cursor=pointer]'
+                - group [ref=f1e665]:
+                  - 'generic "Estudio · study-27: actividad sintética" [ref=f1e666] [cursor=pointer]'
+                - group [ref=f1e667]:
+                  - 'generic "Elección única · choice-27: actividad sintética" [ref=f1e668] [cursor=pointer]'
+                - group [ref=f1e669]:
+                  - 'generic "Respuesta breve · short-27: actividad sintética" [ref=f1e670] [cursor=pointer]'
+                - group [ref=f1e671]:
+                  - 'generic "Elección única · apply-27: actividad sintética" [ref=f1e672] [cursor=pointer]'
+                - group [ref=f1e673]:
+                  - 'generic "Relaciones · match-27: actividad sintética" [ref=f1e674] [cursor=pointer]'
+                - group [ref=f1e675]:
+                  - 'generic "Secuencia · sequence-27: actividad sintética" [ref=f1e676] [cursor=pointer]'
+                - group [ref=f1e677]:
+                  - 'generic "Elección única · final-27: actividad sintética" [ref=f1e678] [cursor=pointer]'
+                - group [ref=f1e679]:
+                  - 'generic "Elección única · retention7-27: actividad sintética" [ref=f1e680] [cursor=pointer]'
+                - group [ref=f1e681]:
+                  - 'generic "Elección única · retention30-27: actividad sintética" [ref=f1e682] [cursor=pointer]'
+                - group [ref=f1e683]:
+                  - 'generic "Elección única · choice-27: actividad sintética" [ref=f1e684] [cursor=pointer]'
+              - region "Unidad 5" [ref=f1e685]:
+                - heading "Unidad 5" [level=2] [ref=f1e686]
+                - group [ref=f1e687]:
+                  - 'generic "Estudio · study-28: actividad sintética" [ref=f1e688] [cursor=pointer]'
+                - group [ref=f1e689]:
+                  - 'generic "Elección única · choice-28: actividad sintética" [ref=f1e690] [cursor=pointer]'
+                - group [ref=f1e691]:
+                  - 'generic "Respuesta breve · short-28: actividad sintética" [ref=f1e692] [cursor=pointer]'
+                - group [ref=f1e693]:
+                  - 'generic "Elección única · apply-28: actividad sintética" [ref=f1e694] [cursor=pointer]'
+                - group [ref=f1e695]:
+                  - 'generic "Relaciones · match-28: actividad sintética" [ref=f1e696] [cursor=pointer]'
+                - group [ref=f1e697]:
+                  - 'generic "Secuencia · sequence-28: actividad sintética" [ref=f1e698] [cursor=pointer]'
+                - group [ref=f1e699]:
+                  - 'generic "Elección única · final-28: actividad sintética" [ref=f1e700] [cursor=pointer]'
+                - group [ref=f1e701]:
+                  - 'generic "Elección única · retention7-28: actividad sintética" [ref=f1e702] [cursor=pointer]'
+                - group [ref=f1e703]:
+                  - 'generic "Elección única · retention30-28: actividad sintética" [ref=f1e704] [cursor=pointer]'
+                - group [ref=f1e705]:
+                  - 'generic "Elección única · choice-28: actividad sintética" [ref=f1e706] [cursor=pointer]'
+                - group [ref=f1e707]:
+                  - 'generic "Estudio · study-29: actividad sintética" [ref=f1e708] [cursor=pointer]'
+                - group [ref=f1e709]:
+                  - 'generic "Elección única · choice-29: actividad sintética" [ref=f1e710] [cursor=pointer]'
+                - group [ref=f1e711]:
+                  - 'generic "Respuesta breve · short-29: actividad sintética" [ref=f1e712] [cursor=pointer]'
+                - group [ref=f1e713]:
+                  - 'generic "Elección única · apply-29: actividad sintética" [ref=f1e714] [cursor=pointer]'
+                - group [ref=f1e715]:
+                  - 'generic "Relaciones · match-29: actividad sintética" [ref=f1e716] [cursor=pointer]'
+                - group [ref=f1e717]:
+                  - 'generic "Secuencia · sequence-29: actividad sintética" [ref=f1e718] [cursor=pointer]'
+                - group [ref=f1e719]:
+                  - 'generic "Elección única · final-29: actividad sintética" [ref=f1e720] [cursor=pointer]'
+                - group [ref=f1e721]:
+                  - 'generic "Elección única · retention7-29: actividad sintética" [ref=f1e722] [cursor=pointer]'
+                - group [ref=f1e723]:
+                  - 'generic "Elección única · retention30-29: actividad sintética" [ref=f1e724] [cursor=pointer]'
+                - group [ref=f1e725]:
+                  - 'generic "Elección única · choice-29: actividad sintética" [ref=f1e726] [cursor=pointer]'
+                - group [ref=f1e727]:
+                  - 'generic "Estudio · study-30: actividad sintética" [ref=f1e728] [cursor=pointer]'
+                - group [ref=f1e729]:
+                  - 'generic "Elección única · choice-30: actividad sintética" [ref=f1e730] [cursor=pointer]'
+                - group [ref=f1e731]:
+                  - 'generic "Respuesta breve · short-30: actividad sintética" [ref=f1e732] [cursor=pointer]'
+                - group [ref=f1e733]:
+                  - 'generic "Elección única · apply-30: actividad sintética" [ref=f1e734] [cursor=pointer]'
+                - group [ref=f1e735]:
+                  - 'generic "Relaciones · match-30: actividad sintética" [ref=f1e736] [cursor=pointer]'
+                - group [ref=f1e737]:
+                  - 'generic "Secuencia · sequence-30: actividad sintética" [ref=f1e738] [cursor=pointer]'
+                - group [ref=f1e739]:
+                  - 'generic "Elección única · final-30: actividad sintética" [ref=f1e740] [cursor=pointer]'
+                - group [ref=f1e741]:
+                  - 'generic "Elección única · retention7-30: actividad sintética" [ref=f1e742] [cursor=pointer]'
+                - group [ref=f1e743]:
+                  - 'generic "Elección única · retention30-30: actividad sintética" [ref=f1e744] [cursor=pointer]'
+                - group [ref=f1e745]:
+                  - 'generic "Elección única · choice-30: actividad sintética" [ref=f1e746] [cursor=pointer]'
+                - group [ref=f1e747]:
+                  - 'generic "Estudio · study-31: actividad sintética" [ref=f1e748] [cursor=pointer]'
+                - group [ref=f1e749]:
+                  - 'generic "Elección única · choice-31: actividad sintética" [ref=f1e750] [cursor=pointer]'
+                - group [ref=f1e751]:
+                  - 'generic "Respuesta breve · short-31: actividad sintética" [ref=f1e752] [cursor=pointer]'
+                - group [ref=f1e753]:
+                  - 'generic "Elección única · apply-31: actividad sintética" [ref=f1e754] [cursor=pointer]'
+                - group [ref=f1e755]:
+                  - 'generic "Relaciones · match-31: actividad sintética" [ref=f1e756] [cursor=pointer]'
+                - group [ref=f1e757]:
+                  - 'generic "Secuencia · sequence-31: actividad sintética" [ref=f1e758] [cursor=pointer]'
+                - group [ref=f1e759]:
+                  - 'generic "Elección única · final-31: actividad sintética" [ref=f1e760] [cursor=pointer]'
+                - group [ref=f1e761]:
+                  - 'generic "Elección única · retention7-31: actividad sintética" [ref=f1e762] [cursor=pointer]'
+                - group [ref=f1e763]:
+                  - 'generic "Elección única · retention30-31: actividad sintética" [ref=f1e764] [cursor=pointer]'
+                - group [ref=f1e765]:
+                  - 'generic "Elección única · choice-31: actividad sintética" [ref=f1e766] [cursor=pointer]'
+                - group [ref=f1e767]:
+                  - 'generic "Estudio · study-32: actividad sintética" [ref=f1e768] [cursor=pointer]'
+                - group [ref=f1e769]:
+                  - 'generic "Elección única · choice-32: actividad sintética" [ref=f1e770] [cursor=pointer]'
+                - group [ref=f1e771]:
+                  - 'generic "Respuesta breve · short-32: actividad sintética" [ref=f1e772] [cursor=pointer]'
+                - group [ref=f1e773]:
+                  - 'generic "Elección única · apply-32: actividad sintética" [ref=f1e774] [cursor=pointer]'
+                - group [ref=f1e775]:
+                  - 'generic "Relaciones · match-32: actividad sintética" [ref=f1e776] [cursor=pointer]'
+                - group [ref=f1e777]:
+                  - 'generic "Secuencia · sequence-32: actividad sintética" [ref=f1e778] [cursor=pointer]'
+                - group [ref=f1e779]:
+                  - 'generic "Elección única · final-32: actividad sintética" [ref=f1e780] [cursor=pointer]'
+                - group [ref=f1e781]:
+                  - 'generic "Elección única · retention7-32: actividad sintética" [ref=f1e782] [cursor=pointer]'
+                - group [ref=f1e783]:
+                  - 'generic "Elección única · retention30-32: actividad sintética" [ref=f1e784] [cursor=pointer]'
+                - group [ref=f1e785]:
+                  - 'generic "Elección única · choice-32: actividad sintética" [ref=f1e786] [cursor=pointer]'
+                - group [ref=f1e787]:
+                  - 'generic "Estudio · study-33: actividad sintética" [ref=f1e788] [cursor=pointer]'
+                - group [ref=f1e789]:
+                  - 'generic "Elección única · choice-33: actividad sintética" [ref=f1e790] [cursor=pointer]'
+                - group [ref=f1e791]:
+                  - 'generic "Respuesta breve · short-33: actividad sintética" [ref=f1e792] [cursor=pointer]'
+                - group [ref=f1e793]:
+                  - 'generic "Elección única · apply-33: actividad sintética" [ref=f1e794] [cursor=pointer]'
+                - group [ref=f1e795]:
+                  - 'generic "Relaciones · match-33: actividad sintética" [ref=f1e796] [cursor=pointer]'
+                - group [ref=f1e797]:
+                  - 'generic "Secuencia · sequence-33: actividad sintética" [ref=f1e798] [cursor=pointer]'
+                - group [ref=f1e799]:
+                  - 'generic "Elección única · final-33: actividad sintética" [ref=f1e800] [cursor=pointer]'
+                - group [ref=f1e801]:
+                  - 'generic "Elección única · retention7-33: actividad sintética" [ref=f1e802] [cursor=pointer]'
+                - group [ref=f1e803]:
+                  - 'generic "Elección única · retention30-33: actividad sintética" [ref=f1e804] [cursor=pointer]'
+                - group [ref=f1e805]:
+                  - 'generic "Estudio · study-34: actividad sintética" [ref=f1e806] [cursor=pointer]'
+                - group [ref=f1e807]:
+                  - 'generic "Elección única · choice-34: actividad sintética" [ref=f1e808] [cursor=pointer]'
+                - group [ref=f1e809]:
+                  - 'generic "Respuesta breve · short-34: actividad sintética" [ref=f1e810] [cursor=pointer]'
+                - group [ref=f1e811]:
+                  - 'generic "Elección única · apply-34: actividad sintética" [ref=f1e812] [cursor=pointer]'
+                - group [ref=f1e813]:
+                  - 'generic "Relaciones · match-34: actividad sintética" [ref=f1e814] [cursor=pointer]'
+                - group [ref=f1e815]:
+                  - 'generic "Secuencia · sequence-34: actividad sintética" [ref=f1e816] [cursor=pointer]'
+                - group [ref=f1e817]:
+                  - 'generic "Elección única · final-34: actividad sintética" [ref=f1e818] [cursor=pointer]'
+                - group [ref=f1e819]:
+                  - 'generic "Elección única · retention7-34: actividad sintética" [ref=f1e820] [cursor=pointer]'
+                - group [ref=f1e821]:
+                  - 'generic "Elección única · retention30-34: actividad sintética" [ref=f1e822] [cursor=pointer]'
+              - region "Unidad 6" [ref=f1e823]:
+                - heading "Unidad 6" [level=2] [ref=f1e824]
+                - group [ref=f1e825]:
+                  - 'generic "Estudio · study-35: actividad sintética" [ref=f1e826] [cursor=pointer]'
+                - group [ref=f1e827]:
+                  - 'generic "Elección única · choice-35: actividad sintética" [ref=f1e828] [cursor=pointer]'
+                - group [ref=f1e829]:
+                  - 'generic "Respuesta breve · short-35: actividad sintética" [ref=f1e830] [cursor=pointer]'
+                - group [ref=f1e831]:
+                  - 'generic "Elección única · apply-35: actividad sintética" [ref=f1e832] [cursor=pointer]'
+                - group [ref=f1e833]:
+                  - 'generic "Relaciones · match-35: actividad sintética" [ref=f1e834] [cursor=pointer]'
+                - group [ref=f1e835]:
+                  - 'generic "Secuencia · sequence-35: actividad sintética" [ref=f1e836] [cursor=pointer]'
+                - group [ref=f1e837]:
+                  - 'generic "Elección única · final-35: actividad sintética" [ref=f1e838] [cursor=pointer]'
+                - group [ref=f1e839]:
+                  - 'generic "Elección única · retention7-35: actividad sintética" [ref=f1e840] [cursor=pointer]'
+                - group [ref=f1e841]:
+                  - 'generic "Elección única · retention30-35: actividad sintética" [ref=f1e842] [cursor=pointer]'
+                - group [ref=f1e843]:
+                  - 'generic "Estudio · study-36: actividad sintética" [ref=f1e844] [cursor=pointer]'
+                - group [ref=f1e845]:
+                  - 'generic "Elección única · choice-36: actividad sintética" [ref=f1e846] [cursor=pointer]'
+                - group [ref=f1e847]:
+                  - 'generic "Respuesta breve · short-36: actividad sintética" [ref=f1e848] [cursor=pointer]'
+                - group [ref=f1e849]:
+                  - 'generic "Elección única · apply-36: actividad sintética" [ref=f1e850] [cursor=pointer]'
+                - group [ref=f1e851]:
+                  - 'generic "Relaciones · match-36: actividad sintética" [ref=f1e852] [cursor=pointer]'
+                - group [ref=f1e853]:
+                  - 'generic "Secuencia · sequence-36: actividad sintética" [ref=f1e854] [cursor=pointer]'
+                - group [ref=f1e855]:
+                  - 'generic "Elección única · final-36: actividad sintética" [ref=f1e856] [cursor=pointer]'
+                - group [ref=f1e857]:
+                  - 'generic "Elección única · retention7-36: actividad sintética" [ref=f1e858] [cursor=pointer]'
+                - group [ref=f1e859]:
+                  - 'generic "Elección única · retention30-36: actividad sintética" [ref=f1e860] [cursor=pointer]'
+                - group [ref=f1e861]:
+                  - 'generic "Estudio · study-37: actividad sintética" [ref=f1e862] [cursor=pointer]'
+                - group [ref=f1e863]:
+                  - 'generic "Elección única · choice-37: actividad sintética" [ref=f1e864] [cursor=pointer]'
+                - group [ref=f1e865]:
+                  - 'generic "Respuesta breve · short-37: actividad sintética" [ref=f1e866] [cursor=pointer]'
+                - group [ref=f1e867]:
+                  - 'generic "Elección única · apply-37: actividad sintética" [ref=f1e868] [cursor=pointer]'
+                - group [ref=f1e869]:
+                  - 'generic "Relaciones · match-37: actividad sintética" [ref=f1e870] [cursor=pointer]'
+                - group [ref=f1e871]:
+                  - 'generic "Secuencia · sequence-37: actividad sintética" [ref=f1e872] [cursor=pointer]'
+                - group [ref=f1e873]:
+                  - 'generic "Elección única · final-37: actividad sintética" [ref=f1e874] [cursor=pointer]'
+                - group [ref=f1e875]:
+                  - 'generic "Elección única · retention7-37: actividad sintética" [ref=f1e876] [cursor=pointer]'
+                - group [ref=f1e877]:
+                  - 'generic "Elección única · retention30-37: actividad sintética" [ref=f1e878] [cursor=pointer]'
+                - group [ref=f1e879]:
+                  - 'generic "Estudio · study-38: actividad sintética" [ref=f1e880] [cursor=pointer]'
+                - group [ref=f1e881]:
+                  - 'generic "Elección única · choice-38: actividad sintética" [ref=f1e882] [cursor=pointer]'
+                - group [ref=f1e883]:
+                  - 'generic "Respuesta breve · short-38: actividad sintética" [ref=f1e884] [cursor=pointer]'
+                - group [ref=f1e885]:
+                  - 'generic "Elección única · apply-38: actividad sintética" [ref=f1e886] [cursor=pointer]'
+                - group [ref=f1e887]:
+                  - 'generic "Relaciones · match-38: actividad sintética" [ref=f1e888] [cursor=pointer]'
+                - group [ref=f1e889]:
+                  - 'generic "Secuencia · sequence-38: actividad sintética" [ref=f1e890] [cursor=pointer]'
+                - group [ref=f1e891]:
+                  - 'generic "Elección única · final-38: actividad sintética" [ref=f1e892] [cursor=pointer]'
+                - group [ref=f1e893]:
+                  - 'generic "Elección única · retention7-38: actividad sintética" [ref=f1e894] [cursor=pointer]'
+                - group [ref=f1e895]:
+                  - 'generic "Elección única · retention30-38: actividad sintética" [ref=f1e896] [cursor=pointer]'
+                - group [ref=f1e897]:
+                  - 'generic "Estudio · study-39: actividad sintética" [ref=f1e898] [cursor=pointer]'
+                - group [ref=f1e899]:
+                  - 'generic "Elección única · choice-39: actividad sintética" [ref=f1e900] [cursor=pointer]'
+                - group [ref=f1e901]:
+                  - 'generic "Respuesta breve · short-39: actividad sintética" [ref=f1e902] [cursor=pointer]'
+                - group [ref=f1e903]:
+                  - 'generic "Elección única · apply-39: actividad sintética" [ref=f1e904] [cursor=pointer]'
+                - group [ref=f1e905]:
+                  - 'generic "Relaciones · match-39: actividad sintética" [ref=f1e906] [cursor=pointer]'
+                - group [ref=f1e907]:
+                  - 'generic "Secuencia · sequence-39: actividad sintética" [ref=f1e908] [cursor=pointer]'
+                - group [ref=f1e909]:
+                  - 'generic "Elección única · final-39: actividad sintética" [ref=f1e910] [cursor=pointer]'
+                - group [ref=f1e911]:
+                  - 'generic "Elección única · retention7-39: actividad sintética" [ref=f1e912] [cursor=pointer]'
+                - group [ref=f1e913]:
+                  - 'generic "Elección única · retention30-39: actividad sintética" [ref=f1e914] [cursor=pointer]'
+                - group [ref=f1e915]:
+                  - 'generic "Estudio · study-40: actividad sintética" [ref=f1e916] [cursor=pointer]'
+                - group [ref=f1e917]:
+                  - 'generic "Elección única · choice-40: actividad sintética" [ref=f1e918] [cursor=pointer]'
+                - group [ref=f1e919]:
+                  - 'generic "Respuesta breve · short-40: actividad sintética" [ref=f1e920] [cursor=pointer]'
+                - group [ref=f1e921]:
+                  - 'generic "Elección única · apply-40: actividad sintética" [ref=f1e922] [cursor=pointer]'
+                - group [ref=f1e923]:
+                  - 'generic "Relaciones · match-40: actividad sintética" [ref=f1e924] [cursor=pointer]'
+                - group [ref=f1e925]:
+                  - 'generic "Secuencia · sequence-40: actividad sintética" [ref=f1e926] [cursor=pointer]'
+                - group [ref=f1e927]:
+                  - 'generic "Elección única · final-40: actividad sintética" [ref=f1e928] [cursor=pointer]'
+                - group [ref=f1e929]:
+                  - 'generic "Elección única · retention7-40: actividad sintética" [ref=f1e930] [cursor=pointer]'
+                - group [ref=f1e931]:
+                  - 'generic "Elección única · retention30-40: actividad sintética" [ref=f1e932] [cursor=pointer]'
+              - region "Unidad 7" [ref=f1e933]:
+                - heading "Unidad 7" [level=2] [ref=f1e934]
+                - group [ref=f1e935]:
+                  - 'generic "Estudio · study-41: actividad sintética" [ref=f1e936] [cursor=pointer]'
+                - group [ref=f1e937]:
+                  - 'generic "Elección única · choice-41: actividad sintética" [ref=f1e938] [cursor=pointer]'
+                - group [ref=f1e939]:
+                  - 'generic "Respuesta breve · short-41: actividad sintética" [ref=f1e940] [cursor=pointer]'
+                - group [ref=f1e941]:
+                  - 'generic "Elección única · apply-41: actividad sintética" [ref=f1e942] [cursor=pointer]'
+                - group [ref=f1e943]:
+                  - 'generic "Relaciones · match-41: actividad sintética" [ref=f1e944] [cursor=pointer]'
+                - group [ref=f1e945]:
+                  - 'generic "Secuencia · sequence-41: actividad sintética" [ref=f1e946] [cursor=pointer]'
+                - group [ref=f1e947]:
+                  - 'generic "Elección única · final-41: actividad sintética" [ref=f1e948] [cursor=pointer]'
+                - group [ref=f1e949]:
+                  - 'generic "Elección única · retention7-41: actividad sintética" [ref=f1e950] [cursor=pointer]'
+                - group [ref=f1e951]:
+                  - 'generic "Elección única · retention30-41: actividad sintética" [ref=f1e952] [cursor=pointer]'
+                - group [ref=f1e953]:
+                  - 'generic "Estudio · study-42: actividad sintética" [ref=f1e954] [cursor=pointer]'
+                - group [ref=f1e955]:
+                  - 'generic "Elección única · choice-42: actividad sintética" [ref=f1e956] [cursor=pointer]'
+                - group [ref=f1e957]:
+                  - 'generic "Respuesta breve · short-42: actividad sintética" [ref=f1e958] [cursor=pointer]'
+                - group [ref=f1e959]:
+                  - 'generic "Elección única · apply-42: actividad sintética" [ref=f1e960] [cursor=pointer]'
+                - group [ref=f1e961]:
+                  - 'generic "Relaciones · match-42: actividad sintética" [ref=f1e962] [cursor=pointer]'
+                - group [ref=f1e963]:
+                  - 'generic "Secuencia · sequence-42: actividad sintética" [ref=f1e964] [cursor=pointer]'
+                - group [ref=f1e965]:
+                  - 'generic "Elección única · final-42: actividad sintética" [ref=f1e966] [cursor=pointer]'
+                - group [ref=f1e967]:
+                  - 'generic "Elección única · retention7-42: actividad sintética" [ref=f1e968] [cursor=pointer]'
+                - group [ref=f1e969]:
+                  - 'generic "Elección única · retention30-42: actividad sintética" [ref=f1e970] [cursor=pointer]'
+                - group [ref=f1e971]:
+                  - 'generic "Estudio · study-43: actividad sintética" [ref=f1e972] [cursor=pointer]'
+                - group [ref=f1e973]:
+                  - 'generic "Elección única · choice-43: actividad sintética" [ref=f1e974] [cursor=pointer]'
+                - group [ref=f1e975]:
+                  - 'generic "Respuesta breve · short-43: actividad sintética" [ref=f1e976] [cursor=pointer]'
+                - group [ref=f1e977]:
+                  - 'generic "Elección única · apply-43: actividad sintética" [ref=f1e978] [cursor=pointer]'
+                - group [ref=f1e979]:
+                  - 'generic "Relaciones · match-43: actividad sintética" [ref=f1e980] [cursor=pointer]'
+                - group [ref=f1e981]:
+                  - 'generic "Secuencia · sequence-43: actividad sintética" [ref=f1e982] [cursor=pointer]'
+                - group [ref=f1e983]:
+                  - 'generic "Elección única · final-43: actividad sintética" [ref=f1e984] [cursor=pointer]'
+                - group [ref=f1e985]:
+                  - 'generic "Elección única · retention7-43: actividad sintética" [ref=f1e986] [cursor=pointer]'
+                - group [ref=f1e987]:
+                  - 'generic "Elección única · retention30-43: actividad sintética" [ref=f1e988] [cursor=pointer]'
+                - group [ref=f1e989]:
+                  - 'generic "Estudio · study-44: actividad sintética" [ref=f1e990] [cursor=pointer]'
+                - group [ref=f1e991]:
+                  - 'generic "Elección única · choice-44: actividad sintética" [ref=f1e992] [cursor=pointer]'
+                - group [ref=f1e993]:
+                  - 'generic "Respuesta breve · short-44: actividad sintética" [ref=f1e994] [cursor=pointer]'
+                - group [ref=f1e995]:
+                  - 'generic "Elección única · apply-44: actividad sintética" [ref=f1e996] [cursor=pointer]'
+                - group [ref=f1e997]:
+                  - 'generic "Relaciones · match-44: actividad sintética" [ref=f1e998] [cursor=pointer]'
+                - group [ref=f1e999]:
+                  - 'generic "Secuencia · sequence-44: actividad sintética" [ref=f1e1000] [cursor=pointer]'
+                - group [ref=f1e1001]:
+                  - 'generic "Elección única · final-44: actividad sintética" [ref=f1e1002] [cursor=pointer]'
+                - group [ref=f1e1003]:
+                  - 'generic "Elección única · retention7-44: actividad sintética" [ref=f1e1004] [cursor=pointer]'
+                - group [ref=f1e1005]:
+                  - 'generic "Elección única · retention30-44: actividad sintética" [ref=f1e1006] [cursor=pointer]'
+                - group [ref=f1e1007]:
+                  - 'generic "Estudio · study-45: actividad sintética" [ref=f1e1008] [cursor=pointer]'
+                - group [ref=f1e1009]:
+                  - 'generic "Elección única · choice-45: actividad sintética" [ref=f1e1010] [cursor=pointer]'
+                - group [ref=f1e1011]:
+                  - 'generic "Respuesta breve · short-45: actividad sintética" [ref=f1e1012] [cursor=pointer]'
+                - group [ref=f1e1013]:
+                  - 'generic "Elección única · apply-45: actividad sintética" [ref=f1e1014] [cursor=pointer]'
+                - group [ref=f1e1015]:
+                  - 'generic "Relaciones · match-45: actividad sintética" [ref=f1e1016] [cursor=pointer]'
+                - group [ref=f1e1017]:
+                  - 'generic "Secuencia · sequence-45: actividad sintética" [ref=f1e1018] [cursor=pointer]'
+                - group [ref=f1e1019]:
+                  - 'generic "Elección única · final-45: actividad sintética" [ref=f1e1020] [cursor=pointer]'
+                - group [ref=f1e1021]:
+                  - 'generic "Elección única · retention7-45: actividad sintética" [ref=f1e1022] [cursor=pointer]'
+                - group [ref=f1e1023]:
+                  - 'generic "Elección única · retention30-45: actividad sintética" [ref=f1e1024] [cursor=pointer]'
+                - group [ref=f1e1025]:
+                  - 'generic "Estudio · study-46: actividad sintética" [ref=f1e1026] [cursor=pointer]'
+                - group [ref=f1e1027]:
+                  - 'generic "Elección única · choice-46: actividad sintética" [ref=f1e1028] [cursor=pointer]'
+                - group [ref=f1e1029]:
+                  - 'generic "Respuesta breve · short-46: actividad sintética" [ref=f1e1030] [cursor=pointer]'
+                - group [ref=f1e1031]:
+                  - 'generic "Elección única · apply-46: actividad sintética" [ref=f1e1032] [cursor=pointer]'
+                - group [ref=f1e1033]:
+                  - 'generic "Relaciones · match-46: actividad sintética" [ref=f1e1034] [cursor=pointer]'
+                - group [ref=f1e1035]:
+                  - 'generic "Secuencia · sequence-46: actividad sintética" [ref=f1e1036] [cursor=pointer]'
+                - group [ref=f1e1037]:
+                  - 'generic "Elección única · final-46: actividad sintética" [ref=f1e1038] [cursor=pointer]'
+                - group [ref=f1e1039]:
+                  - 'generic "Elección única · retention7-46: actividad sintética" [ref=f1e1040] [cursor=pointer]'
+                - group [ref=f1e1041]:
+                  - 'generic "Elección única · retention30-46: actividad sintética" [ref=f1e1042] [cursor=pointer]'
+                - group [ref=f1e1043]:
+                  - 'generic "Estudio · study-47: actividad sintética" [ref=f1e1044] [cursor=pointer]'
+                - group [ref=f1e1045]:
+                  - 'generic "Elección única · choice-47: actividad sintética" [ref=f1e1046] [cursor=pointer]'
+                - group [ref=f1e1047]:
+                  - 'generic "Respuesta breve · short-47: actividad sintética" [ref=f1e1048] [cursor=pointer]'
+                - group [ref=f1e1049]:
+                  - 'generic "Elección única · apply-47: actividad sintética" [ref=f1e1050] [cursor=pointer]'
+                - group [ref=f1e1051]:
+                  - 'generic "Relaciones · match-47: actividad sintética" [ref=f1e1052] [cursor=pointer]'
+                - group [ref=f1e1053]:
+                  - 'generic "Secuencia · sequence-47: actividad sintética" [ref=f1e1054] [cursor=pointer]'
+                - group [ref=f1e1055]:
+                  - 'generic "Elección única · final-47: actividad sintética" [ref=f1e1056] [cursor=pointer]'
+                - group [ref=f1e1057]:
+                  - 'generic "Elección única · retention7-47: actividad sintética" [ref=f1e1058] [cursor=pointer]'
+                - group [ref=f1e1059]:
+                  - 'generic "Elección única · retention30-47: actividad sintética" [ref=f1e1060] [cursor=pointer]'
+              - region "Unidad 8" [ref=f1e1061]:
+                - heading "Unidad 8" [level=2] [ref=f1e1062]
+                - group [ref=f1e1063]:
+                  - 'generic "Estudio · study-48: actividad sintética" [ref=f1e1064] [cursor=pointer]'
+                - group [ref=f1e1065]:
+                  - 'generic "Elección única · choice-48: actividad sintética" [ref=f1e1066] [cursor=pointer]'
+                - group [ref=f1e1067]:
+                  - 'generic "Respuesta breve · short-48: actividad sintética" [ref=f1e1068] [cursor=pointer]'
+                - group [ref=f1e1069]:
+                  - 'generic "Elección única · apply-48: actividad sintética" [ref=f1e1070] [cursor=pointer]'
+                - group [ref=f1e1071]:
+                  - 'generic "Relaciones · match-48: actividad sintética" [ref=f1e1072] [cursor=pointer]'
+                - group [ref=f1e1073]:
+                  - 'generic "Secuencia · sequence-48: actividad sintética" [ref=f1e1074] [cursor=pointer]'
+                - group [ref=f1e1075]:
+                  - 'generic "Elección única · final-48: actividad sintética" [ref=f1e1076] [cursor=pointer]'
+                - group [ref=f1e1077]:
+                  - 'generic "Elección única · retention7-48: actividad sintética" [ref=f1e1078] [cursor=pointer]'
+                - group [ref=f1e1079]:
+                  - 'generic "Elección única · retention30-48: actividad sintética" [ref=f1e1080] [cursor=pointer]'
+                - group [ref=f1e1081]:
+                  - 'generic "Estudio · study-49: actividad sintética" [ref=f1e1082] [cursor=pointer]'
+                - group [ref=f1e1083]:
+                  - 'generic "Elección única · choice-49: actividad sintética" [ref=f1e1084] [cursor=pointer]'
+                - group [ref=f1e1085]:
+                  - 'generic "Respuesta breve · short-49: actividad sintética" [ref=f1e1086] [cursor=pointer]'
+                - group [ref=f1e1087]:
+                  - 'generic "Elección única · apply-49: actividad sintética" [ref=f1e1088] [cursor=pointer]'
+                - group [ref=f1e1089]:
+                  - 'generic "Relaciones · match-49: actividad sintética" [ref=f1e1090] [cursor=pointer]'
+                - group [ref=f1e1091]:
+                  - 'generic "Secuencia · sequence-49: actividad sintética" [ref=f1e1092] [cursor=pointer]'
+                - group [ref=f1e1093]:
+                  - 'generic "Elección única · final-49: actividad sintética" [ref=f1e1094] [cursor=pointer]'
+                - group [ref=f1e1095]:
+                  - 'generic "Elección única · retention7-49: actividad sintética" [ref=f1e1096] [cursor=pointer]'
+                - group [ref=f1e1097]:
+                  - 'generic "Elección única · retention30-49: actividad sintética" [ref=f1e1098] [cursor=pointer]'
+                - group [ref=f1e1099]:
+                  - 'generic "Estudio · study-50: actividad sintética" [ref=f1e1100] [cursor=pointer]'
+                - group [ref=f1e1101]:
+                  - 'generic "Elección única · choice-50: actividad sintética" [ref=f1e1102] [cursor=pointer]'
+                - group [ref=f1e1103]:
+                  - 'generic "Respuesta breve · short-50: actividad sintética" [ref=f1e1104] [cursor=pointer]'
+                - group [ref=f1e1105]:
+                  - 'generic "Elección única · apply-50: actividad sintética" [ref=f1e1106] [cursor=pointer]'
+                - group [ref=f1e1107]:
+                  - 'generic "Relaciones · match-50: actividad sintética" [ref=f1e1108] [cursor=pointer]'
+                - group [ref=f1e1109]:
+                  - 'generic "Secuencia · sequence-50: actividad sintética" [ref=f1e1110] [cursor=pointer]'
+                - group [ref=f1e1111]:
+                  - 'generic "Elección única · final-50: actividad sintética" [ref=f1e1112] [cursor=pointer]'
+                - group [ref=f1e1113]:
+                  - 'generic "Elección única · retention7-50: actividad sintética" [ref=f1e1114] [cursor=pointer]'
+                - group [ref=f1e1115]:
+                  - 'generic "Elección única · retention30-50: actividad sintética" [ref=f1e1116] [cursor=pointer]'
+                - group [ref=f1e1117]:
+                  - 'generic "Estudio · study-51: actividad sintética" [ref=f1e1118] [cursor=pointer]'
+                - group [ref=f1e1119]:
+                  - 'generic "Elección única · choice-51: actividad sintética" [ref=f1e1120] [cursor=pointer]'
+                - group [ref=f1e1121]:
+                  - 'generic "Respuesta breve · short-51: actividad sintética" [ref=f1e1122] [cursor=pointer]'
+                - group [ref=f1e1123]:
+                  - 'generic "Elección única · apply-51: actividad sintética" [ref=f1e1124] [cursor=pointer]'
+                - group [ref=f1e1125]:
+                  - 'generic "Relaciones · match-51: actividad sintética" [ref=f1e1126] [cursor=pointer]'
+                - group [ref=f1e1127]:
+                  - 'generic "Secuencia · sequence-51: actividad sintética" [ref=f1e1128] [cursor=pointer]'
+                - group [ref=f1e1129]:
+                  - 'generic "Elección única · final-51: actividad sintética" [ref=f1e1130] [cursor=pointer]'
+                - group [ref=f1e1131]:
+                  - 'generic "Elección única · retention7-51: actividad sintética" [ref=f1e1132] [cursor=pointer]'
+                - group [ref=f1e1133]:
+                  - 'generic "Elección única · retention30-51: actividad sintética" [ref=f1e1134] [cursor=pointer]'
+                - group [ref=f1e1135]:
+                  - 'generic "Estudio · study-52: actividad sintética" [ref=f1e1136] [cursor=pointer]'
+                - group [ref=f1e1137]:
+                  - 'generic "Elección única · choice-52: actividad sintética" [ref=f1e1138] [cursor=pointer]'
+                - group [ref=f1e1139]:
+                  - 'generic "Respuesta breve · short-52: actividad sintética" [ref=f1e1140] [cursor=pointer]'
+                - group [ref=f1e1141]:
+                  - 'generic "Elección única · apply-52: actividad sintética" [ref=f1e1142] [cursor=pointer]'
+                - group [ref=f1e1143]:
+                  - 'generic "Relaciones · match-52: actividad sintética" [ref=f1e1144] [cursor=pointer]'
+                - group [ref=f1e1145]:
+                  - 'generic "Secuencia · sequence-52: actividad sintética" [ref=f1e1146] [cursor=pointer]'
+                - group [ref=f1e1147]:
+                  - 'generic "Elección única · final-52: actividad sintética" [ref=f1e1148] [cursor=pointer]'
+                - group [ref=f1e1149]:
+                  - 'generic "Elección única · retention7-52: actividad sintética" [ref=f1e1150] [cursor=pointer]'
+                - group [ref=f1e1151]:
+                  - 'generic "Elección única · retention30-52: actividad sintética" [ref=f1e1152] [cursor=pointer]'
+                - group [ref=f1e1153]:
+                  - 'generic "Estudio · study-53: actividad sintética" [ref=f1e1154] [cursor=pointer]'
+                - group [ref=f1e1155]:
+                  - 'generic "Elección única · choice-53: actividad sintética" [ref=f1e1156] [cursor=pointer]'
+                - group [ref=f1e1157]:
+                  - 'generic "Respuesta breve · short-53: actividad sintética" [ref=f1e1158] [cursor=pointer]'
+                - group [ref=f1e1159]:
+                  - 'generic "Elección única · apply-53: actividad sintética" [ref=f1e1160] [cursor=pointer]'
+                - group [ref=f1e1161]:
+                  - 'generic "Relaciones · match-53: actividad sintética" [ref=f1e1162] [cursor=pointer]'
+                - group [ref=f1e1163]:
+                  - 'generic "Secuencia · sequence-53: actividad sintética" [ref=f1e1164] [cursor=pointer]'
+                - group [ref=f1e1165]:
+                  - 'generic "Elección única · final-53: actividad sintética" [ref=f1e1166] [cursor=pointer]'
+                - group [ref=f1e1167]:
+                  - 'generic "Elección única · retention7-53: actividad sintética" [ref=f1e1168] [cursor=pointer]'
+                - group [ref=f1e1169]:
+                  - 'generic "Elección única · retention30-53: actividad sintética" [ref=f1e1170] [cursor=pointer]'
+                - group [ref=f1e1171]:
+                  - 'generic "Estudio · study-54: actividad sintética" [ref=f1e1172] [cursor=pointer]'
+                - group [ref=f1e1173]:
+                  - 'generic "Elección única · choice-54: actividad sintética" [ref=f1e1174] [cursor=pointer]'
+                - group [ref=f1e1175]:
+                  - 'generic "Respuesta breve · short-54: actividad sintética" [ref=f1e1176] [cursor=pointer]'
+                - group [ref=f1e1177]:
+                  - 'generic "Elección única · apply-54: actividad sintética" [ref=f1e1178] [cursor=pointer]'
+                - group [ref=f1e1179]:
+                  - 'generic "Relaciones · match-54: actividad sintética" [ref=f1e1180] [cursor=pointer]'
+                - group [ref=f1e1181]:
+                  - 'generic "Secuencia · sequence-54: actividad sintética" [ref=f1e1182] [cursor=pointer]'
+                - group [ref=f1e1183]:
+                  - 'generic "Elección única · final-54: actividad sintética" [ref=f1e1184] [cursor=pointer]'
+                - group [ref=f1e1185]:
+                  - 'generic "Elección única · retention7-54: actividad sintética" [ref=f1e1186] [cursor=pointer]'
+                - group [ref=f1e1187]:
+                  - 'generic "Elección única · retention30-54: actividad sintética" [ref=f1e1188] [cursor=pointer]'
+              - region "Unidad 9" [ref=f1e1189]:
+                - heading "Unidad 9" [level=2] [ref=f1e1190]
+                - group [ref=f1e1191]:
+                  - 'generic "Estudio · study-55: actividad sintética" [ref=f1e1192] [cursor=pointer]'
+                - group [ref=f1e1193]:
+                  - 'generic "Elección única · choice-55: actividad sintética" [ref=f1e1194] [cursor=pointer]'
+                - group [ref=f1e1195]:
+                  - 'generic "Respuesta breve · short-55: actividad sintética" [ref=f1e1196] [cursor=pointer]'
+                - group [ref=f1e1197]:
+                  - 'generic "Elección única · apply-55: actividad sintética" [ref=f1e1198] [cursor=pointer]'
+                - group [ref=f1e1199]:
+                  - 'generic "Relaciones · match-55: actividad sintética" [ref=f1e1200] [cursor=pointer]'
+                - group [ref=f1e1201]:
+                  - 'generic "Secuencia · sequence-55: actividad sintética" [ref=f1e1202] [cursor=pointer]'
+                - group [ref=f1e1203]:
+                  - 'generic "Elección única · final-55: actividad sintética" [ref=f1e1204] [cursor=pointer]'
+                - group [ref=f1e1205]:
+                  - 'generic "Elección única · retention7-55: actividad sintética" [ref=f1e1206] [cursor=pointer]'
+                - group [ref=f1e1207]:
+                  - 'generic "Elección única · retention30-55: actividad sintética" [ref=f1e1208] [cursor=pointer]'
+                - group [ref=f1e1209]:
+                  - 'generic "Estudio · study-56: actividad sintética" [ref=f1e1210] [cursor=pointer]'
+                - group [ref=f1e1211]:
+                  - 'generic "Elección única · choice-56: actividad sintética" [ref=f1e1212] [cursor=pointer]'
+                - group [ref=f1e1213]:
+                  - 'generic "Respuesta breve · short-56: actividad sintética" [ref=f1e1214] [cursor=pointer]'
+                - group [ref=f1e1215]:
+                  - 'generic "Elección única · apply-56: actividad sintética" [ref=f1e1216] [cursor=pointer]'
+                - group [ref=f1e1217]:
+                  - 'generic "Relaciones · match-56: actividad sintética" [ref=f1e1218] [cursor=pointer]'
+                - group [ref=f1e1219]:
+                  - 'generic "Secuencia · sequence-56: actividad sintética" [ref=f1e1220] [cursor=pointer]'
+                - group [ref=f1e1221]:
+                  - 'generic "Elección única · final-56: actividad sintética" [ref=f1e1222] [cursor=pointer]'
+                - group [ref=f1e1223]:
+                  - 'generic "Elección única · retention7-56: actividad sintética" [ref=f1e1224] [cursor=pointer]'
+                - group [ref=f1e1225]:
+                  - 'generic "Elección única · retention30-56: actividad sintética" [ref=f1e1226] [cursor=pointer]'
+                - group [ref=f1e1227]:
+                  - 'generic "Estudio · study-57: actividad sintética" [ref=f1e1228] [cursor=pointer]'
+                - group [ref=f1e1229]:
+                  - 'generic "Elección única · choice-57: actividad sintética" [ref=f1e1230] [cursor=pointer]'
+                - group [ref=f1e1231]:
+                  - 'generic "Respuesta breve · short-57: actividad sintética" [ref=f1e1232] [cursor=pointer]'
+                - group [ref=f1e1233]:
+                  - 'generic "Elección única · apply-57: actividad sintética" [ref=f1e1234] [cursor=pointer]'
+                - group [ref=f1e1235]:
+                  - 'generic "Relaciones · match-57: actividad sintética" [ref=f1e1236] [cursor=pointer]'
+                - group [ref=f1e1237]:
+                  - 'generic "Secuencia · sequence-57: actividad sintética" [ref=f1e1238] [cursor=pointer]'
+                - group [ref=f1e1239]:
+                  - 'generic "Elección única · final-57: actividad sintética" [ref=f1e1240] [cursor=pointer]'
+                - group [ref=f1e1241]:
+                  - 'generic "Elección única · retention7-57: actividad sintética" [ref=f1e1242] [cursor=pointer]'
+                - group [ref=f1e1243]:
+                  - 'generic "Elección única · retention30-57: actividad sintética" [ref=f1e1244] [cursor=pointer]'
+                - group [ref=f1e1245]:
+                  - 'generic "Estudio · study-58: actividad sintética" [ref=f1e1246] [cursor=pointer]'
+                - group [ref=f1e1247]:
+                  - 'generic "Elección única · choice-58: actividad sintética" [ref=f1e1248] [cursor=pointer]'
+                - group [ref=f1e1249]:
+                  - 'generic "Respuesta breve · short-58: actividad sintética" [ref=f1e1250] [cursor=pointer]'
+                - group [ref=f1e1251]:
+                  - 'generic "Elección única · apply-58: actividad sintética" [ref=f1e1252] [cursor=pointer]'
+                - group [ref=f1e1253]:
+                  - 'generic "Relaciones · match-58: actividad sintética" [ref=f1e1254] [cursor=pointer]'
+                - group [ref=f1e1255]:
+                  - 'generic "Secuencia · sequence-58: actividad sintética" [ref=f1e1256] [cursor=pointer]'
+                - group [ref=f1e1257]:
+                  - 'generic "Elección única · final-58: actividad sintética" [ref=f1e1258] [cursor=pointer]'
+                - group [ref=f1e1259]:
+                  - 'generic "Elección única · retention7-58: actividad sintética" [ref=f1e1260] [cursor=pointer]'
+                - group [ref=f1e1261]:
+                  - 'generic "Elección única · retention30-58: actividad sintética" [ref=f1e1262] [cursor=pointer]'
+                - group [ref=f1e1263]:
+                  - 'generic "Estudio · study-59: actividad sintética" [ref=f1e1264] [cursor=pointer]'
+                - group [ref=f1e1265]:
+                  - 'generic "Elección única · choice-59: actividad sintética" [ref=f1e1266] [cursor=pointer]'
+                - group [ref=f1e1267]:
+                  - 'generic "Respuesta breve · short-59: actividad sintética" [ref=f1e1268] [cursor=pointer]'
+                - group [ref=f1e1269]:
+                  - 'generic "Elección única · apply-59: actividad sintética" [ref=f1e1270] [cursor=pointer]'
+                - group [ref=f1e1271]:
+                  - 'generic "Relaciones · match-59: actividad sintética" [ref=f1e1272] [cursor=pointer]'
+                - group [ref=f1e1273]:
+                  - 'generic "Secuencia · sequence-59: actividad sintética" [ref=f1e1274] [cursor=pointer]'
+                - group [ref=f1e1275]:
+                  - 'generic "Elección única · final-59: actividad sintética" [ref=f1e1276] [cursor=pointer]'
+                - group [ref=f1e1277]:
+                  - 'generic "Elección única · retention7-59: actividad sintética" [ref=f1e1278] [cursor=pointer]'
+                - group [ref=f1e1279]:
+                  - 'generic "Elección única · retention30-59: actividad sintética" [ref=f1e1280] [cursor=pointer]'
+                - group [ref=f1e1281]:
+                  - 'generic "Estudio · study-60: actividad sintética" [ref=f1e1282] [cursor=pointer]'
+                - group [ref=f1e1283]:
+                  - 'generic "Elección única · choice-60: actividad sintética" [ref=f1e1284] [cursor=pointer]'
+                - group [ref=f1e1285]:
+                  - 'generic "Respuesta breve · short-60: actividad sintética" [ref=f1e1286] [cursor=pointer]'
+                - group [ref=f1e1287]:
+                  - 'generic "Elección única · apply-60: actividad sintética" [ref=f1e1288] [cursor=pointer]'
+                - group [ref=f1e1289]:
+                  - 'generic "Relaciones · match-60: actividad sintética" [ref=f1e1290] [cursor=pointer]'
+                - group [ref=f1e1291]:
+                  - 'generic "Secuencia · sequence-60: actividad sintética" [ref=f1e1292] [cursor=pointer]'
+                - group [ref=f1e1293]:
+                  - 'generic "Elección única · final-60: actividad sintética" [ref=f1e1294] [cursor=pointer]'
+                - group [ref=f1e1295]:
+                  - 'generic "Elección única · retention7-60: actividad sintética" [ref=f1e1296] [cursor=pointer]'
+                - group [ref=f1e1297]:
+                  - 'generic "Elección única · retention30-60: actividad sintética" [ref=f1e1298] [cursor=pointer]'
+              - region "Unidad 10" [ref=f1e1299]:
+                - heading "Unidad 10" [level=2] [ref=f1e1300]
+                - group [ref=f1e1301]:
+                  - 'generic "Estudio · study-61: actividad sintética" [ref=f1e1302] [cursor=pointer]'
+                - group [ref=f1e1303]:
+                  - 'generic "Elección única · choice-61: actividad sintética" [ref=f1e1304] [cursor=pointer]'
+                - group [ref=f1e1305]:
+                  - 'generic "Respuesta breve · short-61: actividad sintética" [ref=f1e1306] [cursor=pointer]'
+                - group [ref=f1e1307]:
+                  - 'generic "Elección única · apply-61: actividad sintética" [ref=f1e1308] [cursor=pointer]'
+                - group [ref=f1e1309]:
+                  - 'generic "Relaciones · match-61: actividad sintética" [ref=f1e1310] [cursor=pointer]'
+                - group [ref=f1e1311]:
+                  - 'generic "Secuencia · sequence-61: actividad sintética" [ref=f1e1312] [cursor=pointer]'
+                - group [ref=f1e1313]:
+                  - 'generic "Elección única · final-61: actividad sintética" [ref=f1e1314] [cursor=pointer]'
+                - group [ref=f1e1315]:
+                  - 'generic "Elección única · retention7-61: actividad sintética" [ref=f1e1316] [cursor=pointer]'
+                - group [ref=f1e1317]:
+                  - 'generic "Elección única · retention30-61: actividad sintética" [ref=f1e1318] [cursor=pointer]'
+                - group [ref=f1e1319]:
+                  - 'generic "Estudio · study-62: actividad sintética" [ref=f1e1320] [cursor=pointer]'
+                - group [ref=f1e1321]:
+                  - 'generic "Elección única · choice-62: actividad sintética" [ref=f1e1322] [cursor=pointer]'
+                - group [ref=f1e1323]:
+                  - 'generic "Respuesta breve · short-62: actividad sintética" [ref=f1e1324] [cursor=pointer]'
+                - group [ref=f1e1325]:
+                  - 'generic "Elección única · apply-62: actividad sintética" [ref=f1e1326] [cursor=pointer]'
+                - group [ref=f1e1327]:
+                  - 'generic "Relaciones · match-62: actividad sintética" [ref=f1e1328] [cursor=pointer]'
+                - group [ref=f1e1329]:
+                  - 'generic "Secuencia · sequence-62: actividad sintética" [ref=f1e1330] [cursor=pointer]'
+                - group [ref=f1e1331]:
+                  - 'generic "Elección única · final-62: actividad sintética" [ref=f1e1332] [cursor=pointer]'
+                - group [ref=f1e1333]:
+                  - 'generic "Elección única · retention7-62: actividad sintética" [ref=f1e1334] [cursor=pointer]'
+                - group [ref=f1e1335]:
+                  - 'generic "Elección única · retention30-62: actividad sintética" [ref=f1e1336] [cursor=pointer]'
+                - group [ref=f1e1337]:
+                  - 'generic "Estudio · study-63: actividad sintética" [ref=f1e1338] [cursor=pointer]'
+                - group [ref=f1e1339]:
+                  - 'generic "Elección única · choice-63: actividad sintética" [ref=f1e1340] [cursor=pointer]'
+                - group [ref=f1e1341]:
+                  - 'generic "Respuesta breve · short-63: actividad sintética" [ref=f1e1342] [cursor=pointer]'
+                - group [ref=f1e1343]:
+                  - 'generic "Elección única · apply-63: actividad sintética" [ref=f1e1344] [cursor=pointer]'
+                - group [ref=f1e1345]:
+                  - 'generic "Relaciones · match-63: actividad sintética" [ref=f1e1346] [cursor=pointer]'
+                - group [ref=f1e1347]:
+                  - 'generic "Secuencia · sequence-63: actividad sintética" [ref=f1e1348] [cursor=pointer]'
+                - group [ref=f1e1349]:
+                  - 'generic "Elección única · final-63: actividad sintética" [ref=f1e1350] [cursor=pointer]'
+                - group [ref=f1e1351]:
+                  - 'generic "Elección única · retention7-63: actividad sintética" [ref=f1e1352] [cursor=pointer]'
+                - group [ref=f1e1353]:
+                  - 'generic "Elección única · retention30-63: actividad sintética" [ref=f1e1354] [cursor=pointer]'
+                - group [ref=f1e1355]:
+                  - 'generic "Estudio · study-64: actividad sintética" [ref=f1e1356] [cursor=pointer]'
+                - group [ref=f1e1357]:
+                  - 'generic "Elección única · choice-64: actividad sintética" [ref=f1e1358] [cursor=pointer]'
+                - group [ref=f1e1359]:
+                  - 'generic "Respuesta breve · short-64: actividad sintética" [ref=f1e1360] [cursor=pointer]'
+                - group [ref=f1e1361]:
+                  - 'generic "Elección única · apply-64: actividad sintética" [ref=f1e1362] [cursor=pointer]'
+                - group [ref=f1e1363]:
+                  - 'generic "Relaciones · match-64: actividad sintética" [ref=f1e1364] [cursor=pointer]'
+                - group [ref=f1e1365]:
+                  - 'generic "Secuencia · sequence-64: actividad sintética" [ref=f1e1366] [cursor=pointer]'
+                - group [ref=f1e1367]:
+                  - 'generic "Elección única · final-64: actividad sintética" [ref=f1e1368] [cursor=pointer]'
+                - group [ref=f1e1369]:
+                  - 'generic "Elección única · retention7-64: actividad sintética" [ref=f1e1370] [cursor=pointer]'
+                - group [ref=f1e1371]:
+                  - 'generic "Elección única · retention30-64: actividad sintética" [ref=f1e1372] [cursor=pointer]'
+                - group [ref=f1e1373]:
+                  - 'generic "Estudio · study-65: actividad sintética" [ref=f1e1374] [cursor=pointer]'
+                - group [ref=f1e1375]:
+                  - 'generic "Elección única · choice-65: actividad sintética" [ref=f1e1376] [cursor=pointer]'
+                - group [ref=f1e1377]:
+                  - 'generic "Respuesta breve · short-65: actividad sintética" [ref=f1e1378] [cursor=pointer]'
+                - group [ref=f1e1379]:
+                  - 'generic "Elección única · apply-65: actividad sintética" [ref=f1e1380] [cursor=pointer]'
+                - group [ref=f1e1381]:
+                  - 'generic "Relaciones · match-65: actividad sintética" [ref=f1e1382] [cursor=pointer]'
+                - group [ref=f1e1383]:
+                  - 'generic "Secuencia · sequence-65: actividad sintética" [ref=f1e1384] [cursor=pointer]'
+                - group [ref=f1e1385]:
+                  - 'generic "Elección única · final-65: actividad sintética" [ref=f1e1386] [cursor=pointer]'
+                - group [ref=f1e1387]:
+                  - 'generic "Elección única · retention7-65: actividad sintética" [ref=f1e1388] [cursor=pointer]'
+                - group [ref=f1e1389]:
+                  - 'generic "Elección única · retention30-65: actividad sintética" [ref=f1e1390] [cursor=pointer]'
+                - group [ref=f1e1391]:
+                  - 'generic "Estudio · study-66: actividad sintética" [ref=f1e1392] [cursor=pointer]'
+                - group [ref=f1e1393]:
+                  - 'generic "Elección única · choice-66: actividad sintética" [ref=f1e1394] [cursor=pointer]'
+                - group [ref=f1e1395]:
+                  - 'generic "Respuesta breve · short-66: actividad sintética" [ref=f1e1396] [cursor=pointer]'
+                - group [ref=f1e1397]:
+                  - 'generic "Elección única · apply-66: actividad sintética" [ref=f1e1398] [cursor=pointer]'
+                - group [ref=f1e1399]:
+                  - 'generic "Relaciones · match-66: actividad sintética" [ref=f1e1400] [cursor=pointer]'
+                - group [ref=f1e1401]:
+                  - 'generic "Secuencia · sequence-66: actividad sintética" [ref=f1e1402] [cursor=pointer]'
+                - group [ref=f1e1403]:
+                  - 'generic "Elección única · final-66: actividad sintética" [ref=f1e1404] [cursor=pointer]'
+                - group [ref=f1e1405]:
+                  - 'generic "Elección única · retention7-66: actividad sintética" [ref=f1e1406] [cursor=pointer]'
+                - group [ref=f1e1407]:
+                  - 'generic "Elección única · retention30-66: actividad sintética" [ref=f1e1408] [cursor=pointer]'
+                - group [ref=f1e1409]:
+                  - 'generic "Estudio · study-67: actividad sintética" [ref=f1e1410] [cursor=pointer]'
+                - group [ref=f1e1411]:
+                  - 'generic "Elección única · choice-67: actividad sintética" [ref=f1e1412] [cursor=pointer]'
+                - group [ref=f1e1413]:
+                  - 'generic "Respuesta breve · short-67: actividad sintética" [ref=f1e1414] [cursor=pointer]'
+                - group [ref=f1e1415]:
+                  - 'generic "Elección única · apply-67: actividad sintética" [ref=f1e1416] [cursor=pointer]'
+                - group [ref=f1e1417]:
+                  - 'generic "Relaciones · match-67: actividad sintética" [ref=f1e1418] [cursor=pointer]'
+                - group [ref=f1e1419]:
+                  - 'generic "Secuencia · sequence-67: actividad sintética" [ref=f1e1420] [cursor=pointer]'
+                - group [ref=f1e1421]:
+                  - 'generic "Elección única · final-67: actividad sintética" [ref=f1e1422] [cursor=pointer]'
+                - group [ref=f1e1423]:
+                  - 'generic "Elección única · retention7-67: actividad sintética" [ref=f1e1424] [cursor=pointer]'
+                - group [ref=f1e1425]:
+                  - 'generic "Elección única · retention30-67: actividad sintética" [ref=f1e1426] [cursor=pointer]'
+              - region "Unidad 11" [ref=f1e1427]:
+                - heading "Unidad 11" [level=2] [ref=f1e1428]
+                - group [ref=f1e1429]:
+                  - 'generic "Estudio · study-68: actividad sintética" [ref=f1e1430] [cursor=pointer]'
+                - group [ref=f1e1431]:
+                  - 'generic "Elección única · choice-68: actividad sintética" [ref=f1e1432] [cursor=pointer]'
+                - group [ref=f1e1433]:
+                  - 'generic "Respuesta breve · short-68: actividad sintética" [ref=f1e1434] [cursor=pointer]'
+                - group [ref=f1e1435]:
+                  - 'generic "Elección única · apply-68: actividad sintética" [ref=f1e1436] [cursor=pointer]'
+                - group [ref=f1e1437]:
+                  - 'generic "Relaciones · match-68: actividad sintética" [ref=f1e1438] [cursor=pointer]'
+                - group [ref=f1e1439]:
+                  - 'generic "Secuencia · sequence-68: actividad sintética" [ref=f1e1440] [cursor=pointer]'
+                - group [ref=f1e1441]:
+                  - 'generic "Elección única · final-68: actividad sintética" [ref=f1e1442] [cursor=pointer]'
+                - group [ref=f1e1443]:
+                  - 'generic "Elección única · retention7-68: actividad sintética" [ref=f1e1444] [cursor=pointer]'
+                - group [ref=f1e1445]:
+                  - 'generic "Elección única · retention30-68: actividad sintética" [ref=f1e1446] [cursor=pointer]'
+                - group [ref=f1e1447]:
+                  - 'generic "Estudio · study-69: actividad sintética" [ref=f1e1448] [cursor=pointer]'
+                - group [ref=f1e1449]:
+                  - 'generic "Elección única · choice-69: actividad sintética" [ref=f1e1450] [cursor=pointer]'
+                - group [ref=f1e1451]:
+                  - 'generic "Respuesta breve · short-69: actividad sintética" [ref=f1e1452] [cursor=pointer]'
+                - group [ref=f1e1453]:
+                  - 'generic "Elección única · apply-69: actividad sintética" [ref=f1e1454] [cursor=pointer]'
+                - group [ref=f1e1455]:
+                  - 'generic "Relaciones · match-69: actividad sintética" [ref=f1e1456] [cursor=pointer]'
+                - group [ref=f1e1457]:
+                  - 'generic "Secuencia · sequence-69: actividad sintética" [ref=f1e1458] [cursor=pointer]'
+                - group [ref=f1e1459]:
+                  - 'generic "Elección única · final-69: actividad sintética" [ref=f1e1460] [cursor=pointer]'
+                - group [ref=f1e1461]:
+                  - 'generic "Elección única · retention7-69: actividad sintética" [ref=f1e1462] [cursor=pointer]'
+                - group [ref=f1e1463]:
+                  - 'generic "Elección única · retention30-69: actividad sintética" [ref=f1e1464] [cursor=pointer]'
+                - group [ref=f1e1465]:
+                  - 'generic "Estudio · study-70: actividad sintética" [ref=f1e1466] [cursor=pointer]'
+                - group [ref=f1e1467]:
+                  - 'generic "Elección única · choice-70: actividad sintética" [ref=f1e1468] [cursor=pointer]'
+                - group [ref=f1e1469]:
+                  - 'generic "Respuesta breve · short-70: actividad sintética" [ref=f1e1470] [cursor=pointer]'
+                - group [ref=f1e1471]:
+                  - 'generic "Elección única · apply-70: actividad sintética" [ref=f1e1472] [cursor=pointer]'
+                - group [ref=f1e1473]:
+                  - 'generic "Relaciones · match-70: actividad sintética" [ref=f1e1474] [cursor=pointer]'
+                - group [ref=f1e1475]:
+                  - 'generic "Secuencia · sequence-70: actividad sintética" [ref=f1e1476] [cursor=pointer]'
+                - group [ref=f1e1477]:
+                  - 'generic "Elección única · final-70: actividad sintética" [ref=f1e1478] [cursor=pointer]'
+                - group [ref=f1e1479]:
+                  - 'generic "Elección única · retention7-70: actividad sintética" [ref=f1e1480] [cursor=pointer]'
+                - group [ref=f1e1481]:
+                  - 'generic "Elección única · retention30-70: actividad sintética" [ref=f1e1482] [cursor=pointer]'
+                - group [ref=f1e1483]:
+                  - 'generic "Estudio · study-71: actividad sintética" [ref=f1e1484] [cursor=pointer]'
+                - group [ref=f1e1485]:
+                  - 'generic "Elección única · choice-71: actividad sintética" [ref=f1e1486] [cursor=pointer]'
+                - group [ref=f1e1487]:
+                  - 'generic "Respuesta breve · short-71: actividad sintética" [ref=f1e1488] [cursor=pointer]'
+                - group [ref=f1e1489]:
+                  - 'generic "Elección única · apply-71: actividad sintética" [ref=f1e1490] [cursor=pointer]'
+                - group [ref=f1e1491]:
+                  - 'generic "Relaciones · match-71: actividad sintética" [ref=f1e1492] [cursor=pointer]'
+                - group [ref=f1e1493]:
+                  - 'generic "Secuencia · sequence-71: actividad sintética" [ref=f1e1494] [cursor=pointer]'
+                - group [ref=f1e1495]:
+                  - 'generic "Elección única · final-71: actividad sintética" [ref=f1e1496] [cursor=pointer]'
+                - group [ref=f1e1497]:
+                  - 'generic "Elección única · retention7-71: actividad sintética" [ref=f1e1498] [cursor=pointer]'
+                - group [ref=f1e1499]:
+                  - 'generic "Elección única · retention30-71: actividad sintética" [ref=f1e1500] [cursor=pointer]'
+                - group [ref=f1e1501]:
+                  - 'generic "Estudio · study-72: actividad sintética" [ref=f1e1502] [cursor=pointer]'
+                - group [ref=f1e1503]:
+                  - 'generic "Elección única · choice-72: actividad sintética" [ref=f1e1504] [cursor=pointer]'
+                - group [ref=f1e1505]:
+                  - 'generic "Respuesta breve · short-72: actividad sintética" [ref=f1e1506] [cursor=pointer]'
+                - group [ref=f1e1507]:
+                  - 'generic "Elección única · apply-72: actividad sintética" [ref=f1e1508] [cursor=pointer]'
+                - group [ref=f1e1509]:
+                  - 'generic "Relaciones · match-72: actividad sintética" [ref=f1e1510] [cursor=pointer]'
+                - group [ref=f1e1511]:
+                  - 'generic "Secuencia · sequence-72: actividad sintética" [ref=f1e1512] [cursor=pointer]'
+                - group [ref=f1e1513]:
+                  - 'generic "Elección única · final-72: actividad sintética" [ref=f1e1514] [cursor=pointer]'
+                - group [ref=f1e1515]:
+                  - 'generic "Elección única · retention7-72: actividad sintética" [ref=f1e1516] [cursor=pointer]'
+                - group [ref=f1e1517]:
+                  - 'generic "Elección única · retention30-72: actividad sintética" [ref=f1e1518] [cursor=pointer]'
+                - group [ref=f1e1519]:
+                  - 'generic "Estudio · study-73: actividad sintética" [ref=f1e1520] [cursor=pointer]'
+                - group [ref=f1e1521]:
+                  - 'generic "Elección única · choice-73: actividad sintética" [ref=f1e1522] [cursor=pointer]'
+                - group [ref=f1e1523]:
+                  - 'generic "Respuesta breve · short-73: actividad sintética" [ref=f1e1524] [cursor=pointer]'
+                - group [ref=f1e1525]:
+                  - 'generic "Elección única · apply-73: actividad sintética" [ref=f1e1526] [cursor=pointer]'
+                - group [ref=f1e1527]:
+                  - 'generic "Relaciones · match-73: actividad sintética" [ref=f1e1528] [cursor=pointer]'
+                - group [ref=f1e1529]:
+                  - 'generic "Secuencia · sequence-73: actividad sintética" [ref=f1e1530] [cursor=pointer]'
+                - group [ref=f1e1531]:
+                  - 'generic "Elección única · final-73: actividad sintética" [ref=f1e1532] [cursor=pointer]'
+                - group [ref=f1e1533]:
+                  - 'generic "Elección única · retention7-73: actividad sintética" [ref=f1e1534] [cursor=pointer]'
+                - group [ref=f1e1535]:
+                  - 'generic "Elección única · retention30-73: actividad sintética" [ref=f1e1536] [cursor=pointer]'
+                - group [ref=f1e1537]:
+                  - 'generic "Estudio · study-74: actividad sintética" [ref=f1e1538] [cursor=pointer]'
+                - group [ref=f1e1539]:
+                  - 'generic "Elección única · choice-74: actividad sintética" [ref=f1e1540] [cursor=pointer]'
+                - group [ref=f1e1541]:
+                  - 'generic "Respuesta breve · short-74: actividad sintética" [ref=f1e1542] [cursor=pointer]'
+                - group [ref=f1e1543]:
+                  - 'generic "Elección única · apply-74: actividad sintética" [ref=f1e1544] [cursor=pointer]'
+                - group [ref=f1e1545]:
+                  - 'generic "Relaciones · match-74: actividad sintética" [ref=f1e1546] [cursor=pointer]'
+                - group [ref=f1e1547]:
+                  - 'generic "Secuencia · sequence-74: actividad sintética" [ref=f1e1548] [cursor=pointer]'
+                - group [ref=f1e1549]:
+                  - 'generic "Elección única · final-74: actividad sintética" [ref=f1e1550] [cursor=pointer]'
+                - group [ref=f1e1551]:
+                  - 'generic "Elección única · retention7-74: actividad sintética" [ref=f1e1552] [cursor=pointer]'
+                - group [ref=f1e1553]:
+                  - 'generic "Elección única · retention30-74: actividad sintética" [ref=f1e1554] [cursor=pointer]'
+              - region "Unidad 12" [ref=f1e1555]:
+                - heading "Unidad 12" [level=2] [ref=f1e1556]
+                - group [ref=f1e1557]:
+                  - 'generic "Estudio · study-75: actividad sintética" [ref=f1e1558] [cursor=pointer]'
+                - group [ref=f1e1559]:
+                  - 'generic "Elección única · choice-75: actividad sintética" [ref=f1e1560] [cursor=pointer]'
+                - group [ref=f1e1561]:
+                  - 'generic "Respuesta breve · short-75: actividad sintética" [ref=f1e1562] [cursor=pointer]'
+                - group [ref=f1e1563]:
+                  - 'generic "Elección única · apply-75: actividad sintética" [ref=f1e1564] [cursor=pointer]'
+                - group [ref=f1e1565]:
+                  - 'generic "Relaciones · match-75: actividad sintética" [ref=f1e1566] [cursor=pointer]'
+                - group [ref=f1e1567]:
+                  - 'generic "Secuencia · sequence-75: actividad sintética" [ref=f1e1568] [cursor=pointer]'
+                - group [ref=f1e1569]:
+                  - 'generic "Elección única · final-75: actividad sintética" [ref=f1e1570] [cursor=pointer]'
+                - group [ref=f1e1571]:
+                  - 'generic "Elección única · retention7-75: actividad sintética" [ref=f1e1572] [cursor=pointer]'
+                - group [ref=f1e1573]:
+                  - 'generic "Elección única · retention30-75: actividad sintética" [ref=f1e1574] [cursor=pointer]'
+                - group [ref=f1e1575]:
+                  - 'generic "Estudio · study-76: actividad sintética" [ref=f1e1576] [cursor=pointer]'
+                - group [ref=f1e1577]:
+                  - 'generic "Elección única · choice-76: actividad sintética" [ref=f1e1578] [cursor=pointer]'
+                - group [ref=f1e1579]:
+                  - 'generic "Respuesta breve · short-76: actividad sintética" [ref=f1e1580] [cursor=pointer]'
+                - group [ref=f1e1581]:
+                  - 'generic "Elección única · apply-76: actividad sintética" [ref=f1e1582] [cursor=pointer]'
+                - group [ref=f1e1583]:
+                  - 'generic "Relaciones · match-76: actividad sintética" [ref=f1e1584] [cursor=pointer]'
+                - group [ref=f1e1585]:
+                  - 'generic "Secuencia · sequence-76: actividad sintética" [ref=f1e1586] [cursor=pointer]'
+                - group [ref=f1e1587]:
+                  - 'generic "Elección única · final-76: actividad sintética" [ref=f1e1588] [cursor=pointer]'
+                - group [ref=f1e1589]:
+                  - 'generic "Elección única · retention7-76: actividad sintética" [ref=f1e1590] [cursor=pointer]'
+                - group [ref=f1e1591]:
+                  - 'generic "Elección única · retention30-76: actividad sintética" [ref=f1e1592] [cursor=pointer]'
+                - group [ref=f1e1593]:
+                  - 'generic "Estudio · study-77: actividad sintética" [ref=f1e1594] [cursor=pointer]'
+                - group [ref=f1e1595]:
+                  - 'generic "Elección única · choice-77: actividad sintética" [ref=f1e1596] [cursor=pointer]'
+                - group [ref=f1e1597]:
+                  - 'generic "Respuesta breve · short-77: actividad sintética" [ref=f1e1598] [cursor=pointer]'
+                - group [ref=f1e1599]:
+                  - 'generic "Elección única · apply-77: actividad sintética" [ref=f1e1600] [cursor=pointer]'
+                - group [ref=f1e1601]:
+                  - 'generic "Relaciones · match-77: actividad sintética" [ref=f1e1602] [cursor=pointer]'
+                - group [ref=f1e1603]:
+                  - 'generic "Secuencia · sequence-77: actividad sintética" [ref=f1e1604] [cursor=pointer]'
+                - group [ref=f1e1605]:
+                  - 'generic "Elección única · final-77: actividad sintética" [ref=f1e1606] [cursor=pointer]'
+                - group [ref=f1e1607]:
+                  - 'generic "Elección única · retention7-77: actividad sintética" [ref=f1e1608] [cursor=pointer]'
+                - group [ref=f1e1609]:
+                  - 'generic "Elección única · retention30-77: actividad sintética" [ref=f1e1610] [cursor=pointer]'
+                - group [ref=f1e1611]:
+                  - 'generic "Estudio · study-78: actividad sintética" [ref=f1e1612] [cursor=pointer]'
+                - group [ref=f1e1613]:
+                  - 'generic "Elección única · choice-78: actividad sintética" [ref=f1e1614] [cursor=pointer]'
+                - group [ref=f1e1615]:
+                  - 'generic "Respuesta breve · short-78: actividad sintética" [ref=f1e1616] [cursor=pointer]'
+                - group [ref=f1e1617]:
+                  - 'generic "Elección única · apply-78: actividad sintética" [ref=f1e1618] [cursor=pointer]'
+                - group [ref=f1e1619]:
+                  - 'generic "Relaciones · match-78: actividad sintética" [ref=f1e1620] [cursor=pointer]'
+                - group [ref=f1e1621]:
+                  - 'generic "Secuencia · sequence-78: actividad sintética" [ref=f1e1622] [cursor=pointer]'
+                - group [ref=f1e1623]:
+                  - 'generic "Elección única · final-78: actividad sintética" [ref=f1e1624] [cursor=pointer]'
+                - group [ref=f1e1625]:
+                  - 'generic "Elección única · retention7-78: actividad sintética" [ref=f1e1626] [cursor=pointer]'
+                - group [ref=f1e1627]:
+                  - 'generic "Elección única · retention30-78: actividad sintética" [ref=f1e1628] [cursor=pointer]'
+                - group [ref=f1e1629]:
+                  - 'generic "Estudio · study-79: actividad sintética" [ref=f1e1630] [cursor=pointer]'
+                - group [ref=f1e1631]:
+                  - 'generic "Elección única · choice-79: actividad sintética" [ref=f1e1632] [cursor=pointer]'
+                - group [ref=f1e1633]:
+                  - 'generic "Respuesta breve · short-79: actividad sintética" [ref=f1e1634] [cursor=pointer]'
+                - group [ref=f1e1635]:
+                  - 'generic "Elección única · apply-79: actividad sintética" [ref=f1e1636] [cursor=pointer]'
+                - group [ref=f1e1637]:
+                  - 'generic "Relaciones · match-79: actividad sintética" [ref=f1e1638] [cursor=pointer]'
+                - group [ref=f1e1639]:
+                  - 'generic "Secuencia · sequence-79: actividad sintética" [ref=f1e1640] [cursor=pointer]'
+                - group [ref=f1e1641]:
+                  - 'generic "Elección única · final-79: actividad sintética" [ref=f1e1642] [cursor=pointer]'
+                - group [ref=f1e1643]:
+                  - 'generic "Elección única · retention7-79: actividad sintética" [ref=f1e1644] [cursor=pointer]'
+                - group [ref=f1e1645]:
+                  - 'generic "Elección única · retention30-79: actividad sintética" [ref=f1e1646] [cursor=pointer]'
+                - group [ref=f1e1647]:
+                  - 'generic "Estudio · study-80: actividad sintética" [ref=f1e1648] [cursor=pointer]'
+                - group [ref=f1e1649]:
+                  - 'generic "Elección única · choice-80: actividad sintética" [ref=f1e1650] [cursor=pointer]'
+                - group [ref=f1e1651]:
+                  - 'generic "Respuesta breve · short-80: actividad sintética" [ref=f1e1652] [cursor=pointer]'
+                - group [ref=f1e1653]:
+                  - 'generic "Elección única · apply-80: actividad sintética" [ref=f1e1654] [cursor=pointer]'
+                - group [ref=f1e1655]:
+                  - 'generic "Relaciones · match-80: actividad sintética" [ref=f1e1656] [cursor=pointer]'
+                - group [ref=f1e1657]:
+                  - 'generic "Secuencia · sequence-80: actividad sintética" [ref=f1e1658] [cursor=pointer]'
+                - group [ref=f1e1659]:
+                  - 'generic "Elección única · final-80: actividad sintética" [ref=f1e1660] [cursor=pointer]'
+                - group [ref=f1e1661]:
+                  - 'generic "Elección única · retention7-80: actividad sintética" [ref=f1e1662] [cursor=pointer]'
+                - group [ref=f1e1663]:
+                  - 'generic "Elección única · retention30-80: actividad sintética" [ref=f1e1664] [cursor=pointer]'
+              - region "Unidad 13" [ref=f1e1665]:
+                - heading "Unidad 13" [level=2] [ref=f1e1666]
+                - group [ref=f1e1667]:
+                  - 'generic "Estudio · study-81: actividad sintética" [ref=f1e1668] [cursor=pointer]'
+                - group [ref=f1e1669]:
+                  - 'generic "Elección única · choice-81: actividad sintética" [ref=f1e1670] [cursor=pointer]'
+                - group [ref=f1e1671]:
+                  - 'generic "Respuesta breve · short-81: actividad sintética" [ref=f1e1672] [cursor=pointer]'
+                - group [ref=f1e1673]:
+                  - 'generic "Elección única · apply-81: actividad sintética" [ref=f1e1674] [cursor=pointer]'
+                - group [ref=f1e1675]:
+                  - 'generic "Relaciones · match-81: actividad sintética" [ref=f1e1676] [cursor=pointer]'
+                - group [ref=f1e1677]:
+                  - 'generic "Secuencia · sequence-81: actividad sintética" [ref=f1e1678] [cursor=pointer]'
+                - group [ref=f1e1679]:
+                  - 'generic "Elección única · final-81: actividad sintética" [ref=f1e1680] [cursor=pointer]'
+                - group [ref=f1e1681]:
+                  - 'generic "Elección única · retention7-81: actividad sintética" [ref=f1e1682] [cursor=pointer]'
+                - group [ref=f1e1683]:
+                  - 'generic "Elección única · retention30-81: actividad sintética" [ref=f1e1684] [cursor=pointer]'
+                - group [ref=f1e1685]:
+                  - 'generic "Estudio · study-82: actividad sintética" [ref=f1e1686] [cursor=pointer]'
+                - group [ref=f1e1687]:
+                  - 'generic "Elección única · choice-82: actividad sintética" [ref=f1e1688] [cursor=pointer]'
+                - group [ref=f1e1689]:
+                  - 'generic "Respuesta breve · short-82: actividad sintética" [ref=f1e1690] [cursor=pointer]'
+                - group [ref=f1e1691]:
+                  - 'generic "Elección única · apply-82: actividad sintética" [ref=f1e1692] [cursor=pointer]'
+                - group [ref=f1e1693]:
+                  - 'generic "Relaciones · match-82: actividad sintética" [ref=f1e1694] [cursor=pointer]'
+                - group [ref=f1e1695]:
+                  - 'generic "Secuencia · sequence-82: actividad sintética" [ref=f1e1696] [cursor=pointer]'
+                - group [ref=f1e1697]:
+                  - 'generic "Elección única · final-82: actividad sintética" [ref=f1e1698] [cursor=pointer]'
+                - group [ref=f1e1699]:
+                  - 'generic "Elección única · retention7-82: actividad sintética" [ref=f1e1700] [cursor=pointer]'
+                - group [ref=f1e1701]:
+                  - 'generic "Elección única · retention30-82: actividad sintética" [ref=f1e1702] [cursor=pointer]'
+                - group [ref=f1e1703]:
+                  - 'generic "Estudio · study-83: actividad sintética" [ref=f1e1704] [cursor=pointer]'
+                - group [ref=f1e1705]:
+                  - 'generic "Elección única · choice-83: actividad sintética" [ref=f1e1706] [cursor=pointer]'
+                - group [ref=f1e1707]:
+                  - 'generic "Respuesta breve · short-83: actividad sintética" [ref=f1e1708] [cursor=pointer]'
+                - group [ref=f1e1709]:
+                  - 'generic "Elección única · apply-83: actividad sintética" [ref=f1e1710] [cursor=pointer]'
+                - group [ref=f1e1711]:
+                  - 'generic "Relaciones · match-83: actividad sintética" [ref=f1e1712] [cursor=pointer]'
+                - group [ref=f1e1713]:
+                  - 'generic "Secuencia · sequence-83: actividad sintética" [ref=f1e1714] [cursor=pointer]'
+                - group [ref=f1e1715]:
+                  - 'generic "Elección única · final-83: actividad sintética" [ref=f1e1716] [cursor=pointer]'
+                - group [ref=f1e1717]:
+                  - 'generic "Elección única · retention7-83: actividad sintética" [ref=f1e1718] [cursor=pointer]'
+                - group [ref=f1e1719]:
+                  - 'generic "Elección única · retention30-83: actividad sintética" [ref=f1e1720] [cursor=pointer]'
+                - group [ref=f1e1721]:
+                  - 'generic "Estudio · study-84: actividad sintética" [ref=f1e1722] [cursor=pointer]'
+                - group [ref=f1e1723]:
+                  - 'generic "Elección única · choice-84: actividad sintética" [ref=f1e1724] [cursor=pointer]'
+                - group [ref=f1e1725]:
+                  - 'generic "Respuesta breve · short-84: actividad sintética" [ref=f1e1726] [cursor=pointer]'
+                - group [ref=f1e1727]:
+                  - 'generic "Elección única · apply-84: actividad sintética" [ref=f1e1728] [cursor=pointer]'
+                - group [ref=f1e1729]:
+                  - 'generic "Relaciones · match-84: actividad sintética" [ref=f1e1730] [cursor=pointer]'
+                - group [ref=f1e1731]:
+                  - 'generic "Secuencia · sequence-84: actividad sintética" [ref=f1e1732] [cursor=pointer]'
+                - group [ref=f1e1733]:
+                  - 'generic "Elección única · final-84: actividad sintética" [ref=f1e1734] [cursor=pointer]'
+                - group [ref=f1e1735]:
+                  - 'generic "Elección única · retention7-84: actividad sintética" [ref=f1e1736] [cursor=pointer]'
+                - group [ref=f1e1737]:
+                  - 'generic "Elección única · retention30-84: actividad sintética" [ref=f1e1738] [cursor=pointer]'
+                - group [ref=f1e1739]:
+                  - 'generic "Estudio · study-85: actividad sintética" [ref=f1e1740] [cursor=pointer]'
+                - group [ref=f1e1741]:
+                  - 'generic "Elección única · choice-85: actividad sintética" [ref=f1e1742] [cursor=pointer]'
+                - group [ref=f1e1743]:
+                  - 'generic "Respuesta breve · short-85: actividad sintética" [ref=f1e1744] [cursor=pointer]'
+                - group [ref=f1e1745]:
+                  - 'generic "Elección única · apply-85: actividad sintética" [ref=f1e1746] [cursor=pointer]'
+                - group [ref=f1e1747]:
+                  - 'generic "Relaciones · match-85: actividad sintética" [ref=f1e1748] [cursor=pointer]'
+                - group [ref=f1e1749]:
+                  - 'generic "Secuencia · sequence-85: actividad sintética" [ref=f1e1750] [cursor=pointer]'
+                - group [ref=f1e1751]:
+                  - 'generic "Elección única · final-85: actividad sintética" [ref=f1e1752] [cursor=pointer]'
+                - group [ref=f1e1753]:
+                  - 'generic "Elección única · retention7-85: actividad sintética" [ref=f1e1754] [cursor=pointer]'
+                - group [ref=f1e1755]:
+                  - 'generic "Elección única · retention30-85: actividad sintética" [ref=f1e1756] [cursor=pointer]'
+                - group [ref=f1e1757]:
+                  - 'generic "Estudio · study-86: actividad sintética" [ref=f1e1758] [cursor=pointer]'
+                - group [ref=f1e1759]:
+                  - 'generic "Elección única · choice-86: actividad sintética" [ref=f1e1760] [cursor=pointer]'
+                - group [ref=f1e1761]:
+                  - 'generic "Respuesta breve · short-86: actividad sintética" [ref=f1e1762] [cursor=pointer]'
+                - group [ref=f1e1763]:
+                  - 'generic "Elección única · apply-86: actividad sintética" [ref=f1e1764] [cursor=pointer]'
+                - group [ref=f1e1765]:
+                  - 'generic "Relaciones · match-86: actividad sintética" [ref=f1e1766] [cursor=pointer]'
+                - group [ref=f1e1767]:
+                  - 'generic "Secuencia · sequence-86: actividad sintética" [ref=f1e1768] [cursor=pointer]'
+                - group [ref=f1e1769]:
+                  - 'generic "Elección única · final-86: actividad sintética" [ref=f1e1770] [cursor=pointer]'
+                - group [ref=f1e1771]:
+                  - 'generic "Elección única · retention7-86: actividad sintética" [ref=f1e1772] [cursor=pointer]'
+                - group [ref=f1e1773]:
+                  - 'generic "Elección única · retention30-86: actividad sintética" [ref=f1e1774] [cursor=pointer]'
+                - group [ref=f1e1775]:
+                  - 'generic "Estudio · study-87: actividad sintética" [ref=f1e1776] [cursor=pointer]'
+                - group [ref=f1e1777]:
+                  - 'generic "Elección única · choice-87: actividad sintética" [ref=f1e1778] [cursor=pointer]'
+                - group [ref=f1e1779]:
+                  - 'generic "Respuesta breve · short-87: actividad sintética" [ref=f1e1780] [cursor=pointer]'
+                - group [ref=f1e1781]:
+                  - 'generic "Elección única · apply-87: actividad sintética" [ref=f1e1782] [cursor=pointer]'
+                - group [ref=f1e1783]:
+                  - 'generic "Relaciones · match-87: actividad sintética" [ref=f1e1784] [cursor=pointer]'
+                - group [ref=f1e1785]:
+                  - 'generic "Secuencia · sequence-87: actividad sintética" [ref=f1e1786] [cursor=pointer]'
+                - group [ref=f1e1787]:
+                  - 'generic "Elección única · final-87: actividad sintética" [ref=f1e1788] [cursor=pointer]'
+                - group [ref=f1e1789]:
+                  - 'generic "Elección única · retention7-87: actividad sintética" [ref=f1e1790] [cursor=pointer]'
+                - group [ref=f1e1791]:
+                  - 'generic "Elección única · retention30-87: actividad sintética" [ref=f1e1792] [cursor=pointer]'
+              - region "Unidad 14" [ref=f1e1793]:
+                - heading "Unidad 14" [level=2] [ref=f1e1794]
+                - group [ref=f1e1795]:
+                  - 'generic "Estudio · study-88: actividad sintética" [ref=f1e1796] [cursor=pointer]'
+                - group [ref=f1e1797]:
+                  - 'generic "Elección única · choice-88: actividad sintética" [ref=f1e1798] [cursor=pointer]'
+                - group [ref=f1e1799]:
+                  - 'generic "Respuesta breve · short-88: actividad sintética" [ref=f1e1800] [cursor=pointer]'
+                - group [ref=f1e1801]:
+                  - 'generic "Elección única · apply-88: actividad sintética" [ref=f1e1802] [cursor=pointer]'
+                - group [ref=f1e1803]:
+                  - 'generic "Relaciones · match-88: actividad sintética" [ref=f1e1804] [cursor=pointer]'
+                - group [ref=f1e1805]:
+                  - 'generic "Secuencia · sequence-88: actividad sintética" [ref=f1e1806] [cursor=pointer]'
+                - group [ref=f1e1807]:
+                  - 'generic "Elección única · final-88: actividad sintética" [ref=f1e1808] [cursor=pointer]'
+                - group [ref=f1e1809]:
+                  - 'generic "Elección única · retention7-88: actividad sintética" [ref=f1e1810] [cursor=pointer]'
+                - group [ref=f1e1811]:
+                  - 'generic "Elección única · retention30-88: actividad sintética" [ref=f1e1812] [cursor=pointer]'
+                - group [ref=f1e1813]:
+                  - 'generic "Estudio · study-89: actividad sintética" [ref=f1e1814] [cursor=pointer]'
+                - group [ref=f1e1815]:
+                  - 'generic "Elección única · choice-89: actividad sintética" [ref=f1e1816] [cursor=pointer]'
+                - group [ref=f1e1817]:
+                  - 'generic "Respuesta breve · short-89: actividad sintética" [ref=f1e1818] [cursor=pointer]'
+                - group [ref=f1e1819]:
+                  - 'generic "Elección única · apply-89: actividad sintética" [ref=f1e1820] [cursor=pointer]'
+                - group [ref=f1e1821]:
+                  - 'generic "Relaciones · match-89: actividad sintética" [ref=f1e1822] [cursor=pointer]'
+                - group [ref=f1e1823]:
+                  - 'generic "Secuencia · sequence-89: actividad sintética" [ref=f1e1824] [cursor=pointer]'
+                - group [ref=f1e1825]:
+                  - 'generic "Elección única · final-89: actividad sintética" [ref=f1e1826] [cursor=pointer]'
+                - group [ref=f1e1827]:
+                  - 'generic "Elección única · retention7-89: actividad sintética" [ref=f1e1828] [cursor=pointer]'
+                - group [ref=f1e1829]:
+                  - 'generic "Elección única · retention30-89: actividad sintética" [ref=f1e1830] [cursor=pointer]'
+                - group [ref=f1e1831]:
+                  - 'generic "Estudio · study-90: actividad sintética" [ref=f1e1832] [cursor=pointer]'
+                - group [ref=f1e1833]:
+                  - 'generic "Elección única · choice-90: actividad sintética" [ref=f1e1834] [cursor=pointer]'
+                - group [ref=f1e1835]:
+                  - 'generic "Respuesta breve · short-90: actividad sintética" [ref=f1e1836] [cursor=pointer]'
+                - group [ref=f1e1837]:
+                  - 'generic "Elección única · apply-90: actividad sintética" [ref=f1e1838] [cursor=pointer]'
+                - group [ref=f1e1839]:
+                  - 'generic "Relaciones · match-90: actividad sintética" [ref=f1e1840] [cursor=pointer]'
+                - group [ref=f1e1841]:
+                  - 'generic "Secuencia · sequence-90: actividad sintética" [ref=f1e1842] [cursor=pointer]'
+                - group [ref=f1e1843]:
+                  - 'generic "Elección única · final-90: actividad sintética" [ref=f1e1844] [cursor=pointer]'
+                - group [ref=f1e1845]:
+                  - 'generic "Elección única · retention7-90: actividad sintética" [ref=f1e1846] [cursor=pointer]'
+                - group [ref=f1e1847]:
+                  - 'generic "Elección única · retention30-90: actividad sintética" [ref=f1e1848] [cursor=pointer]'
+                - group [ref=f1e1849]:
+                  - 'generic "Estudio · study-91: actividad sintética" [ref=f1e1850] [cursor=pointer]'
+                - group [ref=f1e1851]:
+                  - 'generic "Elección única · choice-91: actividad sintética" [ref=f1e1852] [cursor=pointer]'
+                - group [ref=f1e1853]:
+                  - 'generic "Respuesta breve · short-91: actividad sintética" [ref=f1e1854] [cursor=pointer]'
+                - group [ref=f1e1855]:
+                  - 'generic "Elección única · apply-91: actividad sintética" [ref=f1e1856] [cursor=pointer]'
+                - group [ref=f1e1857]:
+                  - 'generic "Relaciones · match-91: actividad sintética" [ref=f1e1858] [cursor=pointer]'
+                - group [ref=f1e1859]:
+                  - 'generic "Secuencia · sequence-91: actividad sintética" [ref=f1e1860] [cursor=pointer]'
+                - group [ref=f1e1861]:
+                  - 'generic "Elección única · final-91: actividad sintética" [ref=f1e1862] [cursor=pointer]'
+                - group [ref=f1e1863]:
+                  - 'generic "Elección única · retention7-91: actividad sintética" [ref=f1e1864] [cursor=pointer]'
+                - group [ref=f1e1865]:
+                  - 'generic "Elección única · retention30-91: actividad sintética" [ref=f1e1866] [cursor=pointer]'
+                - group [ref=f1e1867]:
+                  - 'generic "Estudio · study-92: actividad sintética" [ref=f1e1868] [cursor=pointer]'
+                - group [ref=f1e1869]:
+                  - 'generic "Elección única · choice-92: actividad sintética" [ref=f1e1870] [cursor=pointer]'
+                - group [ref=f1e1871]:
+                  - 'generic "Respuesta breve · short-92: actividad sintética" [ref=f1e1872] [cursor=pointer]'
+                - group [ref=f1e1873]:
+                  - 'generic "Elección única · apply-92: actividad sintética" [ref=f1e1874] [cursor=pointer]'
+                - group [ref=f1e1875]:
+                  - 'generic "Relaciones · match-92: actividad sintética" [ref=f1e1876] [cursor=pointer]'
+                - group [ref=f1e1877]:
+                  - 'generic "Secuencia · sequence-92: actividad sintética" [ref=f1e1878] [cursor=pointer]'
+                - group [ref=f1e1879]:
+                  - 'generic "Elección única · final-92: actividad sintética" [ref=f1e1880] [cursor=pointer]'
+                - group [ref=f1e1881]:
+                  - 'generic "Elección única · retention7-92: actividad sintética" [ref=f1e1882] [cursor=pointer]'
+                - group [ref=f1e1883]:
+                  - 'generic "Elección única · retention30-92: actividad sintética" [ref=f1e1884] [cursor=pointer]'
+                - group [ref=f1e1885]:
+                  - 'generic "Estudio · study-93: actividad sintética" [ref=f1e1886] [cursor=pointer]'
+                - group [ref=f1e1887]:
+                  - 'generic "Elección única · choice-93: actividad sintética" [ref=f1e1888] [cursor=pointer]'
+                - group [ref=f1e1889]:
+                  - 'generic "Respuesta breve · short-93: actividad sintética" [ref=f1e1890] [cursor=pointer]'
+                - group [ref=f1e1891]:
+                  - 'generic "Elección única · apply-93: actividad sintética" [ref=f1e1892] [cursor=pointer]'
+                - group [ref=f1e1893]:
+                  - 'generic "Relaciones · match-93: actividad sintética" [ref=f1e1894] [cursor=pointer]'
+                - group [ref=f1e1895]:
+                  - 'generic "Secuencia · sequence-93: actividad sintética" [ref=f1e1896] [cursor=pointer]'
+                - group [ref=f1e1897]:
+                  - 'generic "Elección única · final-93: actividad sintética" [ref=f1e1898] [cursor=pointer]'
+                - group [ref=f1e1899]:
+                  - 'generic "Elección única · retention7-93: actividad sintética" [ref=f1e1900] [cursor=pointer]'
+                - group [ref=f1e1901]:
+                  - 'generic "Elección única · retention30-93: actividad sintética" [ref=f1e1902] [cursor=pointer]'
+                - group [ref=f1e1903]:
+                  - 'generic "Estudio · study-94: actividad sintética" [ref=f1e1904] [cursor=pointer]'
+                - group [ref=f1e1905]:
+                  - 'generic "Elección única · choice-94: actividad sintética" [ref=f1e1906] [cursor=pointer]'
+                - group [ref=f1e1907]:
+                  - 'generic "Respuesta breve · short-94: actividad sintética" [ref=f1e1908] [cursor=pointer]'
+                - group [ref=f1e1909]:
+                  - 'generic "Elección única · apply-94: actividad sintética" [ref=f1e1910] [cursor=pointer]'
+                - group [ref=f1e1911]:
+                  - 'generic "Relaciones · match-94: actividad sintética" [ref=f1e1912] [cursor=pointer]'
+                - group [ref=f1e1913]:
+                  - 'generic "Secuencia · sequence-94: actividad sintética" [ref=f1e1914] [cursor=pointer]'
+                - group [ref=f1e1915]:
+                  - 'generic "Elección única · final-94: actividad sintética" [ref=f1e1916] [cursor=pointer]'
+                - group [ref=f1e1917]:
+                  - 'generic "Elección única · retention7-94: actividad sintética" [ref=f1e1918] [cursor=pointer]'
+                - group [ref=f1e1919]:
+                  - 'generic "Elección única · retention30-94: actividad sintética" [ref=f1e1920] [cursor=pointer]'
+              - region "Unidad 15" [ref=f1e1921]:
+                - heading "Unidad 15" [level=2] [ref=f1e1922]
+                - group [ref=f1e1923]:
+                  - 'generic "Estudio · study-95: actividad sintética" [ref=f1e1924] [cursor=pointer]'
+                - group [ref=f1e1925]:
+                  - 'generic "Elección única · choice-95: actividad sintética" [ref=f1e1926] [cursor=pointer]'
+                - group [ref=f1e1927]:
+                  - 'generic "Respuesta breve · short-95: actividad sintética" [ref=f1e1928] [cursor=pointer]'
+                - group [ref=f1e1929]:
+                  - 'generic "Elección única · apply-95: actividad sintética" [ref=f1e1930] [cursor=pointer]'
+                - group [ref=f1e1931]:
+                  - 'generic "Relaciones · match-95: actividad sintética" [ref=f1e1932] [cursor=pointer]'
+                - group [ref=f1e1933]:
+                  - 'generic "Secuencia · sequence-95: actividad sintética" [ref=f1e1934] [cursor=pointer]'
+                - group [ref=f1e1935]:
+                  - 'generic "Elección única · final-95: actividad sintética" [ref=f1e1936] [cursor=pointer]'
+                - group [ref=f1e1937]:
+                  - 'generic "Elección única · retention7-95: actividad sintética" [ref=f1e1938] [cursor=pointer]'
+                - group [ref=f1e1939]:
+                  - 'generic "Elección única · retention30-95: actividad sintética" [ref=f1e1940] [cursor=pointer]'
+                - group [ref=f1e1941]:
+                  - 'generic "Estudio · study-96: actividad sintética" [ref=f1e1942] [cursor=pointer]'
+                - group [ref=f1e1943]:
+                  - 'generic "Elección única · choice-96: actividad sintética" [ref=f1e1944] [cursor=pointer]'
+                - group [ref=f1e1945]:
+                  - 'generic "Respuesta breve · short-96: actividad sintética" [ref=f1e1946] [cursor=pointer]'
+                - group [ref=f1e1947]:
+                  - 'generic "Elección única · apply-96: actividad sintética" [ref=f1e1948] [cursor=pointer]'
+                - group [ref=f1e1949]:
+                  - 'generic "Relaciones · match-96: actividad sintética" [ref=f1e1950] [cursor=pointer]'
+                - group [ref=f1e1951]:
+                  - 'generic "Secuencia · sequence-96: actividad sintética" [ref=f1e1952] [cursor=pointer]'
+                - group [ref=f1e1953]:
+                  - 'generic "Elección única · final-96: actividad sintética" [ref=f1e1954] [cursor=pointer]'
+                - group [ref=f1e1955]:
+                  - 'generic "Elección única · retention7-96: actividad sintética" [ref=f1e1956] [cursor=pointer]'
+                - group [ref=f1e1957]:
+                  - 'generic "Elección única · retention30-96: actividad sintética" [ref=f1e1958] [cursor=pointer]'
+                - group [ref=f1e1959]:
+                  - 'generic "Estudio · study-97: actividad sintética" [ref=f1e1960] [cursor=pointer]'
+                - group [ref=f1e1961]:
+                  - 'generic "Elección única · choice-97: actividad sintética" [ref=f1e1962] [cursor=pointer]'
+                - group [ref=f1e1963]:
+                  - 'generic "Respuesta breve · short-97: actividad sintética" [ref=f1e1964] [cursor=pointer]'
+                - group [ref=f1e1965]:
+                  - 'generic "Elección única · apply-97: actividad sintética" [ref=f1e1966] [cursor=pointer]'
+                - group [ref=f1e1967]:
+                  - 'generic "Relaciones · match-97: actividad sintética" [ref=f1e1968] [cursor=pointer]'
+                - group [ref=f1e1969]:
+                  - 'generic "Secuencia · sequence-97: actividad sintética" [ref=f1e1970] [cursor=pointer]'
+                - group [ref=f1e1971]:
+                  - 'generic "Elección única · final-97: actividad sintética" [ref=f1e1972] [cursor=pointer]'
+                - group [ref=f1e1973]:
+                  - 'generic "Elección única · retention7-97: actividad sintética" [ref=f1e1974] [cursor=pointer]'
+                - group [ref=f1e1975]:
+                  - 'generic "Elección única · retention30-97: actividad sintética" [ref=f1e1976] [cursor=pointer]'
+                - group [ref=f1e1977]:
+                  - 'generic "Estudio · study-98: actividad sintética" [ref=f1e1978] [cursor=pointer]'
+                - group [ref=f1e1979]:
+                  - 'generic "Elección única · choice-98: actividad sintética" [ref=f1e1980] [cursor=pointer]'
+                - group [ref=f1e1981]:
+                  - 'generic "Respuesta breve · short-98: actividad sintética" [ref=f1e1982] [cursor=pointer]'
+                - group [ref=f1e1983]:
+                  - 'generic "Elección única · apply-98: actividad sintética" [ref=f1e1984] [cursor=pointer]'
+                - group [ref=f1e1985]:
+                  - 'generic "Relaciones · match-98: actividad sintética" [ref=f1e1986] [cursor=pointer]'
+                - group [ref=f1e1987]:
+                  - 'generic "Secuencia · sequence-98: actividad sintética" [ref=f1e1988] [cursor=pointer]'
+                - group [ref=f1e1989]:
+                  - 'generic "Elección única · final-98: actividad sintética" [ref=f1e1990] [cursor=pointer]'
+                - group [ref=f1e1991]:
+                  - 'generic "Elección única · retention7-98: actividad sintética" [ref=f1e1992] [cursor=pointer]'
+                - group [ref=f1e1993]:
+                  - 'generic "Elección única · retention30-98: actividad sintética" [ref=f1e1994] [cursor=pointer]'
+                - group [ref=f1e1995]:
+                  - 'generic "Estudio · study-99: actividad sintética" [ref=f1e1996] [cursor=pointer]'
+                - group [ref=f1e1997]:
+                  - 'generic "Elección única · choice-99: actividad sintética" [ref=f1e1998] [cursor=pointer]'
+                - group [ref=f1e1999]:
+                  - 'generic "Respuesta breve · short-99: actividad sintética" [ref=f1e2000] [cursor=pointer]'
+                - group [ref=f1e2001]:
+                  - 'generic "Elección única · apply-99: actividad sintética" [ref=f1e2002] [cursor=pointer]'
+                - group [ref=f1e2003]:
+                  - 'generic "Relaciones · match-99: actividad sintética" [ref=f1e2004] [cursor=pointer]'
+                - group [ref=f1e2005]:
+                  - 'generic "Secuencia · sequence-99: actividad sintética" [ref=f1e2006] [cursor=pointer]'
+                - group [ref=f1e2007]:
+                  - 'generic "Elección única · final-99: actividad sintética" [ref=f1e2008] [cursor=pointer]'
+                - group [ref=f1e2009]:
+                  - 'generic "Elección única · retention7-99: actividad sintética" [ref=f1e2010] [cursor=pointer]'
+                - group [ref=f1e2011]:
+                  - 'generic "Elección única · retention30-99: actividad sintética" [ref=f1e2012] [cursor=pointer]'
+                - group [ref=f1e2013]:
+                  - 'generic "Estudio · study-100: actividad sintética" [ref=f1e2014] [cursor=pointer]'
+                - group [ref=f1e2015]:
+                  - 'generic "Elección única · choice-100: actividad sintética" [ref=f1e2016] [cursor=pointer]'
+                - group [ref=f1e2017]:
+                  - 'generic "Respuesta breve · short-100: actividad sintética" [ref=f1e2018] [cursor=pointer]'
+                - group [ref=f1e2019]:
+                  - 'generic "Elección única · apply-100: actividad sintética" [ref=f1e2020] [cursor=pointer]'
+                - group [ref=f1e2021]:
+                  - 'generic "Relaciones · match-100: actividad sintética" [ref=f1e2022] [cursor=pointer]'
+                - group [ref=f1e2023]:
+                  - 'generic "Secuencia · sequence-100: actividad sintética" [ref=f1e2024] [cursor=pointer]'
+                - group [ref=f1e2025]:
+                  - 'generic "Elección única · final-100: actividad sintética" [ref=f1e2026] [cursor=pointer]'
+                - group [ref=f1e2027]:
+                  - 'generic "Elección única · retention7-100: actividad sintética" [ref=f1e2028] [cursor=pointer]'
+                - group [ref=f1e2029]:
+                  - 'generic "Elección única · retention30-100: actividad sintética" [ref=f1e2030] [cursor=pointer]'
+              - region "Unidad 16" [ref=f1e2031]:
+                - heading "Unidad 16" [level=2] [ref=f1e2032]
+                - group [ref=f1e2033]:
+                  - 'generic "Estudio · study-101: actividad sintética" [ref=f1e2034] [cursor=pointer]'
+                - group [ref=f1e2035]:
+                  - 'generic "Elección única · choice-101: actividad sintética" [ref=f1e2036] [cursor=pointer]'
+                - group [ref=f1e2037]:
+                  - 'generic "Respuesta breve · short-101: actividad sintética" [ref=f1e2038] [cursor=pointer]'
+                - group [ref=f1e2039]:
+                  - 'generic "Elección única · apply-101: actividad sintética" [ref=f1e2040] [cursor=pointer]'
+                - group [ref=f1e2041]:
+                  - 'generic "Relaciones · match-101: actividad sintética" [ref=f1e2042] [cursor=pointer]'
+                - group [ref=f1e2043]:
+                  - 'generic "Secuencia · sequence-101: actividad sintética" [ref=f1e2044] [cursor=pointer]'
+                - group [ref=f1e2045]:
+                  - 'generic "Elección única · final-101: actividad sintética" [ref=f1e2046] [cursor=pointer]'
+                - group [ref=f1e2047]:
+                  - 'generic "Elección única · retention7-101: actividad sintética" [ref=f1e2048] [cursor=pointer]'
+                - group [ref=f1e2049]:
+                  - 'generic "Elección única · retention30-101: actividad sintética" [ref=f1e2050] [cursor=pointer]'
+                - group [ref=f1e2051]:
+                  - 'generic "Estudio · study-102: actividad sintética" [ref=f1e2052] [cursor=pointer]'
+                - group [ref=f1e2053]:
+                  - 'generic "Elección única · choice-102: actividad sintética" [ref=f1e2054] [cursor=pointer]'
+                - group [ref=f1e2055]:
+                  - 'generic "Respuesta breve · short-102: actividad sintética" [ref=f1e2056] [cursor=pointer]'
+                - group [ref=f1e2057]:
+                  - 'generic "Elección única · apply-102: actividad sintética" [ref=f1e2058] [cursor=pointer]'
+                - group [ref=f1e2059]:
+                  - 'generic "Relaciones · match-102: actividad sintética" [ref=f1e2060] [cursor=pointer]'
+                - group [ref=f1e2061]:
+                  - 'generic "Secuencia · sequence-102: actividad sintética" [ref=f1e2062] [cursor=pointer]'
+                - group [ref=f1e2063]:
+                  - 'generic "Elección única · final-102: actividad sintética" [ref=f1e2064] [cursor=pointer]'
+                - group [ref=f1e2065]:
+                  - 'generic "Elección única · retention7-102: actividad sintética" [ref=f1e2066] [cursor=pointer]'
+                - group [ref=f1e2067]:
+                  - 'generic "Elección única · retention30-102: actividad sintética" [ref=f1e2068] [cursor=pointer]'
+                - group [ref=f1e2069]:
+                  - 'generic "Estudio · study-103: actividad sintética" [ref=f1e2070] [cursor=pointer]'
+                - group [ref=f1e2071]:
+                  - 'generic "Elección única · choice-103: actividad sintética" [ref=f1e2072] [cursor=pointer]'
+                - group [ref=f1e2073]:
+                  - 'generic "Respuesta breve · short-103: actividad sintética" [ref=f1e2074] [cursor=pointer]'
+                - group [ref=f1e2075]:
+                  - 'generic "Elección única · apply-103: actividad sintética" [ref=f1e2076] [cursor=pointer]'
+                - group [ref=f1e2077]:
+                  - 'generic "Relaciones · match-103: actividad sintética" [ref=f1e2078] [cursor=pointer]'
+                - group [ref=f1e2079]:
+                  - 'generic "Secuencia · sequence-103: actividad sintética" [ref=f1e2080] [cursor=pointer]'
+                - group [ref=f1e2081]:
+                  - 'generic "Elección única · final-103: actividad sintética" [ref=f1e2082] [cursor=pointer]'
+                - group [ref=f1e2083]:
+                  - 'generic "Elección única · retention7-103: actividad sintética" [ref=f1e2084] [cursor=pointer]'
+                - group [ref=f1e2085]:
+                  - 'generic "Elección única · retention30-103: actividad sintética" [ref=f1e2086] [cursor=pointer]'
+                - group [ref=f1e2087]:
+                  - 'generic "Estudio · study-104: actividad sintética" [ref=f1e2088] [cursor=pointer]'
+                - group [ref=f1e2089]:
+                  - 'generic "Elección única · choice-104: actividad sintética" [ref=f1e2090] [cursor=pointer]'
+                - group [ref=f1e2091]:
+                  - 'generic "Respuesta breve · short-104: actividad sintética" [ref=f1e2092] [cursor=pointer]'
+                - group [ref=f1e2093]:
+                  - 'generic "Elección única · apply-104: actividad sintética" [ref=f1e2094] [cursor=pointer]'
+                - group [ref=f1e2095]:
+                  - 'generic "Relaciones · match-104: actividad sintética" [ref=f1e2096] [cursor=pointer]'
+                - group [ref=f1e2097]:
+                  - 'generic "Secuencia · sequence-104: actividad sintética" [ref=f1e2098] [cursor=pointer]'
+                - group [ref=f1e2099]:
+                  - 'generic "Elección única · final-104: actividad sintética" [ref=f1e2100] [cursor=pointer]'
+                - group [ref=f1e2101]:
+                  - 'generic "Elección única · retention7-104: actividad sintética" [ref=f1e2102] [cursor=pointer]'
+                - group [ref=f1e2103]:
+                  - 'generic "Elección única · retention30-104: actividad sintética" [ref=f1e2104] [cursor=pointer]'
+                - group [ref=f1e2105]:
+                  - 'generic "Estudio · study-105: actividad sintética" [ref=f1e2106] [cursor=pointer]'
+                - group [ref=f1e2107]:
+                  - 'generic "Elección única · choice-105: actividad sintética" [ref=f1e2108] [cursor=pointer]'
+                - group [ref=f1e2109]:
+                  - 'generic "Respuesta breve · short-105: actividad sintética" [ref=f1e2110] [cursor=pointer]'
+                - group [ref=f1e2111]:
+                  - 'generic "Elección única · apply-105: actividad sintética" [ref=f1e2112] [cursor=pointer]'
+                - group [ref=f1e2113]:
+                  - 'generic "Relaciones · match-105: actividad sintética" [ref=f1e2114] [cursor=pointer]'
+                - group [ref=f1e2115]:
+                  - 'generic "Secuencia · sequence-105: actividad sintética" [ref=f1e2116] [cursor=pointer]'
+                - group [ref=f1e2117]:
+                  - 'generic "Elección única · final-105: actividad sintética" [ref=f1e2118] [cursor=pointer]'
+                - group [ref=f1e2119]:
+                  - 'generic "Elección única · retention7-105: actividad sintética" [ref=f1e2120] [cursor=pointer]'
+                - group [ref=f1e2121]:
+                  - 'generic "Elección única · retention30-105: actividad sintética" [ref=f1e2122] [cursor=pointer]'
+                - group [ref=f1e2123]:
+                  - 'generic "Estudio · study-106: actividad sintética" [ref=f1e2124] [cursor=pointer]'
+                - group [ref=f1e2125]:
+                  - 'generic "Elección única · choice-106: actividad sintética" [ref=f1e2126] [cursor=pointer]'
+                - group [ref=f1e2127]:
+                  - 'generic "Respuesta breve · short-106: actividad sintética" [ref=f1e2128] [cursor=pointer]'
+                - group [ref=f1e2129]:
+                  - 'generic "Elección única · apply-106: actividad sintética" [ref=f1e2130] [cursor=pointer]'
+                - group [ref=f1e2131]:
+                  - 'generic "Relaciones · match-106: actividad sintética" [ref=f1e2132] [cursor=pointer]'
+                - group [ref=f1e2133]:
+                  - 'generic "Secuencia · sequence-106: actividad sintética" [ref=f1e2134] [cursor=pointer]'
+                - group [ref=f1e2135]:
+                  - 'generic "Elección única · final-106: actividad sintética" [ref=f1e2136] [cursor=pointer]'
+                - group [ref=f1e2137]:
+                  - 'generic "Elección única · retention7-106: actividad sintética" [ref=f1e2138] [cursor=pointer]'
+                - group [ref=f1e2139]:
+                  - 'generic "Elección única · retention30-106: actividad sintética" [ref=f1e2140] [cursor=pointer]'
+                - group [ref=f1e2141]:
+                  - 'generic "Estudio · study-107: actividad sintética" [ref=f1e2142] [cursor=pointer]'
+                - group [ref=f1e2143]:
+                  - 'generic "Elección única · choice-107: actividad sintética" [ref=f1e2144] [cursor=pointer]'
+                - group [ref=f1e2145]:
+                  - 'generic "Respuesta breve · short-107: actividad sintética" [ref=f1e2146] [cursor=pointer]'
+                - group [ref=f1e2147]:
+                  - 'generic "Elección única · apply-107: actividad sintética" [ref=f1e2148] [cursor=pointer]'
+                - group [ref=f1e2149]:
+                  - 'generic "Relaciones · match-107: actividad sintética" [ref=f1e2150] [cursor=pointer]'
+                - group [ref=f1e2151]:
+                  - 'generic "Secuencia · sequence-107: actividad sintética" [ref=f1e2152] [cursor=pointer]'
+                - group [ref=f1e2153]:
+                  - 'generic "Elección única · final-107: actividad sintética" [ref=f1e2154] [cursor=pointer]'
+                - group [ref=f1e2155]:
+                  - 'generic "Elección única · retention7-107: actividad sintética" [ref=f1e2156] [cursor=pointer]'
+                - group [ref=f1e2157]:
+                  - 'generic "Elección única · retention30-107: actividad sintética" [ref=f1e2158] [cursor=pointer]'
+              - region "Unidad 17" [ref=f1e2159]:
+                - heading "Unidad 17" [level=2] [ref=f1e2160]
+                - group [ref=f1e2161]:
+                  - 'generic "Estudio · study-108: actividad sintética" [ref=f1e2162] [cursor=pointer]'
+                - group [ref=f1e2163]:
+                  - 'generic "Elección única · choice-108: actividad sintética" [ref=f1e2164] [cursor=pointer]'
+                - group [ref=f1e2165]:
+                  - 'generic "Respuesta breve · short-108: actividad sintética" [ref=f1e2166] [cursor=pointer]'
+                - group [ref=f1e2167]:
+                  - 'generic "Elección única · apply-108: actividad sintética" [ref=f1e2168] [cursor=pointer]'
+                - group [ref=f1e2169]:
+                  - 'generic "Relaciones · match-108: actividad sintética" [ref=f1e2170] [cursor=pointer]'
+                - group [ref=f1e2171]:
+                  - 'generic "Secuencia · sequence-108: actividad sintética" [ref=f1e2172] [cursor=pointer]'
+                - group [ref=f1e2173]:
+                  - 'generic "Elección única · final-108: actividad sintética" [ref=f1e2174] [cursor=pointer]'
+                - group [ref=f1e2175]:
+                  - 'generic "Elección única · retention7-108: actividad sintética" [ref=f1e2176] [cursor=pointer]'
+                - group [ref=f1e2177]:
+                  - 'generic "Elección única · retention30-108: actividad sintética" [ref=f1e2178] [cursor=pointer]'
+                - group [ref=f1e2179]:
+                  - 'generic "Estudio · study-109: actividad sintética" [ref=f1e2180] [cursor=pointer]'
+                - group [ref=f1e2181]:
+                  - 'generic "Elección única · choice-109: actividad sintética" [ref=f1e2182] [cursor=pointer]'
+                - group [ref=f1e2183]:
+                  - 'generic "Respuesta breve · short-109: actividad sintética" [ref=f1e2184] [cursor=pointer]'
+                - group [ref=f1e2185]:
+                  - 'generic "Elección única · apply-109: actividad sintética" [ref=f1e2186] [cursor=pointer]'
+                - group [ref=f1e2187]:
+                  - 'generic "Relaciones · match-109: actividad sintética" [ref=f1e2188] [cursor=pointer]'
+                - group [ref=f1e2189]:
+                  - 'generic "Secuencia · sequence-109: actividad sintética" [ref=f1e2190] [cursor=pointer]'
+                - group [ref=f1e2191]:
+                  - 'generic "Elección única · final-109: actividad sintética" [ref=f1e2192] [cursor=pointer]'
+                - group [ref=f1e2193]:
+                  - 'generic "Elección única · retention7-109: actividad sintética" [ref=f1e2194] [cursor=pointer]'
+                - group [ref=f1e2195]:
+                  - 'generic "Elección única · retention30-109: actividad sintética" [ref=f1e2196] [cursor=pointer]'
+                - group [ref=f1e2197]:
+                  - 'generic "Estudio · study-110: actividad sintética" [ref=f1e2198] [cursor=pointer]'
+                - group [ref=f1e2199]:
+                  - 'generic "Elección única · choice-110: actividad sintética" [ref=f1e2200] [cursor=pointer]'
+                - group [ref=f1e2201]:
+                  - 'generic "Respuesta breve · short-110: actividad sintética" [ref=f1e2202] [cursor=pointer]'
+                - group [ref=f1e2203]:
+                  - 'generic "Elección única · apply-110: actividad sintética" [ref=f1e2204] [cursor=pointer]'
+                - group [ref=f1e2205]:
+                  - 'generic "Relaciones · match-110: actividad sintética" [ref=f1e2206] [cursor=pointer]'
+                - group [ref=f1e2207]:
+                  - 'generic "Secuencia · sequence-110: actividad sintética" [ref=f1e2208] [cursor=pointer]'
+                - group [ref=f1e2209]:
+                  - 'generic "Elección única · final-110: actividad sintética" [ref=f1e2210] [cursor=pointer]'
+                - group [ref=f1e2211]:
+                  - 'generic "Elección única · retention7-110: actividad sintética" [ref=f1e2212] [cursor=pointer]'
+                - group [ref=f1e2213]:
+                  - 'generic "Elección única · retention30-110: actividad sintética" [ref=f1e2214] [cursor=pointer]'
+                - group [ref=f1e2215]:
+                  - 'generic "Estudio · study-111: actividad sintética" [ref=f1e2216] [cursor=pointer]'
+                - group [ref=f1e2217]:
+                  - 'generic "Elección única · choice-111: actividad sintética" [ref=f1e2218] [cursor=pointer]'
+                - group [ref=f1e2219]:
+                  - 'generic "Respuesta breve · short-111: actividad sintética" [ref=f1e2220] [cursor=pointer]'
+                - group [ref=f1e2221]:
+                  - 'generic "Elección única · apply-111: actividad sintética" [ref=f1e2222] [cursor=pointer]'
+                - group [ref=f1e2223]:
+                  - 'generic "Relaciones · match-111: actividad sintética" [ref=f1e2224] [cursor=pointer]'
+                - group [ref=f1e2225]:
+                  - 'generic "Secuencia · sequence-111: actividad sintética" [ref=f1e2226] [cursor=pointer]'
+                - group [ref=f1e2227]:
+                  - 'generic "Elección única · final-111: actividad sintética" [ref=f1e2228] [cursor=pointer]'
+                - group [ref=f1e2229]:
+                  - 'generic "Elección única · retention7-111: actividad sintética" [ref=f1e2230] [cursor=pointer]'
+                - group [ref=f1e2231]:
+                  - 'generic "Elección única · retention30-111: actividad sintética" [ref=f1e2232] [cursor=pointer]'
+                - group [ref=f1e2233]:
+                  - 'generic "Estudio · study-112: actividad sintética" [ref=f1e2234] [cursor=pointer]'
+                - group [ref=f1e2235]:
+                  - 'generic "Elección única · choice-112: actividad sintética" [ref=f1e2236] [cursor=pointer]'
+                - group [ref=f1e2237]:
+                  - 'generic "Respuesta breve · short-112: actividad sintética" [ref=f1e2238] [cursor=pointer]'
+                - group [ref=f1e2239]:
+                  - 'generic "Elección única · apply-112: actividad sintética" [ref=f1e2240] [cursor=pointer]'
+                - group [ref=f1e2241]:
+                  - 'generic "Relaciones · match-112: actividad sintética" [ref=f1e2242] [cursor=pointer]'
+                - group [ref=f1e2243]:
+                  - 'generic "Secuencia · sequence-112: actividad sintética" [ref=f1e2244] [cursor=pointer]'
+                - group [ref=f1e2245]:
+                  - 'generic "Elección única · final-112: actividad sintética" [ref=f1e2246] [cursor=pointer]'
+                - group [ref=f1e2247]:
+                  - 'generic "Elección única · retention7-112: actividad sintética" [ref=f1e2248] [cursor=pointer]'
+                - group [ref=f1e2249]:
+                  - 'generic "Elección única · retention30-112: actividad sintética" [ref=f1e2250] [cursor=pointer]'
+                - group [ref=f1e2251]:
+                  - 'generic "Estudio · study-113: actividad sintética" [ref=f1e2252] [cursor=pointer]'
+                - group [ref=f1e2253]:
+                  - 'generic "Elección única · choice-113: actividad sintética" [ref=f1e2254] [cursor=pointer]'
+                - group [ref=f1e2255]:
+                  - 'generic "Respuesta breve · short-113: actividad sintética" [ref=f1e2256] [cursor=pointer]'
+                - group [ref=f1e2257]:
+                  - 'generic "Elección única · apply-113: actividad sintética" [ref=f1e2258] [cursor=pointer]'
+                - group [ref=f1e2259]:
+                  - 'generic "Relaciones · match-113: actividad sintética" [ref=f1e2260] [cursor=pointer]'
+                - group [ref=f1e2261]:
+                  - 'generic "Secuencia · sequence-113: actividad sintética" [ref=f1e2262] [cursor=pointer]'
+                - group [ref=f1e2263]:
+                  - 'generic "Elección única · final-113: actividad sintética" [ref=f1e2264] [cursor=pointer]'
+                - group [ref=f1e2265]:
+                  - 'generic "Elección única · retention7-113: actividad sintética" [ref=f1e2266] [cursor=pointer]'
+                - group [ref=f1e2267]:
+                  - 'generic "Elección única · retention30-113: actividad sintética" [ref=f1e2268] [cursor=pointer]'
+                - group [ref=f1e2269]:
+                  - 'generic "Estudio · study-114: actividad sintética" [ref=f1e2270] [cursor=pointer]'
+                - group [ref=f1e2271]:
+                  - 'generic "Elección única · choice-114: actividad sintética" [ref=f1e2272] [cursor=pointer]'
+                - group [ref=f1e2273]:
+                  - 'generic "Respuesta breve · short-114: actividad sintética" [ref=f1e2274] [cursor=pointer]'
+                - group [ref=f1e2275]:
+                  - 'generic "Elección única · apply-114: actividad sintética" [ref=f1e2276] [cursor=pointer]'
+                - group [ref=f1e2277]:
+                  - 'generic "Relaciones · match-114: actividad sintética" [ref=f1e2278] [cursor=pointer]'
+                - group [ref=f1e2279]:
+                  - 'generic "Secuencia · sequence-114: actividad sintética" [ref=f1e2280] [cursor=pointer]'
+                - group [ref=f1e2281]:
+                  - 'generic "Elección única · final-114: actividad sintética" [ref=f1e2282] [cursor=pointer]'
+                - group [ref=f1e2283]:
+                  - 'generic "Elección única · retention7-114: actividad sintética" [ref=f1e2284] [cursor=pointer]'
+                - group [ref=f1e2285]:
+                  - 'generic "Elección única · retention30-114: actividad sintética" [ref=f1e2286] [cursor=pointer]'
+              - region "Unidad 18" [ref=f1e2287]:
+                - heading "Unidad 18" [level=2] [ref=f1e2288]
+                - group [ref=f1e2289]:
+                  - 'generic "Estudio · study-115: actividad sintética" [ref=f1e2290] [cursor=pointer]'
+                - group [ref=f1e2291]:
+                  - 'generic "Elección única · choice-115: actividad sintética" [ref=f1e2292] [cursor=pointer]'
+                - group [ref=f1e2293]:
+                  - 'generic "Respuesta breve · short-115: actividad sintética" [ref=f1e2294] [cursor=pointer]'
+                - group [ref=f1e2295]:
+                  - 'generic "Elección única · apply-115: actividad sintética" [ref=f1e2296] [cursor=pointer]'
+                - group [ref=f1e2297]:
+                  - 'generic "Relaciones · match-115: actividad sintética" [ref=f1e2298] [cursor=pointer]'
+                - group [ref=f1e2299]:
+                  - 'generic "Secuencia · sequence-115: actividad sintética" [ref=f1e2300] [cursor=pointer]'
+                - group [ref=f1e2301]:
+                  - 'generic "Elección única · final-115: actividad sintética" [ref=f1e2302] [cursor=pointer]'
+                - group [ref=f1e2303]:
+                  - 'generic "Elección única · retention7-115: actividad sintética" [ref=f1e2304] [cursor=pointer]'
+                - group [ref=f1e2305]:
+                  - 'generic "Elección única · retention30-115: actividad sintética" [ref=f1e2306] [cursor=pointer]'
+                - group [ref=f1e2307]:
+                  - 'generic "Estudio · study-116: actividad sintética" [ref=f1e2308] [cursor=pointer]'
+                - group [ref=f1e2309]:
+                  - 'generic "Elección única · choice-116: actividad sintética" [ref=f1e2310] [cursor=pointer]'
+                - group [ref=f1e2311]:
+                  - 'generic "Respuesta breve · short-116: actividad sintética" [ref=f1e2312] [cursor=pointer]'
+                - group [ref=f1e2313]:
+                  - 'generic "Elección única · apply-116: actividad sintética" [ref=f1e2314] [cursor=pointer]'
+                - group [ref=f1e2315]:
+                  - 'generic "Relaciones · match-116: actividad sintética" [ref=f1e2316] [cursor=pointer]'
+                - group [ref=f1e2317]:
+                  - 'generic "Secuencia · sequence-116: actividad sintética" [ref=f1e2318] [cursor=pointer]'
+                - group [ref=f1e2319]:
+                  - 'generic "Elección única · final-116: actividad sintética" [ref=f1e2320] [cursor=pointer]'
+                - group [ref=f1e2321]:
+                  - 'generic "Elección única · retention7-116: actividad sintética" [ref=f1e2322] [cursor=pointer]'
+                - group [ref=f1e2323]:
+                  - 'generic "Elección única · retention30-116: actividad sintética" [ref=f1e2324] [cursor=pointer]'
+                - group [ref=f1e2325]:
+                  - 'generic "Estudio · study-117: actividad sintética" [ref=f1e2326] [cursor=pointer]'
+                - group [ref=f1e2327]:
+                  - 'generic "Elección única · choice-117: actividad sintética" [ref=f1e2328] [cursor=pointer]'
+                - group [ref=f1e2329]:
+                  - 'generic "Respuesta breve · short-117: actividad sintética" [ref=f1e2330] [cursor=pointer]'
+                - group [ref=f1e2331]:
+                  - 'generic "Elección única · apply-117: actividad sintética" [ref=f1e2332] [cursor=pointer]'
+                - group [ref=f1e2333]:
+                  - 'generic "Relaciones · match-117: actividad sintética" [ref=f1e2334] [cursor=pointer]'
+                - group [ref=f1e2335]:
+                  - 'generic "Secuencia · sequence-117: actividad sintética" [ref=f1e2336] [cursor=pointer]'
+                - group [ref=f1e2337]:
+                  - 'generic "Elección única · final-117: actividad sintética" [ref=f1e2338] [cursor=pointer]'
+                - group [ref=f1e2339]:
+                  - 'generic "Elección única · retention7-117: actividad sintética" [ref=f1e2340] [cursor=pointer]'
+                - group [ref=f1e2341]:
+                  - 'generic "Elección única · retention30-117: actividad sintética" [ref=f1e2342] [cursor=pointer]'
+                - group [ref=f1e2343]:
+                  - 'generic "Estudio · study-118: actividad sintética" [ref=f1e2344] [cursor=pointer]'
+                - group [ref=f1e2345]:
+                  - 'generic "Elección única · choice-118: actividad sintética" [ref=f1e2346] [cursor=pointer]'
+                - group [ref=f1e2347]:
+                  - 'generic "Respuesta breve · short-118: actividad sintética" [ref=f1e2348] [cursor=pointer]'
+                - group [ref=f1e2349]:
+                  - 'generic "Elección única · apply-118: actividad sintética" [ref=f1e2350] [cursor=pointer]'
+                - group [ref=f1e2351]:
+                  - 'generic "Relaciones · match-118: actividad sintética" [ref=f1e2352] [cursor=pointer]'
+                - group [ref=f1e2353]:
+                  - 'generic "Secuencia · sequence-118: actividad sintética" [ref=f1e2354] [cursor=pointer]'
+                - group [ref=f1e2355]:
+                  - 'generic "Elección única · final-118: actividad sintética" [ref=f1e2356] [cursor=pointer]'
+                - group [ref=f1e2357]:
+                  - 'generic "Elección única · retention7-118: actividad sintética" [ref=f1e2358] [cursor=pointer]'
+                - group [ref=f1e2359]:
+                  - 'generic "Elección única · retention30-118: actividad sintética" [ref=f1e2360] [cursor=pointer]'
+                - group [ref=f1e2361]:
+                  - 'generic "Estudio · study-119: actividad sintética" [ref=f1e2362] [cursor=pointer]'
+                - group [ref=f1e2363]:
+                  - 'generic "Elección única · choice-119: actividad sintética" [ref=f1e2364] [cursor=pointer]'
+                - group [ref=f1e2365]:
+                  - 'generic "Respuesta breve · short-119: actividad sintética" [ref=f1e2366] [cursor=pointer]'
+                - group [ref=f1e2367]:
+                  - 'generic "Elección única · apply-119: actividad sintética" [ref=f1e2368] [cursor=pointer]'
+                - group [ref=f1e2369]:
+                  - 'generic "Relaciones · match-119: actividad sintética" [ref=f1e2370] [cursor=pointer]'
+                - group [ref=f1e2371]:
+                  - 'generic "Secuencia · sequence-119: actividad sintética" [ref=f1e2372] [cursor=pointer]'
+                - group [ref=f1e2373]:
+                  - 'generic "Elección única · final-119: actividad sintética" [ref=f1e2374] [cursor=pointer]'
+                - group [ref=f1e2375]:
+                  - 'generic "Elección única · retention7-119: actividad sintética" [ref=f1e2376] [cursor=pointer]'
+                - group [ref=f1e2377]:
+                  - 'generic "Elección única · retention30-119: actividad sintética" [ref=f1e2378] [cursor=pointer]'
+                - group [ref=f1e2379]:
+                  - 'generic "Estudio · study-120: actividad sintética" [ref=f1e2380] [cursor=pointer]'
+                - group [ref=f1e2381]:
+                  - 'generic "Elección única · choice-120: actividad sintética" [ref=f1e2382] [cursor=pointer]'
+                - group [ref=f1e2383]:
+                  - 'generic "Respuesta breve · short-120: actividad sintética" [ref=f1e2384] [cursor=pointer]'
+                - group [ref=f1e2385]:
+                  - 'generic "Elección única · apply-120: actividad sintética" [ref=f1e2386] [cursor=pointer]'
+                - group [ref=f1e2387]:
+                  - 'generic "Relaciones · match-120: actividad sintética" [ref=f1e2388] [cursor=pointer]'
+                - group [ref=f1e2389]:
+                  - 'generic "Secuencia · sequence-120: actividad sintética" [ref=f1e2390] [cursor=pointer]'
+                - group [ref=f1e2391]:
+                  - 'generic "Elección única · final-120: actividad sintética" [ref=f1e2392] [cursor=pointer]'
+                - group [ref=f1e2393]:
+                  - 'generic "Elección única · retention7-120: actividad sintética" [ref=f1e2394] [cursor=pointer]'
+                - group [ref=f1e2395]:
+                  - 'generic "Elección única · retention30-120: actividad sintética" [ref=f1e2396] [cursor=pointer]'
+              - region "Unidad 19" [ref=f1e2397]:
+                - heading "Unidad 19" [level=2] [ref=f1e2398]
+                - group [ref=f1e2399]:
+                  - 'generic "Estudio · study-121: actividad sintética" [ref=f1e2400] [cursor=pointer]'
+                - group [ref=f1e2401]:
+                  - 'generic "Elección única · choice-121: actividad sintética" [ref=f1e2402] [cursor=pointer]'
+                - group [ref=f1e2403]:
+                  - 'generic "Respuesta breve · short-121: actividad sintética" [ref=f1e2404] [cursor=pointer]'
+                - group [ref=f1e2405]:
+                  - 'generic "Elección única · apply-121: actividad sintética" [ref=f1e2406] [cursor=pointer]'
+                - group [ref=f1e2407]:
+                  - 'generic "Relaciones · match-121: actividad sintética" [ref=f1e2408] [cursor=pointer]'
+                - group [ref=f1e2409]:
+                  - 'generic "Secuencia · sequence-121: actividad sintética" [ref=f1e2410] [cursor=pointer]'
+                - group [ref=f1e2411]:
+                  - 'generic "Elección única · final-121: actividad sintética" [ref=f1e2412] [cursor=pointer]'
+                - group [ref=f1e2413]:
+                  - 'generic "Elección única · retention7-121: actividad sintética" [ref=f1e2414] [cursor=pointer]'
+                - group [ref=f1e2415]:
+                  - 'generic "Elección única · retention30-121: actividad sintética" [ref=f1e2416] [cursor=pointer]'
+                - group [ref=f1e2417]:
+                  - 'generic "Estudio · study-122: actividad sintética" [ref=f1e2418] [cursor=pointer]'
+                - group [ref=f1e2419]:
+                  - 'generic "Elección única · choice-122: actividad sintética" [ref=f1e2420] [cursor=pointer]'
+                - group [ref=f1e2421]:
+                  - 'generic "Respuesta breve · short-122: actividad sintética" [ref=f1e2422] [cursor=pointer]'
+                - group [ref=f1e2423]:
+                  - 'generic "Elección única · apply-122: actividad sintética" [ref=f1e2424] [cursor=pointer]'
+                - group [ref=f1e2425]:
+                  - 'generic "Relaciones · match-122: actividad sintética" [ref=f1e2426] [cursor=pointer]'
+                - group [ref=f1e2427]:
+                  - 'generic "Secuencia · sequence-122: actividad sintética" [ref=f1e2428] [cursor=pointer]'
+                - group [ref=f1e2429]:
+                  - 'generic "Elección única · final-122: actividad sintética" [ref=f1e2430] [cursor=pointer]'
+                - group [ref=f1e2431]:
+                  - 'generic "Elección única · retention7-122: actividad sintética" [ref=f1e2432] [cursor=pointer]'
+                - group [ref=f1e2433]:
+                  - 'generic "Elección única · retention30-122: actividad sintética" [ref=f1e2434] [cursor=pointer]'
+                - group [ref=f1e2435]:
+                  - 'generic "Estudio · study-123: actividad sintética" [ref=f1e2436] [cursor=pointer]'
+                - group [ref=f1e2437]:
+                  - 'generic "Elección única · choice-123: actividad sintética" [ref=f1e2438] [cursor=pointer]'
+                - group [ref=f1e2439]:
+                  - 'generic "Respuesta breve · short-123: actividad sintética" [ref=f1e2440] [cursor=pointer]'
+                - group [ref=f1e2441]:
+                  - 'generic "Elección única · apply-123: actividad sintética" [ref=f1e2442] [cursor=pointer]'
+                - group [ref=f1e2443]:
+                  - 'generic "Relaciones · match-123: actividad sintética" [ref=f1e2444] [cursor=pointer]'
+                - group [ref=f1e2445]:
+                  - 'generic "Secuencia · sequence-123: actividad sintética" [ref=f1e2446] [cursor=pointer]'
+                - group [ref=f1e2447]:
+                  - 'generic "Elección única · final-123: actividad sintética" [ref=f1e2448] [cursor=pointer]'
+                - group [ref=f1e2449]:
+                  - 'generic "Elección única · retention7-123: actividad sintética" [ref=f1e2450] [cursor=pointer]'
+                - group [ref=f1e2451]:
+                  - 'generic "Elección única · retention30-123: actividad sintética" [ref=f1e2452] [cursor=pointer]'
+                - group [ref=f1e2453]:
+                  - 'generic "Estudio · study-124: actividad sintética" [ref=f1e2454] [cursor=pointer]'
+                - group [ref=f1e2455]:
+                  - 'generic "Elección única · choice-124: actividad sintética" [ref=f1e2456] [cursor=pointer]'
+                - group [ref=f1e2457]:
+                  - 'generic "Respuesta breve · short-124: actividad sintética" [ref=f1e2458] [cursor=pointer]'
+                - group [ref=f1e2459]:
+                  - 'generic "Elección única · apply-124: actividad sintética" [ref=f1e2460] [cursor=pointer]'
+                - group [ref=f1e2461]:
+                  - 'generic "Relaciones · match-124: actividad sintética" [ref=f1e2462] [cursor=pointer]'
+                - group [ref=f1e2463]:
+                  - 'generic "Secuencia · sequence-124: actividad sintética" [ref=f1e2464] [cursor=pointer]'
+                - group [ref=f1e2465]:
+                  - 'generic "Elección única · final-124: actividad sintética" [ref=f1e2466] [cursor=pointer]'
+                - group [ref=f1e2467]:
+                  - 'generic "Elección única · retention7-124: actividad sintética" [ref=f1e2468] [cursor=pointer]'
+                - group [ref=f1e2469]:
+                  - 'generic "Elección única · retention30-124: actividad sintética" [ref=f1e2470] [cursor=pointer]'
+                - group [ref=f1e2471]:
+                  - 'generic "Estudio · study-125: actividad sintética" [ref=f1e2472] [cursor=pointer]'
+                - group [ref=f1e2473]:
+                  - 'generic "Elección única · choice-125: actividad sintética" [ref=f1e2474] [cursor=pointer]'
+                - group [ref=f1e2475]:
+                  - 'generic "Respuesta breve · short-125: actividad sintética" [ref=f1e2476] [cursor=pointer]'
+                - group [ref=f1e2477]:
+                  - 'generic "Elección única · apply-125: actividad sintética" [ref=f1e2478] [cursor=pointer]'
+                - group [ref=f1e2479]:
+                  - 'generic "Relaciones · match-125: actividad sintética" [ref=f1e2480] [cursor=pointer]'
+                - group [ref=f1e2481]:
+                  - 'generic "Secuencia · sequence-125: actividad sintética" [ref=f1e2482] [cursor=pointer]'
+                - group [ref=f1e2483]:
+                  - 'generic "Elección única · final-125: actividad sintética" [ref=f1e2484] [cursor=pointer]'
+                - group [ref=f1e2485]:
+                  - 'generic "Elección única · retention7-125: actividad sintética" [ref=f1e2486] [cursor=pointer]'
+                - group [ref=f1e2487]:
+                  - 'generic "Elección única · retention30-125: actividad sintética" [ref=f1e2488] [cursor=pointer]'
+                - group [ref=f1e2489]:
+                  - 'generic "Estudio · study-126: actividad sintética" [ref=f1e2490] [cursor=pointer]'
+                - group [ref=f1e2491]:
+                  - 'generic "Elección única · choice-126: actividad sintética" [ref=f1e2492] [cursor=pointer]'
+                - group [ref=f1e2493]:
+                  - 'generic "Respuesta breve · short-126: actividad sintética" [ref=f1e2494] [cursor=pointer]'
+                - group [ref=f1e2495]:
+                  - 'generic "Elección única · apply-126: actividad sintética" [ref=f1e2496] [cursor=pointer]'
+                - group [ref=f1e2497]:
+                  - 'generic "Relaciones · match-126: actividad sintética" [ref=f1e2498] [cursor=pointer]'
+                - group [ref=f1e2499]:
+                  - 'generic "Secuencia · sequence-126: actividad sintética" [ref=f1e2500] [cursor=pointer]'
+                - group [ref=f1e2501]:
+                  - 'generic "Elección única · final-126: actividad sintética" [ref=f1e2502] [cursor=pointer]'
+                - group [ref=f1e2503]:
+                  - 'generic "Elección única · retention7-126: actividad sintética" [ref=f1e2504] [cursor=pointer]'
+                - group [ref=f1e2505]:
+                  - 'generic "Elección única · retention30-126: actividad sintética" [ref=f1e2506] [cursor=pointer]'
+                - group [ref=f1e2507]:
+                  - 'generic "Estudio · study-127: actividad sintética" [ref=f1e2508] [cursor=pointer]'
+                - group [ref=f1e2509]:
+                  - 'generic "Elección única · choice-127: actividad sintética" [ref=f1e2510] [cursor=pointer]'
+                - group [ref=f1e2511]:
+                  - 'generic "Respuesta breve · short-127: actividad sintética" [ref=f1e2512] [cursor=pointer]'
+                - group [ref=f1e2513]:
+                  - 'generic "Elección única · apply-127: actividad sintética" [ref=f1e2514] [cursor=pointer]'
+                - group [ref=f1e2515]:
+                  - 'generic "Relaciones · match-127: actividad sintética" [ref=f1e2516] [cursor=pointer]'
+                - group [ref=f1e2517]:
+                  - 'generic "Secuencia · sequence-127: actividad sintética" [ref=f1e2518] [cursor=pointer]'
+                - group [ref=f1e2519]:
+                  - 'generic "Elección única · final-127: actividad sintética" [ref=f1e2520] [cursor=pointer]'
+                - group [ref=f1e2521]:
+                  - 'generic "Elección única · retention7-127: actividad sintética" [ref=f1e2522] [cursor=pointer]'
+                - group [ref=f1e2523]:
+                  - 'generic "Elección única · retention30-127: actividad sintética" [ref=f1e2524] [cursor=pointer]'
+              - region "Unidad 20" [ref=f1e2525]:
+                - heading "Unidad 20" [level=2] [ref=f1e2526]
+                - group [ref=f1e2527]:
+                  - 'generic "Estudio · study-128: actividad sintética" [ref=f1e2528] [cursor=pointer]'
+                - group [ref=f1e2529]:
+                  - 'generic "Elección única · choice-128: actividad sintética" [ref=f1e2530] [cursor=pointer]'
+                - group [ref=f1e2531]:
+                  - 'generic "Respuesta breve · short-128: actividad sintética" [ref=f1e2532] [cursor=pointer]'
+                - group [ref=f1e2533]:
+                  - 'generic "Elección única · apply-128: actividad sintética" [ref=f1e2534] [cursor=pointer]'
+                - group [ref=f1e2535]:
+                  - 'generic "Relaciones · match-128: actividad sintética" [ref=f1e2536] [cursor=pointer]'
+                - group [ref=f1e2537]:
+                  - 'generic "Secuencia · sequence-128: actividad sintética" [ref=f1e2538] [cursor=pointer]'
+                - group [ref=f1e2539]:
+                  - 'generic "Elección única · final-128: actividad sintética" [ref=f1e2540] [cursor=pointer]'
+                - group [ref=f1e2541]:
+                  - 'generic "Elección única · retention7-128: actividad sintética" [ref=f1e2542] [cursor=pointer]'
+                - group [ref=f1e2543]:
+                  - 'generic "Elección única · retention30-128: actividad sintética" [ref=f1e2544] [cursor=pointer]'
+                - group [ref=f1e2545]:
+                  - 'generic "Estudio · study-129: actividad sintética" [ref=f1e2546] [cursor=pointer]'
+                - group [ref=f1e2547]:
+                  - 'generic "Elección única · choice-129: actividad sintética" [ref=f1e2548] [cursor=pointer]'
+                - group [ref=f1e2549]:
+                  - 'generic "Respuesta breve · short-129: actividad sintética" [ref=f1e2550] [cursor=pointer]'
+                - group [ref=f1e2551]:
+                  - 'generic "Elección única · apply-129: actividad sintética" [ref=f1e2552] [cursor=pointer]'
+                - group [ref=f1e2553]:
+                  - 'generic "Relaciones · match-129: actividad sintética" [ref=f1e2554] [cursor=pointer]'
+                - group [ref=f1e2555]:
+                  - 'generic "Secuencia · sequence-129: actividad sintética" [ref=f1e2556] [cursor=pointer]'
+                - group [ref=f1e2557]:
+                  - 'generic "Elección única · final-129: actividad sintética" [ref=f1e2558] [cursor=pointer]'
+                - group [ref=f1e2559]:
+                  - 'generic "Elección única · retention7-129: actividad sintética" [ref=f1e2560] [cursor=pointer]'
+                - group [ref=f1e2561]:
+                  - 'generic "Elección única · retention30-129: actividad sintética" [ref=f1e2562] [cursor=pointer]'
+                - group [ref=f1e2563]:
+                  - 'generic "Estudio · study-130: actividad sintética" [ref=f1e2564] [cursor=pointer]'
+                - group [ref=f1e2565]:
+                  - 'generic "Elección única · choice-130: actividad sintética" [ref=f1e2566] [cursor=pointer]'
+                - group [ref=f1e2567]:
+                  - 'generic "Respuesta breve · short-130: actividad sintética" [ref=f1e2568] [cursor=pointer]'
+                - group [ref=f1e2569]:
+                  - 'generic "Elección única · apply-130: actividad sintética" [ref=f1e2570] [cursor=pointer]'
+                - group [ref=f1e2571]:
+                  - 'generic "Relaciones · match-130: actividad sintética" [ref=f1e2572] [cursor=pointer]'
+                - group [ref=f1e2573]:
+                  - 'generic "Secuencia · sequence-130: actividad sintética" [ref=f1e2574] [cursor=pointer]'
+                - group [ref=f1e2575]:
+                  - 'generic "Elección única · final-130: actividad sintética" [ref=f1e2576] [cursor=pointer]'
+                - group [ref=f1e2577]:
+                  - 'generic "Elección única · retention7-130: actividad sintética" [ref=f1e2578] [cursor=pointer]'
+                - group [ref=f1e2579]:
+                  - 'generic "Elección única · retention30-130: actividad sintética" [ref=f1e2580] [cursor=pointer]'
+                - group [ref=f1e2581]:
+                  - 'generic "Estudio · study-131: actividad sintética" [ref=f1e2582] [cursor=pointer]'
+                - group [ref=f1e2583]:
+                  - 'generic "Elección única · choice-131: actividad sintética" [ref=f1e2584] [cursor=pointer]'
+                - group [ref=f1e2585]:
+                  - 'generic "Respuesta breve · short-131: actividad sintética" [ref=f1e2586] [cursor=pointer]'
+                - group [ref=f1e2587]:
+                  - 'generic "Elección única · apply-131: actividad sintética" [ref=f1e2588] [cursor=pointer]'
+                - group [ref=f1e2589]:
+                  - 'generic "Relaciones · match-131: actividad sintética" [ref=f1e2590] [cursor=pointer]'
+                - group [ref=f1e2591]:
+                  - 'generic "Secuencia · sequence-131: actividad sintética" [ref=f1e2592] [cursor=pointer]'
+                - group [ref=f1e2593]:
+                  - 'generic "Elección única · final-131: actividad sintética" [ref=f1e2594] [cursor=pointer]'
+                - group [ref=f1e2595]:
+                  - 'generic "Elección única · retention7-131: actividad sintética" [ref=f1e2596] [cursor=pointer]'
+                - group [ref=f1e2597]:
+                  - 'generic "Elección única · retention30-131: actividad sintética" [ref=f1e2598] [cursor=pointer]'
+                - group [ref=f1e2599]:
+                  - 'generic "Estudio · study-132: actividad sintética" [ref=f1e2600] [cursor=pointer]'
+                - group [ref=f1e2601]:
+                  - 'generic "Elección única · choice-132: actividad sintética" [ref=f1e2602] [cursor=pointer]'
+                - group [ref=f1e2603]:
+                  - 'generic "Respuesta breve · short-132: actividad sintética" [ref=f1e2604] [cursor=pointer]'
+                - group [ref=f1e2605]:
+                  - 'generic "Elección única · apply-132: actividad sintética" [ref=f1e2606] [cursor=pointer]'
+                - group [ref=f1e2607]:
+                  - 'generic "Relaciones · match-132: actividad sintética" [ref=f1e2608] [cursor=pointer]'
+                - group [ref=f1e2609]:
+                  - 'generic "Secuencia · sequence-132: actividad sintética" [ref=f1e2610] [cursor=pointer]'
+                - group [ref=f1e2611]:
+                  - 'generic "Elección única · final-132: actividad sintética" [ref=f1e2612] [cursor=pointer]'
+                - group [ref=f1e2613]:
+                  - 'generic "Elección única · retention7-132: actividad sintética" [ref=f1e2614] [cursor=pointer]'
+                - group [ref=f1e2615]:
+                  - 'generic "Elección única · retention30-132: actividad sintética" [ref=f1e2616] [cursor=pointer]'
+                - group [ref=f1e2617]:
+                  - 'generic "Estudio · study-133: actividad sintética" [ref=f1e2618] [cursor=pointer]'
+                - group [ref=f1e2619]:
+                  - 'generic "Elección única · choice-133: actividad sintética" [ref=f1e2620] [cursor=pointer]'
+                - group [ref=f1e2621]:
+                  - 'generic "Respuesta breve · short-133: actividad sintética" [ref=f1e2622] [cursor=pointer]'
+                - group [ref=f1e2623]:
+                  - 'generic "Elección única · apply-133: actividad sintética" [ref=f1e2624] [cursor=pointer]'
+                - group [ref=f1e2625]:
+                  - 'generic "Relaciones · match-133: actividad sintética" [ref=f1e2626] [cursor=pointer]'
+                - group [ref=f1e2627]:
+                  - 'generic "Secuencia · sequence-133: actividad sintética" [ref=f1e2628] [cursor=pointer]'
+                - group [ref=f1e2629]:
+                  - 'generic "Elección única · final-133: actividad sintética" [ref=f1e2630] [cursor=pointer]'
+                - group [ref=f1e2631]:
+                  - 'generic "Elección única · retention7-133: actividad sintética" [ref=f1e2632] [cursor=pointer]'
+                - group [ref=f1e2633]:
+                  - 'generic "Elección única · retention30-133: actividad sintética" [ref=f1e2634] [cursor=pointer]'
+                - group [ref=f1e2635]:
+                  - 'generic "Estudio · study-134: actividad sintética" [ref=f1e2636] [cursor=pointer]'
+                - group [ref=f1e2637]:
+                  - 'generic "Elección única · choice-134: actividad sintética" [ref=f1e2638] [cursor=pointer]'
+                - group [ref=f1e2639]:
+                  - 'generic "Respuesta breve · short-134: actividad sintética" [ref=f1e2640] [cursor=pointer]'
+                - group [ref=f1e2641]:
+                  - 'generic "Elección única · apply-134: actividad sintética" [ref=f1e2642] [cursor=pointer]'
+                - group [ref=f1e2643]:
+                  - 'generic "Relaciones · match-134: actividad sintética" [ref=f1e2644] [cursor=pointer]'
+                - group [ref=f1e2645]:
+                  - 'generic "Secuencia · sequence-134: actividad sintética" [ref=f1e2646] [cursor=pointer]'
+                - group [ref=f1e2647]:
+                  - 'generic "Elección única · final-134: actividad sintética" [ref=f1e2648] [cursor=pointer]'
+                - group [ref=f1e2649]:
+                  - 'generic "Elección única · retention7-134: actividad sintética" [ref=f1e2650] [cursor=pointer]'
+                - group [ref=f1e2651]:
+                  - 'generic "Elección única · retention30-134: actividad sintética" [ref=f1e2652] [cursor=pointer]'
+              - region "Unidad 21" [ref=f1e2653]:
+                - heading "Unidad 21" [level=2] [ref=f1e2654]
+                - group [ref=f1e2655]:
+                  - 'generic "Estudio · study-135: actividad sintética" [ref=f1e2656] [cursor=pointer]'
+                - group [ref=f1e2657]:
+                  - 'generic "Elección única · choice-135: actividad sintética" [ref=f1e2658] [cursor=pointer]'
+                - group [ref=f1e2659]:
+                  - 'generic "Respuesta breve · short-135: actividad sintética" [ref=f1e2660] [cursor=pointer]'
+                - group [ref=f1e2661]:
+                  - 'generic "Elección única · apply-135: actividad sintética" [ref=f1e2662] [cursor=pointer]'
+                - group [ref=f1e2663]:
+                  - 'generic "Relaciones · match-135: actividad sintética" [ref=f1e2664] [cursor=pointer]'
+                - group [ref=f1e2665]:
+                  - 'generic "Secuencia · sequence-135: actividad sintética" [ref=f1e2666] [cursor=pointer]'
+                - group [ref=f1e2667]:
+                  - 'generic "Elección única · final-135: actividad sintética" [ref=f1e2668] [cursor=pointer]'
+                - group [ref=f1e2669]:
+                  - 'generic "Elección única · retention7-135: actividad sintética" [ref=f1e2670] [cursor=pointer]'
+                - group [ref=f1e2671]:
+                  - 'generic "Elección única · retention30-135: actividad sintética" [ref=f1e2672] [cursor=pointer]'
+                - group [ref=f1e2673]:
+                  - 'generic "Estudio · study-136: actividad sintética" [ref=f1e2674] [cursor=pointer]'
+                - group [ref=f1e2675]:
+                  - 'generic "Elección única · choice-136: actividad sintética" [ref=f1e2676] [cursor=pointer]'
+                - group [ref=f1e2677]:
+                  - 'generic "Respuesta breve · short-136: actividad sintética" [ref=f1e2678] [cursor=pointer]'
+                - group [ref=f1e2679]:
+                  - 'generic "Elección única · apply-136: actividad sintética" [ref=f1e2680] [cursor=pointer]'
+                - group [ref=f1e2681]:
+                  - 'generic "Relaciones · match-136: actividad sintética" [ref=f1e2682] [cursor=pointer]'
+                - group [ref=f1e2683]:
+                  - 'generic "Secuencia · sequence-136: actividad sintética" [ref=f1e2684] [cursor=pointer]'
+                - group [ref=f1e2685]:
+                  - 'generic "Elección única · final-136: actividad sintética" [ref=f1e2686] [cursor=pointer]'
+                - group [ref=f1e2687]:
+                  - 'generic "Elección única · retention7-136: actividad sintética" [ref=f1e2688] [cursor=pointer]'
+                - group [ref=f1e2689]:
+                  - 'generic "Elección única · retention30-136: actividad sintética" [ref=f1e2690] [cursor=pointer]'
+                - group [ref=f1e2691]:
+                  - 'generic "Estudio · study-137: actividad sintética" [ref=f1e2692] [cursor=pointer]'
+                - group [ref=f1e2693]:
+                  - 'generic "Elección única · choice-137: actividad sintética" [ref=f1e2694] [cursor=pointer]'
+                - group [ref=f1e2695]:
+                  - 'generic "Respuesta breve · short-137: actividad sintética" [ref=f1e2696] [cursor=pointer]'
+                - group [ref=f1e2697]:
+                  - 'generic "Elección única · apply-137: actividad sintética" [ref=f1e2698] [cursor=pointer]'
+                - group [ref=f1e2699]:
+                  - 'generic "Relaciones · match-137: actividad sintética" [ref=f1e2700] [cursor=pointer]'
+                - group [ref=f1e2701]:
+                  - 'generic "Secuencia · sequence-137: actividad sintética" [ref=f1e2702] [cursor=pointer]'
+                - group [ref=f1e2703]:
+                  - 'generic "Elección única · final-137: actividad sintética" [ref=f1e2704] [cursor=pointer]'
+                - group [ref=f1e2705]:
+                  - 'generic "Elección única · retention7-137: actividad sintética" [ref=f1e2706] [cursor=pointer]'
+                - group [ref=f1e2707]:
+                  - 'generic "Elección única · retention30-137: actividad sintética" [ref=f1e2708] [cursor=pointer]'
+                - group [ref=f1e2709]:
+                  - 'generic "Estudio · study-138: actividad sintética" [ref=f1e2710] [cursor=pointer]'
+                - group [ref=f1e2711]:
+                  - 'generic "Elección única · choice-138: actividad sintética" [ref=f1e2712] [cursor=pointer]'
+                - group [ref=f1e2713]:
+                  - 'generic "Respuesta breve · short-138: actividad sintética" [ref=f1e2714] [cursor=pointer]'
+                - group [ref=f1e2715]:
+                  - 'generic "Elección única · apply-138: actividad sintética" [ref=f1e2716] [cursor=pointer]'
+                - group [ref=f1e2717]:
+                  - 'generic "Relaciones · match-138: actividad sintética" [ref=f1e2718] [cursor=pointer]'
+                - group [ref=f1e2719]:
+                  - 'generic "Secuencia · sequence-138: actividad sintética" [ref=f1e2720] [cursor=pointer]'
+                - group [ref=f1e2721]:
+                  - 'generic "Elección única · final-138: actividad sintética" [ref=f1e2722] [cursor=pointer]'
+                - group [ref=f1e2723]:
+                  - 'generic "Elección única · retention7-138: actividad sintética" [ref=f1e2724] [cursor=pointer]'
+                - group [ref=f1e2725]:
+                  - 'generic "Elección única · retention30-138: actividad sintética" [ref=f1e2726] [cursor=pointer]'
+                - group [ref=f1e2727]:
+                  - 'generic "Estudio · study-139: actividad sintética" [ref=f1e2728] [cursor=pointer]'
+                - group [ref=f1e2729]:
+                  - 'generic "Elección única · choice-139: actividad sintética" [ref=f1e2730] [cursor=pointer]'
+                - group [ref=f1e2731]:
+                  - 'generic "Respuesta breve · short-139: actividad sintética" [ref=f1e2732] [cursor=pointer]'
+                - group [ref=f1e2733]:
+                  - 'generic "Elección única · apply-139: actividad sintética" [ref=f1e2734] [cursor=pointer]'
+                - group [ref=f1e2735]:
+                  - 'generic "Relaciones · match-139: actividad sintética" [ref=f1e2736] [cursor=pointer]'
+                - group [ref=f1e2737]:
+                  - 'generic "Secuencia · sequence-139: actividad sintética" [ref=f1e2738] [cursor=pointer]'
+                - group [ref=f1e2739]:
+                  - 'generic "Elección única · final-139: actividad sintética" [ref=f1e2740] [cursor=pointer]'
+                - group [ref=f1e2741]:
+                  - 'generic "Elección única · retention7-139: actividad sintética" [ref=f1e2742] [cursor=pointer]'
+                - group [ref=f1e2743]:
+                  - 'generic "Elección única · retention30-139: actividad sintética" [ref=f1e2744] [cursor=pointer]'
+                - group [ref=f1e2745]:
+                  - 'generic "Estudio · study-140: actividad sintética" [ref=f1e2746] [cursor=pointer]'
+                - group [ref=f1e2747]:
+                  - 'generic "Elección única · choice-140: actividad sintética" [ref=f1e2748] [cursor=pointer]'
+                - group [ref=f1e2749]:
+                  - 'generic "Respuesta breve · short-140: actividad sintética" [ref=f1e2750] [cursor=pointer]'
+                - group [ref=f1e2751]:
+                  - 'generic "Elección única · apply-140: actividad sintética" [ref=f1e2752] [cursor=pointer]'
+                - group [ref=f1e2753]:
+                  - 'generic "Relaciones · match-140: actividad sintética" [ref=f1e2754] [cursor=pointer]'
+                - group [ref=f1e2755]:
+                  - 'generic "Secuencia · sequence-140: actividad sintética" [ref=f1e2756] [cursor=pointer]'
+                - group [ref=f1e2757]:
+                  - 'generic "Elección única · final-140: actividad sintética" [ref=f1e2758] [cursor=pointer]'
+                - group [ref=f1e2759]:
+                  - 'generic "Elección única · retention7-140: actividad sintética" [ref=f1e2760] [cursor=pointer]'
+                - group [ref=f1e2761]:
+                  - 'generic "Elección única · retention30-140: actividad sintética" [ref=f1e2762] [cursor=pointer]'
+              - region "Unidad 22" [ref=f1e2763]:
+                - heading "Unidad 22" [level=2] [ref=f1e2764]
+                - group [ref=f1e2765]:
+                  - 'generic "Estudio · study-141: actividad sintética" [ref=f1e2766] [cursor=pointer]'
+                - group [ref=f1e2767]:
+                  - 'generic "Elección única · choice-141: actividad sintética" [ref=f1e2768] [cursor=pointer]'
+                - group [ref=f1e2769]:
+                  - 'generic "Respuesta breve · short-141: actividad sintética" [ref=f1e2770] [cursor=pointer]'
+                - group [ref=f1e2771]:
+                  - 'generic "Elección única · apply-141: actividad sintética" [ref=f1e2772] [cursor=pointer]'
+                - group [ref=f1e2773]:
+                  - 'generic "Secuencia · sequence-141: actividad sintética" [ref=f1e2774] [cursor=pointer]'
+                - group [ref=f1e2775]:
+                  - 'generic "Estudio · study-142: actividad sintética" [ref=f1e2776] [cursor=pointer]'
+                - group [ref=f1e2777]:
+                  - 'generic "Elección única · choice-142: actividad sintética" [ref=f1e2778] [cursor=pointer]'
+                - group [ref=f1e2779]:
+                  - 'generic "Respuesta breve · short-142: actividad sintética" [ref=f1e2780] [cursor=pointer]'
+                - group [ref=f1e2781]:
+                  - 'generic "Elección única · apply-142: actividad sintética" [ref=f1e2782] [cursor=pointer]'
+                - group [ref=f1e2783]:
+                  - 'generic "Secuencia · sequence-142: actividad sintética" [ref=f1e2784] [cursor=pointer]'
+                - group [ref=f1e2785]:
+                  - 'generic "Estudio · study-143: actividad sintética" [ref=f1e2786] [cursor=pointer]'
+                - group [ref=f1e2787]:
+                  - 'generic "Elección única · choice-143: actividad sintética" [ref=f1e2788] [cursor=pointer]'
+                - group [ref=f1e2789]:
+                  - 'generic "Respuesta breve · short-143: actividad sintética" [ref=f1e2790] [cursor=pointer]'
+                - group [ref=f1e2791]:
+                  - 'generic "Elección única · apply-143: actividad sintética" [ref=f1e2792] [cursor=pointer]'
+                - group [ref=f1e2793]:
+                  - 'generic "Secuencia · sequence-143: actividad sintética" [ref=f1e2794] [cursor=pointer]'
+                - group [ref=f1e2795]:
+                  - 'generic "Estudio · study-144: actividad sintética" [ref=f1e2796] [cursor=pointer]'
+                - group [ref=f1e2797]:
+                  - 'generic "Elección única · choice-144: actividad sintética" [ref=f1e2798] [cursor=pointer]'
+                - group [ref=f1e2799]:
+                  - 'generic "Respuesta breve · short-144: actividad sintética" [ref=f1e2800] [cursor=pointer]'
+                - group [ref=f1e2801]:
+                  - 'generic "Elección única · apply-144: actividad sintética" [ref=f1e2802] [cursor=pointer]'
+                - group [ref=f1e2803]:
+                  - 'generic "Secuencia · sequence-144: actividad sintética" [ref=f1e2804] [cursor=pointer]'
+                - group [ref=f1e2805]:
+                  - 'generic "Estudio · study-145: actividad sintética" [ref=f1e2806] [cursor=pointer]'
+                - group [ref=f1e2807]:
+                  - 'generic "Elección única · choice-145: actividad sintética" [ref=f1e2808] [cursor=pointer]'
+                - group [ref=f1e2809]:
+                  - 'generic "Respuesta breve · short-145: actividad sintética" [ref=f1e2810] [cursor=pointer]'
+                - group [ref=f1e2811]:
+                  - 'generic "Elección única · apply-145: actividad sintética" [ref=f1e2812] [cursor=pointer]'
+                - group [ref=f1e2813]:
+                  - 'generic "Secuencia · sequence-145: actividad sintética" [ref=f1e2814] [cursor=pointer]'
+                - group [ref=f1e2815]:
+                  - 'generic "Estudio · study-146: actividad sintética" [ref=f1e2816] [cursor=pointer]'
+                - group [ref=f1e2817]:
+                  - 'generic "Elección única · choice-146: actividad sintética" [ref=f1e2818] [cursor=pointer]'
+                - group [ref=f1e2819]:
+                  - 'generic "Respuesta breve · short-146: actividad sintética" [ref=f1e2820] [cursor=pointer]'
+                - group [ref=f1e2821]:
+                  - 'generic "Elección única · apply-146: actividad sintética" [ref=f1e2822] [cursor=pointer]'
+                - group [ref=f1e2823]:
+                  - 'generic "Secuencia · sequence-146: actividad sintética" [ref=f1e2824] [cursor=pointer]'
+                - group [ref=f1e2825]:
+                  - 'generic "Estudio · study-147: actividad sintética" [ref=f1e2826] [cursor=pointer]'
+                - group [ref=f1e2827]:
+                  - 'generic "Elección única · choice-147: actividad sintética" [ref=f1e2828] [cursor=pointer]'
+                - group [ref=f1e2829]:
+                  - 'generic "Respuesta breve · short-147: actividad sintética" [ref=f1e2830] [cursor=pointer]'
+                - group [ref=f1e2831]:
+                  - 'generic "Elección única · apply-147: actividad sintética" [ref=f1e2832] [cursor=pointer]'
+                - group [ref=f1e2833]:
+                  - 'generic "Secuencia · sequence-147: actividad sintética" [ref=f1e2834] [cursor=pointer]'
+              - region "Unidad 23" [ref=f1e2835]:
+                - heading "Unidad 23" [level=2] [ref=f1e2836]
+                - group [ref=f1e2837]:
+                  - 'generic "Estudio · study-148: actividad sintética" [ref=f1e2838] [cursor=pointer]'
+                - group [ref=f1e2839]:
+                  - 'generic "Elección única · choice-148: actividad sintética" [ref=f1e2840] [cursor=pointer]'
+                - group [ref=f1e2841]:
+                  - 'generic "Respuesta breve · short-148: actividad sintética" [ref=f1e2842] [cursor=pointer]'
+                - group [ref=f1e2843]:
+                  - 'generic "Elección única · apply-148: actividad sintética" [ref=f1e2844] [cursor=pointer]'
+                - group [ref=f1e2845]:
+                  - 'generic "Secuencia · sequence-148: actividad sintética" [ref=f1e2846] [cursor=pointer]'
+                - group [ref=f1e2847]:
+                  - 'generic "Estudio · study-149: actividad sintética" [ref=f1e2848] [cursor=pointer]'
+                - group [ref=f1e2849]:
+                  - 'generic "Elección única · choice-149: actividad sintética" [ref=f1e2850] [cursor=pointer]'
+                - group [ref=f1e2851]:
+                  - 'generic "Respuesta breve · short-149: actividad sintética" [ref=f1e2852] [cursor=pointer]'
+                - group [ref=f1e2853]:
+                  - 'generic "Elección única · apply-149: actividad sintética" [ref=f1e2854] [cursor=pointer]'
+                - group [ref=f1e2855]:
+                  - 'generic "Secuencia · sequence-149: actividad sintética" [ref=f1e2856] [cursor=pointer]'
+                - group [ref=f1e2857]:
+                  - 'generic "Estudio · study-150: actividad sintética" [ref=f1e2858] [cursor=pointer]'
+                - group [ref=f1e2859]:
+                  - 'generic "Elección única · choice-150: actividad sintética" [ref=f1e2860] [cursor=pointer]'
+                - group [ref=f1e2861]:
+                  - 'generic "Respuesta breve · short-150: actividad sintética" [ref=f1e2862] [cursor=pointer]'
+                - group [ref=f1e2863]:
+                  - 'generic "Elección única · apply-150: actividad sintética" [ref=f1e2864] [cursor=pointer]'
+                - group [ref=f1e2865]:
+                  - 'generic "Secuencia · sequence-150: actividad sintética" [ref=f1e2866] [cursor=pointer]'
+                - group [ref=f1e2867]:
+                  - 'generic "Estudio · study-151: actividad sintética" [ref=f1e2868] [cursor=pointer]'
+                - group [ref=f1e2869]:
+                  - 'generic "Elección única · choice-151: actividad sintética" [ref=f1e2870] [cursor=pointer]'
+                - group [ref=f1e2871]:
+                  - 'generic "Respuesta breve · short-151: actividad sintética" [ref=f1e2872] [cursor=pointer]'
+                - group [ref=f1e2873]:
+                  - 'generic "Elección única · apply-151: actividad sintética" [ref=f1e2874] [cursor=pointer]'
+                - group [ref=f1e2875]:
+                  - 'generic "Secuencia · sequence-151: actividad sintética" [ref=f1e2876] [cursor=pointer]'
+                - group [ref=f1e2877]:
+                  - 'generic "Estudio · study-152: actividad sintética" [ref=f1e2878] [cursor=pointer]'
+                - group [ref=f1e2879]:
+                  - 'generic "Elección única · choice-152: actividad sintética" [ref=f1e2880] [cursor=pointer]'
+                - group [ref=f1e2881]:
+                  - 'generic "Respuesta breve · short-152: actividad sintética" [ref=f1e2882] [cursor=pointer]'
+                - group [ref=f1e2883]:
+                  - 'generic "Elección única · apply-152: actividad sintética" [ref=f1e2884] [cursor=pointer]'
+                - group [ref=f1e2885]:
+                  - 'generic "Secuencia · sequence-152: actividad sintética" [ref=f1e2886] [cursor=pointer]'
+                - group [ref=f1e2887]:
+                  - 'generic "Estudio · study-153: actividad sintética" [ref=f1e2888] [cursor=pointer]'
+                - group [ref=f1e2889]:
+                  - 'generic "Elección única · choice-153: actividad sintética" [ref=f1e2890] [cursor=pointer]'
+                - group [ref=f1e2891]:
+                  - 'generic "Respuesta breve · short-153: actividad sintética" [ref=f1e2892] [cursor=pointer]'
+                - group [ref=f1e2893]:
+                  - 'generic "Elección única · apply-153: actividad sintética" [ref=f1e2894] [cursor=pointer]'
+                - group [ref=f1e2895]:
+                  - 'generic "Secuencia · sequence-153: actividad sintética" [ref=f1e2896] [cursor=pointer]'
+                - group [ref=f1e2897]:
+                  - 'generic "Estudio · study-154: actividad sintética" [ref=f1e2898] [cursor=pointer]'
+                - group [ref=f1e2899]:
+                  - 'generic "Elección única · choice-154: actividad sintética" [ref=f1e2900] [cursor=pointer]'
+                - group [ref=f1e2901]:
+                  - 'generic "Respuesta breve · short-154: actividad sintética" [ref=f1e2902] [cursor=pointer]'
+                - group [ref=f1e2903]:
+                  - 'generic "Elección única · apply-154: actividad sintética" [ref=f1e2904] [cursor=pointer]'
+                - group [ref=f1e2905]:
+                  - 'generic "Secuencia · sequence-154: actividad sintética" [ref=f1e2906] [cursor=pointer]'
+              - region "Unidad 24" [ref=f1e2907]:
+                - heading "Unidad 24" [level=2] [ref=f1e2908]
+                - group [ref=f1e2909]:
+                  - 'generic "Estudio · study-155: actividad sintética" [ref=f1e2910] [cursor=pointer]'
+                - group [ref=f1e2911]:
+                  - 'generic "Elección única · choice-155: actividad sintética" [ref=f1e2912] [cursor=pointer]'
+                - group [ref=f1e2913]:
+                  - 'generic "Respuesta breve · short-155: actividad sintética" [ref=f1e2914] [cursor=pointer]'
+                - group [ref=f1e2915]:
+                  - 'generic "Elección única · apply-155: actividad sintética" [ref=f1e2916] [cursor=pointer]'
+                - group [ref=f1e2917]:
+                  - 'generic "Secuencia · sequence-155: actividad sintética" [ref=f1e2918] [cursor=pointer]'
+                - group [ref=f1e2919]:
+                  - 'generic "Estudio · study-156: actividad sintética" [ref=f1e2920] [cursor=pointer]'
+                - group [ref=f1e2921]:
+                  - 'generic "Elección única · choice-156: actividad sintética" [ref=f1e2922] [cursor=pointer]'
+                - group [ref=f1e2923]:
+                  - 'generic "Respuesta breve · short-156: actividad sintética" [ref=f1e2924] [cursor=pointer]'
+                - group [ref=f1e2925]:
+                  - 'generic "Elección única · apply-156: actividad sintética" [ref=f1e2926] [cursor=pointer]'
+                - group [ref=f1e2927]:
+                  - 'generic "Secuencia · sequence-156: actividad sintética" [ref=f1e2928] [cursor=pointer]'
+                - group [ref=f1e2929]:
+                  - 'generic "Estudio · study-157: actividad sintética" [ref=f1e2930] [cursor=pointer]'
+                - group [ref=f1e2931]:
+                  - 'generic "Elección única · choice-157: actividad sintética" [ref=f1e2932] [cursor=pointer]'
+                - group [ref=f1e2933]:
+                  - 'generic "Respuesta breve · short-157: actividad sintética" [ref=f1e2934] [cursor=pointer]'
+                - group [ref=f1e2935]:
+                  - 'generic "Elección única · apply-157: actividad sintética" [ref=f1e2936] [cursor=pointer]'
+                - group [ref=f1e2937]:
+                  - 'generic "Secuencia · sequence-157: actividad sintética" [ref=f1e2938] [cursor=pointer]'
+                - group [ref=f1e2939]:
+                  - 'generic "Estudio · study-158: actividad sintética" [ref=f1e2940] [cursor=pointer]'
+                - group [ref=f1e2941]:
+                  - 'generic "Elección única · choice-158: actividad sintética" [ref=f1e2942] [cursor=pointer]'
+                - group [ref=f1e2943]:
+                  - 'generic "Respuesta breve · short-158: actividad sintética" [ref=f1e2944] [cursor=pointer]'
+                - group [ref=f1e2945]:
+                  - 'generic "Elección única · apply-158: actividad sintética" [ref=f1e2946] [cursor=pointer]'
+                - group [ref=f1e2947]:
+                  - 'generic "Secuencia · sequence-158: actividad sintética" [ref=f1e2948] [cursor=pointer]'
+                - group [ref=f1e2949]:
+                  - 'generic "Estudio · study-159: actividad sintética" [ref=f1e2950] [cursor=pointer]'
+                - group [ref=f1e2951]:
+                  - 'generic "Elección única · choice-159: actividad sintética" [ref=f1e2952] [cursor=pointer]'
+                - group [ref=f1e2953]:
+                  - 'generic "Respuesta breve · short-159: actividad sintética" [ref=f1e2954] [cursor=pointer]'
+                - group [ref=f1e2955]:
+                  - 'generic "Elección única · apply-159: actividad sintética" [ref=f1e2956] [cursor=pointer]'
+                - group [ref=f1e2957]:
+                  - 'generic "Secuencia · sequence-159: actividad sintética" [ref=f1e2958] [cursor=pointer]'
+                - group [ref=f1e2959]:
+                  - 'generic "Estudio · study-160: actividad sintética" [ref=f1e2960] [cursor=pointer]'
+                - group [ref=f1e2961]:
+                  - 'generic "Elección única · choice-160: actividad sintética" [ref=f1e2962] [cursor=pointer]'
+                - group [ref=f1e2963]:
+                  - 'generic "Respuesta breve · short-160: actividad sintética" [ref=f1e2964] [cursor=pointer]'
+                - group [ref=f1e2965]:
+                  - 'generic "Elección única · apply-160: actividad sintética" [ref=f1e2966] [cursor=pointer]'
+                - group [ref=f1e2967]:
+                  - 'generic "Secuencia · sequence-160: actividad sintética" [ref=f1e2968] [cursor=pointer]'
+              - region "Unidad 25" [ref=f1e2969]:
+                - heading "Unidad 25" [level=2] [ref=f1e2970]
+                - group [ref=f1e2971]:
+                  - 'generic "Estudio · study-161: actividad sintética" [ref=f1e2972] [cursor=pointer]'
+                - group [ref=f1e2973]:
+                  - 'generic "Elección única · choice-161: actividad sintética" [ref=f1e2974] [cursor=pointer]'
+                - group [ref=f1e2975]:
+                  - 'generic "Respuesta breve · short-161: actividad sintética" [ref=f1e2976] [cursor=pointer]'
+                - group [ref=f1e2977]:
+                  - 'generic "Elección única · apply-161: actividad sintética" [ref=f1e2978] [cursor=pointer]'
+                - group [ref=f1e2979]:
+                  - 'generic "Secuencia · sequence-161: actividad sintética" [ref=f1e2980] [cursor=pointer]'
+                - group [ref=f1e2981]:
+                  - 'generic "Estudio · study-162: actividad sintética" [ref=f1e2982] [cursor=pointer]'
+                - group [ref=f1e2983]:
+                  - 'generic "Elección única · choice-162: actividad sintética" [ref=f1e2984] [cursor=pointer]'
+                - group [ref=f1e2985]:
+                  - 'generic "Respuesta breve · short-162: actividad sintética" [ref=f1e2986] [cursor=pointer]'
+                - group [ref=f1e2987]:
+                  - 'generic "Elección única · apply-162: actividad sintética" [ref=f1e2988] [cursor=pointer]'
+                - group [ref=f1e2989]:
+                  - 'generic "Secuencia · sequence-162: actividad sintética" [ref=f1e2990] [cursor=pointer]'
+                - group [ref=f1e2991]:
+                  - 'generic "Estudio · study-163: actividad sintética" [ref=f1e2992] [cursor=pointer]'
+                - group [ref=f1e2993]:
+                  - 'generic "Elección única · choice-163: actividad sintética" [ref=f1e2994] [cursor=pointer]'
+                - group [ref=f1e2995]:
+                  - 'generic "Respuesta breve · short-163: actividad sintética" [ref=f1e2996] [cursor=pointer]'
+                - group [ref=f1e2997]:
+                  - 'generic "Elección única · apply-163: actividad sintética" [ref=f1e2998] [cursor=pointer]'
+                - group [ref=f1e2999]:
+                  - 'generic "Secuencia · sequence-163: actividad sintética" [ref=f1e3000] [cursor=pointer]'
+                - group [ref=f1e3001]:
+                  - 'generic "Estudio · study-164: actividad sintética" [ref=f1e3002] [cursor=pointer]'
+                - group [ref=f1e3003]:
+                  - 'generic "Elección única · choice-164: actividad sintética" [ref=f1e3004] [cursor=pointer]'
+                - group [ref=f1e3005]:
+                  - 'generic "Respuesta breve · short-164: actividad sintética" [ref=f1e3006] [cursor=pointer]'
+                - group [ref=f1e3007]:
+                  - 'generic "Elección única · apply-164: actividad sintética" [ref=f1e3008] [cursor=pointer]'
+                - group [ref=f1e3009]:
+                  - 'generic "Secuencia · sequence-164: actividad sintética" [ref=f1e3010] [cursor=pointer]'
+                - group [ref=f1e3011]:
+                  - 'generic "Estudio · study-165: actividad sintética" [ref=f1e3012] [cursor=pointer]'
+                - group [ref=f1e3013]:
+                  - 'generic "Elección única · choice-165: actividad sintética" [ref=f1e3014] [cursor=pointer]'
+                - group [ref=f1e3015]:
+                  - 'generic "Respuesta breve · short-165: actividad sintética" [ref=f1e3016] [cursor=pointer]'
+                - group [ref=f1e3017]:
+                  - 'generic "Elección única · apply-165: actividad sintética" [ref=f1e3018] [cursor=pointer]'
+                - group [ref=f1e3019]:
+                  - 'generic "Secuencia · sequence-165: actividad sintética" [ref=f1e3020] [cursor=pointer]'
+                - group [ref=f1e3021]:
+                  - 'generic "Estudio · study-166: actividad sintética" [ref=f1e3022] [cursor=pointer]'
+                - group [ref=f1e3023]:
+                  - 'generic "Elección única · choice-166: actividad sintética" [ref=f1e3024] [cursor=pointer]'
+                - group [ref=f1e3025]:
+                  - 'generic "Respuesta breve · short-166: actividad sintética" [ref=f1e3026] [cursor=pointer]'
+                - group [ref=f1e3027]:
+                  - 'generic "Elección única · apply-166: actividad sintética" [ref=f1e3028] [cursor=pointer]'
+                - group [ref=f1e3029]:
+                  - 'generic "Secuencia · sequence-166: actividad sintética" [ref=f1e3030] [cursor=pointer]'
+                - group [ref=f1e3031]:
+                  - 'generic "Estudio · study-167: actividad sintética" [ref=f1e3032] [cursor=pointer]'
+                - group [ref=f1e3033]:
+                  - 'generic "Elección única · choice-167: actividad sintética" [ref=f1e3034] [cursor=pointer]'
+                - group [ref=f1e3035]:
+                  - 'generic "Respuesta breve · short-167: actividad sintética" [ref=f1e3036] [cursor=pointer]'
+                - group [ref=f1e3037]:
+                  - 'generic "Elección única · apply-167: actividad sintética" [ref=f1e3038] [cursor=pointer]'
+                - group [ref=f1e3039]:
+                  - 'generic "Secuencia · sequence-167: actividad sintética" [ref=f1e3040] [cursor=pointer]'
+              - region "Unidad 26" [ref=f1e3041]:
+                - heading "Unidad 26" [level=2] [ref=f1e3042]
+                - group [ref=f1e3043]:
+                  - 'generic "Estudio · study-168: actividad sintética" [ref=f1e3044] [cursor=pointer]'
+                - group [ref=f1e3045]:
+                  - 'generic "Elección única · choice-168: actividad sintética" [ref=f1e3046] [cursor=pointer]'
+                - group [ref=f1e3047]:
+                  - 'generic "Respuesta breve · short-168: actividad sintética" [ref=f1e3048] [cursor=pointer]'
+                - group [ref=f1e3049]:
+                  - 'generic "Elección única · apply-168: actividad sintética" [ref=f1e3050] [cursor=pointer]'
+                - group [ref=f1e3051]:
+                  - 'generic "Secuencia · sequence-168: actividad sintética" [ref=f1e3052] [cursor=pointer]'
+                - group [ref=f1e3053]:
+                  - 'generic "Estudio · study-169: actividad sintética" [ref=f1e3054] [cursor=pointer]'
+                - group [ref=f1e3055]:
+                  - 'generic "Elección única · choice-169: actividad sintética" [ref=f1e3056] [cursor=pointer]'
+                - group [ref=f1e3057]:
+                  - 'generic "Respuesta breve · short-169: actividad sintética" [ref=f1e3058] [cursor=pointer]'
+                - group [ref=f1e3059]:
+                  - 'generic "Elección única · apply-169: actividad sintética" [ref=f1e3060] [cursor=pointer]'
+                - group [ref=f1e3061]:
+                  - 'generic "Secuencia · sequence-169: actividad sintética" [ref=f1e3062] [cursor=pointer]'
+                - group [ref=f1e3063]:
+                  - 'generic "Estudio · study-170: actividad sintética" [ref=f1e3064] [cursor=pointer]'
+                - group [ref=f1e3065]:
+                  - 'generic "Elección única · choice-170: actividad sintética" [ref=f1e3066] [cursor=pointer]'
+                - group [ref=f1e3067]:
+                  - 'generic "Respuesta breve · short-170: actividad sintética" [ref=f1e3068] [cursor=pointer]'
+                - group [ref=f1e3069]:
+                  - 'generic "Elección única · apply-170: actividad sintética" [ref=f1e3070] [cursor=pointer]'
+                - group [ref=f1e3071]:
+                  - 'generic "Secuencia · sequence-170: actividad sintética" [ref=f1e3072] [cursor=pointer]'
+                - group [ref=f1e3073]:
+                  - 'generic "Estudio · study-171: actividad sintética" [ref=f1e3074] [cursor=pointer]'
+                - group [ref=f1e3075]:
+                  - 'generic "Elección única · choice-171: actividad sintética" [ref=f1e3076] [cursor=pointer]'
+                - group [ref=f1e3077]:
+                  - 'generic "Respuesta breve · short-171: actividad sintética" [ref=f1e3078] [cursor=pointer]'
+                - group [ref=f1e3079]:
+                  - 'generic "Elección única · apply-171: actividad sintética" [ref=f1e3080] [cursor=pointer]'
+                - group [ref=f1e3081]:
+                  - 'generic "Secuencia · sequence-171: actividad sintética" [ref=f1e3082] [cursor=pointer]'
+                - group [ref=f1e3083]:
+                  - 'generic "Estudio · study-172: actividad sintética" [ref=f1e3084] [cursor=pointer]'
+                - group [ref=f1e3085]:
+                  - 'generic "Elección única · choice-172: actividad sintética" [ref=f1e3086] [cursor=pointer]'
+                - group [ref=f1e3087]:
+                  - 'generic "Respuesta breve · short-172: actividad sintética" [ref=f1e3088] [cursor=pointer]'
+                - group [ref=f1e3089]:
+                  - 'generic "Elección única · apply-172: actividad sintética" [ref=f1e3090] [cursor=pointer]'
+                - group [ref=f1e3091]:
+                  - 'generic "Secuencia · sequence-172: actividad sintética" [ref=f1e3092] [cursor=pointer]'
+                - group [ref=f1e3093]:
+                  - 'generic "Estudio · study-173: actividad sintética" [ref=f1e3094] [cursor=pointer]'
+                - group [ref=f1e3095]:
+                  - 'generic "Elección única · choice-173: actividad sintética" [ref=f1e3096] [cursor=pointer]'
+                - group [ref=f1e3097]:
+                  - 'generic "Respuesta breve · short-173: actividad sintética" [ref=f1e3098] [cursor=pointer]'
+                - group [ref=f1e3099]:
+                  - 'generic "Elección única · apply-173: actividad sintética" [ref=f1e3100] [cursor=pointer]'
+                - group [ref=f1e3101]:
+                  - 'generic "Secuencia · sequence-173: actividad sintética" [ref=f1e3102] [cursor=pointer]'
+                - group [ref=f1e3103]:
+                  - 'generic "Estudio · study-174: actividad sintética" [ref=f1e3104] [cursor=pointer]'
+                - group [ref=f1e3105]:
+                  - 'generic "Elección única · choice-174: actividad sintética" [ref=f1e3106] [cursor=pointer]'
+                - group [ref=f1e3107]:
+                  - 'generic "Respuesta breve · short-174: actividad sintética" [ref=f1e3108] [cursor=pointer]'
+                - group [ref=f1e3109]:
+                  - 'generic "Elección única · apply-174: actividad sintética" [ref=f1e3110] [cursor=pointer]'
+                - group [ref=f1e3111]:
+                  - 'generic "Secuencia · sequence-174: actividad sintética" [ref=f1e3112] [cursor=pointer]'
+              - region "Unidad 27" [ref=f1e3113]:
+                - heading "Unidad 27" [level=2] [ref=f1e3114]
+                - group [ref=f1e3115]:
+                  - 'generic "Estudio · study-175: actividad sintética" [ref=f1e3116] [cursor=pointer]'
+                - group [ref=f1e3117]:
+                  - 'generic "Elección única · choice-175: actividad sintética" [ref=f1e3118] [cursor=pointer]'
+                - group [ref=f1e3119]:
+                  - 'generic "Respuesta breve · short-175: actividad sintética" [ref=f1e3120] [cursor=pointer]'
+                - group [ref=f1e3121]:
+                  - 'generic "Elección única · apply-175: actividad sintética" [ref=f1e3122] [cursor=pointer]'
+                - group [ref=f1e3123]:
+                  - 'generic "Secuencia · sequence-175: actividad sintética" [ref=f1e3124] [cursor=pointer]'
+                - group [ref=f1e3125]:
+                  - 'generic "Estudio · study-176: actividad sintética" [ref=f1e3126] [cursor=pointer]'
+                - group [ref=f1e3127]:
+                  - 'generic "Elección única · choice-176: actividad sintética" [ref=f1e3128] [cursor=pointer]'
+                - group [ref=f1e3129]:
+                  - 'generic "Respuesta breve · short-176: actividad sintética" [ref=f1e3130] [cursor=pointer]'
+                - group [ref=f1e3131]:
+                  - 'generic "Elección única · apply-176: actividad sintética" [ref=f1e3132] [cursor=pointer]'
+                - group [ref=f1e3133]:
+                  - 'generic "Secuencia · sequence-176: actividad sintética" [ref=f1e3134] [cursor=pointer]'
+                - group [ref=f1e3135]:
+                  - 'generic "Estudio · study-177: actividad sintética" [ref=f1e3136] [cursor=pointer]'
+                - group [ref=f1e3137]:
+                  - 'generic "Elección única · choice-177: actividad sintética" [ref=f1e3138] [cursor=pointer]'
+                - group [ref=f1e3139]:
+                  - 'generic "Respuesta breve · short-177: actividad sintética" [ref=f1e3140] [cursor=pointer]'
+                - group [ref=f1e3141]:
+                  - 'generic "Elección única · apply-177: actividad sintética" [ref=f1e3142] [cursor=pointer]'
+                - group [ref=f1e3143]:
+                  - 'generic "Secuencia · sequence-177: actividad sintética" [ref=f1e3144] [cursor=pointer]'
+                - group [ref=f1e3145]:
+                  - 'generic "Estudio · study-178: actividad sintética" [ref=f1e3146] [cursor=pointer]'
+                - group [ref=f1e3147]:
+                  - 'generic "Elección única · choice-178: actividad sintética" [ref=f1e3148] [cursor=pointer]'
+                - group [ref=f1e3149]:
+                  - 'generic "Respuesta breve · short-178: actividad sintética" [ref=f1e3150] [cursor=pointer]'
+                - group [ref=f1e3151]:
+                  - 'generic "Elección única · apply-178: actividad sintética" [ref=f1e3152] [cursor=pointer]'
+                - group [ref=f1e3153]:
+                  - 'generic "Secuencia · sequence-178: actividad sintética" [ref=f1e3154] [cursor=pointer]'
+                - group [ref=f1e3155]:
+                  - 'generic "Estudio · study-179: actividad sintética" [ref=f1e3156] [cursor=pointer]'
+                - group [ref=f1e3157]:
+                  - 'generic "Elección única · choice-179: actividad sintética" [ref=f1e3158] [cursor=pointer]'
+                - group [ref=f1e3159]:
+                  - 'generic "Respuesta breve · short-179: actividad sintética" [ref=f1e3160] [cursor=pointer]'
+                - group [ref=f1e3161]:
+                  - 'generic "Elección única · apply-179: actividad sintética" [ref=f1e3162] [cursor=pointer]'
+                - group [ref=f1e3163]:
+                  - 'generic "Secuencia · sequence-179: actividad sintética" [ref=f1e3164] [cursor=pointer]'
+                - group [ref=f1e3165]:
+                  - 'generic "Estudio · study-180: actividad sintética" [ref=f1e3166] [cursor=pointer]'
+                - group [ref=f1e3167]:
+                  - 'generic "Elección única · choice-180: actividad sintética" [ref=f1e3168] [cursor=pointer]'
+                - group [ref=f1e3169]:
+                  - 'generic "Respuesta breve · short-180: actividad sintética" [ref=f1e3170] [cursor=pointer]'
+                - group [ref=f1e3171]:
+                  - 'generic "Elección única · apply-180: actividad sintética" [ref=f1e3172] [cursor=pointer]'
+                - group [ref=f1e3173]:
+                  - 'generic "Secuencia · sequence-180: actividad sintética" [ref=f1e3174] [cursor=pointer]'
+              - region "Unidad 28" [ref=f1e3175]:
+                - heading "Unidad 28" [level=2] [ref=f1e3176]
+                - group [ref=f1e3177]:
+                  - 'generic "Estudio · study-181: actividad sintética" [ref=f1e3178] [cursor=pointer]'
+                - group [ref=f1e3179]:
+                  - 'generic "Elección única · choice-181: actividad sintética" [ref=f1e3180] [cursor=pointer]'
+                - group [ref=f1e3181]:
+                  - 'generic "Respuesta breve · short-181: actividad sintética" [ref=f1e3182] [cursor=pointer]'
+                - group [ref=f1e3183]:
+                  - 'generic "Elección única · apply-181: actividad sintética" [ref=f1e3184] [cursor=pointer]'
+                - group [ref=f1e3185]:
+                  - 'generic "Secuencia · sequence-181: actividad sintética" [ref=f1e3186] [cursor=pointer]'
+                - group [ref=f1e3187]:
+                  - 'generic "Estudio · study-182: actividad sintética" [ref=f1e3188] [cursor=pointer]'
+                - group [ref=f1e3189]:
+                  - 'generic "Elección única · choice-182: actividad sintética" [ref=f1e3190] [cursor=pointer]'
+                - group [ref=f1e3191]:
+                  - 'generic "Respuesta breve · short-182: actividad sintética" [ref=f1e3192] [cursor=pointer]'
+                - group [ref=f1e3193]:
+                  - 'generic "Elección única · apply-182: actividad sintética" [ref=f1e3194] [cursor=pointer]'
+                - group [ref=f1e3195]:
+                  - 'generic "Secuencia · sequence-182: actividad sintética" [ref=f1e3196] [cursor=pointer]'
+                - group [ref=f1e3197]:
+                  - 'generic "Estudio · study-183: actividad sintética" [ref=f1e3198] [cursor=pointer]'
+                - group [ref=f1e3199]:
+                  - 'generic "Elección única · choice-183: actividad sintética" [ref=f1e3200] [cursor=pointer]'
+                - group [ref=f1e3201]:
+                  - 'generic "Respuesta breve · short-183: actividad sintética" [ref=f1e3202] [cursor=pointer]'
+                - group [ref=f1e3203]:
+                  - 'generic "Elección única · apply-183: actividad sintética" [ref=f1e3204] [cursor=pointer]'
+                - group [ref=f1e3205]:
+                  - 'generic "Secuencia · sequence-183: actividad sintética" [ref=f1e3206] [cursor=pointer]'
+                - group [ref=f1e3207]:
+                  - 'generic "Estudio · study-184: actividad sintética" [ref=f1e3208] [cursor=pointer]'
+                - group [ref=f1e3209]:
+                  - 'generic "Elección única · choice-184: actividad sintética" [ref=f1e3210] [cursor=pointer]'
+                - group [ref=f1e3211]:
+                  - 'generic "Respuesta breve · short-184: actividad sintética" [ref=f1e3212] [cursor=pointer]'
+                - group [ref=f1e3213]:
+                  - 'generic "Elección única · apply-184: actividad sintética" [ref=f1e3214] [cursor=pointer]'
+                - group [ref=f1e3215]:
+                  - 'generic "Secuencia · sequence-184: actividad sintética" [ref=f1e3216] [cursor=pointer]'
+                - group [ref=f1e3217]:
+                  - 'generic "Estudio · study-185: actividad sintética" [ref=f1e3218] [cursor=pointer]'
+                - group [ref=f1e3219]:
+                  - 'generic "Elección única · choice-185: actividad sintética" [ref=f1e3220] [cursor=pointer]'
+                - group [ref=f1e3221]:
+                  - 'generic "Respuesta breve · short-185: actividad sintética" [ref=f1e3222] [cursor=pointer]'
+                - group [ref=f1e3223]:
+                  - 'generic "Elección única · apply-185: actividad sintética" [ref=f1e3224] [cursor=pointer]'
+                - group [ref=f1e3225]:
+                  - 'generic "Secuencia · sequence-185: actividad sintética" [ref=f1e3226] [cursor=pointer]'
+                - group [ref=f1e3227]:
+                  - 'generic "Estudio · study-186: actividad sintética" [ref=f1e3228] [cursor=pointer]'
+                - group [ref=f1e3229]:
+                  - 'generic "Elección única · choice-186: actividad sintética" [ref=f1e3230] [cursor=pointer]'
+                - group [ref=f1e3231]:
+                  - 'generic "Respuesta breve · short-186: actividad sintética" [ref=f1e3232] [cursor=pointer]'
+                - group [ref=f1e3233]:
+                  - 'generic "Elección única · apply-186: actividad sintética" [ref=f1e3234] [cursor=pointer]'
+                - group [ref=f1e3235]:
+                  - 'generic "Secuencia · sequence-186: actividad sintética" [ref=f1e3236] [cursor=pointer]'
+                - group [ref=f1e3237]:
+                  - 'generic "Estudio · study-187: actividad sintética" [ref=f1e3238] [cursor=pointer]'
+                - group [ref=f1e3239]:
+                  - 'generic "Elección única · choice-187: actividad sintética" [ref=f1e3240] [cursor=pointer]'
+                - group [ref=f1e3241]:
+                  - 'generic "Respuesta breve · short-187: actividad sintética" [ref=f1e3242] [cursor=pointer]'
+                - group [ref=f1e3243]:
+                  - 'generic "Elección única · apply-187: actividad sintética" [ref=f1e3244] [cursor=pointer]'
+                - group [ref=f1e3245]:
+                  - 'generic "Secuencia · sequence-187: actividad sintética" [ref=f1e3246] [cursor=pointer]'
+              - region "Unidad 29" [ref=f1e3247]:
+                - heading "Unidad 29" [level=2] [ref=f1e3248]
+                - group [ref=f1e3249]:
+                  - 'generic "Estudio · study-188: actividad sintética" [ref=f1e3250] [cursor=pointer]'
+                - group [ref=f1e3251]:
+                  - 'generic "Elección única · choice-188: actividad sintética" [ref=f1e3252] [cursor=pointer]'
+                - group [ref=f1e3253]:
+                  - 'generic "Respuesta breve · short-188: actividad sintética" [ref=f1e3254] [cursor=pointer]'
+                - group [ref=f1e3255]:
+                  - 'generic "Elección única · apply-188: actividad sintética" [ref=f1e3256] [cursor=pointer]'
+                - group [ref=f1e3257]:
+                  - 'generic "Secuencia · sequence-188: actividad sintética" [ref=f1e3258] [cursor=pointer]'
+                - group [ref=f1e3259]:
+                  - 'generic "Estudio · study-189: actividad sintética" [ref=f1e3260] [cursor=pointer]'
+                - group [ref=f1e3261]:
+                  - 'generic "Elección única · choice-189: actividad sintética" [ref=f1e3262] [cursor=pointer]'
+                - group [ref=f1e3263]:
+                  - 'generic "Respuesta breve · short-189: actividad sintética" [ref=f1e3264] [cursor=pointer]'
+                - group [ref=f1e3265]:
+                  - 'generic "Elección única · apply-189: actividad sintética" [ref=f1e3266] [cursor=pointer]'
+                - group [ref=f1e3267]:
+                  - 'generic "Secuencia · sequence-189: actividad sintética" [ref=f1e3268] [cursor=pointer]'
+                - group [ref=f1e3269]:
+                  - 'generic "Estudio · study-190: actividad sintética" [ref=f1e3270] [cursor=pointer]'
+                - group [ref=f1e3271]:
+                  - 'generic "Elección única · choice-190: actividad sintética" [ref=f1e3272] [cursor=pointer]'
+                - group [ref=f1e3273]:
+                  - 'generic "Respuesta breve · short-190: actividad sintética" [ref=f1e3274] [cursor=pointer]'
+                - group [ref=f1e3275]:
+                  - 'generic "Elección única · apply-190: actividad sintética" [ref=f1e3276] [cursor=pointer]'
+                - group [ref=f1e3277]:
+                  - 'generic "Secuencia · sequence-190: actividad sintética" [ref=f1e3278] [cursor=pointer]'
+                - group [ref=f1e3279]:
+                  - 'generic "Estudio · study-191: actividad sintética" [ref=f1e3280] [cursor=pointer]'
+                - group [ref=f1e3281]:
+                  - 'generic "Elección única · choice-191: actividad sintética" [ref=f1e3282] [cursor=pointer]'
+                - group [ref=f1e3283]:
+                  - 'generic "Respuesta breve · short-191: actividad sintética" [ref=f1e3284] [cursor=pointer]'
+                - group [ref=f1e3285]:
+                  - 'generic "Elección única · apply-191: actividad sintética" [ref=f1e3286] [cursor=pointer]'
+                - group [ref=f1e3287]:
+                  - 'generic "Secuencia · sequence-191: actividad sintética" [ref=f1e3288] [cursor=pointer]'
+                - group [ref=f1e3289]:
+                  - 'generic "Estudio · study-192: actividad sintética" [ref=f1e3290] [cursor=pointer]'
+                - group [ref=f1e3291]:
+                  - 'generic "Elección única · choice-192: actividad sintética" [ref=f1e3292] [cursor=pointer]'
+                - group [ref=f1e3293]:
+                  - 'generic "Respuesta breve · short-192: actividad sintética" [ref=f1e3294] [cursor=pointer]'
+                - group [ref=f1e3295]:
+                  - 'generic "Elección única · apply-192: actividad sintética" [ref=f1e3296] [cursor=pointer]'
+                - group [ref=f1e3297]:
+                  - 'generic "Secuencia · sequence-192: actividad sintética" [ref=f1e3298] [cursor=pointer]'
+                - group [ref=f1e3299]:
+                  - 'generic "Estudio · study-193: actividad sintética" [ref=f1e3300] [cursor=pointer]'
+                - group [ref=f1e3301]:
+                  - 'generic "Elección única · choice-193: actividad sintética" [ref=f1e3302] [cursor=pointer]'
+                - group [ref=f1e3303]:
+                  - 'generic "Respuesta breve · short-193: actividad sintética" [ref=f1e3304] [cursor=pointer]'
+                - group [ref=f1e3305]:
+                  - 'generic "Elección única · apply-193: actividad sintética" [ref=f1e3306] [cursor=pointer]'
+                - group [ref=f1e3307]:
+                  - 'generic "Secuencia · sequence-193: actividad sintética" [ref=f1e3308] [cursor=pointer]'
+                - group [ref=f1e3309]:
+                  - 'generic "Estudio · study-194: actividad sintética" [ref=f1e3310] [cursor=pointer]'
+                - group [ref=f1e3311]:
+                  - 'generic "Elección única · choice-194: actividad sintética" [ref=f1e3312] [cursor=pointer]'
+                - group [ref=f1e3313]:
+                  - 'generic "Respuesta breve · short-194: actividad sintética" [ref=f1e3314] [cursor=pointer]'
+                - group [ref=f1e3315]:
+                  - 'generic "Elección única · apply-194: actividad sintética" [ref=f1e3316] [cursor=pointer]'
+                - group [ref=f1e3317]:
+                  - 'generic "Secuencia · sequence-194: actividad sintética" [ref=f1e3318] [cursor=pointer]'
+              - region "Unidad 30" [ref=f1e3319]:
+                - heading "Unidad 30" [level=2] [ref=f1e3320]
+                - group [ref=f1e3321]:
+                  - 'generic "Estudio · study-195: actividad sintética" [ref=f1e3322] [cursor=pointer]'
+                - group [ref=f1e3323]:
+                  - 'generic "Elección única · choice-195: actividad sintética" [ref=f1e3324] [cursor=pointer]'
+                - group [ref=f1e3325]:
+                  - 'generic "Respuesta breve · short-195: actividad sintética" [ref=f1e3326] [cursor=pointer]'
+                - group [ref=f1e3327]:
+                  - 'generic "Elección única · apply-195: actividad sintética" [ref=f1e3328] [cursor=pointer]'
+                - group [ref=f1e3329]:
+                  - 'generic "Secuencia · sequence-195: actividad sintética" [ref=f1e3330] [cursor=pointer]'
+                - group [ref=f1e3331]:
+                  - 'generic "Estudio · study-196: actividad sintética" [ref=f1e3332] [cursor=pointer]'
+                - group [ref=f1e3333]:
+                  - 'generic "Elección única · choice-196: actividad sintética" [ref=f1e3334] [cursor=pointer]'
+                - group [ref=f1e3335]:
+                  - 'generic "Respuesta breve · short-196: actividad sintética" [ref=f1e3336] [cursor=pointer]'
+                - group [ref=f1e3337]:
+                  - 'generic "Elección única · apply-196: actividad sintética" [ref=f1e3338] [cursor=pointer]'
+                - group [ref=f1e3339]:
+                  - 'generic "Secuencia · sequence-196: actividad sintética" [ref=f1e3340] [cursor=pointer]'
+                - group [ref=f1e3341]:
+                  - 'generic "Estudio · study-197: actividad sintética" [ref=f1e3342] [cursor=pointer]'
+                - group [ref=f1e3343]:
+                  - 'generic "Elección única · choice-197: actividad sintética" [ref=f1e3344] [cursor=pointer]'
+                - group [ref=f1e3345]:
+                  - 'generic "Respuesta breve · short-197: actividad sintética" [ref=f1e3346] [cursor=pointer]'
+                - group [ref=f1e3347]:
+                  - 'generic "Elección única · apply-197: actividad sintética" [ref=f1e3348] [cursor=pointer]'
+                - group [ref=f1e3349]:
+                  - 'generic "Secuencia · sequence-197: actividad sintética" [ref=f1e3350] [cursor=pointer]'
+                - group [ref=f1e3351]:
+                  - 'generic "Estudio · study-198: actividad sintética" [ref=f1e3352] [cursor=pointer]'
+                - group [ref=f1e3353]:
+                  - 'generic "Elección única · choice-198: actividad sintética" [ref=f1e3354] [cursor=pointer]'
+                - group [ref=f1e3355]:
+                  - 'generic "Respuesta breve · short-198: actividad sintética" [ref=f1e3356] [cursor=pointer]'
+                - group [ref=f1e3357]:
+                  - 'generic "Elección única · apply-198: actividad sintética" [ref=f1e3358] [cursor=pointer]'
+                - group [ref=f1e3359]:
+                  - 'generic "Secuencia · sequence-198: actividad sintética" [ref=f1e3360] [cursor=pointer]'
+                - group [ref=f1e3361]:
+                  - 'generic "Estudio · study-199: actividad sintética" [ref=f1e3362] [cursor=pointer]'
+                - group [ref=f1e3363]:
+                  - 'generic "Elección única · choice-199: actividad sintética" [ref=f1e3364] [cursor=pointer]'
+                - group [ref=f1e3365]:
+                  - 'generic "Respuesta breve · short-199: actividad sintética" [ref=f1e3366] [cursor=pointer]'
+                - group [ref=f1e3367]:
+                  - 'generic "Elección única · apply-199: actividad sintética" [ref=f1e3368] [cursor=pointer]'
+                - group [ref=f1e3369]:
+                  - 'generic "Secuencia · sequence-199: actividad sintética" [ref=f1e3370] [cursor=pointer]'
+                - group [ref=f1e3371]:
+                  - 'generic "Estudio · study-200: actividad sintética" [ref=f1e3372] [cursor=pointer]'
+                - group [ref=f1e3373]:
+                  - 'generic "Elección única · choice-200: actividad sintética" [ref=f1e3374] [cursor=pointer]'
+                - group [ref=f1e3375]:
+                  - 'generic "Respuesta breve · short-200: actividad sintética" [ref=f1e3376] [cursor=pointer]'
+                - group [ref=f1e3377]:
+                  - 'generic "Elección única · apply-200: actividad sintética" [ref=f1e3378] [cursor=pointer]'
+                - group [ref=f1e3379]:
+                  - 'generic "Secuencia · sequence-200: actividad sintética" [ref=f1e3380] [cursor=pointer]'
+        - generic [ref=f1e3381]:
+          - generic [ref=f1e3382]:
+            - strong [ref=f1e3383]: Hay una copia local de otra revisión
+            - paragraph [ref=f1e3384]: Descarga la copia para conservarla; no se aplicará sobre la nueva revisión.
+          - generic [ref=f1e3385]:
+            - button "Descargar copia local" [ref=f1e3386] [cursor=pointer]
+            - button "Descartar" [ref=f1e3387] [cursor=pointer]
+        - generic [ref=f1e3388]:
+          - generic [ref=f1e3389]:
+            - strong [ref=f1e3390]: Borrador al día
+            - generic [ref=f1e3391]: La versión mostrada procede del servidor.
+          - button "Guardar borrador" [disabled] [ref=f1e3392]
+  - alert [ref=f1e3393]
+```

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+const source=new URL('../T038/browser-fixture.json',import.meta.url);
+const route=JSON.parse(readFileSync(source,'utf8')),pkg=structuredClone(route.definition);
+pkg.packageKey='t038-200';pkg.route.slug='t038-200';pkg.route.title='Fixture T038 200';
+const sha256=createHash('sha256').update(JSON.stringify(pkg)).digest('hex');
+const measured=JSON.parse(readFileSync(new URL('regression-final-load.json',import.meta.url),'utf8'));
+assert.equal(pkg.units.length,30);assert.equal(pkg.objectives.length,200);assert.equal(pkg.activities.length,1600);
+assert.equal(sha256,measured.fixture.sha256,'Browser fixture must equal the fixture measured in the current T040 load run');
+writeFileSync(new URL('large-editor-package.json',import.meta.url),JSON.stringify(pkg));
+writeFileSync(new URL('large-editor-fixture-check.json',import.meta.url),JSON.stringify({status:'PASS',source:'../T038/browser-fixture.json definition only; bindings replaced by current test DB',sha256,equalsCurrentMeasuredFixture:true,units:30,objectives:200,activities:1600},null,2));
+console.log(`Exact current measured fixture: ${sha256}`);

@@ -1,0 +1,75 @@
+Command: pnpm.cmd --filter @cediah/web exec playwright test --config D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.large-editor-recheck.config.mts
+Node: v24.19.0
+Started: 2026-10-09T02:28:26.097Z
+[WebServer] (node:4260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:7688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:34408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 2 tests using 1 worker
+
+(node:1148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:5:5 › T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF (24.1s)
+(node:33644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [mobile] › ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:5:5 › T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF (1.3m)
+
+
+  1) [mobile] › ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:5:5 › T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF 
+
+    TimeoutError: locator.fill: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Consigna', { exact: true })
+        - locator resolved to <textarea rows="3" id="_r_15_" required="" maxlength="4000" aria-invalid="false" data-field-path="package.activities.0.prompt">Edición T040 mobile</textarea>
+        - fill("")
+      - attempting fill action
+        2 × waiting for element to be visible, enabled and editable
+          - element is not enabled
+        - retrying fill action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and editable
+          - element is not enabled
+        - retrying fill action
+          - waiting 100ms
+        104 × waiting for element to be visible, enabled and editable
+            - element is not enabled
+          - retrying fill action
+            - waiting 500ms
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:43:16)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor-recheck-browser-artifacts\large-editor-T040-L03-larg-b4a47-rsists-through-the-real-BFF-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor-recheck-browser-artifacts\large-editor-T040-L03-larg-b4a47-rsists-through-the-real-BFF-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor-recheck-browser-artifacts\large-editor-T040-L03-larg-b4a47-rsists-through-the-real-BFF-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor-recheck-browser-artifacts\large-editor-T040-L03-larg-b4a47-rsists-through-the-real-BFF-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile] › ..\..\docs\aprendizaje-guiado\v2\evidencias\T040\large-editor.spec.ts:5:5 › T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF 
+  1 passed (2.0m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config "D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.large-editor-recheck.config.mts"
+
+Exit code: 1
+Finished: 2026-10-09T02:30:28.651Z

@@ -103,7 +103,9 @@ describe("T030 authorized active images and accessible detours",()=>{
     expect(result.json().state.masteredAt).toBeNull();
   });
   it("refreshes server-time recommendations on retry while preserving the receipt and one response",async()=>{
-    const attempt=await launch('match'),key=v2Id(serial++);
+    const created=await h.service.create({userId:v2Id(1),idempotencyKey:v2Id(serial++),clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),target:{kind:'activity',key:'match'},expectedEnrollmentVersion:1});
+    expect(created.status).toBe('success');if(created.status!=='success')return;
+    const attempt=created.value,key=v2Id(serial++);
     const body={activityKey:'match',expectedVersion:1,answer:{kind:'match',pairs:{p1:'c1',p2:'c2',p3:'c3',p4:'c3'}},confidence:null};
     const first=await post(`attempts/${attempt.attemptId}/responses`,body,key);
     expect(first.statusCode).toBe(200);

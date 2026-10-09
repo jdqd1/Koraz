@@ -270,7 +270,7 @@ export function editorFixture(mode: EditorFixtureMode) {
     canPublish: true,
     canReview: true,
     initialPath,
-    initialResources: mode === "empty-catalog" ? [] : mode === "off-page" ? [editorFixtureResources[2]!] : editorFixtureResources,
+    initialResources: mode === "empty-catalog" ? [] : mode === "off-page" ? [editorFixtureResources[1]!] : editorFixtureResources,
     resourceNextCursor: mode === "off-page" ? "fixture-next" : null,
     resourceTopics: mode === "empty-catalog" ? [] : ["Anatomía"],
     routeTopics: editorFixtureTopics,

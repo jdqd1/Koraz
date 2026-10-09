@@ -1,0 +1,33 @@
+Command: pnpm.cmd --filter @cediah/web exec playwright test --config D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.editor-repair-final.config.mts route-editor.spec.ts --grep mantiene material fijado|contenido heredado conserva
+Node: v24.19.0
+Started: 2026-10-09T03:03:03.169Z
+[WebServer] (node:27704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:27220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:34704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:30032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\route-editor.spec.ts:161:7 › editor cotidiano con transporte fixture en memoria › mantiene material fijado fuera de la primera página y pagina sin perderlo (9.2s)
+[WebServer] (node:18536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\e2e\route-editor.spec.ts:343:7 › editor cotidiano con transporte fixture en memoria › contenido heredado conserva dos objetivos, cuatro formatos y alternativas (13.0s)
+(node:14228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:11600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 [mobile] › tests\e2e\route-editor.spec.ts:161:7 › editor cotidiano con transporte fixture en memoria › mantiene material fijado fuera de la primera página y pagina sin perderlo (6.8s)
+[WebServer] (node:34200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\route-editor.spec.ts:343:7 › editor cotidiano con transporte fixture en memoria › contenido heredado conserva dos objetivos, cuatro formatos y alternativas (6.2s)
+
+  4 passed (1.9m)
+
+Exit code: 0
+Finished: 2026-10-09T03:05:02.715Z

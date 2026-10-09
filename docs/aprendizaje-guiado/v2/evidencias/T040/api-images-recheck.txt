@@ -1,0 +1,56 @@
+Command: pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-images.test.ts test/guided-v2-preview.test.ts test/learning-map-storage.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/api-images-recheck.json
+Node: v24.19.0
+Started: 2026-10-09T01:59:48.381Z
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-images.test.ts (9 tests | 1 failed) 7368ms
+     ✓ projects target identities without geometric solutions or alternative answers  353ms
+     ✓ issues only pinned private media with a short expiry and strict request binding 103ms
+     ✓ denies foreign, expired, revoked and completed media before signing 187ms
+     ✓ persists an idempotent accessible transition, resume, modality and original spatial requirement 270ms
+     ✓ rejects stale transition and alternative after revocation without effects 51ms
+     ✓ labels only public markers and grades partial correctness in server 66ms
+     ✓ allows runtime media reads only through additive column grants 4ms
+     ✓ returns persisted partial feedback without replacing the binary score 78ms
+     × refreshes server-time recommendations on retry while preserving the receipt and one response 22ms
+ ✓ test/guided-v2-preview.test.ts (9 tests) 3854ms
+     ✓ authorizes editors, isolates actors, retries once and leaves all learner table counts unchanged  3710ms
+ ✓ test/learning-map-storage.test.ts (12 tests) 5454ms
+     ✓ reads 5,000 references as one current level with bounded query count  2113ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > refreshes server-time recommendations on retry while preserving the receipt and one response
+AssertionError: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:33
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:106:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 29 passed (30)
+   Start at  21:59:54
+   Duration  30.25s (transform 1.40s, setup 0ms, import 12.01s, tests 16.68s, environment 0ms)
+
+JSON report written to D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T040/api-images-recheck.json
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-images.test.ts test/guided-v2-preview.test.ts test/learning-map-storage.test.ts "--maxWorkers=1" "--reporter=default" "--reporter=json" "--outputFile=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/api-images-recheck.json"
+
+Exit code: 1
+Finished: 2026-10-09T02:00:25.095Z

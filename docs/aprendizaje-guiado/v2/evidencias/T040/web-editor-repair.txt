@@ -1,0 +1,64 @@
+Command: pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/editor/editor-fixtures.test.ts src/components/learning/editor/editor-model.test.ts src/components/learning/editor/editor-serialization.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/web-editor-repair.json
+Node: v22.22.0
+Started: 2026-10-09T03:01:32.549Z
+.                                        | [WARN] Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.0","pnpm":"11.25.0"})
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/editor/editor-fixtures.test.ts (17 tests | 1 failed) 79ms
+     ✓ builds a schema-valid new state 3ms
+     ✓ builds a schema-valid ready state 11ms
+     ✓ builds a schema-valid errors state 1ms
+     ✓ builds a schema-valid limited state 1ms
+     ✓ builds a schema-valid legacy state 3ms
+     ✓ builds a schema-valid published state 2ms
+     ✓ builds a schema-valid archived state 1ms
+     ✓ builds a schema-valid empty-catalog state 2ms
+     ✓ builds a schema-valid long state 5ms
+     ✓ builds a schema-valid off-page state 1ms
+     ✓ contains the exact ready, error, limited, legacy and long scenarios 7ms
+     ✓ enforces expectedVersion and mutates only its in-memory copy 7ms
+     × preserves all four legacy formats, configurations and identities through save and read 28ms
+     ✓ deletes the matching route version, including a published route 1ms
+     ✓ provides deterministic failures and stale validation without blind retries 2ms
+     ✓ keeps read-only details and catalog operations free of editorial writes 2ms
+     ✓ guards fixture routes outside development 0ms
+ ✓ src/components/learning/editor/editor-model.test.ts (5 tests) 13ms
+ ✓ src/components/learning/editor/editor-serialization.test.ts (4 tests) 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/editor/editor-fixtures.test.ts > editor visual fixtures > preserves all four legacy formats, configurations and identities through save and read
+AssertionError: expected [ 'save:7' ] to deeply equal [ 'save:1' ]
+
+- Expected
++ Received
+
+  [
+-   "save:1",
++   "save:7",
+  ]
+
+ ❯ src/components/learning/editor/editor-fixtures.test.ts:79:30
+     77|     expect(reloaded.version.units[0]!.objectives).toEqual(initial.vers…
+     78|     expect(reloaded.version.units[0]!.steps.map((step) => step.purpose…
+     79|     expect(runtime.requests).toEqual(["save:1"]);
+       |                              ^
+     80|   });
+     81|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 25 passed (26)
+   Start at  23:01:35
+   Duration  2.65s (transform 303ms, setup 0ms, import 1.09s, tests 110ms, environment 0ms)
+
+JSON report written to D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T040/web-editor-repair.json
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/editor/editor-fixtures.test.ts src/components/learning/editor/editor-model.test.ts src/components/learning/editor/editor-serialization.test.ts "--maxWorkers=1" "--reporter=default" "--reporter=json" "--outputFile=D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/web-editor-repair.json"
+
+Exit code: 1
+Finished: 2026-10-09T03:01:38.213Z

@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "at": "2026-10-09T02:35:12.962Z",
+  "baselineFiles": 6668,
+  "unchangedFiles": 6660,
+  "changed": [
+    {
+      "path": "apps/api/test/performance/guided-v2-load.mjs",
+      "before": "808097c1f90417dd8515cb475d994609e5e37ad381cf90aa97276b0edcad5dc1",
+      "after": "25da0af489a76d5d8f04a980604060d5a78412620229dd9b38b2d97ce6972e2a",
+      "authorized": true
+    },
+    {
+      "path": "apps/web/tests/e2e/guided-v2-accessibility.spec.ts",
+      "before": "d9f71d940eb4f237f7abb0922105a56e36603f96615371ff72c6bfabc0310cba",
+      "after": "18da18ea4bbdbb6aa9062ce8226c313093a6d75ab98d2b25ac9b971f2ccba2f9",
+      "authorized": true
+    },
+    {
+      "path": "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+      "before": "3dc014bf7d68ff80294df26e80405ce56736fbde4bbc606b3af84946c0e4b992",
+      "after": "b10a0eafcdffb8ba83d7dccc72012a6526e70de87511967abfe9d735f1910b75",
+      "authorized": true
+    },
+    {
+      "path": "apps/api/test/guided-v2-images.test.ts",
+      "before": "ba12779ad2e6172454112271e33837cc28b1ff1334aabfa428217e421e24ee30",
+      "after": "7f96902178b503a5ce5bb3f4199c0a37a16d9a3bd5c56b782dc8896dc905e9a6",
+      "authorized": true
+    },
+    {
+      "path": "apps/api/test/helpers/guided-v2-images.ts",
+      "before": "4f6927cf0720c598188c6d19e28de2ba6767296a70bc02316c702afb08ecd675",
+      "after": "a53adb183ae214f19e998dc72b03f9a7aa334edb4b7f6999c48c00fc06eb46b0",
+      "authorized": true
+    },
+    {
+      "path": "apps/api/test/helpers/learning-map-db.ts",
+      "before": "ffe0ba727cfd853fa3fc87a90c0c1b63134fb48e6de54dc685842e70904ad796",
+      "after": "7e91468c4db8841b316a9ac4883a27ad59264a374d2e78c79dc251de9140a2ef",
+      "authorized": true
+    },
+    {
+      "path": "apps/api/test/helpers/learning-map-server.ts",
+      "before": "c4db3f8c0ae331f6e361e7a23b7e3f44d090d0d788209d584eee1bfca5de950a",
+      "after": "d2f54cc40670b6004ecd5acd0f18100e1ddde28732e5ae496a67e3d2bc4e0296",
+      "authorized": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+      "before": "8d6aebc6c1a82ce2ee1b13da4e7cc81ac6f64f55f8c3203d26ef4ca711e00d25",
+      "after": "3445d6ff7b2f9caf3bd0e98416e89a3447fc672625d60a70461176a303233407",
+      "authorized": true
+    }
+  ],
+  "missing": [],
+  "added": []
+}

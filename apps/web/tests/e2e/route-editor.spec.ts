@@ -349,7 +349,7 @@ test.describe("editor cotidiano con transporte fixture en memoria", () => {
     await page.getByRole("button", { name: "Más opciones" }).click();
     await expect(page.getByText("Materiales y alternativas")).toBeVisible();
     await expect(page.getByText("Guía", { exact: true }).last()).toBeVisible();
-    await expect(page.getByText("Video", { exact: true }).last()).toBeVisible();
+    await expect(page.getByText("Video", { exact: true })).toHaveCount(0);
     await expect(page.getByLabel("Uso de esta actividad")).toHaveValue("integrate");
   });
 

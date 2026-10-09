@@ -1,0 +1,582 @@
+{
+  "taskId": "T040",
+  "status": "PARCIAL LOCAL",
+  "recordedUtc": "2026-10-09T02:39:32.252Z",
+  "clientDate": "2026-10-08",
+  "timezone": "America/Caracas",
+  "scope": "Regresión local de Koraz v2 y compatibilidad v1; sin aceptación de sistema ni despliegue.",
+  "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+  "finalSha": "327d8cc42f7bf22741b8d29cd68d03cf970235f2",
+  "workingTree": "Cambios previos preservados por hashes. HEAD avanzó e incluyó trabajo intermedio; ningún commit fue creado por T040. El dossier incluye también cambios aún sin confirmar.",
+  "headMovement": {
+    "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+    "finalSha": "327d8cc42f7bf22741b8d29cd68d03cf970235f2",
+    "changedDuringExecution": true,
+    "finalCommitSubject": "rutas de aprendizaje motor",
+    "commitCreatedByT040": false,
+    "contentComparison": "preservation.json compares the 6668 initial filesystem contents regardless of concurrent commits; only the eight authorized paths changed.",
+    "includesIntermediateT040Work": true
+  },
+  "regressionStatus": "PASS LOCAL SIN REGRESIONES NUEVAS DETECTADAS",
+  "acceptanceComplete": false,
+  "changedFiles": [
+    "apps/api/test/performance/guided-v2-load.mjs",
+    "apps/web/tests/e2e/guided-v2-accessibility.spec.ts",
+    "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+    "apps/api/test/guided-v2-images.test.ts",
+    "apps/api/test/helpers/guided-v2-images.ts",
+    "apps/api/test/helpers/learning-map-db.ts",
+    "apps/api/test/helpers/learning-map-server.ts",
+    "docs/aprendizaje-guiado/v2/registro-ejecucion.json"
+  ],
+  "evidenceDirectory": "docs/aprendizaje-guiado/v2/evidencias/T040/",
+  "summary": {
+    "api": {
+      "passed": 593,
+      "failed": 0,
+      "skipped": 3,
+      "files": 60
+    },
+    "web": {
+      "passed": 482,
+      "failed": 0,
+      "files": 62
+    },
+    "guidedV2": {
+      "passed": 20,
+      "failed": 0,
+      "skipped": 6
+    },
+    "legacy": {
+      "passed": 59,
+      "failed": 4,
+      "skipped": 1
+    },
+    "largeEditor": {
+      "expected": 2,
+      "unexpected": 0,
+      "skipped": 0
+    },
+    "newRegressionsDetected": 0,
+    "performance": {
+      "stateP95Ms": 237.1595999999554,
+      "responseP95Ms": 532.1965999999957,
+      "failures": 0,
+      "consistencyErrors": 0
+    }
+  },
+  "checks": [
+    {
+      "id": "contracts-build",
+      "command": "pnpm.cmd --filter @cediah/contracts build",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-08T22:12:05.434Z",
+      "finishedUtc": "2026-10-08T22:12:15.937Z",
+      "evidence": "contracts-build.txt"
+    },
+    {
+      "id": "build",
+      "command": "pnpm.cmd build",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-08T22:12:15.949Z",
+      "finishedUtc": "2026-10-08T22:16:42.323Z",
+      "evidence": "build.txt"
+    },
+    {
+      "id": "typecheck",
+      "command": "pnpm.cmd typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-08T22:16:42.330Z",
+      "finishedUtc": "2026-10-08T22:17:16.442Z",
+      "evidence": "typecheck.txt"
+    },
+    {
+      "id": "lint",
+      "command": "pnpm.cmd lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-08T22:17:16.444Z",
+      "finishedUtc": "2026-10-08T22:18:19.416Z",
+      "evidence": "lint.txt"
+    },
+    {
+      "id": "api-test",
+      "command": "pnpm.cmd --filter @cediah/api test --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/api-test.json",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-08T22:18:27.501Z",
+      "finishedUtc": "2026-10-08T22:21:41.711Z",
+      "evidence": "api-test.txt"
+    },
+    {
+      "id": "web-test",
+      "command": "pnpm.cmd --filter @cediah/web test --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/web-test.json",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-08T22:21:41.714Z",
+      "finishedUtc": "2026-10-08T22:23:36.954Z",
+      "evidence": "web-test.txt"
+    },
+    {
+      "id": "performance",
+      "command": "pnpm.cmd --filter @cediah/api exec node --import tsx test/performance/guided-v2-load.mjs --pool-size=20",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-08T22:23:36.955Z",
+      "finishedUtc": "2026-10-08T22:23:41.054Z",
+      "evidence": "performance.txt"
+    },
+    {
+      "id": "e2e-guided-v2",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.config.mts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-08T22:23:41.056Z",
+      "finishedUtc": "2026-10-08T22:35:30.154Z",
+      "evidence": "e2e-guided-v2.txt"
+    },
+    {
+      "id": "e2e-legacy",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.legacy.config.mts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-08T22:35:30.157Z",
+      "finishedUtc": "2026-10-08T22:56:03.127Z",
+      "evidence": "e2e-legacy.txt"
+    },
+    {
+      "id": "api-images-recheck",
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-images.test.ts test/guided-v2-preview.test.ts test/learning-map-storage.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/api-images-recheck.json",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T01:59:48.381Z",
+      "finishedUtc": "2026-10-09T02:00:25.095Z",
+      "evidence": "api-images-recheck.txt"
+    },
+    {
+      "id": "performance-recheck",
+      "command": "pnpm.cmd --filter @cediah/api exec node --import tsx test/performance/guided-v2-load.mjs --pool-size=20",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:00:25.098Z",
+      "finishedUtc": "2026-10-09T02:05:51.763Z",
+      "evidence": "performance-recheck.txt"
+    },
+    {
+      "id": "e2e-guided-recheck",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.recheck.config.mts --grep E02|E03|E04|stable map",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:05:51.768Z",
+      "finishedUtc": "2026-10-09T02:09:14.675Z",
+      "evidence": "e2e-guided-recheck.txt"
+    },
+    {
+      "id": "e2e-security-recheck",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.security-recheck.config.mts --project mobile --grep S03",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:09:14.678Z",
+      "finishedUtc": "2026-10-09T02:10:01.844Z",
+      "evidence": "e2e-security-recheck.txt"
+    },
+    {
+      "id": "e2e-legacy-recheck",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.legacy-recheck.config.mts learning-map-persistence.spec.ts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T02:10:01.847Z",
+      "finishedUtc": "2026-10-09T02:16:39.166Z",
+      "evidence": "e2e-legacy-recheck.txt"
+    },
+    {
+      "id": "api-typecheck-final",
+      "command": "pnpm.cmd --filter @cediah/api typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:16:39.169Z",
+      "finishedUtc": "2026-10-09T02:17:37.771Z",
+      "evidence": "api-typecheck-final.txt"
+    },
+    {
+      "id": "api-lint-final",
+      "command": "pnpm.cmd --filter @cediah/api lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:17:37.778Z",
+      "finishedUtc": "2026-10-09T02:18:13.927Z",
+      "evidence": "api-lint-final.txt"
+    },
+    {
+      "id": "web-typecheck-final",
+      "command": "pnpm.cmd --filter @cediah/web typecheck",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:18:13.934Z",
+      "finishedUtc": "2026-10-09T02:21:34.559Z",
+      "evidence": "web-typecheck-final.txt"
+    },
+    {
+      "id": "web-lint-final",
+      "command": "pnpm.cmd --filter @cediah/web lint",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:21:34.562Z",
+      "finishedUtc": "2026-10-09T02:22:31.411Z",
+      "evidence": "web-lint-final.txt"
+    },
+    {
+      "id": "api-images-final",
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-images.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/api-images-final.json",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:22:31.903Z",
+      "finishedUtc": "2026-10-09T02:22:47.563Z",
+      "evidence": "api-images-final.txt"
+    },
+    {
+      "id": "e2e-legacy-final",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.legacy-final.config.mts learning-map-persistence.spec.ts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T02:22:47.565Z",
+      "finishedUtc": "2026-10-09T02:23:37.490Z",
+      "evidence": "e2e-legacy-final.txt"
+    },
+    {
+      "id": "e2e-large-editor",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.large-editor.config.mts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T02:23:37.494Z",
+      "finishedUtc": "2026-10-09T02:24:09.918Z",
+      "evidence": "e2e-large-editor.txt"
+    },
+    {
+      "id": "e2e-legacy-production",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.legacy-production.config.mts learning-map-persistence.spec.ts",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:26:07.073Z",
+      "finishedUtc": "2026-10-09T02:27:02.311Z",
+      "evidence": "e2e-legacy-production.txt"
+    },
+    {
+      "id": "e2e-large-editor-final",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.large-editor-final.config.mts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T02:27:02.315Z",
+      "finishedUtc": "2026-10-09T02:27:24.053Z",
+      "evidence": "e2e-large-editor-final.txt"
+    },
+    {
+      "id": "e2e-large-editor-recheck",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.large-editor-recheck.config.mts",
+      "exitCode": 1,
+      "result": "FAIL",
+      "startedUtc": "2026-10-09T02:28:26.097Z",
+      "finishedUtc": "2026-10-09T02:30:28.651Z",
+      "evidence": "e2e-large-editor-recheck.txt"
+    },
+    {
+      "id": "e2e-large-editor-confirmed",
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040/playwright.large-editor-confirmed.config.mts",
+      "exitCode": 0,
+      "result": "PASS",
+      "startedUtc": "2026-10-09T02:31:50.898Z",
+      "finishedUtc": "2026-10-09T02:32:52.868Z",
+      "evidence": "e2e-large-editor-confirmed.txt"
+    }
+  ],
+  "matrix": {
+    "P01-P15": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "api-test.json",
+        "api-images-final.json"
+      ],
+      "scope": "Contratos, DAG, grading, evidencia, diagnóstico, agenda, selección, reservas; suites ejecutadas, no eficacia clínica."
+    },
+    "I01-I04": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "api-test.json"
+      ],
+      "scope": "Importación/exportación, recibos, conflictos e idempotencia; PostgreSQL independiente habilitado para carreras."
+    },
+    "S01-S08": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "api-test.json",
+        "playwright.json",
+        "playwright-security-recheck.json"
+      ],
+      "scope": "API/BFF/SSR/DOM/RSC y grants; identidad sintética, no emisión real de cookies Better Auth."
+    },
+    "M01": {
+      "status": "PASS LOCAL ACOTADO",
+      "evidence": [
+        "../M01/result.json",
+        "api-test.json",
+        "preservation.json"
+      ],
+      "scope": "Instalación vacía de la dependencia y pruebas actuales; SQL anterior preservado. Restauración histórica no reensayada."
+    },
+    "M02-M03": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "api-test.json"
+      ],
+      "scope": "Inmutabilidad, aprobaciones, conversión y adopción explícita."
+    },
+    "M04": {
+      "status": "PARCIAL",
+      "flagOff": "PASS LOCAL en suites API",
+      "backupRestore": "NO VERIFICADO; T041 no iniciada"
+    },
+    "E01-E06": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "playwright.json",
+        "playwright-guided-recheck.json"
+      ],
+      "scope": "Resultados finales por caso; seis omisiones explícitas, ninguna contabilizada como PASS."
+    },
+    "V01-V03/V05": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "accessibility-summary.json",
+        "playwright.json",
+        "playwright-large-editor-confirmed.json"
+      ],
+      "scope": "Axe, teclado, geometría, zoom, alternativa visual y editor grande; dispositivos emulados."
+    },
+    "V04": {
+      "accessibilityTree": "PASS LOCAL",
+      "spokenScreenReader": "NO VERIFICADO"
+    },
+    "L01-L02": {
+      "status": "PASS",
+      "evidence": [
+        "regression-final-validator.json",
+        "regression-final-load.json"
+      ],
+      "scope": "20 corridas por escala; 20 usuarios/300 segundos, pool20, umbrales originales."
+    },
+    "L03": {
+      "status": "PASS LOCAL",
+      "evidence": [
+        "manifest-summary.json",
+        "large-editor-fixture-check.json",
+        "playwright-large-editor.json",
+        "playwright-large-editor-final.json",
+        "playwright-large-editor-recheck.json",
+        "playwright-large-editor-confirmed.json"
+      ],
+      "scope": "Manifiesto activo ≤100KiB; 1600 resúmenes y como máximo un formulario, edición cerrada conservada y guardado real."
+    }
+  },
+  "issues": [
+    {
+      "code": "PREEXISTING_LEGACY_VIDEO_TESTS",
+      "status": "FAIL PREEXISTENTE",
+      "count": 4,
+      "evidence": "baseline-compatibility.json",
+      "proposal": "REPARACION-LEGADO-PROPUESTA.md",
+      "approval": "PENDIENTE; no aplicada"
+    },
+    {
+      "code": "SCREEN_READER",
+      "status": "NO VERIFICADO",
+      "detail": "Árbol de accesibilidad y axe verificados; salida hablada no inspeccionada."
+    },
+    {
+      "code": "M04_BACKUP_RESTORE",
+      "status": "NO VERIFICADO EN T040",
+      "owner": "T041",
+      "detail": "Se conserva el límite del plan: T041 ensaya restauración en una segunda DB; no iniciada."
+    }
+  ],
+  "preservation": {
+    "status": "PASS",
+    "at": "2026-10-09T02:35:12.962Z",
+    "baselineFiles": 6668,
+    "unchangedFiles": 6660,
+    "changed": [
+      {
+        "path": "apps/api/test/performance/guided-v2-load.mjs",
+        "before": "808097c1f90417dd8515cb475d994609e5e37ad381cf90aa97276b0edcad5dc1",
+        "after": "25da0af489a76d5d8f04a980604060d5a78412620229dd9b38b2d97ce6972e2a",
+        "authorized": true
+      },
+      {
+        "path": "apps/web/tests/e2e/guided-v2-accessibility.spec.ts",
+        "before": "d9f71d940eb4f237f7abb0922105a56e36603f96615371ff72c6bfabc0310cba",
+        "after": "18da18ea4bbdbb6aa9062ce8226c313093a6d75ab98d2b25ac9b971f2ccba2f9",
+        "authorized": true
+      },
+      {
+        "path": "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+        "before": "3dc014bf7d68ff80294df26e80405ce56736fbde4bbc606b3af84946c0e4b992",
+        "after": "b10a0eafcdffb8ba83d7dccc72012a6526e70de87511967abfe9d735f1910b75",
+        "authorized": true
+      },
+      {
+        "path": "apps/api/test/guided-v2-images.test.ts",
+        "before": "ba12779ad2e6172454112271e33837cc28b1ff1334aabfa428217e421e24ee30",
+        "after": "7f96902178b503a5ce5bb3f4199c0a37a16d9a3bd5c56b782dc8896dc905e9a6",
+        "authorized": true
+      },
+      {
+        "path": "apps/api/test/helpers/guided-v2-images.ts",
+        "before": "4f6927cf0720c598188c6d19e28de2ba6767296a70bc02316c702afb08ecd675",
+        "after": "a53adb183ae214f19e998dc72b03f9a7aa334edb4b7f6999c48c00fc06eb46b0",
+        "authorized": true
+      },
+      {
+        "path": "apps/api/test/helpers/learning-map-db.ts",
+        "before": "ffe0ba727cfd853fa3fc87a90c0c1b63134fb48e6de54dc685842e70904ad796",
+        "after": "7e91468c4db8841b316a9ac4883a27ad59264a374d2e78c79dc251de9140a2ef",
+        "authorized": true
+      },
+      {
+        "path": "apps/api/test/helpers/learning-map-server.ts",
+        "before": "c4db3f8c0ae331f6e361e7a23b7e3f44d090d0d788209d584eee1bfca5de950a",
+        "after": "d2f54cc40670b6004ecd5acd0f18100e1ddde28732e5ae496a67e3d2bc4e0296",
+        "authorized": true
+      },
+      {
+        "path": "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+        "before": "8d6aebc6c1a82ce2ee1b13da4e7cc81ac6f64f55f8c3203d26ef4ca711e00d25",
+        "after": "3445d6ff7b2f9caf3bd0e98416e89a3447fc672625d60a70461176a303233407",
+        "authorized": true
+      }
+    ],
+    "missing": [],
+    "added": []
+  },
+  "cleanup": {
+    "status": "PASS",
+    "at": "2026-10-09T02:33:39.393Z",
+    "databases": [
+      {
+        "datname": "koraz_guided_v2_test_02b3182df22c407c8cb167f221a8ea81",
+        "oid": 18358
+      },
+      {
+        "datname": "koraz_guided_v2_test_0a9c6c672a554bc3893814d6d9702b84",
+        "oid": 36646
+      },
+      {
+        "datname": "koraz_guided_v2_test_0b9421de75104a249161e04edde06b46",
+        "oid": 16392
+      },
+      {
+        "datname": "koraz_guided_v2_test_1fcc776178aa4231a9b39e0cf209496e",
+        "oid": 42556
+      },
+      {
+        "datname": "koraz_guided_v2_test_399a258e29ea428a8312a6a38acf9332",
+        "oid": 22842
+      },
+      {
+        "datname": "koraz_guided_v2_test_6ea87154bf1341319f25eabf4650d557",
+        "oid": 51124
+      },
+      {
+        "datname": "koraz_guided_v2_test_6f38fde5ab3842d1b2c99d2c61df4942",
+        "oid": 77374
+      },
+      {
+        "datname": "koraz_guided_v2_test_a1814845a34e4be496e561090b45e21e",
+        "oid": 34674
+      },
+      {
+        "datname": "koraz_guided_v2_test_a67c91fe56684ad982f220f346ef4c4f",
+        "oid": 112878
+      },
+      {
+        "datname": "koraz_guided_v2_test_b3a008738faf40e1b93e6a967502b8ef",
+        "oid": 18359
+      },
+      {
+        "datname": "koraz_guided_v2_test_fa444c64fb324d08a74ae23739f937f6",
+        "oid": 28757
+      }
+    ],
+    "connections": [],
+    "added": [],
+    "removed": [],
+    "legacy": [
+      {
+        "name": "koraz_t015_test",
+        "remaining": [],
+        "dropped": true
+      },
+      {
+        "name": "koraz_t018_test",
+        "remaining": [],
+        "dropped": true
+      },
+      {
+        "name": "koraz_t022_test",
+        "remaining": [],
+        "dropped": true
+      }
+    ],
+    "preexistingPreserved": true
+  },
+  "services": {
+    "status": "PASS",
+    "recordedUtc": "2026-10-09T02:33:46.2444530Z",
+    "checkedPorts": [
+      3000,
+      4100,
+      31035,
+      41035,
+      41036,
+      55415,
+      55418,
+      55422,
+      55435
+    ],
+    "listeners": [],
+    "unrelatedProcessesTerminated": false
+  },
+  "history": {
+    "allOriginalFailuresRetained": true,
+    "counting": "Reemplazo por archivo en Vitest y por archivo/título/proyecto en Playwright; nunca suma de repeticiones.",
+    "initialApiFailure": "Dos deep-equality afectados solo por generatedAt; reloj controlado conserva assertions y nuevo test verifica refresco temporal sin duplicar respuesta/evento.",
+    "newTestFailure": "Primer test adicional usó versión de matrícula obsoleta al crear por HTTP; corregida preparación con el servicio real, conservando POST/retry por HTTP y asserts de un efecto.",
+    "initialPerformanceFailure": "ENOENT del input source-hashes antes de medir; se aportó hash actual y se ejecutó la carga completa.",
+    "browserFixes": "Selectores acotados a regiones accesibles; cardinalidad exacta del mapa según publicación real; ningún umbral relajado.",
+    "securityTimeout": "Repetición móvil sin cambio pasó; causa transitoria no demostrada, primer fallo conservado.",
+    "legacyHarness": "Proveedor v2 y esquema actuales inyectados al harness v1; catálogo real vacío 200, sin stub ni ocultar 503.",
+    "legacyDevTiming": "Se conserva recheck dev fallido; persistencia repetida sobre el Next de producción ya construido, mismo presupuesto por caso.",
+    "duplicateServerConfig": "Primer intento de producción abortó antes de ejecutar tests: defineConfig concatenó webServer e intentó iniciar dos API en 4100; corregido con una única configuración que sobrescribe el array.",
+    "largeEditorFixture": "Primer intento L03 detectó que el fixture T035 large tenía una unidad. Se conservó la assertion de 30 unidades y se aportó el fixture exacto de la carga actual (hash idéntico), con bindings de la DB actual.",
+    "largeEditorModule": "El siguiente intento abortó al cargar import.meta en un spec TS compilado como CommonJS fuera de apps/web. Se corrigió la resolución local del archivo con __dirname; sin cambiar assertions.",
+    "largeEditorConfirmation": "En móvil se recargó tras las cabeceras HTTP, antes de confirmar y limpiar recovery en el cliente. El test ahora exige Borrador al día y ausencia de la copia local antes de recargar, además de input habilitado y sin banner al volver. No descarta recovery ni modifica producto."
+  },
+  "notVerified": [
+    "Salida hablada de lector de pantalla",
+    "Restauración de backup en T041",
+    "Emisión/firma real de Better Auth",
+    "Dispositivos físicos",
+    "Certificación WCAG integral",
+    "Hito S/aceptación T042",
+    "Staging y producción"
+  ],
+  "deploymentPerformed": false,
+  "commitCreated": false,
+  "dependenciesInstalled": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [
+    "T040"
+  ],
+  "nominalNextTask": "T041"
+}

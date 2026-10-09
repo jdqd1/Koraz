@@ -1,0 +1,25 @@
+Command: pnpm.cmd --filter @cediah/web exec playwright test --config D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.editor-repair.config.mts route-editor.spec.ts --grep mantiene material fijado|contenido heredado conserva
+Node: v22.22.0
+Started: 2026-10-09T03:01:38.215Z
+.                                        | [WARN] Unsupported engine: wanted: {"node":"24.x"} (current: {"node":"v22.22.0","pnpm":"11.25.0"})
+[WebServer] (node:18892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/learning-map-server.ts
+[WebServer] (node:11004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:32864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Error: http://localhost:3000/visual-fixtures/editor-rutas is already used, make sure that nothing is running on the port/url or set reuseExistingServer:true in config.webServer.
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config "D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.editor-repair.config.mts" route-editor.spec.ts --grep "mantiene material fijado|contenido heredado conserva"
+
+Exit code: 1
+Finished: 2026-10-09T03:02:33.970Z

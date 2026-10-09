@@ -1,0 +1,2797 @@
+{
+  "api-test": {
+    "files": 60,
+    "passed": 590,
+    "failed": 2,
+    "skipped": 3,
+    "total": 595,
+    "failures": [
+      {
+        "file": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-images.test.ts",
+        "title": "T030 authorized active images and accessible detours persists an idempotent accessible transition, resume, modality and original spatial requirement",
+        "messages": [
+          "AssertionError: expected { Object (attempt, state) } to deeply equal { Object (attempt, state) }\n    at D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-images.test.ts:55:87\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@vitest+runner@4.1.11/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+        ]
+      },
+      {
+        "file": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-images.test.ts",
+        "title": "T030 authorized active images and accessible detours returns persisted partial feedback without replacing the binary score",
+        "messages": [
+          "AssertionError: expected { accepted: true, …(4) } to deeply equal { accepted: true, …(4) }\n    at D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-images.test.ts:99:85\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/@vitest+runner@4.1.11/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+        ]
+      }
+    ],
+    "omissions": [
+      {
+        "file": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-scheduler.test.ts",
+        "title": "guided v2 scheduler pglite transactions independent devices cannot extend twice at the exact 24h boundary"
+      },
+      {
+        "file": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-scheduler.test.ts",
+        "title": "guided v2 scheduler pglite transactions concurrent failure/correct responses leave reinforcement and one lapse"
+      },
+      {
+        "file": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api/test/guided-v2-security.test.ts",
+        "title": "T022 endpoint authorization and privacy S03 browser inspects real production Next SSR and authenticated BFF network before answering"
+      }
+    ]
+  },
+  "web-test": {
+    "files": 62,
+    "passed": 482,
+    "failed": 0,
+    "skipped": 0,
+    "total": 482,
+    "failures": [],
+    "omissions": []
+  },
+  "api-effective": {
+    "method": "Original global run, affected image/preview files replaced by their final focused rerun; counts are not summed",
+    "files": 60,
+    "total": 596,
+    "passed": 593,
+    "failed": 0,
+    "skipped": 3,
+    "failures": []
+  },
+  "guided-v2": {
+    "stats": {
+      "startTime": "2026-10-08T22:23:44.812Z",
+      "duration": 705184.9739999999,
+      "expected": 16,
+      "skipped": 6,
+      "unexpected": 4,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+              "column": 51,
+              "line": 380
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.react-flow__node')\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  60000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('.react-flow__node') with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for locator('.react-flow__node')\u001b[22m\n\u001b[2m    121 × locator resolved to 4 elements\u001b[22m\n\u001b[2m        - unexpected value \"4\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:380:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+              "column": 243,
+              "line": 128
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Confusión CORE sintética', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('Confusión CORE sintética', { exact: true }) resolved to 2 elements:\n    1) <p>Confusión CORE sintética</p> aka getByRole('region', { name: 'Refuerzo dirigido' }).getByText('Confusión CORE sintética')\n    2) <p>Confusión CORE sintética</p> aka getByText('Confusión CORE sintética').nth(1)\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Confusión CORE sintética', { exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Confusión CORE sintética', { exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:128:243)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+              "column": 75,
+              "line": 31
+            },
+            "message": "Error: locator.click: Error: strict mode violation: getByText('Refuerzo, repaso y mantenimiento', { exact: true }) resolved to 2 elements:\n    1) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByRole('main').getByText('Refuerzo, repaso y')\n    2) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByText('Refuerzo, repaso y').nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByText('Refuerzo, repaso y mantenimiento', { exact: true })\u001b[22m\n\n\n  29 |   await interactive(page);\n  30 |   if(key){const current=await state(page);const branchIndex=current.maintenance.activities.findIndex((activity:{key:string})=>activity.key===key);expect(branchIndex).toBeGreaterThanOrEqual(0);\n> 31 |     await page.getByText(\"Refuerzo, repaso y mantenimiento\",{exact:true}).click();\n     |                                                                           ^\n  32 |     const branches=page.getByRole(\"region\",{name:\"Otras ramas disponibles\"});\n  33 |     await branches.getByRole(\"button\",{name:\"Practicar este objetivo\",exact:true}).nth(branchIndex).click();\n  34 |   }else await page.getByRole(\"button\",{name:\"Continuar\",exact:true}).first().click();\n    at launch (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:31:75)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:134:21)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 240000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts",
+              "column": 110,
+              "line": 35
+            },
+            "message": "Error: response.text: Test timeout of 240000ms exceeded.\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts:35:110)\n    at _Page.<anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts:36:6)"
+          }
+        ]
+      }
+    ],
+    "omissions": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      }
+    ],
+    "cases": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02 tab order, field reachability and modal focus restoration",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02 tab order, field reachability and modal focus restoration",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts",
+              "column": 51,
+              "line": 380
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.react-flow__node')\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m4\u001b[39m\nTimeout:  60000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('.react-flow__node') with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for locator('.react-flow__node')\u001b[22m\n\u001b[2m    121 × locator resolved to 4 elements\u001b[22m\n\u001b[2m        - unexpected value \"4\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-accessibility.spec.ts:380:51)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+              "column": 243,
+              "line": 128
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Confusión CORE sintética', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('Confusión CORE sintética', { exact: true }) resolved to 2 elements:\n    1) <p>Confusión CORE sintética</p> aka getByRole('region', { name: 'Refuerzo dirigido' }).getByText('Confusión CORE sintética')\n    2) <p>Confusión CORE sintética</p> aka getByText('Confusión CORE sintética').nth(1)\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Confusión CORE sintética', { exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Confusión CORE sintética', { exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:128:243)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+              "column": 75,
+              "line": 31
+            },
+            "message": "Error: locator.click: Error: strict mode violation: getByText('Refuerzo, repaso y mantenimiento', { exact: true }) resolved to 2 elements:\n    1) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByRole('main').getByText('Refuerzo, repaso y')\n    2) <summary>Refuerzo, repaso y mantenimiento</summary> aka getByText('Refuerzo, repaso y').nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByText('Refuerzo, repaso y mantenimiento', { exact: true })\u001b[22m\n\n\n  29 |   await interactive(page);\n  30 |   if(key){const current=await state(page);const branchIndex=current.maintenance.activities.findIndex((activity:{key:string})=>activity.key===key);expect(branchIndex).toBeGreaterThanOrEqual(0);\n> 31 |     await page.getByText(\"Refuerzo, repaso y mantenimiento\",{exact:true}).click();\n     |                                                                           ^\n  32 |     const branches=page.getByRole(\"region\",{name:\"Otras ramas disponibles\"});\n  33 |     await branches.getByRole(\"button\",{name:\"Practicar este objetivo\",exact:true}).nth(branchIndex).click();\n  34 |   }else await page.getByRole(\"button\",{name:\"Continuar\",exact:true}).first().click();\n    at launch (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:31:75)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:134:21)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 240000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts",
+              "column": 110,
+              "line": 35
+            },
+            "message": "Error: response.text: Test timeout of 240000ms exceeded.\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts:35:110)\n    at _Page.<anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-security.spec.ts:36:6)"
+          }
+        ]
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "legacy": {
+    "stats": {
+      "startTime": "2026-10-08T22:35:31.562Z",
+      "duration": 1230880.543,
+      "expected": 53,
+      "skipped": 1,
+      "unexpected": 10,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 60
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:60:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 60
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:60:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ],
+    "omissions": [
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      }
+    ],
+    "cases": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 60
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:60:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 60
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:60:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > published routes do not expose personal-node creation",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > card colors persist locally without a views panel",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > large levels scroll inside a horizontal map on desktop and mobile",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > one level at a time keeps its incoming line and a centered origin",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > horizontal branches meet the source and card sides after resizing, scrolling and zoom",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > slow level navigation responds immediately and completes the diagram transition",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > opening unit activities leaves the map still",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > six visual states and responsive widths remain readable",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > hierarchy, deep links, back/forward and lesson panel",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > icon-only list control aligns right and list reflows",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > manual zoom keeps hierarchy and reduced motion stays usable",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > published routes do not expose personal-node creation",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > card colors persist locally without a views panel",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > large levels scroll inside a horizontal map on desktop and mobile",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > one level at a time keeps its incoming line and a centered origin",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > horizontal branches meet the source and card sides after resizing, scrolling and zoom",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > slow level navigation responds immediately and completes the diagram transition",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > opening unit activities leaves the map still",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > six visual states and responsive widths remain readable",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > hierarchy, deep links, back/forward and lesson panel",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > icon-only list control aligns right and list reflows",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > manual zoom keeps hierarchy and reduced motion stays usable",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > accesibilidad automática en Datos, unidad, selector, errores y confirmación",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > accesibilidad automática en Datos, unidad, selector, errores y confirmación",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > desarchiva una ruta desde el índice y recupera su estado publicado",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > el índice distingue un borrador nuevo de una ruta con publicación previa",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > crea la ruta nominal y respeta guardar → validar → enviar",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > elimina una unidad con confirmación local, permite cancelar y guarda cero unidades",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > aborta respuestas de filtros obsoletos y no vuelve a consultar al recuperar foco",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > bloquea doble guardado y conserva el orden de la única operación",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > un fallo de guardado impide validar y mantiene el borrador dirty",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > rechaza una validación confirmada para otra versión",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > presenta errores accionables y warning limited sin tecnicismos",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > conserva borrador ante conflicto y recupera cambios solo en la misma ruta y actor",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > selector, ayuda y eliminación funcionan con teclado y restauran foco",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > vista previa usa el borrador actual y no solicita tracking de estudiante",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > publicada y archivada permanecen de solo lectura y solo la publicada puede clonarse",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > reflow no crea overflow de página en los cinco anchos",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > desarchiva una ruta desde el índice y recupera su estado publicado",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > el índice distingue un borrador nuevo de una ruta con publicación previa",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > crea la ruta nominal y respeta guardar → validar → enviar",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > elimina una unidad con confirmación local, permite cancelar y guarda cero unidades",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > aborta respuestas de filtros obsoletos y no vuelve a consultar al recuperar foco",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > bloquea doble guardado y conserva el orden de la única operación",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > un fallo de guardado impide validar y mantiene el borrador dirty",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > rechaza una validación confirmada para otra versión",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > presenta errores accionables y warning limited sin tecnicismos",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > conserva borrador ante conflicto y recupera cambios solo en la misma ruta y actor",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > selector, ayuda y eliminación funcionan con teclado y restauran foco",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > vista previa usa el borrador actual y no solicita tracking de estudiante",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > publicada y archivada permanecen de solo lectura y solo la publicada puede clonarse",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > reflow no crea overflow de página en los cinco anchos",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "guided-recheck": {
+    "stats": {
+      "startTime": "2026-10-09T02:05:56.075Z",
+      "duration": 198481.441,
+      "expected": 6,
+      "skipped": 2,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [],
+    "omissions": [
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      }
+    ],
+    "cases": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "security-recheck": {
+    "stats": {
+      "startTime": "2026-10-09T02:09:17.700Z",
+      "duration": 44017.566000000006,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "legacy-recheck": {
+    "stats": {
+      "startTime": "2026-10-09T02:10:04.647Z",
+      "duration": 394134.747,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 4,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 24,
+              "line": 71
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/aprendizaje\\/sesiones\\//\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:3000/aprendizaje/mapa?node=d12c0adb-ea41-49d7-ac88-d73402cd56a7&item=d8b41a1a-4f1c-443d-b072-011f04e2c937&unit=leccion-1\"\u001b[39m\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 30000ms\u001b[22m\n\u001b[2m    56 × locator resolved to <html lang=\"es\" class=\"__variable_83fcfa\" data-scroll-behavior=\"smooth\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:3000/aprendizaje/mapa?node=d12c0adb-ea41-49d7-ac88-d73402cd56a7&item=d8b41a1a-4f1c-443d-b072-011f04e2c937&unit=leccion-1\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:71:24)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 16,
+              "line": 18
+            },
+            "message": "Error: page.goto: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/aprendizaje/mapa\", waiting until \"load\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:18:16)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 27,
+              "line": 20
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Abrir Tema E2E', exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Abrir Tema E2E', exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:20:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 77,
+              "line": 37
+            },
+            "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Abrir Tema E2E', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:37:77)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 24,
+              "line": 71
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/aprendizaje\\/sesiones\\//\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:3000/aprendizaje/mapa?node=d12c0adb-ea41-49d7-ac88-d73402cd56a7&item=d8b41a1a-4f1c-443d-b072-011f04e2c937&unit=leccion-1\"\u001b[39m\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 30000ms\u001b[22m\n\u001b[2m    56 × locator resolved to <html lang=\"es\" class=\"__variable_83fcfa\" data-scroll-behavior=\"smooth\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:3000/aprendizaje/mapa?node=d12c0adb-ea41-49d7-ac88-d73402cd56a7&item=d8b41a1a-4f1c-443d-b072-011f04e2c937&unit=leccion-1\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:71:24)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+          },
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts",
+              "column": 16,
+              "line": 18
+            },
+            "message": "Error: page.goto: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/aprendizaje/mapa\", waiting until \"load\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\learning-map-persistence.spec.ts:18:16)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "legacy-final": {
+    "stats": {
+      "startTime": "2026-10-09T02:22:49.895Z",
+      "duration": 47415.886,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [
+      {
+        "message": "Error: http://127.0.0.1:4100/v1/guided-learning/map is already used, make sure that nothing is running on the port/url or set reuseExistingServer:true in config.webServer.",
+        "stack": "Error: http://127.0.0.1:4100/v1/guided-learning/map is already used, make sure that nothing is running on the port/url or set reuseExistingServer:true in config.webServer."
+      }
+    ],
+    "failures": [],
+    "omissions": [],
+    "cases": []
+  },
+  "legacy-production": {
+    "stats": {
+      "startTime": "2026-10-09T02:26:08.993Z",
+      "duration": 53191.125,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "large-editor": {
+    "stats": {
+      "startTime": "2026-10-09T02:23:39.740Z",
+      "duration": 30065.418999999998,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 2,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 63,
+              "line": 12
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m30\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[{\"activityKeys\": [\"study-1\", \"constructed-1\", \"choice-1\", \"short-1\", \"apply-1\", \"match-1\", \"sequence-1\", \"image-1\", \"case-1\", \"case-choice-1\", …], \"estimatedMinutes\": null, \"key\": \"unit\", \"objectiveKeys\": [\"objective-1\", \"objective-2\", \"objective-3\", \"objective-4\", \"objective-5\", \"objective-6\", \"objective-7\", \"objective-8\", \"objective-9\", \"objective-10\", …], \"support\": \"full\", \"title\": \"Unidad T035\"}]\u001b[39m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:12:63)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 63,
+              "line": 12
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m30\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[{\"activityKeys\": [\"study-1\", \"constructed-1\", \"choice-1\", \"short-1\", \"apply-1\", \"match-1\", \"sequence-1\", \"image-1\", \"case-1\", \"case-choice-1\", …], \"estimatedMinutes\": null, \"key\": \"unit\", \"objectiveKeys\": [\"objective-1\", \"objective-2\", \"objective-3\", \"objective-4\", \"objective-5\", \"objective-6\", \"objective-7\", \"objective-8\", \"objective-9\", \"objective-10\", …], \"support\": \"full\", \"title\": \"Unidad T035\"}]\u001b[39m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:12:63)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 63,
+              "line": 12
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m30\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[{\"activityKeys\": [\"study-1\", \"constructed-1\", \"choice-1\", \"short-1\", \"apply-1\", \"match-1\", \"sequence-1\", \"image-1\", \"case-1\", \"case-choice-1\", …], \"estimatedMinutes\": null, \"key\": \"unit\", \"objectiveKeys\": [\"objective-1\", \"objective-2\", \"objective-3\", \"objective-4\", \"objective-5\", \"objective-6\", \"objective-7\", \"objective-8\", \"objective-9\", \"objective-10\", …], \"support\": \"full\", \"title\": \"Unidad T035\"}]\u001b[39m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:12:63)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 63,
+              "line": 12
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m30\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[{\"activityKeys\": [\"study-1\", \"constructed-1\", \"choice-1\", \"short-1\", \"apply-1\", \"match-1\", \"sequence-1\", \"image-1\", \"case-1\", \"case-choice-1\", …], \"estimatedMinutes\": null, \"key\": \"unit\", \"objectiveKeys\": [\"objective-1\", \"objective-2\", \"objective-3\", \"objective-4\", \"objective-5\", \"objective-6\", \"objective-7\", \"objective-8\", \"objective-9\", \"objective-10\", …], \"support\": \"full\", \"title\": \"Unidad T035\"}]\u001b[39m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:12:63)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ]
+  },
+  "large-editor-final": {
+    "stats": {
+      "startTime": "2026-10-09T02:27:05.072Z",
+      "duration": 18852.3,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [
+      {
+        "message": "SyntaxError: Cannot use 'import.meta' outside a module",
+        "stack": "SyntaxError: Cannot use 'import.meta' outside a module"
+      },
+      {
+        "message": "Error: No tests found",
+        "stack": "Error: No tests found"
+      }
+    ],
+    "failures": [],
+    "omissions": [],
+    "cases": []
+  },
+  "large-editor-recheck": {
+    "stats": {
+      "startTime": "2026-10-09T02:28:27.696Z",
+      "duration": 120783.964,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 16,
+              "line": 43
+            },
+            "message": "TimeoutError: locator.fill: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Consigna', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea rows=\"3\" id=\"_r_15_\" required=\"\" maxlength=\"4000\" aria-invalid=\"false\" data-field-path=\"package.activities.0.prompt\">Edición T040 mobile</textarea>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    104 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m        - element is not enabled\u001b[22m\n\u001b[2m      - retrying fill action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:43:16)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts",
+              "column": 16,
+              "line": 43
+            },
+            "message": "TimeoutError: locator.fill: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Consigna', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea rows=\"3\" id=\"_r_15_\" required=\"\" maxlength=\"4000\" aria-invalid=\"false\" data-field-path=\"package.activities.0.prompt\">Edición T040 mobile</textarea>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    104 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m        - element is not enabled\u001b[22m\n\u001b[2m      - retrying fill action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T040\\large-editor.spec.ts:43:16)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ]
+  },
+  "large-editor-confirmed": {
+    "stats": {
+      "startTime": "2026-10-09T02:31:52.276Z",
+      "duration": 60268.504,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "globalErrors": [],
+    "failures": [],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "guided-v2-effective": {
+    "method": "Latest execution of each identical file/title/project; all original failures retained in raw reports",
+    "total": 26,
+    "passed": 20,
+    "failed": 0,
+    "skipped": 6,
+    "stats": {
+      "expected": 20,
+      "unexpected": 0,
+      "skipped": 6
+    },
+    "failures": [],
+    "omissions": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      }
+    ],
+    "cases": [
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02 tab order, field reachability and modal focus restoration",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V03 native browser zoom at 200 percent",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V02 tab order, field reachability and modal focus restoration",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-accessibility.spec.ts",
+        "title": "guided-v2-accessibility.spec.ts > T037 V01 stable map geometry and connections",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E01 creates a new persisted v2 draft using UI and keyboard",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E02 editorial preview has no learner effects, then publishes with current approval",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E03 beginner help and CORE error are confirmed by the server",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E04 all eight kinds persist through the learner UI on desktop and mobile",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E05 disconnect before/after commit, reload and two tabs preserve one answer",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-journeys.spec.ts",
+        "title": "guided-v2-journeys.spec.ts > E06 home, real map, route, session and review keep the pinned server state",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S03 SSR, DOM, RSC and BFF hide solutions for every scored format and future case stages",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "guided-v2-security.spec.ts",
+        "title": "guided-v2-security.spec.ts > T036 S01/S02/S07 hostile origin, foreign account and expired session cross the real BFF without writes",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "legacy-effective": {
+    "method": "Latest execution of each identical file/title/project; all original failures retained in raw reports",
+    "total": 64,
+    "passed": 59,
+    "failed": 4,
+    "skipped": 1,
+    "stats": {
+      "expected": 59,
+      "unexpected": 4,
+      "skipped": 1
+    },
+    "failures": [
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      }
+    ],
+    "omissions": [
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      }
+    ],
+    "cases": [
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published routes are visible before enrollment and have no incoming root lines",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > published route is shared while spatial state stays account scoped",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-persistence.spec.ts",
+        "title": "learning-map-persistence.spec.ts > disposable API/SQL persistence > opens a published lesson, launches its guide and returns to the same place",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map-volume.spec.ts",
+        "title": "learning-map-volume.spec.ts > renders a bounded canvas, scrolls without changing levels and measures warm navigation",
+        "project": "mobile",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > published routes do not expose personal-node creation",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > card colors persist locally without a views panel",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > large levels scroll inside a horizontal map on desktop and mobile",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > one level at a time keeps its incoming line and a centered origin",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > horizontal branches meet the source and card sides after resizing, scrolling and zoom",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > slow level navigation responds immediately and completes the diagram transition",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > opening unit activities leaves the map still",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > six visual states and responsive widths remain readable",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > hierarchy, deep links, back/forward and lesson panel",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > icon-only list control aligns right and list reflows",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > manual zoom keeps hierarchy and reduced motion stays usable",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > published routes do not expose personal-node creation",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > card colors persist locally without a views panel",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > large levels scroll inside a horizontal map on desktop and mobile",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > one level at a time keeps its incoming line and a centered origin",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > horizontal branches meet the source and card sides after resizing, scrolling and zoom",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > slow level navigation responds immediately and completes the diagram transition",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > opening unit activities leaves the map still",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > six visual states and responsive widths remain readable",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > hierarchy, deep links, back/forward and lesson panel",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > icon-only list control aligns right and list reflows",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "learning-map.spec.ts",
+        "title": "learning-map.spec.ts > manual zoom keeps hierarchy and reduced motion stays usable",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > accesibilidad automática en Datos, unidad, selector, errores y confirmación",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > accesibilidad automática en Datos, unidad, selector, errores y confirmación",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > desarchiva una ruta desde el índice y recupera su estado publicado",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > el índice distingue un borrador nuevo de una ruta con publicación previa",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > crea la ruta nominal y respeta guardar → validar → enviar",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > elimina una unidad con confirmación local, permite cancelar y guarda cero unidades",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > aborta respuestas de filtros obsoletos y no vuelve a consultar al recuperar foco",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > bloquea doble guardado y conserva el orden de la única operación",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > un fallo de guardado impide validar y mantiene el borrador dirty",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > rechaza una validación confirmada para otra versión",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > presenta errores accionables y warning limited sin tecnicismos",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > conserva borrador ante conflicto y recupera cambios solo en la misma ruta y actor",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > selector, ayuda y eliminación funcionan con teclado y restauran foco",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > vista previa usa el borrador actual y no solicita tracking de estudiante",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > publicada y archivada permanecen de solo lectura y solo la publicada puede clonarse",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "desktop",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > reflow no crea overflow de página en los cinco anchos",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > desarchiva una ruta desde el índice y recupera su estado publicado",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > el índice distingue un borrador nuevo de una ruta con publicación previa",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > crea la ruta nominal y respeta guardar → validar → enviar",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > elimina una unidad con confirmación local, permite cancelar y guarda cero unidades",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > mantiene material fijado fuera de la primera página y pagina sin perderlo",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 46,
+              "line": 167
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listitem')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listitem') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listitem')\u001b[22m\n\u001b[2m    23 × locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:167:46)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > aborta respuestas de filtros obsoletos y no vuelve a consultar al recuperar foco",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > bloquea doble guardado y conserva el orden de la única operación",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > un fallo de guardado impide validar y mantiene el borrador dirty",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > rechaza una validación confirmada para otra versión",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > presenta errores accionables y warning limited sin tecnicismos",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > conserva borrador ante conflicto y recupera cambios solo en la misma ruta y actor",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > selector, ayuda y eliminación funcionan con teclado y restauran foco",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > vista previa usa el borrador actual y no solicita tracking de estudiante",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > publicada y archivada permanecen de solo lectura y solo la publicada puede clonarse",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > contenido heredado conserva dos objetivos, cuatro formatos y alternativas",
+        "project": "mobile",
+        "status": "unexpected",
+        "expectedStatus": "passed",
+        "errors": [
+          {
+            "location": {
+              "file": "Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts",
+              "column": 67,
+              "line": 352
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Video', { exact: true }).last()\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Video', { exact: true }).last() with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Video', { exact: true }).last()\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\route-editor.spec.ts:352:67)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+          }
+        ]
+      },
+      {
+        "file": "route-editor.spec.ts",
+        "title": "route-editor.spec.ts > editor cotidiano con transporte fixture en memoria > reflow no crea overflow de página en los cinco anchos",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  },
+  "large-editor-effective": {
+    "method": "Latest execution of each identical file/title/project; all original failures retained in raw reports",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "stats": {
+      "expected": 2,
+      "unexpected": 0,
+      "skipped": 0
+    },
+    "failures": [],
+    "omissions": [],
+    "cases": [
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "desktop",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      },
+      {
+        "file": "large-editor.spec.ts",
+        "title": "large-editor.spec.ts > T040 L03 large editor mounts one form, preserves closed edits and persists through the real BFF",
+        "project": "mobile",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "errors": []
+      }
+    ]
+  }
+}

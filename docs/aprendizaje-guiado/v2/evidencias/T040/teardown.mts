@@ -9,6 +9,6 @@ export default async function teardown() {
   if (!response.ok) throw new Error('Cooperative shutdown rejected');
   await new Promise(resolve => setTimeout(resolve, 1500));
   const run = process.env.T040_BROWSER_RUN ?? 'browser';
-  if (!['browser', 'guided-recheck', 'security-recheck'].includes(run)) throw new Error('Unknown browser run');
+  if (!['browser', 'guided-recheck', 'security-recheck', 'large-editor','large-editor-final','large-editor-recheck','large-editor-confirmed'].includes(run)) throw new Error('Unknown browser run');
   await writeFile(new URL(`${run}-cleanup.json`, import.meta.url), JSON.stringify({ database: ready.database, cooperativeShutdownRequested: true }, null, 2));
 }

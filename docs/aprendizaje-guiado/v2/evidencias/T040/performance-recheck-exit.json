@@ -1,0 +1,9 @@
+{
+  "id": "performance-recheck",
+  "command": "pnpm.cmd --filter @cediah/api exec node --import tsx test/performance/guided-v2-load.mjs --pool-size=20",
+  "exitCode": 0,
+  "result": "PASS",
+  "startedUtc": "2026-10-09T02:00:25.098Z",
+  "finishedUtc": "2026-10-09T02:05:51.763Z",
+  "evidence": "performance-recheck.txt"
+}

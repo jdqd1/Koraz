@@ -1,0 +1,33 @@
+Command: pnpm.cmd --filter @cediah/web exec playwright test --config D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T040/playwright.legacy-production.config.mts learning-map-persistence.spec.ts
+Node: v24.19.0
+Started: 2026-10-09T02:26:07.073Z
+[WebServer] (node:25644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/learning-map-server.ts
+[WebServer] (node:18328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:12024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:3548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:8052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\learning-map-persistence.spec.ts:16:7 › disposable API/SQL persistence › published routes are visible before enrollment and have no incoming root lines (5.7s)
+  ok 2 [desktop] › tests\e2e\learning-map-persistence.spec.ts:34:7 › disposable API/SQL persistence › published route is shared while spatial state stays account scoped (3.1s)
+  ok 3 [desktop] › tests\e2e\learning-map-persistence.spec.ts:57:7 › disposable API/SQL persistence › opens a published lesson, launches its guide and returns to the same place (5.6s)
+(node:24956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\learning-map-persistence.spec.ts:16:7 › disposable API/SQL persistence › published routes are visible before enrollment and have no incoming root lines (4.1s)
+  ok 5 [mobile] › tests\e2e\learning-map-persistence.spec.ts:34:7 › disposable API/SQL persistence › published route is shared while spatial state stays account scoped (3.2s)
+  ok 6 [mobile] › tests\e2e\learning-map-persistence.spec.ts:57:7 › disposable API/SQL persistence › opens a published lesson, launches its guide and returns to the same place (5.7s)
+
+  6 passed (53.2s)
+
+Exit code: 0
+Finished: 2026-10-09T02:27:02.311Z

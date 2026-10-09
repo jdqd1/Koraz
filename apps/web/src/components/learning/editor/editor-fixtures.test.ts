@@ -56,6 +56,29 @@ describe("editor visual fixtures", () => {
     expect(runtime.requests).toEqual(["save:99", "save:1"]);
   });
 
+  it("preserves all four legacy formats, configurations and identities through save and read", async () => {
+    const runtime = createEditorFixtureRuntime("legacy");
+    const initial = runtime.getPath()!;
+    const initialOptions = initial.version.units.flatMap((unit) => unit.steps.flatMap((step) => step.options));
+    expect(initialOptions.map((entry) => entry.projection)).toEqual(["guide", "video", "quiz", "flashcards"]);
+
+    const draft = editorDraftFromDetail(initial);
+    draft.title = "Ruta heredada editada";
+    const serialized = serializeUpdateRequest(draft, initial.version.editVersion);
+    if (!serialized.ok) throw new Error("legacy fixture update must be valid");
+    const saved = await runtime.transport.save(initial.id, serialized.value);
+    if (!saved.ok) throw new Error("legacy fixture save must succeed");
+    const reloaded = runtime.getPath()!;
+
+    expect(reloaded.title).toBe("Ruta heredada editada");
+    expect(reloaded.version.editVersion).toBe(initial.version.editVersion + 1);
+    expect(saved.value).toEqual(reloaded);
+    expect(reloaded.version.units.flatMap((unit) => unit.steps.flatMap((step) => step.options))).toEqual(initialOptions);
+    expect(reloaded.version.units[0]!.objectives).toEqual(initial.version.units[0]!.objectives);
+    expect(reloaded.version.units[0]!.steps.map((step) => step.purpose)).toEqual(["integrate", "diagnostic"]);
+    expect(runtime.requests).toEqual([`save:${initial.version.editVersion}`]);
+  });
+
   it("deletes the matching route version, including a published route", async () => {
     const runtime = createEditorFixtureRuntime("ready");
     const initial = runtime.getPath()!;
