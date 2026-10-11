@@ -32,7 +32,7 @@ export async function restoreDrill(target){
   const sequences=(await connection.query("select schemaname,sequencename,last_value from pg_sequences where schemaname in ('public','private') order by schemaname,sequencename")).rows;
   return {rows,sequences};
  }
- let created=false,restored;
+ let created=false,restored,phase='dump';
  try{
   const client=await pool.connect();let before,dumpMs;
   try{
@@ -43,20 +43,32 @@ export async function restoreDrill(target){
    native('pg_dump',['--schema-only','--no-owner','--snapshot',snapshot,'--file',directory+'/before.sql']);
    await client.query('commit');
   }finally{client.release();}
+  phase='create-target';
   await pool.query(`create database "${restoreName}"`);created=true;
+  phase='restore-command';
   const restoreMs=native('pg_restore',['--exit-on-error','--no-owner','--dbname',restoreName,dump],restoreName);
   const restoredUrl=new URL(target);restoredUrl.pathname='/'+restoreName;
   restored=new Pool({connectionString:restoredUrl.href,max:1});
+  phase='compare-rows';
   const after=await fingerprint(restored);assert.deepEqual(after,before);
   native('pg_dump',['--schema-only','--no-owner','--file',directory+'/after.sql'],restoreName);
   const schema=file=>readFile(directory+'/'+file,'utf8').then(s=>s.replace(/^\\(?:un)?restrict .*\r?\n/gm,''));
-  assert.equal(sha(await schema('after.sql')),sha(await schema('before.sql')));
+  phase='compare-schema';
+  const beforeSchema=await schema('before.sql'),afterSchema=await schema('after.sql');
+  if(sha(afterSchema)!==sha(beforeSchema)){
+   const a=beforeSchema.split('\n'),b=afterSchema.split('\n');
+   console.log('RC01_RESTORE_SCHEMA_DIFF '+JSON.stringify(a.flatMap((line,index)=>line===b[index]?[]:[{line:index+1,before:line,after:b[index]}]).slice(0,8)));
+  }
+  assert.equal(sha(afterSchema),sha(beforeSchema));
   const bytes=await readFile(dump);
   console.log('RC01_RESTORE '+JSON.stringify({status:'PASS',scope:'Isolated Render PostgreSQL staging recovery drill',
    sourceDatabase:pgEnv.PGDATABASE,restoreDatabase:restoreName,tables:Object.keys(before.rows).length,
    matchingTableCountsAndHashes:true,matchingSequences:true,matchingSchemaAndGrants:true,
    backupBytes:bytes.length,backupSha256:sha(bytes),dumpMs,restoreMs,rows:before.rows,
    limitation:'Temporary test backup; no production retention or RPO/RTO acceptance'}));
+ }catch(error){
+  console.log('RC01_RESTORE_FAILURE '+JSON.stringify({status:'FAIL',phase,errorCode:error?.code??error?.name,detail:phase==='restore-command'||phase==='dump'?String(error.message).slice(0,100):'See sanitized comparison phase'}));
+  throw error;
  }finally{
   await restored?.end();
   if(created)await pool.query(`drop database "${restoreName}"`);
