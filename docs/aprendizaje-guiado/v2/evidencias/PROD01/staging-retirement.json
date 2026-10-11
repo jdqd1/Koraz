@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-11T17:56:32.003Z",
+  "authorization": "Sí, elimina ambos recursos de prueba",
+  "deleted": [
+    {
+      "id": "srv-db5gma942hec738t9gu0",
+      "name": "cediah-api-staging-v2",
+      "connectorStatus": 404
+    },
+    {
+      "id": "dpg-db5gi7id0e5s73fcvc20-a",
+      "name": "koraz-guided-v2-staging",
+      "connectorStatus": 404
+    }
+  ],
+  "production": {
+    "serviceId": "srv-d9svh0navr4c73f9j77g",
+    "databaseProject": "uniajsrdhhyjxyadgvdo",
+    "apiHealth": 200,
+    "pilotPage": 200,
+    "authenticatedPilot": 200,
+    "legacyProgress": 200
+  },
+  "otherResourcesUnchanged": true
+}
