@@ -18,6 +18,11 @@ export async function restoreDrill(target){
  function native(binary,args,database=pgEnv.PGDATABASE){
   const start=performance.now();
   const result=spawnSync(binary,args,{env:{...pgEnv,PGDATABASE:database},encoding:'utf8',timeout:180000,maxBuffer:1048576});
+  if(result.status!==0){
+   // Keep only the tool's primary diagnostic, never COPY row contents or credentials.
+   const diagnostic=(result.stderr??'').split('\n').find(line=>line.startsWith(binary+': error:'))??'No primary diagnostic';
+   console.log('RC01_RESTORE_NATIVE_ERROR '+JSON.stringify({binary,exitCode:result.status,diagnostic:diagnostic.replaceAll(pgEnv.PGPASSWORD,'<secret>').slice(0,300)}));
+  }
   assert.equal(result.status,0,`${binary} failed (details withheld to protect credentials)`);
   return performance.now()-start;
  }
