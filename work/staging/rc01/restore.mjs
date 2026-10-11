@@ -67,7 +67,9 @@ export async function restoreDrill(target){
     const header=block.split('\n')[1]??'';
     const owner=/; Owner: ([^\n]+)/.exec(header)?.[1];
     return !(header.includes('; Type: DEFAULT ACL;')&&managedOwners.has(owner));
-   }).join('').replace(/\n{3,}/g,'\n\n'));
+   }).join('').replace(/^--.*\n/gm,'')
+    .split('\n').filter(line=>!([...managedOwners].some(owner=>line.startsWith(`ALTER DEFAULT PRIVILEGES FOR ROLE ${owner} `)||line.startsWith(`ALTER DEFAULT PRIVILEGES FOR ROLE "${owner}" `)))).join('\n')
+    .replace(/\n{3,}/g,'\n\n').trim());
   phase='compare-schema';
   const beforeSchema=await schema('before.sql'),afterSchema=await schema('after.sql');
   if(sha(afterSchema)!==sha(beforeSchema)){
