@@ -30,7 +30,7 @@ COPY --from=build --chown=cediah:cediah /app/packages/contracts/package.json ./p
 COPY --from=build --chown=cediah:cediah /app/packages/contracts/node_modules ./packages/contracts/node_modules
 COPY --from=build --chown=cediah:cediah /app/packages/contracts/dist ./packages/contracts/dist
 
-COPY --chown=cediah:cediah work/staging/rc01/boot.mjs ./apps/api/stage/boot.mjs
+COPY --chown=cediah:cediah work/staging/rc01/*.mjs ./apps/api/stage/
 USER cediah
 WORKDIR /app/apps/api
 EXPOSE 4000

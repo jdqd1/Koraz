@@ -316,7 +316,8 @@ export async function buildApp(
     : undefined;
   const createdAuthService =
     environment.auth && pool
-      ? createBetterAuthService(environment.auth, { pool })
+      ? createBetterAuthService(environment.auth,
+          environment.auth.databaseUrl === environment.databaseUrl ? { pool } : undefined)
       : undefined;
   const authService = dependencies.authService ?? createdAuthService;
   const contentProvider =

@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 const require=createRequire(new URL('../package.json',import.meta.url));
 const {Pool}=require('pg');
 const emit=value=>console.log('RC01_INVENTORY '+JSON.stringify(value));
+let connections;
 try {
  assert.equal(process.env.RENDER_SERVICE_ID,'srv-db5gma942hec738t9gu0');
  assert.equal(process.env.DATABASE_MIGRATIONS_ENABLED,'false');
@@ -41,9 +42,13 @@ try {
   emit({status:'PASS',scope:'Read-only internal RC01 staging inventory',identity,
     migrationChecksumsVerified:true,applied,excluded,tables,roles,counts});
  } finally {await pool.end();}
+ if(process.env.RC01_BOOTSTRAP==='true'){
+  connections=await (await import('./bootstrap.mjs')).bootstrap(target);
+ }
 } catch(error) {
  // Error messages can contain connection details; only print a known error code/name.
  emit({status:'FAIL',errorCode:error?.code??error?.name??'unknown'});
  process.exit(1);
 }
+if(connections){process.env.DATABASE_URL=connections.databaseUrl;process.env.AUTH_DATABASE_URL=connections.authDatabaseUrl;}
 await import('../dist/server.js');
