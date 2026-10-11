@@ -45,6 +45,8 @@ try {
  if(process.env.RC01_BOOTSTRAP==='true'){
   connections=await (await import('./bootstrap.mjs')).bootstrap(target);
  }
+ if(process.env.RC01_TEST_SEED==='true')await (await import('./seed.mjs')).seed(target);
+ if(process.env.RC01_RESTORE_DRILL==='true')await (await import('./restore.mjs')).restoreDrill(target);
 } catch(error) {
  // Error messages can contain connection details; only print a known error code/name.
  emit({status:'FAIL',errorCode:error?.code??error?.name??'unknown'});

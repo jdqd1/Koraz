@@ -16,6 +16,7 @@ COPY packages/contracts packages/contracts
 RUN pnpm --filter @cediah/contracts build && pnpm --filter @cediah/api build
 
 FROM node:24-alpine AS runtime
+RUN apk add --no-cache postgresql17-client
 
 ENV NODE_ENV=production
 WORKDIR /app
@@ -31,6 +32,8 @@ COPY --from=build --chown=cediah:cediah /app/packages/contracts/node_modules ./p
 COPY --from=build --chown=cediah:cediah /app/packages/contracts/dist ./packages/contracts/dist
 
 COPY --chown=cediah:cediah work/staging/rc01/*.mjs ./apps/api/stage/
+COPY --chown=cediah:cediah docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-review/guia-corregida.md ./apps/api/stage/inputs/pilot-guide.md
+COPY --chown=cediah:cediah docs/aprendizaje-guiado/v2/evidencias/T045/cases/synthetic/guia.md ./apps/api/stage/inputs/synthetic-guide.md
 USER cediah
 WORKDIR /app/apps/api
 EXPOSE 4000
