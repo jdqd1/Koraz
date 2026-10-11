@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import {createHash,randomBytes} from 'node:crypto';
 import {readFile,readdir} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 const {Pool}=createRequire(new URL('../package.json',import.meta.url))('pg');
@@ -7,7 +6,8 @@ const roleNames=['cediah_runtime','rc01_auth_runtime'];
 export async function bootstrap(target){
  const pool=new Pool({connectionString:target.href,max:1});
  try{
-  const secrets=roleNames.map(()=>randomBytes(32).toString('hex'));
+  const secrets=[process.env.RC01_RUNTIME_SECRET,process.env.RC01_AUTH_SECRET];
+  for(const secret of secrets)assert.match(secret??'',/^[a-f0-9]{64}$/,'Scoped role secrets must be configured');
   await pool.query('begin');
   try{
    const present=(await pool.query('select rolname from pg_roles where rolname=any($1)',[roleNames])).rows;
