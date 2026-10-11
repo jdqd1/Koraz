@@ -1,0 +1,8 @@
+Scope: all 4 workspace projects
+? Verifying lockfile against supply-chain policies (753 entries)...
+Lockfile is up to date, resolution step is skipped
+Already up to date
+✓ Lockfile passes supply-chain policies (753 entries in 12.7s)
+
+Done in 13.9s using pnpm v11.25.0
+$ tsc -p tsconfig.json && node bin/generate-learning-route-schema.mjs

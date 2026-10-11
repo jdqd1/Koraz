@@ -1,9 +1,3 @@
-databases:
-  # Temporary rollback source. The API no longer reads this database after
-  # the Supabase cutover; keep it intact until production verification ends.
-  - name: cediah-postgres
-    plan: free
-
 services:
   - type: web
     name: cediah-api
