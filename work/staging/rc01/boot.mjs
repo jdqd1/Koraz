@@ -35,7 +35,7 @@ try {
   const roles=(await pool.query(`select rolname,rolsuper,rolcreatedb,rolcreaterole,rolbypassrls
     from pg_roles where rolname in ('cediah_runtime','anon','authenticated') order by rolname`)).rows;
   const counts=(await pool.query(`select (select count(*)::int from public.auth_users) accounts,
-    (select count(*)::int from public.learning_path_versions where engine_version='v2') v2_versions,
+    (select count(*)::int from public.learning_path_versions where policy_version='guided-v2.0') v2_versions,
     (select count(*)::int from public.learning_enrollments) enrollments`)).rows[0];
   await pool.query('commit');
   emit({status:'PASS',scope:'Read-only internal RC01 staging inventory',identity,
