@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "at": "2026-10-11T16:14:38.799Z",
+  "scope": "New account under separate authentication runtime",
+  "httpStatus": 422,
+  "diagnostic": "permission denied for table profiles",
+  "cause": "Existing SECURITY INVOKER bootstrap_new_user requires profile upsert and student role insertion; initial scoped auth role lacked these grants"
+}

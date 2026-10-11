@@ -1,0 +1,168 @@
+{
+  "hasMore": false,
+  "logs": [
+    {
+      "id": "a2d008e7-0b2d-4d90-8281-be26d8cc68c8",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-mwxt9"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_FAILURE {\"status\":\"FAIL\",\"phase\":\"restore-command\",\"errorCode\":\"ERR_ASSERTION\",\"detail\":\"pg_restore failed (details withheld to protect credentials)\\n\\n1 !== 0\\n\"}",
+      "timestamp": "2026-10-11T15:52:16.106367982Z"
+    },
+    {
+      "id": "68ba20eb-0aed-4918-b818-c534aee4ad28",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-gwstr"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_FAILURE {\"status\":\"FAIL\",\"phase\":\"restore-command\",\"errorCode\":\"ERR_ASSERTION\",\"detail\":\"pg_restore failed (details withheld to protect credentials)\\n\\n1 !== 0\\n\"}",
+      "timestamp": "2026-10-11T15:53:35.844918835Z"
+    },
+    {
+      "id": "6d69163c-e737-442f-8158-05636b2590eb",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-cwt5b"
+        },
+        {
+          "name": "level",
+          "value": "error"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_NATIVE_ERROR {\"binary\":\"pg_restore\",\"exitCode\":1,\"diagnostic\":\"pg_restore: error: could not execute query: ERROR:  permission denied to change default privileges\"}",
+      "timestamp": "2026-10-11T15:54:49.675533207Z"
+    },
+    {
+      "id": "0f6ab3e1-c209-4de7-b4fe-09c120888cb3",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-cwt5b"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_FAILURE {\"status\":\"FAIL\",\"phase\":\"restore-command\",\"errorCode\":\"ERR_ASSERTION\",\"detail\":\"pg_restore failed (details withheld to protect credentials)\\n\\n1 !== 0\\n\"}",
+      "timestamp": "2026-10-11T15:54:49.677612167Z"
+    },
+    {
+      "id": "0f6ab3e1-c209-4de7-b4fe-09c120888cb3",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-cwt5b"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_FAILURE {\"status\":\"FAIL\",\"phase\":\"restore-command\",\"errorCode\":\"ERR_ASSERTION\",\"detail\":\"pg_restore failed (details withheld to protect credentials)\\n\\n1 !== 0\\n\"}",
+      "timestamp": "2026-10-11T15:54:49.677612167Z"
+    },
+    {
+      "id": "0310dfcb-6b28-4f1d-835c-c2a24acbc32c",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-wcgmx"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_SCHEMA_DIFF [{\"line\":27,\"before\":\"-- Name: public; Type: SCHEMA; Schema: -; Owner: -\",\"after\":\"-- Name: catalog_visibility; Type: TYPE; Schema: public; Owner: -\"},{\"line\":30,\"before\":\"-- *not* creating schema, since initdb creates it\",\"after\":\"CREATE TYPE public.catalog_visibility AS ENUM (\"},{\"line\":31,\"before\":\"\",\"after\":\"    'catalog',\"},{\"line\":32,\"before\":\"--\",\"after\":\"    'guided_only'\"},{\"line\":33,\"before\":\"-- Name: catalog_visibility; Type: TYPE; Schema: public; Owner: -\",\"after\":\");\"},{\"line\":34,\"before\":\"--\",\"after\":\"\"},{\"line\":35,\"before\":\"\",\"after\":\"--\"},{\"line\":36,\"before\":\"CREATE TYPE public.catalog_visibility AS ENUM (\",\"after\":\"-- Name: content_asset_kind; Type: TYPE; Schema: public; Owner: -\"}]",
+      "timestamp": "2026-10-11T15:58:32.074502501Z"
+    },
+    {
+      "id": "098242f8-7cbb-41cd-9ab2-70e92b69347e",
+      "labels": [
+        {
+          "name": "resource",
+          "value": "srv-db5gma942hec738t9gu0"
+        },
+        {
+          "name": "instance",
+          "value": "srv-db5gma942hec738t9gu0-wcgmx"
+        },
+        {
+          "name": "level",
+          "value": "info"
+        },
+        {
+          "name": "type",
+          "value": "app"
+        }
+      ],
+      "message": "RC01_RESTORE_FAILURE {\"status\":\"FAIL\",\"phase\":\"compare-schema\",\"errorCode\":\"ERR_ASSERTION\",\"detail\":\"See sanitized comparison phase\"}",
+      "timestamp": "2026-10-11T15:58:32.076406553Z"
+    }
+  ],
+  "nextEndTime": "2026-10-11T15:52:16.106367982Z",
+  "nextStartTime": "2026-10-04T15:58:20.026413896Z"
+}

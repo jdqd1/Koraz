@@ -1,0 +1,259 @@
+{
+  "status": "PASS",
+  "productionTouched": false,
+  "journeys": {
+    "synthetic": {
+      "status": "PASS",
+      "scope": "Real Better Auth; protected Vercel BFF; Render API/PostgreSQL; import/export, review/publication, enrollment, answer replay, persisted read and session closure",
+      "contentHash": "2e59f7b4e0eed9f5bc0283b6b774c4fc1b11af0be1e01a4efcdbc30ec7bb2fcf",
+      "enrollmentId": "51d49519-4263-4b91-8892-15969559b88a",
+      "attempts": [
+        {
+          "attemptId": "58e61e0a-0d5b-417e-9bb6-095cc06d37b2",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "a25a3641-ca89-4153-ae35-77615356951e",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "6f8def68-9f76-4b15-977c-0f993b2efbbd",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "12f30dc7-2b1f-4e68-b9e9-e713016a5e9f",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "040f3ce3-3d5b-4b47-bd10-eff1ee34a87d",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "5007760c-117d-4686-b8f4-0f18a58fdad5",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "970c0d81-c31c-4188-a88a-49a68b3d34bc",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "4996e302-d663-4f4d-9db6-16dacfe0bf72",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "906d3390-86a1-495a-8ed4-d4a395f46066",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "85454b4d-8779-420d-9181-281b93269555",
+          "status": "completed",
+          "acceptedResponses": 1
+        }
+      ],
+      "replayVerified": true,
+      "masteredAt": "2026-10-11T16:08:06.089Z",
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "exhaustedBanks": [],
+      "limitation": "No clock override in cloud. Deferred retention is proven by the local guarded clock journeys; this cloud run only records presently eligible work."
+    },
+    "pilot": {
+      "status": "PASS",
+      "scope": "Real Better Auth; protected Vercel BFF; Render API/PostgreSQL; import/export, review/publication, enrollment, answer replay, persisted read and session closure",
+      "contentHash": "b7bb7647b2e7eedef1b2e78f8d298d946910e2f350f855b4e8e60c1af017fdfa",
+      "enrollmentId": "3e49b4fb-af3b-4c8c-9453-dfcef3ad951a",
+      "attempts": [
+        {
+          "attemptId": "132e45e3-ac02-4976-9a0c-eabde9430b57",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "1f5cb9e5-1b83-43fe-bcef-f5db2f4bb04e",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "32b68d0a-fd8d-4b3f-b6fe-986323012177",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "6e38aae1-580e-4064-873f-186faaa73d0e",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "7e0adcbb-ee9d-46fb-9074-46fa667c264a",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "5dd04e4e-61f7-4044-84ae-27a86c1acbad",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "f040357d-0576-4db2-850e-eddeb2613c28",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "786678c8-7ad5-41c1-a6f4-5e3ca9b3cbe6",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "a9b4c67a-fcf9-4dc6-a407-28a79bbe3d39",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "f7e2fbf3-292e-4e9e-a628-564b29f00785",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "60410751-647c-4be2-8aef-8a0959a1d637",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "302ac5d6-c026-4898-9061-b55cfaacb4cc",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "c92de7ec-0226-4f36-b6f8-71c4b5221abc",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "79460df2-52db-4806-af36-5317ed4db51a",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "8eafae8b-528d-4ad6-a731-d76eec428397",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "237c9dc4-73fa-42e8-a4a8-731eb97ab988",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "6bfd38a8-3b8c-43b1-a43d-899904defa7b",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "9a50f105-74fd-4e76-b7d0-4eb238298a6c",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "1fb0f2b3-9771-480b-a995-c9857e0995cf",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "41e502e2-dbb4-4319-8efa-da0d2064e4f9",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "d93470cb-6389-42a9-8ddb-541ecfab3603",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "274ec86e-6824-4626-af13-9affbe65cc61",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "1efc1e05-6092-4b2d-9590-cff82c595010",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "07a862ac-0a4b-41b3-b654-74728557d88c",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "4ca92ded-d091-4caa-8f43-4187c6fea794",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "525fdc9a-3934-40b5-87ee-065f28e3b7a3",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "a82fdb99-d6bd-46d2-90c4-1d600609e934",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "7acc3739-5835-4f43-a7dc-aca1087eb03e",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "eefabbd9-b56f-4168-b7b5-99335a402d8c",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "f8a9f214-ef61-4c29-bc04-9ec30a4fa930",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "3ba97b60-4e9d-46a2-9404-ef44034d8884",
+          "status": "completed",
+          "acceptedResponses": 1
+        },
+        {
+          "attemptId": "c4c872f9-f63e-4bc5-bebb-78c141adfdb8",
+          "status": "completed",
+          "acceptedResponses": 1
+        }
+      ],
+      "replayVerified": true,
+      "masteredAt": null,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "La práctica sigue disponible; la próxima comprobación será después de 2026-10-12T16:08:47.390Z"
+      },
+      "exhaustedBanks": [
+        {
+          "objectiveKey": "retorno-sistemico",
+          "availableAfter": "2026-10-12T16:08:47.390Z"
+        },
+        {
+          "objectiveKey": "retorno-portal",
+          "availableAfter": "2026-10-12T16:09:20.418Z"
+        }
+      ],
+      "limitation": "No clock override in cloud. Deferred retention is proven by the local guarded clock journeys; this cloud run only records presently eligible work."
+    }
+  }
+}

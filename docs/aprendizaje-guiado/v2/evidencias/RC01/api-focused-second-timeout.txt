@@ -1,0 +1,44 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-package.test.ts (7 tests | 2 failed) 33197ms
+     × uses CLI exit codes 0, 1 and 2 16169ms
+     × keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages 16584ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-package.test.ts > portable guided v2 package > uses CLI exit codes 0, 1 and 2
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-package.test.ts:70:3
+     68|     expect(disk.$schema).toBe("https://json-schema.org/draft/2020-12/s…
+     69|   });
+     70|   it("uses CLI exit codes 0, 1 and 2", () => {
+       |   ^
+     71|     const dir = mkdtempSync(join(tmpdir(), "koraz-route-"));
+     72|     try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/guided-v2-package.test.ts > portable guided v2 package > keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-package.test.ts:87:3
+     85|     } finally { rmSync(dir, { recursive: true, force: true }); }
+     86|   });
+     87|   it("keeps the autonomous publication validator equivalent to the bac…
+       |   ^
+     88|     const pilot = JSON.parse(readFileSync(resolve(root, "docs/aprendiz…
+     89|     const cycle = structuredClone(pilot);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 23 passed (25)
+   Start at  00:26:34
+   Duration  60.40s (transform 3.73s, setup 0ms, import 8.50s, tests 47.72s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-package.test.ts test/guided-v2-import.test.ts test/guided-v2-editor.test.ts "--maxWorkers=1"

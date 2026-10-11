@@ -1,0 +1,399 @@
+{
+  "synthetic": {
+    "state": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "51d49519-4263-4b91-8892-15969559b88a",
+      "pathVersionId": "18f966f3-c5f5-4d58-8519-b6ee1d854453",
+      "rowVersion": 1,
+      "completedActivities": 9,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 9,
+      "completedAt": "2026-10-11T16:08:06.089Z",
+      "masteredAt": "2026-10-11T16:08:06.089Z",
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "integrar-circuito",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-11T16:07:56.999Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-11T16:09:58.737Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "omitted",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "dueAt": "2026-10-12T16:07:52.066Z",
+            "retention7": {
+              "dueAt": "2026-10-18T16:07:56.999Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-10T16:07:56.999Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "unidad-circuito",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": []
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-11T16:07:04.455Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    },
+    "attempt": {
+      "engineVersion": "guided-v2",
+      "attemptId": "85454b4d-8779-420d-9181-281b93269555",
+      "enrollmentId": "51d49519-4263-4b91-8892-15969559b88a",
+      "pathVersionId": "18f966f3-c5f5-4d58-8519-b6ee1d854453",
+      "policyVersion": "guided-v2.0",
+      "purpose": "assessment",
+      "rowVersion": 3,
+      "status": "completed",
+      "activeActivity": null,
+      "constructedResponse": null,
+      "accessiblePractice": null,
+      "acceptedResponses": [
+        {
+          "activityKey": "final-trazas",
+          "answer": {
+            "kind": "match",
+            "pairs": {
+              "entrada-a": "traza-a",
+              "entrada-b": "traza-b",
+              "entrada-c": "traza-c"
+            }
+          },
+          "serverAcceptedAt": "2026-10-11T16:08:04.894Z",
+          "score01": 1,
+          "feedback": {
+            "explanation": "Son los tres ejemplos completos de la sección 3: N calcula residuo, C codifica y E considera e.",
+            "commonError": "",
+            "sources": [
+              {
+                "key": "normalizacion",
+                "title": "Circuito de señales Neral",
+                "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+                "locator": {
+                  "heading": "1. Normalización del contador",
+                  "sectionPath": [
+                    "Circuito de señales Neral",
+                    "1. Normalización del contador"
+                  ],
+                  "page": null
+                },
+                "excerpt": "La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\n\nEjemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.",
+                "url": null
+              },
+              {
+                "key": "codificacion",
+                "title": "Circuito de señales Neral",
+                "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+                "locator": {
+                  "heading": "2. Codificación del residuo",
+                  "sectionPath": [
+                    "Circuito de señales Neral",
+                    "2. Codificación del residuo"
+                  ],
+                  "page": null
+                },
+                "excerpt": "La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\n\n| Residuo r | Color c |\n|---|---|\n| 0 | azul |\n| 1 | verde |\n| 2 | ámbar |\n| 3 | rojo |\n\nC no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.",
+                "url": null
+              },
+              {
+                "key": "enrutamiento",
+                "title": "Circuito de señales Neral",
+                "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+                "locator": {
+                  "heading": "3. Enrutamiento de la salida",
+                  "sectionPath": [
+                    "Circuito de señales Neral",
+                    "3. Enrutamiento de la salida"
+                  ],
+                  "page": null
+                },
+                "excerpt": "La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\n\n| Interruptor | azul | verde | ámbar | rojo |\n|---|---|---|---|---|\n| e=0 | archivo | archivo | archivo | archivo |\n| e=1 | pantalla | pantalla | alarma | alarma |\n\nEjemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.",
+                "url": null
+              }
+            ],
+            "partialScore01": 1
+          }
+        }
+      ]
+    }
+  },
+  "pilot": {
+    "state": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "3e49b4fb-af3b-4c8c-9453-dfcef3ad951a",
+      "pathVersionId": "5b30af23-0f4e-4974-abf7-9a3e305426ce",
+      "rowVersion": 1,
+      "completedActivities": 32,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 34,
+      "completedAt": null,
+      "masteredAt": null,
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "territorios-arteriales",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-11T16:08:34.714Z",
+          "firstConsolidatedAt": null
+        },
+        {
+          "objectiveKey": "retorno-sistemico",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-11T16:08:55.364Z",
+          "firstConsolidatedAt": null
+        },
+        {
+          "objectiveKey": "retorno-portal",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-11T16:09:20.418Z",
+          "firstConsolidatedAt": null
+        },
+        {
+          "objectiveKey": "tipos-comunicacion",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-11T16:09:43.892Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "La práctica sigue disponible; la próxima comprobación será después de 2026-10-12T16:08:47.390Z"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-11T16:09:59.693Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "omitted",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "retorno-portal",
+            "dueAt": "2026-10-12T16:09:08.682Z",
+            "retention7": {
+              "dueAt": "2026-10-18T16:09:20.418Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-10T16:09:20.418Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          },
+          {
+            "objectiveKey": "retorno-sistemico",
+            "dueAt": "2026-10-12T16:08:45.219Z",
+            "retention7": {
+              "dueAt": "2026-10-18T16:08:55.364Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-10T16:08:55.364Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          },
+          {
+            "objectiveKey": "territorios-arteriales",
+            "dueAt": "2026-10-12T16:08:21.836Z",
+            "retention7": {
+              "dueAt": "2026-10-18T16:08:34.714Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-10T16:08:34.714Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          },
+          {
+            "objectiveKey": "tipos-comunicacion",
+            "dueAt": "2026-10-12T16:09:31.977Z",
+            "retention7": {
+              "dueAt": "2026-10-18T16:09:43.892Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-10T16:09:43.892Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "arterias",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          },
+          {
+            "unitKey": "cava",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          },
+          {
+            "unitKey": "porta",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          },
+          {
+            "unitKey": "comunicaciones",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": [
+          {
+            "objectiveKey": "retorno-sistemico",
+            "availableAfter": "2026-10-12T16:08:47.390Z"
+          },
+          {
+            "objectiveKey": "retorno-portal",
+            "availableAfter": "2026-10-12T16:09:20.418Z"
+          }
+        ]
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-11T16:08:15.359Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    },
+    "attempt": {
+      "engineVersion": "guided-v2",
+      "attemptId": "c4c872f9-f63e-4bc5-bebb-78c141adfdb8",
+      "enrollmentId": "3e49b4fb-af3b-4c8c-9453-dfcef3ad951a",
+      "pathVersionId": "5b30af23-0f4e-4974-abf7-9a3e305426ce",
+      "policyVersion": "guided-v2.0",
+      "purpose": "activity",
+      "rowVersion": 3,
+      "status": "completed",
+      "activeActivity": null,
+      "constructedResponse": null,
+      "accessiblePractice": null,
+      "acceptedResponses": [
+        {
+          "activityKey": "comunicaciones-a2",
+          "answer": {
+            "kind": "single_choice",
+            "optionKey": "op1"
+          },
+          "serverAcceptedAt": "2026-10-11T16:09:47.448Z",
+          "score01": 1,
+          "feedback": {
+            "explanation": "La rectal superior continúa hacia VMI en el sistema porta. Las rectales media e inferior drenan hacia el sistema ilíaco interno y pudendo. La comunicación es portosistémica.",
+            "commonError": "",
+            "sources": [
+              {
+                "key": "comunicaciones",
+                "title": "Vascularización de abdomen y sistema porta hepático",
+                "citation": "Snapshot suministrado 2026-10-08 con aclaraciones editoriales RC01 de 2026-10-11. Libros suministrados sin cotejo independiente; aclaraciones contrastadas con registros primarios PubMed 26267305 y 8813499.",
+                "locator": {
+                  "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+                  "sectionPath": [
+                    "Vascularización de abdomen y sistema porta hepático",
+                    "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+                  ],
+                  "page": null
+                },
+                "excerpt": "Las anastomosis intercavas comunican territorios de la vena cava superior con territorios de la vena cava inferior. Deben distinguirse de las anastomosis portosistémicas, ya que en las intercavas ambos extremos pertenecen al sistema venoso sistémico. [1,3]\nUna vía profunda importante está formada por las venas lumbares ascendentes, que se continúan superiormente con el sistema ácigos y se comunican inferiormente con venas iliolumbares y sacras. De este modo puede establecerse un trayecto alternativo hacia la vena cava superior si existe una obstrucción importante de la VCI. [1]\nEn la pared superficial, las venas toracoepigástricas establecen una comunicación longitudinal entre tributarias de la vena axilar y venas epigástricas relacionadas con el territorio ilíaco-femoral. Esta vía puede dilatarse en la obstrucción de alguno de los grandes troncos cavas. [1]\nLas anastomosis portosistémicas o portocavas son comunicaciones entre tributarias del sistema porta y venas de la circulación sistémica. En condiciones normales transportan poco flujo, pero adquieren importancia cuando aumenta la resistencia al paso de la sangre por el sistema portal o por el hígado. [2,3]\nEn el esófago inferior se comunican:\nSistema portal: vena gástrica izquierda y venas esofágicas inferiores relacionadas con ella.\nSistema sistémico: venas esofágicas que drenan hacia los sistemas ácigos y hemiácigos. [2,3]\nEn la región umbilical se comunican:\nSistema portal: venas paraumbilicales que siguen el ligamento redondo del hígado y se relacionan con la rama izquierda de la vena porta.\nSistema sistémico: venas superficiales de la pared abdominal, en especial tributarias epigástricas y toracoepigástricas. [2,3]\nEn el recto y conducto anal se comunican:\nSistema portal: vena rectal superior, que continúa hacia la vena mesentérica inferior.\nSistema sistémico: venas rectales media e inferior, que drenan hacia el sistema ilíaco interno y pudendo. [2,3]\nNota clínica: las comunicaciones portosistémicas rectales y las hemorroides no son equivalentes. En el estudio comparativo de Misra y colaboradores, la hipertensión portal se acompañó de mayor prevalencia de varices anorrectales, sin aumento de la prevalencia de hemorroides. La presencia de hemorroides por sí sola no permite inferir hipertensión portal. Esta aclaración se apoya en ese estudio y no atribuye nuevas afirmaciones a los libros cuya página no ha sido cotejada. [5]\nEn las superficies posteriores de órganos secundariamente retroperitoneales existen comunicaciones entre venas viscerales portales y pequeñas venas retroperitoneales sistémicas. Entre los ejemplos se incluyen conexiones de venas cólicas con venas lumbares y retroperitoneales. [2,3]",
+                "url": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

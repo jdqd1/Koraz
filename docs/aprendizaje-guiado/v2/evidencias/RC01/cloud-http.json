@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-11T04:17:36.794Z",
+  "base": "https://cediah-api-staging-v2.onrender.com",
+  "checks": [
+    {
+      "path": "/health",
+      "status": 200,
+      "body": "{\"checkedAt\":\"2026-10-11T04:17:30.534Z\",\"environment\":\"production\",\"service\":\"cediah-api\",\"status\":\"ok\",\"version\":\"0.1.0\"}"
+    },
+    {
+      "path": "/__test/ready",
+      "status": 404,
+      "body": "{\"error\":\"not_found\"}"
+    },
+    {
+      "path": "/auth/get-session",
+      "status": 404,
+      "body": "{\"error\":\"not_found\"}"
+    }
+  ],
+  "scope": "Read-only HTTP smoke; no real DB/auth/journey verification"
+}

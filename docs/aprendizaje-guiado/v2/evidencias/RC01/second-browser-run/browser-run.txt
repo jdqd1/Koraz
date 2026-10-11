@@ -1,0 +1,286 @@
+[WebServer] (node:7048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:5888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:24204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention (1.5m)
+(node:26428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention (1.3m)
+(node:21012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention (15.3s)
+(node:21620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention (1.2m)
+
+
+  1) [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })
+        - locator resolved to <button disabled type="button" class="learning-primary-button">Continuar a la práctica</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is not enabled
+      - retrying click action
+        - waiting for element to be visible, enabled and stable
+      - element was detached from the DOM, retrying
+
+
+       6 | async function answer(page:Page,a:any){
+       7 |  switch(a.kind){
+    >  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;
+         |                                                                                          ^
+       9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;
+      10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;
+      11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;
+        at answer (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:8:90)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:55:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })
+    Expected: visible
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true }) with timeout 60000ms
+      - waiting for getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:54:79)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 15
+    + Received  + 80
+
+      Object {
+    -   "acceptedResponses": Array [],
+    -   "accessiblePractice": null,
+    -   "activeActivity": Object {
+    -     "key": "explicacion",
+    +   "acceptedResponses": Array [
+    +     Object {
+    +       "activityKey": "explicacion",
+    +       "answer": Object {
+    +         "acknowledged": true,
+              "kind": "study",
+    -     "objectiveKey": "integrar-circuito",
+    -     "payload": Object {
+    -       "assetKey": null,
+    -       "body": "El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.",
+    -       "focusSpans": Array [],
+    -       "scaffold": "explanation",
+    -       "videoRange": null,
+    +       },
+    +       "feedback": Object {
+    +         "commonError": "",
+    +         "explanation": "El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.",
+    +         "sources": Array [
+    +           Object {
+    +             "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+    +             "excerpt": "La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.
+    +
+    + Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.",
+    +             "key": "normalizacion",
+    +             "locator": Object {
+    +               "heading": "1. Normalización del contador",
+    +               "page": null,
+    +               "sectionPath": Array [
+    +                 "Circuito de señales Neral",
+    +                 "1. Normalización del contador",
+    +               ],
+    +             },
+    +             "title": "Circuito de señales Neral",
+    +             "url": null,
+    +           },
+    +           Object {
+    +             "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+    +             "excerpt": "La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:
+    +
+    + | Residuo r | Color c |
+    + |---|---|
+    + | 0 | azul |
+    + | 1 | verde |
+    + | 2 | ámbar |
+    + | 3 | rojo |
+    +
+    + C no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.",
+    +             "key": "codificacion",
+    +             "locator": Object {
+    +               "heading": "2. Codificación del residuo",
+    +               "page": null,
+    +               "sectionPath": Array [
+    +                 "Circuito de señales Neral",
+    +                 "2. Codificación del residuo",
+    +               ],
+    +             },
+    +             "title": "Circuito de señales Neral",
+    +             "url": null,
+    +           },
+    +           Object {
+    +             "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+    +             "excerpt": "La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.
+    +
+    + | Interruptor | azul | verde | ámbar | rojo |
+    + |---|---|---|---|---|
+    + | e=0 | archivo | archivo | archivo | archivo |
+    + | e=1 | pantalla | pantalla | alarma | alarma |
+    +
+    + Ejemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.",
+    +             "key": "enrutamiento",
+    +             "locator": Object {
+    +               "heading": "3. Enrutamiento de la salida",
+    +               "page": null,
+    +               "sectionPath": Array [
+    +                 "Circuito de señales Neral",
+    +                 "3. Enrutamiento de la salida",
+    +               ],
+    +             },
+    +             "title": "Circuito de señales Neral",
+    +             "url": null,
+    +           },
+    +         ],
+            },
+    -     "phase": "learn",
+    -     "prompt": "Estudia las reglas y dependencias del circuito ficticio.",
+    -     "representation": "text",
+    +       "score01": null,
+    +       "serverAcceptedAt": "2026-10-11T04:11:20.438Z",
+          },
+    +   ],
+    +   "accessiblePractice": null,
+    +   "activeActivity": null,
+        "attemptId": "6fc944ef-5594-4d5c-b207-3fd385c035f6",
+        "constructedResponse": null,
+        "engineVersion": "guided-v2",
+        "enrollmentId": "c83975b5-589d-4a9c-ba4b-cef16010f7c3",
+        "pathVersionId": "d6c307f8-968d-48f9-ad74-f1a7fecba6c4",
+        "policyVersion": "guided-v2.0",
+        "purpose": "activity",
+    -   "rowVersion": 1,
+    +   "rowVersion": 2,
+        "status": "open",
+      }
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:58:107)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })
+        - locator resolved to <button disabled type="button" class="learning-primary-button">Continuar a la práctica</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is not enabled
+      - retrying click action
+        - waiting for element to be visible, enabled and stable
+      - element was detached from the DOM, retrying
+
+
+       6 | async function answer(page:Page,a:any){
+       7 |  switch(a.kind){
+    >  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;
+         |                                                                                          ^
+       9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;
+      10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;
+      11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;
+        at answer (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:8:90)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:55:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+    [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+    [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+    [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/rc01/playwright.config.mts

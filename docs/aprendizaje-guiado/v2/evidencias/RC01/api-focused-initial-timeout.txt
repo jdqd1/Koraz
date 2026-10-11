@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-package.test.ts (7 tests | 1 failed) 8570ms
+     × keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages 6527ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-package.test.ts > portable guided v2 package > keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-package.test.ts:87:3
+     85|     } finally { rmSync(dir, { recursive: true, force: true }); }
+     86|   });
+     87|   it("keeps the autonomous publication validator equivalent to the bac…
+       |   ^
+     88|     const pilot = JSON.parse(readFileSync(resolve(root, "docs/aprendiz…
+     89|     const cycle = structuredClone(pilot);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 24 passed (25)
+   Start at  00:07:02
+   Duration  36.33s (transform 2.62s, setup 0ms, import 9.21s, tests 25.72s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-package.test.ts test/guided-v2-import.test.ts test/guided-v2-editor.test.ts "--maxWorkers=1"

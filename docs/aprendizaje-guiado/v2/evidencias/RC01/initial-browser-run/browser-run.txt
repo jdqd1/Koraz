@@ -1,0 +1,98 @@
+[WebServer] (node:14596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 2 tests using 1 worker
+
+(node:21476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention (1.2m)
+(node:21044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention (1.3m)
+
+
+  1) [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: /^(Continuar|Ver cierre de sesión)$/ }).last()
+
+
+      21 |  default:throw new Error(`Unsupported generated kind ${a.kind}`);
+      22 |  }
+    > 23 |  await page.getByRole('button',{name:/^(Continuar|Ver cierre de sesión)$/}).last().click();
+         |                                                                                    ^
+      24 | }
+      25 | test('generated package persists through UI, reload, final and deferred retention',async({page},info)=>{
+      26 |  const ready=await server(page,'/__test/ready');expect(ready.testOnly).toBe(true);
+        at answer (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:23:84)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:54:5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: /^(Continuar|Ver cierre de sesión)$/ }).last()
+
+
+      21 |  default:throw new Error(`Unsupported generated kind ${a.kind}`);
+      22 |  }
+    > 23 |  await page.getByRole('button',{name:/^(Continuar|Ver cierre de sesión)$/}).last().click();
+         |                                                                                    ^
+      24 | }
+      25 | test('generated package persists through UI, reload, final and deferred retention',async({page},info)=>{
+      26 |  const ready=await server(page,'/__test/ready');expect(ready.testOnly).toBe(true);
+        at answer (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:23:84)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:54:5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-generate-34aac-inal-and-deferred-retention-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention 
+    [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:25:1 › generated package persists through UI, reload, final and deferred retention 
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/rc01/playwright.config.mts

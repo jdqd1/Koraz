@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "at": "2026-10-11T16:09:59.475Z",
+  "scope": "Real protected Vercel BFF / Render API / PostgreSQL flag deployment and persisted read",
+  "productionTouched": false,
+  "checks": [
+    {
+      "path": "/v2/guided-learning/enrollments/51d49519-4263-4b91-8892-15969559b88a/state",
+      "status": 200,
+      "who": "learner"
+    },
+    {
+      "path": "/v2/guided-learning/attempts/85454b4d-8779-420d-9181-281b93269555",
+      "status": 200,
+      "who": "learner"
+    },
+    {
+      "path": "/v2/guided-learning/enrollments/3e49b4fb-af3b-4c8c-9453-dfcef3ad951a/state",
+      "status": 200,
+      "who": "learner"
+    },
+    {
+      "path": "/v2/guided-learning/attempts/c4c872f9-f63e-4bc5-bebb-78c141adfdb8",
+      "status": 200,
+      "who": "learner"
+    }
+  ]
+}

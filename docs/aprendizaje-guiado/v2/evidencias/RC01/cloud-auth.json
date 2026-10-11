@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-11T04:23:53.080Z",
+  "environment": "isolated Render/Vercel staging",
+  "api": "https://cediah-api-staging-v2.onrender.com",
+  "web": "https://cediah-g04q50dbe-jdqd1s-projects.vercel.app",
+  "signupStatus": 200,
+  "actorId": "8aa125d2-8ed0-4f40-bed6-910b6002c57b",
+  "checks": [
+    {
+      "label": "api-me",
+      "status": 200,
+      "actorMatches": true
+    },
+    {
+      "label": "bff-session",
+      "status": 200,
+      "actorMatches": true
+    },
+    {
+      "label": "anonymous-v2",
+      "status": 401,
+      "error": "unauthorized"
+    }
+  ]
+}

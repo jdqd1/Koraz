@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-11T16:12:20.114Z",
+  "scope": "RC01: cierre de pendientes autorizado para entorno local y staging aislado",
+  "productionTouched": false,
+  "productionReady": false,
+  "originalBaseSha": "d5b6f051f1a9a47d216bb0f834e39df2b2273725",
+  "branch": "codex/cierre-pendientes-guided-v2",
+  "local": {
+    "browser": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "packages": [
+        "synthetic",
+        "pilot"
+      ],
+      "viewports": [
+        "desktop",
+        "mobile"
+      ],
+      "controlledClock": true,
+      "retention7": true,
+      "retention30": true
+    },
+    "webFocused": 37,
+    "apiFocused": 32,
+    "authRealAndConnection": 5,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "webBuild": "PASS",
+    "cleanup": "PASS",
+    "preservation": "PASS"
+  },
+  "staging": {
+    "recovery": "PASS",
+    "tables": 67,
+    "applicationAndAuthRoles": "PASS",
+    "migrationFilesApplied": 35,
+    "excludedLegacyFile": 1,
+    "cloudJourneys": "PASS for presently eligible work",
+    "syntheticMastery": true,
+    "pilotSessions": 32,
+    "pilotMastery": false,
+    "pilotNextEligibleAfter": "2026-10-12T16:08:47.390Z",
+    "reader": "NO VERIFICADO - deferred by user",
+    "retentionRealElapsedTime": "NO VERIFICADO - local controlled-clock evidence available",
+    "productionRetentionAndRpoRto": "NO VERIFICADO",
+    "registration": "PASS - real signup under limited auth role",
+    "authenticationCannotAssignAdministrator": true,
+    "flagRecovery": "PASS",
+    "externalNetwork": "Closed after temporary /32 removed",
+    "databaseExpiresAt": "2026-11-10T03:57:18Z",
+    "databaseExpiresLocal": "2026-11-09 23:57:18 America/Caracas"
+  },
+  "systemAcceptance": false,
+  "projectAcceptance": false,
+  "productionGates": [
+    "Native screen reader observation deferred by user; historic T042/T046 acceptance remains unmodified",
+    "Explicit production rollout approval is absent; the pilot approval is test only",
+    "Select durable production PostgreSQL capacity, backup retention, RPO/RTO and rollout window; staging free DB expires 2026-11-09 23:57 America/Caracas",
+    "Verify the existing production catalog/ledger and plan migrations without applying empty-install mode to it",
+    "Production exact revisions, actual storage recovery and operational acceptance remain unverified"
+  ],
+  "status": "PASS SCOPED",
+  "decision": "Deliver verified local and isolated staging evidence; retain pending full acceptance"
+}

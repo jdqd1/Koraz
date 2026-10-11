@@ -1,0 +1,20 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+import { hashRoutePackage } from '../../../apps/api/src/guided-learning/v2/validation.js';
+import { hashLearningSnapshot } from '../../../apps/api/src/guided-learning/snapshot-hash.js';
+import { validateRoutePackage } from '../../../packages/contracts/src/index.js';
+const dir=new URL('../../../docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-review/',import.meta.url);
+const raw=readFileSync(new URL('ruta.koraz-route.json',dir),'utf8');
+const pkg=JSON.parse(raw),source=readFileSync(new URL('guia-corregida.md',dir),'utf8');
+assert.equal(pkg.editorial.unresolvedIssues.length,1);
+assert.equal(pkg.editorial.unresolvedIssues[0].code,'EDITORIAL_REVIEW_REQUIRED');
+pkg.editorial.unresolvedIssues=[];
+const portableValidation=validateRoutePackage(pkg);assert.equal(portableValidation.publishable,true,JSON.stringify(portableValidation));
+const bytes=JSON.stringify(pkg,null,2)+'\n';writeFileSync(new URL('ruta-approved.koraz-route.json',dir),bytes);
+const snapshot={title:pkg.route.title,originalDocumentSha256:createHash('sha256').update(source).digest('hex'),text:source};
+const bound=structuredClone(pkg);for(const s of bound.sources){assert(source.includes(s.excerpt));s.documentSha256=hashLearningSnapshot(snapshot);}
+const approval={at:new Date().toISOString(),approved:true,scope:'Publicación exclusivamente en entorno de prueba; sin aprobación productiva o identidad clínica atribuida',userRequestExact:'Revisado y aprobado para prueba',reviewer:'Propietario del proyecto, confirmación directa en este chat',reviewedCandidateFileSha256:createHash('sha256').update(raw).digest('hex'),approvedPortableFileSha256:createHash('sha256').update(bytes).digest('hex'),rawContentHash:hashRoutePackage(pkg),contentHash:hashRoutePackage(bound),derivedChanges:['Retirar exclusivamente EDITORIAL_REVIEW_REQUIRED tras la aprobación explícita','Vincular documentSha256 al snapshot canónico idéntico, conservando archivo y excerpts'],statement:'Propietario: Revisado y aprobado para prueba. Aprobación del candidato RC01 con dos aclaraciones y las 52 actividades conservadas; publicación exclusivamente en PostgreSQL desechable.'};
+writeFileSync(new URL('../pilot-human-review.json',dir),JSON.stringify(approval,null,2)+'\n');
+writeFileSync(new URL('validation.json',dir),JSON.stringify(portableValidation,null,2)+'\n');
+console.log(JSON.stringify({status:'PASS',publishable:true,contentHash:approval.contentHash,approvedPortableFileSha256:approval.approvedPortableFileSha256}));
