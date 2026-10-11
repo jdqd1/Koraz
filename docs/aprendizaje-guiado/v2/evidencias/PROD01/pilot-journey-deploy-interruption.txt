@@ -1,0 +1,28 @@
+Saved production pilot session 1
+Saved production pilot session 2
+Saved production pilot session 3
+Saved production pilot session 4
+Saved production pilot session 5
+Saved production pilot session 6
+Saved production pilot session 7
+Saved production pilot session 8
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: enrollmentState: "content_unavailable"
+
+503 !== 200
+
+    at request (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/work/test/prod01/pilot-journey.mjs:31:10)
+    at async state (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/work/test/prod01/pilot-journey.mjs:59:28)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/work/test/prod01/pilot-journey.mjs:63:13 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 503,
+  expected: 200,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

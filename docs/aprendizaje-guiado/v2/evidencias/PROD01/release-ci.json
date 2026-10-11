@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "runId": 38159481272,
+  "jobId": 114529209057,
+  "testedHead": "6f96e459f6cdccef0054c60a9f8a65ed612ee714",
+  "mergedCommit": "1b87490ed761255f3cb0d2016684c78bc3f90c7a",
+  "api": {
+    "passed": 552,
+    "skipped": 49
+  },
+  "web": {
+    "passed": 485
+  },
+  "lint": true,
+  "typecheck": true,
+  "build": true,
+  "patchedBracesRegression": true,
+  "audit": {
+    "unmitigatedAdvisories": 0,
+    "patchedAdvisory": "GHSA-vfj7-8cjw-p6xm"
+  },
+  "localInitialFailure": "Parallel web/API execution delayed one import endpoint test beyond its unchanged 5-second deadline; the same 18 tests passed in an isolated retry with no assertion or timeout edits.",
+  "permanentBackupsDeferred": true,
+  "screenReaderWaived": true
+}
