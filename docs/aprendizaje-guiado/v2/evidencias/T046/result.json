@@ -1,0 +1,143 @@
+{
+  "taskId": "T046",
+  "status": "NO VERIFICADO",
+  "localDeliveryStatus": "PASS",
+  "decision": "deliver_installation_documentation_preserve_pending_full_acceptance",
+  "at": "2026-10-11T03:49:59.467Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "authorization": {
+    "requestExact": "continua con t046",
+    "scope": "T046 allowlist: exact user skill, v2 docs, isolated backup if needed"
+  },
+  "predecessors": [
+    {
+      "taskId": "T042",
+      "status": "PASS",
+      "implementationAcceptance": true,
+      "originalSystemAcceptance": false
+    },
+    {
+      "taskId": "T045",
+      "status": "PASS LOCAL",
+      "K01_K05": "PASS",
+      "browser": "NO VERIFICADO"
+    }
+  ],
+  "installation": {
+    "path": "C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz",
+    "status": "PASS",
+    "files": 12,
+    "identicalToTestedT045": true,
+    "priorInstallation": false,
+    "backupRequired": false,
+    "codexHomeVariableModified": false,
+    "liveDiscovery": "NO VERIFICADO"
+  },
+  "changedFiles": [
+    "C:/Users/josed/.codex/skills/crear-rutas-koraz/",
+    "docs/aprendizaje-guiado/v2/manuales/",
+    "docs/aprendizaje-guiado/v2/entrega/README.md",
+    "docs/aprendizaje-guiado/v2/acta-HITO-K.md",
+    "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T046/"
+  ],
+  "checks": [
+    {
+      "command": "Compare 12 source files with tested T045 copy and installed destination; verify six resources and fourteen accepted hashes",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "installation.json; prerequisite-check.json; installed-resources.json"
+    },
+    {
+      "command": "Original quick_validate.py against installation with isolated existing PyYAML",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "quick-validate.json"
+    },
+    {
+      "command": "Installed CLI: three generated packages draft/publish plus installed example from other cwd",
+      "exitCode": 0,
+      "result": "7 PASS; expected publication rejections retained",
+      "evidence": "installed-cli.json"
+    },
+    {
+      "command": "Document link review, delivery ZIP integrity and preservation checks",
+      "result": "PASS: 53 document links, 53 ZIP entries, 8200 prior project files and 189 unrelated skill files preserved",
+      "evidence": "closure-check.json; delivery-archive-check.json",
+      "exitCode": 0
+    }
+  ],
+  "summary": {
+    "pass": 26,
+    "fail": 0,
+    "notVerified": 2
+  },
+  "checklist": "checklist-final.json",
+  "issues": [
+    {
+      "id": "Q19/V04",
+      "status": "NO VERIFICADO",
+      "disposition": "DEFERRED_BY_USER",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+    },
+    {
+      "id": "Q25-original",
+      "status": "NO VERIFICADO",
+      "adjustedImplementationGate": "PASS",
+      "reason": "Full original Hito S not accepted; no first skill commit. Documentary provisional order preserved."
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Recorrido por navegador de T045",
+      "reason": "Revisión automática rechazó arrancar el build Next de test: blocked by policy. No se eludió el rechazo.",
+      "evidence": "browser-policy-limitation.json"
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Revisión humana/médica y publicación del nuevo piloto",
+      "reason": "Dos incidencias editoriales preservadas. Aprobación anterior corresponde a otro hash; no se publicó el piloto."
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Better Auth real, staging y producción",
+      "reason": "Identidades y catálogo sintéticos, Fastify real por loopback y PostgreSQL independiente de prueba."
+    },
+    {
+      "id": "live-skill-discovery",
+      "status": "NO VERIFICADO",
+      "reason": "Installation layout verified; current conversation catalog predates installation."
+    }
+  ],
+  "originalAcceptanceCriteriaSatisfied": false,
+  "originalFullSystemAcceptance": false,
+  "originalHitoKAcceptance": false,
+  "acceptedContractChanged": false,
+  "productCodeChanged": false,
+  "registrySynchronizedFromExistingEvidence": [
+    "T043",
+    "T044",
+    "T045"
+  ],
+  "otherSkillsChanged": false,
+  "globalConfigChanged": false,
+  "memoriesChanged": false,
+  "productionTouched": false,
+  "deployed": false,
+  "committed": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "evidence": [
+    "docs/aprendizaje-guiado/v2/evidencias/T046/result.json",
+    "docs/aprendizaje-guiado/v2/acta-HITO-K.md"
+  ],
+  "preservation": {
+    "protectedFiles": 8200,
+    "unrelatedSkillFiles": 189,
+    "documentLinks": 53,
+    "originalContractFiles": 14,
+    "installedSkillFiles": 12,
+    "gitDiffCheck": "PASS"
+  }
+}

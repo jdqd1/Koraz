@@ -1,0 +1,663 @@
+{
+  "scope": "local-portable-only",
+  "allowedWriteDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output",
+  "guideSha256": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+  "packageSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+  "initialCommands": [
+    {
+      "command": "Get-Content -LiteralPath '<case>/skill/SKILL.md' -Raw; Get-Content -LiteralPath '<case>/guia.md' -Raw",
+      "exitCode": 0,
+      "result": "Guía y entrada de skill leídas. Contenido incrustado no se copia al registro."
+    },
+    {
+      "command": "Get-Content -LiteralPath '<case>/skill/references/contrato-koraz-2.0.md' -Raw; Get-Content -LiteralPath '<case>/skill/references/pedagogia.md' -Raw; Get-Content -LiteralPath '<case>/skill/references/cobertura-por-disciplina.md' -Raw; Get-Content -LiteralPath '<case>/skill/assets/koraz-route-2.0.schema.json' -Raw; Get-Content -LiteralPath '<case>/skill/assets/ejemplo-valido.koraz-route.json' -Raw",
+      "exitCode": 0,
+      "result": "Recursos de la copia de skill leídos; salida agregada truncada, lectura selectiva posterior."
+    },
+    {
+      "command": "& 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\verify-resources.mjs'",
+      "exitCode": 0,
+      "result": "valid:true; Node v24.19.0; identidades exactas PASS; Q19/V04 NO VERIFICADO."
+    },
+    {
+      "command": "Get-Content -LiteralPath '<case>/skill/references/cobertura-por-disciplina.md' -Raw; & '<node>' -e 'const fs=require(\"fs\");const s=JSON.parse(fs.readFileSync(process.argv[1],\"utf8\")); for(const k of [\"route\",\"sources\",\"objectives\",\"units\"]){console.log(k,JSON.stringify(s.properties[k]));}' '<case>/skill/assets/koraz-route-2.0.schema.json'",
+      "exitCode": 0,
+      "result": "Patrón histológico y propiedades comunes del esquema comprobados."
+    }
+  ],
+  "commandPlaceholders": {
+    "<case>": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial",
+    "<node>": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
+  },
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\verify-resources.mjs"
+      ],
+      "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+      "exitCode": 0,
+      "result": {
+        "valid": true,
+        "runtime": "v24.19.0",
+        "runtimeMatches": true,
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "deferredCheck": "Q19/V04",
+        "deferredCheckStatus": "NO VERIFICADO",
+        "scope": "portable",
+        "catalogueResolution": "PENDING_AT_IMPORT",
+        "acceptedManifestMatches": true,
+        "checks": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ]
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\validate-route.mjs",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json"
+      ],
+      "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\validate-route.mjs",
+        "--publish",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json"
+      ],
+      "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+      "exitCode": 1,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      },
+      "stderr": ""
+    }
+  ],
+  "repairRounds": 0,
+  "priorValidation": {
+    "packageSha256": "c0eee9de2e0923e57a31024908caa2c1578e21729c04ae15b8a253d670faa95e",
+    "commands": [
+      {
+        "command": [
+          "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+          "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\verify-resources.mjs"
+        ],
+        "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+        "exitCode": 0,
+        "result": {
+          "valid": true,
+          "runtime": "v24.19.0",
+          "runtimeMatches": true,
+          "schemaVersion": "2.0",
+          "policyVersion": "guided-v2.0",
+          "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+          "acceptanceKind": "provisional_implementation_with_user_exception",
+          "deferredCheck": "Q19/V04",
+          "deferredCheckStatus": "NO VERIFICADO",
+          "scope": "portable",
+          "catalogueResolution": "PENDING_AT_IMPORT",
+          "acceptedManifestMatches": true,
+          "checks": [
+            {
+              "path": "assets/koraz-route-2.0.schema.json",
+              "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "matches": true
+            },
+            {
+              "path": "scripts/validate-route.mjs",
+              "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+              "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+              "matches": true
+            },
+            {
+              "path": "assets/ejemplo-valido.koraz-route.json",
+              "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "matches": true
+            },
+            {
+              "path": "references/accepted-contract-hashes.json",
+              "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "matches": true
+            },
+            {
+              "path": "references/reader-deferral.json",
+              "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "matches": true
+            },
+            {
+              "path": "references/LICENSE-ZOD.txt",
+              "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "matches": true
+            }
+          ]
+        },
+        "stderr": ""
+      },
+      {
+        "command": [
+          "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+          "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\validate-route.mjs",
+          "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json"
+        ],
+        "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+        "exitCode": 0,
+        "result": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/editorial/unresolvedIssues",
+              "message": "Hay incidencias editoriales abiertas.",
+              "suggestedFix": "Resuelve cada incidencia antes de publicar."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+              "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+            },
+            {
+              "code": "BANK_TOO_SMALL",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+              "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+              "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+            },
+            {
+              "code": "CRITICAL_GATE_MISSING",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+              "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+            },
+            {
+              "code": "ASSET_REQUIRED",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "La identificación espacial requiere una imagen revisada.",
+              "suggestedFix": "Añade image_target con asset y alternativa accesible."
+            },
+            {
+              "code": "CRITICAL_GATE_MISSING",
+              "severity": "error",
+              "path": "/units/0",
+              "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+              "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación final no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+              "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+              "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+            }
+          ]
+        },
+        "stderr": ""
+      },
+      {
+        "command": [
+          "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+          "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill\\scripts\\validate-route.mjs",
+          "--publish",
+          "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json"
+        ],
+        "workingDirectory": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\skill",
+        "exitCode": 1,
+        "result": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/editorial/unresolvedIssues",
+              "message": "Hay incidencias editoriales abiertas.",
+              "suggestedFix": "Resuelve cada incidencia antes de publicar."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+              "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+            },
+            {
+              "code": "BANK_TOO_SMALL",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+              "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+              "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+            },
+            {
+              "code": "CRITICAL_GATE_MISSING",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+              "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+            },
+            {
+              "code": "ASSET_REQUIRED",
+              "severity": "error",
+              "path": "/objectives/0",
+              "message": "La identificación espacial requiere una imagen revisada.",
+              "suggestedFix": "Añade image_target con asset y alternativa accesible."
+            },
+            {
+              "code": "CRITICAL_GATE_MISSING",
+              "severity": "error",
+              "path": "/units/0",
+              "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+              "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación final no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "RESERVE_LEAK",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+              "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+              "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/assessments",
+              "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+              "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+            }
+          ]
+        },
+        "stderr": ""
+      }
+    ],
+    "localChecks": {
+      "exactExcerpts": true,
+      "secretOmitted": true,
+      "filesWrittenOnlyUnderOutput": true,
+      "externalMutations": false,
+      "structure": "PASS",
+      "portableCoverage": "FAIL",
+      "humanReview": "NO VERIFICADO",
+      "catalogue": "NO VERIFICADO"
+    }
+  },
+  "completedAuthorRun": {
+    "command": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\author-route.mjs"
+    ],
+    "exitCode": 0,
+    "result": "Primera generación: valid:true, publishable:false. Se añadió localizador del conflicto a la elaboración antes de la entrega final."
+  },
+  "localChecks": {
+    "exactExcerpts": true,
+    "secretOmitted": true,
+    "filesWrittenOnlyUnderOutput": true,
+    "externalMutations": false,
+    "structure": "PASS",
+    "portableCoverage": "FAIL",
+    "humanReview": "NO VERIFICADO",
+    "catalogue": "NO VERIFICADO"
+  },
+  "completedFinalAuthorRun": {
+    "command": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\author-route.mjs"
+    ],
+    "exitCode": 0,
+    "result": "valid:true, publishable:false; final hash verified"
+  },
+  "additionalReadCommand": {
+    "command": "Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\validation-publish.json' -Raw",
+    "exitCode": 0,
+    "result": "Full portable diagnostics inspected"
+  },
+  "finalCheck": {
+    "exitCode": 0,
+    "packageSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+    "valid": true,
+    "publishable": false,
+    "portableErrorCount": 12,
+    "command": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "-e",
+      "const fs=require(\"fs\"),p=require(\"path\"),c=require(\"crypto\");const out=process.argv[1];const lp=p.join(out,\"execution-log.json\");const log=JSON.parse(fs.readFileSync(lp,\"utf8\"));const draft=JSON.parse(fs.readFileSync(p.join(out,\"validation-draft.json\"),\"utf8\"));const pub=JSON.parse(fs.readFileSync(p.join(out,\"validation-publish.json\"),\"utf8\"));const digest=c.createHash(\"sha256\").update(fs.readFileSync(p.join(out,\"ruta.koraz-route.json\"))).digest(\"hex\");if(!draft.valid||pub.publishable||digest!==log.packageSha256)throw Error(\"Inconsistent final artifacts\");log.completedFinalAuthorRun={command:[process.execPath,p.join(out,\"author-route.mjs\")],exitCode:0,result:\"valid:true, publishable:false; final hash verified\"};log.additionalReadCommand={command:\"Get-Content -LiteralPath <output>/validation-publish.json -Raw\",exitCode:0,result:\"Full portable diagnostics inspected\"};log.finalCheck={exitCode:0,packageSha256:digest,valid:draft.valid,publishable:pub.publishable,portableErrorCount:pub.issues.filter(x=>x.severity===\"error\").length,command:[process.execPath,\"-e\",process.argv[0],out]};fs.writeFileSync(lp,JSON.stringify(log,null,2)+\"\\n\");console.log(JSON.stringify(log.finalCheck));",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output"
+    ]
+  },
+  "toolEdits": [
+    {
+      "tool": "apply_patch",
+      "target": "output/author-route.mjs",
+      "result": "created and repaired fileURLToPath before execution; sourceKeys added for conflict elaboration",
+      "exitCode": null
+    },
+    {
+      "tool": "apply_patch",
+      "target": "output/audit-log.mjs",
+      "result": "created local execution-record verification",
+      "exitCode": null
+    }
+  ],
+  "outputAudit": {
+    "command": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\audit-log.mjs"
+    ],
+    "exitCode": 0,
+    "packageSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+    "guideSecretExcludedFromAllOutputFiles": true,
+    "counts": {
+      "units": 1,
+      "objectives": 2,
+      "activities": 4,
+      "assessments": 5,
+      "assets": 0
+    },
+    "outputFiles": [
+      "assets-pendientes.json",
+      "audit-log.mjs",
+      "author-route.mjs",
+      "execution-log.json",
+      "resource-verification.json",
+      "revision-de-ruta.md",
+      "ruta.koraz-route.json",
+      "validation-draft.json",
+      "validation-publish.json"
+    ]
+  }
+}

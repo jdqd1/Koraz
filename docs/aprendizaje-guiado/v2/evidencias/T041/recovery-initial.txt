@@ -1,0 +1,48 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+error: relation "private.guided_v2_audit" does not exist
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\client.js:694:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async PostgresConnection.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:113:28)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+    at async #run (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16)
+    at async DefaultQueryExecutor.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28)
+    at async InsertQueryBuilder.execute (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24)
+    at async insertEditorDraft (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\src\providers\postgres-guided-learning-v2.ts:463:3)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+    at async DefaultConnectionProvider.provideConnection (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20)
+    at PostgresConnection.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:126:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+    at async #run (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16)
+    at async DefaultQueryExecutor.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28)
+    at async InsertQueryBuilder.execute (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24)
+    at async insertEditorDraft (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\src\providers\postgres-guided-learning-v2.ts:463:3)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32
+    at async DefaultConnectionProvider.provideConnection (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/default-connection-provider.js:10:20)
+    at async Object.createDraft (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\src\providers\postgres-guided-learning-v2.ts:734:16) {
+  length: 122,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '13',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1431',
+  routine: 'parserOpenTable'
+}
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx ../../work/test/t041/recovery.mts

@@ -1,0 +1,793 @@
+{
+  "packageSha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56",
+  "objectives": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "required": true,
+      "initialActivities": [
+        "arterias-recuperar-nivel",
+        "arterias-recuperar-territorios",
+        "arterias-elaborar-continuidades",
+        "arterias-aplicar-ami",
+        "arterias-aplicar-aorta"
+      ],
+      "initialFamilies": [
+        "arterias-recuperar-nivel",
+        "arterias-recuperar-territorios",
+        "arterias-elaborar-continuidades",
+        "arterias-aplicar-ami",
+        "arterias-aplicar-aorta"
+      ],
+      "retrievalFamilies": [
+        "arterias-recuperar-nivel",
+        "arterias-recuperar-territorios"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "arterias-final-ramas",
+            "equivalenceKey": "arterias-final-ramas"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "arterias-retention7-transverso",
+            "equivalenceKey": "arterias-retention7-transverso"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "arterias-retention30-marginal",
+            "equivalenceKey": "arterias-retention30-marginal"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "retorno-cava",
+      "required": true,
+      "initialActivities": [
+        "cava-recuperar-formacion",
+        "cava-recuperar-pares",
+        "cava-elaborar-pinza",
+        "cava-aplicar-trayecto",
+        "cava-aplicar-gonadal"
+      ],
+      "initialFamilies": [
+        "cava-recuperar-formacion",
+        "cava-recuperar-pares",
+        "cava-elaborar-pinza",
+        "cava-aplicar-trayecto",
+        "cava-aplicar-gonadal"
+      ],
+      "retrievalFamilies": [
+        "cava-recuperar-formacion",
+        "cava-recuperar-pares"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "cava-final-colectores",
+            "equivalenceKey": "cava-final-colectores"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "cava-retention7-renal",
+            "equivalenceKey": "cava-retention7-renal"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "cava-retention30-hepaticas",
+            "equivalenceKey": "cava-retention30-hepaticas"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "flujo-portal",
+      "required": true,
+      "initialActivities": [
+        "porta-recuperar-confluencia",
+        "porta-recuperar-triada",
+        "porta-elaborar-redes",
+        "porta-aplicar-flujo",
+        "porta-aplicar-correccion"
+      ],
+      "initialFamilies": [
+        "porta-recuperar-confluencia",
+        "porta-recuperar-triada",
+        "porta-elaborar-redes",
+        "porta-aplicar-flujo",
+        "porta-aplicar-correccion"
+      ],
+      "retrievalFamilies": [
+        "porta-recuperar-confluencia",
+        "porta-recuperar-triada"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "porta-final-topografia",
+            "equivalenceKey": "porta-final-topografia"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "porta-retention7-vmi",
+            "equivalenceKey": "porta-retention7-vmi"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "porta-retention30-drenaje",
+            "equivalenceKey": "porta-retention30-drenaje"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "comunicaciones-venosas",
+      "required": true,
+      "initialActivities": [
+        "venas-recuperar-intercava",
+        "venas-recuperar-pares",
+        "venas-elaborar-clases",
+        "venas-aplicar-via-profunda",
+        "venas-aplicar-rectal"
+      ],
+      "initialFamilies": [
+        "venas-recuperar-intercava",
+        "venas-recuperar-pares",
+        "venas-elaborar-clases",
+        "venas-aplicar-via-profunda",
+        "venas-aplicar-rectal"
+      ],
+      "retrievalFamilies": [
+        "venas-recuperar-intercava",
+        "venas-recuperar-pares"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "venas-final-vias",
+            "equivalenceKey": "venas-final-vias"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "venas-retention7-flujo",
+            "equivalenceKey": "venas-retention7-flujo"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "venas-retention30-umbilical",
+            "equivalenceKey": "venas-retention30-umbilical"
+          }
+        ]
+      }
+    }
+  ],
+  "activities": [
+    {
+      "key": "arterias-estudio",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "learn",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "arterias-estudio",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-recuperar-nivel",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "learning",
+      "equivalenceKey": "arterias-recuperar-nivel",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-recuperar-territorios",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "arterias-recuperar-territorios",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-elaborar-continuidades",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "elaborate",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "arterias-elaborar-continuidades",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-aplicar-ami",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "apply",
+      "kind": "sequence",
+      "use": "learning",
+      "equivalenceKey": "arterias-aplicar-ami",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-aplicar-aorta",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "apply",
+      "kind": "single_choice",
+      "use": "learning",
+      "equivalenceKey": "arterias-aplicar-aorta",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-final-ramas",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "final",
+      "equivalenceKey": "arterias-final-ramas",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-retention7-transverso",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "retrieve",
+      "kind": "single_choice",
+      "use": "retention7",
+      "equivalenceKey": "arterias-retention7-transverso",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "arterias-retention30-marginal",
+      "objectiveKey": "territorios-arteriales",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "retention30",
+      "equivalenceKey": "arterias-retention30-marginal",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ]
+    },
+    {
+      "key": "cava-estudio",
+      "objectiveKey": "retorno-cava",
+      "phase": "learn",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "cava-estudio",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-recuperar-formacion",
+      "objectiveKey": "retorno-cava",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "learning",
+      "equivalenceKey": "cava-recuperar-formacion",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-recuperar-pares",
+      "objectiveKey": "retorno-cava",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "cava-recuperar-pares",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-elaborar-pinza",
+      "objectiveKey": "retorno-cava",
+      "phase": "elaborate",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "cava-elaborar-pinza",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-aplicar-trayecto",
+      "objectiveKey": "retorno-cava",
+      "phase": "apply",
+      "kind": "sequence",
+      "use": "learning",
+      "equivalenceKey": "cava-aplicar-trayecto",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-aplicar-gonadal",
+      "objectiveKey": "retorno-cava",
+      "phase": "apply",
+      "kind": "single_choice",
+      "use": "learning",
+      "equivalenceKey": "cava-aplicar-gonadal",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-remediacion",
+      "objectiveKey": "retorno-cava",
+      "phase": "remediate",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "cava-remediacion",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-final-colectores",
+      "objectiveKey": "retorno-cava",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "final",
+      "equivalenceKey": "cava-final-colectores",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-retention7-renal",
+      "objectiveKey": "retorno-cava",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "retention7",
+      "equivalenceKey": "cava-retention7-renal",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "cava-retention30-hepaticas",
+      "objectiveKey": "retorno-cava",
+      "phase": "apply",
+      "kind": "single_choice",
+      "use": "retention30",
+      "equivalenceKey": "cava-retention30-hepaticas",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-estudio",
+      "objectiveKey": "flujo-portal",
+      "phase": "learn",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "porta-estudio",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-recuperar-confluencia",
+      "objectiveKey": "flujo-portal",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "learning",
+      "equivalenceKey": "porta-recuperar-confluencia",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-recuperar-triada",
+      "objectiveKey": "flujo-portal",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "porta-recuperar-triada",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-elaborar-redes",
+      "objectiveKey": "flujo-portal",
+      "phase": "elaborate",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "porta-elaborar-redes",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-aplicar-flujo",
+      "objectiveKey": "flujo-portal",
+      "phase": "apply",
+      "kind": "sequence",
+      "use": "learning",
+      "equivalenceKey": "porta-aplicar-flujo",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-aplicar-correccion",
+      "objectiveKey": "flujo-portal",
+      "phase": "apply",
+      "kind": "single_choice",
+      "use": "learning",
+      "equivalenceKey": "porta-aplicar-correccion",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-remediacion",
+      "objectiveKey": "flujo-portal",
+      "phase": "remediate",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "porta-remediacion",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-final-topografia",
+      "objectiveKey": "flujo-portal",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "final",
+      "equivalenceKey": "porta-final-topografia",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-retention7-vmi",
+      "objectiveKey": "flujo-portal",
+      "phase": "retrieve",
+      "kind": "single_choice",
+      "use": "retention7",
+      "equivalenceKey": "porta-retention7-vmi",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "porta-retention30-drenaje",
+      "objectiveKey": "flujo-portal",
+      "phase": "apply",
+      "kind": "match",
+      "use": "retention30",
+      "equivalenceKey": "porta-retention30-drenaje",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ]
+    },
+    {
+      "key": "venas-estudio",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "learn",
+      "kind": "study",
+      "use": "learning",
+      "equivalenceKey": "venas-estudio",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-recuperar-intercava",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "retrieve",
+      "kind": "short_answer",
+      "use": "learning",
+      "equivalenceKey": "venas-recuperar-intercava",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-recuperar-pares",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "venas-recuperar-pares",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-elaborar-clases",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "elaborate",
+      "kind": "match",
+      "use": "learning",
+      "equivalenceKey": "venas-elaborar-clases",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-aplicar-via-profunda",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "apply",
+      "kind": "sequence",
+      "use": "learning",
+      "equivalenceKey": "venas-aplicar-via-profunda",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-aplicar-rectal",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "apply",
+      "kind": "single_choice",
+      "use": "learning",
+      "equivalenceKey": "venas-aplicar-rectal",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-final-vias",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "retrieve",
+      "kind": "match",
+      "use": "final",
+      "equivalenceKey": "venas-final-vias",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-retention7-flujo",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "retrieve",
+      "kind": "single_choice",
+      "use": "retention7",
+      "equivalenceKey": "venas-retention7-flujo",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "venas-retention30-umbilical",
+      "objectiveKey": "comunicaciones-venosas",
+      "phase": "apply",
+      "kind": "match",
+      "use": "retention30",
+      "equivalenceKey": "venas-retention30-umbilical",
+      "sourceKeys": [
+        "anastomosis"
+      ],
+      "feedbackSourceKeys": [
+        "anastomosis"
+      ]
+    },
+    {
+      "key": "diagnostico-colector",
+      "objectiveKey": "retorno-cava",
+      "phase": "activate",
+      "kind": "single_choice",
+      "use": "diagnostic",
+      "equivalenceKey": "diagnostico-colector",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "diagnostico-bifurcacion",
+      "objectiveKey": "retorno-cava",
+      "phase": "activate",
+      "kind": "single_choice",
+      "use": "diagnostic",
+      "equivalenceKey": "diagnostico-bifurcacion",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "diagnostico-surco",
+      "objectiveKey": "retorno-cava",
+      "phase": "activate",
+      "kind": "single_choice",
+      "use": "diagnostic",
+      "equivalenceKey": "diagnostico-surco",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    },
+    {
+      "key": "diagnostico-llegada",
+      "objectiveKey": "retorno-cava",
+      "phase": "activate",
+      "kind": "single_choice",
+      "use": "diagnostic",
+      "equivalenceKey": "diagnostico-llegada",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ]
+    }
+  ],
+  "outsideScope": [
+    "Identificación espacial por figuras",
+    "Técnicas quirúrgicas",
+    "Diagnóstico",
+    "Tratamiento"
+  ],
+  "excludedPending": [
+    "Antecedente y origen de las tres ramas gástrica izquierda, hepática común y esplénica",
+    "Interpretación clínica de hemorroides e hipertensión portal"
+  ]
+}

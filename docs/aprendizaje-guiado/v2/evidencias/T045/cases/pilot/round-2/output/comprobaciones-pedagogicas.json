@@ -1,0 +1,476 @@
+{
+  "packageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff",
+  "checks": {
+    "excerptsLiteral": true,
+    "originalHash": true,
+    "fiveInitialFamilies": true,
+    "twoRetrievalFamilies": true,
+    "deferredBothRetrieval": true,
+    "reserveFamiliesExclusive": true,
+    "windowsPreserved": true,
+    "acyclic": true
+  },
+  "windows": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "scope": "Inspección de diseño por familias; no simulación del motor, reloj o dominio",
+      "stages": [
+        {
+          "after": "arterias-a2",
+          "families": [
+            {
+              "key": "arterias-r1",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-a2",
+              "phase": "apply"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "arterias-final",
+          "families": [
+            {
+              "key": "arterias-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-final",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "arterias-r7",
+          "families": [
+            {
+              "key": "arterias-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r7",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "arterias-r30",
+          "families": [
+            {
+              "key": "arterias-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "arterias-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r7",
+              "phase": "retrieve"
+            },
+            {
+              "key": "arterias-r30",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        }
+      ],
+      "allKeepTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "retorno-sistemico",
+      "scope": "Inspección de diseño por familias; no simulación del motor, reloj o dominio",
+      "stages": [
+        {
+          "after": "cava-a3",
+          "families": [
+            {
+              "key": "cava-r1",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-r2",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-a3",
+              "phase": "apply"
+            }
+          ],
+          "retrievalCount": 2,
+          "applicationCount": 3
+        },
+        {
+          "after": "cava-final",
+          "families": [
+            {
+              "key": "cava-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-r2",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-a3",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-final",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 2,
+          "applicationCount": 3
+        },
+        {
+          "after": "cava-r7",
+          "families": [
+            {
+              "key": "cava-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-r2",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-a3",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-r7",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 2,
+          "applicationCount": 3
+        },
+        {
+          "after": "cava-r30",
+          "families": [
+            {
+              "key": "cava-r2",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-a3",
+              "phase": "apply"
+            },
+            {
+              "key": "cava-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-r7",
+              "phase": "retrieve"
+            },
+            {
+              "key": "cava-r30",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        }
+      ],
+      "allKeepTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "retorno-portal",
+      "scope": "Inspección de diseño por familias; no simulación del motor, reloj o dominio",
+      "stages": [
+        {
+          "after": "porta-r4",
+          "families": [
+            {
+              "key": "porta-r1",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "porta-r4",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 4,
+          "applicationCount": 1
+        },
+        {
+          "after": "porta-final",
+          "families": [
+            {
+              "key": "porta-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "porta-r4",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-final",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 4,
+          "applicationCount": 1
+        },
+        {
+          "after": "porta-r7",
+          "families": [
+            {
+              "key": "porta-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "porta-r4",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r7",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 4,
+          "applicationCount": 1
+        },
+        {
+          "after": "porta-r30",
+          "families": [
+            {
+              "key": "porta-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "porta-r4",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r7",
+              "phase": "retrieve"
+            },
+            {
+              "key": "porta-r30",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 4,
+          "applicationCount": 1
+        }
+      ],
+      "allKeepTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "tipos-comunicacion",
+      "scope": "Inspección de diseño por familias; no simulación del motor, reloj o dominio",
+      "stages": [
+        {
+          "after": "comunicaciones-a2",
+          "families": [
+            {
+              "key": "comunicaciones-r1",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-a2",
+              "phase": "apply"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "comunicaciones-final",
+          "families": [
+            {
+              "key": "comunicaciones-r2",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-final",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "comunicaciones-r7",
+          "families": [
+            {
+              "key": "comunicaciones-r3",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r7",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        },
+        {
+          "after": "comunicaciones-r30",
+          "families": [
+            {
+              "key": "comunicaciones-a1",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-a2",
+              "phase": "apply"
+            },
+            {
+              "key": "comunicaciones-final",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r7",
+              "phase": "retrieve"
+            },
+            {
+              "key": "comunicaciones-r30",
+              "phase": "retrieve"
+            }
+          ],
+          "retrievalCount": 3,
+          "applicationCount": 2
+        }
+      ],
+      "allKeepTwoRetrievalAndApplication": true
+    }
+  ],
+  "limits": "Diseño local: no acredita elegibilidad real, selección de preguntas, score, dominio ni consolidación del motor."
+}

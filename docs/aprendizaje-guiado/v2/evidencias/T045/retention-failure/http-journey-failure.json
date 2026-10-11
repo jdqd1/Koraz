@@ -1,0 +1,1160 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(consolidated.consolidatedAt)\n",
+  "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(consolidated.consolidatedAt)\n\n    at <anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\http-journey.mts:66:35)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "trace": [
+    {
+      "key": "diagnostico",
+      "kind": "assessment",
+      "attemptId": "29b482e2-6965-4079-a279-0891e9803195",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 0,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "learning",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "calculo-residuo",
+          "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:57.364Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "calculo-residuo",
+              "objectiveKey": "integrar-neral",
+              "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-neral"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "calculo-residuo",
+      "kind": "activity",
+      "attemptId": "8bb0f3fe-cf3a-4b47-b6a0-e1f137a4c2bb",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "tabla-colores",
+          "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:57.583Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "tabla-colores",
+              "objectiveKey": "integrar-neral",
+              "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-neral"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "tabla-colores",
+      "kind": "activity",
+      "attemptId": "0cc69273-a2d9-4841-8ae9-c30f56384a54",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 2,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "interruptor-cero",
+          "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:57.786Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "interruptor-cero",
+              "objectiveKey": "integrar-neral",
+              "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-neral"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "interruptor-cero",
+      "kind": "activity",
+      "attemptId": "4f2865df-5ab1-46a4-9076-1a39a964f4a9",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 3,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "orden-compuertas",
+          "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:58.085Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "orden-compuertas",
+              "objectiveKey": "integrar-neral",
+              "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "orden-compuertas",
+      "kind": "activity",
+      "attemptId": "7c89c324-414d-463e-a812-e14360244faf",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 4,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "datos-insuficientes",
+          "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:58.347Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "datos-insuficientes",
+              "objectiveKey": "integrar-neral",
+              "reason": "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "datos-insuficientes",
+      "kind": "activity",
+      "attemptId": "0164b145-0ec5-4226-b60e-40e4d2a4c5a7",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 5,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "explicacion-circuito",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:58.563Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "explicacion-circuito",
+              "objectiveKey": "integrar-neral",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "explicacion-circuito",
+      "kind": "activity",
+      "attemptId": "3fd27118-4d19-4c24-aab8-5dde129a1024",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 6,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "ejemplo-resuelto",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:58.789Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "ejemplo-resuelto",
+              "objectiveKey": "integrar-neral",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "ejemplo-resuelto",
+      "kind": "activity",
+      "attemptId": "528030ed-0067-4fe3-82d1-2cfc0fdd239a",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 7,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "ejemplo-parcial",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:59.042Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "ejemplo-parcial",
+              "objectiveKey": "integrar-neral",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "ejemplo-parcial",
+      "kind": "activity",
+      "attemptId": "8e38463a-4dca-41a8-b134-b3f3350bac86",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 8,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "elaboracion-perdida-informacion",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:59.274Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "elaboracion-perdida-informacion",
+              "objectiveKey": "integrar-neral",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "elaboracion-perdida-informacion",
+      "kind": "activity",
+      "attemptId": "2477707b-1c62-4eaa-9512-1ca2b871178f",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": true,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "gate",
+          "key": "final",
+          "reason": "Evaluación final disponible; las actividades completadas no implican dominio acreditado"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:59.630Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "final",
+      "kind": "assessment",
+      "attemptId": "b8922735-7b15-4015-a4e7-ab20f1f8db09",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-10-11T03:23:59.873Z",
+        "masteredAt": "2026-10-11T03:23:59.873Z",
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "none",
+          "key": null,
+          "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-11T03:23:59.898Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-12T03:23:57.509Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "retencion-siete",
+      "kind": "assessment",
+      "attemptId": "ff3a12b6-f5a3-421a-b97c-0c5d5bae36bd",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-10-11T03:23:59.873Z",
+        "masteredAt": "2026-10-11T03:23:59.873Z",
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "gate",
+          "key": "gate-circuito",
+          "reason": "Comprobación disponible; no implica dominio automático"
+        },
+        "maintenance": {
+          "generatedAt": "2026-10-19T03:24:00.189Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-10-22T03:24:00.094Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": "2026-10-19T03:24:00.094Z",
+                "elapsedDays": 8.000024247685186
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-neral"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "key": "retencion-treinta",
+      "kind": "assessment",
+      "attemptId": "1cfea866-ef4e-457d-9260-50dded365831",
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "38656b52-11ad-4e7f-a1c3-abb7dffc9dbf",
+        "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-10-11T03:23:59.873Z",
+        "masteredAt": "2026-10-11T03:23:59.873Z",
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-neral",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-10-11T03:23:57.999Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "gate",
+          "key": "gate-circuito",
+          "reason": "Comprobación disponible; no implica dominio automático"
+        },
+        "maintenance": {
+          "generatedAt": "2026-11-12T03:24:00.417Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "completed",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-neral",
+              "dueAt": "2026-11-19T03:24:00.342Z",
+              "retention7": {
+                "dueAt": "2026-10-18T03:23:57.999Z",
+                "acceptedAt": "2026-10-19T03:24:00.094Z",
+                "elapsedDays": 8.000024247685186
+              },
+              "retention30": {
+                "dueAt": "2026-11-10T03:23:57.999Z",
+                "acceptedAt": "2026-11-12T03:24:00.342Z",
+                "elapsedDays": 32.000027118055556
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "circuito-neral",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-neral"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T03:23:56.602Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    }
+  ]
+}

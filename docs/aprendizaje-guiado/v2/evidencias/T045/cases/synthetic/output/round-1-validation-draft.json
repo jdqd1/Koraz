@@ -1,0 +1,21 @@
+{
+  "scope": "portable",
+  "valid": true,
+  "publishable": false,
+  "issues": [
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "severity": "error",
+      "path": "/activities/7",
+      "message": "La actividad contiene texto pendiente.",
+      "suggestedFix": "Sustituye el marcador por contenido revisado."
+    },
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "severity": "warning",
+      "path": "/assessments",
+      "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+      "suggestedFix": "Registra esta limitación editorial."
+    }
+  ]
+}

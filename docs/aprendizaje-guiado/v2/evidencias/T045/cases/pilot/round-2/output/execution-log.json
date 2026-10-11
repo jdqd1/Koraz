@@ -1,0 +1,392 @@
+{
+  "scope": "Solo guía y skill round-2; escrituras exclusivamente en round-2/output; sin sistemas externos",
+  "runtime": "v24.19.0",
+  "input": {
+    "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\guia.md",
+    "sha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+  },
+  "commands": [
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\verify-resources.mjs"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "valid": true,
+        "runtime": "v24.19.0",
+        "runtimeMatches": true,
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "deferredCheck": "Q19/V04",
+        "deferredCheckStatus": "NO VERIFICADO",
+        "scope": "portable",
+        "catalogueResolution": "PENDING_AT_IMPORT",
+        "acceptedManifestMatches": true,
+        "checks": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ]
+      },
+      "packageSha256": null
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\validate-route.mjs",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/3",
+            "message": "La actividad contiene texto pendiente.",
+            "suggestedFix": "Sustituye el marcador por contenido revisado."
+          }
+        ]
+      },
+      "packageSha256": "fc95e96c056c5f31a15b57b980b117573b527857046b0df1b4901c3d43be0ddc"
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\validate-route.mjs",
+        "--publish",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 1,
+      "stderr": "",
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/3",
+            "message": "La actividad contiene texto pendiente.",
+            "suggestedFix": "Sustituye el marcador por contenido revisado."
+          }
+        ]
+      },
+      "packageSha256": "fc95e96c056c5f31a15b57b980b117573b527857046b0df1b4901c3d43be0ddc"
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\author.mjs"
+      ],
+      "exitCode": 0,
+      "result": "Generación local completa; exit 1 de publicación queda registrado como FAIL y no se transforma en PASS."
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\verify-resources.mjs"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "valid": true,
+        "runtime": "v24.19.0",
+        "runtimeMatches": true,
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "deferredCheck": "Q19/V04",
+        "deferredCheckStatus": "NO VERIFICADO",
+        "scope": "portable",
+        "catalogueResolution": "PENDING_AT_IMPORT",
+        "acceptedManifestMatches": true,
+        "checks": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ]
+      },
+      "packageSha256": null
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\validate-route.mjs",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      },
+      "packageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff"
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\validate-route.mjs",
+        "--publish",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill",
+      "exitCode": 1,
+      "stderr": "",
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      },
+      "packageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff"
+    },
+    {
+      "executable": "C:/Users/josed/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\author.mjs"
+      ],
+      "exitCode": 0,
+      "result": "Generación local completa; exit 1 de publicación queda registrado como FAIL y no se transforma en PASS."
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\output\\finish-log.mjs"
+      ],
+      "exitCode": 0,
+      "result": {
+        "checks": {
+          "packageHashMatches": true,
+          "guideHashMatches": true,
+          "artifactsMatch": true,
+          "initialJsonPreserved": true,
+          "finalReportHashMatches": true
+        },
+        "allPass": true,
+        "scope": "Integridad local de entregables y baseline preservado; no motor ni catálogo real"
+      }
+    }
+  ],
+  "repairs": 1,
+  "repairReason": "El marcador detectado por el validador en /activities/3 era la palabra española «todo» en el feedback; se reformuló como «exclusividad del transverso» sin cambiar el hecho. Resultados y JSON anteriores conservados en validation-round-0/.",
+  "packageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff",
+  "counts": {
+    "units": 4,
+    "objectives": 4,
+    "activities": 52,
+    "assessments": 9,
+    "sources": 5,
+    "assets": 0,
+    "initialActivities": 22,
+    "initialFamilies": 20,
+    "reserveFamilies": 12,
+    "diagnosticItems": 4
+  },
+  "validation": {
+    "structure": true,
+    "publishable": false,
+    "pedagogicalDesign": {
+      "excerptsLiteral": true,
+      "originalHash": true,
+      "fiveInitialFamilies": true,
+      "twoRetrievalFamilies": true,
+      "deferredBothRetrieval": true,
+      "reserveFamiliesExclusive": true,
+      "windowsPreserved": true,
+      "acyclic": true
+    }
+  },
+  "preparationCommands": [
+    {
+      "command": "Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\SKILL.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\guia.md' -Raw",
+      "exitCode": 0,
+      "result": "Lecturas completas de inputs round-2."
+    },
+    {
+      "command": "Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\references\\contrato-koraz-2.0.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\references\\pedagogia.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\references\\cobertura-por-disciplina.md' -Raw; & 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-2\\skill\\scripts\\verify-resources.mjs'",
+      "exitCode": 0,
+      "result": "Referencias actualizadas y verificación de identidad PASS."
+    },
+    {
+      "command": "& 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' -e \"const fs=require('fs');const p='D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T045/cases/pilot/round-2/skill/assets/';const s=JSON.parse(fs.readFileSync(p+'koraz-route-2.0.schema.json','utf8'));for(const k of ['route','sources','objectives','units','assessments','editorial']) console.log(k,JSON.stringify(s.properties[k]));for(const a of s.properties.activities.items.oneOf)console.log(a.properties.kind.const,JSON.stringify(a.properties.payload));const e=JSON.parse(fs.readFileSync(p+'ejemplo-valido.koraz-route.json','utf8'));console.log('example',JSON.stringify({root:Object.keys(e),activity:e.activities[0],elaboration:e.activities[1]}));\"",
+      "exitCode": 0,
+      "result": "Campos, payloads y ejemplo estructural consultados, sin reutilizar contenido sintético."
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "ruta.koraz-route.json",
+      "sha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff"
+    },
+    {
+      "name": "revision-de-ruta.md",
+      "sha256": "5ca3bb5da970776fffd37c9edff6949ff03791bf4e779f365e4557e6e5e4edc5"
+    },
+    {
+      "name": "assets-a-vincular.json",
+      "sha256": "35910add42ee9298519b9abe9c86b196c051a46b6f178963e39274e62748d36c"
+    },
+    {
+      "name": "inventario-guia.json",
+      "sha256": "d54be629537dfb61034440d233d1cf70c3572871dcecf494f05d7192e1792601"
+    },
+    {
+      "name": "matriz-cobertura.json",
+      "sha256": "1e51e98bb69a2d3c144d2c8f98305674eecd9768f02ad778775039aca6f42546"
+    },
+    {
+      "name": "comprobaciones-pedagogicas.json",
+      "sha256": "41e9432fc324233158c361687d6fcde97a2c86a3945c9de64dce921c4e79d382"
+    },
+    {
+      "name": "resource-validation.json",
+      "sha256": "1a5f8d578c3aa15da211f6ecb1288faa614ec3026233706bb37337df4d932f0e"
+    },
+    {
+      "name": "validation-draft.json",
+      "sha256": "2c603a3800e6159eb59a7c00b9cb328747e28583480db6d58d4e79deac874b5b"
+    },
+    {
+      "name": "validation-publish.json",
+      "sha256": "2c603a3800e6159eb59a7c00b9cb328747e28583480db6d58d4e79deac874b5b"
+    },
+    {
+      "name": "author.mjs",
+      "sha256": "5da3ff03893b2034b56974ea62c34b9f3143cbc3fb6d341e7c03f0502bc0cf54"
+    },
+    {
+      "name": "finish-log.mjs",
+      "sha256": "ca67fa30da1b282ba3dd8e08cdd4ed385f3daf9bf886840489cb39be0189c221"
+    },
+    {
+      "name": "integridad-entrega.json",
+      "sha256": "95dc93e100ea1ba135f76ef7d5036304eab22fdfa2fb21bb532d6128ce8b75e3"
+    }
+  ],
+  "preservedBaseline": {
+    "directory": "validation-round-0",
+    "packageSha256": "fc95e96c056c5f31a15b57b980b117573b527857046b0df1b4901c3d43be0ddc",
+    "finalPackageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff",
+    "files": [
+      "ruta.koraz-route.json",
+      "validation-draft.json",
+      "validation-publish.json",
+      "execution-log.json",
+      "revision-de-ruta.md"
+    ]
+  }
+}

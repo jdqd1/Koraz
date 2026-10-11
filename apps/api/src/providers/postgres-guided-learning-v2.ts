@@ -574,7 +574,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
             package_key: parsed.definition.packageKey, revision: parsed.definition.revision,
             content_hash: hash, bindings_hash: bindingsHash,
             normalized_json: JSON.parse(prepared.value.canonicalJson) as JsonValue,
-            bindings_json: bindings.data as JsonValue, issues_json: issues as JsonValue,
+            bindings_json: bindings.data as JsonValue, issues_json: JSON.stringify(issues),
             target_path_id: input.targetPathId, target_version_id: targetVersionId,
             expected_version: input.expectedVersion, expires_at: expiresAt,
           }).returning("id").executeTakeFirstOrThrow();

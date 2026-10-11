@@ -806,9 +806,16 @@
         "T021",
         "T028"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T034/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T034/result.json"
+      ],
+      "issues": [],
+      "scope": "LOCAL",
+      "reconciledUtc": "2026-10-09T04:01:41.289Z",
+      "reconciliationEvidence": "docs/aprendizaje-guiado/v2/evidencias/T041/registry-reconciliation.json",
+      "note": "Reflects the existing T034 PASS/local closure; no T034 execution or broader system acceptance is attributed to this registry repair."
     },
     {
       "taskId": "T035",
@@ -920,9 +927,27 @@
         "T034",
         "T040"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T041/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T041/result.json",
+        "docs/aprendizaje-guiado/v2/runbook.md"
+      ],
+      "issues": [],
+      "scope": "M04 íntegro en PostgreSQL local desechable con UI/API; sin despliegue ni aceptación Hito S.",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "recordedUtc": "2026-10-09T04:01:41.289Z",
+      "acceptance": [
+        {
+          "id": "M04",
+          "status": "PASS",
+          "scope": "LOCAL"
+        }
+      ],
+      "nextTaskIds": [
+        "T042"
+      ],
+      "nextTaskStarted": false
     },
     {
       "taskId": "T042",
@@ -933,9 +958,319 @@
         "T040",
         "T041"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS",
+      "decision": "accept_with_exception",
+      "scope": "Provisional acceptance for continued route implementation, under the explicit user deferral of real screen-reader Q19/V04",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "recordedUtc": "2026-10-10T23:16:05.377Z",
+      "clientDate": "2026-10-10",
+      "timezone": "America/Caracas",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T042/result.json"
+      ],
+      "changedFiles": [
+        "packages/contracts/bin/validate-learning-route.bundle.mjs",
+        "apps/api/test/guided-v2-package.test.ts",
+        "apps/api/test/guided-v2-real-auth.test.ts",
+        "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+        "work/test/t042/auth.spec.ts",
+        "work/test/t042/cluster.mjs",
+        "work/test/t042/finalize.mjs",
+        "work/test/t042/playwright.auth.config.mts",
+        "work/test/t042/playwright.desktop.config.mts",
+        "work/test/t042/playwright.mobile.config.mts",
+        "work/test/t042/preservation.mjs",
+        "work/test/t042/reader-session.mts",
+        "work/test/t042/real-auth-server.mts",
+        "work/test/t042/teardown.mts",
+        "work/test/t042/verify.mjs",
+        "docs/aprendizaje-guiado/v2/evidencias/T042/",
+        "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+        "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+        "work/test/t042/reader-cleanup.mjs",
+        "work/test/t042/record-reader-review.mjs",
+        "work/test/t042/defer-reader.mjs"
+      ],
+      "predecessors": [
+        {
+          "taskId": "T039",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T039/result.json"
+        },
+        {
+          "taskId": "T040",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T040/result.json"
+        },
+        {
+          "taskId": "T041",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T041/result.json"
+        }
+      ],
+      "checklist": [
+        {
+          "id": "Q01",
+          "status": "PASS"
+        },
+        {
+          "id": "Q02",
+          "status": "PASS"
+        },
+        {
+          "id": "Q03",
+          "status": "PASS"
+        },
+        {
+          "id": "Q04",
+          "status": "PASS"
+        },
+        {
+          "id": "Q05",
+          "status": "PASS"
+        },
+        {
+          "id": "Q06",
+          "status": "PASS"
+        },
+        {
+          "id": "Q07",
+          "status": "PASS"
+        },
+        {
+          "id": "Q08",
+          "status": "PASS"
+        },
+        {
+          "id": "Q09",
+          "status": "PASS"
+        },
+        {
+          "id": "Q10",
+          "status": "PASS"
+        },
+        {
+          "id": "Q11",
+          "status": "PASS"
+        },
+        {
+          "id": "Q12",
+          "status": "PASS"
+        },
+        {
+          "id": "Q13",
+          "status": "PASS"
+        },
+        {
+          "id": "Q14",
+          "status": "PASS"
+        },
+        {
+          "id": "Q15",
+          "status": "PASS"
+        },
+        {
+          "id": "Q16",
+          "status": "PASS"
+        },
+        {
+          "id": "Q17",
+          "status": "PASS"
+        },
+        {
+          "id": "Q18",
+          "status": "PASS"
+        },
+        {
+          "id": "Q19",
+          "status": "NO VERIFICADO"
+        },
+        {
+          "id": "Q20",
+          "status": "PASS"
+        },
+        {
+          "id": "Q21",
+          "status": "PASS"
+        },
+        {
+          "id": "Q22",
+          "status": "PASS"
+        },
+        {
+          "id": "Q23",
+          "status": "PASS"
+        },
+        {
+          "id": "Q24",
+          "status": "PASS"
+        }
+      ],
+      "summary": {
+        "passLocal": 23,
+        "fail": 0,
+        "notVerified": 1
+      },
+      "checks": [
+        {
+          "command": "pnpm --filter @cediah/contracts build; bundle:route",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/bundle-build.txt"
+        },
+        {
+          "command": "vitest guided-v2-package / graph / validation --maxWorkers=1",
+          "exitCode": 0,
+          "result": "23 PASS / 0 FAIL / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/validator-tests.json"
+        },
+        {
+          "command": "vitest guided-v2-real-auth --maxWorkers=1 (marked PostgreSQL)",
+          "exitCode": 0,
+          "result": "1 PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/auth-api.json"
+        },
+        {
+          "command": "playwright real Better Auth / Next BFF",
+          "exitCode": 0,
+          "result": "1 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/auth-bff.json"
+        },
+        {
+          "command": "playwright mobile E01–E07",
+          "exitCode": 0,
+          "result": "7 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/mobile.json"
+        },
+        {
+          "command": "playwright desktop E02/E07",
+          "exitCode": 0,
+          "result": "2 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/desktop.json"
+        },
+        {
+          "command": "API and web typecheck; focused API and web ESLint --max-warnings=0",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/README.md"
+        },
+        {
+          "command": "Native Narrator inspection",
+          "result": "NO VERIFICADO: Computer Use stopped before product speech observation",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-status.json"
+        },
+        {
+          "command": "Disposable cluster DB names/OIDs and test ports cleanup",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/cluster-cleanup.json"
+        },
+        {
+          "command": "Human Windows Narrator inspection",
+          "result": "NO VERIFICADO: initial name/role and route states confirmed; later journey not persisted",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json"
+        },
+        {
+          "command": "User-authorized Q19/V04 scope amendment and exact contract hash verification",
+          "result": "PASS for revised implementation gate; reader remains NO VERIFICADO",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+        }
+      ],
+      "issues": [
+        {
+          "code": "R42-01_BUNDLE_STALE",
+          "status": "RESUELTO",
+          "blockingSystemAcceptance": false,
+          "detail": "Bundle regenerated; backend, ordinary CLI and autonomous bundle agree on approved pilot and four negative mutations."
+        },
+        {
+          "code": "R42-02_ACCESSIBILITY_AND_MOBILE",
+          "status": "NO VERIFICADO",
+          "blockingSystemAcceptance": true,
+          "detail": "Mobile E01–E07 and desktop E02/E07 PASS. Human Narrator name/role and route states confirmed. Later human confirmations conflict with the persisted manual journey (study-1 in_progress, zero responses); model, hint and feedback require reconciliation. User explicitly defers the remaining reader inspection and its discrepancy for continued implementation; this does not resolve or verify that inspection.",
+          "disposition": "DEFERRED_BY_USER",
+          "blockingImplementationAcceptance": false,
+          "deferralEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+        },
+        {
+          "code": "R42-03_REAL_SESSION_EXPIRY",
+          "status": "RESUELTO",
+          "blockingSystemAcceptance": false,
+          "detail": "Actual Better Auth signed session accepted/replayed before expiry; actual persisted expiry rejects exact replay by API and Next BFF with 401 and unchanged learning-table fingerprints."
+        }
+      ],
+      "baseline": {
+        "recordedUtc": "2026-10-10T21:23:09.642Z",
+        "initialStatusShort": " M docs/aprendizaje-guiado/v2/registro-ejecucion.json\n?? docs/aprendizaje-guiado/v2/evidencias/T041/\n?? docs/aprendizaje-guiado/v2/runbook.md\n?? work/\n",
+        "preservationFiles": 1064,
+        "preservationScope": "Git tracked/untracked nonignored apps/packages/database/work/lockfile/package.json/runbook/T041 dossier; excludes the two T042 outputs",
+        "filesSha256": "1b96f1bd39be6ac804a8560cc6c82da93de1fd4084e217c006d5feda949da926",
+        "otherTasksSha256": "c20bb559f792b3f8746bb9c87669ecf306c088006ffad37e7df664c353e3eaa4",
+        "registryOtherFieldsSha256": "3e82b633287f0605e8dd6b1553885ab7271f205a9df895920619a6311f8c289d"
+      },
+      "runtime": {
+        "nodeUsed": "v24.19.0",
+        "defaultNode": "v22.22.0",
+        "pnpmAvailable": "11.25.0",
+        "dependenciesChanged": false
+      },
+      "contract": {
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "schedulerVersion": "scheduler-v2.0",
+        "accepted": true,
+        "frozen": true,
+        "hashRecordKind": "Frozen contract for provisional implementation acceptance with explicit user exception",
+        "schemaSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+        "validatorSourceSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "bundleSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+        "policySourceSha256": "142e06dcc06d1d8784d0c6e65e69e5c859e6341a775e314a6604e4627a0d8ca3",
+        "hashesEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/accepted-contract-hashes.json",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "manifestSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+        "originalFullSystemAcceptance": false,
+        "deferralEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+      },
+      "systemAcceptance": false,
+      "humanEditorialApprovalPreserved": true,
+      "productCodeChanged": true,
+      "productionTouched": false,
+      "committed": false,
+      "deployed": false,
+      "nextTaskStarted": false,
+      "nextTaskIds": [
+        "T043"
+      ],
+      "nominalSuccessor": "T043",
+      "successorBlocked": false,
+      "remediationProposalIds": [],
+      "priorReview": {
+        "status": "FAIL",
+        "decision": "reject",
+        "recordedUtc": "2026-10-10T21:28:04.985Z",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/acta-before-repair.md"
+      },
+      "runtimeSourceChanged": false,
+      "repairAuthorization": "docs/aprendizaje-guiado/v2/evidencias/T042/repair-authorization.json",
+      "manualReaderEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json",
+      "manualReaderCleanup": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/cluster-cleanup.json",
+      "implementationAcceptance": true,
+      "originalAcceptanceCriteriaSatisfied": false,
+      "scopeAmendment": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json",
+      "requiredScopeSummary": {
+        "pass": 23,
+        "fail": 0,
+        "notVerified": 0,
+        "deferred": 1
+      },
+      "deferredCheckIds": [
+        "Q19"
+      ],
+      "priorReaderReview": {
+        "status": "NO VERIFICADO",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/acta-before-reader-deferral.md"
+      }
     },
     {
       "taskId": "T043",
@@ -944,9 +1279,38 @@
       "dependencies": [
         "T042"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T043/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T043/README.md"
+      ],
+      "issues": [
+        {
+          "code": "INHERITED_Q19_V04_DEFERRED",
+          "status": "NO VERIFICADO",
+          "blockingT043": false,
+          "disposition": "DEFERRED_BY_USER",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+        },
+        {
+          "code": "SYNTHETIC_DIAGNOSTIC_SMALL",
+          "status": "warning",
+          "blockingT043": false,
+          "detail": "One-objective synthetic example retains the validator nonblocking diagnostic warning."
+        },
+        {
+          "code": "INITIAL_FILENAME_AND_BASELINE_PARSER_PROBES",
+          "status": "RESUELTO",
+          "blockingT043": false,
+          "detail": "Original .json suffix probe and accented Git-name inventory failure preserved; corrected filename/reader without validator changes."
+        }
+      ],
+      "resultStatus": "PASS",
+      "at": "2026-10-10T23:26:50.7205282Z",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "acceptanceScope": "Local scope per immutable task dossier",
+      "nextTaskStarted": false,
+      "historicalResultNotRerun": true
     },
     {
       "taskId": "T044",
@@ -955,9 +1319,40 @@
       "dependencies": [
         "T043"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T044/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T044/README.md"
+      ],
+      "issues": [
+        {
+          "id": "Q19/V04",
+          "status": "NO VERIFICADO",
+          "reason": "Inherited explicit user deferral; original full Hito S not claimed."
+        },
+        {
+          "id": "K01-K05",
+          "status": "NO VERIFICADO",
+          "reason": "Real guide generation, agent adversarial behavior, server import/publication/journey and roundtrip belong to T045."
+        },
+        {
+          "id": "installation",
+          "status": "NO VERIFICADO",
+          "reason": "T046; normal discovery metadata verified structurally, not installed."
+        },
+        {
+          "id": "temporary-cleanup",
+          "status": "NOT_REMOVED",
+          "reason": "Execution policy blocked two removal commands; isolated dependency and deliberately altered resource-copy retained within T044 evidence, not installed.",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/cleanup.json"
+        }
+      ],
+      "resultStatus": "PASS",
+      "at": "2026-10-11T03:05:18.372Z",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "acceptanceScope": "Local scope per immutable task dossier",
+      "nextTaskStarted": false,
+      "historicalResultNotRerun": true
     },
     {
       "taskId": "T045",
@@ -967,9 +1362,40 @@
         "T044",
         "T035"
       ],
-      "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "status": "PASS",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T045/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T045/README.md"
+      ],
+      "issues": [
+        {
+          "status": "NO VERIFICADO",
+          "item": "Recorrido por navegador de T045",
+          "reason": "Revisión automática rechazó arrancar el build Next de test: blocked by policy. No se eludió el rechazo.",
+          "evidence": "browser-policy-limitation.json"
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Revisión humana/médica y publicación del nuevo piloto",
+          "reason": "Dos incidencias editoriales preservadas. Aprobación anterior corresponde a otro hash; no se publicó el piloto."
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Better Auth real, staging y producción",
+          "reason": "Identidades y catálogo sintéticos, Fastify real por loopback y PostgreSQL independiente de prueba."
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Q19/V04 y aceptación original completa de Hito S",
+          "reason": "Aplazamiento explícito heredado de T042; la identidad contractual aceptada sigue provisional."
+        }
+      ],
+      "resultStatus": "PASS LOCAL",
+      "at": "2026-10-11T03:41:49.932Z",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "acceptanceScope": "Local scope per immutable task dossier",
+      "nextTaskStarted": false,
+      "historicalResultNotRerun": true
     },
     {
       "taskId": "T046",
@@ -980,14 +1406,65 @@
         "T042"
       ],
       "status": "NO VERIFICADO",
-      "evidence": [],
-      "issues": []
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T046/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T046/README.md"
+      ],
+      "issues": [
+        {
+          "id": "Q19/V04",
+          "status": "NO VERIFICADO",
+          "disposition": "DEFERRED_BY_USER",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+        },
+        {
+          "id": "Q25-original",
+          "status": "NO VERIFICADO",
+          "adjustedImplementationGate": "PASS",
+          "reason": "Full original Hito S not accepted; no first skill commit. Documentary provisional order preserved."
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Recorrido por navegador de T045",
+          "reason": "Revisión automática rechazó arrancar el build Next de test: blocked by policy. No se eludió el rechazo.",
+          "evidence": "browser-policy-limitation.json"
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Revisión humana/médica y publicación del nuevo piloto",
+          "reason": "Dos incidencias editoriales preservadas. Aprobación anterior corresponde a otro hash; no se publicó el piloto."
+        },
+        {
+          "status": "NO VERIFICADO",
+          "item": "Better Auth real, staging y producción",
+          "reason": "Identidades y catálogo sintéticos, Fastify real por loopback y PostgreSQL independiente de prueba."
+        },
+        {
+          "id": "live-skill-discovery",
+          "status": "NO VERIFICADO",
+          "reason": "Installation layout verified; current conversation catalog predates installation."
+        }
+      ],
+      "resultStatus": "NO VERIFICADO",
+      "at": "2026-10-11T03:49:59.467Z",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "acceptanceScope": "Installation/documentation PASS; original full acceptance NO VERIFICADO",
+      "nextTaskStarted": false,
+      "historicalResultNotRerun": false,
+      "localDeliveryStatus": "PASS",
+      "originalHitoKAcceptance": false,
+      "nextTaskIds": []
     }
   ],
   "nextAuthorizedTaskIds": [],
-  "note": "T002 documental PASS. T003 no iniciada. Los resultados baseline T001 incluyen un timeout en suite API completa; ver acta T002.",
-  "nextTaskIds": [
-    "T003"
-  ],
-  "continuationRequiresUserInstruction": true
+  "note": "T046 installation/documentation delivered PASS local. Original Hito K NO VERIFICADO; Q19 deferred, Q25 original not satisfied, T045 browser and new medical pilot approval pending. T043–T045 synchronized from their preserved dossiers.",
+  "nextTaskIds": [],
+  "continuationRequiresUserInstruction": true,
+  "latestDelivery": {
+    "taskId": "T046",
+    "at": "2026-10-11T03:49:59.467Z",
+    "localDeliveryStatus": "PASS",
+    "originalHitoKAcceptance": false,
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T046/result.json"
+  }
 }

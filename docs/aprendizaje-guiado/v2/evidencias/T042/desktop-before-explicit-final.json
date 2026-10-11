@@ -1,0 +1,189 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/t042/playwright.desktop.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\playwright.desktop.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T042/desktop-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\desktop.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 89445,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/6ad33ecc-d05a-47d3-82b5-737caa67f879\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:02:27.029Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df97010ae10e154fc97f",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "E07 corrected and published route completes diagnosis, final and delayed review with reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 42714,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:04:01.572Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "complete-published-journey.json",
+                      "contentType": "application/json",
+                      "body": "eyJwYXRoVmVyc2lvbklkIjoiNzU2Y2Y5M2EtYTI5Mi00ZjAxLThjMjctM2U0NDdhM2JlYTY5IiwiYWN0aW9ucyI6WyJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJnYXRlIl0sImNvbXBsZXRlZCI6eyJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiZW5yb2xsbWVudElkIjoiOTFhMGU0OGEtOWQ1Ny00N2FmLWFhZmEtZGM3NGYyMDZlMzlhIiwicGF0aFZlcnNpb25JZCI6Ijc1NmNmOTNhLWEyOTItNGYwMS04YzI3LTNlNDQ3YTNiZWE2OSIsInJvd1ZlcnNpb24iOjEsImNvbXBsZXRlZEFjdGl2aXRpZXMiOjksImRpc3BlbnNlZEFjdGl2aXRpZXMiOjAsInBsYW5uZWRSZXF1aXJlZEFjdGl2aXRpZXMiOjksImNvbXBsZXRlZEF0IjoiMjAyNi0xMC0wNFQxMjowMDowMC4wMDBaIiwibWFzdGVyZWRBdCI6IjIwMjYtMTAtMDRUMTI6MDA6MDAuMDAwWiIsImNvbnNvbGlkYXRlZEF0IjpudWxsLCJvYmplY3RpdmVzIjpbeyJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUtMSIsImxhYmVsIjoibWFzdGVyZWQiLCJvYmplY3RpdmVTY29yZSI6MTAwLCJjcml0aWNhbEVycm9yT3BlbiI6ZmFsc2UsImFzc2lzdGVkIjpmYWxzZSwiYXBwbGljYXRpb25EZW1vbnN0cmF0ZWQiOnRydWUsInJldmlld0R1ZSI6ZmFsc2UsImZpcnN0TWFzdGVyZWRBdCI6IjIwMjYtMTAtMDRUMTI6MDA6MDAuMDAwWiIsImZpcnN0Q29uc29saWRhdGVkQXQiOm51bGx9XSwiZHVlUmV2aWV3cyI6MCwibmV4dEFjdGlvbiI6eyJraW5kIjoibm9uZSIsImtleSI6bnVsbCwicmVhc29uIjoiTm8gaGF5IHVuYSBhY3RpdmlkYWQgZWxlZ2libGU7IHB1ZWRlcyBwYXVzYXIgbyBlbGVnaXIgb3RyYSByYW1hIn0sIm1haW50ZW5hbmNlIjp7ImdlbmVyYXRlZEF0IjoiMjAyNi0xMC0wNFQxMjowMDowMC4wMDBaIiwidGltZVpvbmUiOiJVVEMiLCJkaWFnbm9zdGljIjp7InN0YXR1cyI6ImNvbXBsZXRlZCIsImFzc2Vzc21lbnRLZXkiOm51bGx9LCJhY3Rpdml0aWVzIjpbXSwicmV2aWV3QmF0Y2giOltdLCJhZ2VuZGEiOlt7Im9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZS0xIiwiZHVlQXQiOiIyMDI2LTEwLTA1VDEyOjAwOjAwLjAwMFoiLCJyZXRlbnRpb243Ijp7ImR1ZUF0IjoiMjAyNi0xMC0xMVQxMjowMDowMC4wMDBaIiwiYWNjZXB0ZWRBdCI6bnVsbCwiZWxhcHNlZERheXMiOm51bGx9LCJyZXRlbnRpb24zMCI6eyJkdWVBdCI6IjIwMjYtMTEtMDNUMTI6MDA6MDAuMDAwWiIsImFjY2VwdGVkQXQiOm51bGwsImVsYXBzZWREYXlzIjpudWxsfX1dLCJnYXRlcyI6W3sidW5pdEtleSI6InVuaXQiLCJwYXNzZWQiOnRydWUsInNjb3JlIjoxMDAsInRocmVzaG9sZFBlcmNlbnQiOjgwLCJtaXNzaW5nQ29yZUtleXMiOltdLCJjcml0aWNhbEVycm9yS2V5cyI6W119XSwiYmxvY2tlcnMiOltdLCJyZW1lZGlhdGlvbiI6W10sImV4aGF1c3RlZEJhbmtzIjpbXX0sImF2YWlsYWJpbGl0eSI6ImFjdGl2ZSIsInZlcnNpb25IaXN0b3J5IjpbeyJ2ZXJzaW9uTnVtYmVyIjoxLCJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiYWRvcHRlZEF0IjoiMjAyNi0xMC0xMFQyMjowNDowMy41MzNaIiwiY29tcGxldGVkQXQiOm51bGwsImNvbnN1bWVkQWN0aXZpdGllcyI6W119XX0sImFmdGVyIjp7ImVuZ2luZVZlcnNpb24iOiJndWlkZWQtdjIiLCJlbnJvbGxtZW50SWQiOiI5MWEwZTQ4YS05ZDU3LTQ3YWYtYWFmYS1kYzc0ZjIwNmUzOWEiLCJwYXRoVmVyc2lvbklkIjoiNzU2Y2Y5M2EtYTI5Mi00ZjAxLThjMjctM2U0NDdhM2JlYTY5Iiwicm93VmVyc2lvbiI6MSwiY29tcGxldGVkQWN0aXZpdGllcyI6OSwiZGlzcGVuc2VkQWN0aXZpdGllcyI6MCwicGxhbm5lZFJlcXVpcmVkQWN0aXZpdGllcyI6OSwiY29tcGxldGVkQXQiOiIyMDI2LTEwLTA0VDEyOjAwOjAwLjAwMFoiLCJtYXN0ZXJlZEF0IjoiMjAyNi0xMC0wNFQxMjowMDowMC4wMDBaIiwiY29uc29saWRhdGVkQXQiOm51bGwsIm9iamVjdGl2ZXMiOlt7Im9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZS0xIiwibGFiZWwiOiJsZWFybmluZyIsIm9iamVjdGl2ZVNjb3JlIjoxMDAsImNyaXRpY2FsRXJyb3JPcGVuIjpmYWxzZSwiYXNzaXN0ZWQiOmZhbHNlLCJhcHBsaWNhdGlvbkRlbW9uc3RyYXRlZCI6ZmFsc2UsInJldmlld0R1ZSI6ZmFsc2UsImZpcnN0TWFzdGVyZWRBdCI6IjIwMjYtMTAtMDRUMTI6MDA6MDAuMDAwWiIsImZpcnN0Q29uc29saWRhdGVkQXQiOm51bGx9XSwiZHVlUmV2aWV3cyI6MCwibmV4dEFjdGlvbiI6eyJraW5kIjoiZ2F0ZSIsImtleSI6ImdhdGUiLCJyZWFzb24iOiJDb21wcm9iYWNpw7NuIGRpc3BvbmlibGU7IG5vIGltcGxpY2EgZG9taW5pbyBhdXRvbcOhdGljbyJ9LCJtYWludGVuYW5jZSI6eyJnZW5lcmF0ZWRBdCI6IjIwMjYtMTAtMTFUMTI6MDA6MDAuMDAwWiIsInRpbWVab25lIjoiVVRDIiwiZGlhZ25vc3RpYyI6eyJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhc3Nlc3NtZW50S2V5IjpudWxsfSwiYWN0aXZpdGllcyI6W10sInJldmlld0JhdGNoIjpbXSwiYWdlbmRhIjpbeyJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUtMSIsImR1ZUF0IjoiMjAyNi0xMC0xNFQxMjowMDowMC4wMDBaIiwicmV0ZW50aW9uNyI6eyJkdWVBdCI6IjIwMjYtMTAtMTFUMTI6MDA6MDAuMDAwWiIsImFjY2VwdGVkQXQiOiIyMDI2LTEwLTExVDEyOjAwOjAwLjAwMFoiLCJlbGFwc2VkRGF5cyI6N30sInJldGVudGlvbjMwIjp7ImR1ZUF0IjoiMjAyNi0xMS0wM1QxMjowMDowMC4wMDBaIiwiYWNjZXB0ZWRBdCI6bnVsbCwiZWxhcHNlZERheXMiOm51bGx9fV0sImdhdGVzIjpbeyJ1bml0S2V5IjoidW5pdCIsInBhc3NlZCI6ZmFsc2UsInNjb3JlIjoxMDAsInRocmVzaG9sZFBlcmNlbnQiOjgwLCJtaXNzaW5nQ29yZUtleXMiOlsib2JqZWN0aXZlLTEiXSwiY3JpdGljYWxFcnJvcktleXMiOltdfV0sImJsb2NrZXJzIjpbXSwicmVtZWRpYXRpb24iOltdLCJleGhhdXN0ZWRCYW5rcyI6W119LCJhdmFpbGFiaWxpdHkiOiJhY3RpdmUiLCJ2ZXJzaW9uSGlzdG9yeSI6W3sidmVyc2lvbk51bWJlciI6MSwiZW5naW5lVmVyc2lvbiI6Imd1aWRlZC12MiIsImFkb3B0ZWRBdCI6IjIwMjYtMTAtMTBUMjI6MDQ6MDMuNTMzWiIsImNvbXBsZXRlZEF0IjpudWxsLCJjb25zdW1lZEFjdGl2aXRpZXMiOltdfV19fQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-5fae34ccf587124171be",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 186,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T22:01:27.724Z",
+    "duration": 200030.19,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

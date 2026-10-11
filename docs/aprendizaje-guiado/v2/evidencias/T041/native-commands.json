@@ -1,0 +1,254 @@
+[
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-1.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 249.20859999999993,
+    "evidence": "schema-dump-1.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+      "--format=custom",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\v1-v2-backup.dump"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 402.6923000000006,
+    "evidence": "backup.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-2.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 206.8783999999996,
+    "evidence": "schema-dump-2.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-3.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 266.6406999999999,
+    "evidence": "schema-dump-3.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-4.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 235.51510000000053,
+    "evidence": "schema-dump-4.txt"
+  },
+  {
+    "binary": "pg_restore",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--exit-on-error",
+      "--single-transaction",
+      "--no-owner",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\v1-v2-backup.dump"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 909.3122999999996,
+    "evidence": "restore.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-5.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 223.14260000000013,
+    "evidence": "schema-dump-5.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-6.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 211.34210000000076,
+    "evidence": "schema-dump-6.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-7.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 213.77589999999873,
+    "evidence": "schema-dump-7.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-8.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 266.54060000000027,
+    "evidence": "schema-dump-8.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-9.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 259.8009000000002,
+    "evidence": "schema-dump-9.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-10.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 234.4369999999999,
+    "evidence": "schema-dump-10.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-11.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 244.3176000000003,
+    "evidence": "schema-dump-11.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-12.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 301.0162999999993,
+    "evidence": "schema-dump-12.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-13.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 360.0483999999997,
+    "evidence": "schema-dump-13.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-14.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 481.11409999999887,
+    "evidence": "schema-dump-14.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-15.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 292.60210000000006,
+    "evidence": "schema-dump-15.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T041\\schema-16.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 390.9177000000018,
+    "evidence": "schema-dump-16.txt"
+  }
+]

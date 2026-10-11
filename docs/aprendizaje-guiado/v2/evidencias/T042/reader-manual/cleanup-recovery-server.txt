@@ -1,0 +1,35 @@
+2026-10-10 19:04:49.015 -04 [3456] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-10 19:04:49.017 -04 [3456] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-10-10 19:04:49.182 -04 [30772] LOG:  database system was shut down at 2026-10-10 19:02:05 -04
+2026-10-10 19:04:49.235 -04 [3456] LOG:  database system is ready to accept connections
+2026-10-10 19:04:49.545 -04 [3456] LOG:  received fast shutdown request
+2026-10-10 19:04:49.546 -04 [3456] LOG:  aborting any active transactions
+2026-10-10 19:04:49.552 -04 [3456] LOG:  background worker "logical replication launcher" (PID 29508) exited with exit code 1
+2026-10-10 19:04:49.552 -04 [17068] LOG:  shutting down
+2026-10-10 19:04:49.553 -04 [17068] LOG:  checkpoint starting: shutdown immediate
+2026-10-10 19:04:49.562 -04 [17068] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.002 s, total=0.010 s; sync files=3, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/74DC5B40, redo lsn=0/74DC5B40
+2026-10-10 19:04:49.569 -04 [3456] LOG:  database system is shut down
+2026-10-10 19:05:49.585 -04 [6264] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-10 19:05:49.587 -04 [6264] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-10-10 19:05:49.853 -04 [34304] LOG:  database system was shut down at 2026-10-10 19:04:49 -04
+2026-10-10 19:05:49.942 -04 [6264] LOG:  database system is ready to accept connections
+2026-10-10 19:05:50.782 -04 [6264] LOG:  received fast shutdown request
+2026-10-10 19:05:50.786 -04 [6264] LOG:  aborting any active transactions
+2026-10-10 19:05:50.840 -04 [6264] LOG:  background worker "logical replication launcher" (PID 20332) exited with exit code 1
+2026-10-10 19:05:50.841 -04 [8880] LOG:  shutting down
+2026-10-10 19:05:50.843 -04 [8880] LOG:  checkpoint starting: shutdown immediate
+2026-10-10 19:05:50.887 -04 [8880] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.009 s, sync=0.005 s, total=0.047 s; sync files=3, longest=0.003 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/74DC5BB8, redo lsn=0/74DC5BB8
+2026-10-10 19:05:50.912 -04 [6264] LOG:  database system is shut down
+2026-10-10 19:06:41.637 -04 [11536] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-10 19:06:41.639 -04 [11536] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-10-10 19:06:41.823 -04 [7468] LOG:  database system was shut down at 2026-10-10 19:05:50 -04
+2026-10-10 19:06:41.865 -04 [11536] LOG:  database system is ready to accept connections
+2026-10-10 19:06:42.155 -04 [15196] LOG:  checkpoint starting: immediate force wait
+2026-10-10 19:06:42.163 -04 [15196] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.002 s, total=0.009 s; sync files=6, longest=0.001 s, average=0.001 s; distance=31 kB, estimate=31 kB; lsn=0/74DCD940, redo lsn=0/74DCD8E8
+2026-10-10 19:06:42.549 -04 [11536] LOG:  received fast shutdown request
+2026-10-10 19:06:42.551 -04 [11536] LOG:  aborting any active transactions
+2026-10-10 19:06:42.557 -04 [11536] LOG:  background worker "logical replication launcher" (PID 21612) exited with exit code 1
+2026-10-10 19:06:42.559 -04 [15196] LOG:  shutting down
+2026-10-10 19:06:42.560 -04 [15196] LOG:  checkpoint starting: shutdown immediate
+2026-10-10 19:06:42.570 -04 [15196] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.002 s, total=0.012 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=28 kB; lsn=0/74DCDA58, redo lsn=0/74DCDA58
+2026-10-10 19:06:42.582 -04 [11536] LOG:  database system is shut down

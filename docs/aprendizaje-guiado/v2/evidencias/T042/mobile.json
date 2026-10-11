@@ -1,0 +1,359 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/t042/playwright.mobile.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\playwright.mobile.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T042/mobile-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\mobile.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E01 creates a new persisted v2 draft using UI and keyboard",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13218,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/b2a56ebf-fde1-4bc8-a25b-9fe8a47002a5\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:20:54.835Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-10fcf84dc58ea64df651",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 59,
+          "column": 5
+        },
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 123579,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:21:13.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-c5a7ba66526793144670",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "E03 beginner help and CORE error are confirmed by the server",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12513,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:23:17.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-3ed6ef89dadf3472c00b",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 124,
+          "column": 5
+        },
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 39551,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:23:29.628Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-9ff624f0ce74c12e6580",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 133,
+          "column": 5
+        },
+        {
+          "title": "E05 disconnect before/after commit, reload and two tabs preserve one answer",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18536,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:24:09.200Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df5ce8520497fc01d234",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 145,
+          "column": 5
+        },
+        {
+          "title": "E06 home, real map, route, session and review keep the pinned server state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25984,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:24:27.757Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-cf08b7e8317ada3ad88c",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 168,
+          "column": 5
+        },
+        {
+          "title": "E07 corrected and published route completes diagnosis, final and delayed review with reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 38588,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:24:53.759Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "complete-published-journey.json",
+                      "contentType": "application/json",
+                      "body": "eyJwYXRoVmVyc2lvbklkIjoiMWRkNGMwMWUtZjY3Ny00MThhLWJlOGItNTljZjk2YjlmZDk4IiwiYWN0aW9ucyI6WyJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJnYXRlIl0sInNlc3Npb25zIjpbeyJhdHRlbXB0SWQiOiIwNzRiMDdkZi04MDhjLTQ3MTUtOWJhOS02MWJjZjJkMDc5MzgiLCJwdXJwb3NlIjoiYXNzZXNzbWVudCIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJkaWFnbm9zdGljLTEiXX0seyJhdHRlbXB0SWQiOiIwNGY2MDc0ZS05MmZmLTRkMmItYWI3MC0xZmJkZTRmZTBkNDUiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiY2hvaWNlLTEiXX0seyJhdHRlbXB0SWQiOiJhZTU0ODhlOS03NmYxLTQ3ZDktOTgxYi03ZjRjZTc0YmZhNGQiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsic2hvcnQtMSJdfSx7ImF0dGVtcHRJZCI6ImZhMzc2ODRhLWY1ZTctNDQ4Ny04Yjc3LTE2OGU3NTUzYWNkMiIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJhcHBseS0xIl19LHsiYXR0ZW1wdElkIjoiMTBhNTNlY2ItZWJjZS00NDQyLTg0NDYtNDZiMWVlNzM3M2ZmIiwicHVycG9zZSI6ImFjdGl2aXR5Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbIm1hdGNoLTEiXX0seyJhdHRlbXB0SWQiOiI2OTIzNDQ0Zi0wZTE2LTRkNWYtYmI0ZC0zODhmMjk4NDE1NjYiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsic2VxdWVuY2UtMSJdfSx7ImF0dGVtcHRJZCI6IjAxMjJhNGZlLTk3ZjItNDA1NC1hMTlhLWU1OTE3ZmQ3ZjNmYiIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJpbWFnZS0xIl19LHsiYXR0ZW1wdElkIjoiOGVjYzEyYjctYTg3Mi00ZmE5LThkOTgtNTQ3YTYzZmE5MTI4IiwicHVycG9zZSI6ImFjdGl2aXR5Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbInN0dWR5LTEiXX0seyJhdHRlbXB0SWQiOiI2NWZlMzM5YS1jYjIzLTRkMDEtYjQ0Yy1jNmUxZjEwOTJjYTMiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiY29uc3RydWN0ZWQtMSJdfSx7ImF0dGVtcHRJZCI6ImFlZjJlNGI3LWY0NTItNDQ5Yi1hYzI1LTJmNDcyMGE1MjIzNSIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJjYXNlLWNob2ljZS0xIiwiY2FzZS1zaG9ydC0xIl19LHsiYXR0ZW1wdElkIjoiYjdhMDZiODAtYmExNS00MWQyLTg2NDEtY2MyMjMxY2NiNzMxIiwicHVycG9zZSI6ImFzc2Vzc21lbnQiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiZmluYWwtMSJdfSx7ImF0dGVtcHRJZCI6Ijk0Mjk1NWQ3LTRkMjQtNGU3ZC1iNzI4LWJkYjU0Mzg2NWIyMCIsInB1cnBvc2UiOiJhc3Nlc3NtZW50Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbInJldGVudGlvbjctMSJdfV0sImNvbXBsZXRlZCI6eyJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiZW5yb2xsbWVudElkIjoiNjU2MzRhNmEtNmM5ZS00ZjBjLWEzZDMtNTY0ZmExYzVhZGY4IiwicGF0aFZlcnNpb25JZCI6IjFkZDRjMDFlLWY2NzctNDE4YS1iZThiLTU5Y2Y5NmI5ZmQ5OCIsInJvd1ZlcnNpb24iOjEsImNvbXBsZXRlZEFjdGl2aXRpZXMiOjksImRpc3BlbnNlZEFjdGl2aXRpZXMiOjAsInBsYW5uZWRSZXF1aXJlZEFjdGl2aXRpZXMiOjksImNvbXBsZXRlZEF0IjoiMjAyNi0xMC0wNVQxMjowMDowMC4wMDBaIiwibWFzdGVyZWRBdCI6IjIwMjYtMTAtMDVUMTI6MDA6MDAuMDAwWiIsImNvbnNvbGlkYXRlZEF0IjpudWxsLCJvYmplY3RpdmVzIjpbeyJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUtMSIsImxhYmVsIjoibWFzdGVyZWQiLCJvYmplY3RpdmVTY29yZSI6MTAwLCJjcml0aWNhbEVycm9yT3BlbiI6ZmFsc2UsImFzc2lzdGVkIjpmYWxzZSwiYXBwbGljYXRpb25EZW1vbnN0cmF0ZWQiOnRydWUsInJldmlld0R1ZSI6ZmFsc2UsImZpcnN0TWFzdGVyZWRBdCI6IjIwMjYtMTAtMDVUMTI6MDA6MDAuMDAwWiIsImZpcnN0Q29uc29saWRhdGVkQXQiOm51bGx9XSwiZHVlUmV2aWV3cyI6MCwibmV4dEFjdGlvbiI6eyJraW5kIjoibm9uZSIsImtleSI6bnVsbCwicmVhc29uIjoiTm8gaGF5IHVuYSBhY3RpdmlkYWQgZWxlZ2libGU7IHB1ZWRlcyBwYXVzYXIgbyBlbGVnaXIgb3RyYSByYW1hIn0sIm1haW50ZW5hbmNlIjp7ImdlbmVyYXRlZEF0IjoiMjAyNi0xMC0wNVQxMjowMDowMC4wMDBaIiwidGltZVpvbmUiOiJVVEMiLCJkaWFnbm9zdGljIjp7InN0YXR1cyI6ImNvbXBsZXRlZCIsImFzc2Vzc21lbnRLZXkiOm51bGx9LCJhY3Rpdml0aWVzIjpbXSwicmV2aWV3QmF0Y2giOltdLCJhZ2VuZGEiOlt7Im9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZS0xIiwiZHVlQXQiOiIyMDI2LTEwLTA2VDEyOjAwOjAwLjAwMFoiLCJyZXRlbnRpb243Ijp7ImR1ZUF0IjoiMjAyNi0xMC0xMlQxMjowMDowMC4wMDBaIiwiYWNjZXB0ZWRBdCI6bnVsbCwiZWxhcHNlZERheXMiOm51bGx9LCJyZXRlbnRpb24zMCI6eyJkdWVBdCI6IjIwMjYtMTEtMDRUMTI6MDA6MDAuMDAwWiIsImFjY2VwdGVkQXQiOm51bGwsImVsYXBzZWREYXlzIjpudWxsfX1dLCJnYXRlcyI6W3sidW5pdEtleSI6InVuaXQiLCJwYXNzZWQiOnRydWUsInNjb3JlIjoxMDAsInRocmVzaG9sZFBlcmNlbnQiOjgwLCJtaXNzaW5nQ29yZUtleXMiOltdLCJjcml0aWNhbEVycm9yS2V5cyI6W119XSwiYmxvY2tlcnMiOltdLCJyZW1lZGlhdGlvbiI6W10sImV4aGF1c3RlZEJhbmtzIjpbXX0sImF2YWlsYWJpbGl0eSI6ImFjdGl2ZSIsInZlcnNpb25IaXN0b3J5IjpbeyJ2ZXJzaW9uTnVtYmVyIjoxLCJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiYWRvcHRlZEF0IjoiMjAyNi0xMC0xMFQyMjoyNDo1NS44OTRaIiwiY29tcGxldGVkQXQiOm51bGwsImNvbnN1bWVkQWN0aXZpdGllcyI6W119XX0sImFmdGVyIjp7ImVuZ2luZVZlcnNpb24iOiJndWlkZWQtdjIiLCJlbnJvbGxtZW50SWQiOiI2NTYzNGE2YS02YzllLTRmMGMtYTNkMy01NjRmYTFjNWFkZjgiLCJwYXRoVmVyc2lvbklkIjoiMWRkNGMwMWUtZjY3Ny00MThhLWJlOGItNTljZjk2YjlmZDk4Iiwicm93VmVyc2lvbiI6MSwiY29tcGxldGVkQWN0aXZpdGllcyI6OSwiZGlzcGVuc2VkQWN0aXZpdGllcyI6MCwicGxhbm5lZFJlcXVpcmVkQWN0aXZpdGllcyI6OSwiY29tcGxldGVkQXQiOiIyMDI2LTEwLTA1VDEyOjAwOjAwLjAwMFoiLCJtYXN0ZXJlZEF0IjoiMjAyNi0xMC0wNVQxMjowMDowMC4wMDBaIiwiY29uc29saWRhdGVkQXQiOm51bGwsIm9iamVjdGl2ZXMiOlt7Im9iamVjdGl2ZUtleSI6Im9iamVjdGl2ZS0xIiwibGFiZWwiOiJtYXN0ZXJlZCIsIm9iamVjdGl2ZVNjb3JlIjoxMDAsImNyaXRpY2FsRXJyb3JPcGVuIjpmYWxzZSwiYXNzaXN0ZWQiOmZhbHNlLCJhcHBsaWNhdGlvbkRlbW9uc3RyYXRlZCI6dHJ1ZSwicmV2aWV3RHVlIjpmYWxzZSwiZmlyc3RNYXN0ZXJlZEF0IjoiMjAyNi0xMC0wNVQxMjowMDowMC4wMDBaIiwiZmlyc3RDb25zb2xpZGF0ZWRBdCI6bnVsbH1dLCJkdWVSZXZpZXdzIjowLCJuZXh0QWN0aW9uIjp7ImtpbmQiOiJub25lIiwia2V5IjpudWxsLCJyZWFzb24iOiJObyBoYXkgdW5hIGFjdGl2aWRhZCBlbGVnaWJsZTsgcHVlZGVzIHBhdXNhciBvIGVsZWdpciBvdHJhIHJhbWEifSwibWFpbnRlbmFuY2UiOnsiZ2VuZXJhdGVkQXQiOiIyMDI2LTEwLTEyVDEyOjAwOjAwLjAwMFoiLCJ0aW1lWm9uZSI6IlVUQyIsImRpYWdub3N0aWMiOnsic3RhdHVzIjoiY29tcGxldGVkIiwiYXNzZXNzbWVudEtleSI6bnVsbH0sImFjdGl2aXRpZXMiOltdLCJyZXZpZXdCYXRjaCI6W10sImFnZW5kYSI6W3sib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlLTEiLCJkdWVBdCI6IjIwMjYtMTAtMTVUMTI6MDA6MDAuMDAwWiIsInJldGVudGlvbjciOnsiZHVlQXQiOiIyMDI2LTEwLTEyVDEyOjAwOjAwLjAwMFoiLCJhY2NlcHRlZEF0IjoiMjAyNi0xMC0xMlQxMjowMDowMC4wMDBaIiwiZWxhcHNlZERheXMiOjd9LCJyZXRlbnRpb24zMCI6eyJkdWVBdCI6IjIwMjYtMTEtMDRUMTI6MDA6MDAuMDAwWiIsImFjY2VwdGVkQXQiOm51bGwsImVsYXBzZWREYXlzIjpudWxsfX1dLCJnYXRlcyI6W3sidW5pdEtleSI6InVuaXQiLCJwYXNzZWQiOnRydWUsInNjb3JlIjoxMDAsInRocmVzaG9sZFBlcmNlbnQiOjgwLCJtaXNzaW5nQ29yZUtleXMiOltdLCJjcml0aWNhbEVycm9yS2V5cyI6W119XSwiYmxvY2tlcnMiOltdLCJyZW1lZGlhdGlvbiI6W10sImV4aGF1c3RlZEJhbmtzIjpbXX0sImF2YWlsYWJpbGl0eSI6ImFjdGl2ZSIsInZlcnNpb25IaXN0b3J5IjpbeyJ2ZXJzaW9uTnVtYmVyIjoxLCJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiYWRvcHRlZEF0IjoiMjAyNi0xMC0xMFQyMjoyNDo1NS44OTRaIiwiY29tcGxldGVkQXQiOm51bGwsImNvbnN1bWVkQWN0aXZpdGllcyI6W119XX19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-4fe1d673e7a54fdc6fe8",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 186,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T22:20:33.731Z",
+    "duration": 304090.462,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

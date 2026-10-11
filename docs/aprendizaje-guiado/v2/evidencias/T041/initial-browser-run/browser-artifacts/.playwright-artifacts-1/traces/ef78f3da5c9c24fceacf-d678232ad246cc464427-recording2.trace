@@ -1,0 +1,43 @@
+{"version":9,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"win32","wallTime":1791518044354,"monotonicTime":189866.157,"sdkLanguage":"javascript","title":"recovery.spec.ts:19 › M04 v1 restored session can write and complete while v2 is disabled"}
+{"type":"before","callId":"call@16","startTime":189873.018,"class":"APIRequestContext","method":"fetch","params":{"url":"http://127.0.0.1:41042/mode/off","method":"POST","timeout":30000},"stepId":"pw:api@40"}
+{"type":"log","callId":"call@16","time":189884.926,"message":"→ POST http://127.0.0.1:41042/mode/off"}
+{"type":"log","callId":"call@16","time":189885.047,"message":"  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"type":"log","callId":"call@16","time":189885.102,"message":"  accept: */*"}
+{"type":"log","callId":"call@16","time":189885.145,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"log","callId":"call@16","time":189999.121,"message":"← 200 OK"}
+{"type":"log","callId":"call@16","time":189999.168,"message":"  content-type: application/json; charset=utf-8"}
+{"type":"log","callId":"call@16","time":189999.187,"message":"  content-length: 14"}
+{"type":"log","callId":"call@16","time":189999.202,"message":"  date: Fri, 09 Oct 2026 03:54:04 GMT"}
+{"type":"log","callId":"call@16","time":189999.216,"message":"  connection: keep-alive"}
+{"type":"log","callId":"call@16","time":189999.251,"message":"  keep-alive: timeout=72"}
+{"type":"after","callId":"call@16","endTime":189999.579,"result":{"response":{"url":"http://127.0.0.1:41042/mode/off","status":200,"statusText":"OK","headers":[{"name":"content-type","value":"application/json; charset=utf-8"},{"name":"content-length","value":"14"},{"name":"Date","value":"Fri, 09 Oct 2026 03:54:04 GMT"},{"name":"Connection","value":"keep-alive"},{"name":"Keep-Alive","value":"timeout=72"}],"serverAddr":{"ipAddress":"127.0.0.1","port":41042},"timing":{"startTime":1791518044364,"domainLookupStart":-1,"domainLookupEnd":-1,"connectStart":0,"secureConnectionStart":-1,"connectEnd":12.50899999999092,"requestStart":12.50899999999092,"responseStart":115.78700000001118},"responseEndTiming":119.41300000000047,"fetchUid":"b1384e9286f958b29770ff6ae5b823a0"}}}
+{"type":"before","callId":"call@20","startTime":190034.375,"class":"APIRequestContext","method":"fetch","params":{"url":"http://127.0.0.1:41042/ready","method":"GET","timeout":30000},"stepId":"pw:api@43"}
+{"type":"log","callId":"call@20","time":190035.465,"message":"→ GET http://127.0.0.1:41042/ready"}
+{"type":"log","callId":"call@20","time":190035.489,"message":"  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"type":"log","callId":"call@20","time":190035.497,"message":"  accept: */*"}
+{"type":"log","callId":"call@20","time":190035.502,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"log","callId":"call@20","time":190039.251,"message":"← 200 OK"}
+{"type":"log","callId":"call@20","time":190039.276,"message":"  content-type: application/json; charset=utf-8"}
+{"type":"log","callId":"call@20","time":190039.289,"message":"  content-length: 653"}
+{"type":"log","callId":"call@20","time":190039.299,"message":"  date: Fri, 09 Oct 2026 03:54:04 GMT"}
+{"type":"log","callId":"call@20","time":190039.308,"message":"  connection: keep-alive"}
+{"type":"log","callId":"call@20","time":190039.316,"message":"  keep-alive: timeout=72"}
+{"type":"after","callId":"call@20","endTime":190039.484,"result":{"response":{"url":"http://127.0.0.1:41042/ready","status":200,"statusText":"OK","headers":[{"name":"content-type","value":"application/json; charset=utf-8"},{"name":"content-length","value":"653"},{"name":"Date","value":"Fri, 09 Oct 2026 03:54:04 GMT"},{"name":"Connection","value":"keep-alive"},{"name":"Keep-Alive","value":"timeout=72"}],"serverAddr":{"ipAddress":"127.0.0.1","port":41042},"timing":{"startTime":1791518044522,"domainLookupStart":-1,"domainLookupEnd":-1,"connectStart":-1,"secureConnectionStart":-1,"connectEnd":-1,"requestStart":0.8669999999983702,"responseStart":3.304999999993015},"responseEndTiming":3.7559999999939464,"fetchUid":"66a433bbeaa58c2e5c8227ebb3f012d5"}}}
+{"type":"before","callId":"call@23","startTime":190043.457,"class":"APIRequestContext","method":"fetch","params":{"url":"http://127.0.0.1:41042/snapshot","method":"GET","timeout":30000},"stepId":"pw:api@44"}
+{"type":"log","callId":"call@23","time":190044.419,"message":"→ GET http://127.0.0.1:41042/snapshot"}
+{"type":"log","callId":"call@23","time":190044.449,"message":"  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"type":"log","callId":"call@23","time":190044.46,"message":"  accept: */*"}
+{"type":"log","callId":"call@23","time":190044.469,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"log","callId":"call@23","time":191096.119,"message":"← 200 OK"}
+{"type":"log","callId":"call@23","time":191096.214,"message":"  content-type: application/json; charset=utf-8"}
+{"type":"log","callId":"call@23","time":191096.224,"message":"  content-length: 7919"}
+{"type":"log","callId":"call@23","time":191096.23,"message":"  date: Fri, 09 Oct 2026 03:54:05 GMT"}
+{"type":"log","callId":"call@23","time":191096.235,"message":"  connection: keep-alive"}
+{"type":"log","callId":"call@23","time":191096.24,"message":"  keep-alive: timeout=72"}
+{"type":"after","callId":"call@23","endTime":191096.568,"result":{"response":{"url":"http://127.0.0.1:41042/snapshot","status":200,"statusText":"OK","headers":[{"name":"content-type","value":"application/json; charset=utf-8"},{"name":"content-length","value":"7919"},{"name":"Date","value":"Fri, 09 Oct 2026 03:54:05 GMT"},{"name":"Connection","value":"keep-alive"},{"name":"Keep-Alive","value":"timeout=72"}],"serverAddr":{"ipAddress":"127.0.0.1","port":41042},"timing":{"startTime":1791518044531,"domainLookupStart":-1,"domainLookupEnd":-1,"connectStart":-1,"secureConnectionStart":-1,"connectEnd":-1,"requestStart":0.6549999999988358,"responseStart":1050.6110000000044},"responseEndTiming":1051.1440000000002,"fetchUid":"72650cf0b49ad5fad0c7ccf7910cbf9d"}}}
+{"type":"before","callId":"call@51","startTime":252309.186,"class":"APIRequestContext","method":"fetch","params":{"url":"http://127.0.0.1:41042/snapshot","method":"GET","timeout":30000},"stepId":"pw:api@61"}
+{"type":"log","callId":"call@51","time":252310.383,"message":"→ GET http://127.0.0.1:41042/snapshot"}
+{"type":"log","callId":"call@51","time":252310.4,"message":"  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"type":"log","callId":"call@51","time":252310.406,"message":"  accept: */*"}
+{"type":"log","callId":"call@51","time":252310.409,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"after","callId":"call@51","endTime":252315.65,"error":{"message":"connect ECONNREFUSED 127.0.0.1:41042","stack":"Error: connect ECONNREFUSED 127.0.0.1:41042\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1864:16)","name":"Error"}}

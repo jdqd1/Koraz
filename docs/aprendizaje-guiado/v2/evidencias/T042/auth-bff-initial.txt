@@ -1,0 +1,34 @@
+[WebServer] (node:25580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:9684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 1 test using 1 worker
+
+(node:12872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 ..\..\work\test\t042\auth.spec.ts:3:5 › S07 actual signed Better Auth cookie expires and BFF rejects exact replay without writes (850ms)
+
+
+  1) ..\..\work\test\t042\auth.spec.ts:3:5 › S07 actual signed Better Auth cookie expires and BFF rejects exact replay without writes 
+
+    SyntaxError: Unexpected non-whitespace character after JSON at position 4 (line 1 column 5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t042\auth.spec.ts:13:19)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error Context: ..\..\test-results\auth-S07-actual-signed-Bet-d5762-exact-replay-without-writes\error-context.md
+
+  1 failed
+    ..\..\work\test\t042\auth.spec.ts:3:5 › S07 actual signed Better Auth cookie expires and BFF rejects exact replay without writes 
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/t042/playwright.auth.config.mts

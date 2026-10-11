@@ -1,0 +1,964 @@
+{
+  "scope": "Revisión focal sin regenerar temario; todos los campos educativos cotejados. Fuentes originales e incidencias preservadas.",
+  "inputPackageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff",
+  "outputPackageSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+  "guideSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1",
+  "changeCount": 41,
+  "affectedActivities": [
+    "porta-r1",
+    "cava-a2",
+    "porta-a2",
+    "cava-r30",
+    "arterias-estudio",
+    "arterias-ejemplo",
+    "arterias-r1",
+    "arterias-a1",
+    "arterias-a2",
+    "arterias-r7",
+    "arterias-r30",
+    "cava-estudio",
+    "cava-r2",
+    "cava-elaborar",
+    "cava-remediar",
+    "cava-a3",
+    "cava-r7",
+    "porta-r3",
+    "porta-r4",
+    "porta-r7",
+    "porta-r30",
+    "comunicaciones-estudio",
+    "comunicaciones-ejemplo",
+    "comunicaciones-r2",
+    "comunicaciones-a1",
+    "comunicaciones-a2",
+    "comunicaciones-r7"
+  ],
+  "changes": [
+    {
+      "activityKey": "porta-r1",
+      "path": "/activities/26/feedback/explanation",
+      "before": "La formación constante descrita es VMS más esplénica, detrás del cuello pancreático; la terminación de VMI es variable.",
+      "after": "La guía describe la formación de la porta por la unión de VMS y vena esplénica detrás del cuello del páncreas. La terminación de VMI es variable.",
+      "reason": "Eliminar «constante», calificador que la guía no proporciona para la formación de porta.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-a2",
+      "path": "/activities/18/feedback/explanation",
+      "before": "La gonadal izquierda desemboca en renal izquierda; este ítem reutiliza la familia de desembocaduras y no aumenta el número de familias.",
+      "after": "La vena gonadal izquierda desemboca habitualmente en la vena renal izquierda, mientras que la derecha lo hace habitualmente en la VCI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-a2",
+      "path": "/activities/18/payload/distractorFeedback/op2",
+      "before": "La gonadal izquierda desemboca en renal izquierda; este ítem reutiliza la familia de desembocaduras y no aumenta el número de familias.",
+      "after": "La vena gonadal izquierda desemboca habitualmente en la vena renal izquierda, mientras que la derecha lo hace habitualmente en la VCI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-a2",
+      "path": "/activities/31/feedback/explanation",
+      "before": "El paso hepático no se omite. Esta comprobación crítica comparte familia de flujo con la secuencia; no se cuenta como familia nueva.",
+      "after": "La sangre portal pasa por ramas portales y sinusoides hepáticos; después regresa por venas centrales y colectoras y venas hepáticas hacia la VCI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-a2",
+      "path": "/activities/31/payload/distractorFeedback/op2",
+      "before": "El paso hepático no se omite. Esta comprobación crítica comparte familia de flujo con la secuencia; no se cuenta como familia nueva.",
+      "after": "La sangre portal pasa por ramas portales y sinusoides hepáticos; después regresa por venas centrales y colectoras y venas hepáticas hacia la VCI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-r30",
+      "path": "/activities/23/feedback/explanation",
+      "before": "La guía enumera hepáticas derecha, media e izquierda. Las permutaciones son alias, no nuevas familias ni afirmaciones de orden anatómico.",
+      "after": "Los principales troncos hepáticos superiores descritos son las venas hepáticas derecha, media e izquierda.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-r30",
+      "path": "/activities/23/prompt",
+      "before": "Recuperación diferida sin ayudas: nombra los tres principales troncos hepáticos superiores descritos. Puedes separarlos con coma y «y»; no se exige orden anatómico.",
+      "after": "Recuperación diferida sin ayudas: nombra los tres principales troncos hepáticos superiores descritos.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Retirar instrucción de formato ligada a alias del evaluador; los alias y respuestas aceptadas se conservan en el paquete editorial.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-estudio",
+      "path": "/activities/0/payload/body",
+      "before": "La aorta abdominal comienza aproximadamente en T12 después del hiato aórtico, baja algo a la izquierda y termina habitualmente en L4 por bifurcación ilíaca común. La AMS irriga yeyuno, íleon, ciego, apéndice, colon ascendente y gran parte del transverso. AMI nace aproximadamente en L3, baja retroperitonealmente hacia la izquierda próxima al uréter y continúa como rectal superior; abarca transverso izquierdo, descendente, sigmoide y recto superior. Pancreaticoduodenales comunican sistema celíaco–AMS; marginal conecta AMS–AMI. La guía describe trayectos de gástrica izquierda y esplénica, pero el antecedente de su lista de tres ramas queda pendiente.",
+      "after": "La aorta abdominal comienza aproximadamente en T12 después del hiato aórtico, baja algo a la izquierda y termina habitualmente en L4 por bifurcación ilíaca común. La AMS irriga, en términos generales, yeyuno, íleon, ciego, apéndice, colon ascendente y gran parte del transverso. AMI nace aproximadamente en L3, baja retroperitonealmente hacia la izquierda próxima al uréter y continúa como rectal superior; abarca transverso izquierdo, descendente, sigmoide y recto superior. Pancreaticoduodenales comunican sistema celíaco–AMS; la marginal conecta AMS–AMI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos. La omisión del origen ambiguo se conserva como incidencia editorial, sin cambiar la fuente.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-estudio",
+      "path": "/activities/0/feedback/explanation",
+      "before": "La aorta abdominal comienza aproximadamente en T12 después del hiato aórtico, baja algo a la izquierda y termina habitualmente en L4 por bifurcación ilíaca común. La AMS irriga yeyuno, íleon, ciego, apéndice, colon ascendente y gran parte del transverso. AMI nace aproximadamente en L3, baja retroperitonealmente hacia la izquierda próxima al uréter y continúa como rectal superior; abarca transverso izquierdo, descendente, sigmoide y recto superior. Pancreaticoduodenales comunican sistema celíaco–AMS; marginal conecta AMS–AMI. La guía describe trayectos de gástrica izquierda y esplénica, pero el antecedente de su lista de tres ramas queda pendiente.",
+      "after": "La aorta abdominal comienza aproximadamente en T12 después del hiato aórtico, baja algo a la izquierda y termina habitualmente en L4 por bifurcación ilíaca común. La AMS irriga, en términos generales, yeyuno, íleon, ciego, apéndice, colon ascendente y gran parte del transverso. AMI nace aproximadamente en L3, baja retroperitonealmente hacia la izquierda próxima al uréter y continúa como rectal superior; abarca transverso izquierdo, descendente, sigmoide y recto superior. Pancreaticoduodenales comunican sistema celíaco–AMS; la marginal conecta AMS–AMI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos. La omisión del origen ambiguo se conserva como incidencia editorial, sin cambiar la fuente.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-ejemplo",
+      "path": "/activities/1/payload/body",
+      "before": "Ejemplo resuelto de discriminación: T12 describe inicio aórtico, L4 su bifurcación y L3 origen de AMI. Para no confundir niveles, asocia cada nivel a un hito, sin tratar los tres como comienzos de la misma arteria.",
+      "after": "Ejemplo resuelto de discriminación: el inicio aórtico se sitúa aproximadamente en T12; la bifurcación aórtica ocurre habitualmente en L4 y el origen de AMI se sitúa aproximadamente en L3. Asocia cada nivel a su hito para distinguirlos.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-ejemplo",
+      "path": "/activities/1/feedback/explanation",
+      "before": "Ejemplo resuelto de discriminación: T12 describe inicio aórtico, L4 su bifurcación y L3 origen de AMI. Para no confundir niveles, asocia cada nivel a un hito, sin tratar los tres como comienzos de la misma arteria.",
+      "after": "Ejemplo resuelto de discriminación: el inicio aórtico se sitúa aproximadamente en T12; la bifurcación aórtica ocurre habitualmente en L4 y el origen de AMI se sitúa aproximadamente en L3. Asocia cada nivel a su hito para distinguirlos.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-r1",
+      "path": "/activities/2/feedback/explanation",
+      "before": "La guía sitúa AMI en L3, inferior a AMS; T12 y L4 son hitos de aorta.",
+      "after": "La guía sitúa el origen de AMI aproximadamente en L3, inferior a AMS; T12 y L4 corresponden a los hitos aórticos descritos.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-a1",
+      "path": "/activities/6/feedback/explanation",
+      "before": "La secuencia aplica el trayecto verbal de AMI sin simular identificación en figura.",
+      "after": "La AMI nace de la cara anterior de la aorta aproximadamente en L3, desciende retroperitonealmente hacia la izquierda, próxima al uréter izquierdo, y continúa como rectal superior en la región sigmoidea.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-a2",
+      "path": "/activities/7/payload/options/0/text",
+      "before": "T12 tras hiato aórtico → descenso algo a la izquierda → bifurcación ilíaca en L4",
+      "after": "Aproximadamente T12 tras hiato aórtico → descenso algo a la izquierda → bifurcación ilíaca habitual en L4",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-r7",
+      "path": "/activities/9/feedback/explanation",
+      "before": "La guía describe el trayecto gástrico sin que sea necesario decidir el origen ambiguo de la lista de ramas.",
+      "after": "La arteria gástrica izquierda asciende hacia la unión esofagogástrica y después recorre la curvatura menor del estómago.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. La incidencia del origen se conserva fuera de la explicación al alumno.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "arterias-r30",
+      "path": "/activities/10/feedback/explanation",
+      "before": "La guía expresa trayecto tortuoso hacia izquierda y relación con el borde superior del páncreas. No se pregunta el origen pendiente.",
+      "after": "La arteria esplénica sigue un trayecto tortuoso hacia la izquierda, relacionado con el borde superior del páncreas.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-estudio",
+      "path": "/activities/11/payload/body",
+      "before": "La VCI nace por unión de ilíacas comunes aproximadamente L5, algo a la derecha y debajo de la bifurcación aórtica. Asciende retroperitonealmente a la derecha de aorta, ocupa surco posterior del hígado y atraviesa centro tendinoso aproximadamente T8 hasta atrio derecho. Renal izquierda, más larga, pasa delante de aorta y detrás de AMS; recibe suprarrenal y gonadal izquierdas. Sus homólogas derechas desembocan directamente en VCI. Venas hepáticas derecha, media e izquierda desembocan en VCI retrohepática.",
+      "after": "La VCI nace por unión de ilíacas comunes aproximadamente en L5, algo a la derecha y debajo de la bifurcación aórtica. Asciende retroperitonealmente a la derecha de la aorta, ocupa un surco posterior del hígado y atraviesa el centro tendinoso aproximadamente en T8 hasta el atrio derecho. La renal izquierda, más larga, pasa delante de la aorta y detrás de AMS; recibe habitualmente las venas suprarrenal y gonadal izquierdas. La suprarrenal derecha desemboca en VCI; la gonadal derecha termina habitualmente en VCI. Las venas hepáticas derecha, media e izquierda desembocan en VCI retrohepática.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-estudio",
+      "path": "/activities/11/feedback/explanation",
+      "before": "La VCI nace por unión de ilíacas comunes aproximadamente L5, algo a la derecha y debajo de la bifurcación aórtica. Asciende retroperitonealmente a la derecha de aorta, ocupa surco posterior del hígado y atraviesa centro tendinoso aproximadamente T8 hasta atrio derecho. Renal izquierda, más larga, pasa delante de aorta y detrás de AMS; recibe suprarrenal y gonadal izquierdas. Sus homólogas derechas desembocan directamente en VCI. Venas hepáticas derecha, media e izquierda desembocan en VCI retrohepática.",
+      "after": "La VCI nace por unión de ilíacas comunes aproximadamente en L5, algo a la derecha y debajo de la bifurcación aórtica. Asciende retroperitonealmente a la derecha de la aorta, ocupa un surco posterior del hígado y atraviesa el centro tendinoso aproximadamente en T8 hasta el atrio derecho. La renal izquierda, más larga, pasa delante de la aorta y detrás de AMS; recibe habitualmente las venas suprarrenal y gonadal izquierdas. La suprarrenal derecha desemboca en VCI; la gonadal derecha termina habitualmente en VCI. Las venas hepáticas derecha, media e izquierda desembocan en VCI retrohepática.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-r2",
+      "path": "/activities/14/feedback/explanation",
+      "before": "La asimetría descrita debe conservarse: tributarias izquierdas a renal izquierda y derechas a VCI.",
+      "after": "La guía describe la suprarrenal derecha hacia VCI y la izquierda hacia la renal izquierda. La gonadal derecha termina habitualmente en VCI y la izquierda en la renal izquierda.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-elaborar",
+      "path": "/activities/16/feedback/explanation",
+      "before": "Ilíacas comunes forman VCI; suprarrenal y gonadal izquierdas llegan a la renal izquierda antes de VCI. Esa intermediación no se traslada automáticamente a las derechas.",
+      "after": "Las ilíacas comunes forman la VCI. La vena renal izquierda recibe habitualmente las venas suprarrenal y gonadal izquierdas; la suprarrenal derecha desemboca directamente en VCI y la gonadal derecha termina habitualmente en VCI.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-elaborar",
+      "path": "/activities/16/payload/modelAnswer",
+      "before": "Ilíacas comunes forman VCI; suprarrenal y gonadal izquierdas llegan a la renal izquierda antes de VCI. Esa intermediación no se traslada automáticamente a las derechas.",
+      "after": "Las ilíacas comunes forman la VCI. La vena renal izquierda recibe habitualmente las venas suprarrenal y gonadal izquierdas; la suprarrenal derecha desemboca directamente en VCI y la gonadal derecha termina habitualmente en VCI.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-elaborar",
+      "path": "/activities/16/payload/rubric/0/example",
+      "before": "Ilíacas comunes forman VCI; suprarrenal y gonadal izquierdas llegan a la renal izquierda antes de VCI. Esa intermediación no se traslada automáticamente a las derechas.",
+      "after": "Las ilíacas comunes forman la VCI. La vena renal izquierda recibe habitualmente las venas suprarrenal y gonadal izquierdas; la suprarrenal derecha desemboca directamente en VCI y la gonadal derecha termina habitualmente en VCI.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-a2",
+      "path": "/activities/18/prompt",
+      "before": "Revisa un esquema didáctico de drenaje gonadal izquierdo. ¿Qué continuación conserva la asimetría de la guía?",
+      "after": "Revisa un esquema didáctico de drenaje gonadal izquierdo. ¿Qué continuación habitual describe la guía?",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-remediar",
+      "path": "/activities/19/payload/body",
+      "before": "Corrige la transferencia entre lados: gonadal izquierda → renal izquierda → VCI; gonadal derecha → VCI. Revisa la tabla de suprarrenales y gonadales y realiza la verificación sin ayuda.",
+      "after": "La vena gonadal izquierda termina habitualmente en la vena renal izquierda y la derecha en la VCI. Compara ambos lados con las desembocaduras suprarrenales antes de responder de nuevo sin ayuda.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-remediar",
+      "path": "/activities/19/feedback/explanation",
+      "before": "Corrige la transferencia entre lados: gonadal izquierda → renal izquierda → VCI; gonadal derecha → VCI. Revisa la tabla de suprarrenales y gonadales y realiza la verificación sin ayuda.",
+      "after": "La vena gonadal izquierda termina habitualmente en la vena renal izquierda y la derecha en la VCI. Compara ambos lados con las desembocaduras suprarrenales antes de responder de nuevo sin ayuda.",
+      "reason": "Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-a3",
+      "path": "/activities/20/feedback/explanation",
+      "before": "La VCI recibe directamente retorno de miembros inferiores; la mayor parte del tubo digestivo atraviesa primero porta e hígado. Esta discriminación integra territorios, distinta del orden del ascenso cava.",
+      "after": "La VCI recibe directamente retorno de miembros inferiores; la mayor parte de la sangre del tubo digestivo atraviesa primero el sistema porta y el hígado.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-a3",
+      "path": "/activities/20/payload/distractorFeedback/op2",
+      "before": "La VCI recibe directamente retorno de miembros inferiores; la mayor parte del tubo digestivo atraviesa primero porta e hígado. Esta discriminación integra territorios, distinta del orden del ascenso cava.",
+      "after": "La VCI recibe directamente retorno de miembros inferiores; la mayor parte de la sangre del tubo digestivo atraviesa primero el sistema porta y el hígado.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "cava-r7",
+      "path": "/activities/22/feedback/explanation",
+      "before": "La guía afirma que renal izquierda es más larga; no es una decisión ante un caso.",
+      "after": "La vena renal izquierda es más larga que la derecha, según la guía.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-r3",
+      "path": "/activities/28/feedback/explanation",
+      "before": "La guía describe VMS a la derecha de la arteria homónima; no pregunta imágenes ni añade variantes.",
+      "after": "La VMS asciende por la raíz del mesenterio a la derecha de la arteria mesentérica superior.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-r4",
+      "path": "/activities/33/feedback/explanation",
+      "before": "VMI recoge esos territorios y tiene tributarias rectal superior, sigmoideas y cólica izquierda; no se pregunta aquí dónde termina VMI.",
+      "after": "La VMI recoge sangre del recto superior, sigmoide, descendente y sector izquierdo del transverso; sus principales tributarias son rectal superior, sigmoideas y cólica izquierda.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-r7",
+      "path": "/activities/35/prompt",
+      "before": "Recuperación diferida: asocia la terminación de VMI con las posibilidades descritas, sin hacer constante una variante.",
+      "after": "Recuperación diferida: asocia la terminación de VMI con las posibilidades descritas en la guía.",
+      "reason": "Conservar variabilidad sin una advertencia de autoría en el enunciado; el feedback conserva frecuencia y alternativas.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "porta-r30",
+      "path": "/activities/36/feedback/explanation",
+      "before": "Se recupera el trayecto de la porta, distinto del orden del flujo capilar/sinusoidal aplicado al inicio.",
+      "after": "La porta se forma detrás del cuello del páncreas, pasa por detrás del duodeno superior y por delante de VCI, y después entra en el ligamento hepatoduodenal.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-estudio",
+      "path": "/activities/37/payload/body",
+      "before": "Intercavas unen ambos extremos sistémicos: lumbares ascendentes con ácigos y conexiones inferiores iliolumbares/sacras; toracoepigástricas entre territorios axilar e ilíaco-femoral. Portosistémicas unen tributaria portal con vena sistémica: gástrica izquierda con esofágicas hacia ácigos/hemiácigos; paraumbilicales con superficiales; rectal superior con rectales media/inferior; cólicas con lumbares/retroperitoneales. Normalmente tienen poco flujo y adquieren importancia ante resistencia portal o hepática. La nota clínica entre fuentes queda pendiente.",
+      "after": "Las intercavas unen ambos extremos sistémicos: lumbares ascendentes con ácigos y conexiones inferiores iliolumbares y sacras; toracoepigástricas entre territorios axilar e ilíaco-femoral. Las portosistémicas unen una tributaria portal con una vena sistémica: gástrica izquierda con esofágicas hacia ácigos y hemiácigos; paraumbilicales con superficiales; rectal superior con rectales media e inferior; cólicas con lumbares y retroperitoneales. Las anastomosis portosistémicas normalmente transportan poco flujo y adquieren importancia cuando aumenta la resistencia portal o hepática.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos. Precisar que el calificativo de flujo corresponde a portosistémicas y mantener el conflicto clínico en incidencias.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-estudio",
+      "path": "/activities/37/feedback/explanation",
+      "before": "Intercavas unen ambos extremos sistémicos: lumbares ascendentes con ácigos y conexiones inferiores iliolumbares/sacras; toracoepigástricas entre territorios axilar e ilíaco-femoral. Portosistémicas unen tributaria portal con vena sistémica: gástrica izquierda con esofágicas hacia ácigos/hemiácigos; paraumbilicales con superficiales; rectal superior con rectales media/inferior; cólicas con lumbares/retroperitoneales. Normalmente tienen poco flujo y adquieren importancia ante resistencia portal o hepática. La nota clínica entre fuentes queda pendiente.",
+      "after": "Las intercavas unen ambos extremos sistémicos: lumbares ascendentes con ácigos y conexiones inferiores iliolumbares y sacras; toracoepigástricas entre territorios axilar e ilíaco-femoral. Las portosistémicas unen una tributaria portal con una vena sistémica: gástrica izquierda con esofágicas hacia ácigos y hemiácigos; paraumbilicales con superficiales; rectal superior con rectales media e inferior; cólicas con lumbares y retroperitoneales. Las anastomosis portosistémicas normalmente transportan poco flujo y adquieren importancia cuando aumenta la resistencia portal o hepática.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos. Precisar que el calificativo de flujo corresponde a portosistémicas y mantener el conflicto clínico en incidencias.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-ejemplo",
+      "path": "/activities/38/payload/body",
+      "before": "Ejemplo resuelto de criterio: lumbares ascendentes y ácigos pertenecen al retorno sistémico, por ello su comunicación es intercava. Gástrica izquierda pertenece al portal y las esofágicas hacia ácigos al sistémico, por ello su conexión es portosistémica. Se clasifican extremos, sin deducir un diagnóstico.",
+      "after": "Ejemplo resuelto: lumbares ascendentes y ácigos pertenecen al retorno sistémico, por ello su comunicación es intercava. Gástrica izquierda pertenece al portal y las esofágicas hacia ácigos al sistémico, por ello su conexión es portosistémica.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-ejemplo",
+      "path": "/activities/38/feedback/explanation",
+      "before": "Ejemplo resuelto de criterio: lumbares ascendentes y ácigos pertenecen al retorno sistémico, por ello su comunicación es intercava. Gástrica izquierda pertenece al portal y las esofágicas hacia ácigos al sistémico, por ello su conexión es portosistémica. Se clasifican extremos, sin deducir un diagnóstico.",
+      "after": "Ejemplo resuelto: lumbares ascendentes y ácigos pertenecen al retorno sistémico, por ello su comunicación es intercava. Gástrica izquierda pertenece al portal y las esofágicas hacia ácigos al sistémico, por ello su conexión es portosistémica.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-r2",
+      "path": "/activities/40/feedback/explanation",
+      "before": "Los tres pares conectan extremo portal con retorno sistémico; la anatomía rectal no resuelve la nota clínica discrepante.",
+      "after": "Las conexiones descritas son gástrica izquierda con esofágicas hacia ácigos y hemiácigos; paraumbilicales con venas superficiales; y rectal superior con rectales media e inferior. Conectan un extremo portal con otro sistémico.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. El conflicto clínico permanece en la incidencia, sin retirar la anatomía sustentada.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-a1",
+      "path": "/activities/43/feedback/explanation",
+      "before": "Se aplican las conexiones inferiores y superiores descritas para formar una vía sistémica alternativa, sin proponer técnica o tratamiento.",
+      "after": "Las venas lumbares ascendentes se comunican inferiormente con iliolumbares y sacras y se continúan superiormente con el sistema ácigos. Esta vía puede ofrecer un trayecto alternativo hacia VCS ante una obstrucción importante de VCI.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Conservar alcance, aproximación o variabilidad de la guía; no añadir cuantificadores absolutos.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-a2",
+      "path": "/activities/44/feedback/explanation",
+      "before": "El extremo rectal superior pertenece a retorno portal; media/inferior a sistémico. Se decide clase anatómica, sin inferir hipertensión portal ni hemorroides.",
+      "after": "La rectal superior continúa hacia VMI en el sistema porta. Las rectales media e inferior drenan hacia el sistema ilíaco interno y pudendo. La comunicación es portosistémica.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Se conserva el conflicto clínico y se explica solo la clase anatómica.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-a2",
+      "path": "/activities/44/payload/distractorFeedback/op2",
+      "before": "El extremo rectal superior pertenece a retorno portal; media/inferior a sistémico. Se decide clase anatómica, sin inferir hipertensión portal ni hemorroides.",
+      "after": "La rectal superior continúa hacia VMI en el sistema porta. Las rectales media e inferior drenan hacia el sistema ilíaco interno y pudendo. La comunicación es portosistémica.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe. Se conserva el conflicto clínico y se explica solo la clase anatómica.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    },
+    {
+      "activityKey": "comunicaciones-r7",
+      "path": "/activities/46/feedback/explanation",
+      "before": "Se recuerda la descripción de condiciones normales; no es aplicación a un paciente ni diagnóstico.",
+      "after": "Las anastomosis portosistémicas transportan poco flujo en condiciones normales.",
+      "reason": "Lenguaje del tema: retirar notas de implementación o decisiones editoriales del texto educativo; conservarlas en notas/informe.",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "sourceLocators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ],
+      "sourceDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+    }
+  ],
+  "residualMetadata": [],
+  "residualAbsoluteQualifiers": []
+}

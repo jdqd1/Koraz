@@ -1,0 +1,21 @@
+{
+  "scope": "portable",
+  "valid": true,
+  "publishable": false,
+  "issues": [
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "severity": "error",
+      "path": "/editorial/unresolvedIssues",
+      "message": "Hay incidencias editoriales abiertas.",
+      "suggestedFix": "Resuelve cada incidencia antes de publicar."
+    },
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "severity": "error",
+      "path": "/activities/3",
+      "message": "La actividad contiene texto pendiente.",
+      "suggestedFix": "Sustituye el marcador por contenido revisado."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+[WebServer] (node:29816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:21620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 2 tests using 1 worker
+
+(node:4232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/81cd5304-7063-43cc-8ccf-bcfd39c4e377
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 1 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:90:5 › E02 editorial preview has no learner effects, then publishes with current approval (41.8s)
+  ok 2 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:186:5 › E07 corrected and published route completes diagnosis, final and delayed review with reload (31.1s)
+
+  2 passed (2.2m)

@@ -1,0 +1,393 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/t042/playwright.mobile.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\playwright.mobile.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T042/mobile-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\mobile.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E01 creates a new persisted v2 draft using UI and keyboard",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12848,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/a12e76fe-c6d9-4543-89cc-ad4bf1cdda62\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:45:07.740Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-10fcf84dc58ea64df651",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 59,
+          "column": 5
+        },
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 166549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:45:27.850Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-c5a7ba66526793144670",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "E03 beginner help and CORE error are confirmed by the server",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15418,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:48:14.426Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-3ed6ef89dadf3472c00b",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 124,
+          "column": 5
+        },
+        {
+          "title": "E04 all eight kinds persist through the learner UI on desktop and mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 53054,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:48:29.983Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-9ff624f0ce74c12e6580",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 133,
+          "column": 5
+        },
+        {
+          "title": "E05 disconnect before/after commit, reload and two tabs preserve one answer",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20670,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:49:23.067Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df5ce8520497fc01d234",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 145,
+          "column": 5
+        },
+        {
+          "title": "E06 home, real map, route, session and review keep the pinned server state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 32224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:49:43.761Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-cf08b7e8317ada3ad88c",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 168,
+          "column": 5
+        },
+        {
+          "title": "E07 corrected and published route completes diagnosis, final and delayed review with reload",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 91119,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica' })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica' })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:47:86)\n    at consume (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:205:13)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:216:5)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                      "column": 86,
+                      "line": 47
+                    },
+                    "snippet": "  45 | async function finish(page:Page|Locator){await page.getByRole(\"button\",{name:\"Finalizar sesión\",exact:true}).click();await expect(page.getByRole(\"heading\",{name:\"Sesión completada\",exact:true})).toBeVisible();}\n  46 | async function answer(page:Page|Locator,kind:string,wrong=false){\n> 47 |   if(kind===\"study\"){await page.getByRole(\"button\",{name:\"Continuar a la práctica\"}).click();return;}\n     |                                                                                      ^\n  48 |   if(kind===\"single_choice\"){await page.getByRole(\"radio\",{name:wrong?\"Respuesta B\":\"Respuesta A\",exact:true}).check();await page.getByRole(\"button\",{name:\"Comprobar respuesta\",exact:true}).click();}\n  49 |   if(kind===\"short_answer\"){await page.getByLabel(\"Tu respuesta\",{exact:true}).fill(\"respuesta\");await page.getByRole(\"button\",{name:\"Comprobar respuesta\",exact:true}).click();}\n  50 |   if(kind===\"constructed_response\"){await page.getByLabel(\"Explica con tus palabras\").fill(\"Una relación sintética.\");await page.getByRole(\"button\",{name:\"Guardar mi respuesta\"}).click();await page.getByRole(\"button\",{name:\"Comparar con el modelo\"}).click();await expect(page.getByRole(\"heading\",{name:\"Respuesta modelo\",exact:true})).toBeVisible();await page.getByRole(\"button\",{name:\"Lo recuperé\",exact:true}).click();}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                        "column": 86,
+                        "line": 47
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica' })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n\n  45 | async function finish(page:Page|Locator){await page.getByRole(\"button\",{name:\"Finalizar sesión\",exact:true}).click();await expect(page.getByRole(\"heading\",{name:\"Sesión completada\",exact:true})).toBeVisible();}\n  46 | async function answer(page:Page|Locator,kind:string,wrong=false){\n> 47 |   if(kind===\"study\"){await page.getByRole(\"button\",{name:\"Continuar a la práctica\"}).click();return;}\n     |                                                                                      ^\n  48 |   if(kind===\"single_choice\"){await page.getByRole(\"radio\",{name:wrong?\"Respuesta B\":\"Respuesta A\",exact:true}).check();await page.getByRole(\"button\",{name:\"Comprobar respuesta\",exact:true}).click();}\n  49 |   if(kind===\"short_answer\"){await page.getByLabel(\"Tu respuesta\",{exact:true}).fill(\"respuesta\");await page.getByRole(\"button\",{name:\"Comprobar respuesta\",exact:true}).click();}\n  50 |   if(kind===\"constructed_response\"){await page.getByLabel(\"Explica con tus palabras\").fill(\"Una relación sintética.\");await page.getByRole(\"button\",{name:\"Guardar mi respuesta\"}).click();await page.getByRole(\"button\",{name:\"Comparar con el modelo\"}).click();await expect(page.getByRole(\"heading\",{name:\"Respuesta modelo\",exact:true})).toBeVisible();await page.getByRole(\"button\",{name:\"Lo recuperé\",exact:true}).click();}\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:47:86)\n    at consume (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:205:13)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts:216:5)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:50:16.012Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\mobile-artifacts\\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\mobile-artifacts\\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\mobile-artifacts\\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\tests\\e2e\\guided-v2-journeys.spec.ts",
+                    "column": 86,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-4fe1d673e7a54fdc6fe8",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 186,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T21:44:26.418Z",
+    "duration": 446100.62600000005,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

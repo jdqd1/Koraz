@@ -1,0 +1,40 @@
+{
+  "validation": {
+    "status": 200,
+    "value": {
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/editorial/unresolvedIssues",
+          "message": "Hay incidencias editoriales abiertas.",
+          "suggestedFix": "Resuelve cada incidencia antes de publicar."
+        },
+        {
+          "code": "REVIEW_STALE",
+          "severity": "error",
+          "path": "",
+          "message": "La revisión editorial no cubre el hash actual.",
+          "suggestedFix": "Solicita revisión del borrador exacto después de los cambios."
+        }
+      ],
+      "validatedEditVersion": 1,
+      "ready": false
+    }
+  },
+  "transition": {
+    "status": 422,
+    "value": {
+      "error": "route_not_ready",
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/editorial/unresolvedIssues",
+          "message": "Hay incidencias editoriales abiertas.",
+          "suggestedFix": "Resuelve cada incidencia antes de publicar."
+        }
+      ]
+    }
+  }
+}

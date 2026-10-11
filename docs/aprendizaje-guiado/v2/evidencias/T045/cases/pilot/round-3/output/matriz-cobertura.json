@@ -1,0 +1,1364 @@
+{
+  "packageSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+  "objectives": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "title": "Relacionar trayectos y territorios arteriales abdominales descritos",
+      "criticality": "high_yield",
+      "prerequisites": [],
+      "sourceKeys": [
+        "arterias"
+      ],
+      "evidenceExpected": "Relacionar trayectos y territorios arteriales abdominales descritos",
+      "initialActivities": 5,
+      "initialFamilies": [
+        "arterias-r1",
+        "arterias-r2",
+        "arterias-r3",
+        "arterias-a1",
+        "arterias-a2"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "arterias-final",
+            "phase": "retrieve",
+            "equivalenceKey": "arterias-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "arterias-r7",
+            "phase": "retrieve",
+            "equivalenceKey": "arterias-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "arterias-r30",
+            "phase": "retrieve",
+            "equivalenceKey": "arterias-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "retorno-sistemico",
+      "title": "Relacionar la VCI con sus trayectos y tributarias",
+      "criticality": "core",
+      "prerequisites": [],
+      "sourceKeys": [
+        "cava"
+      ],
+      "evidenceExpected": "Relacionar la VCI con sus trayectos y tributarias",
+      "initialActivities": 6,
+      "initialFamilies": [
+        "cava-r1",
+        "cava-r2",
+        "cava-r3",
+        "cava-a1",
+        "cava-a3"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "cava-final",
+            "phase": "retrieve",
+            "equivalenceKey": "cava-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "cava-r7",
+            "phase": "retrieve",
+            "equivalenceKey": "cava-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "cava-r30",
+            "phase": "retrieve",
+            "equivalenceKey": "cava-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "retorno-portal",
+      "title": "Ordenar el flujo portal y relacionar su topografía",
+      "criticality": "core",
+      "prerequisites": [
+        "retorno-sistemico"
+      ],
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "evidenceExpected": "Ordenar el flujo portal y relacionar su topografía",
+      "initialActivities": 6,
+      "initialFamilies": [
+        "porta-r1",
+        "porta-r2",
+        "porta-r3",
+        "porta-a1",
+        "porta-r4"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "porta-final",
+            "phase": "retrieve",
+            "equivalenceKey": "porta-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "porta-r7",
+            "phase": "retrieve",
+            "equivalenceKey": "porta-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "porta-r30",
+            "phase": "retrieve",
+            "equivalenceKey": "porta-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "tipos-comunicacion",
+      "title": "Diferenciar comunicaciones intercavas y portosistémicas por sus extremos",
+      "criticality": "high_yield",
+      "prerequisites": [
+        "retorno-sistemico",
+        "retorno-portal"
+      ],
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "evidenceExpected": "Diferenciar comunicaciones intercavas y portosistémicas por sus extremos",
+      "initialActivities": 5,
+      "initialFamilies": [
+        "comunicaciones-r1",
+        "comunicaciones-r2",
+        "comunicaciones-r3",
+        "comunicaciones-a1",
+        "comunicaciones-a2"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "comunicaciones-final",
+            "phase": "retrieve",
+            "equivalenceKey": "comunicaciones-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "comunicaciones-r7",
+            "phase": "retrieve",
+            "equivalenceKey": "comunicaciones-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "comunicaciones-r30",
+            "phase": "retrieve",
+            "equivalenceKey": "comunicaciones-r30"
+          }
+        ]
+      }
+    }
+  ],
+  "activityTrace": [
+    {
+      "key": "arterias-estudio",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-ejemplo",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-r1",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-r2",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-r3",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-elaborar",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-a1",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-a2",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-final",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-r7",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "arterias-r30",
+      "objectiveKey": "territorios-arteriales",
+      "sourceKeys": [
+        "arterias"
+      ],
+      "feedbackSourceKeys": [
+        "arterias"
+      ],
+      "locators": [
+        {
+          "heading": "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-estudio",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-ejemplo",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-r1",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-r2",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-r3",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-elaborar",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-a1",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-a2",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-remediar",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-a3",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-final",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-r7",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "cava-r30",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-estudio",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-ejemplo",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r1",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r2",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r3",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-elaborar",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-a1",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-a2",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-remediar",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r4",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-final",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r7",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "porta-r30",
+      "objectiveKey": "retorno-portal",
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación"
+          ],
+          "page": null
+        },
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-estudio",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-ejemplo",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-r1",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-r2",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-r3",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-elaborar",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-a1",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-a2",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-final",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-r7",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "comunicaciones-r30",
+      "objectiveKey": "tipos-comunicacion",
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "feedbackSourceKeys": [
+        "comunicaciones"
+      ],
+      "locators": [
+        {
+          "heading": "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "diagnostico-1",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "diagnostico-2",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "diagnostico-3",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    },
+    {
+      "key": "diagnostico-4",
+      "objectiveKey": "retorno-sistemico",
+      "sourceKeys": [
+        "cava"
+      ],
+      "feedbackSourceKeys": [
+        "cava"
+      ],
+      "locators": [
+        {
+          "heading": "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales",
+          "sectionPath": [
+            "Vascularización de abdomen y sistema porta hepático",
+            "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+          ],
+          "page": null
+        }
+      ]
+    }
+  ],
+  "sourceIssues": [
+    {
+      "code": "SOURCE_UNRESOLVED",
+      "severity": "error",
+      "path": "/sources/0",
+      "message": "La lista «En el patrón más frecuente se divide en tres ramas» sigue la descripción aórtica sin explicitar su antecedente. No se atribuye un origen a gástrica izquierda, hepática común y esplénica.",
+      "suggestedFix": "Aportar y cotejar el pasaje completo con antecedente explícito; conservar trayectos autónomos sustentados y omitir el origen mientras tanto."
+    },
+    {
+      "code": "SOURCE_CONFLICT",
+      "severity": "error",
+      "path": "/sources/3",
+      "message": "La nota atribuye a García-Porrero dilatación de plexo rectal entre manifestaciones de hipertensión portal y a Moore ausencia de relación típica con hemorroides. Se conservan ambas atribuciones y no se decide diagnóstico.",
+      "suggestedFix": "Cotejar páginas de ambas obras y revisar la distinción entre plexo rectal y hemorroides; mantener excluidas actividades clínicas dependientes hasta resolver."
+    }
+  ],
+  "limits": "Cobertura conservada del candidato; no ampliación del snapshot ni reconocimiento espacial."
+}

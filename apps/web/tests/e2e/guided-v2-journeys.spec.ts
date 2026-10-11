@@ -57,7 +57,6 @@ async function answer(page:Page|Locator,kind:string,wrong=false){
 const student=(base:number,mobile:boolean)=>`student-${base+(mobile?10:0)}`;
 
 test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},info)=>{
-  test.skip(info.project.name==="mobile","E01 validates keyboard creation on desktop; E04 owns the required mobile matrix.");
   await actor(page,"editor");await page.goto("/panel/rutas/nueva?mode=v2");
   await expect(page.locator('[data-engine-version="guided-v2"]')).toBeVisible();
   const press=async(l:Locator)=>{await l.focus();await l.press("Enter");};
@@ -89,9 +88,13 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
 });
 
 test("E02 editorial preview has no learner effects, then publishes with current approval",async({page},info)=>{
-  test.skip(info.project.name==="mobile","The editorial workflow is covered once; E04 owns the required mobile matrix.");
   await actor(page,"editor");const f=await fixture(page,info.project.name==="mobile"?"editorial-mobile":"editorial");
-  await page.goto(`/panel/rutas/${f.pathId}`);await page.getByRole("tab",{name:"Revisión",exact:true}).click();
+  await page.goto(`/panel/rutas/${f.pathId}`);
+  await page.getByLabel("Título",{exact:true}).fill(`Ruta corregida T042 ${info.project.name}`);
+  await page.getByRole("button",{name:"Guardar borrador",exact:true}).click();
+  await expect.poll(async()=>(await server(page,`/v2/editor/learning-paths/${f.pathId}`)).route.definition.route.title).toBe(`Ruta corregida T042 ${info.project.name}`);
+  await page.reload();await expect(page.getByLabel("Título",{exact:true})).toHaveValue(`Ruta corregida T042 ${info.project.name}`);
+  await page.getByRole("tab",{name:"Revisión",exact:true}).click();
   const before=await server(page,"/__test/counts");const learnerRequests:string[]=[];
   page.on("request",r=>{if(r.url().includes("/api/v2/guided-learning/"))learnerRequests.push(r.url());});
   await page.getByRole("button",{name:"Abrir vista previa",exact:true}).click();
@@ -119,7 +122,6 @@ test("E02 editorial preview has no learner effects, then publishes with current 
 });
 
 test("E03 beginner help and CORE error are confirmed by the server",async({page},info)=>{
-  test.skip(info.project.name==="mobile","The server-confirmed remediation flow is covered once; E04 owns the required mobile matrix.");
   await actor(page,student(2,info.project.name==="mobile"));await enroll(page);
   for(const kind of ["study","constructed_response"]){await launch(page);await answer(page,kind);await finish(page);}
   const attemptId=await launch(page);await expect(page.getByText("Explicación sintética confirmada.",{exact:true})).toHaveCount(0);
@@ -141,7 +143,6 @@ test("E04 all eight kinds persist through the learner UI on desktop and mobile",
 });
 
 test("E05 disconnect before/after commit, reload and two tabs preserve one answer",async({page,context},info)=>{
-  test.skip(info.project.name==="mobile","The network and concurrency flow is viewport-independent; E04 owns the required mobile matrix.");
   test.setTimeout(240000);
   for(const [index,afterCommit] of [[0,false],[1,true]] as const){
     await actor(page,student(4+index,info.project.name==="mobile"));await enroll(page);const attemptId=await launch(page);
@@ -165,7 +166,6 @@ test("E05 disconnect before/after commit, reload and two tabs preserve one answe
 });
 
 test("E06 home, real map, route, session and review keep the pinned server state",async({page},info)=>{
-  test.skip(info.project.name==="mobile","The cross-surface flow is covered once; E04 owns the required mobile matrix.");
   await actor(page,student(7,info.project.name==="mobile"));await enroll(page);
   const ready=await page.request.post(api+`/__test/map/${student(7,info.project.name==="mobile")}`,{data:{}});expect(ready.ok()).toBeTruthy();
   await page.goto("/aprendizaje?tab=hoy");await expect(page.getByText("Ruta T035 pequeña",{exact:true}).first()).toBeVisible();
@@ -181,4 +181,60 @@ test("E06 home, real map, route, session and review keep the pinned server state
   const manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;expect(manifest.purpose).toBe("review");
   await answer(page,manifest.activeActivity.kind);await finish(page);expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(1);
   const reviewed=await state(page);expect(reviewed.pathVersionId).toBe(confirmed.pathVersionId);expect(reviewed.maintenance.agenda[0].dueAt).not.toBe(current.maintenance.agenda[0].dueAt);
+});
+
+test("E07 corrected and published route completes diagnosis, final and delayed review with reload",async({page},info)=>{
+  // E02 published this same synthetic draft through the UI; this test consumes that exact version.
+  await actor(page,student(8,info.project.name==="mobile"));
+  const f=await fixture(page,info.project.name==="mobile"?"editorial-mobile":"editorial");
+  const href=`/aprendizaje/rutas/${f.slug}`;
+  const confirmed=async()=>{
+    const path=await server(page,`/v2/guided-learning/paths/${f.slug}`);
+    return (await server(page,`/v2/guided-learning/enrollments/${path.path.enrollmentId}/state`)).state;
+  };
+  await page.goto(href);await interactive(page);await page.getByRole("button",{name:"Comenzar",exact:true}).click();
+  await expect(page.getByRole("button",{name:"Continuar",exact:true}).first()).toBeVisible();
+  await page.getByRole("main").getByText("Refuerzo, repaso y mantenimiento",{exact:true}).click();
+  await page.getByRole("button",{name:"Comenzar diagnóstico",exact:true}).click();
+  const sessions:{attemptId:string;purpose:string;status:string;acceptedKeys:string[]}[]=[];
+  async function consume(){
+    await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
+    const attemptId=page.url().split("/sesiones/")[1]!.split("?")[0]!;
+    let manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;
+    for(let n=0;manifest.activeActivity;n++){
+      expect(n).toBeLessThan(20);
+      const acceptedBefore=manifest.acceptedResponses.length;
+      await answer(page,manifest.activeActivity.kind);
+      await expect.poll(async()=>{
+        manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;
+        return manifest.acceptedResponses.length;
+      }).toBeGreaterThan(acceptedBefore);
+      manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;
+    }
+    await finish(page);
+    manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;
+    sessions.push({attemptId,purpose:manifest.purpose,status:manifest.status,acceptedKeys:manifest.acceptedResponses.map((r:{activityKey:string})=>r.activityKey)});
+    return manifest;
+  }
+  await consume();expect((await confirmed()).maintenance.diagnostic.status).toBe("completed");
+  const actions:string[]=[];
+  for(let n=0;!(await confirmed()).completedAt;n++){
+    expect(n).toBeLessThan(20);
+    await page.goto(href);await interactive(page);const before=await confirmed();actions.push(before.nextAction.kind);
+    await page.locator(".learning-path-hero").getByRole("button",{name:"Continuar",exact:true}).click();
+    await consume();
+  }
+  const completed=await confirmed();expect(completed.pathVersionId).toBe(f.versionId);
+  expect(sessions.some(s=>s.purpose==="assessment" && s.status==="completed" && s.acceptedKeys.includes("final-1"))).toBe(true);
+  expect(completed.masteredAt).not.toBeNull();expect(completed.consolidatedAt).toBeNull();
+  expect(completed.maintenance.gates.every((g:{passed:boolean})=>g.passed)).toBe(true);
+  await page.goto(href);await page.reload();expect(await confirmed()).toEqual(completed);
+  await page.request.post(api+"/__test/clock",{data:{days:7}});
+  await page.goto(href);await interactive(page);
+  const due=await confirmed();expect(due.nextAction.kind).toBe("retention");
+  await page.locator(".learning-path-hero").getByRole("button",{name:"Repasar",exact:true}).click();
+  const retained=await consume();expect(retained.purpose).toBe("assessment");
+  const after=await confirmed();expect(after.maintenance.agenda[0].retention7.acceptedAt).not.toBeNull();
+  await page.goto(href);await page.reload();expect(await confirmed()).toEqual(after);
+  await info.attach("complete-published-journey.json",{body:JSON.stringify({pathVersionId:f.versionId,actions,sessions,completed,after}),contentType:"application/json"});
 });

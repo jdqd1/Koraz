@@ -1,0 +1,14 @@
+{
+  "taskId": "T044",
+  "status": "NOT_REMOVED",
+  "reason": "Two cleanup commands were rejected by execution policy: blocked by policy.",
+  "targets": [
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy"
+  ],
+  "pathsResolvedWithinEvidenceBeforeRemovalAttempt": true,
+  "artifactsRetainedWithinAllowlist": true,
+  "globalInstallation": false,
+  "negativeFixtureWarning": "resource-copy intentionally contains an altered validator bundle and a manifest referencing a missing resource; it must not be used to validate real routes.",
+  "bypassAttempted": false
+}

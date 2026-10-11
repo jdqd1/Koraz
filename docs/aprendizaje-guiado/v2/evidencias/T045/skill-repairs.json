@@ -1,0 +1,35 @@
+{
+  "taskId": "T045",
+  "repairs": [
+    {
+      "file": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+      "failure": "Synthetic package was portable-publishable and reached immediate mastery but both delayed reserves used phase apply. At days 8 and 32, server accepted assessments without objective consolidation and dropped required recall from the evidence window.",
+      "evidence": "retention-failure/http-journey-failure.json",
+      "change": "Require a genuinely distinct objective retrieve family in each delayed reserve and inspect the five-family evidence window. Do not relabel an application task to claim recall.",
+      "affectedCasesRepeated": ["synthetic", "pilot"]
+    },
+    {
+      "file": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+      "failure": "The unchanged supplied guide has a file-bytes digest distinct from the catalogue canonical snapshot payload_hash. Raw generated source digests received SOURCE_CHANGED from the actual import endpoint.",
+      "evidence": "retention-failure/synthetic-server-fixture.json and synthetic-raw-import.json",
+      "change": "Explicitly separate original-file provenance from checked catalogue revision binding; preserve both hashes and raw output, require exact excerpt/content/version comparison before resolving hash, and revalidate the resulting package.",
+      "affectedCasesRepeated": ["synthetic", "pilot"]
+    },
+    {
+      "file": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+      "failure": "The second pilot candidate used an unsupported constant qualifier for portal formation and exposed family/alias counting notes in educational feedback.",
+      "evidence": "cases/pilot/round-2/output/ruta.koraz-route.json, revision-contenido.md",
+      "change": "Keep source qualifiers faithful and place evaluator metadata in editorial notes rather than learner content.",
+      "affectedCasesRepeated": ["pilot, focused round-3 revision with before/after preserved"]
+    }
+  ],
+  "systemRepair": {
+    "file": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "authorization": "scope-authorization.json",
+    "failure": "PostgreSQL 22P02: pg serializes an array parameter as a PostgreSQL array rather than a JSON document for learning_v2_imports.issues_json.",
+    "change": "Serialize the original issues array with JSON.stringify; retain validators and database array-shape constraints.",
+    "proof": "pg-array-reproduction.json"
+  },
+  "frozenResourcesModified": false,
+  "nextTaskStarted": false
+}

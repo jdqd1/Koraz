@@ -1,0 +1,661 @@
+{
+  "rawPackageSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+  "fileHash": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+  "snapshotHash": "8c45d865662e8041a968de5144aff21773a1761a74011e5a9968076ca754f7e9",
+  "result": {
+    "status": 200,
+    "value": {
+      "importId": "62605dc4-21fb-409d-9450-65700bef1def",
+      "hash": "ec884569b3de1a6d81a23992294897141ed9ac639aa2b79d9e290efb65ab18c9",
+      "expiresAt": "2026-10-12T03:23:30.298Z",
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/editorial/unresolvedIssues",
+          "message": "Hay incidencias editoriales abiertas.",
+          "suggestedFix": "Resuelve cada incidencia antes de publicar."
+        },
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+          "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+        },
+        {
+          "code": "BANK_TOO_SMALL",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+          "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+        },
+        {
+          "code": "RESERVE_LEAK",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+          "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+        },
+        {
+          "code": "CRITICAL_GATE_MISSING",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+          "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+        },
+        {
+          "code": "ASSET_REQUIRED",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "La identificación espacial requiere una imagen revisada.",
+          "suggestedFix": "Añade image_target con asset y alternativa accesible."
+        },
+        {
+          "code": "CRITICAL_GATE_MISSING",
+          "severity": "error",
+          "path": "/units/0",
+          "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+          "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+        },
+        {
+          "code": "RESERVE_LEAK",
+          "severity": "error",
+          "path": "/assessments",
+          "message": "La evaluación final no cubre identificar-compartimentos.",
+          "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+        },
+        {
+          "code": "RESERVE_LEAK",
+          "severity": "error",
+          "path": "/assessments",
+          "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+          "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+        },
+        {
+          "code": "RESERVE_LEAK",
+          "severity": "error",
+          "path": "/assessments",
+          "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+          "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+        },
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/assessments",
+          "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+          "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+        },
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/assessments",
+          "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+          "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+        },
+        {
+          "code": "SOURCE_CHANGED",
+          "severity": "error",
+          "path": "/sources/0/documentSha256",
+          "message": "El hash de la guía disposicion no coincide con la revisión vigente.",
+          "suggestedFix": "Actualiza el paquete desde la revisión actual y repite el dry-run."
+        },
+        {
+          "code": "SOURCE_CHANGED",
+          "severity": "error",
+          "path": "/sources/1/documentSha256",
+          "message": "El hash de la guía descripcion-alternativa no coincide con la revisión vigente.",
+          "suggestedFix": "Actualiza el paquete desde la revisión actual y repite el dry-run."
+        },
+        {
+          "code": "SOURCE_CHANGED",
+          "severity": "error",
+          "path": "/sources/2/documentSha256",
+          "message": "El hash de la guía bibliografia-ausente no coincide con la revisión vigente.",
+          "suggestedFix": "Actualiza el paquete desde la revisión actual y repite el dry-run."
+        }
+      ],
+      "diff": [
+        {
+          "path": "/route/slug",
+          "before": null,
+          "after": "identificacion-histologica-tres-compartimentos"
+        },
+        {
+          "path": "/route/title",
+          "before": null,
+          "after": "Identificación histológica de tres compartimentos"
+        },
+        {
+          "path": "/route/summary",
+          "before": null,
+          "after": "Borrador con identificación visual y evaluaciones pendientes: falta la figura, existe un conflicto de lateralidad y no se aportó bibliografía. Solo se trabaja la relación verbal de C respecto de B."
+        },
+        {
+          "path": "/route/topicLabel",
+          "before": null,
+          "after": "Identificación histológica de tres compartimentos"
+        },
+        {
+          "path": "/route/audience",
+          "before": null,
+          "after": "Estudiantes universitarios de medicina (supuesto editorial)"
+        },
+        {
+          "path": "/route/discipline",
+          "before": null,
+          "after": "histology"
+        },
+        {
+          "path": "/route/coverKey",
+          "before": null,
+          "after": "intestines"
+        },
+        {
+          "path": "/sources/disposicion",
+          "before": null,
+          "after": {
+            "key": "disposicion",
+            "kind": "guide",
+            "title": "Organización de tres compartimentos",
+            "citation": "",
+            "locator": {
+              "heading": "Disposición",
+              "sectionPath": [
+                "Organización de tres compartimentos",
+                "Disposición"
+              ],
+              "page": null
+            },
+            "documentSha256": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+            "excerpt": "El compartimento A está a la izquierda de B. C está por debajo de B. La figura 1 muestra su organización histológica, pero la figura no está adjunta. Debe aprenderse su identificación espacial.",
+            "url": null,
+            "verification": "provided",
+            "checkedAt": null
+          }
+        },
+        {
+          "path": "/sources/descripcion-alternativa",
+          "before": null,
+          "after": {
+            "key": "descripcion-alternativa",
+            "kind": "guide",
+            "title": "Organización de tres compartimentos",
+            "citation": "",
+            "locator": {
+              "heading": "Descripción alternativa",
+              "sectionPath": [
+                "Organización de tres compartimentos",
+                "Descripción alternativa"
+              ],
+              "page": null
+            },
+            "documentSha256": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+            "excerpt": "El compartimento A está a la derecha de B. Este pasaje contradice la disposición anterior; la guía no resuelve la discrepancia.",
+            "url": null,
+            "verification": "provided",
+            "checkedAt": null
+          }
+        },
+        {
+          "path": "/sources/bibliografia-ausente",
+          "before": null,
+          "after": {
+            "key": "bibliografia-ausente",
+            "kind": "guide",
+            "title": "Organización de tres compartimentos",
+            "citation": "",
+            "locator": {
+              "heading": "Fuente",
+              "sectionPath": [
+                "Organización de tres compartimentos",
+                "Fuente"
+              ],
+              "page": null
+            },
+            "documentSha256": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+            "excerpt": "La bibliografía fue mencionada durante la edición, pero no se incluyeron autores, título ni páginas.",
+            "url": null,
+            "verification": "provided",
+            "checkedAt": null
+          }
+        },
+        {
+          "path": "/sources/@order",
+          "before": null,
+          "after": [
+            "disposicion",
+            "descripcion-alternativa",
+            "bibliografia-ausente"
+          ]
+        },
+        {
+          "path": "/assets/@order",
+          "before": null,
+          "after": []
+        },
+        {
+          "path": "/objectives/identificar-compartimentos",
+          "before": null,
+          "after": {
+            "key": "identificar-compartimentos",
+            "title": "Identificar espacialmente los compartimentos A, B y C en la figura histológica de la guía",
+            "unitKey": "organizacion",
+            "verb": "identify",
+            "criticality": "core",
+            "required": true,
+            "prerequisiteKeys": [],
+            "sourceKeys": [
+              "disposicion",
+              "descripcion-alternativa"
+            ],
+            "comparisonGroup": null,
+            "misconceptions": []
+          }
+        },
+        {
+          "path": "/objectives/relacion-c-b",
+          "before": null,
+          "after": {
+            "key": "relacion-c-b",
+            "title": "Recuperar la posición verbal de C respecto de B",
+            "unitKey": "organizacion",
+            "verb": "recall",
+            "criticality": "supporting",
+            "required": false,
+            "prerequisiteKeys": [],
+            "sourceKeys": [
+              "disposicion"
+            ],
+            "comparisonGroup": null,
+            "misconceptions": []
+          }
+        },
+        {
+          "path": "/objectives/@order",
+          "before": null,
+          "after": [
+            "identificar-compartimentos",
+            "relacion-c-b"
+          ]
+        },
+        {
+          "path": "/units/organizacion",
+          "before": null,
+          "after": {
+            "key": "organizacion",
+            "title": "Organización y capacidad visual pendiente",
+            "objectiveKeys": [
+              "identificar-compartimentos",
+              "relacion-c-b"
+            ],
+            "activityKeys": [
+              "explicar-c-b",
+              "recuperar-c-b",
+              "conectar-c-b",
+              "aplicar-c-b"
+            ],
+            "support": "full",
+            "estimatedMinutes": null
+          }
+        },
+        {
+          "path": "/units/@order",
+          "before": null,
+          "after": [
+            "organizacion"
+          ]
+        },
+        {
+          "path": "/activities/explicar-c-b",
+          "before": null,
+          "after": {
+            "key": "explicar-c-b",
+            "objectiveKey": "relacion-c-b",
+            "relatedObjectiveKeys": [],
+            "phase": "learn",
+            "required": false,
+            "sourceKeys": [
+              "disposicion"
+            ],
+            "representation": "text",
+            "equivalenceKey": "explicacion-c-b",
+            "hints": [],
+            "use": "learning",
+            "prompt": "Lee la relación espacial no contradictoria descrita por la guía.",
+            "feedback": {
+              "explanation": "La sección «Disposición» afirma: «C está por debajo de B». Esta relación no decide la posición contradictoria de A ni identifica una imagen histológica.",
+              "commonError": "Invertir la relación entre C y B cambia la afirmación de la guía.",
+              "sourceKeys": [
+                "disposicion"
+              ]
+            },
+            "misconceptionMappings": [],
+            "alternativeActivityKey": null,
+            "kind": "study",
+            "payload": {
+              "body": "La guía afirma que C está por debajo de B. Esa afirmación verbal permite recuperar una relación entre dos compartimentos. Falta la figura para reconocerlos histológicamente y la posición de A respecto de B sigue sin resolverse.",
+              "focusSpans": [],
+              "assetKey": null,
+              "scaffold": "explanation",
+              "videoRange": null
+            }
+          }
+        },
+        {
+          "path": "/activities/recuperar-c-b",
+          "before": null,
+          "after": {
+            "key": "recuperar-c-b",
+            "objectiveKey": "relacion-c-b",
+            "relatedObjectiveKeys": [],
+            "phase": "retrieve",
+            "required": false,
+            "sourceKeys": [
+              "disposicion"
+            ],
+            "representation": "text",
+            "equivalenceKey": "relacion-vertical-c-b",
+            "hints": [],
+            "use": "learning",
+            "prompt": "Sin consultar la explicación, ¿qué compartimento está por debajo de B según «Disposición»?",
+            "feedback": {
+              "explanation": "La sección «Disposición» afirma: «C está por debajo de B». Esta relación no decide la posición contradictoria de A ni identifica una imagen histológica.",
+              "commonError": "Invertir la relación entre C y B cambia la afirmación de la guía.",
+              "sourceKeys": [
+                "disposicion"
+              ]
+            },
+            "misconceptionMappings": [],
+            "alternativeActivityKey": null,
+            "kind": "short_answer",
+            "payload": {
+              "acceptedAnswers": [
+                "C",
+                "compartimento C",
+                "el compartimento C"
+              ],
+              "maxChars": 50,
+              "modelAnswer": "C",
+              "normalization": "nfkc-lower-space"
+            }
+          }
+        },
+        {
+          "path": "/activities/conectar-c-b",
+          "before": null,
+          "after": {
+            "key": "conectar-c-b",
+            "objectiveKey": "relacion-c-b",
+            "relatedObjectiveKeys": [],
+            "phase": "elaborate",
+            "required": false,
+            "sourceKeys": [
+              "disposicion",
+              "descripcion-alternativa"
+            ],
+            "representation": "text",
+            "equivalenceKey": "elaboracion-c-b",
+            "hints": [],
+            "use": "learning",
+            "prompt": "Expresa la relación entre C y B y explica por qué esa relación no resuelve la posición de A.",
+            "feedback": {
+              "explanation": "La sección «Disposición» afirma: «C está por debajo de B». Esta relación no decide la posición contradictoria de A ni identifica una imagen histológica.",
+              "commonError": "Invertir la relación entre C y B cambia la afirmación de la guía.",
+              "sourceKeys": [
+                "disposicion",
+                "descripcion-alternativa"
+              ]
+            },
+            "misconceptionMappings": [],
+            "alternativeActivityKey": null,
+            "kind": "constructed_response",
+            "payload": {
+              "rubric": [
+                {
+                  "key": "relacion",
+                  "criterion": "Recupera la relación de C respecto de B.",
+                  "example": "C está por debajo de B."
+                },
+                {
+                  "key": "limite",
+                  "criterion": "Distingue la relación C/B del conflicto A/B.",
+                  "example": "Saber que C está por debajo de B no decide entre izquierda y derecha para A."
+                }
+              ],
+              "modelAnswer": "C está por debajo de B. La posición de A respecto de B no puede decidirse con ese dato: la guía la describe de dos maneras contradictorias.",
+              "verificationActivityKey": "recuperar-c-b"
+            }
+          }
+        },
+        {
+          "path": "/activities/aplicar-c-b",
+          "before": null,
+          "after": {
+            "key": "aplicar-c-b",
+            "objectiveKey": "relacion-c-b",
+            "relatedObjectiveKeys": [],
+            "phase": "apply",
+            "required": false,
+            "sourceKeys": [
+              "disposicion"
+            ],
+            "representation": "table",
+            "equivalenceKey": "relacion-vertical-c-b",
+            "hints": [],
+            "use": "learning",
+            "prompt": "Una tabla verbal representa una propuesta de organización. Selecciona la fila compatible con la relación C/B de «Disposición».",
+            "feedback": {
+              "explanation": "La sección «Disposición» afirma: «C está por debajo de B». Esta relación no decide la posición contradictoria de A ni identifica una imagen histológica.",
+              "commonError": "Invertir la relación entre C y B cambia la afirmación de la guía.",
+              "sourceKeys": [
+                "disposicion"
+              ]
+            },
+            "misconceptionMappings": [],
+            "alternativeActivityKey": null,
+            "kind": "single_choice",
+            "payload": {
+              "options": [
+                {
+                  "key": "fila-c-b",
+                  "text": "Compartimento: C | Referencia: B | Posición: por debajo"
+                },
+                {
+                  "key": "fila-b-c",
+                  "text": "Compartimento: B | Referencia: C | Posición: por debajo"
+                }
+              ],
+              "correctKey": "fila-c-b",
+              "distractorFeedback": {
+                "fila-b-c": "La fila invierte la relación. El pasaje sitúa C por debajo de B, no B por debajo de C."
+              }
+            }
+          }
+        },
+        {
+          "path": "/activities/@order",
+          "before": null,
+          "after": [
+            "explicar-c-b",
+            "recuperar-c-b",
+            "conectar-c-b",
+            "aplicar-c-b"
+          ]
+        },
+        {
+          "path": "/assessments/diagnostico",
+          "before": null,
+          "after": {
+            "key": "diagnostico",
+            "kind": "diagnostic",
+            "afterUnitKey": null,
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ],
+            "candidateActivityKeys": [],
+            "thresholdPercent": 80,
+            "thresholdRationale": "Campo contractual no operativo: diagnóstico optativo y de bajo riesgo; faltan ítems visuales sustentados."
+          }
+        },
+        {
+          "path": "/assessments/gate-organizacion",
+          "before": null,
+          "after": {
+            "key": "gate-organizacion",
+            "kind": "unit_gate",
+            "afterUnitKey": "organizacion",
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ],
+            "candidateActivityKeys": [],
+            "thresholdPercent": 80,
+            "thresholdRationale": "Umbral editorial de producto del 80 %; la evaluación carece de candidatos válidos y no permite acreditar el objetivo."
+          }
+        },
+        {
+          "path": "/assessments/final",
+          "before": null,
+          "after": {
+            "key": "final",
+            "kind": "final",
+            "afterUnitKey": null,
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ],
+            "candidateActivityKeys": [],
+            "thresholdPercent": 80,
+            "thresholdRationale": "Umbral editorial de producto del 80 %; la evaluación carece de candidatos válidos y no permite acreditar el objetivo."
+          }
+        },
+        {
+          "path": "/assessments/retencion-7",
+          "before": null,
+          "after": {
+            "key": "retencion-7",
+            "kind": "retention7",
+            "afterUnitKey": null,
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ],
+            "candidateActivityKeys": [],
+            "thresholdPercent": 80,
+            "thresholdRationale": "Umbral editorial de producto del 80 %; la evaluación carece de candidatos válidos y no permite acreditar el objetivo."
+          }
+        },
+        {
+          "path": "/assessments/retencion-30",
+          "before": null,
+          "after": {
+            "key": "retencion-30",
+            "kind": "retention30",
+            "afterUnitKey": null,
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ],
+            "candidateActivityKeys": [],
+            "thresholdPercent": 80,
+            "thresholdRationale": "Umbral editorial de producto del 80 %; la evaluación carece de candidatos válidos y no permite acreditar el objetivo."
+          }
+        },
+        {
+          "path": "/assessments/@order",
+          "before": null,
+          "after": [
+            "diagnostico",
+            "gate-organizacion",
+            "final",
+            "retencion-7",
+            "retencion-30"
+          ]
+        },
+        {
+          "path": "/schemaVersion",
+          "before": null,
+          "after": "2.0"
+        },
+        {
+          "path": "/packageKey",
+          "before": null,
+          "after": "identificacion-histologica-tres-compartimentos"
+        },
+        {
+          "path": "/revision",
+          "before": null,
+          "after": 1
+        },
+        {
+          "path": "/locale",
+          "before": null,
+          "after": "es"
+        },
+        {
+          "path": "/policyVersion",
+          "before": null,
+          "after": "guided-v2.0"
+        },
+        {
+          "path": "/reviewPlan",
+          "before": null,
+          "after": {
+            "objectiveKeys": [
+              "identificar-compartimentos"
+            ]
+          }
+        },
+        {
+          "path": "/editorial",
+          "before": null,
+          "after": {
+            "notes": "Guía sin versión declarada; SHA-256 de bytes originales. Audiencia universitaria asumida. Histology e identify conservados por la capacidad solicitada. Identificación CORE indispensable y bloqueada; relación C/B supporting opcional. Dos objetivos independientes y sin aristas: recuperar C/B no acredita identificación de los tres compartimentos. Se excluyen actividades que decidan la lateralidad de A y toda instrucción incrustada. Banco C/B: una única familia objetiva compartida entre recuperación y aplicación; no se presenta reformulación como evidencia independiente. Reservas CORE y diagnóstico vacíos por falta de figura y contenido. Un checkpoint separado no corresponde a una única unidad. CoverKey intestines es una selección de interfaz obligatoria sin inferencia de órgano. Contrato de aceptación provisional implementation_with_user_exception; Q19/V04 y Narrator/recorrido manual permanecen NO VERIFICADO. Catálogo pendiente de resolución en Koraz.",
+            "unresolvedIssues": [
+              {
+                "code": "SOURCE_CONFLICT",
+                "severity": "error",
+                "path": "/sources/1",
+                "message": "Disposición afirma A a la izquierda de B; Descripción alternativa afirma A a la derecha de B. La guía no resuelve la contradicción.",
+                "suggestedFix": "Solicitar una guía corregida y revisar el nuevo hash; no evaluar A/B hasta resolver ambos pasajes."
+              },
+              {
+                "code": "SOURCE_UNRESOLVED",
+                "severity": "error",
+                "path": "/sources/2",
+                "message": "La sección Fuente no aporta autores, título ni páginas. Las citas permanecen vacías.",
+                "suggestedFix": "Aportar bibliografía identificable y localizadores; cotejar procedencia de la guía."
+              },
+              {
+                "code": "ASSET_REQUIRED",
+                "severity": "error",
+                "path": "/objectives/0",
+                "message": "La figura 1 no está adjunta; no hay imagen revisada, escala, contexto ni alternativa accesible para identificar A, B y C.",
+                "suggestedFix": "Aportar la figura real con procedencia, derechos, dimensiones y alternativa accesible; después crear y revisar image_target."
+              },
+              {
+                "code": "OBJECTIVE_COVERAGE",
+                "severity": "error",
+                "path": "/objectives/0",
+                "message": "El CORE visual no cuenta con explicación, recuperación, elaboración y aplicación objetivas sustentadas para los tres compartimentos.",
+                "suggestedFix": "Resolver figura y contradicción y completar el ciclo del objetivo; el apoyo C/B no sustituye la identificación histológica."
+              },
+              {
+                "code": "BANK_TOO_SMALL",
+                "severity": "error",
+                "path": "/objectives/0",
+                "message": "Cero familias CORE iniciales de cinco requeridas; cero reservas final, retention7 y retention30. Diagnóstico y gates sin candidatos.",
+                "suggestedFix": "Aportar material suficiente para cinco familias iniciales y tres reservas disjuntas con demandas realmente diferentes."
+              },
+              {
+                "code": "OBJECTIVE_COVERAGE",
+                "severity": "error",
+                "path": "/editorial/notes",
+                "message": "La guía no describe rasgos microscópicos, escala, tejidos ni relación estructura-función para desarrollar el tema completo.",
+                "suggestedFix": "Ampliar la guía suministrada y revisar el contenido; no inferir identidad tisular o función por las letras A, B y C."
+              }
+            ]
+          }
+        }
+      ],
+      "readyToImport": false
+    }
+  }
+}

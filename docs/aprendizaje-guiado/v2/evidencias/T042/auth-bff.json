@@ -1,0 +1,127 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/t042/playwright.auth.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\playwright.auth.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/t042",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/t042",
+        "testIgnore": [],
+        "testMatch": [
+          "auth.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\auth-bff.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "auth.spec.ts",
+      "file": "auth.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "S07 actual signed Better Auth cookie expires and BFF rejects exact replay without writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3856,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T21:54:01.749Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "actual-session-expiry.json",
+                      "contentType": "application/json",
+                      "body": "eyJpc3N1ZWRCeSI6ImNyZWF0ZUJldHRlckF1dGhTZXJ2aWNlIiwiYWNjZXB0ZWQiOjIwMCwicmVwbGF5IjoyMDAsImV4cGlyZWRBdCI6IjIwMjYtMTAtMTBUMjE6NTQ6MDQuNjUxWiIsImJmZkFmdGVyRXhwaXJ5Ijo0MDEsImFwaUFmdGVyRXhwaXJ5Ijo0MDEsImxlYXJuaW5nVGFibGVzVW5jaGFuZ2VkIjp0cnVlfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d748ac400d08b85935ef-f7eb1da84ef78fe98255",
+          "file": "auth.spec.ts",
+          "line": 3,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T21:53:49.128Z",
+    "duration": 17894.303,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

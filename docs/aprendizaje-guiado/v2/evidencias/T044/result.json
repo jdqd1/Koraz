@@ -1,0 +1,197 @@
+{
+  "taskId": "T044",
+  "status": "PASS",
+  "at": "2026-10-11T03:05:18.372Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "authorization": "Direct user request: continua con t044. Only T044 executed.",
+  "allowlist": [
+    "tools/skills/crear-rutas-koraz/",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/"
+  ],
+  "dependency": {
+    "taskId": "T043",
+    "status": "PASS",
+    "accepted": true,
+    "frozen": true,
+    "acceptanceKind": "provisional_implementation_with_user_exception",
+    "originalFullSystemAcceptance": false,
+    "deferredCheck": "Q19/V04",
+    "deferredCheckStatus": "NO VERIFICADO"
+  },
+  "summary": "Complete uninstalled skill for guide + topic to portable JSON draft, review and pending assets; frozen contract and validator preserved.",
+  "runtime": {
+    "baselinePathNode": "v22.22.0",
+    "verificationNode": "v24.19.0",
+    "python": "Bundled Python 3.12 with isolated PyYAML 6.0.3 for original quick_validate.py"
+  },
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/_yaml/__init__.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/INSTALLER",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/METADATA",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/RECORD",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/REQUESTED",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/WHEEL",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/licenses/LICENSE",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/pyyaml-6.0.3.dist-info/top_level.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__init__.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/__init__.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/composer.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/constructor.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/cyaml.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/dumper.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/emitter.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/error.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/events.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/loader.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/nodes.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/parser.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/reader.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/representer.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/resolver.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/scanner.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/serializer.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/__pycache__/tokens.cpython-312.pyc",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/_yaml.cp312-win_amd64.pyd",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/composer.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/constructor.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/cyaml.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/dumper.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/emitter.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/error.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/events.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/loader.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/nodes.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/parser.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/reader.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/representer.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/resolver.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/scanner.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/serializer.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/.python-deps/yaml/tokens.py",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/cleanup.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/closure-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/closure-check.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/quick-validate.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/corrupt.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/editorial-draft.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/invalid-payload.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/SKILL.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/assets/ejemplo-valido.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/assets/koraz-route-2.0.schema.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/LICENSE-ZOD.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/accepted-contract-hashes.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/cobertura-por-disciplina.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/contract-runtime.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/contrato-koraz-2.0.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/pedagogia.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/references/reader-deferral.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/scripts/validate-route.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/resource-copy/scripts/verify-resources.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-cases/unknown-schema.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/validator-dependency.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/verification.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/verification.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/verify-closure.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T044/verify-t044.mjs",
+    "tools/skills/crear-rutas-koraz/SKILL.md",
+    "tools/skills/crear-rutas-koraz/references/cobertura-por-disciplina.md",
+    "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+    "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+    "tools/skills/crear-rutas-koraz/scripts/verify-resources.mjs"
+  ],
+  "deliverables": [
+    {
+      "path": "tools/skills/crear-rutas-koraz/SKILL.md",
+      "sha256": "8080c60d2c2bdd3f9f53f2da3d6017fe7e980c8efa1b6e4f991d076235208435"
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+      "sha256": "b02c387b596cdbf6ed4e77d414f1b046b0c695267e7f2d7c6406d2ed1243a8c4"
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/cobertura-por-disciplina.md",
+      "sha256": "8643c08c2243ffc14a9cc716f80f4783999b5017546cf13244ca981aff80f776"
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+      "sha256": "a862aa46e56ac2031b6426273d294ac5c8eb2ae96b11db60866768678f5ec156"
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/scripts/verify-resources.mjs",
+      "sha256": "09552dc0946ad1d7b2b06b43e1999dee07505af1fb84aedeff8fa676f158c019"
+    }
+  ],
+  "checks": [
+    {
+      "command": "Python skill-creator/scripts/quick_validate.py tools/skills/crear-rutas-koraz",
+      "exitCode": 0,
+      "result": "PASS: Skill is valid!",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/quick-validate.txt"
+    },
+    {
+      "command": "Node 24 docs/aprendizaje-guiado/v2/evidencias/T044/verify-t044.mjs",
+      "exitCode": 0,
+      "result": "PASS: 14/14 CLI/resource checks; 6 frozen resources and 14 accepted repository hashes match",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/verification.json"
+    },
+    {
+      "command": "Node 24 docs/aprendizaje-guiado/v2/evidencias/T044/verify-closure.mjs",
+      "exitCode": 0,
+      "result": "PASS: 7790 initial files outside allowlist preserved; 0 new external files; 15 whitespace checks and git diff --check pass",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/closure-check.json"
+    },
+    {
+      "command": "Manual review against authorized T044, handoff 8.14 and frozen schema/validator",
+      "exitCode": null,
+      "result": "PASS: documented scope/workflow/constraints reviewed; not an authoring behavior test",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/README.md"
+    }
+  ],
+  "issues": [
+    {
+      "id": "Q19/V04",
+      "status": "NO VERIFICADO",
+      "reason": "Inherited explicit user deferral; original full Hito S not claimed."
+    },
+    {
+      "id": "K01-K05",
+      "status": "NO VERIFICADO",
+      "reason": "Real guide generation, agent adversarial behavior, server import/publication/journey and roundtrip belong to T045."
+    },
+    {
+      "id": "installation",
+      "status": "NO VERIFICADO",
+      "reason": "T046; normal discovery metadata verified structurally, not installed."
+    },
+    {
+      "id": "temporary-cleanup",
+      "status": "NOT_REMOVED",
+      "reason": "Execution policy blocked two removal commands; isolated dependency and deliberately altered resource-copy retained within T044 evidence, not installed.",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T044/cleanup.json"
+    }
+  ],
+  "skillCreated": true,
+  "skillInstalled": false,
+  "uiMetadataCreated": false,
+  "normalDiscoveryConfigured": true,
+  "catalogueResolution": "PENDING_AT_IMPORT",
+  "registryChanged": false,
+  "predecessorChanged": false,
+  "acceptedContractChanged": false,
+  "backendChanged": false,
+  "globalConfigChanged": false,
+  "projectDependenciesChanged": false,
+  "productionTouched": false,
+  "deployed": false,
+  "committed": false,
+  "originalFullSystemAcceptance": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [
+    "T045"
+  ]
+}

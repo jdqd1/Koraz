@@ -1,0 +1,1833 @@
+{
+  "taskId": "T043",
+  "at": "2026-10-10T23:20:35.136Z",
+  "node": "v24.19.0",
+  "status": "PASS",
+  "validationScope": "portable (same shared function imported by backend)",
+  "schemaExact": true,
+  "frozenHashes": 14,
+  "resourceHashes": 6,
+  "isolation": {
+    "directory": "C:\\Users\\josed\\AppData\\Local\\Temp\\koraz-t043-offline-DP9BJj",
+    "initiallyEmpty": true,
+    "repoFilesystemReadable": false,
+    "nodeModulesPresent": false,
+    "gitPresent": false,
+    "network": "Node module/API guards deny net/http/https/http2/tls/dns/dgram/undici/fetch/WebSocket/EventSource; no OS firewall claim",
+    "environment": "No NODE_PATH, NODE_OPTIONS, proxies, credentials, or repository environment passed",
+    "cleanup": true
+  },
+  "isolationProbes": [
+    {
+      "name": "repo-read",
+      "denied": true,
+      "code": "ERR_ACCESS_DENIED"
+    },
+    {
+      "name": "child-process",
+      "denied": true,
+      "code": "ERR_ACCESS_DENIED"
+    },
+    {
+      "name": "node:net",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:http",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:https",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:http2",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:tls",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:dns",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:dns/promises",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "node:dgram",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "undici",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "fetch",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "WebSocket",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    },
+    {
+      "name": "getBuiltinModule/net",
+      "denied": true,
+      "code": "ERR_KORAZ_OFFLINE"
+    }
+  ],
+  "comparisons": [
+    {
+      "name": "synthetic-valid",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "synthetic-valid",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "synthetic-valid",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "synthetic-valid",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "approved-pilot",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": []
+      }
+    },
+    {
+      "name": "approved-pilot",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": []
+      }
+    },
+    {
+      "name": "approved-pilot",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": []
+      }
+    },
+    {
+      "name": "approved-pilot",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": []
+      }
+    },
+    {
+      "name": "unknown-field",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "Estructura inválida: Unrecognized key: \"published\"",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown-field",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "Estructura inválida: Unrecognized key: \"published\"",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown-field",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "Estructura inválida: Unrecognized key: \"published\"",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown-field",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "Estructura inválida: Unrecognized key: \"published\"",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-answer",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/options",
+            "message": "Opciones duplicadas o respuesta inexistente.",
+            "suggestedFix": "Usa claves únicas y una respuesta presente."
+          },
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/distractorFeedback",
+            "message": "Feedback de distractores incompleto.",
+            "suggestedFix": "Explica cada opción incorrecta y ninguna otra."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-answer",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/options",
+            "message": "Opciones duplicadas o respuesta inexistente.",
+            "suggestedFix": "Usa claves únicas y una respuesta presente."
+          },
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/distractorFeedback",
+            "message": "Feedback de distractores incompleto.",
+            "suggestedFix": "Explica cada opción incorrecta y ninguna otra."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-answer",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/options",
+            "message": "Opciones duplicadas o respuesta inexistente.",
+            "suggestedFix": "Usa claves únicas y una respuesta presente."
+          },
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/distractorFeedback",
+            "message": "Feedback de distractores incompleto.",
+            "suggestedFix": "Explica cada opción incorrecta y ninguna otra."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-answer",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/options",
+            "message": "Opciones duplicadas o respuesta inexistente.",
+            "suggestedFix": "Usa claves únicas y una respuesta presente."
+          },
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/activities/2/payload/distractorFeedback",
+            "message": "Feedback de distractores incompleto.",
+            "suggestedFix": "Explica cada opción incorrecta y ninguna otra."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "file-url",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/sources/0/url",
+            "message": "Estructura inválida: Invalid input",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "file-url",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/sources/0/url",
+            "message": "Estructura inválida: Invalid input",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "file-url",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/sources/0/url",
+            "message": "Estructura inválida: Invalid input",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "file-url",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "/sources/0/url",
+            "message": "Estructura inválida: Invalid input",
+            "suggestedFix": "Corrige el campo según el esquema 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "dag-cycle",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "DAG_CYCLE",
+            "severity": "error",
+            "path": "/objectives/0/prerequisiteKeys/0",
+            "message": "Ciclo de dependencias: territorios → territorios.",
+            "suggestedFix": "Elimina una arista del ciclo antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/52",
+            "message": "El diagnóstico debe usar objetivos CORE raíz.",
+            "suggestedFix": "Sustituye por un ítem de objetivo CORE sin prerrequisitos."
+          }
+        ]
+      }
+    },
+    {
+      "name": "dag-cycle",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "DAG_CYCLE",
+            "severity": "error",
+            "path": "/objectives/0/prerequisiteKeys/0",
+            "message": "Ciclo de dependencias: territorios → territorios.",
+            "suggestedFix": "Elimina una arista del ciclo antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/52",
+            "message": "El diagnóstico debe usar objetivos CORE raíz.",
+            "suggestedFix": "Sustituye por un ítem de objetivo CORE sin prerrequisitos."
+          }
+        ]
+      }
+    },
+    {
+      "name": "dag-cycle",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "DAG_CYCLE",
+            "severity": "error",
+            "path": "/objectives/0/prerequisiteKeys/0",
+            "message": "Ciclo de dependencias: territorios → territorios.",
+            "suggestedFix": "Elimina una arista del ciclo antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/52",
+            "message": "El diagnóstico debe usar objetivos CORE raíz.",
+            "suggestedFix": "Sustituye por un ítem de objetivo CORE sin prerrequisitos."
+          }
+        ]
+      }
+    },
+    {
+      "name": "dag-cycle",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "DAG_CYCLE",
+            "severity": "error",
+            "path": "/objectives/0/prerequisiteKeys/0",
+            "message": "Ciclo de dependencias: territorios → territorios.",
+            "suggestedFix": "Elimina una arista del ciclo antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/activities/52",
+            "message": "El diagnóstico debe usar objetivos CORE raíz.",
+            "suggestedFix": "Sustituye por un ítem de objetivo CORE sin prerrequisitos."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reference",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys/0",
+            "message": "Referencia inexistente: missing-source.",
+            "suggestedFix": "Crea el elemento referido o elimina la referencia."
+          },
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys",
+            "message": "El objetivo no tiene fragmento fuente.",
+            "suggestedFix": "Vincula una fuente localizable con texto y hash."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reference",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys/0",
+            "message": "Referencia inexistente: missing-source.",
+            "suggestedFix": "Crea el elemento referido o elimina la referencia."
+          },
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys",
+            "message": "El objetivo no tiene fragmento fuente.",
+            "suggestedFix": "Vincula una fuente localizable con texto y hash."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reference",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys/0",
+            "message": "Referencia inexistente: missing-source.",
+            "suggestedFix": "Crea el elemento referido o elimina la referencia."
+          },
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys",
+            "message": "El objetivo no tiene fragmento fuente.",
+            "suggestedFix": "Vincula una fuente localizable con texto y hash."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reference",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys/0",
+            "message": "Referencia inexistente: missing-source.",
+            "suggestedFix": "Crea el elemento referido o elimina la referencia."
+          },
+          {
+            "code": "REFERENCE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0/sourceKeys",
+            "message": "El objetivo no tiene fragmento fuente.",
+            "suggestedFix": "Vincula una fuente localizable con texto y hash."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-application",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para territorios: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para territorios: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Ciclo incompleto para retorno: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Banco insuficiente para retorno: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Ciclo incompleto para circuito: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Banco insuficiente para circuito: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Ciclo incompleto para puentes: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Banco insuficiente para puentes: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-application",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para territorios: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para territorios: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Ciclo incompleto para retorno: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Banco insuficiente para retorno: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Ciclo incompleto para circuito: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Banco insuficiente para circuito: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Ciclo incompleto para puentes: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Banco insuficiente para puentes: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-application",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para territorios: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para territorios: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Ciclo incompleto para retorno: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Banco insuficiente para retorno: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Ciclo incompleto para circuito: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Banco insuficiente para circuito: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Ciclo incompleto para puentes: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Banco insuficiente para puentes: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-application",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para territorios: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para territorios: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Ciclo incompleto para retorno: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Banco insuficiente para retorno: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Ciclo incompleto para circuito: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Banco insuficiente para circuito: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Ciclo incompleto para puentes: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Banco insuficiente para puentes: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reserve",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para territorios.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para retorno.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para circuito.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para puentes.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/0",
+            "message": "El ítem territorios-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/1",
+            "message": "El ítem retorno-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/2",
+            "message": "El ítem circuito-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/3",
+            "message": "El ítem puentes-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reserve",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para territorios.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para retorno.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para circuito.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para puentes.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/0",
+            "message": "El ítem territorios-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/1",
+            "message": "El ítem retorno-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/2",
+            "message": "El ítem circuito-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/3",
+            "message": "El ítem puentes-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reserve",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para territorios.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para retorno.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para circuito.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para puentes.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/0",
+            "message": "El ítem territorios-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/1",
+            "message": "El ítem retorno-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/2",
+            "message": "El ítem circuito-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/3",
+            "message": "El ítem puentes-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-reserve",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para territorios.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/1",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para retorno.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/2",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para circuito.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/3",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para puentes.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/0",
+            "message": "El ítem territorios-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/1",
+            "message": "El ítem retorno-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/2",
+            "message": "El ítem circuito-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments/7/candidateActivityKeys/3",
+            "message": "El ítem puentes-retention30 pertenece a learning, no a retention30.",
+            "suggestedFix": "Usa un ítem reservado exclusivamente para esta evaluación."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-core-gate",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE objective no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "La unidad unit no tiene gate.",
+            "suggestedFix": "Añade un assessment unit_gate después de esta unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de unit no comprueba objective.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-core-gate",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE objective no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "La unidad unit no tiene gate.",
+            "suggestedFix": "Añade un assessment unit_gate después de esta unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de unit no comprueba objective.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-core-gate",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE objective no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "La unidad unit no tiene gate.",
+            "suggestedFix": "Añade un assessment unit_gate después de esta unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de unit no comprueba objective.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-core-gate",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE objective no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "La unidad unit no tiene gate.",
+            "suggestedFix": "Añade un assessment unit_gate después de esta unidad."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de unit no comprueba objective.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unverified-source",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SOURCE_UNRESOLVED",
+            "severity": "error",
+            "path": "/sources/0/verification",
+            "message": "Fuente sin verificar.",
+            "suggestedFix": "Registra la revisión bibliográfica."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unverified-source",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SOURCE_UNRESOLVED",
+            "severity": "error",
+            "path": "/sources/0/verification",
+            "message": "Fuente sin verificar.",
+            "suggestedFix": "Registra la revisión bibliográfica."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unverified-source",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SOURCE_UNRESOLVED",
+            "severity": "error",
+            "path": "/sources/0/verification",
+            "message": "Fuente sin verificar.",
+            "suggestedFix": "Registra la revisión bibliográfica."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unverified-source",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SOURCE_UNRESOLVED",
+            "severity": "error",
+            "path": "/sources/0/verification",
+            "message": "Fuente sin verificar.",
+            "suggestedFix": "Registra la revisión bibliográfica."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate-bank-family",
+      "mode": "draft-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para objective: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate-bank-family",
+      "mode": "draft-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 0,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para objective: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate-bank-family",
+      "mode": "publish-check",
+      "cli": "repository-cli",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para objective: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate-bank-family",
+      "mode": "publish-check",
+      "cli": "copied-offline-bundle",
+      "matchesBackendShared": true,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para objective: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    }
+  ],
+  "ioChecks": [
+    {
+      "name": "unknown-version",
+      "expectedExitCode": 2,
+      "exitCode": 2,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_UNSUPPORTED",
+            "severity": "error",
+            "path": "/schemaVersion",
+            "message": "Versión de esquema no admitida.",
+            "suggestedFix": "Usa schemaVersion 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "corrupt-json",
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "JSON o UTF-8 inválido.",
+            "suggestedFix": "Corrige el archivo JSON UTF-8."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-utf8",
+      "expectedExitCode": 1,
+      "exitCode": 1,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "JSON o UTF-8 inválido.",
+            "suggestedFix": "Corrige el archivo JSON UTF-8."
+          }
+        ]
+      }
+    },
+    {
+      "name": "over-10mib",
+      "expectedExitCode": 2,
+      "exitCode": 2,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "IO_ERROR",
+            "severity": "error",
+            "path": "",
+            "message": "El paquete supera 10 MiB.",
+            "suggestedFix": "Comprueba ruta, UTF-8 y JSON."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-file",
+      "expectedExitCode": 2,
+      "exitCode": 2,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "IO_ERROR",
+            "severity": "error",
+            "path": "",
+            "message": "ENOENT: no such file or directory, stat 'C:\\Users\\josed\\AppData\\Local\\Temp\\koraz-t043-offline-DP9BJj\\missing-file.koraz-route.json'",
+            "suggestedFix": "Comprueba ruta, UTF-8 y JSON."
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-argument",
+      "expectedExitCode": 2,
+      "exitCode": 2,
+      "output": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "IO_ERROR",
+            "severity": "error",
+            "path": "",
+            "message": "Indica un archivo .koraz-route.json.",
+            "suggestedFix": "Usa validate-learning-route.mjs [--publish] archivo.koraz-route.json."
+          }
+        ]
+      }
+    }
+  ],
+  "checksCount": 68,
+  "catalogueResolution": "PENDING_AT_IMPORT",
+  "originalFullSystemAcceptance": false
+}

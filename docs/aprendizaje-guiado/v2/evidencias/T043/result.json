@@ -1,0 +1,227 @@
+{
+  "taskId": "T043",
+  "status": "PASS",
+  "at": "2026-10-10T23:26:50.7205282Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "authorization": "Direct user request to continue T043 after previously authorizing Q19/V04 deferral",
+  "dependency": {
+    "taskId": "T042",
+    "status": "PASS",
+    "decision": "accept_with_exception",
+    "implementationAcceptance": true,
+    "systemAcceptance": false,
+    "accepted": true,
+    "frozen": true,
+    "scopeAmendment": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+  },
+  "contract": {
+    "schemaVersion": "2.0",
+    "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+    "policyVersion": "guided-v2.0",
+    "schedulerVersion": "scheduler-v2.0",
+    "requiredRuntime": "Node.js 24",
+    "accepted": true,
+    "frozen": true,
+    "acceptanceKind": "provisional_implementation_with_user_exception",
+    "originalFullSystemAcceptance": false,
+    "deferredCheck": "Q19/V04",
+    "deferredCheckStatus": "NO VERIFICADO",
+    "acceptedManifestSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+    "schemaSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+    "validatorSourceSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+    "bundleSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+    "validationScope": "portable",
+    "catalogueResolution": "PENDING_AT_IMPORT",
+    "editorialReview": "REQUIRED_IN_KORAZ_BEFORE_PUBLICATION",
+    "automaticPublication": false,
+    "example": {
+      "synthetic": true,
+      "medicalContent": false,
+      "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T027/ui-package.json",
+      "validation": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    "resources": [
+      {
+        "path": "assets/koraz-route-2.0.schema.json",
+        "sourcePath": "packages/contracts/schemas/koraz-route-2.0.schema.json",
+        "sha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+        "bytes": 82426
+      },
+      {
+        "path": "scripts/validate-route.mjs",
+        "sourcePath": "packages/contracts/bin/validate-learning-route.bundle.mjs",
+        "sha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+        "bytes": 635592
+      },
+      {
+        "path": "assets/ejemplo-valido.koraz-route.json",
+        "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T027/ui-package.json",
+        "sha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+        "bytes": 13681
+      },
+      {
+        "path": "references/accepted-contract-hashes.json",
+        "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T042/accepted-contract-hashes.json",
+        "sha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+        "bytes": 2680
+      },
+      {
+        "path": "references/reader-deferral.json",
+        "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json",
+        "sha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+        "bytes": 1064
+      },
+      {
+        "path": "references/LICENSE-ZOD.txt",
+        "sourcePath": "node_modules/.pnpm/zod@4.4.3/node_modules/zod/LICENSE",
+        "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+        "bytes": 1072
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "Node24 packages/contracts/bin/export-route-skill.mjs (repeated for byte-identical reproducibility)",
+      "exitCode": 0,
+      "result": "PASS: 6 exact resource copies and deterministic manifest",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/export-reproducibility.json"
+    },
+    {
+      "command": "Node24 verify-prerequisite.mjs",
+      "exitCode": 0,
+      "result": "PASS: 14/14 frozen hashes and exact acceptance-manifest SHA; user exception preserved",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json"
+    },
+    {
+      "command": "Node24 verify-portability.mjs",
+      "exitCode": 0,
+      "result": "68 PASS: 12 semantic cases, 48 exact backend-shared/CLI/bundle comparisons, 6 IO/version negatives, 14 isolation probes",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/portability.json"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-v2-package.test.ts test/guided-v2-graph.test.ts test/guided-v2-validation.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "result": "23 PASS / 0 FAIL / 0 skipped",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.json"
+    },
+    {
+      "command": "Node24 verify-closure.mjs; syntax checks; scoped diff check",
+      "exitCode": 0,
+      "result": "PASS: 7749 baseline hashes plus 6 tracked accented-path files identical to base commit; no outside-allowlist changes",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json"
+    }
+  ],
+  "issues": [
+    {
+      "code": "INHERITED_Q19_V04_DEFERRED",
+      "status": "NO VERIFICADO",
+      "blockingT043": false,
+      "disposition": "DEFERRED_BY_USER",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json"
+    },
+    {
+      "code": "SYNTHETIC_DIAGNOSTIC_SMALL",
+      "status": "warning",
+      "blockingT043": false,
+      "detail": "One-objective synthetic example retains the validator nonblocking diagnostic warning."
+    },
+    {
+      "code": "INITIAL_FILENAME_AND_BASELINE_PARSER_PROBES",
+      "status": "RESUELTO",
+      "blockingT043": false,
+      "detail": "Original .json suffix probe and accented Git-name inventory failure preserved; corrected filename/reader without validator changes."
+    }
+  ],
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T043/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/approved-pilot.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/dag-cycle.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/duplicate-bank-family.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/file-url.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/invalid-answer.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-application.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-core-gate.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reference.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reserve.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/synthetic-valid.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unknown-field.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unverified-source.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-initial-parser-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-whitespace-initial.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/export-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/export-reproducibility.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/closure-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/prerequisite-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/verify-prerequisite.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-probe.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/offline-guard.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/portability.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-closure.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-portability.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+    "packages/contracts/bin/export-route-skill.mjs",
+    "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+    "tools/skills/crear-rutas-koraz/assets/koraz-route-2.0.schema.json",
+    "tools/skills/crear-rutas-koraz/references/LICENSE-ZOD.txt",
+    "tools/skills/crear-rutas-koraz/references/accepted-contract-hashes.json",
+    "tools/skills/crear-rutas-koraz/references/contract-runtime.json",
+    "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+    "tools/skills/crear-rutas-koraz/references/reader-deferral.json",
+    "tools/skills/crear-rutas-koraz/scripts/validate-route.mjs"
+  ],
+  "runtime": "Node v24.19.0",
+  "packagingStarted": true,
+  "skillCreated": false,
+  "skillInstalled": false,
+  "catalogueResolution": "PENDING_AT_IMPORT",
+  "K05Partial": "PASS: offline portability and unknown/corrupt schema rejection only",
+  "implementationAcceptance": true,
+  "originalFullSystemAcceptance": false,
+  "registryChanged": false,
+  "predecessorChanged": false,
+  "contractChanged": false,
+  "runtimeSourceChanged": false,
+  "dependenciesChanged": false,
+  "productionTouched": false,
+  "deployed": false,
+  "committed": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [
+    "T044"
+  ],
+  "priorBlockedClosure": "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/result.json",
+  "initialFailuresPreserved": [
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-probe.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-initial-parser-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-whitespace-initial.json"
+  ],
+  "limits": [
+    "Portable validation only; bindings, catalogue access, editorial approval and publication remain server responsibilities.",
+    "Node network API/module guards and filesystem permissions tested; no operating-system firewall claim.",
+    "Q19/V04 remains unverified and deferred; no original 24/24 Hito S claim.",
+    "No SKILL.md, generation, installation, deployment or clinical validation in T043."
+  ]
+}

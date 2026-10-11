@@ -1,0 +1,394 @@
+{
+  "at": "2026-10-10T23:26:50.384Z",
+  "status": "PASS",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "preservedFiles": 7749,
+  "changedOutsideAllowlist": [],
+  "supplementalTrackedFiles": [
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-desktop/error-context.md",
+      "baseSha256": "e0f1213fe8ccc32e4d04443e210368cf1064ffca7f43dfa8cd20e6cdd87961ca",
+      "actualSha256": "e0f1213fe8ccc32e4d04443e210368cf1064ffca7f43dfa8cd20e6cdd87961ca",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-desktop/test-failed-1.png",
+      "baseSha256": "4266eb25fbc1212d81fffd339bc343ca0dacecd33f5864a7b482d3d08c32374e",
+      "actualSha256": "4266eb25fbc1212d81fffd339bc343ca0dacecd33f5864a7b482d3d08c32374e",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-desktop/trace.zip",
+      "baseSha256": "c250c2b7fa8f2426b67a681114809ef5d4cbb9425e54fb9356c98c0af02b312d",
+      "actualSha256": "c250c2b7fa8f2426b67a681114809ef5d4cbb9425e54fb9356c98c0af02b312d",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-mobile/error-context.md",
+      "baseSha256": "6a0a061a449cb32dfa1e026e211064c2be04b8068a90d0a5c1b874bdc9b053c5",
+      "actualSha256": "6a0a061a449cb32dfa1e026e211064c2be04b8068a90d0a5c1b874bdc9b053c5",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-mobile/test-failed-1.png",
+      "baseSha256": "8be6fa6fa055421e7edcc50aeb394be7fb827ad477f9c3ae8f5e2c4d7ccb0138",
+      "actualSha256": "8be6fa6fa055421e7edcc50aeb394be7fb827ad477f9c3ae8f5e2c4d7ccb0138",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T040/legacy-browser-artifacts/route-editor-editor-cotidi-3a446-ágina-y-pagina-sin-perderlo-mobile/trace.zip",
+      "baseSha256": "14dbac8e3d9b6c5af33ac087f1f4d50b0e391f816c82d4c722dc66b79b13e821",
+      "actualSha256": "14dbac8e3d9b6c5af33ac087f1f4d50b0e391f816c82d4c722dc66b79b13e821",
+      "matches": true,
+      "basis": "Exact blob from baseline HEAD; omitted by filename quoting in initial hash inventory"
+    }
+  ],
+  "unexpectedFilesOutsideAllowlist": [],
+  "frozenHashesVerified": 14,
+  "prerequisiteAccepted": true,
+  "portability": {
+    "status": "PASS",
+    "count": 68,
+    "comparisons": 48
+  },
+  "focusedTests": {
+    "passed": 23,
+    "failed": 0,
+    "pending": 0
+  },
+  "syntax": [
+    {
+      "path": "packages/contracts/bin/export-route-skill.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/offline-guard.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-closure.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-portability.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/scripts/validate-route.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    }
+  ],
+  "diffCheck": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "newFileWhitespaceChecks": [
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/README.md",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/baseline.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/approved-pilot.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/dag-cycle.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/duplicate-bank-family.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/file-url.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/invalid-answer.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-application.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-core-gate.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reference.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reserve.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/synthetic-valid.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unknown-field.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unverified-source.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/closure-initial-parser-failure.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/closure-whitespace-initial.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/export-check.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/export-reproducibility.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/initial-probe.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/offline-guard.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/portability.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/result.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-closure.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-portability.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "packages/contracts/bin/export-route-skill.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/assets/koraz-route-2.0.schema.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/accepted-contract-hashes.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/contract-runtime.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/reader-deferral.json",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "",
+      "clean": true
+    }
+  ],
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T043/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/baseline.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/approved-pilot.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/dag-cycle.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/duplicate-bank-family.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/file-url.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/invalid-answer.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-application.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-core-gate.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reference.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/missing-reserve.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/synthetic-valid.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unknown-field.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/cases/unverified-source.koraz-route.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-initial-parser-failure.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-whitespace-initial.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/export-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/export-reproducibility.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/closure-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/prerequisite-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-blocked/verify-prerequisite.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/initial-probe.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/offline-guard.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/portability.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/validator-tests.txt",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-closure.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-portability.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+    "packages/contracts/bin/export-route-skill.mjs",
+    "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+    "tools/skills/crear-rutas-koraz/assets/koraz-route-2.0.schema.json",
+    "tools/skills/crear-rutas-koraz/references/LICENSE-ZOD.txt",
+    "tools/skills/crear-rutas-koraz/references/accepted-contract-hashes.json",
+    "tools/skills/crear-rutas-koraz/references/contract-runtime.json",
+    "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+    "tools/skills/crear-rutas-koraz/references/reader-deferral.json",
+    "tools/skills/crear-rutas-koraz/scripts/validate-route.mjs"
+  ],
+  "nextTaskStarted": false
+}

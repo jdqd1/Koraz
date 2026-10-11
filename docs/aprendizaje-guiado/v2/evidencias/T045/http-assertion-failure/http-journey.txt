@@ -1,0 +1,271 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    accepted: true,
+    attempt: {
+      acceptedResponses: [
+        {
+...
+        ],
++       generatedAt: '2026-10-11T03:22:58.955Z',
+-       generatedAt: '2026-10-11T03:22:58.900Z',
+        remediation: [],
+        reviewBatch: [],
+        timeZone: 'America/Caracas'
+      },
+      masteredAt: null,
+
+    at attempt (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T045\http-journey.mts:41:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T045\http-journey.mts:56:86) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    accepted: true,
+    feedback: {
+      explanation: 'N conserva exclusivamente el residuo y descarta el cociente.',
+      commonError: '',
+      sources: [
+        {
+          key: 'normalizacion',
+          title: 'Circuito de señales Neral',
+          citation: 'Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.',
+          locator: {
+            heading: '1. Normalización del contador',
+            sectionPath: [Array],
+            page: null
+          },
+          excerpt: 'La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\n' +
+            '\n' +
+            'Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.',
+          url: null
+        }
+      ],
+      score01: 1
+    },
+    nextStep: null,
+    attempt: {
+      engineVersion: 'guided-v2',
+      attemptId: '5feb063b-be22-4b69-b9d7-d8f64ef45b93',
+      enrollmentId: 'b7ce1781-fdf1-4b5c-baca-7e94e9d4dc7c',
+      pathVersionId: '6aa5a72b-77cd-4ce1-b161-a1ecf901d88e',
+      policyVersion: 'guided-v2.0',
+      purpose: 'assessment',
+      rowVersion: 2,
+      status: 'open',
+      activeActivity: null,
+      constructedResponse: null,
+      accessiblePractice: null,
+      acceptedResponses: [
+        {
+          activityKey: 'diagnostico-residuo',
+          answer: { kind: 'single_choice', optionKey: 'residuo' },
+          serverAcceptedAt: '2026-10-11T03:22:58.877Z',
+          score01: 1,
+          feedback: {
+            explanation: 'N conserva exclusivamente el residuo y descarta el cociente.',
+            commonError: '',
+            sources: [Array]
+          }
+        }
+      ]
+    },
+    state: {
+      engineVersion: 'guided-v2',
+      enrollmentId: 'b7ce1781-fdf1-4b5c-baca-7e94e9d4dc7c',
+      pathVersionId: '6aa5a72b-77cd-4ce1-b161-a1ecf901d88e',
+      rowVersion: 1,
+      completedActivities: 0,
+      dispensedActivities: 0,
+      plannedRequiredActivities: 9,
+      completedAt: null,
+      masteredAt: null,
+      consolidatedAt: null,
+      objectives: [
+        {
+          objectiveKey: 'integrar-neral',
+          label: 'learning',
+          objectiveScore: null,
+          criticalErrorOpen: false,
+          assisted: false,
+          applicationDemonstrated: false,
+          reviewDue: false,
+          firstMasteredAt: null,
+          firstConsolidatedAt: null
+        }
+      ],
+      dueReviews: 0,
+      nextAction: {
+        kind: 'resume',
+        key: '5feb063b-be22-4b69-b9d7-d8f64ef45b93',
+        reason: 'Reanudar el intento abierto'
+      },
+      maintenance: {
+        generatedAt: '2026-10-11T03:22:58.955Z',
+        timeZone: 'America/Caracas',
+        diagnostic: { status: 'pending', assessmentKey: 'diagnostico' },
+        activities: [
+          {
+            key: 'explicacion-circuito',
+            objectiveKey: 'integrar-neral',
+            reason: 'Siguiente actividad de la rama disponible'
+          }
+        ],
+        reviewBatch: [],
+        agenda: [],
+        gates: [
+          {
+            unitKey: 'circuito-neral',
+            passed: false,
+            score: 0,
+            thresholdPercent: 80,
+            missingCoreKeys: [Array],
+            criticalErrorKeys: []
+          }
+        ],
+        blockers: [],
+        remediation: [],
+        exhaustedBanks: []
+      },
+      availability: 'active',
+      versionHistory: [
+        {
+          versionNumber: 1,
+          engineVersion: 'guided-v2',
+          adoptedAt: '2026-10-11T03:22:58.609Z',
+          completedAt: null,
+          consumedActivities: []
+        }
+      ]
+    }
+  },
+  expected: {
+    accepted: true,
+    feedback: {
+      explanation: 'N conserva exclusivamente el residuo y descarta el cociente.',
+      commonError: '',
+      sources: [
+        {
+          key: 'normalizacion',
+          title: 'Circuito de señales Neral',
+          citation: 'Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.',
+          locator: {
+            heading: '1. Normalización del contador',
+            sectionPath: [Array],
+            page: null
+          },
+          excerpt: 'La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\n' +
+            '\n' +
+            'Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.',
+          url: null
+        }
+      ],
+      score01: 1
+    },
+    nextStep: null,
+    attempt: {
+      engineVersion: 'guided-v2',
+      attemptId: '5feb063b-be22-4b69-b9d7-d8f64ef45b93',
+      enrollmentId: 'b7ce1781-fdf1-4b5c-baca-7e94e9d4dc7c',
+      pathVersionId: '6aa5a72b-77cd-4ce1-b161-a1ecf901d88e',
+      policyVersion: 'guided-v2.0',
+      purpose: 'assessment',
+      rowVersion: 2,
+      status: 'open',
+      activeActivity: null,
+      constructedResponse: null,
+      accessiblePractice: null,
+      acceptedResponses: [
+        {
+          activityKey: 'diagnostico-residuo',
+          answer: { kind: 'single_choice', optionKey: 'residuo' },
+          serverAcceptedAt: '2026-10-11T03:22:58.877Z',
+          score01: 1,
+          feedback: {
+            explanation: 'N conserva exclusivamente el residuo y descarta el cociente.',
+            commonError: '',
+            sources: [Array]
+          }
+        }
+      ]
+    },
+    state: {
+      engineVersion: 'guided-v2',
+      enrollmentId: 'b7ce1781-fdf1-4b5c-baca-7e94e9d4dc7c',
+      pathVersionId: '6aa5a72b-77cd-4ce1-b161-a1ecf901d88e',
+      rowVersion: 1,
+      completedActivities: 0,
+      dispensedActivities: 0,
+      plannedRequiredActivities: 9,
+      completedAt: null,
+      masteredAt: null,
+      consolidatedAt: null,
+      objectives: [
+        {
+          objectiveKey: 'integrar-neral',
+          label: 'learning',
+          objectiveScore: null,
+          criticalErrorOpen: false,
+          assisted: false,
+          applicationDemonstrated: false,
+          reviewDue: false,
+          firstMasteredAt: null,
+          firstConsolidatedAt: null
+        }
+      ],
+      dueReviews: 0,
+      nextAction: {
+        kind: 'resume',
+        key: '5feb063b-be22-4b69-b9d7-d8f64ef45b93',
+        reason: 'Reanudar el intento abierto'
+      },
+      maintenance: {
+        generatedAt: '2026-10-11T03:22:58.900Z',
+        timeZone: 'America/Caracas',
+        diagnostic: { status: 'pending', assessmentKey: 'diagnostico' },
+        activities: [
+          {
+            key: 'explicacion-circuito',
+            objectiveKey: 'integrar-neral',
+            reason: 'Siguiente actividad de la rama disponible'
+          }
+        ],
+        reviewBatch: [],
+        agenda: [],
+        gates: [
+          {
+            unitKey: 'circuito-neral',
+            passed: false,
+            score: 0,
+            thresholdPercent: 80,
+            missingCoreKeys: [Array],
+            criticalErrorKeys: []
+          }
+        ],
+        blockers: [],
+        remediation: [],
+        exhaustedBanks: []
+      },
+      availability: 'active',
+      versionHistory: [
+        {
+          versionNumber: 1,
+          engineVersion: 'guided-v2',
+          adoptedAt: '2026-10-11T03:22:58.609Z',
+          completedAt: null,
+          consumedActivities: []
+        }
+      ]
+    }
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

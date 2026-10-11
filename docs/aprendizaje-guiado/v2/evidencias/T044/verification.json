@@ -1,0 +1,520 @@
+{
+  "taskId": "T044",
+  "at": "2026-10-11T03:00:40.122Z",
+  "runtime": "v24.19.0",
+  "status": "PASS",
+  "checksCount": 14,
+  "passed": 14,
+  "checks": [
+    {
+      "name": "T043 PASS and six unchanged frozen resources plus fourteen accepted repository hashes",
+      "status": "PASS",
+      "detail": {
+        "resources": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "sha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "sha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "sha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "sha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "sha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ],
+        "hashes": [
+          {
+            "path": "packages/contracts/src/learning-route-package.ts",
+            "sha256": "c142901b0093d8eb26773f9a3300d7e647d8f236b1aae90a0f8f81836116c783",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/src/learning-route-validation.ts",
+            "sha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/src/guided-learning-v2.ts",
+            "sha256": "dd5c39d9f7c0b4edde082f678b92adf71884a6a6a4c2c3c4ec048155a9ecc147",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/schemas/koraz-route-2.0.schema.json",
+            "sha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/dist/learning-route-package.js",
+            "sha256": "e16518033739080c68a88174561962187b3411d979f0774c2a4d0d0fcf2b799c",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/dist/learning-route-validation.js",
+            "sha256": "1789ed9a7707a74bcf8aa20ce7d4800ab86822760de9c36f3f04dc1c3f813146",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/bin/validate-learning-route.mjs",
+            "sha256": "fb5875361e9248513151460835384af5affe69d9d260eb6b5dd9a3e4d22eb949",
+            "matches": true
+          },
+          {
+            "path": "packages/contracts/bin/validate-learning-route.bundle.mjs",
+            "sha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "apps/api/src/guided-learning/v2/validation.ts",
+            "sha256": "769f5fe78cb0f83374c7b9e124704500dafee8bac7a96951a58c2ff8f21454ee",
+            "matches": true
+          },
+          {
+            "path": "apps/api/src/guided-learning/v2/service.ts",
+            "sha256": "142e06dcc06d1d8784d0c6e65e69e5c859e6341a775e314a6604e4627a0d8ca3",
+            "matches": true
+          },
+          {
+            "path": "apps/api/src/guided-learning/v2/policy.ts",
+            "sha256": "18412f1df4e78112b27ef71e8759737a7712ca602dbc7969e3de4ce1b7c57180",
+            "matches": true
+          },
+          {
+            "path": "apps/api/src/guided-learning/v2/scheduler.ts",
+            "sha256": "5ddda1f428cf058aaa3147894a1fec20cd613accf4ac47f7c2450cf20f32823d",
+            "matches": true
+          },
+          {
+            "path": "docs/aprendizaje-guiado/v2/policy-spec.md",
+            "sha256": "fd7dd4f12a2f34cfcdb1349dc53f70b5720deba69c7aca47727b725a6b388138",
+            "matches": true
+          },
+          {
+            "path": "pnpm-lock.yaml",
+            "sha256": "bcbdb093fbeb947125f1e7d485da9e0b7573ab1982818790d2d1aa54c2c267ab",
+            "matches": true
+          }
+        ],
+        "deferredCheck": "Q19/V04",
+        "originalFullSystemAcceptance": false
+      }
+    },
+    {
+      "name": "All skill Markdown local links resolve",
+      "status": "PASS",
+      "detail": [
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/references/cobertura-por-disciplina.md",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/assets/koraz-route-2.0.schema.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/SKILL.md",
+          "to": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/references/contract-runtime.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/references/accepted-contract-hashes.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/references/LICENSE-ZOD.txt",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/references/reader-deferral.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/assets/koraz-route-2.0.schema.json",
+          "resolved": true
+        },
+        {
+          "from": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+          "to": "tools/skills/crear-rutas-koraz/assets/ejemplo-valido.koraz-route.json",
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "name": "Normal skill discovery metadata",
+      "status": "PASS",
+      "detail": {
+        "normalDiscoveryOnInstallation": true,
+        "uiMetadata": "omitted",
+        "installation": "T046, not started"
+      }
+    },
+    {
+      "name": "Every included executable parses on Node 24",
+      "status": "PASS",
+      "detail": [
+        {
+          "script": "validate-route.mjs",
+          "exitCode": 0
+        },
+        {
+          "script": "verify-resources.mjs",
+          "exitCode": 0
+        }
+      ]
+    },
+    {
+      "name": "Resource verifier succeeds from unrelated cwd under filesystem permissions",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 0,
+        "output": {
+          "valid": true,
+          "runtime": "v24.19.0",
+          "runtimeMatches": true,
+          "schemaVersion": "2.0",
+          "policyVersion": "guided-v2.0",
+          "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+          "acceptanceKind": "provisional_implementation_with_user_exception",
+          "deferredCheck": "Q19/V04",
+          "deferredCheckStatus": "NO VERIFICADO",
+          "scope": "portable",
+          "catalogueResolution": "PENDING_AT_IMPORT",
+          "acceptedManifestMatches": true,
+          "checks": [
+            {
+              "path": "assets/koraz-route-2.0.schema.json",
+              "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "matches": true
+            },
+            {
+              "path": "scripts/validate-route.mjs",
+              "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+              "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+              "matches": true
+            },
+            {
+              "path": "assets/ejemplo-valido.koraz-route.json",
+              "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "matches": true
+            },
+            {
+              "path": "references/accepted-contract-hashes.json",
+              "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "matches": true
+            },
+            {
+              "path": "references/reader-deferral.json",
+              "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "matches": true
+            },
+            {
+              "path": "references/LICENSE-ZOD.txt",
+              "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "matches": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Frozen synthetic example validates structurally",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 0,
+        "output": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": true,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "warning",
+              "path": "/assessments",
+              "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+              "suggestedFix": "Registra esta limitación editorial."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Frozen synthetic example validates with --publish",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 0,
+        "output": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": true,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "warning",
+              "path": "/assessments",
+              "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+              "suggestedFix": "Registra esta limitación editorial."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Schema-invalid payload is rejected",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "output": {
+          "scope": "portable",
+          "valid": false,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "SCHEMA_INVALID",
+              "severity": "error",
+              "path": "/activities/0/payload/body",
+              "message": "Estructura inválida: Invalid input: expected string, received undefined",
+              "suggestedFix": "Corrige el campo según el esquema 2.0."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Editorial error remains a valid draft",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 0,
+        "output": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/editorial/unresolvedIssues",
+              "message": "Hay incidencias editoriales abiertas.",
+              "suggestedFix": "Resuelve cada incidencia antes de publicar."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "warning",
+              "path": "/assessments",
+              "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+              "suggestedFix": "Registra esta limitación editorial."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Editorial error remains a valid draft and blocks --publish",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "output": {
+          "scope": "portable",
+          "valid": true,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "error",
+              "path": "/editorial/unresolvedIssues",
+              "message": "Hay incidencias editoriales abiertas.",
+              "suggestedFix": "Resuelve cada incidencia antes de publicar."
+            },
+            {
+              "code": "OBJECTIVE_COVERAGE",
+              "severity": "warning",
+              "path": "/assessments",
+              "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+              "suggestedFix": "Registra esta limitación editorial."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Unknown major version is rejected explicitly",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 2,
+        "output": {
+          "scope": "portable",
+          "valid": false,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "SCHEMA_UNSUPPORTED",
+              "severity": "error",
+              "path": "/schemaVersion",
+              "message": "Versión de esquema no admitida.",
+              "suggestedFix": "Usa schemaVersion 2.0."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Corrupt JSON is rejected explicitly",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "output": {
+          "scope": "portable",
+          "valid": false,
+          "publishable": false,
+          "issues": [
+            {
+              "code": "SCHEMA_INVALID",
+              "severity": "error",
+              "path": "",
+              "message": "JSON o UTF-8 inválido.",
+              "suggestedFix": "Corrige el archivo JSON UTF-8."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Resource verifier rejects altered bundle before use",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "output": {
+          "valid": false,
+          "runtime": "v24.19.0",
+          "runtimeMatches": true,
+          "schemaVersion": "2.0",
+          "policyVersion": "guided-v2.0",
+          "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+          "acceptanceKind": "provisional_implementation_with_user_exception",
+          "deferredCheck": "Q19/V04",
+          "deferredCheckStatus": "NO VERIFICADO",
+          "scope": "portable",
+          "catalogueResolution": "PENDING_AT_IMPORT",
+          "acceptedManifestMatches": true,
+          "checks": [
+            {
+              "path": "assets/koraz-route-2.0.schema.json",
+              "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+              "matches": true
+            },
+            {
+              "path": "scripts/validate-route.mjs",
+              "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+              "actualSha256": "3538da363b0d25298fb8cce57b34fd414ca08fee324e0a0906c09888084ec7b1",
+              "matches": false
+            },
+            {
+              "path": "assets/ejemplo-valido.koraz-route.json",
+              "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+              "matches": true
+            },
+            {
+              "path": "references/accepted-contract-hashes.json",
+              "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+              "matches": true
+            },
+            {
+              "path": "references/reader-deferral.json",
+              "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+              "matches": true
+            },
+            {
+              "path": "references/LICENSE-ZOD.txt",
+              "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+              "matches": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Resource verifier reports a missing resource",
+      "status": "PASS",
+      "detail": {
+        "exitCode": 1,
+        "output": {
+          "valid": false,
+          "code": "RESOURCE_ERROR",
+          "message": "ENOENT: no such file or directory, open 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T044\\validator-cases\\resource-copy\\assets\\missing.schema.json'",
+          "suggestedFix": "Solicita el contrato aceptado actualizado; no modifiques el bundle para aceptar la salida."
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Authoring behavior K01–K05, server import and learner journeys are T045; these are CLI/resource smoke checks.",
+    "Node filesystem permissions restrict CLI reads to skill and fixture directories; this run does not claim OS network isolation.",
+    "Optional UI metadata omitted; discovery verified structurally, installation not performed.",
+    "Q19/V04 remains NO VERIFICADO under the inherited user exception."
+  ],
+  "nextTaskStarted": false
+}

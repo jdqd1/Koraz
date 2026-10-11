@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "baselineFiles": 7873,
+  "protectedFilesUnchanged": 7870,
+  "changed": [
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+      "originalSha256": "a862aa46e56ac2031b6426273d294ac5c8eb2ae96b11db60866768678f5ec156",
+      "currentSha256": "08cb65c4f299ff48d40aa10a023ca21eeb8528b89d173ad70056556b729c4882"
+    },
+    {
+      "path": "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+      "originalSha256": "b02c387b596cdbf6ed4e77d414f1b046b0c695267e7f2d7c6406d2ed1243a8c4",
+      "currentSha256": "b41af6c2110989692dc254062e44fb4ae012b803a42de495bb7f978eb7baf62a"
+    },
+    {
+      "path": "apps/api/src/providers/postgres-guided-learning-v2.ts",
+      "originalSha256": "cbeb8fb480b35e9f43bd8cfccae1a9948c86eb1ac08522193deae1e5ea7cb9dc",
+      "currentSha256": "3b7f58814e608633678b01cc9fb47b5168d2a3fe2b50efe2714b761205d6055e"
+    }
+  ],
+  "additionalFilesOutsideAllowlist": [],
+  "frozenFilesUnchanged": 14,
+  "gitDiffCheck": true,
+  "statusShort": " M apps/api/src/providers/postgres-guided-learning-v2.ts\n M apps/api/test/guided-v2-package.test.ts\n M apps/web/tests/e2e/guided-v2-journeys.spec.ts\n M docs/aprendizaje-guiado/v2/registro-ejecucion.json\n M packages/contracts/bin/validate-learning-route.bundle.mjs\n?? apps/api/test/guided-v2-real-auth.test.ts\n?? docs/aprendizaje-guiado/v2/acta-HITO-S.md\n?? docs/aprendizaje-guiado/v2/evidencias/T041/\n?? docs/aprendizaje-guiado/v2/evidencias/T042/\n?? docs/aprendizaje-guiado/v2/evidencias/T043/\n?? docs/aprendizaje-guiado/v2/evidencias/T044/\n?? docs/aprendizaje-guiado/v2/evidencias/T045/\n?? docs/aprendizaje-guiado/v2/runbook.md\n?? packages/contracts/bin/export-route-skill.mjs\n?? tools/\n?? work/\n",
+  "authorization": "scope-authorization.json",
+  "nextTaskStarted": false
+}

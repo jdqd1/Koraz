@@ -1,0 +1,596 @@
+{
+  "schemaVersion": "2.0",
+  "packageKey": "t027-ui-import",
+  "revision": 1,
+  "locale": "es",
+  "route": {
+    "slug": "t027-ui-import",
+    "title": "Importación T027 desde interfaz",
+    "summary": "Sin contenido clínico real",
+    "topicLabel": "Tema",
+    "audience": "Alumno",
+    "discipline": "general",
+    "coverKey": "heart"
+  },
+  "policyVersion": "guided-v2.0",
+  "sources": [
+    {
+      "key": "guide",
+      "kind": "guide",
+      "title": "Guía sintética",
+      "citation": "Guía de prueba (2026)",
+      "locator": {
+        "heading": "Sección",
+        "sectionPath": [
+          "Unidad"
+        ],
+        "page": 1
+      },
+      "documentSha256": "2b324dfa84fc49bfe4afe27245ac69483ff87d433fbd769e866e61787b35bad5",
+      "excerpt": "Texto sintético verificable",
+      "url": null,
+      "verification": "verified",
+      "checkedAt": "2026-09-26"
+    }
+  ],
+  "assets": [],
+  "objectives": [
+    {
+      "key": "objective",
+      "title": "Aplicar un concepto",
+      "unitKey": "unit",
+      "verb": "apply",
+      "criticality": "core",
+      "required": true,
+      "prerequisiteKeys": [],
+      "sourceKeys": [
+        "guide"
+      ],
+      "comparisonGroup": null,
+      "misconceptions": []
+    }
+  ],
+  "units": [
+    {
+      "key": "unit",
+      "title": "Unidad",
+      "objectiveKeys": [
+        "objective"
+      ],
+      "activityKeys": [
+        "explain",
+        "elaborate",
+        "recall-one",
+        "recall-two",
+        "apply-one",
+        "recall-three",
+        "apply-two",
+        "diagnostic-one",
+        "final-one",
+        "retention-seven",
+        "retention-thirty"
+      ],
+      "support": "standard",
+      "estimatedMinutes": null
+    }
+  ],
+  "activities": [
+    {
+      "key": "explain",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "learn",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "explain",
+      "hints": [],
+      "use": "learning",
+      "prompt": "Pregunta explain",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "study",
+      "payload": {
+        "body": "Explicación sintética",
+        "focusSpans": [],
+        "assetKey": null,
+        "scaffold": "explanation",
+        "videoRange": null
+      }
+    },
+    {
+      "key": "elaborate",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "elaborate",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "elaborate",
+      "hints": [],
+      "use": "learning",
+      "prompt": "Pregunta elaborate",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "constructed_response",
+      "payload": {
+        "rubric": [
+          {
+            "key": "criterion",
+            "criterion": "Relaciona",
+            "example": "Ejemplo"
+          }
+        ],
+        "modelAnswer": "Respuesta modelo",
+        "verificationActivityKey": "recall-one"
+      }
+    },
+    {
+      "key": "recall-one",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "recall-one",
+      "hints": [],
+      "use": "learning",
+      "prompt": "Pregunta recall-one",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "recall-two",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "recall-two",
+      "hints": [],
+      "use": "learning",
+      "prompt": "Pregunta recall-two",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "short_answer",
+      "payload": {
+        "acceptedAnswers": [
+          "respuesta"
+        ],
+        "maxChars": 100,
+        "modelAnswer": "respuesta",
+        "normalization": "nfkc-lower-space"
+      }
+    },
+    {
+      "key": "apply-one",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "apply",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "case",
+      "equivalenceKey": "apply-one",
+      "hints": [],
+      "use": "learning",
+      "prompt": "Pregunta apply-one",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "recall-three",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "recall-three",
+      "hints": [],
+      "use": "gate",
+      "prompt": "Pregunta recall-three",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "apply-two",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "apply",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "diagram",
+      "equivalenceKey": "apply-two",
+      "hints": [],
+      "use": "gate",
+      "prompt": "Pregunta apply-two",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "sequence",
+      "payload": {
+        "items": [
+          {
+            "key": "one",
+            "text": "Uno"
+          },
+          {
+            "key": "two",
+            "text": "Dos"
+          },
+          {
+            "key": "three",
+            "text": "Tres"
+          }
+        ],
+        "acceptedOrders": [
+          [
+            "one",
+            "two",
+            "three"
+          ]
+        ],
+        "whyActivityKey": null
+      }
+    },
+    {
+      "key": "diagnostic-one",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "activate",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "diagnostic-one",
+      "hints": [],
+      "use": "diagnostic",
+      "prompt": "Pregunta diagnostic-one",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "final-one",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "final-one",
+      "hints": [],
+      "use": "final",
+      "prompt": "Pregunta final-one",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "retention-seven",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "retention-seven",
+      "hints": [],
+      "use": "retention7",
+      "prompt": "Pregunta retention-seven",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    },
+    {
+      "key": "retention-thirty",
+      "objectiveKey": "objective",
+      "relatedObjectiveKeys": [],
+      "phase": "retrieve",
+      "required": true,
+      "sourceKeys": [
+        "guide"
+      ],
+      "representation": "text",
+      "equivalenceKey": "retention-thirty",
+      "hints": [],
+      "use": "retention30",
+      "prompt": "Pregunta retention-thirty",
+      "feedback": {
+        "explanation": "Explicación",
+        "commonError": "",
+        "sourceKeys": [
+          "guide"
+        ]
+      },
+      "misconceptionMappings": [],
+      "alternativeActivityKey": null,
+      "kind": "single_choice",
+      "payload": {
+        "options": [
+          {
+            "key": "yes",
+            "text": "Sí"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "correctKey": "yes",
+        "distractorFeedback": {
+          "no": "Revisa"
+        }
+      }
+    }
+  ],
+  "assessments": [
+    {
+      "key": "diagnostic",
+      "kind": "diagnostic",
+      "afterUnitKey": null,
+      "objectiveKeys": [
+        "objective"
+      ],
+      "candidateActivityKeys": [
+        "diagnostic-one"
+      ],
+      "thresholdPercent": 80,
+      "thresholdRationale": "Umbral editorial para verificar el flujo con contenido sintético."
+    },
+    {
+      "key": "gate",
+      "kind": "unit_gate",
+      "afterUnitKey": "unit",
+      "objectiveKeys": [
+        "objective"
+      ],
+      "candidateActivityKeys": [
+        "recall-one",
+        "recall-two",
+        "apply-one",
+        "recall-three",
+        "apply-two"
+      ],
+      "thresholdPercent": 80,
+      "thresholdRationale": "Umbral editorial para verificar el flujo con contenido sintético."
+    },
+    {
+      "key": "final",
+      "kind": "final",
+      "afterUnitKey": null,
+      "objectiveKeys": [
+        "objective"
+      ],
+      "candidateActivityKeys": [
+        "final-one"
+      ],
+      "thresholdPercent": 80,
+      "thresholdRationale": "Umbral editorial para verificar el flujo con contenido sintético."
+    },
+    {
+      "key": "retention7",
+      "kind": "retention7",
+      "afterUnitKey": null,
+      "objectiveKeys": [
+        "objective"
+      ],
+      "candidateActivityKeys": [
+        "retention-seven"
+      ],
+      "thresholdPercent": 80,
+      "thresholdRationale": "Umbral editorial para verificar el flujo con contenido sintético."
+    },
+    {
+      "key": "retention30",
+      "kind": "retention30",
+      "afterUnitKey": null,
+      "objectiveKeys": [
+        "objective"
+      ],
+      "candidateActivityKeys": [
+        "retention-thirty"
+      ],
+      "thresholdPercent": 80,
+      "thresholdRationale": "Umbral editorial para verificar el flujo con contenido sintético."
+    }
+  ],
+  "reviewPlan": {
+    "objectiveKeys": [
+      "objective"
+    ]
+  },
+  "editorial": {
+    "notes": "Revisión sintética",
+    "unresolvedIssues": []
+  }
+}

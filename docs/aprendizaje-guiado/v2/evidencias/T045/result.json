@@ -1,0 +1,176 @@
+{
+  "taskId": "T045",
+  "status": "PASS LOCAL",
+  "at": "2026-10-11T03:41:49.932Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "scope": "Behavioral generation and exact source review, portable CLI, real Fastify HTTP and independent PostgreSQL. Browser check remains explicitly unverified.",
+  "authorization": {
+    "request": "continua con t045",
+    "extension": "scope-authorization.json"
+  },
+  "changedFiles": [
+    "tools/skills/crear-rutas-koraz/references/contrato-koraz-2.0.md",
+    "tools/skills/crear-rutas-koraz/references/pedagogia.md",
+    "apps/api/src/providers/postgres-guided-learning-v2.ts",
+    "docs/aprendizaje-guiado/v2/evidencias/T045/"
+  ],
+  "predecessors": [
+    {
+      "taskId": "T044",
+      "status": "PASS"
+    },
+    {
+      "taskId": "T035",
+      "status": "PASS"
+    }
+  ],
+  "K": [
+    {
+      "id": "K01",
+      "status": "PASS",
+      "detail": "Guía sintética inédita de 3 conceptos; fuente/DAG/JSON, importación y preview; recorrido HTTP/PostgreSQL persistido con reinicio, replay, dominio/final y retención/consolidación.",
+      "evidence": [
+        "http-journey.json",
+        "database-facts.json",
+        "synthetic-server-fixture.json"
+      ]
+    },
+    {
+      "id": "K02",
+      "status": "PASS",
+      "detail": "Correspondencia técnica con fragmentos de guía curricular previamente revisada, referencias y alcance conservados; revisión final focalizada de redacción. No se transfiere aprobación T039 al paquete nuevo.",
+      "evidence": [
+        "content-audit.json",
+        "revision-contenido.md",
+        "cases/pilot/round-3/output/revision-de-ruta.md"
+      ]
+    },
+    {
+      "id": "K03",
+      "status": "PASS",
+      "detail": "Fuentes/figura ausentes y contradicción producen borrador con incidencias; publicación bloqueada 422 y ruta de alumno 404.",
+      "evidence": [
+        "adversarial-publication-blocked.json",
+        "pilot-publication-blocked.json"
+      ]
+    },
+    {
+      "id": "K04",
+      "status": "PASS",
+      "detail": "Órdenes incrustadas tratadas como datos; canario excluido, ningún archivo de efecto externo y alcance preservado.",
+      "evidence": [
+        "portable-checks.json",
+        "scope-check.json"
+      ]
+    },
+    {
+      "id": "K05",
+      "status": "PASS",
+      "detail": "Major desconocida/corrupción fallan explícitamente en CLI y server; Node24 aislado sin repo/dependencias/red; exportación/reimportación de 3 paquetes mantiene contenido.",
+      "evidence": [
+        "portable-checks.json",
+        "server-schema-rejections.json",
+        "server-transcript.json"
+      ]
+    }
+  ],
+  "checks": {
+    "portable": 11,
+    "apiPackageTests": 7,
+    "apiImportEditorTests": 25,
+    "apiTypecheck": "PASS",
+    "quickValidateOriginal": "PASS",
+    "resourceHashes": 6,
+    "frozenHashes": 14,
+    "scopeProtectedFiles": 7870,
+    "roundtripPackages": 3,
+    "generatedPackageHttpAttempts": 13,
+    "httpRequests": 71,
+    "persistedResponses": 13,
+    "applicationRestart": true,
+    "responseReplay": true,
+    "consolidated": true,
+    "databaseCleanup": "PASS"
+  },
+  "generatedPackages": {
+    "synthetic": {
+      "sourceDirectory": "cases/synthetic/round-2/output",
+      "sourceFileSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "rawContentHash": "f64e7349679f9401e8b315d7fd41eeda3c09ac1d068242832cedcf408c394752",
+      "boundContentHash": "2e59f7b4e0eed9f5bc0283b6b774c4fc1b11af0be1e01a4efcdbc30ec7bb2fcf",
+      "status": "published",
+      "units": 1,
+      "objectives": 1,
+      "activities": 15,
+      "roundtrip": true,
+      "cliServerIssuesAgree": true
+    },
+    "pilot": {
+      "sourceDirectory": "cases/pilot/round-3/output",
+      "sourceFileSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "rawContentHash": "79e2e9fa96b95ad4b90282f35a3ccd00a07611f4d577ea60adb02cd824ef6e79",
+      "boundContentHash": "97ff7a96e8894a2324ed91263d3df8b992f9c5d1b53007dce053c71ced83eb0e",
+      "status": "draft",
+      "units": 4,
+      "objectives": 4,
+      "activities": 52,
+      "roundtrip": true,
+      "cliServerIssuesAgree": true
+    },
+    "adversarial": {
+      "sourceDirectory": "cases/adversarial/output",
+      "sourceFileSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "rawContentHash": "ec884569b3de1a6d81a23992294897141ed9ac639aa2b79d9e290efb65ab18c9",
+      "boundContentHash": "8abc8bfb1b71e9153807c1ed0098d8b4021a41e1bc08a7d87ff5633a449f3e6c",
+      "status": "draft",
+      "units": 1,
+      "objectives": 2,
+      "activities": 4,
+      "roundtrip": true,
+      "cliServerIssuesAgree": true
+    }
+  },
+  "observedFailuresPreserved": [
+    "initial-server-failure/",
+    "provider-failure/",
+    "harness-registration-failure/",
+    "http-assertion-failure/",
+    "durable-count-assertion-failure/",
+    "retention-failure/",
+    "round-1-system-results/",
+    "round-2-system-results/",
+    "cases/pilot/round-2/output/",
+    "scope-assertion-failure.json"
+  ],
+  "repairs": "skill-repairs.json",
+  "issues": [
+    {
+      "status": "NO VERIFICADO",
+      "item": "Recorrido por navegador de T045",
+      "reason": "Revisión automática rechazó arrancar el build Next de test: blocked by policy. No se eludió el rechazo.",
+      "evidence": "browser-policy-limitation.json"
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Revisión humana/médica y publicación del nuevo piloto",
+      "reason": "Dos incidencias editoriales preservadas. Aprobación anterior corresponde a otro hash; no se publicó el piloto."
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Better Auth real, staging y producción",
+      "reason": "Identidades y catálogo sintéticos, Fastify real por loopback y PostgreSQL independiente de prueba."
+    },
+    {
+      "status": "NO VERIFICADO",
+      "item": "Q19/V04 y aceptación original completa de Hito S",
+      "reason": "Aplazamiento explícito heredado de T042; la identidad contractual aceptada sigue provisional."
+    }
+  ],
+  "priorDatabasesPreserved": true,
+  "skillInstalled": false,
+  "productionTouched": false,
+  "registryChanged": false,
+  "nextTaskStarted": false
+}

@@ -1,0 +1,89 @@
+{
+  "recordedUtc": "2026-10-10T23:15:23.5948369Z",
+  "status": "PASS",
+  "syntaxExitCode": 0,
+  "scopedDiffCheckExitCode": 0,
+  "sameHead": true,
+  "preexistingStatusPreserved": true,
+  "predecessorEvidenceChecks": [
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/result.json",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/candidate-hashes.json",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json",
+      "matches": true
+    }
+  ],
+  "candidateFileChecks": [
+    {
+      "path": "packages/contracts/src/learning-route-package.ts",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/src/learning-route-validation.ts",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/src/guided-learning-v2.ts",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/schemas/koraz-route-2.0.schema.json",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/dist/learning-route-package.js",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/dist/learning-route-validation.js",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/bin/validate-learning-route.mjs",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/bin/validate-learning-route.bundle.mjs",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/validation.ts",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/service.ts",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/policy.ts",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/scheduler.ts",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/policy-spec.md",
+      "matches": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "matches": true
+    }
+  ],
+  "filesOutsideAllowlistChanged": false
+}

@@ -1,0 +1,74 @@
+{
+  "taskId": "T043",
+  "status": "NO VERIFICADO",
+  "blocked": true,
+  "blockReason": "T042 no ha aceptado Hito S ni congelado schema/validator/policy; Q19/V04 pendiente de reconciliacion.",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "authorization": "Peticion directa del usuario: continua con t043",
+  "dependency": {
+    "taskId": "T042",
+    "status": "NO VERIFICADO",
+    "decision": "reject",
+    "systemAcceptance": false,
+    "accepted": false,
+    "frozen": false,
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/result.json"
+  },
+  "checks": [
+    {
+      "command": "node docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+      "exitCode": 0,
+      "result": "Auditoria PASS: 14/14 hashes candidatos coinciden. Dependencia NO VERIFICADO: prerequisiteAccepted=false.",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json"
+    },
+    {
+      "command": "Lectura de acta Hito S, resultado T042, registro y observaciones Q19/V04",
+      "result": "NO VERIFICADO: 23 PASS locales, 0 FAIL, 1 NO VERIFICADO; no existe contrato aceptado para T043.",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json"
+    },
+    {
+      "command": "Node24 portable sin repo/red; valido/invalido; equivalencia backend/offline; K05 parcial",
+      "exitCode": null,
+      "result": "NO VERIFICADO: no ejecutado por dependencia obligatoria no aceptada.",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/README.md"
+    },
+    {
+      "command": "node --check; git diff --check focalizado; preservacion de hashes y estado previo",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json"
+    }
+  ],
+  "issues": [
+    {
+      "code": "T043_DEPENDENCY_T042_NOT_ACCEPTED",
+      "status": "NO VERIFICADO",
+      "blocking": true,
+      "ownerTaskId": "T042",
+      "detail": "Q19/V04: el usuario reporto activar respuestas y ver resultados; la sesion persistida solo conserva study-1 in_progress y cero respuestas. Reconciliar evidencia antes de aceptar y congelar.",
+      "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json"
+    }
+  ],
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/evidencias/T043/verify-prerequisite.mjs",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/prerequisite-check.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/README.md",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/result.json",
+    "docs/aprendizaje-guiado/v2/evidencias/T043/closure-check.json"
+  ],
+  "packagingStarted": false,
+  "skillCreated": false,
+  "contractChanged": false,
+  "registryChanged": false,
+  "predecessorChanged": false,
+  "runtimeSourceChanged": false,
+  "productionTouched": false,
+  "deployed": false,
+  "committed": false,
+  "nextTaskStarted": false,
+  "nextTaskIds": [],
+  "resumePrerequisiteTaskId": "T042",
+  "nominalSuccessor": "T044"
+}

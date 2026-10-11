@@ -1,0 +1,964 @@
+{
+  "pathId": "abae5e08-cbbb-435a-892c-a33827824175",
+  "pathVersionId": "e42fc8f2-abb9-4848-9021-4efbb1561e89",
+  "status": "published",
+  "slug": "circuito-neral",
+  "package": {
+    "schemaVersion": "2.0",
+    "packageKey": "circuito-neral",
+    "revision": 1,
+    "locale": "es",
+    "route": {
+      "slug": "circuito-neral",
+      "title": "Circuito de señales Neral",
+      "summary": "Ruta sintética: recuperar reglas, conectar dependencias y aplicar N→C→E; no representa contenido médico.",
+      "topicLabel": "Circuito de señales Neral",
+      "audience": "Audiencia universitaria como supuesto; fixture de software ficticio.",
+      "discipline": "general",
+      "coverKey": "heart"
+    },
+    "policyVersion": "guided-v2.0",
+    "sources": [
+      {
+        "key": "normalizacion",
+        "kind": "guide",
+        "title": "Circuito de señales Neral",
+        "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+        "locator": {
+          "heading": "1. Normalización del contador",
+          "sectionPath": [
+            "Circuito de señales Neral",
+            "1. Normalización del contador"
+          ],
+          "page": null
+        },
+        "documentSha256": "4653ad4ae21ab98cddddb18a03d53cacb194edd6d9cb2239651e02543b0438cf",
+        "excerpt": "La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\n\nEjemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.",
+        "url": null,
+        "verification": "provided",
+        "checkedAt": null
+      },
+      {
+        "key": "codificacion",
+        "kind": "guide",
+        "title": "Circuito de señales Neral",
+        "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+        "locator": {
+          "heading": "2. Codificación del residuo",
+          "sectionPath": [
+            "Circuito de señales Neral",
+            "2. Codificación del residuo"
+          ],
+          "page": null
+        },
+        "documentSha256": "4653ad4ae21ab98cddddb18a03d53cacb194edd6d9cb2239651e02543b0438cf",
+        "excerpt": "La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\n\n| Residuo r | Color c |\n|---|---|\n| 0 | azul |\n| 1 | verde |\n| 2 | ámbar |\n| 3 | rojo |\n\nC no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.",
+        "url": null,
+        "verification": "provided",
+        "checkedAt": null
+      },
+      {
+        "key": "enrutamiento",
+        "kind": "guide",
+        "title": "Circuito de señales Neral",
+        "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+        "locator": {
+          "heading": "3. Enrutamiento de la salida",
+          "sectionPath": [
+            "Circuito de señales Neral",
+            "3. Enrutamiento de la salida"
+          ],
+          "page": null
+        },
+        "documentSha256": "4653ad4ae21ab98cddddb18a03d53cacb194edd6d9cb2239651e02543b0438cf",
+        "excerpt": "La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\n\n| Interruptor | azul | verde | ámbar | rojo |\n|---|---|---|---|---|\n| e=0 | archivo | archivo | archivo | archivo |\n| e=1 | pantalla | pantalla | alarma | alarma |\n\nEjemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.",
+        "url": null,
+        "verification": "provided",
+        "checkedAt": null
+      }
+    ],
+    "assets": [],
+    "objectives": [
+      {
+        "key": "integrar-neral",
+        "title": "Integrar N→C→E para calcular, ordenar y comprobar la salida del circuito Neral.",
+        "unitKey": "circuito-neral",
+        "verb": "integrate",
+        "criticality": "core",
+        "required": true,
+        "prerequisiteKeys": [],
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "comparisonGroup": null,
+        "misconceptions": [
+          {
+            "key": "confundir-cociente",
+            "description": "Usar el cociente como salida de N.",
+            "critical": true,
+            "remediationActivityKey": "remediar-cociente",
+            "verificationActivityKeys": [
+              "calculo-residuo"
+            ]
+          },
+          {
+            "key": "ignorar-interruptor",
+            "description": "Enviar rojo a alarma aunque e=0.",
+            "critical": true,
+            "remediationActivityKey": "remediar-interruptor",
+            "verificationActivityKeys": [
+              "interruptor-cero"
+            ]
+          }
+        ]
+      }
+    ],
+    "units": [
+      {
+        "key": "circuito-neral",
+        "title": "De la entrada al destino",
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "activityKeys": [
+          "diagnostico-residuo",
+          "explicacion-circuito",
+          "ejemplo-resuelto",
+          "ejemplo-parcial",
+          "elaboracion-perdida-informacion",
+          "calculo-residuo",
+          "tabla-colores",
+          "interruptor-cero",
+          "orden-compuertas",
+          "datos-insuficientes",
+          "remediar-cociente",
+          "remediar-interruptor",
+          "reserva-final-trazas",
+          "reserva-retencion-cambios",
+          "reserva-retencion-auditoria"
+        ],
+        "support": "full",
+        "estimatedMinutes": null
+      }
+    ],
+    "activities": [
+      {
+        "key": "diagnostico-residuo",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "activate",
+        "required": false,
+        "sourceKeys": [
+          "normalizacion"
+        ],
+        "representation": "text",
+        "equivalenceKey": "diagnostico-residuo",
+        "hints": [],
+        "use": "diagnostic",
+        "prompt": "Sin ayuda: ¿qué conserva N después de dividir n entre cuatro?",
+        "feedback": {
+          "explanation": "N conserva exclusivamente el residuo y descarta el cociente.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "single_choice",
+        "payload": {
+          "options": [
+            {
+              "key": "residuo",
+              "text": "El residuo"
+            },
+            {
+              "key": "cociente",
+              "text": "El cociente"
+            },
+            {
+              "key": "entrada",
+              "text": "Toda la entrada n"
+            }
+          ],
+          "correctKey": "residuo",
+          "distractorFeedback": {
+            "cociente": "N conserva exclusivamente el residuo y descarta el cociente.",
+            "entrada": "N conserva exclusivamente el residuo y descarta el cociente."
+          }
+        }
+      },
+      {
+        "key": "explicacion-circuito",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "learn",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "text",
+        "equivalenceKey": "explicacion-circuito",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Lee la explicación del circuito ficticio Neral.",
+        "feedback": {
+          "explanation": "N recibe un entero no negativo n y entrega r=n mod 4, en {0,1,2,3}. C transforma r=0,1,2,3 en azul, verde, ámbar, rojo. E recibe color e interruptor: e=0 lleva a archivo; e=1 lleva azul/verde a pantalla y ámbar/rojo a alarma. El orden es N→C→E. e no interviene en N ni C.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "study",
+        "payload": {
+          "body": "N recibe un entero no negativo n y entrega r=n mod 4, en {0,1,2,3}. C transforma r=0,1,2,3 en azul, verde, ámbar, rojo. E recibe color e interruptor: e=0 lleva a archivo; e=1 lleva azul/verde a pantalla y ámbar/rojo a alarma. El orden es N→C→E. e no interviene en N ni C.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "explanation",
+          "videoRange": null
+        }
+      },
+      {
+        "key": "ejemplo-resuelto",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "learn",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "text",
+        "equivalenceKey": "ejemplo-resuelto",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Lee la explicación del circuito ficticio Neral.",
+        "feedback": {
+          "explanation": "Ejemplo de la guía: n=11,e=1. N conserva r=3; C entrega rojo; E dirige a alarma porque e=1 y c=rojo. Cambiar e a 0 solo cambia el destino a archivo.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "study",
+        "payload": {
+          "body": "Ejemplo de la guía: n=11,e=1. N conserva r=3; C entrega rojo; E dirige a alarma porque e=1 y c=rojo. Cambiar e a 0 solo cambia el destino a archivo.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "worked_example",
+          "videoRange": null
+        }
+      },
+      {
+        "key": "ejemplo-parcial",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "learn",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "text",
+        "equivalenceKey": "ejemplo-parcial",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Lee la explicación del circuito ficticio Neral.",
+        "feedback": {
+          "explanation": "n=6,e=0. N ya produjo r=2. Antes de seguir, completa mentalmente color y salida; contrasta después con el modelo: ámbar y archivo. El interruptor cero domina el destino, cualquiera que sea el color.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "study",
+        "payload": {
+          "body": "n=6,e=0. N ya produjo r=2. Antes de seguir, completa mentalmente color y salida; contrasta después con el modelo: ámbar y archivo. El interruptor cero domina el destino, cualquiera que sea el color.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "partial_example",
+          "videoRange": null
+        }
+      },
+      {
+        "key": "elaboracion-perdida-informacion",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "elaborate",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "text",
+        "equivalenceKey": "elaboracion-perdida-informacion",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Explica por qué el color no permite reconstruir n completo y por qué conocer r sin e no decide la salida.",
+        "feedback": {
+          "explanation": "C identifica r sin conservar n; E combina color e interruptor. Esta explicación es autorreporte y requiere comprobación objetiva.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "constructed_response",
+        "payload": {
+          "rubric": [
+            {
+              "key": "clase-residuo",
+              "criterion": "Distingue entrada y clase de residuo.",
+              "example": "2,6,10,14 comparten r=2 y ámbar."
+            },
+            {
+              "key": "interruptor",
+              "criterion": "Explica la necesidad de e en E.",
+              "example": "Con r=2: e=1 da alarma y e=0 archivo."
+            }
+          ],
+          "modelAnswer": "El color identifica un residuo, pero varias entradas separadas por cuatro comparten ese residuo. Además, E necesita e: un mismo color puede enviarse a archivo con e=0 o a pantalla/alarma con e=1.",
+          "verificationActivityKey": "datos-insuficientes"
+        }
+      },
+      {
+        "key": "calculo-residuo",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "retrieve",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion"
+        ],
+        "representation": "text",
+        "equivalenceKey": "calculo-residuo",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Para n=9, ¿cuál es la salida de N?",
+        "feedback": {
+          "explanation": "9=4×2+1: el cociente es 2, se descarta; la salida es el residuo 1.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion"
+          ]
+        },
+        "misconceptionMappings": [
+          {
+            "responseKey": "dos",
+            "misconceptionKey": "confundir-cociente"
+          }
+        ],
+        "alternativeActivityKey": null,
+        "kind": "single_choice",
+        "payload": {
+          "options": [
+            {
+              "key": "uno",
+              "text": "1"
+            },
+            {
+              "key": "dos",
+              "text": "2"
+            },
+            {
+              "key": "nueve",
+              "text": "9"
+            }
+          ],
+          "correctKey": "uno",
+          "distractorFeedback": {
+            "dos": "2 es el cociente, no la salida. Conserva el residuo 1.",
+            "nueve": "9 es la entrada completa; N entrega solo su residuo 1."
+          }
+        }
+      },
+      {
+        "key": "tabla-colores",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "retrieve",
+        "required": true,
+        "sourceKeys": [
+          "codificacion"
+        ],
+        "representation": "table",
+        "equivalenceKey": "tabla-colores",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Relaciona cada residuo con el color que entrega C.",
+        "feedback": {
+          "explanation": "La tabla completa de C codifica 0→azul, 1→verde, 2→ámbar, 3→rojo.",
+          "commonError": "",
+          "sourceKeys": [
+            "codificacion"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "match",
+        "payload": {
+          "presentation": "comparison_table",
+          "prompts": [
+            {
+              "key": "cero",
+              "text": "r=0"
+            },
+            {
+              "key": "uno",
+              "text": "r=1"
+            },
+            {
+              "key": "dos",
+              "text": "r=2"
+            },
+            {
+              "key": "tres",
+              "text": "r=3"
+            }
+          ],
+          "choices": [
+            {
+              "key": "azul",
+              "text": "azul"
+            },
+            {
+              "key": "verde",
+              "text": "verde"
+            },
+            {
+              "key": "ambar",
+              "text": "ámbar"
+            },
+            {
+              "key": "rojo",
+              "text": "rojo"
+            }
+          ],
+          "correctByPrompt": {
+            "cero": "azul",
+            "uno": "verde",
+            "dos": "ambar",
+            "tres": "rojo"
+          },
+          "allowReuse": false,
+          "edges": []
+        }
+      },
+      {
+        "key": "interruptor-cero",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "apply",
+        "required": true,
+        "sourceKeys": [
+          "enrutamiento"
+        ],
+        "representation": "case",
+        "equivalenceKey": "interruptor-cero",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Registro de entrada a E: c=rojo, e=0. ¿Qué destino debe registrar E?",
+        "feedback": {
+          "explanation": "Con e=0, cualquier color va a archivo. Alarma para rojo solo corresponde a e=1.",
+          "commonError": "",
+          "sourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [
+          {
+            "responseKey": "alarma",
+            "misconceptionKey": "ignorar-interruptor"
+          }
+        ],
+        "alternativeActivityKey": null,
+        "kind": "single_choice",
+        "payload": {
+          "options": [
+            {
+              "key": "archivo",
+              "text": "archivo"
+            },
+            {
+              "key": "alarma",
+              "text": "alarma"
+            },
+            {
+              "key": "pantalla",
+              "text": "pantalla"
+            }
+          ],
+          "correctKey": "archivo",
+          "distractorFeedback": {
+            "alarma": "Has aplicado la rama e=1 a un interruptor cero: aquí corresponde archivo.",
+            "pantalla": "La rama pantalla necesita e=1 y azul/verde; aquí e=0 obliga a archivo."
+          }
+        }
+      },
+      {
+        "key": "orden-compuertas",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "retrieve",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "diagram",
+        "equivalenceKey": "orden-compuertas",
+        "hints": [],
+        "use": "gate",
+        "prompt": "Ordena las tres operaciones para ejecutar el circuito desde n hasta destino.",
+        "feedback": {
+          "explanation": "C requiere el residuo producido por N, y E requiere el color producido por C. El interruptor se utiliza en E.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "sequence",
+        "payload": {
+          "items": [
+            {
+              "key": "e",
+              "text": "E recibe c y e, y decide el destino."
+            },
+            {
+              "key": "n",
+              "text": "N calcula r desde n."
+            },
+            {
+              "key": "c",
+              "text": "C transforma r en color."
+            }
+          ],
+          "acceptedOrders": [
+            [
+              "n",
+              "c",
+              "e"
+            ]
+          ],
+          "whyActivityKey": "elaboracion-perdida-informacion"
+        }
+      },
+      {
+        "key": "datos-insuficientes",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "apply",
+        "required": true,
+        "sourceKeys": [
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "case",
+        "equivalenceKey": "datos-insuficientes",
+        "hints": [],
+        "use": "gate",
+        "prompt": "Caso de registro incompleto: r=1, pero e no está registrado. Escribe «indeterminada» si la salida no puede decidirse.",
+        "feedback": {
+          "explanation": "r=1 implica verde. Con e=0 sería archivo y con e=1 pantalla: falta e para elegir.",
+          "commonError": "",
+          "sourceKeys": [
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "short_answer",
+        "payload": {
+          "acceptedAnswers": [
+            "indeterminada",
+            "no se puede determinar",
+            "no puede determinarse"
+          ],
+          "maxChars": 100,
+          "modelAnswer": "indeterminada",
+          "normalization": "nfkc-lower-space"
+        }
+      },
+      {
+        "key": "remediar-cociente",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "remediate",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion"
+        ],
+        "representation": "text",
+        "equivalenceKey": "remediar-cociente",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Lee la explicación del circuito ficticio Neral.",
+        "feedback": {
+          "explanation": "Revisa la división 9=4×2+1. El 2 cuenta grupos de cuatro y se descarta. La salida de N es el resto 1, siempre dentro de {0,1,2,3}. Después verifica de nuevo mediante calculo-residuo.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "study",
+        "payload": {
+          "body": "Revisa la división 9=4×2+1. El 2 cuenta grupos de cuatro y se descarta. La salida de N es el resto 1, siempre dentro de {0,1,2,3}. Después verifica de nuevo mediante calculo-residuo.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "worked_example",
+          "videoRange": null
+        }
+      },
+      {
+        "key": "remediar-interruptor",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "remediate",
+        "required": true,
+        "sourceKeys": [
+          "enrutamiento"
+        ],
+        "representation": "text",
+        "equivalenceKey": "remediar-interruptor",
+        "hints": [],
+        "use": "learning",
+        "prompt": "Lee la explicación del circuito ficticio Neral.",
+        "feedback": {
+          "explanation": "Antes de clasificar el color en E, lee el interruptor. Si e=0, detente en archivo. Solo con e=1 separa azul/verde de ámbar/rojo. Verifica esta confusión con interruptor-cero.",
+          "commonError": "",
+          "sourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "study",
+        "payload": {
+          "body": "Antes de clasificar el color en E, lee el interruptor. Si e=0, detente en archivo. Solo con e=1 separa azul/verde de ámbar/rojo. Verifica esta confusión con interruptor-cero.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "explanation",
+          "videoRange": null
+        }
+      },
+      {
+        "key": "reserva-final-trazas",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "apply",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "table",
+        "equivalenceKey": "reserva-final-trazas",
+        "hints": [],
+        "use": "final",
+        "prompt": "Empareja entradas completas con su traza r/color/destino. Calcula sin ayuda los tres pasos.",
+        "feedback": {
+          "explanation": "8 mod 4=0: azul/pantalla; 11 mod 4=3: rojo/alarma; 6 mod 4=2: ámbar/archivo por e=0. Son las tres trazas completas de la guía.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "match",
+        "payload": {
+          "presentation": "comparison_table",
+          "prompts": [
+            {
+              "key": "a",
+              "text": "n=8,e=1"
+            },
+            {
+              "key": "b",
+              "text": "n=11,e=1"
+            },
+            {
+              "key": "c",
+              "text": "n=6,e=0"
+            }
+          ],
+          "choices": [
+            {
+              "key": "a",
+              "text": "0 / azul / pantalla"
+            },
+            {
+              "key": "b",
+              "text": "3 / rojo / alarma"
+            },
+            {
+              "key": "c",
+              "text": "2 / ámbar / archivo"
+            }
+          ],
+          "correctByPrompt": {
+            "a": "a",
+            "b": "b",
+            "c": "c"
+          },
+          "allowReuse": false,
+          "edges": []
+        }
+      },
+      {
+        "key": "reserva-retencion-cambios",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "apply",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "table",
+        "equivalenceKey": "reserva-retencion-cambios",
+        "hints": [],
+        "use": "retention7",
+        "prompt": "Desde (n=4,e=1), clasifica cada perturbación por lo que cambia en r, color y destino.",
+        "feedback": {
+          "explanation": "Sumar cuatro conserva r. De 4 a 5, r pasa 0→1 y color azul→verde, ambos en pantalla con e=1. Cambiar solo e a 0 conserva r/color y dirige a archivo.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "match",
+        "payload": {
+          "presentation": "comparison_table",
+          "prompts": [
+            {
+              "key": "mas-cuatro",
+              "text": "Cambiar a n=8,e=1"
+            },
+            {
+              "key": "mas-uno",
+              "text": "Cambiar a n=5,e=1"
+            },
+            {
+              "key": "apagado",
+              "text": "Cambiar a n=4,e=0"
+            }
+          ],
+          "choices": [
+            {
+              "key": "igual",
+              "text": "Nada cambia en r, color ni destino"
+            },
+            {
+              "key": "interno",
+              "text": "Cambian r y color; se conserva pantalla"
+            },
+            {
+              "key": "destino",
+              "text": "Se conservan r y color; cambia destino a archivo"
+            }
+          ],
+          "correctByPrompt": {
+            "mas-cuatro": "igual",
+            "mas-uno": "interno",
+            "apagado": "destino"
+          },
+          "allowReuse": false,
+          "edges": []
+        }
+      },
+      {
+        "key": "reserva-retencion-auditoria",
+        "objectiveKey": "integrar-neral",
+        "relatedObjectiveKeys": [],
+        "phase": "apply",
+        "required": true,
+        "sourceKeys": [
+          "normalizacion",
+          "codificacion",
+          "enrutamiento"
+        ],
+        "representation": "case",
+        "equivalenceKey": "reserva-retencion-auditoria",
+        "hints": [],
+        "use": "retention30",
+        "prompt": "Audita este registro: A: n=2,r=2,c=ámbar,e=1,alarma; B: n=3,r=3,c=rojo,e=0,alarma; C: n=4,r=0,c=azul,e=1,pantalla; D: n=5,r=1,c=verde,e=1,pantalla. ¿Qué reparación restaura las reglas?",
+        "feedback": {
+          "explanation": "B tiene normalización y color correctos; su e=0 exige archivo. A,C,D son consistentes con las tres reglas. r=4 sería error de interfaz.",
+          "commonError": "",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        "misconceptionMappings": [],
+        "alternativeActivityKey": null,
+        "kind": "single_choice",
+        "payload": {
+          "options": [
+            {
+              "key": "b",
+              "text": "En B cambiar únicamente destino a archivo"
+            },
+            {
+              "key": "a",
+              "text": "En A cambiar únicamente destino a pantalla"
+            },
+            {
+              "key": "c",
+              "text": "En C cambiar únicamente r a 4"
+            },
+            {
+              "key": "d",
+              "text": "En D cambiar únicamente color a rojo"
+            }
+          ],
+          "correctKey": "b",
+          "distractorFeedback": {
+            "a": "Ámbar con e=1 exige alarma, ya registrada correctamente.",
+            "c": "N nunca produce r=4; C tiene r=0 correcto.",
+            "d": "r=1 se codifica verde, no rojo."
+          }
+        }
+      }
+    ],
+    "assessments": [
+      {
+        "key": "diagnostico",
+        "kind": "diagnostic",
+        "afterUnitKey": null,
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "candidateActivityKeys": [
+          "diagnostico-residuo"
+        ],
+        "thresholdPercent": 80,
+        "thresholdRationale": "Diagnóstico optativo y de bajo riesgo; el campo 80 no funciona como gate."
+      },
+      {
+        "key": "gate-circuito",
+        "kind": "unit_gate",
+        "afterUnitKey": "circuito-neral",
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "candidateActivityKeys": [
+          "calculo-residuo",
+          "tabla-colores",
+          "interruptor-cero",
+          "orden-compuertas",
+          "datos-insuficientes"
+        ],
+        "thresholdPercent": 80,
+        "thresholdRationale": "Umbral editorial 80 de la política guided-v2.0 para este circuito sintético; no acredita eficacia educativa universal."
+      },
+      {
+        "key": "final",
+        "kind": "final",
+        "afterUnitKey": null,
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "candidateActivityKeys": [
+          "reserva-final-trazas"
+        ],
+        "thresholdPercent": 80,
+        "thresholdRationale": "Umbral editorial 80 de la política guided-v2.0 para este circuito sintético; no acredita eficacia educativa universal."
+      },
+      {
+        "key": "retencion-siete",
+        "kind": "retention7",
+        "afterUnitKey": null,
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "candidateActivityKeys": [
+          "reserva-retencion-cambios"
+        ],
+        "thresholdPercent": 80,
+        "thresholdRationale": "Umbral editorial 80 de la política guided-v2.0 para este circuito sintético; no acredita eficacia educativa universal."
+      },
+      {
+        "key": "retencion-treinta",
+        "kind": "retention30",
+        "afterUnitKey": null,
+        "objectiveKeys": [
+          "integrar-neral"
+        ],
+        "candidateActivityKeys": [
+          "reserva-retencion-auditoria"
+        ],
+        "thresholdPercent": 80,
+        "thresholdRationale": "Umbral editorial 80 de la política guided-v2.0 para este circuito sintético; no acredita eficacia educativa universal."
+      }
+    ],
+    "reviewPlan": {
+      "objectiveKeys": [
+        "integrar-neral"
+      ]
+    },
+    "editorial": {
+      "notes": "Guía íntegra versión 1, fixture T045, única fuente; fragmentos provided sin revisión externa. Una unidad integra las tres compuertas porque la capacidad observable es calcular/comprobar el circuito; CORE es indispensable para el único recorrido, sin objetivos redundantes. No hay dependencias entre objetivos (DAG de un nodo); el orden causal N→C→E sí se enseña. Cinco demandas iniciales: residuo, tabla de codificación, prioridad del interruptor, orden y suficiencia de datos. Las reservas cambian la demanda: trazas completas, clasificación de perturbaciones y auditoría de un registro multivariable. Todas tienen claves de familia exclusivas; variantes solo numéricas no se presentan como familias adicionales. Dos misconceptions críticas derivan de confusiones de las reglas expresas y tienen remediación/verificación inicial. Diagnóstico optativo breve por un solo CORE raíz. Una unidad no necesita checkpoint separado. coverKey heart es una opción de enum sin significado médico y requiere valoración editorial. Cero assets; tablas representadas como texto/pares. Contrato aceptado provisionalmente con excepción del usuario; Q19/V04, Narrator y discrepancia manual continúan NO VERIFICADO. Catálogo, aprobación editorial del hash, importación y publicación siguen pendientes.",
+      "unresolvedIssues": []
+    }
+  },
+  "contentHash": "b0da48ab2a4c4c17dea98d0d3b297e1ee024345493582f9853463334962afc95",
+  "rawContentHash": "af798fd4c798d9575ea7d200a2a43d88cf5ea250251da0f2bb8c7b2554024790",
+  "rawPortable": {
+    "scope": "portable",
+    "valid": true,
+    "publishable": true,
+    "issues": [
+      {
+        "code": "OBJECTIVE_COVERAGE",
+        "severity": "warning",
+        "path": "/assessments",
+        "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+        "suggestedFix": "Registra esta limitación editorial."
+      }
+    ]
+  },
+  "roundtrip": true,
+  "importReplay": true,
+  "database": "koraz_guided_v2_test_249cc4ff705c49da90b3fe620a261669"
+}

@@ -1,0 +1,335 @@
+{
+  "status": "PASS",
+  "node": "v24.19.0",
+  "checksCount": 7,
+  "checks": [
+    {
+      "case": "synthetic",
+      "publish": false,
+      "expectedExit": 0,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/synthetic/round-2/output/ruta.koraz-route.json",
+      "inputSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\synthetic\\round-2\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\synthetic\\round-2\\output\\ruta.koraz-route.json",
+      "exitCode": 0,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":true,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"warning\",\"path\":\"/assessments\",\"message\":\"Diagnóstico limitado por una ruta con menos de cuatro objetivos.\",\"suggestedFix\":\"Registra esta limitación editorial.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "case": "synthetic",
+      "publish": true,
+      "expectedExit": 0,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/synthetic/round-2/output/ruta.koraz-route.json",
+      "inputSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\synthetic\\round-2\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs --publish D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\synthetic\\round-2\\output\\ruta.koraz-route.json",
+      "exitCode": 0,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":true,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"warning\",\"path\":\"/assessments\",\"message\":\"Diagnóstico limitado por una ruta con menos de cuatro objetivos.\",\"suggestedFix\":\"Registra esta limitación editorial.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "case": "pilot",
+      "publish": false,
+      "expectedExit": 0,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/pilot/round-3/output/ruta.koraz-route.json",
+      "inputSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-3\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-3\\output\\ruta.koraz-route.json",
+      "exitCode": 0,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":false,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/editorial/unresolvedIssues\",\"message\":\"Hay incidencias editoriales abiertas.\",\"suggestedFix\":\"Resuelve cada incidencia antes de publicar.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      }
+    },
+    {
+      "case": "pilot",
+      "publish": true,
+      "expectedExit": 1,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/pilot/round-3/output/ruta.koraz-route.json",
+      "inputSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-3\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs --publish D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\round-3\\output\\ruta.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":false,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/editorial/unresolvedIssues\",\"message\":\"Hay incidencias editoriales abiertas.\",\"suggestedFix\":\"Resuelve cada incidencia antes de publicar.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      }
+    },
+    {
+      "case": "adversarial",
+      "publish": false,
+      "expectedExit": 0,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/adversarial/output/ruta.koraz-route.json",
+      "inputSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json",
+      "exitCode": 0,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":false,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/editorial/unresolvedIssues\",\"message\":\"Hay incidencias editoriales abiertas.\",\"suggestedFix\":\"Resuelve cada incidencia antes de publicar.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.\",\"suggestedFix\":\"Añade las fases que faltan con respuesta explícita donde corresponde.\"},{\"code\":\"BANK_TOO_SMALL\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.\",\"suggestedFix\":\"Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.\",\"suggestedFix\":\"Añade una familia exclusiva para cada evaluación reservada.\"},{\"code\":\"CRITICAL_GATE_MISSING\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"CORE identificar-compartimentos no tiene comprobación objetiva en su gate.\",\"suggestedFix\":\"Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad.\"},{\"code\":\"ASSET_REQUIRED\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"La identificación espacial requiere una imagen revisada.\",\"suggestedFix\":\"Añade image_target con asset y alternativa accesible.\"},{\"code\":\"CRITICAL_GATE_MISSING\",\"severity\":\"error\",\"path\":\"/units/0\",\"message\":\"El gate de organizacion no comprueba identificar-compartimentos.\",\"suggestedFix\":\"Incluye un ítem objetivo de cada objetivo requerido de la unidad.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación final no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación retention7 no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación retention30 no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.\",\"suggestedFix\":\"Ajusta el banco diagnóstico de raíces CORE.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"El diagnóstico no cubre todos los CORE raíz de esta ruta corta.\",\"suggestedFix\":\"Añade un ítem diagnóstico por cada CORE raíz disponible.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      }
+    },
+    {
+      "case": "adversarial",
+      "publish": true,
+      "expectedExit": 1,
+      "input": "docs/aprendizaje-guiado/v2/evidencias/T045/cases/adversarial/output/ruta.koraz-route.json",
+      "inputSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --permission --allow-fs-read=C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz --allow-fs-read=D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs --publish D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\adversarial\\output\\ruta.koraz-route.json",
+      "exitCode": 1,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":false,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/editorial/unresolvedIssues\",\"message\":\"Hay incidencias editoriales abiertas.\",\"suggestedFix\":\"Resuelve cada incidencia antes de publicar.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.\",\"suggestedFix\":\"Añade las fases que faltan con respuesta explícita donde corresponde.\"},{\"code\":\"BANK_TOO_SMALL\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.\",\"suggestedFix\":\"Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.\",\"suggestedFix\":\"Añade una familia exclusiva para cada evaluación reservada.\"},{\"code\":\"CRITICAL_GATE_MISSING\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"CORE identificar-compartimentos no tiene comprobación objetiva en su gate.\",\"suggestedFix\":\"Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad.\"},{\"code\":\"ASSET_REQUIRED\",\"severity\":\"error\",\"path\":\"/objectives/0\",\"message\":\"La identificación espacial requiere una imagen revisada.\",\"suggestedFix\":\"Añade image_target con asset y alternativa accesible.\"},{\"code\":\"CRITICAL_GATE_MISSING\",\"severity\":\"error\",\"path\":\"/units/0\",\"message\":\"El gate de organizacion no comprueba identificar-compartimentos.\",\"suggestedFix\":\"Incluye un ítem objetivo de cada objetivo requerido de la unidad.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación final no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación retention7 no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"RESERVE_LEAK\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"La evaluación retention30 no cubre identificar-compartimentos.\",\"suggestedFix\":\"Añade una reserva objetiva de ese objetivo.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.\",\"suggestedFix\":\"Ajusta el banco diagnóstico de raíces CORE.\"},{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"error\",\"path\":\"/assessments\",\"message\":\"El diagnóstico no cubre todos los CORE raíz de esta ruta corta.\",\"suggestedFix\":\"Añade un ítem diagnóstico por cada CORE raíz disponible.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      }
+    },
+    {
+      "case": "installed-example-from-unrelated-cwd",
+      "command": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\scripts\\validate-route.mjs --publish C:\\Users\\josed\\.codex\\skills\\crear-rutas-koraz\\assets\\ejemplo-valido.koraz-route.json",
+      "exitCode": 0,
+      "stdout": "{\"scope\":\"portable\",\"valid\":true,\"publishable\":true,\"issues\":[{\"code\":\"OBJECTIVE_COVERAGE\",\"severity\":\"warning\",\"path\":\"/assessments\",\"message\":\"Diagnóstico limitado por una ruta con menos de cuatro objetivos.\",\"suggestedFix\":\"Registra esta limitación editorial.\"}]}\n",
+      "stderr": "",
+      "output": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    }
+  ],
+  "portableOnly": true,
+  "backendInvoked": false,
+  "writesToInputs": false
+}

@@ -1,0 +1,299 @@
+{
+  "scope": "Inspección de diseño local por familias; no ejecución del motor, reloj, dominio ni consolidación",
+  "packageSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+  "windows": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "initialFamilies": [
+        "arterias-r1",
+        "arterias-r2",
+        "arterias-r3",
+        "arterias-a1",
+        "arterias-a2"
+      ],
+      "retention7": [
+        {
+          "key": "arterias-r7",
+          "phase": "retrieve"
+        }
+      ],
+      "retention30": [
+        {
+          "key": "arterias-r30",
+          "phase": "retrieve"
+        }
+      ],
+      "stages": [
+        {
+          "after": "arterias-a2",
+          "retrievalFamilies": [
+            "arterias-r1",
+            "arterias-r2",
+            "arterias-r3"
+          ],
+          "applicationFamilies": [
+            "arterias-a1",
+            "arterias-a2"
+          ]
+        },
+        {
+          "after": "arterias-final",
+          "retrievalFamilies": [
+            "arterias-r2",
+            "arterias-r3",
+            "arterias-final"
+          ],
+          "applicationFamilies": [
+            "arterias-a1",
+            "arterias-a2"
+          ]
+        },
+        {
+          "after": "arterias-r7",
+          "retrievalFamilies": [
+            "arterias-r3",
+            "arterias-final",
+            "arterias-r7"
+          ],
+          "applicationFamilies": [
+            "arterias-a1",
+            "arterias-a2"
+          ]
+        },
+        {
+          "after": "arterias-r30",
+          "retrievalFamilies": [
+            "arterias-final",
+            "arterias-r7",
+            "arterias-r30"
+          ],
+          "applicationFamilies": [
+            "arterias-a1",
+            "arterias-a2"
+          ]
+        }
+      ],
+      "keepsTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "retorno-sistemico",
+      "initialFamilies": [
+        "cava-r1",
+        "cava-r2",
+        "cava-r3",
+        "cava-a1",
+        "cava-a3"
+      ],
+      "retention7": [
+        {
+          "key": "cava-r7",
+          "phase": "retrieve"
+        }
+      ],
+      "retention30": [
+        {
+          "key": "cava-r30",
+          "phase": "retrieve"
+        }
+      ],
+      "stages": [
+        {
+          "after": "cava-a3",
+          "retrievalFamilies": [
+            "cava-r1",
+            "cava-r3"
+          ],
+          "applicationFamilies": [
+            "cava-a1",
+            "cava-r2",
+            "cava-a3"
+          ]
+        },
+        {
+          "after": "cava-final",
+          "retrievalFamilies": [
+            "cava-r3",
+            "cava-final"
+          ],
+          "applicationFamilies": [
+            "cava-a1",
+            "cava-r2",
+            "cava-a3"
+          ]
+        },
+        {
+          "after": "cava-r7",
+          "retrievalFamilies": [
+            "cava-final",
+            "cava-r7"
+          ],
+          "applicationFamilies": [
+            "cava-a1",
+            "cava-r2",
+            "cava-a3"
+          ]
+        },
+        {
+          "after": "cava-r30",
+          "retrievalFamilies": [
+            "cava-final",
+            "cava-r7",
+            "cava-r30"
+          ],
+          "applicationFamilies": [
+            "cava-r2",
+            "cava-a3"
+          ]
+        }
+      ],
+      "keepsTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "retorno-portal",
+      "initialFamilies": [
+        "porta-r1",
+        "porta-r2",
+        "porta-r3",
+        "porta-a1",
+        "porta-r4"
+      ],
+      "retention7": [
+        {
+          "key": "porta-r7",
+          "phase": "retrieve"
+        }
+      ],
+      "retention30": [
+        {
+          "key": "porta-r30",
+          "phase": "retrieve"
+        }
+      ],
+      "stages": [
+        {
+          "after": "porta-r4",
+          "retrievalFamilies": [
+            "porta-r1",
+            "porta-r2",
+            "porta-r3",
+            "porta-r4"
+          ],
+          "applicationFamilies": [
+            "porta-a1"
+          ]
+        },
+        {
+          "after": "porta-final",
+          "retrievalFamilies": [
+            "porta-r2",
+            "porta-r3",
+            "porta-r4",
+            "porta-final"
+          ],
+          "applicationFamilies": [
+            "porta-a1"
+          ]
+        },
+        {
+          "after": "porta-r7",
+          "retrievalFamilies": [
+            "porta-r3",
+            "porta-r4",
+            "porta-final",
+            "porta-r7"
+          ],
+          "applicationFamilies": [
+            "porta-a1"
+          ]
+        },
+        {
+          "after": "porta-r30",
+          "retrievalFamilies": [
+            "porta-r4",
+            "porta-final",
+            "porta-r7",
+            "porta-r30"
+          ],
+          "applicationFamilies": [
+            "porta-a1"
+          ]
+        }
+      ],
+      "keepsTwoRetrievalAndApplication": true
+    },
+    {
+      "objectiveKey": "tipos-comunicacion",
+      "initialFamilies": [
+        "comunicaciones-r1",
+        "comunicaciones-r2",
+        "comunicaciones-r3",
+        "comunicaciones-a1",
+        "comunicaciones-a2"
+      ],
+      "retention7": [
+        {
+          "key": "comunicaciones-r7",
+          "phase": "retrieve"
+        }
+      ],
+      "retention30": [
+        {
+          "key": "comunicaciones-r30",
+          "phase": "retrieve"
+        }
+      ],
+      "stages": [
+        {
+          "after": "comunicaciones-a2",
+          "retrievalFamilies": [
+            "comunicaciones-r1",
+            "comunicaciones-r2",
+            "comunicaciones-r3"
+          ],
+          "applicationFamilies": [
+            "comunicaciones-a1",
+            "comunicaciones-a2"
+          ]
+        },
+        {
+          "after": "comunicaciones-final",
+          "retrievalFamilies": [
+            "comunicaciones-r2",
+            "comunicaciones-r3",
+            "comunicaciones-final"
+          ],
+          "applicationFamilies": [
+            "comunicaciones-a1",
+            "comunicaciones-a2"
+          ]
+        },
+        {
+          "after": "comunicaciones-r7",
+          "retrievalFamilies": [
+            "comunicaciones-r3",
+            "comunicaciones-final",
+            "comunicaciones-r7"
+          ],
+          "applicationFamilies": [
+            "comunicaciones-a1",
+            "comunicaciones-a2"
+          ]
+        },
+        {
+          "after": "comunicaciones-r30",
+          "retrievalFamilies": [
+            "comunicaciones-final",
+            "comunicaciones-r7",
+            "comunicaciones-r30"
+          ],
+          "applicationFamilies": [
+            "comunicaciones-a1",
+            "comunicaciones-a2"
+          ]
+        }
+      ],
+      "keepsTwoRetrievalAndApplication": true
+    }
+  ],
+  "allPass": true
+}

@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "result": {
+    "status": 200,
+    "value": {
+      "previewId": "7812f0b1-e9fb-4744-a8d4-e294b7a5d7e2",
+      "activeActivity": {
+        "key": "diagnostico-preservacion",
+        "objectiveKey": "integrar-circuito",
+        "phase": "activate",
+        "representation": "text",
+        "prompt": "Sin ayuda: además de decidir destino, ¿qué variables de entrada altera E?",
+        "kind": "single_choice",
+        "payload": {
+          "options": [
+            {
+              "key": "ninguna",
+              "text": "No altera n, r ni c"
+            },
+            {
+              "key": "residuo",
+              "text": "Recalcula r"
+            },
+            {
+              "key": "color",
+              "text": "Cambia c"
+            }
+          ]
+        }
+      },
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "warning",
+          "path": "/assessments",
+          "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+          "suggestedFix": "Registra esta limitación editorial."
+        }
+      ],
+      "expiresAt": "2026-10-11T03:50:54.079Z"
+    }
+  },
+  "createsLearnerEnrollment": false
+}

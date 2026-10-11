@@ -1,0 +1,20 @@
+import { test, expect } from '../../../apps/web/node_modules/@playwright/test/index.mjs';
+import { randomUUID } from 'node:crypto';
+test('S07 actual signed Better Auth cookie expires and BFF rejects exact replay without writes',async({request},info)=>{
+  const api='http://127.0.0.1:41043',web='http://127.0.0.1:31043';
+  const ready=await(await request.get(api+'/__test/ready')).json();expect(ready.realBetterAuth).toBe(true);
+  const issued=await(await request.post(api+'/__test/signup',{data:{}})).json();
+  const headers={cookie:issued.cookie,origin:web,'idempotency-key':randomUUID()};
+  const url=web+'/api/v2/guided-learning/enrollments',data={pathId:ready.pathId};
+  const accepted=await request.post(url,{headers,data});expect(accepted.status()).toBe(200);
+  const first=await accepted.json();
+  const replay=await request.post(url,{headers,data});expect(replay.status()).toBe(200);expect(await replay.json()).toEqual(first);
+  const before=await(await request.get(api+'/__test/fingerprint')).json();
+  const expiry=await request.post(api+'/__test/expire',{data:{userId:issued.userId}});expect(expiry.status()).toBe(200);
+  const expiredAt=await expiry.text();
+  await expect.poll(async()=>Date.now(),{timeout:5000}).toBeGreaterThan(Date.parse(expiredAt)+100);
+  const denied=await request.post(url,{headers,data});expect(denied.status()).toBe(401);
+  const deniedApi=await request.post(api+'/v2/guided-learning/enrollments',{headers,data});expect(deniedApi.status()).toBe(401);
+  expect(await(await request.get(api+'/__test/fingerprint')).json()).toEqual(before);
+  await info.attach('actual-session-expiry.json',{body:JSON.stringify({issuedBy:'createBetterAuthService',accepted:200,replay:200,expiredAt,bffAfterExpiry:401,apiAfterExpiry:401,learningTablesUnchanged:true}),contentType:'application/json'});
+});

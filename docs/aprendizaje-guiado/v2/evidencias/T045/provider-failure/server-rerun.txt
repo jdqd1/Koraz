@@ -1,0 +1,46 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+error: invalid input syntax for type json
+    at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\client.js:694:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async PostgresConnection.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:113:28)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+    at async #run (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16)
+    at async DefaultQueryExecutor.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28)
+    at async InsertQueryBuilder.execute (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24)
+    at async InsertQueryBuilder.executeTakeFirst (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1113:26)
+    at async InsertQueryBuilder.executeTakeFirstOrThrow (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1122:24)
+    at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\src\providers\postgres-guided-learning-v2.ts:572:27)
+    at PostgresConnection.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/dialect/postgres/postgres-driver.js:126:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24
+    at async #run (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/driver/single-connection-provider.js:24:16)
+    at async DefaultQueryExecutor.executeQuery (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28)
+    at async InsertQueryBuilder.execute (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1101:24)
+    at async InsertQueryBuilder.executeTakeFirst (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1113:26)
+    at async InsertQueryBuilder.executeTakeFirstOrThrow (file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/query-builder/insert-query-builder.js:1122:24)
+    at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\src\providers\postgres-guided-learning-v2.ts:572:27)
+    at async file:///D:/Jose%20(Datos)/Medicina/CEDIAH/Web/node_modules/.pnpm/kysely@0.29.5/node_modules/kysely/dist/kysely.js:680:32 {
+  length: 242,
+  severity: 'ERROR',
+  code: '22P02',
+  detail: 'Expected ":", but found ",".',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: 'JSON data, line 1: ...Fix\\":\\"Registra esta limitación editorial.\\"}",...\n' +
+    "unnamed portal parameter $9 = '...'",
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'jsonfuncs.c',
+  line: '661',
+  routine: 'json_errsave_error'
+}
+
+Node.js v24.19.0

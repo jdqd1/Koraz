@@ -1,0 +1,326 @@
+{
+  "status": "FAIL",
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'maintenance'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'maintenance'\n\n    at <anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t041\\recovery.mts:203:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "checks": [
+    {
+      "name": "nonempty-v1-v2-history-responses-agenda-and-sources",
+      "status": "PASS",
+      "detail": {
+        "public.audit_log": {
+          "count": 5,
+          "sha256": "e1652448ced27b9a679718e3687fd956719febbeb91daeb5cda32571ee18f5a3"
+        },
+        "public.auth_accounts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_rate_limits": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_sessions": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_users": {
+          "count": 9,
+          "sha256": "a2cf6df2069ad203afad7cba32f59edd63d252f2976728aa93368978f8306348"
+        },
+        "public.auth_verifications": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.cediah_schema_migration_exclusions": {
+          "count": 1,
+          "sha256": "c3d1cf4fcdda14f41bced82f9f0d09a06fa847100e07e94166a9d859703e41bf"
+        },
+        "public.cediah_schema_migrations": {
+          "count": 34,
+          "sha256": "95bfabb78982fce74744b7ac30cebbb901a963bc5bb8240b429b6a1c58e3cebe"
+        },
+        "public.content_assets": {
+          "count": 1,
+          "sha256": "5a4cb831a209434a3f068c6d9699d4528791985de5de7b03c5f33b398558edcc"
+        },
+        "public.content_items": {
+          "count": 2,
+          "sha256": "59afe0b20e46c0e5cc66a832df40b1c674b329e5adadef182372c3311f4d4fc1"
+        },
+        "public.content_reaction_counts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_reactions": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_subjects": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topic_item_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topic_subjects": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topics": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_view_counts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_view_receipts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.course_modules": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.course_resources": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.courses": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.enrollments": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_sections": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_term_manifests": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_term_reindex_queue": {
+          "count": 1,
+          "sha256": "99883f9267b3914cd65efb43094ad7cf23e92bc583e129bd2b5aae9b75ddc184"
+        },
+        "public.guide_term_usage": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_term_aliases": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_term_dictionary_state": {
+          "count": 1,
+          "sha256": "de1aa462b6718a3bb6640f726ffb6311dd5b16010399caa054db4653215c837e"
+        },
+        "public.interactive_term_links": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_terms": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_attempts": {
+          "count": 4,
+          "sha256": "e32876f463231bc4cd67a7b167c24635301da77da75a86c66d6f9e5f2c0fc875"
+        },
+        "public.learning_enrollment_versions": {
+          "count": 5,
+          "sha256": "7740b3db021a3e51e7c7a8e0057a4b6c3bd2c7d4470579ac0caaa6205f5915fd"
+        },
+        "public.learning_enrollments": {
+          "count": 5,
+          "sha256": "44ac27b1d043f2cfc6340863f4ab00fc58dacb18a9c893fc28f30db547df52c0"
+        },
+        "public.learning_events": {
+          "count": 33,
+          "sha256": "dd7f193c7eeaa13af745c181c19a5da83bda178999201a942ca43f1b9652b983"
+        },
+        "public.learning_items": {
+          "count": 5,
+          "sha256": "3fab6ed55deaaa95e0836b7010e80f5a535675193ff5fdaaad3f3c17c99544d9"
+        },
+        "public.learning_map_entries": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_map_layouts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_map_nodes": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_maps": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_mutation_receipts": {
+          "count": 42,
+          "sha256": "618c65108353d84ca21dc91d30f06f99a16bad599b3448dffd7a0fadef0a7a0e"
+        },
+        "public.learning_objective_progress": {
+          "count": 2,
+          "sha256": "2c07e36a09445b9263905700848ce92dbf3f2a86dc27191357f001f2606edfd6"
+        },
+        "public.learning_path_steps": {
+          "count": 2,
+          "sha256": "ed4fc19712d2363d2f23051b31e3d1d9c221f74a70537ab0fbc7bfb217299bfe"
+        },
+        "public.learning_path_units": {
+          "count": 1,
+          "sha256": "77d6fe03c7d372200ec6237bd84d673e089cdd30376d556f33684a622d8b61cb"
+        },
+        "public.learning_path_versions": {
+          "count": 2,
+          "sha256": "3552cb8b0667256a23e0db59725ef3d660e556b2f3f89e5ad7166695aaa757ed"
+        },
+        "public.learning_paths": {
+          "count": 2,
+          "sha256": "89b5d1c0a023693f19cc0a04c407b6116059f930f1c7966379c1ef13888072e8"
+        },
+        "public.learning_preferences": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_resource_revisions": {
+          "count": 3,
+          "sha256": "4a6f310530e85868b60468a1a006f83d503541093b23f5fd814cf36355cb7a8f"
+        },
+        "public.learning_resources": {
+          "count": 2,
+          "sha256": "33196e550c22d7b0d63258d528436284275a1c6d1ecb88c106f8ae3eb24a09c9"
+        },
+        "public.learning_responses": {
+          "count": 10,
+          "sha256": "1a72a44153a1202ec4bd56a76b85b11db88c17c1374964cc167f1648b057c8f9"
+        },
+        "public.learning_review_states": {
+          "count": 10,
+          "sha256": "5783ebd1f4baea3439636f3002fe3a9d793a7bbb11f06f1c055411d56c578690"
+        },
+        "public.learning_rewards": {
+          "count": 6,
+          "sha256": "5f9534fad04f459e5789f03604b79d5e891768aa405a4cfaf2fdb7b911ff1a24"
+        },
+        "public.learning_step_options": {
+          "count": 2,
+          "sha256": "c027e6d8b481ac5e696141718e911ab80de933af3f0b481e38690deea1cbfb80"
+        },
+        "public.learning_step_progress": {
+          "count": 4,
+          "sha256": "d3934cffdd7249e7355119c4841dea41fe1fd2fc60e133ff95348c176550ed67"
+        },
+        "public.learning_task_overrides": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_v2_activity_state": {
+          "count": 5,
+          "sha256": "a6d7a65a69b34ba3bc19808ae39887407d1f323946ec1194b9cebfae12451c1d"
+        },
+        "public.learning_v2_attempts": {
+          "count": 7,
+          "sha256": "37d1fff03fdcea98bd13f442f08a012b3c26d7681de8dba99b54b2d1d68a6acc"
+        },
+        "public.learning_v2_bindings": {
+          "count": 3,
+          "sha256": "b47393ef689e5716692bd4bd2f3e864945b03edceb43c79c98b63bf91ea3593c"
+        },
+        "public.learning_v2_imports": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_v2_objective_state": {
+          "count": 3,
+          "sha256": "083d3bb69e08442bda80f11c21c54f3d9a4e0517222f8e2facee6910d3e6cee5"
+        },
+        "public.learning_v2_responses": {
+          "count": 5,
+          "sha256": "648823d4086611159167add7d02c330c807bbb4ce4c596134554265498d78664"
+        },
+        "public.learning_v2_review_state": {
+          "count": 1,
+          "sha256": "a601797429df1340235b3133a8b17adbae5a04509fc6ca716e636c420830c4d1"
+        },
+        "public.lesson_progress": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.lessons": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.profiles": {
+          "count": 9,
+          "sha256": "e1b4feaf8817331f6adf41007ecdbc3cf71a1935a8d5d490633ad461dba467a8"
+        },
+        "public.subjects": {
+          "count": 5,
+          "sha256": "624f112216dab1f80e809e4126caf4c06caf3651e7f4f85a641de2de69b5fa7f"
+        },
+        "public.user_recent_guides": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.user_roles": {
+          "count": 10,
+          "sha256": "8f3cc490704ddf0ed8a09dbaef2ffdc8ec63105662a7dd98146c909233e11fb5"
+        }
+      }
+    },
+    {
+      "name": "pending-real-migrations-preserve-v1-v2-data",
+      "status": "PASS",
+      "detail": [
+        {
+          "fileName": "0035_guided_v2_media_access.sql",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "name": "failed-migration-rolls-back-DDL-data-and-ledger",
+      "status": "PASS",
+      "detail": {
+        "sqlState": "22012",
+        "allDataAndSchemaUnchanged": true
+      }
+    },
+    {
+      "name": "committed-fixture-incident-detected-by-hashes",
+      "status": "PASS",
+      "detail": {
+        "changedTables": [
+          "auth_users",
+          "learning_v2_review_state"
+        ]
+      }
+    },
+    {
+      "name": "different-database-full-restore-matches-all-table-hashes-schema-and-sequences",
+      "status": "PASS",
+      "detail": {
+        "source": "koraz_guided_v2_test_c1cef39d804a442eb469ef99be2dca6b",
+        "target": "koraz_guided_v2_test_ea04d9aec03c446ca360592e8c7e6a15",
+        "tables": 67
+      }
+    },
+    {
+      "name": "restored-database-migration-replay-and-checksums",
+      "status": "PASS",
+      "detail": {
+        "files": 36,
+        "noRepeatApplied": true
+      }
+    }
+  ]
+}

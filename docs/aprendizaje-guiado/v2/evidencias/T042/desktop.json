@@ -1,0 +1,189 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/t042/playwright.desktop.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\playwright.desktop.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t042\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T042/desktop-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "guided-v2-journeys.spec.ts"
+        ],
+        "timeout": 240000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T042\\desktop.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "guided-v2-journeys.spec.ts",
+      "file": "guided-v2-journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "E02 editorial preview has no learner effects, then publishes with current approval",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41780,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Preparing local route /panel/rutas/nueva?mode=v2\n"
+                    },
+                    {
+                      "text": "Preparing local route /panel/rutas/81cd5304-7063-43cc-8ccf-bcfd39c4e377\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/rutas/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /api/v2/guided-learning/paths/t035-small\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje?tab=hoy\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/mapa\n"
+                    },
+                    {
+                      "text": "Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:27:13.699Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-df97010ae10e154fc97f",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "E07 corrected and published route completes diagnosis, final and delayed review with reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 31061,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T22:27:59.457Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "complete-published-journey.json",
+                      "contentType": "application/json",
+                      "body": "eyJwYXRoVmVyc2lvbklkIjoiZmE3YTVjMjAtOTI0OC00OTIzLWEzMDMtYmRiOTBkZDI1NTMzIiwiYWN0aW9ucyI6WyJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJhY3Rpdml0eSIsImFjdGl2aXR5IiwiYWN0aXZpdHkiLCJnYXRlIl0sInNlc3Npb25zIjpbeyJhdHRlbXB0SWQiOiI2MDEzODFmZS04YTc0LTRkZTMtYjMyNy0wMTg0MjNjYjc5NDIiLCJwdXJwb3NlIjoiYXNzZXNzbWVudCIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJkaWFnbm9zdGljLTEiXX0seyJhdHRlbXB0SWQiOiI3NGI2OWI3Zi1iZWNmLTQxZTctOGJmMy0xN2RlZGJjYTNmZDQiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiY2hvaWNlLTEiXX0seyJhdHRlbXB0SWQiOiI3YWU3MTJiZi1iM2I4LTRiYzItYWExMS00YmRmODVhYTYwNWUiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsic2hvcnQtMSJdfSx7ImF0dGVtcHRJZCI6IjE1ODMxN2MyLTdhN2UtNGY5Zi05MzEwLTQyYjM4ZTk1YjVmMyIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJhcHBseS0xIl19LHsiYXR0ZW1wdElkIjoiMTRhOTMzYmMtZmMwYi00NmY2LWJmZmItNjMwMDJiNGUzMTQzIiwicHVycG9zZSI6ImFjdGl2aXR5Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbIm1hdGNoLTEiXX0seyJhdHRlbXB0SWQiOiJlNTUxNjg0Mi1jZDkxLTRjOWEtOTk2Mi1jZDljZTQ4MjgzMjQiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsic2VxdWVuY2UtMSJdfSx7ImF0dGVtcHRJZCI6IjkyZGU5MGE2LWI4YWMtNDJkNC04Y2NiLTA2YjExMTU5NDg3NyIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJpbWFnZS0xIl19LHsiYXR0ZW1wdElkIjoiZjE0ZTVhNWItZDhmMC00YmNhLTkxYTYtMzFlZjVkNjI4MTgyIiwicHVycG9zZSI6ImFjdGl2aXR5Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbInN0dWR5LTEiXX0seyJhdHRlbXB0SWQiOiJhNDAwYmM4Ni0zMmJjLTRiOWEtYTEzYi01Yjc5MjliMDI3YTIiLCJwdXJwb3NlIjoiYWN0aXZpdHkiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiY29uc3RydWN0ZWQtMSJdfSx7ImF0dGVtcHRJZCI6IjQyM2VkMWJjLTcwOWMtNDc3Zi1hMzlkLTVjOThmNGNhMzJkNSIsInB1cnBvc2UiOiJhY3Rpdml0eSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImFjY2VwdGVkS2V5cyI6WyJjYXNlLWNob2ljZS0xIiwiY2FzZS1zaG9ydC0xIl19LHsiYXR0ZW1wdElkIjoiZjIxODQzY2MtZGZmZi00YTg1LWFkYTItMDg4ZjZhNGQxYzZmIiwicHVycG9zZSI6ImFzc2Vzc21lbnQiLCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2NlcHRlZEtleXMiOlsiZmluYWwtMSJdfSx7ImF0dGVtcHRJZCI6IjJlMTJmYzJlLTYxOTEtNDI4Zi1hODkzLWEwMTY3NjMyOWRkNiIsInB1cnBvc2UiOiJhc3Nlc3NtZW50Iiwic3RhdHVzIjoiY29tcGxldGVkIiwiYWNjZXB0ZWRLZXlzIjpbInJldGVudGlvbjctMSJdfV0sImNvbXBsZXRlZCI6eyJlbmdpbmVWZXJzaW9uIjoiZ3VpZGVkLXYyIiwiZW5yb2xsbWVudElkIjoiZjdkYjA3NDAtNzFjMi00YTc1LWE0NTgtOTRjYzcyNWI4ZGMzIiwicGF0aFZlcnNpb25JZCI6ImZhN2E1YzIwLTkyNDgtNDkyMy1hMzAzLWJkYjkwZGQyNTUzMyIsInJvd1ZlcnNpb24iOjEsImNvbXBsZXRlZEFjdGl2aXRpZXMiOjksImRpc3BlbnNlZEFjdGl2aXRpZXMiOjAsInBsYW5uZWRSZXF1aXJlZEFjdGl2aXRpZXMiOjksImNvbXBsZXRlZEF0IjoiMjAyNi0xMC0wNFQxMjowMDowMC4wMDBaIiwibWFzdGVyZWRBdCI6IjIwMjYtMTAtMDRUMTI6MDA6MDAuMDAwWiIsImNvbnNvbGlkYXRlZEF0IjpudWxsLCJvYmplY3RpdmVzIjpbeyJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUtMSIsImxhYmVsIjoibWFzdGVyZWQiLCJvYmplY3RpdmVTY29yZSI6MTAwLCJjcml0aWNhbEVycm9yT3BlbiI6ZmFsc2UsImFzc2lzdGVkIjp0cnVlLCJhcHBsaWNhdGlvbkRlbW9uc3RyYXRlZCI6dHJ1ZSwicmV2aWV3RHVlIjpmYWxzZSwiZmlyc3RNYXN0ZXJlZEF0IjoiMjAyNi0xMC0wNFQxMjowMDowMC4wMDBaIiwiZmlyc3RDb25zb2xpZGF0ZWRBdCI6bnVsbH1dLCJkdWVSZXZpZXdzIjowLCJuZXh0QWN0aW9uIjp7ImtpbmQiOiJub25lIiwia2V5IjpudWxsLCJyZWFzb24iOiJObyBoYXkgdW5hIGFjdGl2aWRhZCBlbGVnaWJsZTsgcHVlZGVzIHBhdXNhciBvIGVsZWdpciBvdHJhIHJhbWEifSwibWFpbnRlbmFuY2UiOnsiZ2VuZXJhdGVkQXQiOiIyMDI2LTEwLTA0VDEyOjAwOjAwLjAwMFoiLCJ0aW1lWm9uZSI6IlVUQyIsImRpYWdub3N0aWMiOnsic3RhdHVzIjoiY29tcGxldGVkIiwiYXNzZXNzbWVudEtleSI6bnVsbH0sImFjdGl2aXRpZXMiOltdLCJyZXZpZXdCYXRjaCI6W10sImFnZW5kYSI6W3sib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlLTEiLCJkdWVBdCI6IjIwMjYtMTAtMDVUMTI6MDA6MDAuMDAwWiIsInJldGVudGlvbjciOnsiZHVlQXQiOiIyMDI2LTEwLTExVDEyOjAwOjAwLjAwMFoiLCJhY2NlcHRlZEF0IjpudWxsLCJlbGFwc2VkRGF5cyI6bnVsbH0sInJldGVudGlvbjMwIjp7ImR1ZUF0IjoiMjAyNi0xMS0wM1QxMjowMDowMC4wMDBaIiwiYWNjZXB0ZWRBdCI6bnVsbCwiZWxhcHNlZERheXMiOm51bGx9fV0sImdhdGVzIjpbeyJ1bml0S2V5IjoidW5pdCIsInBhc3NlZCI6dHJ1ZSwic2NvcmUiOjEwMCwidGhyZXNob2xkUGVyY2VudCI6ODAsIm1pc3NpbmdDb3JlS2V5cyI6W10sImNyaXRpY2FsRXJyb3JLZXlzIjpbXX1dLCJibG9ja2VycyI6W10sInJlbWVkaWF0aW9uIjpbXSwiZXhoYXVzdGVkQmFua3MiOltdfSwiYXZhaWxhYmlsaXR5IjoiYWN0aXZlIiwidmVyc2lvbkhpc3RvcnkiOlt7InZlcnNpb25OdW1iZXIiOjEsImVuZ2luZVZlcnNpb24iOiJndWlkZWQtdjIiLCJhZG9wdGVkQXQiOiIyMDI2LTEwLTEwVDIyOjI4OjAwLjY3MFoiLCJjb21wbGV0ZWRBdCI6bnVsbCwiY29uc3VtZWRBY3Rpdml0aWVzIjpbXX1dfSwiYWZ0ZXIiOnsiZW5naW5lVmVyc2lvbiI6Imd1aWRlZC12MiIsImVucm9sbG1lbnRJZCI6ImY3ZGIwNzQwLTcxYzItNGE3NS1hNDU4LTk0Y2M3MjViOGRjMyIsInBhdGhWZXJzaW9uSWQiOiJmYTdhNWMyMC05MjQ4LTQ5MjMtYTMwMy1iZGI5MGRkMjU1MzMiLCJyb3dWZXJzaW9uIjoxLCJjb21wbGV0ZWRBY3Rpdml0aWVzIjo5LCJkaXNwZW5zZWRBY3Rpdml0aWVzIjowLCJwbGFubmVkUmVxdWlyZWRBY3Rpdml0aWVzIjo5LCJjb21wbGV0ZWRBdCI6IjIwMjYtMTAtMDRUMTI6MDA6MDAuMDAwWiIsIm1hc3RlcmVkQXQiOiIyMDI2LTEwLTA0VDEyOjAwOjAwLjAwMFoiLCJjb25zb2xpZGF0ZWRBdCI6bnVsbCwib2JqZWN0aXZlcyI6W3sib2JqZWN0aXZlS2V5Ijoib2JqZWN0aXZlLTEiLCJsYWJlbCI6Im1hc3RlcmVkIiwib2JqZWN0aXZlU2NvcmUiOjEwMCwiY3JpdGljYWxFcnJvck9wZW4iOmZhbHNlLCJhc3Npc3RlZCI6ZmFsc2UsImFwcGxpY2F0aW9uRGVtb25zdHJhdGVkIjp0cnVlLCJyZXZpZXdEdWUiOmZhbHNlLCJmaXJzdE1hc3RlcmVkQXQiOiIyMDI2LTEwLTA0VDEyOjAwOjAwLjAwMFoiLCJmaXJzdENvbnNvbGlkYXRlZEF0IjpudWxsfV0sImR1ZVJldmlld3MiOjAsIm5leHRBY3Rpb24iOnsia2luZCI6Im5vbmUiLCJrZXkiOm51bGwsInJlYXNvbiI6Ik5vIGhheSB1bmEgYWN0aXZpZGFkIGVsZWdpYmxlOyBwdWVkZXMgcGF1c2FyIG8gZWxlZ2lyIG90cmEgcmFtYSJ9LCJtYWludGVuYW5jZSI6eyJnZW5lcmF0ZWRBdCI6IjIwMjYtMTAtMTFUMTI6MDA6MDAuMDAwWiIsInRpbWVab25lIjoiVVRDIiwiZGlhZ25vc3RpYyI6eyJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhc3Nlc3NtZW50S2V5IjpudWxsfSwiYWN0aXZpdGllcyI6W10sInJldmlld0JhdGNoIjpbXSwiYWdlbmRhIjpbeyJvYmplY3RpdmVLZXkiOiJvYmplY3RpdmUtMSIsImR1ZUF0IjoiMjAyNi0xMC0xNFQxMjowMDowMC4wMDBaIiwicmV0ZW50aW9uNyI6eyJkdWVBdCI6IjIwMjYtMTAtMTFUMTI6MDA6MDAuMDAwWiIsImFjY2VwdGVkQXQiOiIyMDI2LTEwLTExVDEyOjAwOjAwLjAwMFoiLCJlbGFwc2VkRGF5cyI6N30sInJldGVudGlvbjMwIjp7ImR1ZUF0IjoiMjAyNi0xMS0wM1QxMjowMDowMC4wMDBaIiwiYWNjZXB0ZWRBdCI6bnVsbCwiZWxhcHNlZERheXMiOm51bGx9fV0sImdhdGVzIjpbeyJ1bml0S2V5IjoidW5pdCIsInBhc3NlZCI6dHJ1ZSwic2NvcmUiOjEwMCwidGhyZXNob2xkUGVyY2VudCI6ODAsIm1pc3NpbmdDb3JlS2V5cyI6W10sImNyaXRpY2FsRXJyb3JLZXlzIjpbXX1dLCJibG9ja2VycyI6W10sInJlbWVkaWF0aW9uIjpbXSwiZXhoYXVzdGVkQmFua3MiOltdfSwiYXZhaWxhYmlsaXR5IjoiYWN0aXZlIiwidmVyc2lvbkhpc3RvcnkiOlt7InZlcnNpb25OdW1iZXIiOjEsImVuZ2luZVZlcnNpb24iOiJndWlkZWQtdjIiLCJhZG9wdGVkQXQiOiIyMDI2LTEwLTEwVDIyOjI4OjAwLjY3MFoiLCJjb21wbGV0ZWRBdCI6bnVsbCwiY29uc3VtZWRBY3Rpdml0aWVzIjpbXX1dfX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "39d89ad03a1d9d8faea0-5fae34ccf587124171be",
+          "file": "guided-v2-journeys.spec.ts",
+          "line": 186,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T22:26:22.156Z",
+    "duration": 131105.66999999998,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

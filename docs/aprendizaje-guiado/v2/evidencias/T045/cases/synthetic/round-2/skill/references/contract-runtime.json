@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "2.0",
+  "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+  "policyVersion": "guided-v2.0",
+  "schedulerVersion": "scheduler-v2.0",
+  "requiredRuntime": "Node.js 24",
+  "accepted": true,
+  "frozen": true,
+  "acceptanceKind": "provisional_implementation_with_user_exception",
+  "originalFullSystemAcceptance": false,
+  "deferredCheck": "Q19/V04",
+  "deferredCheckStatus": "NO VERIFICADO",
+  "acceptedManifestSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+  "schemaSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+  "validatorSourceSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+  "bundleSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+  "validationScope": "portable",
+  "catalogueResolution": "PENDING_AT_IMPORT",
+  "editorialReview": "REQUIRED_IN_KORAZ_BEFORE_PUBLICATION",
+  "automaticPublication": false,
+  "example": {
+    "synthetic": true,
+    "medicalContent": false,
+    "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T027/ui-package.json",
+    "validation": {
+      "scope": "portable",
+      "valid": true,
+      "publishable": true,
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "warning",
+          "path": "/assessments",
+          "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+          "suggestedFix": "Registra esta limitación editorial."
+        }
+      ]
+    }
+  },
+  "resources": [
+    {
+      "path": "assets/koraz-route-2.0.schema.json",
+      "sourcePath": "packages/contracts/schemas/koraz-route-2.0.schema.json",
+      "sha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+      "bytes": 82426
+    },
+    {
+      "path": "scripts/validate-route.mjs",
+      "sourcePath": "packages/contracts/bin/validate-learning-route.bundle.mjs",
+      "sha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+      "bytes": 635592
+    },
+    {
+      "path": "assets/ejemplo-valido.koraz-route.json",
+      "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T027/ui-package.json",
+      "sha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+      "bytes": 13681
+    },
+    {
+      "path": "references/accepted-contract-hashes.json",
+      "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T042/accepted-contract-hashes.json",
+      "sha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+      "bytes": 2680
+    },
+    {
+      "path": "references/reader-deferral.json",
+      "sourcePath": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-deferral.json",
+      "sha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+      "bytes": 1064
+    },
+    {
+      "path": "references/LICENSE-ZOD.txt",
+      "sourcePath": "node_modules/.pnpm/zod@4.4.3/node_modules/zod/LICENSE",
+      "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+      "bytes": 1072
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "status": "FAIL HARNESS",
+  "error": "6 apparent additions from quoted non-ASCII Git paths",
+  "cause": "The baseline used NUL-delimited paths but the first scope check used quoted line-delimited paths. The six files already appear in baseline.json and their hashes were unchanged.",
+  "repair": "Use git ls-files -z and NUL delimiter, identical to baseline capture.",
+  "scopePolicyRelaxed": false
+}

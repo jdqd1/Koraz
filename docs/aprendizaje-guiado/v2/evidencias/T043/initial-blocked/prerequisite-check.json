@@ -1,0 +1,168 @@
+{
+  "taskId": "T043",
+  "recordedUtc": "2026-10-10T23:14:34.770Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "runtime": "v22.22.0",
+  "prerequisiteAccepted": false,
+  "allCandidateHashesMatch": true,
+  "candidateHashesAreAcceptedContract": false,
+  "predecessor": {
+    "status": "NO VERIFICADO",
+    "decision": "reject",
+    "systemAcceptance": false,
+    "summary": {
+      "passLocal": 23,
+      "fail": 0,
+      "notVerified": 1
+    },
+    "accepted": false,
+    "frozen": false
+  },
+  "registryPredecessor": {
+    "status": "NO VERIFICADO",
+    "systemAcceptance": false,
+    "successorBlocked": true
+  },
+  "reader": {
+    "status": "NO VERIFICADO",
+    "check": "Q19/V04",
+    "steps": [
+      {
+        "id": "V04-1",
+        "status": "PASS"
+      },
+      {
+        "id": "V04-2",
+        "status": "PASS"
+      },
+      {
+        "id": "V04-3",
+        "status": "NO VERIFICADO",
+        "reason": "Persisted attempt is still study-1 in_progress, with no response or submitted_at"
+      },
+      {
+        "id": "V04-4",
+        "status": "NO VERIFICADO",
+        "reason": "No constructed-response attempt or response was persisted in this manual database"
+      },
+      {
+        "id": "V04-5",
+        "status": "NO VERIFICADO",
+        "reason": "No single-choice response or later attempt was persisted; feedback/remediation cannot be reconciled with this session"
+      }
+    ]
+  },
+  "inspectedEvidence": [
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/result.json",
+      "sha256": "ab488b4aa1dd2a7b07206b438496f0398a80503da8b1b261b270b1946f4be3d8"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+      "sha256": "c4d6a36ba9884fabcf94fe72bce0aa34bcdf82b819d1c04af5f98d0c3065a261"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/candidate-hashes.json",
+      "sha256": "68d157b58fd12ba154f5cd79b0a42dc447b8459384e9293574659b97c9877150"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+      "sha256": "e73b86de3c44b924ff9a7824e14aff43eb3a92159194744a1f436214d47fbb54"
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json",
+      "sha256": "d44450e46beacb8f18dd5e8d4dbd97916735517ffa220f5f06bc7ef412a63e73"
+    }
+  ],
+  "currentHashes": [
+    {
+      "path": "packages/contracts/src/learning-route-package.ts",
+      "candidateSha256": "c142901b0093d8eb26773f9a3300d7e647d8f236b1aae90a0f8f81836116c783",
+      "actualSha256": "c142901b0093d8eb26773f9a3300d7e647d8f236b1aae90a0f8f81836116c783",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/src/learning-route-validation.ts",
+      "candidateSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+      "actualSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/src/guided-learning-v2.ts",
+      "candidateSha256": "dd5c39d9f7c0b4edde082f678b92adf71884a6a6a4c2c3c4ec048155a9ecc147",
+      "actualSha256": "dd5c39d9f7c0b4edde082f678b92adf71884a6a6a4c2c3c4ec048155a9ecc147",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/schemas/koraz-route-2.0.schema.json",
+      "candidateSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+      "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/dist/learning-route-package.js",
+      "candidateSha256": "e16518033739080c68a88174561962187b3411d979f0774c2a4d0d0fcf2b799c",
+      "actualSha256": "e16518033739080c68a88174561962187b3411d979f0774c2a4d0d0fcf2b799c",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/dist/learning-route-validation.js",
+      "candidateSha256": "1789ed9a7707a74bcf8aa20ce7d4800ab86822760de9c36f3f04dc1c3f813146",
+      "actualSha256": "1789ed9a7707a74bcf8aa20ce7d4800ab86822760de9c36f3f04dc1c3f813146",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/bin/validate-learning-route.mjs",
+      "candidateSha256": "fb5875361e9248513151460835384af5affe69d9d260eb6b5dd9a3e4d22eb949",
+      "actualSha256": "fb5875361e9248513151460835384af5affe69d9d260eb6b5dd9a3e4d22eb949",
+      "matches": true
+    },
+    {
+      "path": "packages/contracts/bin/validate-learning-route.bundle.mjs",
+      "candidateSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+      "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/validation.ts",
+      "candidateSha256": "769f5fe78cb0f83374c7b9e124704500dafee8bac7a96951a58c2ff8f21454ee",
+      "actualSha256": "769f5fe78cb0f83374c7b9e124704500dafee8bac7a96951a58c2ff8f21454ee",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/service.ts",
+      "candidateSha256": "142e06dcc06d1d8784d0c6e65e69e5c859e6341a775e314a6604e4627a0d8ca3",
+      "actualSha256": "142e06dcc06d1d8784d0c6e65e69e5c859e6341a775e314a6604e4627a0d8ca3",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/policy.ts",
+      "candidateSha256": "18412f1df4e78112b27ef71e8759737a7712ca602dbc7969e3de4ce1b7c57180",
+      "actualSha256": "18412f1df4e78112b27ef71e8759737a7712ca602dbc7969e3de4ce1b7c57180",
+      "matches": true
+    },
+    {
+      "path": "apps/api/src/guided-learning/v2/scheduler.ts",
+      "candidateSha256": "5ddda1f428cf058aaa3147894a1fec20cd613accf4ac47f7c2450cf20f32823d",
+      "actualSha256": "5ddda1f428cf058aaa3147894a1fec20cd613accf4ac47f7c2450cf20f32823d",
+      "matches": true
+    },
+    {
+      "path": "docs/aprendizaje-guiado/v2/policy-spec.md",
+      "candidateSha256": "fd7dd4f12a2f34cfcdb1349dc53f70b5720deba69c7aca47727b725a6b388138",
+      "actualSha256": "fd7dd4f12a2f34cfcdb1349dc53f70b5720deba69c7aca47727b725a6b388138",
+      "matches": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "candidateSha256": "bcbdb093fbeb947125f1e7d485da9e0b7573ab1982818790d2d1aa54c2c267ab",
+      "actualSha256": "bcbdb093fbeb947125f1e7d485da9e0b7573ab1982818790d2d1aa54c2c267ab",
+      "matches": true
+    }
+  ],
+  "initialStatusShort": "M apps/api/test/guided-v2-package.test.ts\n M apps/web/tests/e2e/guided-v2-journeys.spec.ts\n M docs/aprendizaje-guiado/v2/registro-ejecucion.json\n M packages/contracts/bin/validate-learning-route.bundle.mjs\n?? apps/api/test/guided-v2-real-auth.test.ts\n?? docs/aprendizaje-guiado/v2/acta-HITO-S.md\n?? docs/aprendizaje-guiado/v2/evidencias/T041/\n?? docs/aprendizaje-guiado/v2/evidencias/T042/\n?? docs/aprendizaje-guiado/v2/evidencias/T043/\n?? docs/aprendizaje-guiado/v2/runbook.md\n?? work/",
+  "skillDirectoryExists": false,
+  "conclusion": "NO VERIFICADO: T042 has not accepted/frozen Hito S. Do not package candidate resources as an accepted skill contract."
+}

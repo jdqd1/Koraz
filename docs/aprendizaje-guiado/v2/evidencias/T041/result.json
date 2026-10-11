@@ -1,0 +1,470 @@
+{
+  "taskId": "T041",
+  "status": "PASS LOCAL",
+  "scope": "M04 íntegro; simulacro local de recuperación v1/v2 y rollout reversible preparado.",
+  "recordedUtc": "2026-10-09T04:01:41.289Z",
+  "clientDate": "2026-10-09",
+  "timezone": "America/Caracas",
+  "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "finalSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+  "predecessors": [
+    {
+      "taskId": "T034",
+      "status": "PASS LOCAL",
+      "evidence": "../T034/result.json",
+      "registryReconciled": true
+    },
+    {
+      "taskId": "T040",
+      "status": "PASS LOCAL",
+      "evidence": "../T040/result.json",
+      "acceptanceComplete": false
+    }
+  ],
+  "changedFiles": [
+    "docs/aprendizaje-guiado/v2/runbook.md",
+    "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+    "work/test/t041/",
+    "docs/aprendizaje-guiado/v2/evidencias/T041/"
+  ],
+  "acceptance": [
+    {
+      "id": "M04",
+      "status": "PASS",
+      "scope": "LOCAL",
+      "tableCount": 67,
+      "restoredIntoDifferentDatabase": true,
+      "historiesAndAgendasVerified": true,
+      "v1WritesWithV2Off": true,
+      "v2ReenableSessions": true
+    }
+  ],
+  "checks": [
+    {
+      "command": "node work/test/t041/cluster.mjs start",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "cluster.json"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec tsx ../../work/test/t041/recovery.mts",
+      "exitCode": 0,
+      "result": "PASS",
+      "checks": 10,
+      "evidence": "recovery-final.txt"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/web exec playwright test --config ../../work/test/t041/playwright.config.mts",
+      "exitCode": 0,
+      "result": "PASS",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "playwright.json"
+    },
+    {
+      "command": "node work/test/t041/cluster.mjs stop",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "cluster-cleanup.json"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "preservation.json"
+    },
+    {
+      "command": "pnpm.cmd --filter @cediah/api exec tsc --noEmit --module NodeNext --moduleResolution NodeNext --target ES2022 --esModuleInterop --skipLibCheck --strict --types node ../../work/test/t041/recovery.mts",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "harness-typecheck.txt"
+    },
+    {
+      "command": "Bounded TCP probes for 55435, 31041, 41041, 41042",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "services-final.json"
+    }
+  ],
+  "databaseChecks": [
+    {
+      "name": "nonempty-v1-v2-history-responses-agenda-and-sources",
+      "status": "PASS",
+      "detail": {
+        "public.audit_log": {
+          "count": 5,
+          "sha256": "c9f04383b28fd2e5e68483acae73dae8b4f9b1c7845d967ea95b58ee2ae43450"
+        },
+        "public.auth_accounts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_rate_limits": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_sessions": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.auth_users": {
+          "count": 9,
+          "sha256": "8ca9f9ea5f4bfbcf8f5f977e4f19d647b48da81ac406949d2ffce02ad7f13499"
+        },
+        "public.auth_verifications": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.cediah_schema_migration_exclusions": {
+          "count": 1,
+          "sha256": "01f985946fe8677258903e802033d891fa4ecc3bf4a3447924993b5b3715b48a"
+        },
+        "public.cediah_schema_migrations": {
+          "count": 34,
+          "sha256": "a66a09cd52f6c517d0f680b5cb42cf5830bf91f5cc7a33135f15806bd1eec1c8"
+        },
+        "public.content_assets": {
+          "count": 1,
+          "sha256": "28eacaa5373fdc07309b868bda12d75e38494ee998ef4f907c88856df19d4aae"
+        },
+        "public.content_items": {
+          "count": 2,
+          "sha256": "c1e8a49045d4569f710ab8539366ce84b69b5c4eac7dd6e358116cf905c8dce4"
+        },
+        "public.content_reaction_counts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_reactions": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_subjects": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topic_item_order": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topic_subjects": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_topics": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_view_counts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.content_view_receipts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.course_modules": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.course_resources": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.courses": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.enrollments": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_sections": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_term_manifests": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.guide_term_reindex_queue": {
+          "count": 1,
+          "sha256": "10bd1e61fd94bf686be69ae4a8e99ae3979372beaec924462fb8431c5ad681cb"
+        },
+        "public.guide_term_usage": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_term_aliases": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_term_dictionary_state": {
+          "count": 1,
+          "sha256": "e5f17fa6d39498ad51772ba2054161b2be5aac8baf64b16af6f51fce884d720b"
+        },
+        "public.interactive_term_links": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.interactive_terms": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_attempts": {
+          "count": 4,
+          "sha256": "f1fbc0ea0e9fa48ea6f4ac4fd5dfbf46ecf579d02a0ebf75fb505c7fe65d21f6"
+        },
+        "public.learning_enrollment_versions": {
+          "count": 5,
+          "sha256": "c58ce10cbdf956e4b9c944232639d2e3297337c6f01dd9af3f3b43ccfbf4ab39"
+        },
+        "public.learning_enrollments": {
+          "count": 5,
+          "sha256": "479e0da469d32ac7ded9f106269637a29bd9aa53e4fef034fa1bb37ec1c6a29f"
+        },
+        "public.learning_events": {
+          "count": 33,
+          "sha256": "abf267e6b31247d64961fa58e075c2d9f54be6236df6917c4337f17695cc0de9"
+        },
+        "public.learning_items": {
+          "count": 5,
+          "sha256": "22ecbf0354528169405c1e2932b0ecf9a9be5d9f0346829938070487223811d2"
+        },
+        "public.learning_map_entries": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_map_layouts": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_map_nodes": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_maps": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_mutation_receipts": {
+          "count": 42,
+          "sha256": "3e8209ccb1e01cb8ce3ccc9fb5faca95d7f22327f8b39bbc058cee4b4cacaab3"
+        },
+        "public.learning_objective_progress": {
+          "count": 2,
+          "sha256": "42701ad3e3fb000e7c7cabdd633b9bb806f3e66faa7472f1e810eed5243faa8f"
+        },
+        "public.learning_path_steps": {
+          "count": 2,
+          "sha256": "c51701aa55439c899e8a79448f7b20d7b25e0e730d3347f86aec4b0dc0846303"
+        },
+        "public.learning_path_units": {
+          "count": 1,
+          "sha256": "d1ad60f8b21736e2f0d7b51f803fda6446d8477c668e0bb9b6bde230a433c55b"
+        },
+        "public.learning_path_versions": {
+          "count": 2,
+          "sha256": "bd3fe7e1dec0cf60a5224f94a47417c5058765280ab4fc9e9ae65bcc512bf1e2"
+        },
+        "public.learning_paths": {
+          "count": 2,
+          "sha256": "4cb8a91d6dfdeb9352fb8b70c72617c83e646d82c990f5c0cc4f9def9a6033e9"
+        },
+        "public.learning_preferences": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_resource_revisions": {
+          "count": 3,
+          "sha256": "3231db3a19ea289a3e0c3974217b44228ec155c22f3c9c70512b075ae2b76c7e"
+        },
+        "public.learning_resources": {
+          "count": 2,
+          "sha256": "60d7585f4394f08fbb1b9dc08fb53909783e844aaba8189091878c317257c5ac"
+        },
+        "public.learning_responses": {
+          "count": 10,
+          "sha256": "52b65ae6b34e4125e5520004582bb955d573fb8f1ec34b26c4936a4d406b5e89"
+        },
+        "public.learning_review_states": {
+          "count": 10,
+          "sha256": "2a00546d7d661796162351157a3c312373df58b924d09d43b7434a5eee9e639d"
+        },
+        "public.learning_rewards": {
+          "count": 6,
+          "sha256": "664d2f3d10ae75cd28d53962a12199fcc2442897a128f6a6e489fba90f82791d"
+        },
+        "public.learning_step_options": {
+          "count": 2,
+          "sha256": "d7194cac9975f25baf8d4a0f1c07a13c4629444c116cfcc471ae9f5c9a4f2070"
+        },
+        "public.learning_step_progress": {
+          "count": 4,
+          "sha256": "91fe24eb2136718de20d62dc7757577d936f4f17f2162eadd8a334f83b9435d5"
+        },
+        "public.learning_task_overrides": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_v2_activity_state": {
+          "count": 5,
+          "sha256": "aed1dc64d106f88746ecc16e534a5a4b9da04af21b3420c074dfafee3917de67"
+        },
+        "public.learning_v2_attempts": {
+          "count": 7,
+          "sha256": "961b5564963c4f5c48eaa962b46faf20363fe431ff0afeb9e856b74457899290"
+        },
+        "public.learning_v2_bindings": {
+          "count": 3,
+          "sha256": "2c31c8d37a682b3cdb2be5c63b5dd162e575573fef1032b7a014dbfaea7e703a"
+        },
+        "public.learning_v2_imports": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.learning_v2_objective_state": {
+          "count": 3,
+          "sha256": "429670ddce0e1dfd557caa40f7911e05fab96b8bed8381a05ea97a3bf70df71b"
+        },
+        "public.learning_v2_responses": {
+          "count": 5,
+          "sha256": "de7f81c066084bee64332c29a323c6e6e5b11d8f688588c06aec4e526719edc1"
+        },
+        "public.learning_v2_review_state": {
+          "count": 1,
+          "sha256": "4154bcbcbec43e0de8e6cd50e1ceda3d52da5c54a40877fceb54198261d970f6"
+        },
+        "public.lesson_progress": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.lessons": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.profiles": {
+          "count": 9,
+          "sha256": "ae82efb04d35cb3987fc29809b25a302d0a3064030329df41915ac08ba7c8151"
+        },
+        "public.subjects": {
+          "count": 5,
+          "sha256": "5e16ae07c3922d32f97fd856e82db7331089156ba283df459562bc12f37cfab2"
+        },
+        "public.user_recent_guides": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "public.user_roles": {
+          "count": 10,
+          "sha256": "1812044643719140faa239554543ad9412ecd11ba890b00a3150f27751a32ebf"
+        }
+      }
+    },
+    {
+      "name": "pending-real-migrations-preserve-v1-v2-data",
+      "status": "PASS",
+      "detail": [
+        {
+          "fileName": "0035_guided_v2_media_access.sql",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "name": "failed-migration-rolls-back-DDL-data-and-ledger",
+      "status": "PASS",
+      "detail": {
+        "sqlState": "22012",
+        "allDataAndSchemaUnchanged": true
+      }
+    },
+    {
+      "name": "committed-fixture-incident-detected-by-hashes",
+      "status": "PASS",
+      "detail": {
+        "changedTables": [
+          "auth_users",
+          "learning_v2_review_state"
+        ]
+      }
+    },
+    {
+      "name": "different-database-full-restore-matches-all-table-hashes-schema-and-sequences",
+      "status": "PASS",
+      "detail": {
+        "source": "koraz_guided_v2_test_20851d032c7943b9b1de3bd9606306c2",
+        "target": "koraz_guided_v2_test_409db7b7f6314387a2ba08e0fdc25ec4",
+        "tables": 67
+      }
+    },
+    {
+      "name": "restored-database-migration-replay-and-checksums",
+      "status": "PASS",
+      "detail": {
+        "files": 36,
+        "noRepeatApplied": true
+      }
+    },
+    {
+      "name": "v2-disabled-maintenance-private-reads-no-writes-and-mutations-blocked",
+      "status": "PASS",
+      "detail": {
+        "allTablesUnchanged": true,
+        "mutationStatus": 503
+      }
+    },
+    {
+      "name": "restored-v1-sessions-and-route-readable-with-v2-off",
+      "status": "PASS",
+      "detail": {
+        "attemptId": "40585860-02c6-45e5-ac16-410d1fa94382"
+      }
+    },
+    {
+      "name": "freeze-new-v2-enrollments-preserves-existing-enrollment-access",
+      "status": "PASS",
+      "detail": {
+        "admissionStatus": 403
+      }
+    },
+    {
+      "name": "v2-allowlist-keeps-v1-available",
+      "status": "PASS",
+      "detail": {
+        "allowed": "77000000-0000-4000-8000-000000000002",
+        "excludedStatus": 403
+      }
+    }
+  ],
+  "observedTimes": {
+    "backupMs": 403.21540000000005,
+    "restoreCommandMs": 909.7372000000005,
+    "environment": "Local PostgreSQL, synthetic data; not a production RPO/RTO"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "postgresBin": "C:\\Users\\josed\\.codex\\tmp\\koraz-t015-postgres\\pgsql\\bin",
+    "browser": "Chromium desktop/mobile",
+    "web": "Existing production build via next start; BUILD_ID OKHuts5H9bsAFvoZpYo5y"
+  },
+  "issues": [],
+  "limitations": [
+    "Local disposable PostgreSQL; synthetic identity, no real Better Auth session issuance/signature.",
+    "SQL references and synthetic local media only; no backup/restore of external storage objects.",
+    "No production/staging deployment or measured production RPO/RTO.",
+    "T040 spoken screen-reader inspection remains outside T041; Hito S/T042 is not accepted."
+  ],
+  "productCodeChanged": false,
+  "migrationsChanged": false,
+  "productionTouched": false,
+  "committed": false,
+  "deployed": false,
+  "nextTaskIds": [
+    "T042"
+  ],
+  "nextTaskStarted": false,
+  "systemAcceptance": false,
+  "initialAttempts": "Preparation failures are retained as recovery-initial/second/third/fourth/fifth/sixth logs and failure-*.json. Initial dev browser run timed out at reload and was stopped after DB cleanup; its logs/traces are preserved in initial-browser-run. Final run uses same timeout and retries=0 with existing built application. The first built-browser run had 3 PASS/3 FAIL due to test assumptions: a study response goes directly to close, and streamed hidden DOM caused a strict locator collision. built-browser-initial preserves all results. Teardown now waits for the current DB cleanup receipt, not just control socket closure. Strict standalone harness typecheck initially needed an explicit LearningAttempt annotation; corrected final typecheck passed."
+}

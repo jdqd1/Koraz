@@ -1,0 +1,1300 @@
+{
+  "planVersion": "1.0",
+  "project": "Koraz",
+  "baseSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+  "recordedUtc": "2026-09-26T19:02:36.505192+00:00",
+  "handoffSha256": "b9c2fb34fb592175d3eeac80cd4169ce0abc15c3e2292f459f998196842f0124",
+  "tasksSourceSha256": "4d3a78da2bbd837f3fd69232d66604e1fea1bd2dfd058c6e2f90767b77a13fd4",
+  "baseline": {
+    "taskId": "T001",
+    "status": "PASS",
+    "baseSha": "774b60d2d0d3bd0bceefe3612a2108f684f01048",
+    "checks": [
+      {
+        "command": "pnpm.cmd --filter @cediah/contracts build",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/contracts-build.txt",
+        "startedUtc": "2026-09-26T18:36:41.6343231Z",
+        "finishedUtc": "2026-09-26T18:36:52.6060658Z",
+        "durationSeconds": 10.97
+      },
+      {
+        "command": "pnpm.cmd --filter @cediah/api test",
+        "exitCode": 1,
+        "result": "FAIL",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-test.txt",
+        "startedUtc": "2026-09-26T18:36:52.7879048Z",
+        "finishedUtc": "2026-09-26T18:38:59.8414019Z",
+        "durationSeconds": 127.05
+      },
+      {
+        "command": "pnpm.cmd --filter @cediah/web test",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/web-test.txt",
+        "startedUtc": "2026-09-26T18:38:59.8554161Z",
+        "finishedUtc": "2026-09-26T18:41:05.7756572Z",
+        "durationSeconds": 125.92
+      },
+      {
+        "command": "pnpm.cmd typecheck",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/typecheck.txt",
+        "startedUtc": "2026-09-26T18:41:05.7829583Z",
+        "finishedUtc": "2026-09-26T18:44:41.4632796Z",
+        "durationSeconds": 215.68
+      },
+      {
+        "command": "pnpm.cmd lint",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/lint.txt",
+        "startedUtc": "2026-09-26T18:44:41.4801414Z",
+        "finishedUtc": "2026-09-26T18:46:41.9378393Z",
+        "durationSeconds": 120.46
+      },
+      {
+        "command": "pnpm.cmd build",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/build.txt",
+        "startedUtc": "2026-09-26T18:46:41.9436859Z",
+        "finishedUtc": "2026-09-26T18:48:46.6982341Z",
+        "durationSeconds": 124.75
+      },
+      {
+        "command": "pnpm.cmd --filter @cediah/api exec vitest run test/guided-learning-routes.test.ts -t \"does not register or call guided modules while the feature is disabled\"",
+        "exitCode": 0,
+        "result": "PASS",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/api-timeout-focused.txt",
+        "startedUtc": "2026-09-26T18:49:02.6670843Z",
+        "finishedUtc": "2026-09-26T18:49:10.1808657Z",
+        "durationSeconds": 7.51
+      }
+    ],
+    "testSummary": {
+      "apiInitial": {
+        "passed": 230,
+        "failed": 1,
+        "total": 231,
+        "failingTest": "test/guided-learning-routes.test.ts > guided-learning route registration > does not register or call guided modules while the feature is disabled",
+        "failure": "5000 ms timeout",
+        "focusedRetest": "PASS (1 passed, 12 skipped; test 858 ms)"
+      },
+      "web": {
+        "testFilesPassed": 41,
+        "testsPassed": 236
+      }
+    },
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json"
+  },
+  "requirementTraceability": [
+    {
+      "requirementId": "R01",
+      "taskIds": [
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033"
+      ],
+      "testsOrEvidence": "E01–E06"
+    },
+    {
+      "requirementId": "R02",
+      "taskIds": [
+        "T003",
+        "T005",
+        "T024"
+      ],
+      "testsOrEvidence": "P01–P03"
+    },
+    {
+      "requirementId": "R03",
+      "taskIds": [
+        "T006",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031"
+      ],
+      "testsOrEvidence": "P04, E03"
+    },
+    {
+      "requirementId": "R04",
+      "taskIds": [
+        "T017"
+      ],
+      "testsOrEvidence": "P11"
+    },
+    {
+      "requirementId": "R05",
+      "taskIds": [
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T029",
+        "T030",
+        "T031",
+        "T032"
+      ],
+      "testsOrEvidence": "P05–P07"
+    },
+    {
+      "requirementId": "R06",
+      "taskIds": [
+        "T016"
+      ],
+      "testsOrEvidence": "P08–P10"
+    },
+    {
+      "requirementId": "R07",
+      "taskIds": [
+        "T018",
+        "T019"
+      ],
+      "testsOrEvidence": "P12–P15"
+    },
+    {
+      "requirementId": "R08",
+      "taskIds": [
+        "T014",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031"
+      ],
+      "testsOrEvidence": "P04, E04"
+    },
+    {
+      "requirementId": "R09",
+      "taskIds": [
+        "T016",
+        "T020",
+        "T028"
+      ],
+      "testsOrEvidence": "P08–P10"
+    },
+    {
+      "requirementId": "R10",
+      "taskIds": [
+        "T019"
+      ],
+      "testsOrEvidence": "P14"
+    },
+    {
+      "requirementId": "R11",
+      "taskIds": [
+        "T029"
+      ],
+      "testsOrEvidence": "S03, E03"
+    },
+    {
+      "requirementId": "R12",
+      "taskIds": [
+        "T006",
+        "T039"
+      ],
+      "testsOrEvidence": "C01–C04"
+    },
+    {
+      "requirementId": "R13",
+      "taskIds": [
+        "T003",
+        "T010",
+        "T011",
+        "T012",
+        "T043",
+        "T044",
+        "T045"
+      ],
+      "testsOrEvidence": "I01–I04"
+    },
+    {
+      "requirementId": "R14",
+      "taskIds": [
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046"
+      ],
+      "testsOrEvidence": "Acta T042, K01–K05"
+    },
+    {
+      "requirementId": "R15",
+      "taskIds": [
+        "T044",
+        "T045"
+      ],
+      "testsOrEvidence": "K01–K05"
+    },
+    {
+      "requirementId": "R16",
+      "taskIds": [
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T034",
+        "T035",
+        "T036"
+      ],
+      "testsOrEvidence": "S01–S08, M01–M04"
+    },
+    {
+      "requirementId": "R17",
+      "taskIds": [
+        "T020"
+      ],
+      "testsOrEvidence": "A01–A03"
+    },
+    {
+      "requirementId": "R18",
+      "taskIds": [],
+      "testsOrEvidence": "Auditoría de planificación"
+    },
+    {
+      "requirementId": "R19",
+      "taskIds": [
+        "T041"
+      ],
+      "testsOrEvidence": "Simulacro y runbook §13"
+    },
+    {
+      "requirementId": "R20",
+      "taskIds": [
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037"
+      ],
+      "testsOrEvidence": "V01–V05"
+    }
+  ],
+  "pendingInputs": [
+    {
+      "id": "production_state",
+      "owner": "Propietario/operación",
+      "affectedTaskIds": [
+        "T038",
+        "T041",
+        "T042"
+      ],
+      "treatment": "No consultado; fixtures y métricas, sin declarar producción probada."
+    },
+    {
+      "id": "pilot_guide_topic",
+      "owner": "Propietario/revisor",
+      "affectedTaskIds": [
+        "T039"
+      ],
+      "treatment": "Seleccionar guía y tema del catálogo; mientras tanto fixtures sintéticos."
+    },
+    {
+      "id": "image_rights",
+      "owner": "Titular/revisor",
+      "affectedTaskIds": [
+        "T039"
+      ],
+      "treatment": "rightsStatus=unverified bloquea publicación del asset."
+    },
+    {
+      "id": "medical_reviewer",
+      "owner": "Propietario/revisor",
+      "affectedTaskIds": [
+        "T039",
+        "T042"
+      ],
+      "treatment": "Registrar actor y revisión del hash exacto; sin sustitución por modelo."
+    },
+    {
+      "id": "staging_access",
+      "owner": "Operación",
+      "affectedTaskIds": [
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T041"
+      ],
+      "treatment": "Usar entorno local aislado para pruebas técnicas; no producción."
+    },
+    {
+      "id": "baseline_results",
+      "owner": "T001",
+      "affectedTaskIds": [
+        "T002",
+        "T040"
+      ],
+      "treatment": "Resuelto por baseline T001; conservar timeout API completo y retest focalizado PASS."
+    },
+    {
+      "id": "real_learning_rates",
+      "owner": "Producto/investigación",
+      "affectedTaskIds": [
+        "T020",
+        "T039"
+      ],
+      "treatment": "Instrumentar; no prometer eficacia ni optimizar sin datos."
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "T001",
+      "capacity": "C",
+      "objective": "Fijar baseline reproducible y límites de trabajo.",
+      "dependencies": [],
+      "status": "PASS",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T001/baseline.json"
+      ],
+      "issues": [
+        "API baseline suite has one 5000 ms timeout; isolated retest passed, so load sensitivity is plausible but not proven.",
+        "Available pnpm 11.19.0 differs from packageManager pnpm@11.9.0; no installation or upgrade performed.",
+        "Default PATH uses Node 22.22.0; checks ran with locally available Node 24.19.0.",
+        "Next build regenerated apps/web/next-env.d.ts; restored the two generated import paths to their clean initial content."
+      ]
+    },
+    {
+      "taskId": "T002",
+      "capacity": "C",
+      "objective": "Materializar las decisiones normativas sin rediseñarlas.",
+      "dependencies": [
+        "T001"
+      ],
+      "status": "PASS",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T002/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T002/verification.json"
+      ],
+      "issues": [
+        "Suite API base T001: 230/231; 1 timeout de 5000 ms. El caso aislado pasó. No se cambió el timeout ni se marca la suite completa como PASS."
+      ]
+    },
+    {
+      "taskId": "T003",
+      "capacity": "B",
+      "objective": "Crear el contrato portable de autoría y validador estructural.",
+      "dependencies": [
+        "T002"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T004",
+      "capacity": "B",
+      "objective": "Fijar DTO privados, públicos y HTTP v2.",
+      "dependencies": [
+        "T003"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T005",
+      "capacity": "B",
+      "objective": "Validar DAG y pertenencia de objetivos/unidades/actividades.",
+      "dependencies": [
+        "T003"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T006",
+      "capacity": "B",
+      "objective": "Validar cobertura pedagógica, fuentes y bancos reservados.",
+      "dependencies": [
+        "T003",
+        "T005"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T007",
+      "capacity": "B",
+      "objective": "Añadir almacenamiento de definiciones y bindings v2.",
+      "dependencies": [
+        "T001",
+        "T004"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T008",
+      "capacity": "B",
+      "objective": "Añadir tablas de ejecución v2 y restricciones de concurrencia.",
+      "dependencies": [
+        "T007"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T009",
+      "capacity": "B",
+      "objective": "Implementar persistencia editorial de la definición canónica.",
+      "dependencies": [
+        "T006",
+        "T007",
+        "T008"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T010",
+      "capacity": "B",
+      "objective": "Implementar dry-run de importación con resolución explícita.",
+      "dependencies": [
+        "T009"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T011",
+      "capacity": "B",
+      "objective": "Implementar commit idempotente y exportación portable.",
+      "dependencies": [
+        "T010",
+        "T008"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T012",
+      "capacity": "B",
+      "objective": "Implementar revisión/publicación/versionado y guardias v1.",
+      "dependencies": [
+        "T011"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T013",
+      "capacity": "B",
+      "objective": "Implementar corrección de choice, short y respuesta construida.",
+      "dependencies": [
+        "T004",
+        "T006"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T014",
+      "capacity": "B",
+      "objective": "Implementar corrección relacional, visual y secuencial.",
+      "dependencies": [
+        "T013"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T015",
+      "capacity": "B",
+      "objective": "Persistir ciclo de intento/respuesta/revelado/reanudación.",
+      "dependencies": [
+        "T008",
+        "T009",
+        "T014"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T016",
+      "capacity": "B",
+      "objective": "Calcular evidencia, gates y estados separados.",
+      "dependencies": [
+        "T002",
+        "T014",
+        "T015"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T017",
+      "capacity": "B",
+      "objective": "Implementar diagnóstico, soporte y remediación dirigida.",
+      "dependencies": [
+        "T016",
+        "T005"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T018",
+      "capacity": "B",
+      "objective": "Implementar repaso por objetivo y evaluaciones diferidas.",
+      "dependencies": [
+        "T016",
+        "T008"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T019",
+      "capacity": "B",
+      "objective": "Seleccionar checkpoints, final y reservas diferidas.",
+      "dependencies": [
+        "T017",
+        "T018",
+        "T006"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T020",
+      "capacity": "B",
+      "objective": "Instrumentar métricas y recompensas sin falsear aprendizaje.",
+      "dependencies": [
+        "T016",
+        "T018",
+        "T019"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T021",
+      "capacity": "B",
+      "objective": "Exponer API alumno v2 y dispatch de listados.",
+      "dependencies": [
+        "T015",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T004"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T022",
+      "capacity": "B",
+      "objective": "Comprobar límites de autorización y privacidad v2.",
+      "dependencies": [
+        "T012",
+        "T021"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T023",
+      "capacity": "B",
+      "objective": "Adaptar estado y transporte del editor para v2.",
+      "dependencies": [
+        "T004",
+        "T009"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T024",
+      "capacity": "B",
+      "objective": "Construir formularios de fuentes, objetivos y DAG.",
+      "dependencies": [
+        "T005",
+        "T023"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T025",
+      "capacity": "B",
+      "objective": "Crear formularios de estudio, elección y recuperación.",
+      "dependencies": [
+        "T006",
+        "T013",
+        "T024"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T026",
+      "capacity": "B",
+      "objective": "Crear formularios visuales, relaciones, secuencias y casos.",
+      "dependencies": [
+        "T025",
+        "T014"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T027",
+      "capacity": "B",
+      "objective": "Integrar importación, revisión, publicación y exportación.",
+      "dependencies": [
+        "T011",
+        "T012",
+        "T023",
+        "T026"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T028",
+      "capacity": "B",
+      "objective": "Adaptar pantallas de ruta, hoy, tarjetas y mapa a estado v2.",
+      "dependencies": [
+        "T021",
+        "T016"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T029",
+      "capacity": "B",
+      "objective": "Implementar player base, recuperación y feedback.",
+      "dependencies": [
+        "T015",
+        "T028",
+        "T013"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T030",
+      "capacity": "B",
+      "objective": "Implementar player de imágenes y relaciones.",
+      "dependencies": [
+        "T014",
+        "T029"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T031",
+      "capacity": "B",
+      "objective": "Implementar secuencias, casos y composiciones avanzadas.",
+      "dependencies": [
+        "T014",
+        "T029",
+        "T030"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T032",
+      "capacity": "B",
+      "objective": "Implementar interfaz de diagnóstico, refuerzo y mantenimiento.",
+      "dependencies": [
+        "T017",
+        "T018",
+        "T019",
+        "T028",
+        "T031"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T033",
+      "capacity": "B",
+      "objective": "Unificar preview editorial con el renderer y motor de alumno.",
+      "dependencies": [
+        "T027",
+        "T029",
+        "T030",
+        "T031",
+        "T032"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T034",
+      "capacity": "B",
+      "objective": "Implementar conversión v1, upgrade y flags de compatibilidad.",
+      "dependencies": [
+        "T012",
+        "T016",
+        "T021",
+        "T028"
+      ],
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T034/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T034/result.json"
+      ],
+      "issues": [],
+      "scope": "LOCAL",
+      "reconciledUtc": "2026-10-09T04:01:41.289Z",
+      "reconciliationEvidence": "docs/aprendizaje-guiado/v2/evidencias/T041/registry-reconciliation.json",
+      "note": "Reflects the existing T034 PASS/local closure; no T034 execution or broader system acceptance is attributed to this registry repair."
+    },
+    {
+      "taskId": "T035",
+      "capacity": "B",
+      "objective": "Construir harness E2E con API y persistencia reales.",
+      "dependencies": [
+        "T022",
+        "T027",
+        "T032",
+        "T033",
+        "T034"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T036",
+      "capacity": "B",
+      "objective": "Ejecutar pruebas adversas de permisos, secretos y concurrencia.",
+      "dependencies": [
+        "T022",
+        "T034",
+        "T035"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T037",
+      "capacity": "B",
+      "objective": "Comprobar UX y accesibilidad visualmente.",
+      "dependencies": [
+        "T035"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T038",
+      "capacity": "B",
+      "objective": "Medir y optimizar rendimiento dentro de límites fijados.",
+      "dependencies": [
+        "T035"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T039",
+      "capacity": "B",
+      "objective": "Preparar y revisar la ruta piloto curricular.",
+      "dependencies": [
+        "T006",
+        "T027",
+        "T033"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T040",
+      "capacity": "B",
+      "objective": "Cerrar regresión funcional y compatibilidad completa.",
+      "dependencies": [
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038"
+      ],
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T040/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T040/result.json",
+        "docs/aprendizaje-guiado/v2/evidencias/T040/counts-and-omissions.json"
+      ],
+      "issues": [
+        {
+          "code": "SCREEN_READER",
+          "status": "NO VERIFICADO",
+          "detail": "V04: salida hablada no inspeccionada."
+        },
+        {
+          "code": "M04_BACKUP_RESTORE",
+          "status": "NO VERIFICADO EN T040",
+          "owner": "T041"
+        }
+      ],
+      "baseSha": "11737fd84562ee5a65e9ef124442b82f9aa16785",
+      "recordedUtc": "2026-10-09T03:07:29.938Z",
+      "nextTaskStarted": false,
+      "nextTaskIds": [
+        "T041"
+      ],
+      "acceptanceComplete": false,
+      "regressionStatus": "PASS LOCAL SIN REGRESIONES NUEVAS DETECTADAS",
+      "repairAuthorization": "docs/aprendizaje-guiado/v2/evidencias/T040/repair-authorization.json"
+    },
+    {
+      "taskId": "T041",
+      "capacity": "B",
+      "objective": "Ensayar recuperación y preparar rollout reversible.",
+      "dependencies": [
+        "T034",
+        "T040"
+      ],
+      "status": "PASS LOCAL",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/evidencias/T041/README.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T041/result.json",
+        "docs/aprendizaje-guiado/v2/runbook.md"
+      ],
+      "issues": [],
+      "scope": "M04 íntegro en PostgreSQL local desechable con UI/API; sin despliegue ni aceptación Hito S.",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "recordedUtc": "2026-10-09T04:01:41.289Z",
+      "acceptance": [
+        {
+          "id": "M04",
+          "status": "PASS",
+          "scope": "LOCAL"
+        }
+      ],
+      "nextTaskIds": [
+        "T042"
+      ],
+      "nextTaskStarted": false
+    },
+    {
+      "taskId": "T042",
+      "capacity": "A",
+      "objective": "Aceptar el sistema mediante revisión integral de invariantes.",
+      "dependencies": [
+        "T039",
+        "T040",
+        "T041"
+      ],
+      "status": "NO VERIFICADO",
+      "decision": "reject",
+      "scope": "Reparaciones autorizadas verificadas; inspección humana inicial de Narrator documentada. Q19 pendiente por discrepancia entre confirmaciones y estado persistido.",
+      "baseSha": "ef6f541eafa70c5dda03d4547cf48428be767c3d",
+      "recordedUtc": "2026-10-10T23:11:24.280Z",
+      "clientDate": "2026-10-10",
+      "timezone": "America/Caracas",
+      "evidence": [
+        "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+        "docs/aprendizaje-guiado/v2/evidencias/T042/result.json"
+      ],
+      "changedFiles": [
+        "packages/contracts/bin/validate-learning-route.bundle.mjs",
+        "apps/api/test/guided-v2-package.test.ts",
+        "apps/api/test/guided-v2-real-auth.test.ts",
+        "apps/web/tests/e2e/guided-v2-journeys.spec.ts",
+        "work/test/t042/auth.spec.ts",
+        "work/test/t042/cluster.mjs",
+        "work/test/t042/finalize.mjs",
+        "work/test/t042/playwright.auth.config.mts",
+        "work/test/t042/playwright.desktop.config.mts",
+        "work/test/t042/playwright.mobile.config.mts",
+        "work/test/t042/preservation.mjs",
+        "work/test/t042/reader-session.mts",
+        "work/test/t042/real-auth-server.mts",
+        "work/test/t042/teardown.mts",
+        "work/test/t042/verify.mjs",
+        "docs/aprendizaje-guiado/v2/evidencias/T042/",
+        "docs/aprendizaje-guiado/v2/acta-HITO-S.md",
+        "docs/aprendizaje-guiado/v2/registro-ejecucion.json",
+        "work/test/t042/reader-cleanup.mjs",
+        "work/test/t042/record-reader-review.mjs"
+      ],
+      "predecessors": [
+        {
+          "taskId": "T039",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T039/result.json"
+        },
+        {
+          "taskId": "T040",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T040/result.json"
+        },
+        {
+          "taskId": "T041",
+          "status": "PASS LOCAL",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T041/result.json"
+        }
+      ],
+      "checklist": [
+        {
+          "id": "Q01",
+          "status": "PASS"
+        },
+        {
+          "id": "Q02",
+          "status": "PASS"
+        },
+        {
+          "id": "Q03",
+          "status": "PASS"
+        },
+        {
+          "id": "Q04",
+          "status": "PASS"
+        },
+        {
+          "id": "Q05",
+          "status": "PASS"
+        },
+        {
+          "id": "Q06",
+          "status": "PASS"
+        },
+        {
+          "id": "Q07",
+          "status": "PASS"
+        },
+        {
+          "id": "Q08",
+          "status": "PASS"
+        },
+        {
+          "id": "Q09",
+          "status": "PASS"
+        },
+        {
+          "id": "Q10",
+          "status": "PASS"
+        },
+        {
+          "id": "Q11",
+          "status": "PASS"
+        },
+        {
+          "id": "Q12",
+          "status": "PASS"
+        },
+        {
+          "id": "Q13",
+          "status": "PASS"
+        },
+        {
+          "id": "Q14",
+          "status": "PASS"
+        },
+        {
+          "id": "Q15",
+          "status": "PASS"
+        },
+        {
+          "id": "Q16",
+          "status": "PASS"
+        },
+        {
+          "id": "Q17",
+          "status": "PASS"
+        },
+        {
+          "id": "Q18",
+          "status": "PASS"
+        },
+        {
+          "id": "Q19",
+          "status": "NO VERIFICADO"
+        },
+        {
+          "id": "Q20",
+          "status": "PASS"
+        },
+        {
+          "id": "Q21",
+          "status": "PASS"
+        },
+        {
+          "id": "Q22",
+          "status": "PASS"
+        },
+        {
+          "id": "Q23",
+          "status": "PASS"
+        },
+        {
+          "id": "Q24",
+          "status": "PASS"
+        }
+      ],
+      "summary": {
+        "passLocal": 23,
+        "fail": 0,
+        "notVerified": 1
+      },
+      "checks": [
+        {
+          "command": "pnpm --filter @cediah/contracts build; bundle:route",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/bundle-build.txt"
+        },
+        {
+          "command": "vitest guided-v2-package / graph / validation --maxWorkers=1",
+          "exitCode": 0,
+          "result": "23 PASS / 0 FAIL / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/validator-tests.json"
+        },
+        {
+          "command": "vitest guided-v2-real-auth --maxWorkers=1 (marked PostgreSQL)",
+          "exitCode": 0,
+          "result": "1 PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/auth-api.json"
+        },
+        {
+          "command": "playwright real Better Auth / Next BFF",
+          "exitCode": 0,
+          "result": "1 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/auth-bff.json"
+        },
+        {
+          "command": "playwright mobile E01–E07",
+          "exitCode": 0,
+          "result": "7 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/mobile.json"
+        },
+        {
+          "command": "playwright desktop E02/E07",
+          "exitCode": 0,
+          "result": "2 PASS / 0 skipped",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/desktop.json"
+        },
+        {
+          "command": "API and web typecheck; focused API and web ESLint --max-warnings=0",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/README.md"
+        },
+        {
+          "command": "Native Narrator inspection",
+          "result": "NO VERIFICADO: Computer Use stopped before product speech observation",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-status.json"
+        },
+        {
+          "command": "Disposable cluster DB names/OIDs and test ports cleanup",
+          "exitCode": 0,
+          "result": "PASS",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/cluster-cleanup.json"
+        },
+        {
+          "command": "Human Windows Narrator inspection",
+          "result": "NO VERIFICADO: initial name/role and route states confirmed; later journey not persisted",
+          "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json"
+        }
+      ],
+      "issues": [
+        {
+          "code": "R42-01_BUNDLE_STALE",
+          "status": "RESUELTO",
+          "blockingSystemAcceptance": false,
+          "detail": "Bundle regenerated; backend, ordinary CLI and autonomous bundle agree on approved pilot and four negative mutations."
+        },
+        {
+          "code": "R42-02_ACCESSIBILITY_AND_MOBILE",
+          "status": "NO VERIFICADO",
+          "blockingSystemAcceptance": true,
+          "detail": "Mobile E01–E07 and desktop E02/E07 PASS. Human Narrator name/role and route states confirmed. Later human confirmations conflict with the persisted manual journey (study-1 in_progress, zero responses); model, hint and feedback require reconciliation."
+        },
+        {
+          "code": "R42-03_REAL_SESSION_EXPIRY",
+          "status": "RESUELTO",
+          "blockingSystemAcceptance": false,
+          "detail": "Actual Better Auth signed session accepted/replayed before expiry; actual persisted expiry rejects exact replay by API and Next BFF with 401 and unchanged learning-table fingerprints."
+        }
+      ],
+      "baseline": {
+        "recordedUtc": "2026-10-10T21:23:09.642Z",
+        "initialStatusShort": " M docs/aprendizaje-guiado/v2/registro-ejecucion.json\n?? docs/aprendizaje-guiado/v2/evidencias/T041/\n?? docs/aprendizaje-guiado/v2/runbook.md\n?? work/\n",
+        "preservationFiles": 1064,
+        "preservationScope": "Git tracked/untracked nonignored apps/packages/database/work/lockfile/package.json/runbook/T041 dossier; excludes the two T042 outputs",
+        "filesSha256": "1b96f1bd39be6ac804a8560cc6c82da93de1fd4084e217c006d5feda949da926",
+        "otherTasksSha256": "c20bb559f792b3f8746bb9c87669ecf306c088006ffad37e7df664c353e3eaa4",
+        "registryOtherFieldsSha256": "3e82b633287f0605e8dd6b1553885ab7271f205a9df895920619a6311f8c289d"
+      },
+      "runtime": {
+        "nodeUsed": "v24.19.0",
+        "defaultNode": "v22.22.0",
+        "pnpmAvailable": "11.25.0",
+        "dependenciesChanged": false
+      },
+      "contract": {
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "schedulerVersion": "scheduler-v2.0",
+        "accepted": false,
+        "frozen": false,
+        "hashRecordKind": "Reviewed candidate, not an accepted skill contract",
+        "schemaSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+        "validatorSourceSha256": "c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "bundleSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+        "policySourceSha256": "142e06dcc06d1d8784d0c6e65e69e5c859e6341a775e314a6604e4627a0d8ca3",
+        "hashesEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/candidate-hashes.json"
+      },
+      "systemAcceptance": false,
+      "humanEditorialApprovalPreserved": true,
+      "productCodeChanged": true,
+      "productionTouched": false,
+      "committed": false,
+      "deployed": false,
+      "nextTaskStarted": false,
+      "nextTaskIds": [],
+      "nominalSuccessor": "T043",
+      "successorBlocked": true,
+      "resumeTaskId": "T042",
+      "remediationProposalIds": [
+        "R42-02"
+      ],
+      "priorReview": {
+        "status": "FAIL",
+        "decision": "reject",
+        "recordedUtc": "2026-10-10T21:28:04.985Z",
+        "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/acta-before-repair.md"
+      },
+      "runtimeSourceChanged": false,
+      "repairAuthorization": "docs/aprendizaje-guiado/v2/evidencias/T042/repair-authorization.json",
+      "manualReaderEvidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/observations.json",
+      "manualReaderCleanup": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/cluster-cleanup.json"
+    },
+    {
+      "taskId": "T043",
+      "capacity": "C",
+      "objective": "Empaquetar contrato y validador aceptados para la skill.",
+      "dependencies": [
+        "T042"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T044",
+      "capacity": "B",
+      "objective": "Crear la skill de guía+tema a ruta compatible.",
+      "dependencies": [
+        "T043"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T045",
+      "capacity": "B",
+      "objective": "Probar comportamiento de la skill contra sistema real.",
+      "dependencies": [
+        "T044",
+        "T035"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    },
+    {
+      "taskId": "T046",
+      "capacity": "C",
+      "objective": "Instalar skill validada y entregar documentación/cierre.",
+      "dependencies": [
+        "T045",
+        "T042"
+      ],
+      "status": "NO VERIFICADO",
+      "evidence": [],
+      "issues": []
+    }
+  ],
+  "nextAuthorizedTaskIds": [],
+  "note": "T002 documental PASS. T003 no iniciada. Los resultados baseline T001 incluyen un timeout en suite API completa; ver acta T002.",
+  "nextTaskIds": [
+    "T003"
+  ],
+  "continuationRequiresUserInstruction": true
+}

@@ -1,0 +1,86 @@
+[WebServer] (node:17920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:19396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:2000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 7 tests using 1 worker
+
+(node:12528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/a12e76fe-c6d9-4543-89cc-ad4bf1cdda62
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 1 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:59:5 › E01 creates a new persisted v2 draft using UI and keyboard (12.8s)
+  ok 2 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:90:5 › E02 editorial preview has no learner effects, then publishes with current approval (2.8m)
+  ok 3 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:124:5 › E03 beginner help and CORE error are confirmed by the server (15.4s)
+  ok 4 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:133:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (53.1s)
+  ok 5 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:145:5 › E05 disconnect before/after commit, reload and two tabs preserve one answer (20.7s)
+  ok 6 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:168:5 › E06 home, real map, route, session and review keep the pinned server state (32.2s)
+  x  7 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:186:5 › E07 corrected and published route completes diagnosis, final and delayed review with reload (1.5m)
+
+
+  1) [mobile] › tests\e2e\guided-v2-journeys.spec.ts:186:5 › E07 corrected and published route completes diagnosis, final and delayed review with reload 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Continuar a la práctica' })
+        - locator resolved to <button disabled type="button" class="learning-primary-button">Continuar a la práctica</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        - waiting for element to be visible, enabled and stable
+      - element was detached from the DOM, retrying
+
+
+      45 | async function finish(page:Page|Locator){await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(page.getByRole("heading",{name:"Sesión completada",exact:true})).toBeVisible();}
+      46 | async function answer(page:Page|Locator,kind:string,wrong=false){
+    > 47 |   if(kind==="study"){await page.getByRole("button",{name:"Continuar a la práctica"}).click();return;}
+         |                                                                                      ^
+      48 |   if(kind==="single_choice"){await page.getByRole("radio",{name:wrong?"Respuesta B":"Respuesta A",exact:true}).check();await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
+      49 |   if(kind==="short_answer"){await page.getByLabel("Tu respuesta",{exact:true}).fill("respuesta");await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
+      50 |   if(kind==="constructed_response"){await page.getByLabel("Explica con tus palabras").fill("Una relación sintética.");await page.getByRole("button",{name:"Guardar mi respuesta"}).click();await page.getByRole("button",{name:"Comparar con el modelo"}).click();await expect(page.getByRole("heading",{name:"Respuesta modelo",exact:true})).toBeVisible();await page.getByRole("button",{name:"Lo recuperé",exact:true}).click();}
+        at answer (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:47:86)
+        at consume (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:205:13)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:216:5)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T042\mobile-artifacts\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T042\mobile-artifacts\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T042\mobile-artifacts\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T042\mobile-artifacts\guided-v2-journeys-E07-cor-a47f5--delayed-review-with-reload-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: [mobile] › tests\e2e\guided-v2-journeys.spec.ts (6.5m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    [mobile] › tests\e2e\guided-v2-journeys.spec.ts:186:5 › E07 corrected and published route completes diagnosis, final and delayed review with reload 
+  6 passed (7.4m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/t042/playwright.mobile.config.mts

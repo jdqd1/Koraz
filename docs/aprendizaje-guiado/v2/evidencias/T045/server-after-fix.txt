@@ -1,0 +1,16 @@
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\fastify@5.12.1\node_modules\fastify\fastify.js:469
+    if (fastify[kState].started) throw new FST_ERR_INSTANCE_ALREADY_LISTENING(msg)
+                                       ^
+FastifyError: Fastify instance is already listening. Cannot add route!
+    at throwIfAlreadyStarted (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\fastify@5.12.1\node_modules\fastify\fastify.js:469:40)
+    at Object.route (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\fastify@5.12.1\node_modules\fastify\lib\route.js:205:5)
+    at Object.prepareRoute (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\fastify@5.12.1\node_modules\fastify\lib\route.js:168:18)
+    at Object._post [as post] (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\fastify@5.12.1\node_modules\fastify\fastify.js:197:34)
+    at <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\docs\aprendizaje-guiado\v2\evidencias\T045\test-server.mts:154:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  code: 'FST_ERR_INSTANCE_ALREADY_LISTENING',
+  statusCode: 500
+}
+
+Node.js v24.19.0

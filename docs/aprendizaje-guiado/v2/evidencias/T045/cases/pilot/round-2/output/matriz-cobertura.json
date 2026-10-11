@@ -1,0 +1,1123 @@
+{
+  "packageSha256": "b1681590a35f76037bdad1ba679b82261d67aa78cc1d258d04631ecf3b2849ff",
+  "banks": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "title": "Relacionar trayectos y territorios arteriales abdominales descritos",
+      "prerequisites": [],
+      "sourceKeys": [
+        "arterias"
+      ],
+      "evidenceExpected": "Recuperación objetiva sin ayudas y reconstrucción/comparación de relaciones sustentadas",
+      "initial": [
+        {
+          "key": "arterias-r1",
+          "phase": "retrieve",
+          "equivalenceKey": "arterias-r1"
+        },
+        {
+          "key": "arterias-r2",
+          "phase": "retrieve",
+          "equivalenceKey": "arterias-r2"
+        },
+        {
+          "key": "arterias-r3",
+          "phase": "retrieve",
+          "equivalenceKey": "arterias-r3"
+        },
+        {
+          "key": "arterias-a1",
+          "phase": "apply",
+          "equivalenceKey": "arterias-a1"
+        },
+        {
+          "key": "arterias-a2",
+          "phase": "apply",
+          "equivalenceKey": "arterias-a2"
+        }
+      ],
+      "initialFamilies": [
+        "arterias-r1",
+        "arterias-r2",
+        "arterias-r3",
+        "arterias-a1",
+        "arterias-a2"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "arterias-final",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "arterias-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "arterias-r7",
+            "phase": "retrieve",
+            "kind": "short_answer",
+            "family": "arterias-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "arterias-r30",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "arterias-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "retorno-sistemico",
+      "title": "Relacionar la VCI con sus trayectos y tributarias",
+      "prerequisites": [],
+      "sourceKeys": [
+        "cava"
+      ],
+      "evidenceExpected": "Recuperación objetiva sin ayudas y reconstrucción/comparación de relaciones sustentadas",
+      "initial": [
+        {
+          "key": "cava-r1",
+          "phase": "retrieve",
+          "equivalenceKey": "cava-r1"
+        },
+        {
+          "key": "cava-r2",
+          "phase": "retrieve",
+          "equivalenceKey": "cava-r2"
+        },
+        {
+          "key": "cava-r3",
+          "phase": "retrieve",
+          "equivalenceKey": "cava-r3"
+        },
+        {
+          "key": "cava-a1",
+          "phase": "apply",
+          "equivalenceKey": "cava-a1"
+        },
+        {
+          "key": "cava-a2",
+          "phase": "apply",
+          "equivalenceKey": "cava-r2"
+        },
+        {
+          "key": "cava-a3",
+          "phase": "apply",
+          "equivalenceKey": "cava-a3"
+        }
+      ],
+      "initialFamilies": [
+        "cava-r1",
+        "cava-r2",
+        "cava-r3",
+        "cava-a1",
+        "cava-a3"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "cava-final",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "cava-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "cava-r7",
+            "phase": "retrieve",
+            "kind": "short_answer",
+            "family": "cava-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "cava-r30",
+            "phase": "retrieve",
+            "kind": "short_answer",
+            "family": "cava-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "retorno-portal",
+      "title": "Ordenar el flujo portal y relacionar su topografía",
+      "prerequisites": [
+        "retorno-sistemico"
+      ],
+      "sourceKeys": [
+        "porta",
+        "cava"
+      ],
+      "evidenceExpected": "Recuperación objetiva sin ayudas y reconstrucción/comparación de relaciones sustentadas",
+      "initial": [
+        {
+          "key": "porta-r1",
+          "phase": "retrieve",
+          "equivalenceKey": "porta-r1"
+        },
+        {
+          "key": "porta-r2",
+          "phase": "retrieve",
+          "equivalenceKey": "porta-r2"
+        },
+        {
+          "key": "porta-r3",
+          "phase": "retrieve",
+          "equivalenceKey": "porta-r3"
+        },
+        {
+          "key": "porta-a1",
+          "phase": "apply",
+          "equivalenceKey": "porta-a1"
+        },
+        {
+          "key": "porta-a2",
+          "phase": "apply",
+          "equivalenceKey": "porta-a1"
+        },
+        {
+          "key": "porta-r4",
+          "phase": "retrieve",
+          "equivalenceKey": "porta-r4"
+        }
+      ],
+      "initialFamilies": [
+        "porta-r1",
+        "porta-r2",
+        "porta-r3",
+        "porta-a1",
+        "porta-r4"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "porta-final",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "porta-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "porta-r7",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "porta-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "porta-r30",
+            "phase": "retrieve",
+            "kind": "sequence",
+            "family": "porta-r30"
+          }
+        ]
+      }
+    },
+    {
+      "objectiveKey": "tipos-comunicacion",
+      "title": "Diferenciar comunicaciones intercavas y portosistémicas por sus extremos",
+      "prerequisites": [
+        "retorno-sistemico",
+        "retorno-portal"
+      ],
+      "sourceKeys": [
+        "comunicaciones"
+      ],
+      "evidenceExpected": "Recuperación objetiva sin ayudas y reconstrucción/comparación de relaciones sustentadas",
+      "initial": [
+        {
+          "key": "comunicaciones-r1",
+          "phase": "retrieve",
+          "equivalenceKey": "comunicaciones-r1"
+        },
+        {
+          "key": "comunicaciones-r2",
+          "phase": "retrieve",
+          "equivalenceKey": "comunicaciones-r2"
+        },
+        {
+          "key": "comunicaciones-r3",
+          "phase": "retrieve",
+          "equivalenceKey": "comunicaciones-r3"
+        },
+        {
+          "key": "comunicaciones-a1",
+          "phase": "apply",
+          "equivalenceKey": "comunicaciones-a1"
+        },
+        {
+          "key": "comunicaciones-a2",
+          "phase": "apply",
+          "equivalenceKey": "comunicaciones-a2"
+        }
+      ],
+      "initialFamilies": [
+        "comunicaciones-r1",
+        "comunicaciones-r2",
+        "comunicaciones-r3",
+        "comunicaciones-a1",
+        "comunicaciones-a2"
+      ],
+      "reserves": {
+        "final": [
+          {
+            "key": "comunicaciones-final",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "comunicaciones-final"
+          }
+        ],
+        "retention7": [
+          {
+            "key": "comunicaciones-r7",
+            "phase": "retrieve",
+            "kind": "short_answer",
+            "family": "comunicaciones-r7"
+          }
+        ],
+        "retention30": [
+          {
+            "key": "comunicaciones-r30",
+            "phase": "retrieve",
+            "kind": "match",
+            "family": "comunicaciones-r30"
+          }
+        ]
+      }
+    }
+  ],
+  "activityTrace": [
+    {
+      "key": "arterias-estudio",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-ejemplo",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-r1",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-r2",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-r3",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-elaborar",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "elaborate",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-a1",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-a2",
+      "objective": "territorios-arteriales",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-final",
+      "objective": "territorios-arteriales",
+      "use": "final",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-r7",
+      "objective": "territorios-arteriales",
+      "use": "retention7",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "arterias-r30",
+      "objective": "territorios-arteriales",
+      "use": "retention30",
+      "phase": "retrieve",
+      "sources": [
+        "arterias"
+      ],
+      "feedbackSources": [
+        "arterias"
+      ],
+      "heading": [
+        "Aorta abdominal / Ramas viscerales impares / Continuidad entre los territorios arteriales digestivos"
+      ]
+    },
+    {
+      "key": "cava-estudio",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-ejemplo",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-r1",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-r2",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-r3",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-elaborar",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "elaborate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-a1",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-a2",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-remediar",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "remediate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-a3",
+      "objective": "retorno-sistemico",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-final",
+      "objective": "retorno-sistemico",
+      "use": "final",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-r7",
+      "objective": "retorno-sistemico",
+      "use": "retention7",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "cava-r30",
+      "objective": "retorno-sistemico",
+      "use": "retention30",
+      "phase": "retrieve",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-estudio",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-ejemplo",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r1",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r2",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r3",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-elaborar",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "elaborate",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-a1",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-a2",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-remediar",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "remediate",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r4",
+      "objective": "retorno-portal",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-final",
+      "objective": "retorno-portal",
+      "use": "final",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r7",
+      "objective": "retorno-portal",
+      "use": "retention7",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "porta-r30",
+      "objective": "retorno-portal",
+      "use": "retention30",
+      "phase": "retrieve",
+      "sources": [
+        "porta",
+        "cava"
+      ],
+      "feedbackSources": [
+        "porta",
+        "cava"
+      ],
+      "heading": [
+        "Sistema porta hepático / Formación / Trayecto y relaciones / Terminación",
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "comunicaciones-estudio",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-ejemplo",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "learn",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-r1",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-r2",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-r3",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-elaborar",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "elaborate",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-a1",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-a2",
+      "objective": "tipos-comunicacion",
+      "use": "learning",
+      "phase": "apply",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-final",
+      "objective": "tipos-comunicacion",
+      "use": "final",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-r7",
+      "objective": "tipos-comunicacion",
+      "use": "retention7",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "comunicaciones-r30",
+      "objective": "tipos-comunicacion",
+      "use": "retention30",
+      "phase": "retrieve",
+      "sources": [
+        "comunicaciones"
+      ],
+      "feedbackSources": [
+        "comunicaciones"
+      ],
+      "heading": [
+        "Vías intercavas / Anastomosis portosistémicas / Nota clínica y diferencia entre fuentes"
+      ]
+    },
+    {
+      "key": "diagnostico-1",
+      "objective": "retorno-sistemico",
+      "use": "diagnostic",
+      "phase": "activate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "diagnostico-2",
+      "objective": "retorno-sistemico",
+      "use": "diagnostic",
+      "phase": "activate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "diagnostico-3",
+      "objective": "retorno-sistemico",
+      "use": "diagnostic",
+      "phase": "activate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    },
+    {
+      "key": "diagnostico-4",
+      "objective": "retorno-sistemico",
+      "use": "diagnostic",
+      "phase": "activate",
+      "sources": [
+        "cava"
+      ],
+      "feedbackSources": [
+        "cava"
+      ],
+      "heading": [
+        "Vena cava inferior / Formación, trayecto y terminación / Tributarias viscerales"
+      ]
+    }
+  ],
+  "coverageGaps": [
+    "Origen de las tres ramas con antecedente incompleto",
+    "Interpretación clínica discrepante rectal",
+    "Tema general más amplio que snapshot; reconocimiento espacial y práctica clínica fuera de alcance"
+  ]
+}

@@ -1,0 +1,5 @@
+# Fallo conservado de la comprobación de respuestas persistidas
+
+El primer recorrido del candidato final completó dominio, retención y consolidación, pero la comprobación auxiliar exigía al menos 15 respuestas porque el paquete contiene 15 actividades. El motor seleccionó un recorrido válido de 13 intentos y 13 respuestas; las actividades del banco no deben contestarse todas obligatoriamente.
+
+Se conservan el script original, su error, el transcript y los hechos consultados directamente en PostgreSQL. La comprobación corregida cuenta las respuestas aceptadas enviadas durante el recorrido, excluye el replay y exige igualdad exacta con las filas persistidas. También exige que los identificadores de intento de esas filas coincidan exactamente con los 13 intentos completados y que existan las dos retenciones. Se repitió todo desde una nueva base desechable: PASS, 13 intentos, 71 peticiones y 13 respuestas persistidas. No se alteraron el motor, los umbrales educativos ni el contenido para aceptar la comprobación.

@@ -1,0 +1,246 @@
+{
+  "scope": "Autoría local desde guia.md y copia autocontenida de skill; escrituras exclusivamente en output",
+  "runtime": "v24.19.0",
+  "sourceHash": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1",
+  "packageHash": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56",
+  "commands": [
+    {
+      "command": "Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\SKILL.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\guia.md' -Raw",
+      "exitCode": 0,
+      "result": "Dos lecturas completas; sin escrituras."
+    },
+    {
+      "command": "Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\references\\contrato-koraz-2.0.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\references\\pedagogia.md' -Raw; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\references\\cobertura-por-disciplina.md' -Raw; & 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\scripts\\verify-resources.mjs'",
+      "exitCode": 0,
+      "result": "Tres recursos de autoría leídos; verify-resources valid:true, runtime v24.19.0 e identidades coincidentes."
+    },
+    {
+      "command": "& 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' -e \"const fs=require('fs'); const s=JSON.parse(fs.readFileSync('D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T045/cases/pilot/skill/assets/koraz-route-2.0.schema.json','utf8')); console.log(JSON.stringify(s,null,2));\"; Get-Content -LiteralPath 'D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\assets\\ejemplo-valido.koraz-route.json' -Raw",
+      "exitCode": 0,
+      "result": "Consulta estructural. Salida de herramienta truncada; se realizó una consulta focal posterior de payloads."
+    },
+    {
+      "command": "& 'C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe' -e \"const fs=require('fs');const s=JSON.parse(fs.readFileSync('D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/T045/cases/pilot/skill/assets/koraz-route-2.0.schema.json','utf8'));for(const a of s.properties.activities.items.oneOf){console.log(a.properties.kind.const,JSON.stringify(a.properties.payload));}\"",
+      "exitCode": 0,
+      "result": "Ocho kinds y payloads completos consultados."
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\scripts\\verify-resources.mjs"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill",
+      "exitCode": 0,
+      "result": {
+        "valid": true,
+        "runtime": "v24.19.0",
+        "runtimeMatches": true,
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "deferredCheck": "Q19/V04",
+        "deferredCheckStatus": "NO VERIFICADO",
+        "scope": "portable",
+        "catalogueResolution": "PENDING_AT_IMPORT",
+        "acceptedManifestMatches": true,
+        "checks": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ]
+      },
+      "stderr": "",
+      "packageSha256": null
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\scripts\\validate-route.mjs",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      },
+      "stderr": "",
+      "packageSha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56"
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill\\scripts\\validate-route.mjs",
+        "--publish",
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\output\\ruta.koraz-route.json"
+      ],
+      "cwd": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\skill",
+      "exitCode": 1,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      },
+      "stderr": "",
+      "packageSha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56"
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\output\\author-route.mjs"
+      ],
+      "exitCode": 0,
+      "result": "Generación local completada y verificaciones ejecutadas con resultados preservados.",
+      "note": "Las validaciones exit 1 esperadas no cambian a PASS; el generador conserva sus salidas."
+    },
+    {
+      "executable": "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "args": [
+        "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\T045\\cases\\pilot\\output\\verify-delivery.mjs"
+      ],
+      "exitCode": 0,
+      "result": {
+        "scope": "Auditoría local del paquete exacto y del snapshot; no revisión médica independiente",
+        "checks": {
+          "originalGuideHashMatches": true,
+          "exactJsonHashMatches": true,
+          "excerptsLiteral": true,
+          "sourceHashesOriginal": true,
+          "allActivitiesLocated": true,
+          "assessmentCandidatesResolve": true,
+          "reserveFamiliesExclusive": true,
+          "noReservedItemInInitialAssessments": true,
+          "cycleCoverage": true,
+          "referencesPreserved": true,
+          "zeroAssets": true,
+          "noProductionIdentity": true
+        },
+        "allPass": true,
+        "counts": {
+          "units": 4,
+          "objectives": 4,
+          "activities": 42,
+          "assessments": 9,
+          "sources": 5,
+          "assets": 0,
+          "initialObjectiveFamilies": 20,
+          "reserveFamilies": 12,
+          "diagnosticItems": 4
+        },
+        "packageSha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56"
+      }
+    }
+  ],
+  "repairRounds": 0,
+  "validationSummary": {
+    "resources": true,
+    "structure": true,
+    "publishable": false
+  },
+  "artifacts": [
+    {
+      "name": "ruta.koraz-route.json",
+      "sha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56"
+    },
+    {
+      "name": "resource-validation.json",
+      "sha256": "1a5f8d578c3aa15da211f6ecb1288faa614ec3026233706bb37337df4d932f0e"
+    },
+    {
+      "name": "validation-draft.json",
+      "sha256": "2c603a3800e6159eb59a7c00b9cb328747e28583480db6d58d4e79deac874b5b"
+    },
+    {
+      "name": "validation-publish.json",
+      "sha256": "2c603a3800e6159eb59a7c00b9cb328747e28583480db6d58d4e79deac874b5b"
+    },
+    {
+      "name": "inventario-guia.json",
+      "sha256": "c3845a1630de24c472ec48a904958e2bc6397b849c5a3d6ed0c2ab010bfc8ee8"
+    },
+    {
+      "name": "matriz-cobertura.json",
+      "sha256": "d6057bba08c39a6a9690fa2401945ced2a406fd0e795edc087987ae51765e877"
+    },
+    {
+      "name": "assets-a-vincular.json",
+      "sha256": "25bb1bc2a01ab106aff87a16c4552580f0b788accd74b33843cb511f978205f1"
+    },
+    {
+      "name": "revision-de-ruta.md",
+      "sha256": "859609c10e1a9dc80a2b2bb45edac7d2c69b947bcacceba61caf85ae22dade9d"
+    },
+    {
+      "name": "author-route.mjs",
+      "sha256": "af27e696c4b0381cc333defb33c1c98c12d84a2392f0ebd4f77d0fa54314fb6c"
+    },
+    {
+      "name": "verify-delivery.mjs",
+      "sha256": "5d2c97094b94984689580b5e361c916fc1653fded9db764bd34627bdc7c9d8fd"
+    },
+    {
+      "name": "delivery-checks.json",
+      "sha256": "47ac29b3c7457b9826638330b1b49908efa3ade29a0e11613ae074d0634c4c67"
+    }
+  ],
+  "limitations": [
+    "No guía íntegra",
+    "SOURCE_CONFLICT y SOURCE_UNRESOLVED pendientes",
+    "Q19/V04 NO VERIFICADO",
+    "No importación/publicación ni catálogo resuelto",
+    "No revisión médica independiente"
+  ]
+}

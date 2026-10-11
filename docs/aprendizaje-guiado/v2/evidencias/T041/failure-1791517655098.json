@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"understand\",\n      \"recall\",\n      \"check\",\n      \"integrate\",\n      \"diagnostic\"\n    ],\n    \"path\": [\n      \"definition\",\n      \"units\",\n      0,\n      \"steps\",\n      0,\n      \"purpose\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"understand\\\"|\\\"recall\\\"|\\\"check\\\"|\\\"integrate\\\"|\\\"diagnostic\\\"\"\n  }\n]",
+  "stack": "ZodError: [\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"understand\",\n      \"recall\",\n      \"check\",\n      \"integrate\",\n      \"diagnostic\"\n    ],\n    \"path\": [\n      \"definition\",\n      \"units\",\n      0,\n      \"steps\",\n      0,\n      \"purpose\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"understand\\\"|\\\"recall\\\"|\\\"check\\\"|\\\"integrate\\\"|\\\"diagnostic\\\"\"\n  }\n]\n    at <anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t041\\recovery.mts:126:49)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "checks": []
+}

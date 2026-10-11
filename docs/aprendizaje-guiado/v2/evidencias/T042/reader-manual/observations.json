@@ -1,0 +1,83 @@
+{
+  "taskId": "T042",
+  "check": "Q19/V04",
+  "recordedUtc": "2026-10-10T23:11:24.280Z",
+  "clientDate": "2026-10-10",
+  "timezone": "America/Caracas",
+  "status": "NO VERIFICADO",
+  "source": "Human user in this chat, personally operating Windows Narrator and Edge; no agent desktop automation",
+  "routeUrl": "http://127.0.0.1:31035/aprendizaje/rutas/t035-small",
+  "reader": "Windows Narrator",
+  "browser": "Microsoft Edge",
+  "installedFileVersions": {
+    "edge": "154.0.4258.62",
+    "narrator": "10.0.26100.8972",
+    "source": "Executable metadata inspected; exact running-reader version not separately demonstrated"
+  },
+  "speechReported": true,
+  "agentHeardSpeech": false,
+  "recordingAvailable": false,
+  "steps": [
+    {
+      "id": "V04-1",
+      "status": "PASS",
+      "prompt": "Navigate with Tab to Comenzar, hear its name and role, activate with Enter",
+      "userMessage": "cuando hago TAB has ta el boton de comenzar me dice el narrador \"comenzar, botón\", luego hago enter y se me pone esta pantalla",
+      "literalSpeech": "comenzar, botón",
+      "corroboration": "Human-provided Edge screenshot shows the enrolled route, Continuar and separate states"
+    },
+    {
+      "id": "V04-2",
+      "status": "PASS",
+      "prompt": "Read Recorrido en curso, Dominio por comprobar and Consolidación pendiente; activate Continuar",
+      "userMessage": "si, todo",
+      "evidenceKind": "Explicit confirmation of the requested states; not a verbatim transcript"
+    },
+    {
+      "id": "V04-3",
+      "status": "NO VERIFICADO",
+      "humanReportedResult": "PASS",
+      "prompt": "Read study content, activate Continuar a la práctica, finalize and hear Sesión completada",
+      "userMessage": "si puede",
+      "reason": "Persisted attempt is still study-1 in_progress, with no response or submitted_at"
+    },
+    {
+      "id": "V04-4",
+      "status": "NO VERIFICADO",
+      "humanReportedResult": "PASS",
+      "prompt": "Write in Explica con tus palabras, save, compare model, self-assess and finalize",
+      "userMessage": "si",
+      "reason": "No constructed-response attempt or response was persisted in this manual database"
+    },
+    {
+      "id": "V04-5",
+      "status": "NO VERIFICADO",
+      "humanReportedResult": "PASS",
+      "prompt": "Read hint, choose Respuesta B, hear feedback and explanation, finalize, return and read remediation after reload; report any keyboard trap",
+      "userMessage": "funciona",
+      "reason": "No single-choice response or later attempt was persisted; feedback/remediation cannot be reconciled with this session"
+    }
+  ],
+  "clarification": {
+    "source": "Subsequent direct answer to the discrepancy question",
+    "question": "La base solo conserva la primera lectura abierta y cero respuestas. Durante la prueba, ¿llegaste a activar «Guardar mi respuesta» y «Comprobar respuesta» y a ver sus resultados, o confirmaste que Narrator leía los controles?",
+    "answer": "Activé ambos y vi sus resultados",
+    "interpretation": "User explicitly reports activating both controls and seeing results; no inference that they only read controls. Persisted data still differ; cause unverified."
+  },
+  "discrepancy": {
+    "status": "OPEN",
+    "persistedAttempts": 1,
+    "persistedResponses": 0,
+    "target": "study-1",
+    "attemptStatus": "in_progress",
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/persisted-manual-journey.json",
+    "conclusion": "Initial name/role and route states supported; user explicitly reports activating both controls and seeing results. Need to reconcile this with the persisted session; do not infer user error or fabricate Narrator speech."
+  },
+  "cleanup": {
+    "status": "PASS",
+    "evidence": "docs/aprendizaje-guiado/v2/evidencias/T042/reader-manual/cluster-cleanup.json",
+    "initialFailure": "ECONNREFUSED after Ctrl+C stopped PostgreSQL before the baseline query; original screenshot supplied in chat",
+    "recovery": "Restarted only marked disposable cluster without replacing baseline; saved persisted journey, attributed and removed sole temporary manual database, verified preexisting names/OIDs, stopped cluster"
+  },
+  "nextTaskStarted": false
+}

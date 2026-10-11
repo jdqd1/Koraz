@@ -1,0 +1,26 @@
+[WebServer] (node:23896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:30280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:16944) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:5336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data (2.9s)
+  ok 2 [desktop] › ..\..\work\test\t041\recovery.spec.ts:19:5 › M04 v1 restored session can write and complete while v2 is disabled (3.7s)
+  ok 3 [desktop] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable (2.7s)
+(node:8096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data (4.1s)
+  ok 5 [mobile] › ..\..\work\test\t041\recovery.spec.ts:19:5 › M04 v1 restored session can write and complete while v2 is disabled (4.4s)
+  ok 6 [mobile] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable (4.5s)
+
+  6 passed (40.8s)

@@ -1,0 +1,129 @@
+[WebServer] (node:33496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:2832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:33108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:7384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data (6.6s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2124632274'
+[WebServer] }
+  ok 2 [desktop] › ..\..\work\test\t041\recovery.spec.ts:19:5 › M04 v1 restored session can write and complete while v2 is disabled (4.8s)
+  x  3 [desktop] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable (32.9s)
+(node:12492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 [mobile] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data (2.6s)
+(node:7092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2124632274'
+[WebServer] }
+  ok 5 [mobile] › ..\..\work\test\t041\recovery.spec.ts:19:5 › M04 v1 restored session can write and complete while v2 is disabled (4.4s)
+  x  6 [mobile] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable (33.6s)
+
+
+  1) [desktop] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable 
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Ver cierre de sesión', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.spec.ts:46:81)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-engine-version="guided-v2"]')
+    Expected: visible
+    Error: strict mode violation: locator('[data-engine-version="guided-v2"]') resolved to 2 elements:
+        1) <main data-engine-version="guided-v2" class="learning-main learning-path-detail">…</main> aka getByRole('main')
+        2) <main data-engine-version="guided-v2" class="learning-main learning-path-detail">…</main> aka getByText('Todas las rutasTema T035Ruta').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" locator('[data-engine-version="guided-v2"]') with timeout 30000ms
+      - waiting for locator('[data-engine-version="guided-v2"]')
+        2 × locator resolved to <main data-engine-version="guided-v2" class="learning-main learning-path-detail">…</main>
+          - unexpected value "hidden"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.spec.ts:11:67)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-d-28f1b-ance-and-preserves-all-data-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-d-28f1b-ance-and-preserves-all-data-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-d-28f1b-ance-and-preserves-all-data-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-d-28f1b-ance-and-preserves-all-data-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable 
+
+    TimeoutError: locator.click: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Ver cierre de sesión', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.spec.ts:46:81)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\T041\browser-artifacts\recovery-M04-restored-v2-a-983de-s-after-controlled-reenable-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [desktop] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable 
+    [mobile] › ..\..\work\test\t041\recovery.spec.ts:7:5 › M04 restored v2 displays maintenance and preserves all data 
+    [mobile] › ..\..\work\test\t041\recovery.spec.ts:36:5 › M04 restored v2 active session resumes after controlled reenable 
+  3 passed (2.2m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/t041/playwright.config.mts

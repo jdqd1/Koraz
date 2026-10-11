@@ -1,0 +1,2754 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "packageKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "locale": {
+      "type": "string",
+      "const": "es"
+    },
+    "route": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "topicLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "discipline": {
+          "type": "string",
+          "enum": [
+            "anatomy",
+            "histology",
+            "embryology",
+            "physiology",
+            "biochemistry",
+            "pharmacology",
+            "pathology",
+            "clinical",
+            "general"
+          ]
+        },
+        "coverKey": {
+          "type": "string",
+          "enum": [
+            "back-muscles",
+            "heart",
+            "intestines",
+            "lungs",
+            "neck-muscles",
+            "pelvis",
+            "skull",
+            "thigh"
+          ]
+        }
+      },
+      "required": [
+        "slug",
+        "title",
+        "summary",
+        "topicLabel",
+        "audience",
+        "discipline",
+        "coverKey"
+      ],
+      "additionalProperties": false
+    },
+    "policyVersion": {
+      "type": "string",
+      "const": "guided-v2.0"
+    },
+    "sources": {
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "guide",
+              "reference"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "citation": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "locator": {
+            "type": "object",
+            "properties": {
+              "heading": {
+                "type": "string",
+                "maxLength": 500
+              },
+              "sectionPath": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "page": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "heading",
+              "sectionPath",
+              "page"
+            ],
+            "additionalProperties": false
+          },
+          "documentSha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "excerpt": {
+            "type": "string",
+            "maxLength": 10000
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verification": {
+            "type": "string",
+            "enum": [
+              "provided",
+              "verified",
+              "unverified"
+            ]
+          },
+          "checkedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "kind",
+          "title",
+          "citation",
+          "locator",
+          "documentSha256",
+          "excerpt",
+          "url",
+          "verification",
+          "checkedAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "assets": {
+      "maxItems": 500,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "mediaType": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "originalFileName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "alt": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "sourceKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "rightsStatus": {
+            "type": "string",
+            "enum": [
+              "owned",
+              "licensed",
+              "public_domain",
+              "unverified"
+            ]
+          },
+          "credit": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "mediaType",
+          "originalFileName",
+          "sha256",
+          "alt",
+          "caption",
+          "sourceKeys",
+          "rightsStatus",
+          "credit",
+          "width",
+          "height"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "objectives": {
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "unitKey": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "verb": {
+            "type": "string",
+            "enum": [
+              "identify",
+              "recall",
+              "relate",
+              "differentiate",
+              "explain",
+              "predict",
+              "order",
+              "apply",
+              "integrate"
+            ]
+          },
+          "criticality": {
+            "type": "string",
+            "enum": [
+              "core",
+              "high_yield",
+              "supporting",
+              "detail"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "prerequisiteKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "sourceKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "comparisonGroup": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "misconceptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "critical": {
+                  "type": "boolean"
+                },
+                "remediationActivityKey": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
+                "verificationActivityKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  }
+                }
+              },
+              "required": [
+                "key",
+                "description",
+                "critical",
+                "remediationActivityKey",
+                "verificationActivityKeys"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "unitKey",
+          "verb",
+          "criticality",
+          "required",
+          "prerequisiteKeys",
+          "sourceKeys",
+          "comparisonGroup",
+          "misconceptions"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "units": {
+      "maxItems": 30,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "objectiveKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "activityKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "support": {
+            "type": "string",
+            "enum": [
+              "full",
+              "standard"
+            ]
+          },
+          "estimatedMinutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 600
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "objectiveKeys",
+          "activityKeys",
+          "support",
+          "estimatedMinutes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "activities": {
+      "maxItems": 2000,
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "study"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10000
+                  },
+                  "focusSpans": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "end": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "assetKey": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "scaffold": {
+                    "type": "string",
+                    "enum": [
+                      "explanation",
+                      "worked_example",
+                      "partial_example"
+                    ]
+                  },
+                  "videoRange": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "startSeconds": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "endSeconds": {
+                            "type": "number",
+                            "exclusiveMinimum": 0
+                          }
+                        },
+                        "required": [
+                          "startSeconds",
+                          "endSeconds"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "body",
+                  "focusSpans",
+                  "assetKey",
+                  "scaffold",
+                  "videoRange"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "single_choice"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "options": {
+                    "minItems": 2,
+                    "maxItems": 6,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "correctKey": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  "distractorFeedback": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "additionalProperties": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2000
+                    }
+                  }
+                },
+                "required": [
+                  "options",
+                  "correctKey",
+                  "distractorFeedback"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "short_answer"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "acceptedAnswers": {
+                    "minItems": 1,
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "maxChars": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 500
+                  },
+                  "modelAnswer": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "normalization": {
+                    "type": "string",
+                    "const": "nfkc-lower-space"
+                  }
+                },
+                "required": [
+                  "acceptedAnswers",
+                  "maxChars",
+                  "modelAnswer",
+                  "normalization"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "constructed_response"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "rubric": {
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "criterion": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        },
+                        "example": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "criterion",
+                        "example"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "modelAnswer": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "verificationActivityKey": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "rubric",
+                  "modelAnswer",
+                  "verificationActivityKey"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "match"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "presentation": {
+                    "type": "string",
+                    "enum": [
+                      "pairs",
+                      "comparison_table",
+                      "causal_map"
+                    ]
+                  },
+                  "prompts": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "choices": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "correctByPrompt": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "additionalProperties": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "allowReuse": {
+                    "type": "boolean"
+                  },
+                  "edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "from": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "to": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "label": {
+                          "type": "string",
+                          "maxLength": 500
+                        }
+                      },
+                      "required": [
+                        "from",
+                        "to",
+                        "label"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "presentation",
+                  "prompts",
+                  "choices",
+                  "correctByPrompt",
+                  "allowReuse",
+                  "edges"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "image_target"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "assetKey": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "hotspot",
+                      "labeling"
+                    ]
+                  },
+                  "targets": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "prompt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        },
+                        "polygon": {
+                          "minItems": 3,
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              },
+                              "y": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "label": {
+                          "type": "string",
+                          "maxLength": 500
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "prompt",
+                        "polygon",
+                        "label"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 500
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "correctLabelByTarget": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "additionalProperties": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "accessibleAlternativeKey": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  "masking": {
+                    "type": "string",
+                    "enum": [
+                      "all_labels",
+                      "partial_labels",
+                      "no_labels"
+                    ]
+                  }
+                },
+                "required": [
+                  "assetKey",
+                  "mode",
+                  "targets",
+                  "labels",
+                  "correctLabelByTarget",
+                  "accessibleAlternativeKey",
+                  "masking"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "sequence"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "minItems": 3,
+                    "maxItems": 12,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 2000
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "acceptedOrders": {
+                    "minItems": 1,
+                    "maxItems": 5,
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      }
+                    }
+                  },
+                  "whyActivityKey": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120,
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "items",
+                  "acceptedOrders",
+                  "whyActivityKey"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "objectiveKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "relatedObjectiveKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "activate",
+                  "learn",
+                  "retrieve",
+                  "elaborate",
+                  "apply",
+                  "remediate"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "sourceKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
+              },
+              "representation": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "image",
+                  "table",
+                  "diagram",
+                  "case",
+                  "video"
+                ]
+              },
+              "equivalenceKey": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hints": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "learning",
+                  "diagnostic",
+                  "gate",
+                  "final",
+                  "retention7",
+                  "retention30"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "feedback": {
+                "type": "object",
+                "properties": {
+                  "explanation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "commonError": {
+                    "type": "string",
+                    "maxLength": 4000
+                  },
+                  "sourceKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  }
+                },
+                "required": [
+                  "explanation",
+                  "commonError",
+                  "sourceKeys"
+                ],
+                "additionalProperties": false
+              },
+              "misconceptionMappings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "responseKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    },
+                    "misconceptionKey": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120,
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                    }
+                  },
+                  "required": [
+                    "responseKey",
+                    "misconceptionKey"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "alternativeActivityKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120,
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "const": "case"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "stages": {
+                    "minItems": 2,
+                    "maxItems": 6,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "narrative": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4000
+                        },
+                        "childActivityKey": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 120,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        }
+                      },
+                      "required": [
+                        "key",
+                        "narrative",
+                        "childActivityKey"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "stages"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "key",
+              "objectiveKey",
+              "relatedObjectiveKeys",
+              "phase",
+              "required",
+              "sourceKeys",
+              "representation",
+              "equivalenceKey",
+              "hints",
+              "use",
+              "prompt",
+              "feedback",
+              "misconceptionMappings",
+              "alternativeActivityKey",
+              "kind",
+              "payload"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "assessments": {
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "diagnostic",
+              "unit_gate",
+              "checkpoint",
+              "final",
+              "retention7",
+              "retention30"
+            ]
+          },
+          "afterUnitKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "objectiveKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "candidateActivityKeys": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "thresholdPercent": {
+            "type": "integer",
+            "minimum": 80,
+            "maximum": 100
+          },
+          "thresholdRationale": {
+            "type": "string",
+            "minLength": 40,
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "key",
+          "kind",
+          "afterUnitKey",
+          "objectiveKeys",
+          "candidateActivityKeys",
+          "thresholdPercent",
+          "thresholdRationale"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "reviewPlan": {
+      "type": "object",
+      "properties": {
+        "objectiveKeys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        }
+      },
+      "required": [
+        "objectiveKeys"
+      ],
+      "additionalProperties": false
+    },
+    "editorial": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "unresolvedIssues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "error",
+                  "warning"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^(?:|\\/(?:[^~/]|~[01])*)*$"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "suggestedFix": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "code",
+              "severity",
+              "path",
+              "message",
+              "suggestedFix"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "notes",
+        "unresolvedIssues"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "packageKey",
+    "revision",
+    "locale",
+    "route",
+    "policyVersion",
+    "sources",
+    "assets",
+    "objectives",
+    "units",
+    "activities",
+    "assessments",
+    "reviewPlan",
+    "editorial"
+  ],
+  "additionalProperties": false
+}

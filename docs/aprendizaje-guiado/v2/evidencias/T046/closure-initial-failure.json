@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "command": "close-delivery.mjs verify",
+  "observed": "Link check found its own closure-check.json did not yet exist before the final report was written.",
+  "cause": "Report-generation sequencing, not an installation, content or product failure.",
+  "repair": "Create the self-linked report as NO VERIFICADO during verification, then replace with PASS only after all preservation, link, archive and whitespace assertions pass.",
+  "assertionsRelaxed": false,
+  "finalEvidence": "closure-check.json"
+}

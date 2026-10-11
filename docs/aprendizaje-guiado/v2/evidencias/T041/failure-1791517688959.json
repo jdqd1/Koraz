@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "message": "{\"issues\":[{\"code\":\"resource_changed\",\"context\":{\"sourceContentId\":\"77000000-0000-4000-8000-000000000021\",\"stepStableKey\":\"quiz\",\"unitStableKey\":\"unit\"},\"message\":\"El material cambió mientras se editaba. Revísalo y vuelve a seleccionarlo.\",\"path\":\"version.units.0.steps.0.options.0\",\"severity\":\"error\"}],\"status\":\"not_ready\"}\n+ actual - expected\n\n+ 'not_ready'\n- 'success'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: {\"issues\":[{\"code\":\"resource_changed\",\"context\":{\"sourceContentId\":\"77000000-0000-4000-8000-000000000021\",\"stepStableKey\":\"quiz\",\"unitStableKey\":\"unit\"},\"message\":\"El material cambió mientras se editaba. Revísalo y vuelve a seleccionarlo.\",\"path\":\"version.units.0.steps.0.options.0\",\"severity\":\"error\"}],\"status\":\"not_ready\"}\n+ actual - expected\n\n+ 'not_ready'\n- 'success'\n\n    at <anonymous> (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\t041\\recovery.mts:130:77)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "checks": []
+}

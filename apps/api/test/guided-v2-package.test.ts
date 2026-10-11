@@ -84,4 +84,34 @@ describe("portable guided v2 package", () => {
       expect(run(join(dir, "missing.koraz-route.json")).status).toBe(2);
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
+  it("keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages", () => {
+    const pilot = JSON.parse(readFileSync(resolve(root, "docs/aprendizaje-guiado/v2/piloto/vascularizacion-abdomen.koraz-route.json"), "utf8"));
+    const cycle = structuredClone(pilot);
+    cycle.objectives[0].prerequisiteKeys = [cycle.objectives[0].key];
+    const reference = structuredClone(pilot);
+    reference.objectives[0].sourceKeys = ["missing-source"];
+    const coverage = structuredClone(pilot);
+    for (const activity of coverage.activities) if (activity.phase === "apply") activity.phase = "retrieve";
+    const reserve = structuredClone(pilot);
+    for (const activity of reserve.activities) if (activity.use === "retention30") activity.use = "learning";
+    const dir = mkdtempSync(join(tmpdir(), "koraz-bundle-equivalence-"));
+    try {
+      const bundle = join(dir, "validator.mjs");
+      copyFileSync(resolve(contracts, "bin/validate-learning-route.bundle.mjs"), bundle);
+      for (const [name, pkg] of Object.entries({ pilot, cycle, reference, coverage, reserve })) {
+        const file = join(dir, `${name}.koraz-route.json`);
+        writeFileSync(file, JSON.stringify(pkg));
+        const expected = validateRoutePackage(pkg);
+        expect(expected.publishable, name).toBe(name === "pilot");
+        for (const cli of [resolve(contracts, "bin/validate-learning-route.mjs"), bundle]) {
+          const actual = spawnSync(process.execPath, [cli, "--publish", file], {
+            cwd: dir, encoding: "utf8", env: { PATH: process.env.PATH ?? "", NODE_PATH: "", HTTP_PROXY: "", HTTPS_PROXY: "" },
+          });
+          expect(actual.error, name).toBeUndefined();
+          expect(actual.status, `${name}: ${actual.stderr}`).toBe(expected.valid && expected.publishable ? 0 : 1);
+          expect(JSON.parse(actual.stdout), name).toEqual(expected);
+        }
+      }
+    } finally { rmSync(dir, { recursive: true, force: true }); }
+  });
 });

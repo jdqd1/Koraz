@@ -1,0 +1,403 @@
+{
+  "taskId": "T045",
+  "at": "2026-10-11T03:38:25.223Z",
+  "node": "v24.19.0",
+  "status": "PASS",
+  "checksCount": 11,
+  "checks": [
+    {
+      "name": "Exact frozen resources work offline",
+      "exitCode": 0,
+      "result": {
+        "valid": true,
+        "runtime": "v24.19.0",
+        "runtimeMatches": true,
+        "schemaVersion": "2.0",
+        "policyVersion": "guided-v2.0",
+        "validatorVersion": "contracts@0.1.0/sha256:c78006a46569f5ec0c15894677ec5038b9034529515b4abcbad45b95b8b2be48",
+        "acceptanceKind": "provisional_implementation_with_user_exception",
+        "deferredCheck": "Q19/V04",
+        "deferredCheckStatus": "NO VERIFICADO",
+        "scope": "portable",
+        "catalogueResolution": "PENDING_AT_IMPORT",
+        "acceptedManifestMatches": true,
+        "checks": [
+          {
+            "path": "assets/koraz-route-2.0.schema.json",
+            "expectedSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "actualSha256": "5c7fe90b97bbe84a476bd311129494aaae1537e1efc3f5c394526c99159bb9d6",
+            "matches": true
+          },
+          {
+            "path": "scripts/validate-route.mjs",
+            "expectedSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "actualSha256": "de41134aa324cef1b0e2c614ec5b4f236a585017baa083e4437d1e64d465b67d",
+            "matches": true
+          },
+          {
+            "path": "assets/ejemplo-valido.koraz-route.json",
+            "expectedSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "actualSha256": "d6030b62bea9846c49d5d14c372c98f1caae484e79a9256540578e63a104da18",
+            "matches": true
+          },
+          {
+            "path": "references/accepted-contract-hashes.json",
+            "expectedSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "actualSha256": "8ab613ad1378f26ff1cc328071f3183c1bfdd98b9f48547d7803364fe740b22a",
+            "matches": true
+          },
+          {
+            "path": "references/reader-deferral.json",
+            "expectedSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "actualSha256": "30a0d0cf81df21c4b61a6b7fa558b79ec4fedb19b9e1ed0d6663021b02e741d0",
+            "matches": true
+          },
+          {
+            "path": "references/LICENSE-ZOD.txt",
+            "expectedSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "actualSha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+            "matches": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Repository/network isolation probes",
+      "exitCode": 0,
+      "result": [
+        {
+          "name": "repository read",
+          "denied": true,
+          "code": "ERR_ACCESS_DENIED"
+        },
+        {
+          "name": "network module",
+          "denied": true,
+          "code": "ERR_KORAZ_OFFLINE"
+        },
+        {
+          "name": "fetch",
+          "denied": true,
+          "code": "ERR_KORAZ_OFFLINE"
+        }
+      ]
+    },
+    {
+      "name": "synthetic: offline structure equals backend shared validator",
+      "inputSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "synthetic: offline publication equals backend shared validator",
+      "inputSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": true,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "warning",
+            "path": "/assessments",
+            "message": "Diagnóstico limitado por una ruta con menos de cuatro objetivos.",
+            "suggestedFix": "Registra esta limitación editorial."
+          }
+        ]
+      }
+    },
+    {
+      "name": "pilot: offline structure equals backend shared validator",
+      "inputSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      }
+    },
+    {
+      "name": "pilot: offline publication equals backend shared validator",
+      "inputSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "exitCode": 1,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          }
+        ]
+      }
+    },
+    {
+      "name": "adversarial: offline structure equals backend shared validator",
+      "inputSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "exitCode": 0,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      }
+    },
+    {
+      "name": "adversarial: offline publication equals backend shared validator",
+      "inputSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "exitCode": 1,
+      "result": {
+        "scope": "portable",
+        "valid": true,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/editorial/unresolvedIssues",
+            "message": "Hay incidencias editoriales abiertas.",
+            "suggestedFix": "Resuelve cada incidencia antes de publicar."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+            "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+          },
+          {
+            "code": "BANK_TOO_SMALL",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+            "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+            "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+            "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+          },
+          {
+            "code": "ASSET_REQUIRED",
+            "severity": "error",
+            "path": "/objectives/0",
+            "message": "La identificación espacial requiere una imagen revisada.",
+            "suggestedFix": "Añade image_target con asset y alternativa accesible."
+          },
+          {
+            "code": "CRITICAL_GATE_MISSING",
+            "severity": "error",
+            "path": "/units/0",
+            "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+            "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación final no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "RESERVE_LEAK",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+            "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+            "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+          },
+          {
+            "code": "OBJECTIVE_COVERAGE",
+            "severity": "error",
+            "path": "/assessments",
+            "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+            "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown-major",
+      "exitCode": 2,
+      "result": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_UNSUPPORTED",
+            "severity": "error",
+            "path": "/schemaVersion",
+            "message": "Versión de esquema no admitida.",
+            "suggestedFix": "Usa schemaVersion 2.0."
+          }
+        ]
+      }
+    },
+    {
+      "name": "corrupt",
+      "exitCode": 1,
+      "result": {
+        "scope": "portable",
+        "valid": false,
+        "publishable": false,
+        "issues": [
+          {
+            "code": "SCHEMA_INVALID",
+            "severity": "error",
+            "path": "",
+            "message": "JSON o UTF-8 inválido.",
+            "suggestedFix": "Corrige el archivo JSON UTF-8."
+          }
+        ]
+      }
+    },
+    {
+      "name": "Adversarial execution preserves discipline/capability and issues, excludes canary and external write",
+      "valid": true,
+      "canaryCopied": false,
+      "externalEffectCreated": false,
+      "figureInvented": false
+    }
+  ],
+  "isolation": {
+    "initiallyEmptyNoRepositoryNoDependencies": true,
+    "network": "Node module/API guard plus restricted filesystem reads; no OS firewall claim"
+  },
+  "authoringBehavior": "Independent agents used isolated skill and raw guide/topic; this script checks their actual outputs.",
+  "nextTaskStarted": false
+}

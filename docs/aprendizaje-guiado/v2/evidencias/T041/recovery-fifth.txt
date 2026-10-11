@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: /v1/guided-learning/attempts/1f665a61-e223-4079-bd21-c1133470195b/complete: {"error":"invalid_state"}
+
+409 !== 200
+
+    at request (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.mts:101:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.mts:140:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 409,
+  expected: 200,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx ../../work/test/t041/recovery.mts

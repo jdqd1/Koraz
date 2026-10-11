@@ -1,0 +1,32 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ZodError: [
+  {
+    "code": "invalid_value",
+    "values": [
+      "understand",
+      "recall",
+      "check",
+      "integrate",
+      "diagnostic"
+    ],
+    "path": [
+      "definition",
+      "units",
+      0,
+      "steps",
+      0,
+      "purpose"
+    ],
+    "message": "Invalid option: expected one of \"understand\"|\"recall\"|\"check\"|\"integrate\"|\"diagnostic\""
+  }
+]
+    at <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.mts:126:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx ../../work/test/t041/recovery.mts

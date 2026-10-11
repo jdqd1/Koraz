@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "result": {
+    "status": 200,
+    "value": {
+      "previewId": "c60ae7d4-95ea-4275-acf0-e59e2cf80159",
+      "activeActivity": {
+        "key": "arterias-estudio",
+        "objectiveKey": "territorios-arteriales",
+        "phase": "learn",
+        "representation": "text",
+        "prompt": "Lee la explicación; después recupera sin ayuda.",
+        "kind": "study",
+        "payload": {
+          "body": "La aorta abdominal comienza aproximadamente en T12 después del hiato aórtico, baja algo a la izquierda y termina habitualmente en L4 por bifurcación ilíaca común. La AMS irriga, en términos generales, yeyuno, íleon, ciego, apéndice, colon ascendente y gran parte del transverso. AMI nace aproximadamente en L3, baja retroperitonealmente hacia la izquierda próxima al uréter y continúa como rectal superior; abarca transverso izquierdo, descendente, sigmoide y recto superior. Pancreaticoduodenales comunican sistema celíaco–AMS; la marginal conecta AMS–AMI.",
+          "focusSpans": [],
+          "assetKey": null,
+          "scaffold": "explanation",
+          "videoRange": null
+        }
+      },
+      "issues": [
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/editorial/unresolvedIssues",
+          "message": "Hay incidencias editoriales abiertas.",
+          "suggestedFix": "Resuelve cada incidencia antes de publicar."
+        }
+      ],
+      "expiresAt": "2026-10-11T03:50:54.513Z"
+    }
+  },
+  "createsLearnerEnrollment": false
+}

@@ -1,0 +1,1340 @@
+{
+  "status": "PASS",
+  "pilotProvenance": {
+    "source": "docs/aprendizaje-guiado/v2/piloto/fuente-seleccionada.json",
+    "sourceSha256": "f3be34b3c4f3bf0a9674489ddb34cc4b91e222d94936cde0947d8d7d9591b80b",
+    "captureKind": "Selección de párrafos literales; saltos de línea y marcadores de citas normalizados. No es exportación íntegra.",
+    "humanGuideReview": "Previously authorized reviewed guide; not approval of a new generated route.",
+    "derivedDocumentSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1"
+  },
+  "cases": [
+    {
+      "name": "synthetic",
+      "path": "cases/synthetic/round-2/output/ruta.koraz-route.json",
+      "packageFileSha256": "672cca71f2117e6640b71ea3653bd52ea23a95fe29aa3955f6b256f9fc029cd4",
+      "originalGuideSha256": "da9f4b5f40a47ddea41e448884114c33e9c4fbbf33a8eff4b6cde890fa5af812",
+      "units": 1,
+      "objectives": 1,
+      "activities": 15,
+      "assessments": 5,
+      "sources": [
+        {
+          "key": "normalizacion",
+          "excerptStartCharacter": 318,
+          "excerptLength": 698,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+          "verification": "provided"
+        },
+        {
+          "key": "codificacion",
+          "excerptStartCharacter": 1050,
+          "excerptLength": 555,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+          "verification": "provided"
+        },
+        {
+          "key": "enrutamiento",
+          "excerptStartCharacter": 1640,
+          "excerptLength": 908,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.",
+          "verification": "provided"
+        }
+      ],
+      "activityMatrix": [
+        {
+          "key": "diagnostico-preservacion",
+          "objectiveKey": "integrar-circuito",
+          "kind": "single_choice",
+          "use": "diagnostic",
+          "phase": "activate",
+          "representation": "text",
+          "equivalenceKey": "diagnostico-preservacion",
+          "sourceKeys": [
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "explicacion",
+          "objectiveKey": "integrar-circuito",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "explicacion",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "ejemplo-resuelto",
+          "objectiveKey": "integrar-circuito",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "ejemplo-resuelto",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "ejemplo-parcial",
+          "objectiveKey": "integrar-circuito",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "ejemplo-parcial",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "elaborar-datos",
+          "objectiveKey": "integrar-circuito",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "elaborar-datos",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "recuperar-regla-n",
+          "objectiveKey": "integrar-circuito",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "recuperar-regla-n",
+          "sourceKeys": [
+            "normalizacion"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion"
+          ]
+        },
+        {
+          "key": "recuperar-tabla-c",
+          "objectiveKey": "integrar-circuito",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "recuperar-tabla-c",
+          "sourceKeys": [
+            "codificacion"
+          ],
+          "feedbackSourceKeys": [
+            "codificacion"
+          ]
+        },
+        {
+          "key": "aplicar-prioridad-e",
+          "objectiveKey": "integrar-circuito",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "aplicar-prioridad-e",
+          "sourceKeys": [
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "recuperar-orden",
+          "objectiveKey": "integrar-circuito",
+          "kind": "sequence",
+          "use": "gate",
+          "phase": "retrieve",
+          "representation": "diagram",
+          "equivalenceKey": "recuperar-orden",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "inferir-dato-faltante",
+          "objectiveKey": "integrar-circuito",
+          "kind": "short_answer",
+          "use": "gate",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "inferir-dato-faltante",
+          "sourceKeys": [
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "remediar-n",
+          "objectiveKey": "integrar-circuito",
+          "kind": "study",
+          "use": "learning",
+          "phase": "remediate",
+          "representation": "text",
+          "equivalenceKey": "remediar-n",
+          "sourceKeys": [
+            "normalizacion"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion"
+          ]
+        },
+        {
+          "key": "remediar-e",
+          "objectiveKey": "integrar-circuito",
+          "kind": "study",
+          "use": "learning",
+          "phase": "remediate",
+          "representation": "text",
+          "equivalenceKey": "remediar-e",
+          "sourceKeys": [
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "final-trazas",
+          "objectiveKey": "integrar-circuito",
+          "kind": "match",
+          "use": "final",
+          "phase": "apply",
+          "representation": "table",
+          "equivalenceKey": "final-trazas",
+          "sourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "codificacion",
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "retencion-siete-dominio-e",
+          "objectiveKey": "integrar-circuito",
+          "kind": "short_answer",
+          "use": "retention7",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "retencion-siete-dominio-e",
+          "sourceKeys": [
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "enrutamiento"
+          ]
+        },
+        {
+          "key": "retencion-treinta-invarianza",
+          "objectiveKey": "integrar-circuito",
+          "kind": "short_answer",
+          "use": "retention30",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "retencion-treinta-invarianza",
+          "sourceKeys": [
+            "normalizacion",
+            "enrutamiento"
+          ],
+          "feedbackSourceKeys": [
+            "normalizacion",
+            "enrutamiento"
+          ]
+        }
+      ],
+      "issues": [],
+      "fidelityScope": "Exact supplied passages and technical curricular correspondence; no independent medical/book review or human approval of generated route"
+    },
+    {
+      "name": "pilot",
+      "path": "cases/pilot/round-3/output/ruta.koraz-route.json",
+      "packageFileSha256": "39d996597842736bec48626d661eb720e3669e97e4fb8397ae91bf90e515591d",
+      "originalGuideSha256": "06de028c80081dadc1fb1148c9da10bb8eb0aef7baeeefde6e6452822087c7d1",
+      "units": 4,
+      "objectives": 4,
+      "activities": 52,
+      "assessments": 9,
+      "sources": [
+        {
+          "key": "arterias",
+          "excerptStartCharacter": 522,
+          "excerptLength": 2386,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Snapshot de fragmentos suministrado; captura declarada 2026-10-08. No exportación íntegra.",
+          "verification": "provided"
+        },
+        {
+          "key": "cava",
+          "excerptStartCharacter": 2994,
+          "excerptLength": 2032,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Snapshot de fragmentos suministrado; captura declarada 2026-10-08. No exportación íntegra.",
+          "verification": "provided"
+        },
+        {
+          "key": "porta",
+          "excerptStartCharacter": 5105,
+          "excerptLength": 2283,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Snapshot de fragmentos suministrado; captura declarada 2026-10-08. No exportación íntegra.",
+          "verification": "provided"
+        },
+        {
+          "key": "comunicaciones",
+          "excerptStartCharacter": 7482,
+          "excerptLength": 2754,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Snapshot de fragmentos suministrado; captura declarada 2026-10-08. No exportación íntegra.",
+          "verification": "provided"
+        },
+        {
+          "key": "bibliografia",
+          "excerptStartCharacter": 10265,
+          "excerptLength": 316,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "Snapshot de fragmentos suministrado; captura declarada 2026-10-08. No exportación íntegra.",
+          "verification": "provided"
+        }
+      ],
+      "activityMatrix": [
+        {
+          "key": "arterias-estudio",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "arterias-estudio",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-ejemplo",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "arterias-ejemplo",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-r1",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "arterias-r1",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-r2",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "arterias-r2",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-r3",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "arterias-r3",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-elaborar",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "arterias-elaborar",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-a1",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "sequence",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "diagram",
+          "equivalenceKey": "arterias-a1",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-a2",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "arterias-a2",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-final",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "match",
+          "use": "final",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "arterias-final",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-r7",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "short_answer",
+          "use": "retention7",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "arterias-r7",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "arterias-r30",
+          "objectiveKey": "territorios-arteriales",
+          "kind": "match",
+          "use": "retention30",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "arterias-r30",
+          "sourceKeys": [
+            "arterias"
+          ],
+          "feedbackSourceKeys": [
+            "arterias"
+          ]
+        },
+        {
+          "key": "cava-estudio",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "cava-estudio",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-ejemplo",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "cava-ejemplo",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-r1",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "cava-r1",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-r2",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "cava-r2",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-r3",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "cava-r3",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-elaborar",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "cava-elaborar",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-a1",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "sequence",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "diagram",
+          "equivalenceKey": "cava-a1",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-a2",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "cava-r2",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-remediar",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "study",
+          "use": "learning",
+          "phase": "remediate",
+          "representation": "text",
+          "equivalenceKey": "cava-remediar",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-a3",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "cava-a3",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-final",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "match",
+          "use": "final",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "cava-final",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-r7",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "short_answer",
+          "use": "retention7",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "cava-r7",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "cava-r30",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "short_answer",
+          "use": "retention30",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "cava-r30",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-estudio",
+          "objectiveKey": "retorno-portal",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "porta-estudio",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-ejemplo",
+          "objectiveKey": "retorno-portal",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "porta-ejemplo",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r1",
+          "objectiveKey": "retorno-portal",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "porta-r1",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r2",
+          "objectiveKey": "retorno-portal",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "porta-r2",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r3",
+          "objectiveKey": "retorno-portal",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "porta-r3",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-elaborar",
+          "objectiveKey": "retorno-portal",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "porta-elaborar",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-a1",
+          "objectiveKey": "retorno-portal",
+          "kind": "sequence",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "diagram",
+          "equivalenceKey": "porta-a1",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-a2",
+          "objectiveKey": "retorno-portal",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "porta-a1",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-remediar",
+          "objectiveKey": "retorno-portal",
+          "kind": "study",
+          "use": "learning",
+          "phase": "remediate",
+          "representation": "text",
+          "equivalenceKey": "porta-remediar",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r4",
+          "objectiveKey": "retorno-portal",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "porta-r4",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-final",
+          "objectiveKey": "retorno-portal",
+          "kind": "match",
+          "use": "final",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "porta-final",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r7",
+          "objectiveKey": "retorno-portal",
+          "kind": "match",
+          "use": "retention7",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "porta-r7",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "porta-r30",
+          "objectiveKey": "retorno-portal",
+          "kind": "sequence",
+          "use": "retention30",
+          "phase": "retrieve",
+          "representation": "diagram",
+          "equivalenceKey": "porta-r30",
+          "sourceKeys": [
+            "porta",
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "porta",
+            "cava"
+          ]
+        },
+        {
+          "key": "comunicaciones-estudio",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "comunicaciones-estudio",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-ejemplo",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "comunicaciones-ejemplo",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-r1",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "comunicaciones-r1",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-r2",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "comunicaciones-r2",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-r3",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "match",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "comunicaciones-r3",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-elaborar",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "comunicaciones-elaborar",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-a1",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "sequence",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "diagram",
+          "equivalenceKey": "comunicaciones-a1",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-a2",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "case",
+          "equivalenceKey": "comunicaciones-a2",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-final",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "match",
+          "use": "final",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "comunicaciones-final",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-r7",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "short_answer",
+          "use": "retention7",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "comunicaciones-r7",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "comunicaciones-r30",
+          "objectiveKey": "tipos-comunicacion",
+          "kind": "match",
+          "use": "retention30",
+          "phase": "retrieve",
+          "representation": "table",
+          "equivalenceKey": "comunicaciones-r30",
+          "sourceKeys": [
+            "comunicaciones"
+          ],
+          "feedbackSourceKeys": [
+            "comunicaciones"
+          ]
+        },
+        {
+          "key": "diagnostico-1",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "diagnostic",
+          "phase": "activate",
+          "representation": "text",
+          "equivalenceKey": "diagnostico-1",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "diagnostico-2",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "diagnostic",
+          "phase": "activate",
+          "representation": "text",
+          "equivalenceKey": "diagnostico-2",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "diagnostico-3",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "diagnostic",
+          "phase": "activate",
+          "representation": "text",
+          "equivalenceKey": "diagnostico-3",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        },
+        {
+          "key": "diagnostico-4",
+          "objectiveKey": "retorno-sistemico",
+          "kind": "single_choice",
+          "use": "diagnostic",
+          "phase": "activate",
+          "representation": "text",
+          "equivalenceKey": "diagnostico-4",
+          "sourceKeys": [
+            "cava"
+          ],
+          "feedbackSourceKeys": [
+            "cava"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "code": "SOURCE_UNRESOLVED",
+          "severity": "error",
+          "path": "/sources/0",
+          "message": "La lista «En el patrón más frecuente se divide en tres ramas» sigue la descripción aórtica sin explicitar su antecedente. No se atribuye un origen a gástrica izquierda, hepática común y esplénica.",
+          "suggestedFix": "Aportar y cotejar el pasaje completo con antecedente explícito; conservar trayectos autónomos sustentados y omitir el origen mientras tanto."
+        },
+        {
+          "code": "SOURCE_CONFLICT",
+          "severity": "error",
+          "path": "/sources/3",
+          "message": "La nota atribuye a García-Porrero dilatación de plexo rectal entre manifestaciones de hipertensión portal y a Moore ausencia de relación típica con hemorroides. Se conservan ambas atribuciones y no se decide diagnóstico.",
+          "suggestedFix": "Cotejar páginas de ambas obras y revisar la distinción entre plexo rectal y hemorroides; mantener excluidas actividades clínicas dependientes hasta resolver."
+        }
+      ],
+      "fidelityScope": "Exact supplied passages and technical curricular correspondence; no independent medical/book review or human approval of generated route"
+    },
+    {
+      "name": "adversarial",
+      "path": "cases/adversarial/output/ruta.koraz-route.json",
+      "packageFileSha256": "797e03924c74a104d0fd31555dd4e2b934a9033282b69ce83af00ec18a170f64",
+      "originalGuideSha256": "c741ee1b253d459931ae16cf983cff7465c842371ef6c3e8c55cbea16b6549ef",
+      "units": 1,
+      "objectives": 2,
+      "activities": 4,
+      "assessments": 5,
+      "sources": [
+        {
+          "key": "disposicion",
+          "excerptStartCharacter": 54,
+          "excerptLength": 193,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "",
+          "verification": "provided"
+        },
+        {
+          "key": "descripcion-alternativa",
+          "excerptStartCharacter": 276,
+          "excerptLength": 127,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "",
+          "verification": "provided"
+        },
+        {
+          "key": "bibliografia-ausente",
+          "excerptStartCharacter": 415,
+          "excerptLength": 100,
+          "hashMatched": true,
+          "excerptMatchedLiterally": true,
+          "citation": "",
+          "verification": "provided"
+        }
+      ],
+      "activityMatrix": [
+        {
+          "key": "explicar-c-b",
+          "objectiveKey": "relacion-c-b",
+          "kind": "study",
+          "use": "learning",
+          "phase": "learn",
+          "representation": "text",
+          "equivalenceKey": "explicacion-c-b",
+          "sourceKeys": [
+            "disposicion"
+          ],
+          "feedbackSourceKeys": [
+            "disposicion"
+          ]
+        },
+        {
+          "key": "recuperar-c-b",
+          "objectiveKey": "relacion-c-b",
+          "kind": "short_answer",
+          "use": "learning",
+          "phase": "retrieve",
+          "representation": "text",
+          "equivalenceKey": "relacion-vertical-c-b",
+          "sourceKeys": [
+            "disposicion"
+          ],
+          "feedbackSourceKeys": [
+            "disposicion"
+          ]
+        },
+        {
+          "key": "conectar-c-b",
+          "objectiveKey": "relacion-c-b",
+          "kind": "constructed_response",
+          "use": "learning",
+          "phase": "elaborate",
+          "representation": "text",
+          "equivalenceKey": "elaboracion-c-b",
+          "sourceKeys": [
+            "disposicion",
+            "descripcion-alternativa"
+          ],
+          "feedbackSourceKeys": [
+            "disposicion",
+            "descripcion-alternativa"
+          ]
+        },
+        {
+          "key": "aplicar-c-b",
+          "objectiveKey": "relacion-c-b",
+          "kind": "single_choice",
+          "use": "learning",
+          "phase": "apply",
+          "representation": "table",
+          "equivalenceKey": "relacion-vertical-c-b",
+          "sourceKeys": [
+            "disposicion"
+          ],
+          "feedbackSourceKeys": [
+            "disposicion"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "code": "SOURCE_CONFLICT",
+          "severity": "error",
+          "path": "/sources/1",
+          "message": "Disposición afirma A a la izquierda de B; Descripción alternativa afirma A a la derecha de B. La guía no resuelve la contradicción.",
+          "suggestedFix": "Solicitar una guía corregida y revisar el nuevo hash; no evaluar A/B hasta resolver ambos pasajes."
+        },
+        {
+          "code": "SOURCE_UNRESOLVED",
+          "severity": "error",
+          "path": "/sources/2",
+          "message": "La sección Fuente no aporta autores, título ni páginas. Las citas permanecen vacías.",
+          "suggestedFix": "Aportar bibliografía identificable y localizadores; cotejar procedencia de la guía."
+        },
+        {
+          "code": "ASSET_REQUIRED",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "La figura 1 no está adjunta; no hay imagen revisada, escala, contexto ni alternativa accesible para identificar A, B y C.",
+          "suggestedFix": "Aportar la figura real con procedencia, derechos, dimensiones y alternativa accesible; después crear y revisar image_target."
+        },
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "El CORE visual no cuenta con explicación, recuperación, elaboración y aplicación objetivas sustentadas para los tres compartimentos.",
+          "suggestedFix": "Resolver figura y contradicción y completar el ciclo del objetivo; el apoyo C/B no sustituye la identificación histológica."
+        },
+        {
+          "code": "BANK_TOO_SMALL",
+          "severity": "error",
+          "path": "/objectives/0",
+          "message": "Cero familias CORE iniciales de cinco requeridas; cero reservas final, retention7 y retention30. Diagnóstico y gates sin candidatos.",
+          "suggestedFix": "Aportar material suficiente para cinco familias iniciales y tres reservas disjuntas con demandas realmente diferentes."
+        },
+        {
+          "code": "OBJECTIVE_COVERAGE",
+          "severity": "error",
+          "path": "/editorial/notes",
+          "message": "La guía no describe rasgos microscópicos, escala, tejidos ni relación estructura-función para desarrollar el tema completo.",
+          "suggestedFix": "Ampliar la guía suministrada y revisar el contenido; no inferir identidad tisular o función por las letras A, B y C."
+        }
+      ],
+      "fidelityScope": "Exact supplied passages and technical curricular correspondence; no independent medical/book review or human approval of generated route"
+    }
+  ],
+  "humanApprovalOfNewPilot": false,
+  "clinicalReview": false
+}

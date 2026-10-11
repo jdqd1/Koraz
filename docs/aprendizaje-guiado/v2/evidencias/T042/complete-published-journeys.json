@@ -1,0 +1,550 @@
+{
+  "mobile": {
+    "pathVersionId": "1dd4c01e-f677-418a-be8b-59cf96b9fd98",
+    "actions": [
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "gate"
+    ],
+    "sessions": [
+      {
+        "attemptId": "074b07df-808c-4715-9ba9-61bcf2d07938",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "diagnostic-1"
+        ]
+      },
+      {
+        "attemptId": "04f6074e-92ff-4d2b-ab70-1fbde4fe0d45",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "choice-1"
+        ]
+      },
+      {
+        "attemptId": "ae5488e9-76f1-47d9-981b-7f4ce74bfa4d",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "short-1"
+        ]
+      },
+      {
+        "attemptId": "fa37684a-f5e7-4487-8b77-168e7553acd2",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "apply-1"
+        ]
+      },
+      {
+        "attemptId": "10a53ecb-ebce-4442-8446-46b1ee7373ff",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "match-1"
+        ]
+      },
+      {
+        "attemptId": "6923444f-0e16-4d5f-bb4d-388f29841566",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "sequence-1"
+        ]
+      },
+      {
+        "attemptId": "0122a4fe-97f2-4054-a19a-e5917fd7f3fb",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "image-1"
+        ]
+      },
+      {
+        "attemptId": "8ecc12b7-a872-4fa9-8d98-547a63fa9128",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "study-1"
+        ]
+      },
+      {
+        "attemptId": "65fe339a-cb23-4d01-b44c-c6e1f1092ca3",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "constructed-1"
+        ]
+      },
+      {
+        "attemptId": "aef2e4b7-f452-449b-ac25-2f4720a52235",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "case-choice-1",
+          "case-short-1"
+        ]
+      },
+      {
+        "attemptId": "b7a06b80-ba15-41d2-8641-cc2231ccb731",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "final-1"
+        ]
+      },
+      {
+        "attemptId": "942955d7-4d24-4e7d-b728-bdb543865b20",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "retention7-1"
+        ]
+      }
+    ],
+    "completed": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "65634a6a-6c9e-4f0c-a3d3-564fa1c5adf8",
+      "pathVersionId": "1dd4c01e-f677-418a-be8b-59cf96b9fd98",
+      "rowVersion": 1,
+      "completedActivities": 9,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 9,
+      "completedAt": "2026-10-05T12:00:00.000Z",
+      "masteredAt": "2026-10-05T12:00:00.000Z",
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "objective-1",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-05T12:00:00.000Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-05T12:00:00.000Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "completed",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "objective-1",
+            "dueAt": "2026-10-06T12:00:00.000Z",
+            "retention7": {
+              "dueAt": "2026-10-12T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-04T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "unit",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": []
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-10T22:24:55.894Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    },
+    "after": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "65634a6a-6c9e-4f0c-a3d3-564fa1c5adf8",
+      "pathVersionId": "1dd4c01e-f677-418a-be8b-59cf96b9fd98",
+      "rowVersion": 1,
+      "completedActivities": 9,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 9,
+      "completedAt": "2026-10-05T12:00:00.000Z",
+      "masteredAt": "2026-10-05T12:00:00.000Z",
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "objective-1",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-05T12:00:00.000Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-12T12:00:00.000Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "completed",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "objective-1",
+            "dueAt": "2026-10-15T12:00:00.000Z",
+            "retention7": {
+              "dueAt": "2026-10-12T12:00:00.000Z",
+              "acceptedAt": "2026-10-12T12:00:00.000Z",
+              "elapsedDays": 7
+            },
+            "retention30": {
+              "dueAt": "2026-11-04T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "unit",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": []
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-10T22:24:55.894Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    }
+  },
+  "desktop": {
+    "pathVersionId": "fa7a5c20-9248-4923-a303-bdb90dd25533",
+    "actions": [
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "activity",
+      "gate"
+    ],
+    "sessions": [
+      {
+        "attemptId": "601381fe-8a74-4de3-b327-018423cb7942",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "diagnostic-1"
+        ]
+      },
+      {
+        "attemptId": "74b69b7f-becf-41e7-8bf3-17dedbca3fd4",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "choice-1"
+        ]
+      },
+      {
+        "attemptId": "7ae712bf-b3b8-4bc2-aa11-4bdf85aa605e",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "short-1"
+        ]
+      },
+      {
+        "attemptId": "158317c2-7a7e-4f9f-9310-42b38e95b5f3",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "apply-1"
+        ]
+      },
+      {
+        "attemptId": "14a933bc-fc0b-46f6-bffb-63002b4e3143",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "match-1"
+        ]
+      },
+      {
+        "attemptId": "e5516842-cd91-4c9a-9962-cd9ce4828324",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "sequence-1"
+        ]
+      },
+      {
+        "attemptId": "92de90a6-b8ac-42d4-8ccb-06b111594877",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "image-1"
+        ]
+      },
+      {
+        "attemptId": "f14e5a5b-d8f0-4bca-91a6-31ef5d628182",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "study-1"
+        ]
+      },
+      {
+        "attemptId": "a400bc86-32bc-4b9a-a13b-5b7929b027a2",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "constructed-1"
+        ]
+      },
+      {
+        "attemptId": "423ed1bc-709c-477f-a39d-5c98f4ca32d5",
+        "purpose": "activity",
+        "status": "completed",
+        "acceptedKeys": [
+          "case-choice-1",
+          "case-short-1"
+        ]
+      },
+      {
+        "attemptId": "f21843cc-dfff-4a85-ada2-088f6a4d1c6f",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "final-1"
+        ]
+      },
+      {
+        "attemptId": "2e12fc2e-6191-428f-a893-a01676329dd6",
+        "purpose": "assessment",
+        "status": "completed",
+        "acceptedKeys": [
+          "retention7-1"
+        ]
+      }
+    ],
+    "completed": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "f7db0740-71c2-4a75-a458-94cc725b8dc3",
+      "pathVersionId": "fa7a5c20-9248-4923-a303-bdb90dd25533",
+      "rowVersion": 1,
+      "completedActivities": 9,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 9,
+      "completedAt": "2026-10-04T12:00:00.000Z",
+      "masteredAt": "2026-10-04T12:00:00.000Z",
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "objective-1",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": true,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-04T12:00:00.000Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-04T12:00:00.000Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "completed",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "objective-1",
+            "dueAt": "2026-10-05T12:00:00.000Z",
+            "retention7": {
+              "dueAt": "2026-10-11T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            },
+            "retention30": {
+              "dueAt": "2026-11-03T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "unit",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": []
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-10T22:28:00.670Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    },
+    "after": {
+      "engineVersion": "guided-v2",
+      "enrollmentId": "f7db0740-71c2-4a75-a458-94cc725b8dc3",
+      "pathVersionId": "fa7a5c20-9248-4923-a303-bdb90dd25533",
+      "rowVersion": 1,
+      "completedActivities": 9,
+      "dispensedActivities": 0,
+      "plannedRequiredActivities": 9,
+      "completedAt": "2026-10-04T12:00:00.000Z",
+      "masteredAt": "2026-10-04T12:00:00.000Z",
+      "consolidatedAt": null,
+      "objectives": [
+        {
+          "objectiveKey": "objective-1",
+          "label": "mastered",
+          "objectiveScore": 100,
+          "criticalErrorOpen": false,
+          "assisted": false,
+          "applicationDemonstrated": true,
+          "reviewDue": false,
+          "firstMasteredAt": "2026-10-04T12:00:00.000Z",
+          "firstConsolidatedAt": null
+        }
+      ],
+      "dueReviews": 0,
+      "nextAction": {
+        "kind": "none",
+        "key": null,
+        "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+      },
+      "maintenance": {
+        "generatedAt": "2026-10-11T12:00:00.000Z",
+        "timeZone": "UTC",
+        "diagnostic": {
+          "status": "completed",
+          "assessmentKey": null
+        },
+        "activities": [],
+        "reviewBatch": [],
+        "agenda": [
+          {
+            "objectiveKey": "objective-1",
+            "dueAt": "2026-10-14T12:00:00.000Z",
+            "retention7": {
+              "dueAt": "2026-10-11T12:00:00.000Z",
+              "acceptedAt": "2026-10-11T12:00:00.000Z",
+              "elapsedDays": 7
+            },
+            "retention30": {
+              "dueAt": "2026-11-03T12:00:00.000Z",
+              "acceptedAt": null,
+              "elapsedDays": null
+            }
+          }
+        ],
+        "gates": [
+          {
+            "unitKey": "unit",
+            "passed": true,
+            "score": 100,
+            "thresholdPercent": 80,
+            "missingCoreKeys": [],
+            "criticalErrorKeys": []
+          }
+        ],
+        "blockers": [],
+        "remediation": [],
+        "exhaustedBanks": []
+      },
+      "availability": "active",
+      "versionHistory": [
+        {
+          "versionNumber": 1,
+          "engineVersion": "guided-v2",
+          "adoptedAt": "2026-10-10T22:28:00.670Z",
+          "completedAt": null,
+          "consumedActivities": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "rawFileHash": "da9f4b5f40a47ddea41e448884114c33e9c4fbbf33a8eff4b6cde890fa5af812",
+  "snapshotHash": "4653ad4ae21ab98cddddb18a03d53cacb194edd6d9cb2239651e02543b0438cf",
+  "snapshot": {
+    "title": "Circuito de señales Neral",
+    "originalDocumentSha256": "da9f4b5f40a47ddea41e448884114c33e9c4fbbf33a8eff4b6cde890fa5af812",
+    "text": "# Circuito de señales Neral\n\nVersión 1, fixture sintético de software creado para T045 el 10 de octubre de 2026. Fuente y autoría: fixture local Koraz T045. El sistema descrito es ficticio, autocontenido y no representa contenido médico ni recomendaciones sobre dispositivos reales.\n\n## 1. Normalización del contador\n\nLa entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\n\nEjemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.\n\n## 2. Codificación del residuo\n\nLa compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\n\n| Residuo r | Color c |\n|---|---|\n| 0 | azul |\n| 1 | verde |\n| 2 | ámbar |\n| 3 | rojo |\n\nC no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.\n\n## 3. Enrutamiento de la salida\n\nLa compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\n\n| Interruptor | azul | verde | ámbar | rojo |\n|---|---|---|---|---|\n| e=0 | archivo | archivo | archivo | archivo |\n| e=1 | pantalla | pantalla | alarma | alarma |\n\nEjemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.\n\n## Bibliografía y figuras\n\nFuente única: Circuito de señales Neral, versión 1. Fixture local Koraz T045, 2026. Todas las reglas y tablas están contenidas en este documento. No hay figuras ni bibliografía externa. Las tablas son texto revisable del fixture; no se requiere reconocimiento espacial en una imagen.\n"
+  },
+  "changedFields": [
+    "/sources/0/documentSha256",
+    "/sources/1/documentSha256",
+    "/sources/2/documentSha256"
+  ],
+  "excerptFidelity": "Every excerpt matched literally before source hash resolution",
+  "sourceTextUnchanged": true,
+  "bindings": {
+    "topicContentId": "7f431e6c-0745-4580-abaf-b8aecac31928",
+    "sources": [
+      {
+        "key": "normalizacion",
+        "sourceContentId": "48846e53-ecf7-4713-a856-d15ac9a556af",
+        "resourceRevisionId": "d802d207-4a66-4f97-868f-e2fa4f0d930d"
+      },
+      {
+        "key": "codificacion",
+        "sourceContentId": "48846e53-ecf7-4713-a856-d15ac9a556af",
+        "resourceRevisionId": "d802d207-4a66-4f97-868f-e2fa4f0d930d"
+      },
+      {
+        "key": "enrutamiento",
+        "sourceContentId": "48846e53-ecf7-4713-a856-d15ac9a556af",
+        "resourceRevisionId": "d802d207-4a66-4f97-868f-e2fa4f0d930d"
+      }
+    ],
+    "assets": []
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "at": "2026-10-10T23:06:42.118Z",
+  "database": {
+    "datname": "koraz_guided_v2_test_47b314ace25f4af4b4eeb8c527eff398",
+    "oid": 292924
+  },
+  "tables": {
+    "learning_paths": [
+      {
+        "id": "849d43bd-094a-4be4-8dc4-0adbbadc37d0",
+        "slug": "t035-small",
+        "title": "Ruta T035 pequeña",
+        "summary": "Fixture de software sin contenido clínico real.",
+        "cover_key": "heart",
+        "created_at": "2026-10-10T18:51:52.239717-04:00",
+        "created_by": "77000000-0000-4000-8000-000000000001",
+        "updated_at": "2026-10-10T18:51:52.296494-04:00",
+        "archived_at": null,
+        "cover_asset_id": null,
+        "topic_content_id": "77000000-0000-4000-8000-000000000120",
+        "published_version_id": "d5d7e170-b633-4041-b9ea-ef1a232b65db"
+      },
+      {
+        "id": "4f323349-5f22-40b6-b81b-74fe8f19644d",
+        "slug": "t035-large",
+        "title": "Ruta T035 de 200 objetivos",
+        "summary": "Fixture de software sin contenido clínico real.",
+        "cover_key": "heart",
+        "created_at": "2026-10-10T18:51:52.479424-04:00",
+        "created_by": "77000000-0000-4000-8000-000000000001",
+        "updated_at": "2026-10-10T18:51:52.9153-04:00",
+        "archived_at": null,
+        "cover_asset_id": null,
+        "topic_content_id": "77000000-0000-4000-8000-000000000120",
+        "published_version_id": "4a398169-9c2e-492d-b87a-ddee4c732c56"
+      },
+      {
+        "id": "68750c8a-aa6e-493a-9c83-6d869199c4cc",
+        "slug": "t035-editorial",
+        "title": "Ruta editorial T035",
+        "summary": "Fixture de software sin contenido clínico real.",
+        "cover_key": "heart",
+        "created_at": "2026-10-10T18:51:53.105377-04:00",
+        "created_by": "77000000-0000-4000-8000-000000000001",
+        "updated_at": "2026-10-10T18:51:53.105377-04:00",
+        "archived_at": null,
+        "cover_asset_id": null,
+        "topic_content_id": "77000000-0000-4000-8000-000000000120",
+        "published_version_id": null
+      },
+      {
+        "id": "6e1224da-6a35-495b-9163-c2f6df91dd4a",
+        "slug": "t035-editorial-mobile",
+        "title": "Ruta editorial T035",
+        "summary": "Fixture de software sin contenido clínico real.",
+        "cover_key": "heart",
+        "created_at": "2026-10-10T18:51:53.120451-04:00",
+        "created_by": "77000000-0000-4000-8000-000000000001",
+        "updated_at": "2026-10-10T18:51:53.120451-04:00",
+        "archived_at": null,
+        "cover_asset_id": null,
+        "topic_content_id": "77000000-0000-4000-8000-000000000120",
+        "published_version_id": null
+      }
+    ],
+    "learning_v2_attempts": [
+      {
+        "id": "63bcacee-3e28-4f0c-9d28-61eaa4195078",
+        "status": "in_progress",
+        "purpose": "activity",
+        "user_id": "77000000-0000-4000-8000-000000000030",
+        "created_at": "2026-10-10T18:55:47.888766-04:00",
+        "started_at": "2026-10-10T18:55:47.888766-04:00",
+        "updated_at": "2026-10-10T18:55:47.888766-04:00",
+        "resume_json": {
+          "activeIndex": 0,
+          "assistedKeys": [],
+          "revealedKeys": [],
+          "submittedTextByActivity": {}
+        },
+        "row_version": 1,
+        "outcome_json": null,
+        "submitted_at": null,
+        "enrollment_id": "8877d33f-9dcc-4bf8-a3d3-785dc05bbe80",
+        "snapshot_json": {
+          "target": {
+            "key": "study-1",
+            "kind": "activity"
+          },
+          "novelKeys": [],
+          "activities": [
+            {
+              "key": "study-1",
+              "use": "learning",
+              "kind": "study",
+              "hints": [
+                "Recupera la relación del ejemplo."
+              ],
+              "phase": "learn",
+              "prompt": "study-1: actividad sintética",
+              "payload": {
+                "body": "Contenido sintético para comprobar el software.",
+                "assetKey": null,
+                "scaffold": "explanation",
+                "focusSpans": [],
+                "videoRange": null
+              },
+              "feedback": {
+                "sourceKeys": [
+                  "guide"
+                ],
+                "commonError": "",
+                "explanation": "Explicación sintética confirmada."
+              },
+              "required": true,
+              "sourceKeys": [
+                "guide"
+              ],
+              "objectiveKey": "objective-1",
+              "equivalenceKey": "family-study-1",
+              "representation": "text",
+              "relatedObjectiveKeys": [],
+              "misconceptionMappings": [],
+              "alternativeActivityKey": null
+            }
+          ],
+          "contentHash": "1765b68b02b2ebc34c6dd8d5a81aeaa12877f2649398156f500576b2f4956a1f",
+          "orderedKeys": [
+            "study-1"
+          ],
+          "pathVersionId": "d5d7e170-b633-4041-b9ea-ef1a232b65db"
+        },
+        "path_version_id": "d5d7e170-b633-4041-b9ea-ef1a232b65db",
+        "client_attempt_id": "36f73aad-b635-4f57-8ea7-0b2f20dd4118"
+      }
+    ],
+    "learning_v2_responses": []
+  }
+}

@@ -1,0 +1,24 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"issues":[{"code":"resource_changed","context":{"sourceContentId":"77000000-0000-4000-8000-000000000021","stepStableKey":"quiz","unitStableKey":"unit"},"message":"El material cambió mientras se editaba. Revísalo y vuelve a seleccionarlo.","path":"version.units.0.steps.0.options.0","severity":"error"}],"status":"not_ready"}
++ actual - expected
+
++ 'not_ready'
+- 'success'
+
+    at <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.mts:130:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'not_ready',
+  expected: 'success',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx ../../work/test/t041/recovery.mts

@@ -1,0 +1,30 @@
+{
+  "scope": "Auditoría local del paquete exacto y del snapshot; no revisión médica independiente",
+  "checks": {
+    "originalGuideHashMatches": true,
+    "exactJsonHashMatches": true,
+    "excerptsLiteral": true,
+    "sourceHashesOriginal": true,
+    "allActivitiesLocated": true,
+    "assessmentCandidatesResolve": true,
+    "reserveFamiliesExclusive": true,
+    "noReservedItemInInitialAssessments": true,
+    "cycleCoverage": true,
+    "referencesPreserved": true,
+    "zeroAssets": true,
+    "noProductionIdentity": true
+  },
+  "allPass": true,
+  "counts": {
+    "units": 4,
+    "objectives": 4,
+    "activities": 42,
+    "assessments": 9,
+    "sources": 5,
+    "assets": 0,
+    "initialObjectiveFamilies": 20,
+    "reserveFamilies": 12,
+    "diagnosticItems": 4
+  },
+  "packageSha256": "22d28427d884a5c3c4bd76c784500a000d3b8bc8264a12e2e6bf14319b6d2e56"
+}

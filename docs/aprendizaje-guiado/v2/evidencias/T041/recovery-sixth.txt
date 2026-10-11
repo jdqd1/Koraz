@@ -1,0 +1,30 @@
+PASS nonempty-v1-v2-history-responses-agenda-and-sources
+PASS pending-real-migrations-preserve-v1-v2-data
+PASS failed-migration-rolls-back-DDL-data-and-ledger
+PASS committed-fixture-incident-detected-by-hashes
+PASS different-database-full-restore-matches-all-table-hashes-schema-and-sequences
+PASS restored-database-migration-replay-and-checksums
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- 'maintenance'
+
+    at <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery.mts:203:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'maintenance',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx ../../work/test/t041/recovery.mts

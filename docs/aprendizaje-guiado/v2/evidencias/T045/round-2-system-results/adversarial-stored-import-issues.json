@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "importId": "b1356f11-824d-4dda-abd3-7c80d979872a",
+  "shape": "array",
+  "issues": [
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "path": "/editorial/unresolvedIssues",
+      "message": "Hay incidencias editoriales abiertas.",
+      "severity": "error",
+      "suggestedFix": "Resuelve cada incidencia antes de publicar."
+    },
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "path": "/objectives/0",
+      "message": "Ciclo incompleto para identificar-compartimentos: explicación, recuperación, elaboración y aplicación son obligatorias.",
+      "severity": "error",
+      "suggestedFix": "Añade las fases que faltan con respuesta explícita donde corresponde."
+    },
+    {
+      "code": "BANK_TOO_SMALL",
+      "path": "/objectives/0",
+      "message": "Banco insuficiente para identificar-compartimentos: requiere cinco familias objetivas, dos de recuperación y aplicación en otra representación.",
+      "severity": "error",
+      "suggestedFix": "Añade variantes con equivalenceKey distintos y una aplicación de modalidad diferente."
+    },
+    {
+      "code": "RESERVE_LEAK",
+      "path": "/objectives/0",
+      "message": "Faltan reservas disjuntas final, retención7 o retención30 para identificar-compartimentos.",
+      "severity": "error",
+      "suggestedFix": "Añade una familia exclusiva para cada evaluación reservada."
+    },
+    {
+      "code": "CRITICAL_GATE_MISSING",
+      "path": "/objectives/0",
+      "message": "CORE identificar-compartimentos no tiene comprobación objetiva en su gate.",
+      "severity": "error",
+      "suggestedFix": "Incluye el objetivo y un ítem objetivo en la evaluación unit_gate de su unidad."
+    },
+    {
+      "code": "ASSET_REQUIRED",
+      "path": "/objectives/0",
+      "message": "La identificación espacial requiere una imagen revisada.",
+      "severity": "error",
+      "suggestedFix": "Añade image_target con asset y alternativa accesible."
+    },
+    {
+      "code": "CRITICAL_GATE_MISSING",
+      "path": "/units/0",
+      "message": "El gate de organizacion no comprueba identificar-compartimentos.",
+      "severity": "error",
+      "suggestedFix": "Incluye un ítem objetivo de cada objetivo requerido de la unidad."
+    },
+    {
+      "code": "RESERVE_LEAK",
+      "path": "/assessments",
+      "message": "La evaluación final no cubre identificar-compartimentos.",
+      "severity": "error",
+      "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+    },
+    {
+      "code": "RESERVE_LEAK",
+      "path": "/assessments",
+      "message": "La evaluación retention7 no cubre identificar-compartimentos.",
+      "severity": "error",
+      "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+    },
+    {
+      "code": "RESERVE_LEAK",
+      "path": "/assessments",
+      "message": "La evaluación retention30 no cubre identificar-compartimentos.",
+      "severity": "error",
+      "suggestedFix": "Añade una reserva objetiva de ese objetivo."
+    },
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "path": "/assessments",
+      "message": "Diagnóstico fuera de cobertura: requiere 4–8 ítems, o todos los CORE raíz disponibles si hay menos de cuatro objetivos.",
+      "severity": "error",
+      "suggestedFix": "Ajusta el banco diagnóstico de raíces CORE."
+    },
+    {
+      "code": "OBJECTIVE_COVERAGE",
+      "path": "/assessments",
+      "message": "El diagnóstico no cubre todos los CORE raíz de esta ruta corta.",
+      "severity": "error",
+      "suggestedFix": "Añade un ítem diagnóstico por cada CORE raíz disponible."
+    }
+  ]
+}
