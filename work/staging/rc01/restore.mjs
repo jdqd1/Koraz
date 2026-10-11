@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {createHash,randomUUID} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
-import {mkdtemp,readFile,unlink} from 'node:fs/promises';
+import {mkdtemp,readFile,writeFile,unlink} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 const {Pool}=createRequire(new URL('../package.json',import.meta.url))('pg');
 const sha=value=>createHash('sha256').update(value).digest('hex');
@@ -51,13 +51,23 @@ export async function restoreDrill(target){
   phase='create-target';
   await pool.query(`create database "${restoreName}"`);created=true;
   phase='restore-command';
-  const restoreMs=native('pg_restore',['--exit-on-error','--no-owner','--dbname',restoreName,dump],restoreName);
+  const toc=spawnSync('pg_restore',['--list',dump],{env:pgEnv,encoding:'utf8'});assert.equal(toc.status,0);
+  const managedDefaults=toc.stdout.split('\n').filter(line=>!line.startsWith(';')&&line.includes(' DEFAULT ACL ')&&line.trim().split(/\s+/).at(-1)!==pgEnv.PGUSER);
+  const managedOwners=new Set(managedDefaults.map(line=>line.trim().split(/\s+/).at(-1)));
+  for(const owner of managedOwners)assert.match(owner,/^(?:render|postgres|rds)[a-z0-9_]*$/,'Unexpected non-application default privilege owner');
+  await writeFile(directory+'/restore.list',toc.stdout.split('\n').map(line=>managedDefaults.includes(line)?'; '+line:line).join('\n'));
+  const restoreMs=native('pg_restore',['--exit-on-error','--no-owner','--use-list',directory+'/restore.list','--dbname',restoreName,dump],restoreName);
   const restoredUrl=new URL(target);restoredUrl.pathname='/'+restoreName;
   restored=new Pool({connectionString:restoredUrl.href,max:1});
   phase='compare-rows';
   const after=await fingerprint(restored);assert.deepEqual(after,before);
   native('pg_dump',['--schema-only','--no-owner','--file',directory+'/after.sql'],restoreName);
-  const schema=file=>readFile(directory+'/'+file,'utf8').then(s=>s.replace(/^\\(?:un)?restrict .*\r?\n/gm,''));
+  const schema=file=>readFile(directory+'/'+file,'utf8').then(s=>s.replace(/^\\(?:un)?restrict .*\r?\n/gm,'')
+   .split(/(?=--\n-- Name: )/).filter(block=>{
+    const header=block.split('\n')[1]??'';
+    const owner=/; Owner: ([^\n]+)/.exec(header)?.[1];
+    return !(header.includes('; Type: DEFAULT ACL;')&&managedOwners.has(owner));
+   }).join('').replace(/\n{3,}/g,'\n\n'));
   phase='compare-schema';
   const beforeSchema=await schema('before.sql'),afterSchema=await schema('after.sql');
   if(sha(afterSchema)!==sha(beforeSchema)){
@@ -68,7 +78,8 @@ export async function restoreDrill(target){
   const bytes=await readFile(dump);
   console.log('RC01_RESTORE '+JSON.stringify({status:'PASS',scope:'Isolated Render PostgreSQL staging recovery drill',
    sourceDatabase:pgEnv.PGDATABASE,restoreDatabase:restoreName,tables:Object.keys(before.rows).length,
-   matchingTableCountsAndHashes:true,matchingSequences:true,matchingSchemaAndGrants:true,
+   matchingTableCountsAndHashes:true,matchingSequences:true,matchingApplicationSchemaAndGrants:true,
+   excludedManagedDefaultPrivileges:managedDefaults,
    backupBytes:bytes.length,backupSha256:sha(bytes),dumpMs,restoreMs,rows:before.rows,
    limitation:'Temporary test backup; no production retention or RPO/RTO acceptance'}));
  }catch(error){
@@ -78,7 +89,7 @@ export async function restoreDrill(target){
   await restored?.end();
   if(created)await pool.query(`drop database "${restoreName}"`);
   await pool.end();
-  for(const file of ['backup.dump','before.sql','after.sql'])await unlink(directory+'/'+file).catch(()=>{});
+  for(const file of ['backup.dump','before.sql','after.sql','restore.list'])await unlink(directory+'/'+file).catch(()=>{});
  }
  console.log('RC01_RESTORE_CLEANUP '+JSON.stringify({status:'PASS',removedRestoreDatabase:restoreName,sourcePreserved:true}));
 }
