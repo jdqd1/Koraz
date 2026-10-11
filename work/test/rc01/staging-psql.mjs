@@ -1,0 +1,15 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {rootCertificates} from 'node:tls';
+import {spawnSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+const root=new URL('../../../',import.meta.url),privateDir=new URL('.env.rc01-staging-private/',root);
+mkdirSync(privateDir,{recursive:true});
+const raw=readFileSync(new URL('.env.rc01-staging',root),'utf8');
+const value=raw.split(/\r?\n/).find(l=>l.startsWith('STAGING_DATABASE_URL='))?.split('=').slice(1).join('=').trim();
+assert(value);
+const u=new URL(value.replace(/^['"]|['"]$/g,''));
+assert.equal(u.hostname,'dpg-db5gi7id0e5s73fcvc20-a.oregon-postgres.render.com');assert.equal(u.pathname,'/koraz_guided_v2_staging');
+const ca=new URL('public-roots.pem',privateDir);writeFileSync(ca,rootCertificates.join('\n'));
+const r=spawnSync('C:/Users/josed/.codex/tmp/koraz-t015-postgres/pgsql/bin/psql.exe',['-X','-w','-c','select current_database(),current_user,version()'],{windowsHide:true,timeout:45000,encoding:'utf8',env:{...process.env,PGHOST:u.hostname,PGPORT:u.port||'5432',PGDATABASE:u.pathname.slice(1),PGUSER:decodeURIComponent(u.username),PGPASSWORD:decodeURIComponent(u.password),PGSSLMODE:'verify-full',PGSSLROOTCERT:fileURLToPath(ca),PGSSLNEGOTIATION:'direct',PGCONNECT_TIMEOUT:'30'}});
+writeFileSync(new URL('docs/aprendizaje-guiado/v2/evidencias/RC01/staging-psql-check.json',root),JSON.stringify({exitCode:r.status,error:r.error?.code,stdout:r.stdout,stderr:r.stderr,certificateVerification:'verify-full',negotiation:'direct'},null,2)+'\n');console.log(JSON.stringify({exitCode:r.status,error:r.error?.code,stdout:r.stdout,stderr:r.stderr}));

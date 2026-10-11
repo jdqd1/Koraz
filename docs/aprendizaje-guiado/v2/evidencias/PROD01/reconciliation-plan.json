@@ -1,0 +1,111 @@
+{
+  "reconciled": [
+    {
+      "file": "0017_editorial_topics_and_drafts.sql",
+      "sha": "912d4d6631d2dc9f6285b80c7dd555ecd9d9ed1ae29a1b08568141907b9a1290",
+      "historical": "editorial_topics_and_drafts",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0018_editor_workspace_indexes.sql",
+      "sha": "cf2359a37baf4d2d2c1568299236e119045637d7cff4db152c285e19dac34133",
+      "historical": "editor_workspace_indexes",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0019_content_search.sql",
+      "sha": "c9fc2d4bf92d8dee08e51b3a8e2503170b4949396c4c4d769916675b76b2a273",
+      "historical": "content_search_index",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0020_content_search_function_hardening.sql",
+      "sha": "3bbd0625f945a75f0775186a3638f65e14f3640e16b41c6921cd4015b2c52aaa",
+      "historical": "content_search_function_hardening",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0021_optional_content_topic.sql",
+      "sha": "aa0b7af148e1af93bce108a3a01daf928d5da8d860203fb87791a15093487061",
+      "historical": "optional_content_topic",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0022_content_topic_item_order.sql",
+      "sha": "2faaa1aa9280b5900ccadb9050917d1966b962ea22459e19cfa2896b4b3f127a",
+      "historical": "content_topic_item_order",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0024_interactive_guide_terms.sql",
+      "sha": "b6fe090d024e5cbad7f89ac49dd967b62ffb055fd6264150a31f97cfc46fdf88",
+      "historical": "cediah_0024_interactive_guide_terms",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0025_interactive_term_invalidation.sql",
+      "sha": "c26bffac99792e8868e70c737cbee1f4fa7a389212fdd9c11f527acfb85ba28c",
+      "historical": "cediah_0025_interactive_term_invalidation",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0026_interactive_terms_runtime_access.sql",
+      "sha": "e36589740d272097b41d12f28449da2ace6cb9ea7340833b77233d000641c259",
+      "historical": "cediah_0026_interactive_terms_runtime_access",
+      "mode": "replay-native-access-after-dropping-only-runtime-policies"
+    },
+    {
+      "file": "0027_interactive_term_function_hardening.sql",
+      "sha": "f3510989a194a2bd62d33130f4356eec82d37c5487cb7660e9901c70eaf9ffee",
+      "historical": "cediah_0027_interactive_term_function_hardening",
+      "mode": "verified-historical-native-equivalent"
+    },
+    {
+      "file": "0028_interactive_term_link_indexes.sql",
+      "sha": "f40d6c51e9b51504f9a22ba1e704832e7739d86e89b5bb71cd1814bd0afe978c",
+      "historical": "cediah_0028_interactive_term_link_indexes",
+      "mode": "verified-historical-native-equivalent"
+    }
+  ],
+  "applied": [
+    {
+      "file": "0017_delete_guided_learning_paths.sql",
+      "sha": "2d21eff1eb59b952e1571a4b8e68b4f501bb748a29b5dbcff1feddcde592fed6"
+    },
+    {
+      "file": "0023_editor_content_search_index.sql",
+      "sha": "6df220ef5e207a41b54763c6caa50f2fa9e9b5b2cea45867f99d7fa5617b666c"
+    },
+    {
+      "file": "0030_guided_v2_definition.sql",
+      "sha": "cb47446cbefef5c45bc9921f9a0926c5f710a7e26718032e0b2523f7740d07ca"
+    },
+    {
+      "file": "0031_guided_v2_runtime.sql",
+      "sha": "fe693db38c5ea818561ac6f0a302c3be87dd058dc63599feffec3e81fd1525e7"
+    },
+    {
+      "file": "0032_guided_v2_rewards.sql",
+      "sha": "937d5163542988363694825f982f5af5cb7f1564a6895793948cd2f686be7496"
+    },
+    {
+      "file": "0033_guided_v2_runtime_access.sql",
+      "sha": "358c709312b027058365a4eb1ae7d9f571aafdfe2dc8a9defdd84d22deeb163f"
+    },
+    {
+      "file": "0034_guided_v2_editor_audit.sql",
+      "sha": "8be064ec3e86735791c822a72e44226c6387ef018e69f7f6deb7351cd0d55d42"
+    },
+    {
+      "file": "0035_guided_v2_media_access.sql",
+      "sha": "3da09ebf0c67583dc59c33c78507200bbfbfab22ce8a1d52b0257e807bf0e6a5"
+    },
+    {
+      "file": "0036_topic_order_runtime_access.sql",
+      "sha": "7739a97a0d8d7cc9eca3c3311a9d4ff119a5471cd773ab74963297cf8e3d8337"
+    }
+  ],
+  "oldChecksumsMatch": true,
+  "editorialHistoricalDifference": "Only extra provider RLS/grants; native DDL and seed statement identical after removing security block.",
+  "preservesAllExistingRows": true
+}

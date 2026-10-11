@@ -1,0 +1,1098 @@
+{
+  "status": "PASS",
+  "scope": "Built Next/BFF/HTTP/independent local PostgreSQL; fixture identity; pilot human review exact hash, test only",
+  "database": "koraz_guided_v2_test_db30cb7366754a13a854907d93f1e736",
+  "contentHash": "2e59f7b4e0eed9f5bc0283b6b774c4fc1b11af0be1e01a4efcdbc30ec7bb2fcf",
+  "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+  "attempts": [
+    {
+      "attemptId": "3993af17-45c4-48b2-9263-0859e24809dd",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 1,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "ejemplo-resuelto",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:15.925Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "ejemplo-resuelto",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "11d31a03-983a-49aa-8091-dc9ca336c94b",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 2,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "ejemplo-parcial",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:19.387Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "ejemplo-parcial",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "a339efc6-e659-46ab-b05a-ebd66c9d1f52",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 3,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "elaborar-datos",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:21.567Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "elaborar-datos",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "31b0ff07-bcd1-467e-9b81-e0d7c6f6f16f",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 4,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": null,
+            "criticalErrorOpen": false,
+            "assisted": true,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "recuperar-regla-n",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:32.168Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "recuperar-regla-n",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 0,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "ce655280-e9a8-40dc-a64d-157aefa53577",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 5,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "recuperar-tabla-c",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:36.493Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "recuperar-tabla-c",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "5e22b12c-3f44-4d9e-9642-3c068a645b5c",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 6,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "learning",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": false,
+            "reviewDue": false,
+            "firstMasteredAt": null,
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "aplicar-prioridad-e",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:39.423Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "aplicar-prioridad-e",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": null,
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": false,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [
+                "integrar-circuito"
+              ],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "e8f12c1e-3c53-41b0-866b-e0eed6a718c4",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 7,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "recuperar-orden",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:41.945Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "recuperar-orden",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "e8aee029-a488-4ed9-9a41-84db4d7b9ce4",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 8,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "activity",
+          "key": "inferir-dato-faltante",
+          "reason": "Siguiente actividad de la rama disponible"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:45.318Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [
+            {
+              "key": "inferir-dato-faltante",
+              "objectiveKey": "integrar-circuito",
+              "reason": "Siguiente actividad de la rama disponible"
+            }
+          ],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "c1780375-01d4-49da-a631-58151d221d86",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": null,
+        "masteredAt": null,
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "gate",
+          "key": "final",
+          "reason": "Evaluación final disponible; las actividades completadas no implican dominio acreditado"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:48.515Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "e8f3682f-d925-4e0d-ac58-e9fcabba004d",
+      "stage": 0,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-12-15T15:35:54.019Z",
+        "masteredAt": "2026-12-15T15:35:54.019Z",
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "none",
+          "key": null,
+          "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-15T15:35:54.425Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-16T15:35:35.946Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "2581208a-7e04-4912-9793-bb3f208b7129",
+      "stage": 1,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-12-15T15:35:54.019Z",
+        "masteredAt": "2026-12-15T15:35:54.019Z",
+        "consolidatedAt": null,
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": null
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "none",
+          "key": null,
+          "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+        },
+        "maintenance": {
+          "generatedAt": "2026-12-23T15:35:58.882Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2026-12-26T15:35:58.330Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": "2026-12-23T15:35:58.330Z",
+                "elapsedDays": 8.000200277777777
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": null,
+                "elapsedDays": null
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "68c5cfc3-ef26-4b86-834c-495e215c4b62",
+      "stage": 2,
+      "state": {
+        "engineVersion": "guided-v2",
+        "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+        "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+        "rowVersion": 1,
+        "completedActivities": 9,
+        "dispensedActivities": 0,
+        "plannedRequiredActivities": 9,
+        "completedAt": "2026-12-15T15:35:54.019Z",
+        "masteredAt": "2026-12-15T15:35:54.019Z",
+        "consolidatedAt": "2027-01-16T15:36:01.690Z",
+        "objectives": [
+          {
+            "objectiveKey": "integrar-circuito",
+            "label": "mastered",
+            "objectiveScore": 100,
+            "criticalErrorOpen": false,
+            "assisted": false,
+            "applicationDemonstrated": true,
+            "reviewDue": false,
+            "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+            "firstConsolidatedAt": "2027-01-16T15:36:01.690Z"
+          }
+        ],
+        "dueReviews": 0,
+        "nextAction": {
+          "kind": "none",
+          "key": null,
+          "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+        },
+        "maintenance": {
+          "generatedAt": "2027-01-16T15:36:02.134Z",
+          "timeZone": "America/Caracas",
+          "diagnostic": {
+            "status": "omitted",
+            "assessmentKey": null
+          },
+          "activities": [],
+          "reviewBatch": [],
+          "agenda": [
+            {
+              "objectiveKey": "integrar-circuito",
+              "dueAt": "2027-01-23T15:36:01.690Z",
+              "retention7": {
+                "dueAt": "2026-12-22T15:35:41.026Z",
+                "acceptedAt": "2026-12-23T15:35:58.330Z",
+                "elapsedDays": 8.000200277777777
+              },
+              "retention30": {
+                "dueAt": "2027-01-14T15:35:41.026Z",
+                "acceptedAt": "2027-01-16T15:36:01.690Z",
+                "elapsedDays": 32.00023916666667
+              }
+            }
+          ],
+          "gates": [
+            {
+              "unitKey": "unidad-circuito",
+              "passed": true,
+              "score": 100,
+              "thresholdPercent": 80,
+              "missingCoreKeys": [],
+              "criticalErrorKeys": []
+            }
+          ],
+          "blockers": [],
+          "remediation": [],
+          "exhaustedBanks": []
+        },
+        "availability": "active",
+        "versionHistory": [
+          {
+            "versionNumber": 1,
+            "engineVersion": "guided-v2",
+            "adoptedAt": "2026-10-11T15:35:50.303Z",
+            "completedAt": null,
+            "consumedActivities": []
+          }
+        ]
+      }
+    }
+  ],
+  "reloadVerified": true,
+  "final": {
+    "engineVersion": "guided-v2",
+    "enrollmentId": "30ee79f7-f8f9-4c7b-bbe9-f0563bd00f79",
+    "pathVersionId": "4d26a785-c239-401f-84c9-55ef978ef301",
+    "rowVersion": 1,
+    "completedActivities": 9,
+    "dispensedActivities": 0,
+    "plannedRequiredActivities": 9,
+    "completedAt": "2026-12-15T15:35:54.019Z",
+    "masteredAt": "2026-12-15T15:35:54.019Z",
+    "consolidatedAt": "2027-01-16T15:36:01.690Z",
+    "objectives": [
+      {
+        "objectiveKey": "integrar-circuito",
+        "label": "mastered",
+        "objectiveScore": 100,
+        "criticalErrorOpen": false,
+        "assisted": false,
+        "applicationDemonstrated": true,
+        "reviewDue": false,
+        "firstMasteredAt": "2026-12-15T15:35:41.026Z",
+        "firstConsolidatedAt": "2027-01-16T15:36:01.690Z"
+      }
+    ],
+    "dueReviews": 0,
+    "nextAction": {
+      "kind": "none",
+      "key": null,
+      "reason": "No hay una actividad elegible; puedes pausar o elegir otra rama"
+    },
+    "maintenance": {
+      "generatedAt": "2027-01-16T15:36:03.342Z",
+      "timeZone": "America/Caracas",
+      "diagnostic": {
+        "status": "omitted",
+        "assessmentKey": null
+      },
+      "activities": [],
+      "reviewBatch": [],
+      "agenda": [
+        {
+          "objectiveKey": "integrar-circuito",
+          "dueAt": "2027-01-23T15:36:01.690Z",
+          "retention7": {
+            "dueAt": "2026-12-22T15:35:41.026Z",
+            "acceptedAt": "2026-12-23T15:35:58.330Z",
+            "elapsedDays": 8.000200277777777
+          },
+          "retention30": {
+            "dueAt": "2027-01-14T15:35:41.026Z",
+            "acceptedAt": "2027-01-16T15:36:01.690Z",
+            "elapsedDays": 32.00023916666667
+          }
+        }
+      ],
+      "gates": [
+        {
+          "unitKey": "unidad-circuito",
+          "passed": true,
+          "score": 100,
+          "thresholdPercent": 80,
+          "missingCoreKeys": [],
+          "criticalErrorKeys": []
+        }
+      ],
+      "blockers": [],
+      "remediation": [],
+      "exhaustedBanks": []
+    },
+    "availability": "active",
+    "versionHistory": [
+      {
+        "versionNumber": 1,
+        "engineVersion": "guided-v2",
+        "adoptedAt": "2026-10-11T15:35:50.303Z",
+        "completedAt": null,
+        "consumedActivities": []
+      }
+    ]
+  }
+}

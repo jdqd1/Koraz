@@ -1,0 +1,9 @@
+$ pnpm -r --if-present test
+No projects matched the filters "D:\Jose (Datos)\Medicina\CEDIAH\Web" in "D:\Jose (Datos)\Medicina\CEDIAH\Web"
+Scope: all 4 workspace projects
+apps/api test$ vitest run
+apps/web test$ vitest run
+apps/api test:  RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+apps/web test:  RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+apps/api test:  ❯ test/guided-v2-import.test.ts (18 tests | 1 failed) 20894ms
+apps/api test:      × exposes a validated endpoint with auth, capability and private no-store 6461ms

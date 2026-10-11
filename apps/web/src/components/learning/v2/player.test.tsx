@@ -50,6 +50,24 @@ describe("T029 transport and confirmed player rendering", () => {
       await expect(client.execute(action)).rejects.toThrow(); expect(client.pending()).toEqual(action);
     }
   });
+  it("confirms JSONB-reordered match pairs but rejects changed or missing relations", async () => {
+    const matchAction: PlayerAction = { operation: "response", body: { ...action.body, answer: { kind: "match", pairs: { "r-cero": "azul", "r-uno": "verde", "r-dos": "ambar" } } } };
+    const pairs = { "r-dos": "ambar", "r-uno": "verde", "r-cero": "azul" };
+    for (const [relations, accepted] of [[pairs, true], [{ ...pairs, "r-cero": "rojo" }, false], [{ "r-uno": "verde", "r-dos": "ambar" }, false]] as const) {
+      const receipt = responseReceipt();
+      receipt.attempt.acceptedResponses[0]!.answer = { kind: "match", pairs: relations };
+      const client = createV2PlayerClient(f.attempt.attemptId, vi.fn().mockResolvedValue(Response.json(receipt)), () => fixtureId(81), () => null);
+      if (accepted) { await expect(client.execute(matchAction)).resolves.toMatchObject({ operation: "response" }); expect(client.pending()).toBeNull(); }
+      else { await expect(client.execute(matchAction)).rejects.toThrow("respuesta guardada"); expect(client.pending()).toEqual(matchAction); }
+    }
+  });
+  it("keeps sequence order significant when confirming a saved response", async () => {
+    const sequenceAction: PlayerAction = { operation: "response", body: { ...action.body, answer: { kind: "sequence", orderedKeys: ["a", "b", "c"] } } };
+    const receipt = responseReceipt();
+    receipt.attempt.acceptedResponses[0]!.answer = { kind: "sequence", orderedKeys: ["c", "b", "a"] };
+    const client = createV2PlayerClient(f.attempt.attemptId, vi.fn().mockResolvedValue(Response.json(receipt)), () => fixtureId(81), () => null);
+    await expect(client.execute(sequenceAction)).rejects.toThrow("respuesta guardada"); expect(client.pending()).toEqual(sequenceAction);
+  });
   it("sends assistance to the help endpoint with CAS and accepts only its typed receipt", async () => {
     const receipt = V2HttpContracts.attemptHelp.response.parse({ help: { kind: "hint", text: "Pista autorizada" }, attempt: { ...f.attempt, rowVersion: 2 } });
     const fetcher = vi.fn().mockResolvedValue(Response.json(receipt));

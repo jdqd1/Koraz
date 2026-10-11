@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-11T16:30:16.480Z",
+  "status": "PASS",
+  "deployedSourceSha": "530fab44686b4be06b213fd33c2e0d2c560f97a5",
+  "branch": "codex/cierre-pendientes-guided-v2",
+  "pullRequest": "https://github.com/jdqd1/Koraz/pull/61",
+  "productionTouched": false,
+  "render": {
+    "commit": {
+      "createdAt": "2026-10-11T16:23:22Z",
+      "id": "530fab44686b4be06b213fd33c2e0d2c560f97a5",
+      "message": "Close RC01 browser, editorial and isolated staging verification with auditable evidence"
+    },
+    "createdAt": "2026-10-11T16:23:44.248375Z",
+    "finishedAt": "2026-10-11T16:24:58.496243Z",
+    "id": "dep-db5rg42vcj2c73911umg",
+    "startedAt": "2026-10-11T16:23:44.219011Z",
+    "status": "live",
+    "trigger": "api",
+    "updatedAt": "2026-10-11T16:25:31.351717Z"
+  },
+  "vercel": {
+    "id": "dpl_A1WZNYUspqBMfunxVvWJkAbWGdUE",
+    "state": "READY",
+    "target": "preview",
+    "url": "https://cediah-9wu4t24uk-jdqd1s-projects.vercel.app",
+    "sourceSha": "530fab44686b4be06b213fd33c2e0d2c560f97a5"
+  },
+  "runtimeFlags": {
+    "enabled": true,
+    "newEnrollments": false,
+    "nonEmptyAllowlist": true,
+    "migrations": false,
+    "restoreDrill": false
+  },
+  "externalDatabaseAccess": "blocked",
+  "pending": null,
+  "receiptCommits": "Later commits only record release receipts; deployed application source stays at deployedSourceSha",
+  "finalBffReadAt": "2026-10-11T16:29:48.072Z"
+}

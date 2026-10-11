@@ -1,0 +1,397 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/rc01/playwright.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\playwright.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/RC01/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+        "testIgnore": [],
+        "testMatch": [
+          "generated-package.spec.mts"
+        ],
+        "timeout": 600000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/RC01/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+        "testIgnore": [],
+        "testMatch": [
+          "generated-package.spec.mts"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "generated-package.spec.mts",
+      "file": "generated-package.spec.mts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "synthetic: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 87090,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:8:90)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:55:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 90,
+                      "line": 8
+                    },
+                    "snippet": "   6 | async function answer(page:Page,a:any){\n   7 |  switch(a.kind){\n>  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;\n     |                                                                                          ^\n   9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 90,
+                        "line": 8
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n\n   6 | async function answer(page:Page,a:any){\n   7 |  switch(a.kind){\n>  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;\n     |                                                                                          ^\n   9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:8:90)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:55:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:08:12.845Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 90,
+                    "line": 8
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-4256698f016c289fd79f",
+          "file": "generated-package.spec.mts",
+          "line": 25,
+          "column": 41
+        },
+        {
+          "title": "pilot: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 79426,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:54:79)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 79,
+                      "line": 54
+                    }
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 79,
+                        "line": 54
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\nExpected: visible\nTimeout: 60000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true }) with timeout 60000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Revisa este ejemplo resuelto antes del intento independiente.', exact: true })\u001b[22m\n\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:54:79)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:09:42.789Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 79,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-3c3f037ac68591c969e1",
+          "file": "generated-package.spec.mts",
+          "line": 25,
+          "column": 41
+        },
+        {
+          "title": "synthetic: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 15270,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 15\u001b[39m\n\u001b[31m+ Received  + 80\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"acceptedResponses\": Array [],\u001b[39m\n\u001b[32m-   \"accessiblePractice\": null,\u001b[39m\n\u001b[32m-   \"activeActivity\": Object {\u001b[39m\n\u001b[32m-     \"key\": \"explicacion\",\u001b[39m\n\u001b[31m+   \"acceptedResponses\": Array [\u001b[39m\n\u001b[31m+     Object {\u001b[39m\n\u001b[31m+       \"activityKey\": \"explicacion\",\u001b[39m\n\u001b[31m+       \"answer\": Object {\u001b[39m\n\u001b[31m+         \"acknowledged\": true,\u001b[39m\n\u001b[2m          \"kind\": \"study\",\u001b[22m\n\u001b[32m-     \"objectiveKey\": \"integrar-circuito\",\u001b[39m\n\u001b[32m-     \"payload\": Object {\u001b[39m\n\u001b[32m-       \"assetKey\": null,\u001b[39m\n\u001b[32m-       \"body\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[32m-       \"focusSpans\": Array [],\u001b[39m\n\u001b[32m-       \"scaffold\": \"explanation\",\u001b[39m\n\u001b[32m-       \"videoRange\": null,\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+       \"feedback\": Object {\u001b[39m\n\u001b[31m+         \"commonError\": \"\",\u001b[39m\n\u001b[31m+         \"explanation\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[31m+         \"sources\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.\",\u001b[39m\n\u001b[31m+             \"key\": \"normalizacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Residuo r | Color c |\u001b[39m\n\u001b[31m+ |---|---|\u001b[39m\n\u001b[31m+ | 0 | azul |\u001b[39m\n\u001b[31m+ | 1 | verde |\u001b[39m\n\u001b[31m+ | 2 | ámbar |\u001b[39m\n\u001b[31m+ | 3 | rojo |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ C no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.\",\u001b[39m\n\u001b[31m+             \"key\": \"codificacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Interruptor | azul | verde | ámbar | rojo |\u001b[39m\n\u001b[31m+ |---|---|---|---|---|\u001b[39m\n\u001b[31m+ | e=0 | archivo | archivo | archivo | archivo |\u001b[39m\n\u001b[31m+ | e=1 | pantalla | pantalla | alarma | alarma |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.\",\u001b[39m\n\u001b[31m+             \"key\": \"enrutamiento\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[2m        },\u001b[22m\n\u001b[32m-     \"phase\": \"learn\",\u001b[39m\n\u001b[32m-     \"prompt\": \"Estudia las reglas y dependencias del circuito ficticio.\",\u001b[39m\n\u001b[32m-     \"representation\": \"text\",\u001b[39m\n\u001b[31m+       \"score01\": null,\u001b[39m\n\u001b[31m+       \"serverAcceptedAt\": \"2026-10-11T04:11:20.438Z\",\u001b[39m\n\u001b[2m      },\u001b[22m\n\u001b[31m+   ],\u001b[39m\n\u001b[31m+   \"accessiblePractice\": null,\u001b[39m\n\u001b[31m+   \"activeActivity\": null,\u001b[39m\n\u001b[2m    \"attemptId\": \"6fc944ef-5594-4d5c-b207-3fd385c035f6\",\u001b[22m\n\u001b[2m    \"constructedResponse\": null,\u001b[22m\n\u001b[2m    \"engineVersion\": \"guided-v2\",\u001b[22m\n\u001b[2m    \"enrollmentId\": \"c83975b5-589d-4a9c-ba4b-cef16010f7c3\",\u001b[22m\n\u001b[2m    \"pathVersionId\": \"d6c307f8-968d-48f9-ad74-f1a7fecba6c4\",\u001b[22m\n\u001b[2m    \"policyVersion\": \"guided-v2.0\",\u001b[22m\n\u001b[2m    \"purpose\": \"activity\",\u001b[22m\n\u001b[32m-   \"rowVersion\": 1,\u001b[39m\n\u001b[31m+   \"rowVersion\": 2,\u001b[39m\n\u001b[2m    \"status\": \"open\",\u001b[22m\n\u001b[2m  }\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 15\u001b[39m\n\u001b[31m+ Received  + 80\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"acceptedResponses\": Array [],\u001b[39m\n\u001b[32m-   \"accessiblePractice\": null,\u001b[39m\n\u001b[32m-   \"activeActivity\": Object {\u001b[39m\n\u001b[32m-     \"key\": \"explicacion\",\u001b[39m\n\u001b[31m+   \"acceptedResponses\": Array [\u001b[39m\n\u001b[31m+     Object {\u001b[39m\n\u001b[31m+       \"activityKey\": \"explicacion\",\u001b[39m\n\u001b[31m+       \"answer\": Object {\u001b[39m\n\u001b[31m+         \"acknowledged\": true,\u001b[39m\n\u001b[2m          \"kind\": \"study\",\u001b[22m\n\u001b[32m-     \"objectiveKey\": \"integrar-circuito\",\u001b[39m\n\u001b[32m-     \"payload\": Object {\u001b[39m\n\u001b[32m-       \"assetKey\": null,\u001b[39m\n\u001b[32m-       \"body\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[32m-       \"focusSpans\": Array [],\u001b[39m\n\u001b[32m-       \"scaffold\": \"explanation\",\u001b[39m\n\u001b[32m-       \"videoRange\": null,\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+       \"feedback\": Object {\u001b[39m\n\u001b[31m+         \"commonError\": \"\",\u001b[39m\n\u001b[31m+         \"explanation\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[31m+         \"sources\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.\",\u001b[39m\n\u001b[31m+             \"key\": \"normalizacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Residuo r | Color c |\u001b[39m\n\u001b[31m+ |---|---|\u001b[39m\n\u001b[31m+ | 0 | azul |\u001b[39m\n\u001b[31m+ | 1 | verde |\u001b[39m\n\u001b[31m+ | 2 | ámbar |\u001b[39m\n\u001b[31m+ | 3 | rojo |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ C no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.\",\u001b[39m\n\u001b[31m+             \"key\": \"codificacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Interruptor | azul | verde | ámbar | rojo |\u001b[39m\n\u001b[31m+ |---|---|---|---|---|\u001b[39m\n\u001b[31m+ | e=0 | archivo | archivo | archivo | archivo |\u001b[39m\n\u001b[31m+ | e=1 | pantalla | pantalla | alarma | alarma |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.\",\u001b[39m\n\u001b[31m+             \"key\": \"enrutamiento\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[2m        },\u001b[22m\n\u001b[32m-     \"phase\": \"learn\",\u001b[39m\n\u001b[32m-     \"prompt\": \"Estudia las reglas y dependencias del circuito ficticio.\",\u001b[39m\n\u001b[32m-     \"representation\": \"text\",\u001b[39m\n\u001b[31m+       \"score01\": null,\u001b[39m\n\u001b[31m+       \"serverAcceptedAt\": \"2026-10-11T04:11:20.438Z\",\u001b[39m\n\u001b[2m      },\u001b[22m\n\u001b[31m+   ],\u001b[39m\n\u001b[31m+   \"accessiblePractice\": null,\u001b[39m\n\u001b[31m+   \"activeActivity\": null,\u001b[39m\n\u001b[2m    \"attemptId\": \"6fc944ef-5594-4d5c-b207-3fd385c035f6\",\u001b[22m\n\u001b[2m    \"constructedResponse\": null,\u001b[22m\n\u001b[2m    \"engineVersion\": \"guided-v2\",\u001b[22m\n\u001b[2m    \"enrollmentId\": \"c83975b5-589d-4a9c-ba4b-cef16010f7c3\",\u001b[22m\n\u001b[2m    \"pathVersionId\": \"d6c307f8-968d-48f9-ad74-f1a7fecba6c4\",\u001b[22m\n\u001b[2m    \"policyVersion\": \"guided-v2.0\",\u001b[22m\n\u001b[2m    \"purpose\": \"activity\",\u001b[22m\n\u001b[32m-   \"rowVersion\": 1,\u001b[39m\n\u001b[31m+   \"rowVersion\": 2,\u001b[39m\n\u001b[2m    \"status\": \"open\",\u001b[22m\n\u001b[2m  }\u001b[22m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:58:107)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 107,
+                      "line": 58
+                    }
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 107,
+                        "line": 58
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 15\u001b[39m\n\u001b[31m+ Received  + 80\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"acceptedResponses\": Array [],\u001b[39m\n\u001b[32m-   \"accessiblePractice\": null,\u001b[39m\n\u001b[32m-   \"activeActivity\": Object {\u001b[39m\n\u001b[32m-     \"key\": \"explicacion\",\u001b[39m\n\u001b[31m+   \"acceptedResponses\": Array [\u001b[39m\n\u001b[31m+     Object {\u001b[39m\n\u001b[31m+       \"activityKey\": \"explicacion\",\u001b[39m\n\u001b[31m+       \"answer\": Object {\u001b[39m\n\u001b[31m+         \"acknowledged\": true,\u001b[39m\n\u001b[2m          \"kind\": \"study\",\u001b[22m\n\u001b[32m-     \"objectiveKey\": \"integrar-circuito\",\u001b[39m\n\u001b[32m-     \"payload\": Object {\u001b[39m\n\u001b[32m-       \"assetKey\": null,\u001b[39m\n\u001b[32m-       \"body\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[32m-       \"focusSpans\": Array [],\u001b[39m\n\u001b[32m-       \"scaffold\": \"explanation\",\u001b[39m\n\u001b[32m-       \"videoRange\": null,\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+       \"feedback\": Object {\u001b[39m\n\u001b[31m+         \"commonError\": \"\",\u001b[39m\n\u001b[31m+         \"explanation\": \"El sistema Neral es ficticio. N normaliza n mediante r=n mod 4; descarta el cociente. C convierte 0,1,2,3 en azul, verde, ámbar, rojo. E usa c y e: e=0 lleva a archivo; con e=1 azul/verde llevan a pantalla y ámbar/rojo a alarma. El orden causal es N→C→E, y e no modifica r ni c.\",\u001b[39m\n\u001b[31m+         \"sources\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La entrada es un entero no negativo n. La compuerta N divide n entre cuatro y conserva el residuo r, que pertenece a {0,1,2,3}. El cociente se descarta. Se escribe r = n mod 4. Sumar cuatro a n conserva el residuo; sumar uno hace avanzar al residuo siguiente, y después de tres vuelve a cero. La salida de N es exclusivamente r, nunca el cociente ni n completo.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos: n=0 da r=0; n=5 da r=1; n=10 da r=2; n=15 da r=3; n=16 da r=0. Por ello n=2,6,10,14 producen el mismo r=2 aunque sus cocientes difieran. La compuerta recibe también un interruptor e, cuyo valor no interviene en la normalización. El orden correcto es leer n, dividir entre cuatro, conservar el residuo y descartar el cociente.\",\u001b[39m\n\u001b[31m+             \"key\": \"normalizacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"1. Normalización del contador\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta C recibe r de N y lo convierte en un color con esta tabla completa:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Residuo r | Color c |\u001b[39m\n\u001b[31m+ |---|---|\u001b[39m\n\u001b[31m+ | 0 | azul |\u001b[39m\n\u001b[31m+ | 1 | verde |\u001b[39m\n\u001b[31m+ | 2 | ámbar |\u001b[39m\n\u001b[31m+ | 3 | rojo |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ C no vuelve a dividir n ni modifica r. El color identifica un solo residuo: si c es verde, r es 1; si c es rojo, r es 3. No puede recuperarse n completo a partir del color, porque distintas entradas tienen el mismo residuo. El interruptor e tampoco cambia el color. Recibir r=4 sería un error de interfaz: ningún entero no negativo correctamente normalizado por N produce ese residuo.\",\u001b[39m\n\u001b[31m+             \"key\": \"codificacion\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"2. Codificación del residuo\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"citation\": \"Fixture local Koraz T045. Circuito de señales Neral. Versión 1. 2026.\",\u001b[39m\n\u001b[31m+             \"excerpt\": \"La compuerta E recibe c e interruptor e. El interruptor admite únicamente 0 o 1. Si e=0, la salida es archivo, cualquiera que sea c. Si e=1 y c es azul o verde, la salida es pantalla. Si e=1 y c es ámbar o rojo, la salida es alarma. Ninguna otra regla existe en Neral. El recorrido es N → C → E; E no altera n, r ni c.\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ | Interruptor | azul | verde | ámbar | rojo |\u001b[39m\n\u001b[31m+ |---|---|---|---|---|\u001b[39m\n\u001b[31m+ | e=0 | archivo | archivo | archivo | archivo |\u001b[39m\n\u001b[31m+ | e=1 | pantalla | pantalla | alarma | alarma |\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+ Ejemplos completos: (n=8,e=1) produce (r=0,c=azul,salida=pantalla); (n=11,e=1) produce (r=3,c=rojo,salida=alarma); (n=6,e=0) produce (r=2,c=ámbar,salida=archivo). Conocer r sin conocer e no basta para decidir la salida. Con e=1, aumentar n en cuatro conserva también color y salida; cambiar e de 1 a 0 siempre conduce a archivo. Para distinguir pantalla de alarma con e=1 basta comprobar si r es 0/1 o 2/3, respectivamente.\",\u001b[39m\n\u001b[31m+             \"key\": \"enrutamiento\",\u001b[39m\n\u001b[31m+             \"locator\": Object {\u001b[39m\n\u001b[31m+               \"heading\": \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               \"page\": null,\u001b[39m\n\u001b[31m+               \"sectionPath\": Array [\u001b[39m\n\u001b[31m+                 \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+                 \"3. Enrutamiento de la salida\",\u001b[39m\n\u001b[31m+               ],\u001b[39m\n\u001b[31m+             },\u001b[39m\n\u001b[31m+             \"title\": \"Circuito de señales Neral\",\u001b[39m\n\u001b[31m+             \"url\": null,\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[2m        },\u001b[22m\n\u001b[32m-     \"phase\": \"learn\",\u001b[39m\n\u001b[32m-     \"prompt\": \"Estudia las reglas y dependencias del circuito ficticio.\",\u001b[39m\n\u001b[32m-     \"representation\": \"text\",\u001b[39m\n\u001b[31m+       \"score01\": null,\u001b[39m\n\u001b[31m+       \"serverAcceptedAt\": \"2026-10-11T04:11:20.438Z\",\u001b[39m\n\u001b[2m      },\u001b[22m\n\u001b[31m+   ],\u001b[39m\n\u001b[31m+   \"accessiblePractice\": null,\u001b[39m\n\u001b[31m+   \"activeActivity\": null,\u001b[39m\n\u001b[2m    \"attemptId\": \"6fc944ef-5594-4d5c-b207-3fd385c035f6\",\u001b[22m\n\u001b[2m    \"constructedResponse\": null,\u001b[22m\n\u001b[2m    \"engineVersion\": \"guided-v2\",\u001b[22m\n\u001b[2m    \"enrollmentId\": \"c83975b5-589d-4a9c-ba4b-cef16010f7c3\",\u001b[22m\n\u001b[2m    \"pathVersionId\": \"d6c307f8-968d-48f9-ad74-f1a7fecba6c4\",\u001b[22m\n\u001b[2m    \"policyVersion\": \"guided-v2.0\",\u001b[22m\n\u001b[2m    \"purpose\": \"activity\",\u001b[22m\n\u001b[32m-   \"rowVersion\": 1,\u001b[39m\n\u001b[31m+   \"rowVersion\": 2,\u001b[39m\n\u001b[2m    \"status\": \"open\",\u001b[22m\n\u001b[2m  }\u001b[22m\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:58:107)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:11:08.839Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 107,
+                    "line": 58
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-a88d504d00976482b2dd",
+          "file": "generated-package.spec.mts",
+          "line": 25,
+          "column": 41
+        },
+        {
+          "title": "pilot: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 70752,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:8:90)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:55:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 90,
+                      "line": 8
+                    },
+                    "snippet": "   6 | async function answer(page:Page,a:any){\n   7 |  switch(a.kind){\n>  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;\n     |                                                                                          ^\n   9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 90,
+                        "line": 8
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continuar a la práctica', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled type=\"button\" class=\"learning-primary-button\">Continuar a la práctica</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not enabled\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n\n   6 | async function answer(page:Page,a:any){\n   7 |  switch(a.kind){\n>  8 |  case 'study':await page.getByRole('button',{name:'Continuar a la práctica',exact:true}).click();return;\n     |                                                                                          ^\n   9 |  case 'single_choice':await page.getByRole('radio',{name:a.payload.options.find((o:any)=>o.key===a.payload.correctKey).text,exact:true}).check();await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  10 |  case 'short_answer':await page.getByLabel('Tu respuesta',{exact:true}).fill(a.payload.acceptedAnswers[0]);await page.getByRole('button',{name:'Comprobar respuesta',exact:true}).click();break;\n  11 |  case 'constructed_response':await page.getByLabel('Explica con tus palabras').fill(a.payload.modelAnswer);await page.getByRole('button',{name:'Guardar mi respuesta',exact:true}).click();await page.getByRole('button',{name:'Comparar con el modelo',exact:true}).click();await page.getByRole('button',{name:'Lo recuperé',exact:true}).click();break;\n    at answer (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:8:90)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:55:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:11:31.730Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 90,
+                    "line": 8
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-19d1e9c133b11c5bc580",
+          "file": "generated-package.spec.mts",
+          "line": 25,
+          "column": 41
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-11T04:07:39.140Z",
+    "duration": 306759.775,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}

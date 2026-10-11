@@ -1,0 +1,359 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Users\\josed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "../../work/test/rc01/playwright.config.mts"
+    ],
+    "configFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\playwright.config.mts",
+    "rootDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\teardown.mts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/RC01/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+        "testIgnore": [],
+        "testMatch": [
+          "generated-package.spec.mts"
+        ],
+        "timeout": 600000
+      },
+      {
+        "outputDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/docs/aprendizaje-guiado/v2/evidencias/RC01/browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "D:/Jose (Datos)/Medicina/CEDIAH/Web/work/test/rc01",
+        "testIgnore": [],
+        "testMatch": [
+          "generated-package.spec.mts"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "generated-package.spec.mts",
+      "file": "generated-package.spec.mts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "synthetic: generated package persists through UI, reload, final and deferred retention",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 94709,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:37:26.181Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-4256698f016c289fd79f",
+          "file": "generated-package.spec.mts",
+          "line": 28,
+          "column": 41
+        },
+        {
+          "title": "pilot: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 211079,
+                  "error": {
+                    "message": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/v2/guided-learning/attempts/661ebcd1-9761-406e-871c-57c51b52cd61\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - cookie: t035=student-4\u001b[22m\n",
+                    "stack": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/v2/guided-learning/attempts/661ebcd1-9761-406e-871c-57c51b52cd61\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - cookie: t035=student-4\u001b[22m\n\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:58:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 73,
+                      "line": 4
+                    },
+                    "snippet": "  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 73,
+                        "line": 4
+                      },
+                      "message": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/v2/guided-learning/attempts/661ebcd1-9761-406e-871c-57c51b52cd61\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - cookie: t035=student-4\u001b[22m\n\n\n  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:58:27)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:9)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:11)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:7)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:39:01.551Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 73,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-3c3f037ac68591c969e1",
+          "file": "generated-package.spec.mts",
+          "line": 28,
+          "column": 41
+        },
+        {
+          "title": "synthetic: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2820,
+                  "error": {
+                    "message": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                    "stack": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:29:20)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:15)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:17)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:22)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 73,
+                      "line": 4
+                    },
+                    "snippet": "  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 73,
+                        "line": 4
+                      },
+                      "message": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\n  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:29:20)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:15)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:17)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:22)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:43:22.698Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 73,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-a88d504d00976482b2dd",
+          "file": "generated-package.spec.mts",
+          "line": 28,
+          "column": 41
+        },
+        {
+          "title": "pilot: generated package persists through UI, reload, final and deferred retention",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile",
+              "projectName": "mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 660,
+                  "error": {
+                    "message": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                    "stack": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:29:20)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:15)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:17)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:22)",
+                    "location": {
+                      "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                      "column": 73,
+                      "line": 4
+                    },
+                    "snippet": "  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                        "column": 73,
+                        "line": 4
+                      },
+                      "message": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:41035/__test/ready\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\n  2 | import { writeFileSync } from 'node:fs';\n  3 | const api='http://127.0.0.1:41035';\n> 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}\n    |                                                                         ^\n  5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}\n  6 | async function answer(page:Page,a:any){\n  7 |  switch(a.kind){\n    at server (D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:4:73)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts:29:20)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1655:15)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1135:17)\n    at D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\node_modules\\.pnpm\\playwright@1.63.0\\node_modules\\playwright\\lib\\worker\\workerProcessEntry.js:1653:22)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T04:43:36.215Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\docs\\aprendizaje-guiado\\v2\\evidencias\\RC01\\browser-artifacts\\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\test\\rc01\\generated-package.spec.mts",
+                    "column": 73,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "427d085607a92720f3a1-19d1e9c133b11c5bc580",
+          "file": "generated-package.spec.mts",
+          "line": 28,
+          "column": 41
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-11T04:36:46.539Z",
+    "duration": 414721.38800000004,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "timestamp": "2026-10-11T16:20:36.275833106Z",
+  "status": "PASS",
+  "scope": "Isolated Render PostgreSQL staging recovery drill",
+  "sourceDatabase": "koraz_guided_v2_staging",
+  "restoreDatabase": "koraz_rc01_restore_8d98491594f04c6d95f696027ff92057",
+  "tables": 67,
+  "matchingTableCountsAndHashes": true,
+  "matchingSequences": true,
+  "matchingApplicationSchemaAndGrants": true,
+  "excludedManagedDefaultPrivileges": [
+    "2373; 826 16391 DEFAULT ACL - DEFAULT PRIVILEGES FOR SEQUENCES postgres",
+    "2375; 826 16393 DEFAULT ACL - DEFAULT PRIVILEGES FOR TYPES postgres",
+    "2374; 826 16392 DEFAULT ACL - DEFAULT PRIVILEGES FOR FUNCTIONS postgres",
+    "2372; 826 16390 DEFAULT ACL - DEFAULT PRIVILEGES FOR TABLES postgres"
+  ],
+  "backupBytes": 492322,
+  "backupSha256": "9c3b3468ceab2f21d7da607fc981936cc5b680a24116f1398c27d1892fde0296",
+  "dumpMs": 1501.40569,
+  "restoreMs": 8211.431078000001,
+  "rows": {
+    "public.audit_log": {
+      "count": 8,
+      "sha256": "13a2420c0f5dc8789d697c3772deaec246357cb94ea43f829b1a72c0f962e9a0"
+    },
+    "public.auth_accounts": {
+      "count": 4,
+      "sha256": "7e52880e05fd323d1fca6fbf704941f22c0b42bd08cdae40e4e915da3b9cdd5c"
+    },
+    "public.auth_rate_limits": {
+      "count": 2,
+      "sha256": "f5cbeb8aa640cbd70fb5f40bfa4aac275be68e6ed2c3d6042afa6a2d57f3407f"
+    },
+    "public.auth_sessions": {
+      "count": 13,
+      "sha256": "8ea84db1d9b81ee55460296d8d50690f2273c4903ef8fee9632f89cc297d8ea2"
+    },
+    "public.auth_users": {
+      "count": 4,
+      "sha256": "67fd726f2286e4e5ba24e450b027e5d32d36f44f614df54f4ac2004c32aad551"
+    },
+    "public.auth_verifications": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.cediah_schema_migration_exclusions": {
+      "count": 1,
+      "sha256": "8941c719a116dfad47529648cae4f91b72cd1f702edbd67f74798458a8c382ab"
+    },
+    "public.cediah_schema_migrations": {
+      "count": 35,
+      "sha256": "ab53a8a7ea4f261acd03c1c6c22f65e568c0c05ce43873af2582f874573097d2"
+    },
+    "public.content_assets": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_items": {
+      "count": 4,
+      "sha256": "bc71e9434a3073d9074e45dd4c03e2cd214c78ea6dc7982d3ff41658d2bbe688"
+    },
+    "public.content_reaction_counts": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_reactions": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_subjects": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_topic_item_order": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_topic_subjects": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_topics": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_view_counts": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.content_view_receipts": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.course_modules": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.course_resources": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.courses": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.enrollments": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.guide_sections": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.guide_term_manifests": {
+      "count": 2,
+      "sha256": "64e3136e7e4180a2117bc652ea5d77b40a0e828824036f9e00e2fcbf2072e37b"
+    },
+    "public.guide_term_reindex_queue": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.guide_term_usage": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.interactive_term_aliases": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.interactive_term_dictionary_state": {
+      "count": 1,
+      "sha256": "f08fe57071e2308fdc38bc0b06e09c095c1fc1c7fa6e62c544f38efd2472dd9a"
+    },
+    "public.interactive_term_links": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.interactive_terms": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_attempts": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_enrollment_versions": {
+      "count": 2,
+      "sha256": "b61d1093d897e0c218d237cbbfd92fff05cbf9e07fc88a1d351eb2d5cbdba51b"
+    },
+    "public.learning_enrollments": {
+      "count": 2,
+      "sha256": "f82643f2d2d136f6164036ae4e4c843a15d937e4cd737cd1b5aa6d128b1b3989"
+    },
+    "public.learning_events": {
+      "count": 172,
+      "sha256": "c8956cd3c6b06dcc7d071ac6f087ec746b670b8a6eba92737fce1c199a317b31"
+    },
+    "public.learning_items": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_map_entries": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_map_layouts": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_map_nodes": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_maps": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_mutation_receipts": {
+      "count": 185,
+      "sha256": "d4b889fe353d103da4c8420eb62c58849f402f6a2e7096a361bd01a18e666fe3"
+    },
+    "public.learning_objective_progress": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_path_steps": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_path_units": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_path_versions": {
+      "count": 2,
+      "sha256": "3ecc4b680e285264858ac24203474aa4e8bb5f461eec4f41b8e0f744cd5e3ec8"
+    },
+    "public.learning_paths": {
+      "count": 2,
+      "sha256": "38e45a1ca46a77697633968cf6cc8ba17e68134e7223a5d1b221c868834f4de8"
+    },
+    "public.learning_preferences": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_resource_revisions": {
+      "count": 2,
+      "sha256": "3a750f2e9b1d861a35a871457973936261439f012b529662bc8cde4261be0fe8"
+    },
+    "public.learning_resources": {
+      "count": 2,
+      "sha256": "4ef14e9ec716515e8127e906db64c7dcd09bae9f907ef8aa9946ad437ee39ed9"
+    },
+    "public.learning_responses": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_review_states": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_rewards": {
+      "count": 10,
+      "sha256": "72e3434e38e0b6366c900f765a7e13fa2b74da7625d34aa7d987f0afc1b95268"
+    },
+    "public.learning_step_options": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_step_progress": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_task_overrides": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.learning_v2_activity_state": {
+      "count": 42,
+      "sha256": "482d9838eeb55bf76a8b071e03cad02b4715b3f196fbef2c2769376370f61ab1"
+    },
+    "public.learning_v2_attempts": {
+      "count": 42,
+      "sha256": "569b44b60983f866e4f16d38d93174241060d68f7ca9df10ad9d4d29d37103fa"
+    },
+    "public.learning_v2_bindings": {
+      "count": 10,
+      "sha256": "4082f6775b8fdfc5d8198f3365ba7af973a2c3d4c8e0eb332a66047a70d82f4d"
+    },
+    "public.learning_v2_imports": {
+      "count": 2,
+      "sha256": "69cae3872ff6ce39800dce57ccc8e6e96ec145143bb128754c544540ec71d69f"
+    },
+    "public.learning_v2_objective_state": {
+      "count": 5,
+      "sha256": "4e90e8069fcfe89d2e6c0825caeb468629465a5ded39467e4bd9262e8615ee22"
+    },
+    "public.learning_v2_responses": {
+      "count": 42,
+      "sha256": "6ef8215178900b97bba9688f5f88509bd2c1823cc3083e0fa2496028d46e86f6"
+    },
+    "public.learning_v2_review_state": {
+      "count": 5,
+      "sha256": "b514df8ce49a1de63eecff863b9b935027e84d3fcf05b1a1094d3f12dab22d2e"
+    },
+    "public.lesson_progress": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.lessons": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.profiles": {
+      "count": 4,
+      "sha256": "9e2f099eddf1c31c155db3a674eda76e24f25783a6a057af597dc3385d24f981"
+    },
+    "public.subjects": {
+      "count": 5,
+      "sha256": "fcb79539c1c0869cd510cad3cde50be98166ac4ae33f7ff38f88239ab1cb15a2"
+    },
+    "public.user_recent_guides": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "public.user_roles": {
+      "count": 5,
+      "sha256": "a03f7821a1ce42f9968feb4f05c2cf0f91ab1facdb6c0356f6b4848c1e132952"
+    }
+  },
+  "limitation": "Temporary test backup; no production retention or RPO/RTO acceptance"
+}

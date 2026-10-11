@@ -1,0 +1,128 @@
+[
+  {
+    "operation": "importValidate",
+    "path": "/v2/editor/learning-paths/imports/validate",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "9b1b26a2-8555-40c8-aa3e-c5edbda7da6c"
+  },
+  {
+    "operation": "importCommit",
+    "path": "/v2/editor/learning-paths/imports/09ecff86-e300-4494-9083-7c3a1081ce8b/commit",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "89f87c22-1e36-4992-87a6-8c2c69dea7b3"
+  },
+  {
+    "operation": "importCommit",
+    "path": "/v2/editor/learning-paths/imports/09ecff86-e300-4494-9083-7c3a1081ce8b/commit",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "89f87c22-1e36-4992-87a6-8c2c69dea7b3"
+  },
+  {
+    "operation": "editorGet",
+    "path": "/v2/editor/learning-paths/6e6eb842-ff3f-4df2-9522-5e04e90df358",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "editorExport",
+    "path": "/v2/editor/learning-paths/6e6eb842-ff3f-4df2-9522-5e04e90df358/export",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "editorTransition",
+    "path": "/v2/editor/learning-paths/6e6eb842-ff3f-4df2-9522-5e04e90df358/transition",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "d108d054-a4c5-42f9-9f3e-00529fe0036c"
+  },
+  {
+    "operation": "editorTransition",
+    "path": "/v2/editor/learning-paths/6e6eb842-ff3f-4df2-9522-5e04e90df358/transition",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "309b9ca6-acdf-4c21-8b25-88ae22c0953f"
+  },
+  {
+    "operation": "editorTransition",
+    "path": "/v2/editor/learning-paths/6e6eb842-ff3f-4df2-9522-5e04e90df358/transition",
+    "who": "editor",
+    "status": 200,
+    "idempotencyKey": "0a2ddee1-6f68-440d-b29f-8a5f6a2c7695"
+  },
+  {
+    "operation": "publicPath",
+    "path": "/v2/guided-learning/paths/circuito-neral",
+    "who": "anonymous",
+    "status": 401,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "publicPath",
+    "path": "/v2/guided-learning/paths/circuito-neral",
+    "who": "outsider",
+    "status": 403,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "publicPath",
+    "path": "/v2/guided-learning/paths/circuito-neral",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "enrollmentCreate",
+    "path": "/v2/guided-learning/enrollments",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": "371d9558-49dc-4080-9712-62b498935631"
+  },
+  {
+    "operation": "enrollmentCreate",
+    "path": "/v2/guided-learning/enrollments",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": "371d9558-49dc-4080-9712-62b498935631"
+  },
+  {
+    "operation": "publicPath",
+    "path": "/v2/guided-learning/paths/circuito-neral",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "enrollmentState",
+    "path": "/v2/guided-learning/enrollments/51d49519-4263-4b91-8892-15969559b88a/state",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": null
+  },
+  {
+    "operation": "attemptCreate",
+    "path": "/v2/guided-learning/attempts",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": "5ce75e8e-1138-4968-94f9-c9b2dee14479"
+  },
+  {
+    "operation": "attemptResponse",
+    "path": "/v2/guided-learning/attempts/58e61e0a-0d5b-417e-9bb6-095cc06d37b2/responses",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": "a2ff2383-17e6-40d3-8d33-2044919c20ee"
+  },
+  {
+    "operation": "attemptResponse",
+    "path": "/v2/guided-learning/attempts/58e61e0a-0d5b-417e-9bb6-095cc06d37b2/responses",
+    "who": "learner",
+    "status": 200,
+    "idempotencyKey": "a2ff2383-17e6-40d3-8d33-2044919c20ee"
+  }
+]

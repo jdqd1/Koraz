@@ -1,0 +1,28 @@
+[
+  {
+    "timestamp": "2026-10-11T16:20:22.08999328Z",
+    "status": "PASS",
+    "role": {
+      "role": "cediah_runtime",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolbypassrls": false
+    },
+    "privilegeChecks": 8,
+    "deniedAdministratorInsert": false
+  },
+  {
+    "timestamp": "2026-10-11T16:20:22.196898734Z",
+    "status": "PASS",
+    "role": {
+      "role": "rc01_auth_runtime",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolbypassrls": false
+    },
+    "privilegeChecks": 3,
+    "deniedAdministratorInsert": true
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "unknown-major",
+      "status": 400,
+      "value": {
+        "error": "invalid_request",
+        "fieldErrors": [
+          {
+            "path": "package.schemaVersion",
+            "code": "invalid_value"
+          }
+        ]
+      }
+    },
+    {
+      "name": "corrupt-package",
+      "status": 400,
+      "value": {
+        "error": "invalid_request",
+        "fieldErrors": [
+          {
+            "path": "package",
+            "code": "invalid_type"
+          }
+        ]
+      }
+    }
+  ]
+}

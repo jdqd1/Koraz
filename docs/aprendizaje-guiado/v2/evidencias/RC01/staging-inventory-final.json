@@ -1,0 +1,515 @@
+{
+  "timestamp": "2026-10-11T16:24:39.461701849Z",
+  "status": "PASS",
+  "scope": "Read-only internal RC01 staging inventory",
+  "identity": {
+    "database": "koraz_guided_v2_staging",
+    "db_role": "koraz_guided_v2_staging_user",
+    "version": "17.11 (Debian 17.11-1.pgdg12+2)",
+    "rolsuper": false,
+    "rolcreatedb": true,
+    "rolcreaterole": true,
+    "rolbypassrls": false
+  },
+  "migrationChecksumsVerified": true,
+  "applied": [
+    {
+      "file_name": "0001_auth.sql",
+      "checksum": "70697324ca3ab10118431dcdf5ca2cad391bdfc301867b50f4c6e638cffed945"
+    },
+    {
+      "file_name": "0002_platform.sql",
+      "checksum": "02734e2209316389316d2b35f99b3cbd18cf5cecf63cd28b227945657f3476e3"
+    },
+    {
+      "file_name": "0003_content.sql",
+      "checksum": "939591b0e89c08d252a1e413ce81ace0d1b582374e69200fb77a7aa9c7e942d7"
+    },
+    {
+      "file_name": "0004_subjects.sql",
+      "checksum": "a5ed38c96823124048ddde5a8178181d8d351a90daa9bc74c3acaa0207607943"
+    },
+    {
+      "file_name": "0006_simplify_platform_roles.sql",
+      "checksum": "5029478f65c66f1f74483d330b2f94c90e484bcfca968d15f9a669fdebf960fb"
+    },
+    {
+      "file_name": "0007_content_views.sql",
+      "checksum": "eee2540cba4aa1dbd0a91b32b93afd62881441ac3a8a57b48bc9a64c61ba83ed"
+    },
+    {
+      "file_name": "0008_content_reactions.sql",
+      "checksum": "9bca63bf471540ae26a4632a4b9ec02c1d1a4fa6fc93312083a6f73de205ced0"
+    },
+    {
+      "file_name": "0009_learning_content_identity.sql",
+      "checksum": "60ea655f9f9259559e9b930f96c6e3d8440b283874a9fa1999da3bd6cdf2b5a3"
+    },
+    {
+      "file_name": "0010_guided_learning_catalog.sql",
+      "checksum": "d481c6f6a9aabc97de68563de7e6b228114e459ab33667e22ce1a43fe87be015"
+    },
+    {
+      "file_name": "0011_guided_learning_attempts.sql",
+      "checksum": "38c29a60e82790b128a6cd7964e37b08ef5933589a92ffaa9b0983490b99572c"
+    },
+    {
+      "file_name": "0012_guided_learning_evidence.sql",
+      "checksum": "46f1798dcf16fb30a5f8324a83fecf00101fca3cd4d8af148f9f295c735f287b"
+    },
+    {
+      "file_name": "0013_guided_learning_rewards.sql",
+      "checksum": "8e6df0b09ae8231bc49436a26adc02f5ade0aca349488009ba12472d1f988305"
+    },
+    {
+      "file_name": "0014_guided_learning_observability.sql",
+      "checksum": "3eb5f3bd5467dcded99cde7edf79d16577cac126eb67c31fac4c709f5a1fdc22"
+    },
+    {
+      "file_name": "0015_guided_learning_foreign_key_indexes.sql",
+      "checksum": "89ed6bcdb65990512d9aa59687c885580569819ce4098e00f91891bfcba15110"
+    },
+    {
+      "file_name": "0016_learning_maps.sql",
+      "checksum": "4874aad19fd76288fa89f3bf3f2b4bc4f10c4d58d076eb0936b3fd63b786be4f"
+    },
+    {
+      "file_name": "0017_delete_guided_learning_paths.sql",
+      "checksum": "2d21eff1eb59b952e1571a4b8e68b4f501bb748a29b5dbcff1feddcde592fed6"
+    },
+    {
+      "file_name": "0017_editorial_topics_and_drafts.sql",
+      "checksum": "39222839e9b92585da3dc6030950da17e713445cfc8116770e38fb3eb5bbd236"
+    },
+    {
+      "file_name": "0018_editor_workspace_indexes.sql",
+      "checksum": "9409fac49decb76e4392ced10b8d95f63632ba7d6556e04cd4cb681945096f8e"
+    },
+    {
+      "file_name": "0019_content_search.sql",
+      "checksum": "5138f34f8c39328dd1d869d690825327bbb52662733d7cabb5f0ca6d8e387743"
+    },
+    {
+      "file_name": "0020_content_search_function_hardening.sql",
+      "checksum": "7a7e17cd83d9a4950a4a73870873842ae7d6f88a8a2122af2a76a38afe1e0392"
+    },
+    {
+      "file_name": "0021_optional_content_topic.sql",
+      "checksum": "3c9b27b01e8f465ed503ecd4e02475af775ad9912f55685e340717c40f68d49c"
+    },
+    {
+      "file_name": "0022_content_topic_item_order.sql",
+      "checksum": "c3ac1fa3f2517b45ea3de2f5ad349da2ca524bf37cc287d61697dddc9dddb709"
+    },
+    {
+      "file_name": "0023_editor_content_search_index.sql",
+      "checksum": "a927230c739a580a3524a99e82d198bf0eef7aed840d28bb0298a731119a7f96"
+    },
+    {
+      "file_name": "0024_interactive_guide_terms.sql",
+      "checksum": "0840f2b66a5671bd3fb5879eae5487d7b8e068418ccefc6020402ef2bbd00317"
+    },
+    {
+      "file_name": "0025_interactive_term_invalidation.sql",
+      "checksum": "3fb94c06cce10bebaaf90e28f5eef4d6ef2d1e4812dbd3e20cc4add0f714e6b4"
+    },
+    {
+      "file_name": "0026_interactive_terms_runtime_access.sql",
+      "checksum": "d9e39f68659e8ebaefef8d87b12b8f5a5f9a4da21c6c746a18cf4c5107a0a2a7"
+    },
+    {
+      "file_name": "0027_interactive_term_function_hardening.sql",
+      "checksum": "c102a27ebf7815b55bf36e8027b2a85adf59cc06b6bd6d89a5048c691e1182df"
+    },
+    {
+      "file_name": "0028_interactive_term_link_indexes.sql",
+      "checksum": "1d51fee9d78435bc2b2399438b712ed8d2c28c7c0e6c93df7d43a40f26fa8e2e"
+    },
+    {
+      "file_name": "0029_recent_guide_reading.sql",
+      "checksum": "10fff275be1cbb0d415e1da98efa4b873922e905967e7e199108544288f8c878"
+    },
+    {
+      "file_name": "0030_guided_v2_definition.sql",
+      "checksum": "cb47446cbefef5c45bc9921f9a0926c5f710a7e26718032e0b2523f7740d07ca"
+    },
+    {
+      "file_name": "0031_guided_v2_runtime.sql",
+      "checksum": "fe693db38c5ea818561ac6f0a302c3be87dd058dc63599feffec3e81fd1525e7"
+    },
+    {
+      "file_name": "0032_guided_v2_rewards.sql",
+      "checksum": "937d5163542988363694825f982f5af5cb7f1564a6895793948cd2f686be7496"
+    },
+    {
+      "file_name": "0033_guided_v2_runtime_access.sql",
+      "checksum": "f3655332b8010ecc59183cb69ee2eac39969fa8c7eed6c0009dd66e0764e80c9"
+    },
+    {
+      "file_name": "0034_guided_v2_editor_audit.sql",
+      "checksum": "8be064ec3e86735791c822a72e44226c6387ef018e69f7f6deb7351cd0d55d42"
+    },
+    {
+      "file_name": "0035_guided_v2_media_access.sql",
+      "checksum": "3da09ebf0c67583dc59c33c78507200bbfbfab22ce8a1d52b0257e807bf0e6a5"
+    }
+  ],
+  "excluded": [
+    {
+      "file_name": "0005_restore_legacy_content.sql",
+      "checksum": "24f365bda02dee245a8e4b6cb00aa2c592029fa3c9fdc9ab8a2b6f92786b3fb9",
+      "reason": "empty_installation"
+    }
+  ],
+  "tables": [
+    {
+      "schemaname": "public",
+      "tablename": "audit_log",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "auth_accounts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "auth_rate_limits",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "auth_sessions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "auth_users",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "auth_verifications",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "cediah_schema_migration_exclusions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "cediah_schema_migrations",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_assets",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_items",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_reaction_counts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_reactions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_subjects",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_topic_item_order",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_topic_subjects",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_topics",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_view_counts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_view_receipts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "course_modules",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "course_resources",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "courses",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "enrollments",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "guide_sections",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "guide_term_manifests",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "guide_term_reindex_queue",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "guide_term_usage",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "interactive_term_aliases",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "interactive_term_dictionary_state",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "interactive_term_links",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "interactive_terms",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_attempts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_enrollment_versions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_enrollments",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_events",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_items",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_map_entries",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_map_layouts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_map_nodes",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_maps",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_mutation_receipts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_objective_progress",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_path_steps",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_path_units",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_path_versions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_paths",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_preferences",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_resource_revisions",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_resources",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_responses",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_review_states",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_rewards",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_step_options",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_step_progress",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_task_overrides",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_activity_state",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_attempts",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_bindings",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_imports",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_objective_state",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_responses",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "learning_v2_review_state",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "lesson_progress",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "lessons",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "profiles",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "subjects",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "user_recent_guides",
+      "tableowner": "koraz_guided_v2_staging_user"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "user_roles",
+      "tableowner": "koraz_guided_v2_staging_user"
+    }
+  ],
+  "roles": [
+    {
+      "rolname": "cediah_runtime",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolbypassrls": false
+    }
+  ],
+  "counts": {
+    "accounts": 5,
+    "v2_versions": 2,
+    "enrollments": 2
+  }
+}

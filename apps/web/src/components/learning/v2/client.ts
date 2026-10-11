@@ -45,6 +45,19 @@ const PendingPlayerSchema = z.strictObject({ key: z.string().uuid(), action: Pla
 type PendingPlayer = z.infer<typeof PendingPlayerSchema>;
 export type PlayerTransportStore = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
+/** JSON object key order may change through PostgreSQL JSONB; array order is meaningful. */
+function sameJson(left: unknown, right: unknown): boolean {
+  if (left === right) return true;
+  if (!left || !right || typeof left !== "object" || typeof right !== "object") return false;
+  if (Array.isArray(left) || Array.isArray(right)) {
+    return Array.isArray(left) && Array.isArray(right) && left.length === right.length
+      && left.every((value, index) => sameJson(value, right[index]));
+  }
+  const a = left as Record<string, unknown>, b = right as Record<string, unknown>;
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every(key => Object.hasOwn(b, key) && sameJson(a[key], b[key]));
+}
+
 /** sessionStorage stores only the outgoing request, never progress, scores or solutions.
  * A refresh must read the server manifest; uncertain writes retry the exact body/key. */
 export function createV2PlayerClient(attemptId: string, fetcher: Fetcher = fetch,
@@ -89,9 +102,9 @@ export function createV2PlayerClient(attemptId: string, fetcher: Fetcher = fetch
     if (result.operation === "help" && result.body.kind === "reveal" && result.value.attempt.activeActivity?.kind === "constructed_response"
       && result.value.attempt.constructedResponse?.stage !== "revealed") throw new Error("La comparación aún no está autorizada.");
     if (result.operation === "response") {
-      if (JSON.stringify(result.value.nextStep) !== JSON.stringify(result.value.attempt.activeActivity)) throw new Error("La siguiente actividad no está confirmada.");
+      if (!sameJson(result.value.nextStep, result.value.attempt.activeActivity)) throw new Error("La siguiente actividad no está confirmada.");
       if (result.value.accepted && !result.value.attempt.acceptedResponses.some(item => item.activityKey === result.body.activityKey
-        && JSON.stringify(item.answer) === JSON.stringify(result.body.answer))) throw new Error("No recibimos la respuesta guardada por el servidor.");
+        && sameJson(item.answer, result.body.answer))) throw new Error("No recibimos la respuesta guardada por el servidor.");
       if (!result.value.accepted && result.body.answer.kind === "constructed_response"
         && result.value.attempt.constructedResponse?.text !== result.body.answer.text) throw new Error("El texto pendiente no está confirmado por el servidor.");
     }

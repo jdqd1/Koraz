@@ -1,0 +1,109 @@
+2026-10-10 23:58:18.911 -04 [21220] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-10 23:58:18.913 -04 [21220] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-10-10 23:58:19.166 -04 [32712] LOG:  database system was shut down at 2026-10-10 23:41:49 -04
+2026-10-10 23:58:19.246 -04 [21220] LOG:  database system is ready to accept connections
+2026-10-11 00:03:19.155 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:05:27.899 -04 [20768] LOG:  checkpoint complete: wrote 980 buffers (6.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=118.215 s, sync=10.467 s, total=128.747 s; sync files=747, longest=0.356 s, average=0.015 s; distance=4574 kB, estimate=4574 kB; lsn=0/79D462D8, redo lsn=0/79949A00
+2026-10-11 00:06:35.991 -04 [20768] LOG:  checkpoint starting: immediate force wait
+2026-10-11 00:06:36.422 -04 [20768] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.107 s, sync=0.232 s, total=0.432 s; sync files=7, longest=0.080 s, average=0.034 s; distance=4093 kB, estimate=4526 kB; lsn=0/79D490C8, redo lsn=0/79D49038
+2026-10-11 00:11:35.460 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:12:44.713 -04 [20768] LOG:  checkpoint complete: wrote 635 buffers (3.9%); 0 WAL file(s) added, 0 removed, 1 recycled; write=69.162 s, sync=0.034 s, total=69.255 s; sync files=13, longest=0.007 s, average=0.003 s; distance=8181 kB, estimate=8181 kB; lsn=0/7A575AA0, redo lsn=0/7A5467E0
+2026-10-11 00:12:44.721 -04 [20768] LOG:  checkpoint starting: immediate force wait
+2026-10-11 00:12:44.756 -04 [20768] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.014 s, total=0.036 s; sync files=2, longest=0.008 s, average=0.007 s; distance=188 kB, estimate=7382 kB; lsn=0/7A575B70, redo lsn=0/7A575B18
+2026-10-11 00:16:56.422 -04 [31704] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:16:56.422 -04 [34012] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:16:56.422 -04 [31704] LOG:  unexpected EOF on client connection with an open transaction
+2026-10-11 00:17:44.766 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:20:13.347 -04 [32688] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:20:13.347 -04 [6772] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:20:13.347 -04 [13780] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:20:13.347 -04 [13780] LOG:  unexpected EOF on client connection with an open transaction
+2026-10-11 00:22:25.230 -04 [20768] LOG:  checkpoint complete: wrote 4428 buffers (27.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=269.295 s, sync=10.457 s, total=280.390 s; sync files=2237, longest=0.412 s, average=0.005 s; distance=24340 kB, estimate=24340 kB; lsn=0/7BE61D58, redo lsn=0/7BD3AE48
+2026-10-11 00:27:44.460 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:31:42.525 -04 [20768] LOG:  checkpoint complete: wrote 1583 buffers (9.7%); 0 WAL file(s) added, 0 removed, 1 recycled; write=234.655 s, sync=3.325 s, total=238.066 s; sync files=784, longest=0.070 s, average=0.005 s; distance=9235 kB, estimate=22830 kB; lsn=0/7C7C5580, redo lsn=0/7C63FDE0
+2026-10-11 00:32:44.617 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:33:01.264 -04 [20768] LOG:  checkpoint complete: wrote 146 buffers (0.9%); 0 WAL file(s) added, 0 removed, 0 recycled; write=16.426 s, sync=0.134 s, total=16.647 s; sync files=41, longest=0.012 s, average=0.004 s; distance=1559 kB, estimate=20703 kB; lsn=0/7C7C5B38, redo lsn=0/7C7C5AA8
+2026-10-11 00:33:07.414 -04 [27852] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:33:07.414 -04 [15628] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:33:07.418 -04 [18180] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:37:44.559 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:41:36.668 -04 [20768] LOG:  checkpoint complete: wrote 1491 buffers (9.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=225.777 s, sync=4.595 s, total=232.242 s; sync files=780, longest=0.234 s, average=0.006 s; distance=8068 kB, estimate=19439 kB; lsn=0/7D0B2300, redo lsn=0/7CFA6C88
+2026-10-11 00:41:56.913 -04 [23476] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:42:44.344 -04 [20768] LOG:  checkpoint starting: time
+2026-10-11 00:43:06.089 -04 [20768] LOG:  checkpoint complete: wrote 141 buffers (0.9%); 0 WAL file(s) added, 0 removed, 1 recycled; write=21.311 s, sync=0.357 s, total=21.745 s; sync files=63, longest=0.020 s, average=0.006 s; distance=1075 kB, estimate=17603 kB; lsn=0/7D0B3CE8, redo lsn=0/7D0B3C58
+2026-10-11 00:50:56.212 -04 [8216] FATAL:  terminating connection due to administrator command
+2026-10-11 00:50:56.212 -04 [34240] FATAL:  terminating connection due to administrator command
+2026-10-11 00:50:56.212 -04 [34240] CONTEXT:  while locking tuple (8,3) in relation "learning_v2_attempts"
+2026-10-11 00:50:56.212 -04 [34240] STATEMENT:  select "attempt".*, "enrollment"."status" as "enrollmentStatus", "enrollment"."path_version_id" as "enrollmentVersionId", "version"."id" as "versionId", "version"."policy_version" as "versionPolicy", "version"."status" as "versionStatus", "version"."edit_version" as "versionEdit", version.updated_at::text as "versionUpdatedAt" from "learning_v2_attempts" as "attempt" left join "learning_enrollments" as "enrollment" on "enrollment"."id" = "attempt"."enrollment_id" and "enrollment"."user_id" = $1 left join "learning_path_versions" as "version" on "version"."id" = "attempt"."path_version_id" where "attempt"."id" = $2 and "attempt"."user_id" = $3 for update of "attempt"
+2026-10-11 00:50:56.219 -04 [34240] LOG:  could not send data to client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 00:50:56.219 -04 [34240] CONTEXT:  while locking tuple (8,3) in relation "learning_v2_attempts"
+2026-10-11 00:50:56.219 -04 [34240] STATEMENT:  select "attempt".*, "enrollment"."status" as "enrollmentStatus", "enrollment"."path_version_id" as "enrollmentVersionId", "version"."id" as "versionId", "version"."policy_version" as "versionPolicy", "version"."status" as "versionStatus", "version"."edit_version" as "versionEdit", version.updated_at::text as "versionUpdatedAt" from "learning_v2_attempts" as "attempt" left join "learning_enrollments" as "enrollment" on "enrollment"."id" = "attempt"."enrollment_id" and "enrollment"."user_id" = $1 left join "learning_path_versions" as "version" on "version"."id" = "attempt"."path_version_id" where "attempt"."id" = $2 and "attempt"."user_id" = $3 for update of "attempt"
+2026-10-11 00:50:56.325 -04 [20768] LOG:  checkpoint starting: immediate force wait
+2026-10-11 00:50:56.389 -04 [20768] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.009 s, sync=0.017 s, total=0.064 s; sync files=3, longest=0.011 s, average=0.006 s; distance=20 kB, estimate=15845 kB; lsn=0/7D0B8EC0, redo lsn=0/7D0B8E68
+2026-10-11 00:52:19.992 -04 [21220] LOG:  server process (PID 35304) was terminated by exception 0x40010004
+2026-10-11 00:52:19.992 -04 [21220] DETAIL:  Failed process was running: select * from "learning_path_versions" where "id" = $1 and "path_id" = $2
+2026-10-11 00:52:19.992 -04 [21220] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2026-10-11 00:52:19.995 -04 [21220] LOG:  terminating any other active server processes
+2026-10-11 00:52:21.189 -04 [21220] LOG:  all server processes terminated; reinitializing
+2026-10-11 00:52:22.996 -04 [21220] LOG:  shutting down due to startup process failure
+2026-10-11 00:52:23.003 -04 [21220] LOG:  database system is shut down
+2026-10-11 11:26:23.628 -04 [34900] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-10-11 11:26:23.631 -04 [34900] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-10-11 11:26:23.942 -04 [12124] LOG:  database system was interrupted; last known up at 2026-10-11 00:50:56 -04
+2026-10-11 11:26:33.948 -04 [12124] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/42556/6238
+2026-10-11 11:26:35.054 -04 [12124] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-10-11 11:26:35.075 -04 [12124] LOG:  redo starts at 0/7D0B8E68
+2026-10-11 11:26:35.079 -04 [12124] WARNING:  could not open directory "base/324896": No such file or directory
+2026-10-11 11:26:35.079 -04 [12124] CONTEXT:  WAL redo at 0/7D0B8F70 for Database/DROP: dir 1663/324896
+2026-10-11 11:26:35.079 -04 [12124] WARNING:  some useless files may be left behind in old database directory "base/324896"
+2026-10-11 11:26:35.079 -04 [12124] CONTEXT:  WAL redo at 0/7D0B8F70 for Database/DROP: dir 1663/324896
+2026-10-11 11:26:35.390 -04 [12124] LOG:  invalid record length at 0/7D8C38C0: expected at least 24, got 0
+2026-10-11 11:26:35.390 -04 [12124] LOG:  redo done at 0/7D8C3898 system usage: CPU: user: 0.01 s, system: 0.28 s, elapsed: 0.31 s
+2026-10-11 11:26:35.412 -04 [11316] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-10-11 11:26:35.850 -04 [11316] LOG:  checkpoint complete: wrote 1695 buffers (10.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.120 s, sync=0.312 s, total=0.440 s; sync files=736, longest=0.003 s, average=0.001 s; distance=8234 kB, estimate=8234 kB; lsn=0/7D8C38C0, redo lsn=0/7D8C38C0
+2026-10-11 11:26:35.979 -04 [34900] LOG:  database system is ready to accept connections
+2026-10-11 11:26:36.666 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 11:26:36.685 -04 [11316] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.003 s, total=0.020 s; sync files=3, longest=0.002 s, average=0.001 s; distance=26 kB, estimate=7413 kB; lsn=0/7D8CA388, redo lsn=0/7D8CA330
+2026-10-11 11:31:20.659 -04 [27308] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 11:31:20.659 -04 [19368] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 11:31:20.659 -04 [6556] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-11 11:31:32.323 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 11:31:32.362 -04 [11316] LOG:  checkpoint complete: wrote 15 buffers (0.1%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.014 s, sync=0.014 s, total=0.039 s; sync files=11, longest=0.008 s, average=0.002 s; distance=10392 kB, estimate=10392 kB; lsn=0/7E2F05B8, redo lsn=0/7E2F0560
+2026-10-11 11:36:32.398 -04 [11316] LOG:  checkpoint starting: time
+2026-10-11 11:39:29.074 -04 [11316] LOG:  checkpoint complete: wrote 1377 buffers (8.4%); 0 WAL file(s) added, 0 removed, 0 recycled; write=176.612 s, sync=0.022 s, total=176.690 s; sync files=11, longest=0.004 s, average=0.002 s; distance=10276 kB, estimate=10380 kB; lsn=0/7EF522A0, redo lsn=0/7ECF9798
+2026-10-11 11:39:29.147 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 11:39:29.198 -04 [11316] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.027 s, total=0.052 s; sync files=6, longest=0.014 s, average=0.005 s; distance=2402 kB, estimate=9583 kB; lsn=0/7EF52370, redo lsn=0/7EF52318
+2026-10-11 11:44:29.202 -04 [11316] LOG:  checkpoint starting: time
+2026-10-11 11:44:29.351 -04 [11316] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.113 s, sync=0.012 s, total=0.150 s; sync files=2, longest=0.008 s, average=0.006 s; distance=0 kB, estimate=8624 kB; lsn=0/7EF52550, redo lsn=0/7EF524F8
+2026-10-11 11:45:46.637 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 11:45:46.655 -04 [11316] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.004 s, sync=0.003 s, total=0.018 s; sync files=8, longest=0.001 s, average=0.001 s; distance=7932 kB, estimate=8555 kB; lsn=0/7F7118F8, redo lsn=0/7F7118A0
+2026-10-11 11:50:46.671 -04 [11316] LOG:  checkpoint starting: time
+2026-10-11 11:50:47.344 -04 [11316] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.641 s, sync=0.004 s, total=0.675 s; sync files=5, longest=0.001 s, average=0.001 s; distance=24 kB, estimate=7702 kB; lsn=0/7F717BD0, redo lsn=0/7F717B78
+2026-10-11 12:01:46.968 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 12:01:47.015 -04 [11316] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.007 s, sync=0.016 s, total=0.048 s; sync files=4, longest=0.007 s, average=0.004 s; distance=36 kB, estimate=6936 kB; lsn=0/7F720F48, redo lsn=0/7F720EF0
+2026-10-11 12:01:47.159 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 12:01:47.181 -04 [11316] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.006 s, total=0.023 s; sync files=4, longest=0.002 s, average=0.002 s; distance=34 kB, estimate=6245 kB; lsn=0/7F729930, redo lsn=0/7F7298D8
+2026-10-11 12:01:47.364 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 12:01:47.381 -04 [11316] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.007 s, total=0.017 s; sync files=4, longest=0.003 s, average=0.002 s; distance=24 kB, estimate=5623 kB; lsn=0/7F72FA00, redo lsn=0/7F72F9A8
+2026-10-11 12:01:47.511 -04 [11316] LOG:  checkpoint starting: immediate force wait
+2026-10-11 12:01:47.528 -04 [11316] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.003 s, total=0.017 s; sync files=4, longest=0.001 s, average=0.001 s; distance=36 kB, estimate=5065 kB; lsn=0/7F738DE0, redo lsn=0/7F738D88
+2026-10-11 12:01:47.985 -04 [34900] LOG:  received fast shutdown request
+2026-10-11 12:01:47.991 -04 [34900] LOG:  aborting any active transactions
+2026-10-11 12:01:48.015 -04 [34900] LOG:  background worker "logical replication launcher" (PID 8184) exited with exit code 1
+2026-10-11 12:01:48.016 -04 [11316] LOG:  shutting down
+2026-10-11 12:01:48.020 -04 [11316] LOG:  checkpoint starting: shutdown immediate
+2026-10-11 12:01:48.045 -04 [11316] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.004 s, total=0.030 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=4558 kB; lsn=0/7F738EF8, redo lsn=0/7F738EF8
+2026-10-11 12:01:48.069 -04 [34900] LOG:  database system is shut down

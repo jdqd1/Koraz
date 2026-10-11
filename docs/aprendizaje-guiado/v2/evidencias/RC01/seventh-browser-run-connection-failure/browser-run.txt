@@ -1,0 +1,169 @@
+[WebServer] (node:22100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:17280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › synthetic: generated package persists through UI, reload, final and deferred retention (1.6m)
+[WebServer] node:events:487
+[WebServer]       throw er; // Unhandled 'error' event
+[WebServer]       ^
+[WebServer] 
+[WebServer] Error: Connection terminated unexpectedly
+[WebServer]     at Connection.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\client.js:204:73)
+[WebServer]     at Object.onceWrapper (node:events:630:28)
+[WebServer]     at Connection.emit (node:events:509:28)
+[WebServer]     at Socket.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\connection.js:64:12)
+[WebServer]     at Socket.emit (node:events:509:28)
+[WebServer]     at TCP.<anonymous> (node:net:355:12)
+[WebServer] Emitted 'error' event on Client instance at:
+[WebServer]     at Client._handleErrorEvent (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\client.js:422:10)
+[WebServer]     at Connection.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\client.js:222:16)
+[WebServer]     at Object.onceWrapper (node:events:630:28)
+[WebServer]     at Connection.emit (node:events:509:28)
+[WebServer]     at Socket.<anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg@8.23.0\node_modules\pg\lib\connection.js:64:12)
+[WebServer]     at Socket.emit (node:events:509:28)
+[WebServer]     at TCP.<anonymous> (node:net:355:12)
+[WebServer] 
+[WebServer] Node.js v24.19.0
+  x  2 [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention (3.5m)
+(node:34680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › synthetic: generated package persists through UI, reload, final and deferred retention (2.8s)
+(node:35124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention (660ms)
+
+
+  1) [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+
+    Error: apiRequestContext.get: read ECONNRESET
+    Call log:
+      - → GET http://127.0.0.1:41035/v2/guided-learning/attempts/661ebcd1-9761-406e-871c-57c51b52cd61
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+        - cookie: t035=student-4
+
+
+      2 | import { writeFileSync } from 'node:fs';
+      3 | const api='http://127.0.0.1:41035';
+    > 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}
+        |                                                                         ^
+      5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}
+      6 | async function answer(page:Page,a:any){
+      7 |  switch(a.kind){
+        at server (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:4:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:58:27)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+
+    Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035
+    Call log:
+      - → GET http://127.0.0.1:41035/__test/ready
+        - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+
+
+      2 | import { writeFileSync } from 'node:fs';
+      3 | const api='http://127.0.0.1:41035';
+    > 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}
+        |                                                                         ^
+      5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}
+      6 | async function answer(page:Page,a:any){
+      7 |  switch(a.kind){
+        at server (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:4:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:29:20)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:15)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:17)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:22)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-syntheti-6d3a6-inal-and-deferred-retention-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+
+    Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:41035
+    Call log:
+      - → GET http://127.0.0.1:41035/__test/ready
+        - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+
+
+      2 | import { writeFileSync } from 'node:fs';
+      3 | const api='http://127.0.0.1:41035';
+    > 4 | async function server(page:Page,path:string){const r=await page.request.get(api+path);expect(r.ok()).toBeTruthy();return r.json();}
+        |                                                                         ^
+      5 | async function hydrated(page:Page){await expect.poll(async()=>page.locator('.learning-path-hero button').first().evaluate(e=>Object.keys(e).some(k=>k.startsWith('__reactProps')&&typeof(e as any)[k]?.onClick==='function'))).toBe(true);}
+      6 | async function answer(page:Page,a:any){
+      7 |  switch(a.kind){
+        at server (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:4:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\rc01\generated-package.spec.mts:29:20)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:15)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:17)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:22)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\docs\aprendizaje-guiado\v2\evidencias\RC01\browser-artifacts\generated-package-pilot-ge-40246-inal-and-deferred-retention-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: [desktop] › ..\..\work\test\rc01\generated-package.spec.mts (5.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  3 failed
+    [desktop] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+    [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › synthetic: generated package persists through UI, reload, final and deferred retention 
+    [mobile] › ..\..\work\test\rc01\generated-package.spec.mts:28:41 › pilot: generated package persists through UI, reload, final and deferred retention 
+  1 passed (6.9m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config ../../work/test/rc01/playwright.config.mts

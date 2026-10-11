@@ -14,6 +14,7 @@ const EnvironmentSchema = z
     CLOUDFLARE_STREAM_CUSTOMER_CODE: z.string().regex(/^[a-z0-9-]+$/i).optional(),
     CONTENT_STORAGE_BUCKET: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{1,62}$/).default("content-assets"),
     DATABASE_URL: z.string().min(1).optional(),
+    AUTH_DATABASE_URL: z.string().min(1).optional(),
     DATABASE_MIGRATIONS_ENABLED: z.enum(["true", "false"]).default("true"),
     DATABASE_MIGRATIONS_PATH: z.string().min(1).optional(),
     DATABASE_LEGACY_CONTENT_MODE: z.enum(["restore", "empty"]).default("restore"),
@@ -48,6 +49,9 @@ const EnvironmentSchema = z
   })
   .superRefine((environment, context) => {
     const authValues = [environment.BETTER_AUTH_SECRET, environment.BETTER_AUTH_URL];
+    if (environment.AUTH_DATABASE_URL && (!environment.DATABASE_URL || !authValues.every(Boolean))) {
+      context.addIssue({ code: "custom", message: "AUTH_DATABASE_URL requires a configured application database and authentication" });
+    }
     if (authValues.some(Boolean) && (!environment.DATABASE_URL || !authValues.every(Boolean))) {
       context.addIssue({
         code: "custom",
@@ -242,7 +246,7 @@ export function readEnvironment(source: NodeJS.ProcessEnv = process.env): ApiEnv
   const auth =
     environment.DATABASE_URL && environment.BETTER_AUTH_SECRET && environment.BETTER_AUTH_URL
       ? {
-          databaseUrl: environment.DATABASE_URL,
+          databaseUrl: environment.AUTH_DATABASE_URL ?? environment.DATABASE_URL,
           publicUrl: new URL(environment.BETTER_AUTH_URL).origin,
           requireEmailVerification: environment.AUTH_REQUIRE_EMAIL_VERIFICATION === "true",
           secret: environment.BETTER_AUTH_SECRET,

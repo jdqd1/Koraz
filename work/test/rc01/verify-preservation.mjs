@@ -1,0 +1,18 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const root=new URL('../../../',import.meta.url);
+const read=p=>JSON.parse(readFileSync(new URL(p,root),'utf8'));
+const sha=p=>createHash('sha256').update(readFileSync(p)).digest('hex');
+const baseline=read('docs/aprendizaje-guiado/v2/evidencias/RC01/baseline.json');
+for(const [path,hash] of Object.entries(baseline.historicalHashes))assert.equal(sha(new URL(path,root)),hash);
+const installed=read('docs/aprendizaje-guiado/v2/evidencias/T046/installation.json');
+for(const f of installed.installedFiles)assert.equal(sha(`${installed.destination}/${f.path}`),f.sha256);
+const accepted=read('tools/skills/crear-rutas-koraz/references/accepted-contract-hashes.json');
+for(const f of accepted.hashes)assert.equal(sha(new URL(f.path,root)),f.sha256);
+const review=read('docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-human-review.json');
+assert.equal(sha(new URL('docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-review/ruta-approved.koraz-route.json',root)),review.approvedPortableFileSha256);
+const fixture=read('docs/aprendizaje-guiado/v2/evidencias/RC01/fixture-run/pilot-server-fixture.json');
+assert.equal(fixture.status,'published');assert.equal(fixture.contentHash,review.contentHash);
+const result={at:new Date().toISOString(),status:'PASS',historicalHashes:Object.keys(baseline.historicalHashes).length,installedFiles:installed.installedFiles.length,acceptedHashes:accepted.hashes.length,pilotPublishedExactHash:review.contentHash,skillDiscovery:'Visible in current session available-skills catalog; installation bytes match T046'};
+writeFileSync(new URL('docs/aprendizaje-guiado/v2/evidencias/RC01/preservation.json',root),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
