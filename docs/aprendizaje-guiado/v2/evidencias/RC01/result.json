@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-11T16:12:20.114Z",
+  "at": "2026-10-11T16:30:16.483Z",
   "scope": "RC01: cierre de pendientes autorizado para entorno local y staging aislado",
   "productionTouched": false,
   "productionReady": false,
@@ -62,5 +62,8 @@
     "Production exact revisions, actual storage recovery and operational acceptance remain unverified"
   ],
   "status": "PASS SCOPED",
-  "decision": "Deliver verified local and isolated staging evidence; retain pending full acceptance"
+  "decision": "Deliver verified local and isolated staging evidence; retain pending full acceptance",
+  "release": "PASS",
+  "deployedSourceSha": "530fab44686b4be06b213fd33c2e0d2c560f97a5",
+  "pullRequest": "https://github.com/jdqd1/Koraz/pull/61"
 }
