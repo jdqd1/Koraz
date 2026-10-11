@@ -32,7 +32,7 @@ export async function bootstrap(target){
    // insertion need explicit, narrow privileges on a separate Better Auth pool.
    await pool.query(`grant select(id,email,full_name),insert(id,email,full_name),update(email,full_name)
       on public.profiles to rc01_auth_runtime;
-      grant insert(user_id,role) on public.user_roles to rc01_auth_runtime;
+      grant select(user_id,role),insert(user_id,role) on public.user_roles to rc01_auth_runtime;
       alter table public.user_roles enable row level security;
       do $$ begin
         if not exists(select 1 from pg_policies where schemaname='public' and tablename='user_roles' and policyname='rc01_runtime_roles_read') then
@@ -40,6 +40,9 @@ export async function bootstrap(target){
         end if;
         if not exists(select 1 from pg_policies where schemaname='public' and tablename='user_roles' and policyname='rc01_auth_student_insert') then
           create policy rc01_auth_student_insert on public.user_roles for insert to rc01_auth_runtime with check(role='student');
+        end if;
+        if not exists(select 1 from pg_policies where schemaname='public' and tablename='user_roles' and policyname='rc01_auth_student_read') then
+          create policy rc01_auth_student_read on public.user_roles for select to rc01_auth_runtime using(role='student');
         end if;
       end $$;`);
    for(let i=0;i<roleNames.length;i++)await pool.query(`alter role ${roleNames[i]} password '${secrets[i]}'`);
