@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type PointerEvent } from "react";
-import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Pulse, ShieldCheck, Brain, Stethoscope, FirstAid, Heart } from "@phosphor-icons/react";
+import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Pulse, ShieldCheck, Brain, Stethoscope } from "@phosphor-icons/react";
 import styles from "./landing-orbit.module.css";
 
 const subjectGroups = [
@@ -11,29 +11,19 @@ const subjectGroups = [
     { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57" },
     { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944" },
     { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700" },
-    { name: "Neuroanatomía", icon: Brain, color: "#b99aff", ink: "#542c96" },
-    { name: "Biofísica", icon: Pulse, color: "#5edbdc", ink: "#086768" },
     { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330" },
   ],
   [
     { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13" },
     { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768" },
     { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96" },
-    { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85" },
     { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91" },
-    { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541" },
-    { name: "Fisiopatología", icon: Heartbeat, color: "#ff8e95", ink: "#76212f" },
-    { name: "Nutrición", icon: Atom, color: "#ffd36b", ink: "#775700" },
   ],
   [
     { name: "Semiología", icon: Stethoscope, color: "#80b5ff", ink: "#154fa9" },
-    { name: "Cardiología", icon: Heart, color: "#ff8e95", ink: "#76212f" },
-    { name: "Neurología", icon: Brain, color: "#b99aff", ink: "#542c96" },
-    { name: "Medicina interna", icon: FirstAid, color: "#5edbdc", ink: "#086768" },
-    { name: "Pediatría", icon: Heart, color: "#ffa2cd", ink: "#792e57" },
-    { name: "Cirugía", icon: FirstAid, color: "#ffab72", ink: "#8b3b13" },
-    { name: "Salud pública", icon: ShieldCheck, color: "#71dba4", ink: "#1b6944" },
-    { name: "Epidemiología", icon: Microscope, color: "#ffd36b", ink: "#775700" },
+    { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85" },
+    { name: "Neuroanatomía", icon: Brain, color: "#b99aff", ink: "#542c96" },
+    { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541" },
   ],
 ] as const;
 
@@ -89,7 +79,7 @@ function createOrbitMotion(track: HTMLElement) {
   return { sync, settle, setHovered, dispose: () => cancelAnimationFrame(frame) };
 }
 
-function SubjectCard({ subject, ring, index, onHover }: { subject: Subject; ring: number; index: number; onHover: OrbitHover }) {
+function SubjectCard({ subject, ring, index, phase, onHover }: { subject: Subject; ring: number; index: number; phase: number; onHover: OrbitHover }) {
   const bounds = useRef<DOMRect | null>(null);
   const Icon = subject.icon;
   const seed = ring * 8 + index;
@@ -114,7 +104,7 @@ function SubjectCard({ subject, ring, index, onHover }: { subject: Subject; ring
 
   return (
     <div className={styles.traveller} data-subject={subject.name} style={{
-      "--phase": `${index * 12.5 + ring * 4 + 3}%`,
+      "--phase": `${phase}%`,
       "--arrival-delay": `${90 + ((seed * 347) % 1050)}ms`,
       "--arrival-x": `${((seed * 31) % 110) - 55}px`, "--arrival-y": `${((seed * 43) % 100) - 50}px`,
       "--arrival-rotation": `${rotation}deg`, "--catch-rotation": `${rotation / 6}deg`,
@@ -177,7 +167,8 @@ export function LandingOrbits() {
       {subjectGroups.map((subjects, ring) => (
         <div className={`${styles.orbitTrack} ${styles[`ring${ring}`]}`} key={ring} data-orbit={ring}>
           <span className={styles.orbitLine} aria-hidden="true" />
-          {subjects.map((subject, index) => <SubjectCard subject={subject} ring={ring} index={index} key={subject.name}
+          {subjects.map((subject, index) => <SubjectCard subject={subject} ring={ring} index={index}
+            phase={index * 100 / subjects.length + ring * 4 + 3} key={subject.name}
             onHover={(orbit, hovered) => hoverControllers.current[orbit]?.(hovered)} />)}
           {[13, 28, 36, 62, 79, 88].map((phase, index) => (
             <span key={phase} className={`${styles.traveller} ${styles.orbitDot}`} aria-hidden="true"

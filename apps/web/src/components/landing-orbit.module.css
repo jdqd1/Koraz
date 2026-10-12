@@ -50,11 +50,12 @@
 /* The whole path extends beyond the stage; only its sides remain visible. */
 .orbitField { position: absolute; inset: 0; z-index: 1; mask-image: linear-gradient(to bottom, transparent, #000 19%, #000 77%, transparent 100%); }
 .orbitTrack { --orbit-play: running; position: absolute; inset: 0; pointer-events: none; }
-.ring0 { --radius-x: min(34vw, 510px); --radius-y: 400px; --orbit-duration: 180s; }
+.ring0 { --radius-x: min(34vw, 510px); --radius-y: 340px; --orbit-duration: 180s; }
 .ring1 { --radius-x: min(40vw, 605px); --radius-y: 430px; --orbit-duration: 198s; }
 .ring2 { --radius-x: min(43vw, 650px); --radius-y: 460px; --orbit-duration: 216s; }
 .orbitLine { position: absolute; z-index: 0; top: 50%; left: 50%; width: calc(var(--radius-x) * 2); height: calc(var(--radius-y) * 2); transform: translate(-50%, -50%); border: 1px solid #dce3f1; border-radius: 50%; }
 .traveller { position: absolute; z-index: 2; top: 0; left: 0; width: max-content; offset-path: ellipse(var(--radius-x) var(--radius-y) at 50% 50%); offset-anchor: center; offset-rotate: 0deg; offset-distance: var(--phase); animation: orbitTravel var(--orbit-duration) linear infinite; animation-play-state: var(--orbit-play); }
+.ring1 .traveller { animation-direction: reverse; }
 .traveller:has(.subjectCard[data-hovered="true"]) { z-index: 4; }
 .orbitField[data-motion-paused="true"] .traveller { animation-play-state: paused; }
 .orbitDot { z-index: 1; width: var(--dot-size); height: var(--dot-size); border-radius: 50%; background: #8491af; pointer-events: none; }
@@ -194,7 +195,7 @@
   .desktopBreak { display: none; }
   .page :global(.marketing-hero-actions) { margin-top: 28px; }
   .page :global(.marketing-primary-button) { min-width: 186px; min-height: 52px; border-radius: 14px; font-size: 13px; gap: 17px; }
-  .ring0 { --radius-x: max(280px, 78vw); --radius-y: 195px; }
+  .ring0 { --radius-x: max(260px, 75vw); --radius-y: 185px; }
   .ring1 { --radius-x: max(300px, 84vw); --radius-y: 240px; }
   .ring2 { --radius-x: max(320px, 90vw); --radius-y: 285px; }
   .subjectCard { gap: 8px; padding: 6px 12px 6px 6px; font-size: 10px; }
