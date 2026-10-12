@@ -23,7 +23,7 @@ export default async function LearningPathsEditorPage() {
   const canArchive = current.roles.includes("coordinator") || current.roles.includes("administrator");
   const session = await getApiRequestCookie();
   const v2Catalog = session.status === "ready" ? await requestContentApi({ cookie: session.cookie, method: "GET", path: "/v2/editor/learning-paths/source-catalog?limit=1" }) : { status: 401, body: null };
-  return <><div className={styles.inlineActions}>{editorV2CatalogAvailable(v2Catalog) ? <Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=v2">Crear ruta v2</Link> : null}<Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} v2Paths={v2Paths.status === "ready" ? v2Paths.value.items : []} v2Unavailable={v2Paths.status === "unavailable"} /></>;
+  return <><div className={styles.inlineActions}>{editorV2CatalogAvailable(v2Catalog) ? <Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=v2">Crear ruta v2</Link> : null}<Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} v2Paths={v2Paths.status === "ready" ? v2Paths.value.items : []} v2Unavailable={v2Paths.status !== "ready" && v2Paths.status !== "forbidden"} /></>;
 }
 
 function EditorGate({ title }: { title: string }) {

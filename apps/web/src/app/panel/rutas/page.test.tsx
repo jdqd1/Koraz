@@ -29,8 +29,8 @@ describe("editor route workspace across engines", () => {
     expect(html).toContain(editorFixture("ready").initialPath!.title);
     expect(html).toContain(`/panel/rutas/${v2.pathId}`);
   });
-  it("does not silently hide a failed v2 listing", async () => {
-    mocks.v2.mockResolvedValue({ status: "unavailable" });
+  it.each(["unavailable", "not_found", "unauthorized"])("does not silently hide a failed v2 listing: %s", async (status) => {
+    mocks.v2.mockResolvedValue({ status });
     expect(renderToStaticMarkup(await Page())).toContain("No pudimos cargar todas tus rutas");
   });
   it("forwards the private list through the BFF and rejects malformed success responses", async () => {
