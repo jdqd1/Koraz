@@ -6,8 +6,10 @@ import { LearningRouteEditor } from "../learning-route-editor-facade";
 import { createEditorV2Api } from "./editor-api";
 import { editorV2FixtureRoute, fixtureV2Id } from "./editor-fixtures";
 import { V2BoundRouteDefinitionSchema } from "@cediah/contracts";
+import { newEditorV2Draft } from "./new-draft";
 
-export function EditorV2FixtureWorkspace({ mode }: { mode: "ready" | "conflict" | "empty" | "published" | "network" }) {
+export function EditorV2FixtureWorkspace({ mode }: { mode: "ready" | "conflict" | "empty" | "published" | "network" | "new" }) {
+  const [newDraft] = useState(() => newEditorV2Draft("fixture-new"));
   const storageKey = `t023:fixture-server:${mode}`;
   const [snapshotStore] = useState(() => {
     let snapshot: ReturnType<typeof editorV2FixtureRoute> | null = null;
@@ -26,6 +28,11 @@ export function EditorV2FixtureWorkspace({ mode }: { mode: "ready" | "conflict" 
   const route = useSyncExternalStore(snapshotStore.subscribe, snapshotStore.getSnapshot, snapshotStore.getServerSnapshot);
   const [transport] = useState(() => createEditorV2Api(async (_url, init) => {
     const remote = V2BoundRouteDefinitionSchema.parse(JSON.parse(sessionStorage.getItem(storageKey) ?? JSON.stringify(editorV2FixtureRoute())));
+    if (init?.method === "POST") {
+      const body = JSON.parse(String(init.body));
+      sessionStorage.setItem(storageKey, JSON.stringify({ ...remote, definition: body.package, bindings: body.bindings }));
+      return Response.json({ pathId: remote.pathId, pathVersionId: remote.pathVersionId, editVersion: 1, status: "draft" });
+    }
     if (init?.method === "PATCH") {
       if (mode === "conflict") return Response.json({ error: "version_conflict" }, { status: 409 });
       if (mode === "network") throw new Error("Synthetic disconnection");
@@ -38,6 +45,6 @@ export function EditorV2FixtureWorkspace({ mode }: { mode: "ready" | "conflict" 
     return Response.json({ route: remote });
   }));
   return <AppShell activeKey="learning" guidedLearningEnabled headerTitle="Editor de rutas">
-    {route ? <LearningRouteEditor actorUserId={fixtureV2Id(1)} canPublish canReview initialPath={route} initialResources={[]} resourceNextCursor={null} resourceTopics={[]} routeTopics={[]} v2Transport={transport} replaceUrl={() => {}} /> : <p role="status">Cargando editor…</p>}
+    {route ? <LearningRouteEditor actorUserId={fixtureV2Id(1)} canPublish canReview initialPath={mode === "new" ? undefined : route} initialV2Draft={mode === "new" ? newDraft : undefined} initialResources={[]} resourceNextCursor={null} resourceTopics={[]} routeTopics={[]} v2Transport={transport} replaceUrl={() => {}} /> : <p role="status">Cargando editor…</p>}
   </AppShell>;
 }

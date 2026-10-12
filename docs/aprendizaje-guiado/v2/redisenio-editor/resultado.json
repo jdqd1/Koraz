@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-12",
+  "status": "PASS LOCAL",
+  "deployed": false,
+  "checks": {
+    "editorV2Vitest": {
+      "status": "PASS",
+      "tests": 98,
+      "files": 9
+    },
+    "usabilityPlaywright": {
+      "status": "PASS",
+      "tests": 8,
+      "desktop": 4,
+      "mobile": 4
+    },
+    "typecheck": "PASS",
+    "focusedEslint": "PASS",
+    "diffWhitespace": "PASS",
+    "scopedAxeEditor": "PASS"
+  },
+  "evidenceScope": "Real presentation components with synthetic catalogue and in-memory editorial transport. No real authentication, PostgreSQL persistence or production publication verified.",
+  "commands": [
+    "pnpm.cmd --filter @cediah/web exec vitest run src/components/learning/editor/v2",
+    "pnpm.cmd --filter @cediah/web typecheck",
+    "MAP_E2E_URL=http://127.0.0.1:3100 pnpm.cmd --filter @cediah/web exec playwright test tests/e2e/route-editor-v2-usability.spec.ts --reporter=line --output=../../tmp/route-editor-v2-redesign/e2e-headings",
+    "MAP_E2E_URL=http://127.0.0.1:31012 pnpm.cmd --filter @cediah/web exec playwright test tests/e2e/route-editor-v2-usability.spec.ts tests/e2e/route-import-v2.spec.ts --reporter=line --output=../../tmp/route-editor-v2-redesign/e2e-forms-final --max-failures=2"
+  ],
+  "earlierRuns": [
+    "apps/web/.map-test-results/",
+    "tmp/route-editor-v2-redesign/e2e-recheck/",
+    "tmp/route-editor-v2-redesign/e2e-final/",
+    "tmp/route-editor-v2-redesign/e2e-polish/",
+    "tmp/route-editor-v2-redesign/e2e-mobile-compact/",
+    "tmp/route-editor-v2-redesign/e2e-headings/",
+    "tmp/route-editor-v2-redesign/e2e-forms/"
+  ],
+  "finalArtifacts": "tmp/route-editor-v2-redesign/e2e-forms-final/",
+  "screenshots": [
+    "inicio-desktop.png",
+    "inicio-mobile.png",
+    "objetivos-desktop.png",
+    "objetivos-mobile.png",
+    "formulario-objetivo-vista.png",
+    "formulario-actividad-vista.png",
+    "formulario-objetivo-mobile.png",
+    "formulario-actividad-mobile.png"
+  ],
+  "singleHeadingPreference": {
+    "applied": true,
+    "subtitle": false,
+    "eyebrow": false
+  },
+  "commentRemovalVerification": {
+    "status": "PASS LOCAL",
+    "method": "Manual browser inspection of Datos y fuentes, Objetivos and Recorrido plus focused ESLint and whitespace check",
+    "removedTargets": 6,
+    "screenshot": "sin-textos-marcados.png",
+    "note": "The open older tab retained its prior document. The changes were verified in a fresh local preview tab."
+  },
+  "importDropzone": {
+    "status": "PASS LOCAL",
+    "playwright": {
+      "tests": 6,
+      "desktop": 3,
+      "mobile": 3,
+      "elapsedSeconds": 38.6
+    },
+    "existingImportWorkflowTests": 25,
+    "typecheck": "PASS",
+    "focusedEslint": "PASS",
+    "artifacts": "tmp/route-editor-v2-redesign/e2e-dropzone-final/",
+    "screenshots": [
+      "importar-desktop.png",
+      "importar-mobile.png"
+    ],
+    "scope": "Local JSON parsing, keyboard file picker, drag and drop, single-file and byte-limit rejection. No automatic import or publication; existing server validation and commit remain explicit."
+  },
+  "formSimplification": {
+    "status": "PASS LOCAL",
+    "browserUrl": "http://127.0.0.1:31012",
+    "combinedBrowserTests": 14,
+    "desktop": 7,
+    "mobile": 7,
+    "editorTests": 8,
+    "importTests": 6,
+    "displayElapsed": "4.7m",
+    "preservedActivityPresets": 13,
+    "collapsedSettingsPersistence": "PASS",
+    "essentialObjectiveRequiredLock": "PASS",
+    "finalSpacingVisualInspection": "PASS",
+    "earlierFailures": [
+      "An outdated validation label assertion was corrected: initial unit run 97 passed, 1 failed; final run 98 passed.",
+      "Initial typecheck failed in transient generated .next/dev/types/routes.d.ts; normal generated types stabilized and the rerun passed.",
+      "Initial browser run targeted unavailable port 3100; 8 failures were observed before interruption. Final tests used active port 31012."
+    ]
+  }
+}
