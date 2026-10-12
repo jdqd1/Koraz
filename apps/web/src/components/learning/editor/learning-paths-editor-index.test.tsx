@@ -8,6 +8,24 @@ vi.mock("next/navigation", () => ({
 }));
 
 describe("learning paths editor index", () => {
+  it("shows a published v2 route even when there are no legacy routes", () => {
+    const path = { pathId: "72000000-0000-4000-8000-000000000099", title: "Vascularización del abdomen", topicTitle: "Anatomía", unitCount: 4, status: "published" as const, versionNumber: 1, archivedAt: null };
+    const html = renderToStaticMarkup(<LearningPathsEditorIndex paths={[]} v2Paths={[path]} />);
+    expect(html).toContain(path.title);
+    expect(html).toContain(`href="/panel/rutas/${path.pathId}"`);
+    expect(html).toContain("4 unidades");
+    expect(html).toContain("Publicada");
+    expect(html).not.toContain("Aún no hay rutas");
+    expect(html).not.toContain("Eliminar ruta Vascularización");
+  });
+
+  it("keeps legacy routes visible while reporting a failed v2 catalogue", () => {
+    const path = editorFixture("ready").initialPath!;
+    const html = renderToStaticMarkup(<LearningPathsEditorIndex paths={[path]} v2Unavailable />);
+    expect(html).toContain(path.title);
+    expect(html).toContain("No pudimos cargar todas tus rutas");
+  });
+
   it("offers a clearly labelled delete action for an existing route", () => {
     const path = editorFixture("ready").initialPath!;
     const html = renderToStaticMarkup(<LearningPathsEditorIndex paths={[path]} />);

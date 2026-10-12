@@ -62,4 +62,15 @@ describe("T024 editorial source catalogue", () => {
     expect(read.statusCode).toBe(200); expect(read.headers["cache-control"]).toBe("private, no-store");
     expect(V2HttpContracts.editorSourceCatalog.response.safeParse(read.json()).success).toBe(true);
   });
+  it("protects the v2 route workspace with a real session and editorial role", async () => {
+    const url = "/v2/editor/learning-paths";
+    expect((await app.inject({ url })).statusCode).toBe(401);
+    roles = ["student"];
+    expect((await app.inject({ url, headers: { authorization: "editor" } })).statusCode).toBe(403);
+    roles = ["content_creator"];
+    const read = await app.inject({ url, headers: { authorization: "editor" } });
+    expect(read.statusCode).toBe(200);
+    expect(read.headers["cache-control"]).toBe("private, no-store");
+    expect(read.json()).toEqual({ items: [] });
+  });
 });

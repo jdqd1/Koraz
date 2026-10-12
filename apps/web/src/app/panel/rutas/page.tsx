@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LearningPathsEditorIndex } from "@/components/learning/editor/learning-paths-editor-index";
 import styles from "@/components/learning/editor/route-editor.module.css";
 import { getCurrentUser } from "@/lib/server/current-user";
-import { getLearningEditorWorkspace } from "@/lib/server/guided-learning-api";
+import { getLearningEditorWorkspace, getLearningV2EditorWorkspace } from "@/lib/server/guided-learning-api";
 import { requestContentApi } from "@/lib/server/content-api";
 import { getApiRequestCookie } from "@/lib/server/api-session";
 import { editorV2CatalogAvailable } from "@/components/learning/editor/v2/new-draft";
@@ -15,7 +15,7 @@ export default async function LearningPathsEditorPage() {
   if (current.status === "anonymous") redirect("/acceder?next=/panel/rutas");
   if (current.status !== "authenticated") return <EditorGate title="No pudimos confirmar tu sesión" />;
   if (!current.features.guidedLearning) notFound();
-  const paths = await getLearningEditorWorkspace();
+  const [paths, v2Paths] = await Promise.all([getLearningEditorWorkspace(), getLearningV2EditorWorkspace()]);
   if (paths.status !== "ready") {
     return <EditorGate title={paths.status === "forbidden" ? "Esta cuenta no tiene permisos editoriales" : "No pudimos abrir tus rutas"} />;
   }
@@ -23,7 +23,7 @@ export default async function LearningPathsEditorPage() {
   const canArchive = current.roles.includes("coordinator") || current.roles.includes("administrator");
   const session = await getApiRequestCookie();
   const v2Catalog = session.status === "ready" ? await requestContentApi({ cookie: session.cookie, method: "GET", path: "/v2/editor/learning-paths/source-catalog?limit=1" }) : { status: 401, body: null };
-  return <><div className={styles.inlineActions}>{editorV2CatalogAvailable(v2Catalog) ? <Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=v2">Crear ruta v2</Link> : null}<Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} /></>;
+  return <><div className={styles.inlineActions}>{editorV2CatalogAvailable(v2Catalog) ? <Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=v2">Crear ruta v2</Link> : null}<Link className={styles.secondaryButton} href="/panel/rutas/nueva?mode=import">Importar ruta</Link></div><LearningPathsEditorIndex canArchive={canArchive} paths={paths.items} v2Paths={v2Paths.status === "ready" ? v2Paths.value.items : []} v2Unavailable={v2Paths.status === "unavailable"} /></>;
 }
 
 function EditorGate({ title }: { title: string }) {

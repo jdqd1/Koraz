@@ -110,6 +110,23 @@ describe("guided v2 editorial storage", () => {
     pathId = created.value.pathId;
   });
 
+  it("lists private v2 drafts by ownership and includes them for administrators", async () => {
+    expect((await provider.listEditorPaths({ actorUserId: id(1), canEditAll: false })).items.find(item => item.pathId === pathId)).toMatchObject({ status: "draft", versionNumber: 1, unitCount: 0, title: pkg.route.title });
+    await pg.query("update learning_paths set created_by=$1 where id=$2", [id(2), pathId]);
+    expect((await provider.listEditorPaths({ actorUserId: id(1), canEditAll: false })).items.some(item => item.pathId === pathId)).toBe(false);
+    expect((await provider.listEditorPaths({ actorUserId: id(2), canEditAll: false })).items.some(item => item.pathId === pathId)).toBe(true);
+    expect((await provider.listEditorPaths({ actorUserId: id(1), canEditAll: true })).items.some(item => item.pathId === pathId)).toBe(true);
+  });
+
+  it("lists only the latest engine and preserves archived state without returning answers", async () => {
+    await pg.query("update learning_paths set archived_at='2026-10-11T12:00:00Z' where id=$1", [pathId]);
+    const summary = (await provider.listEditorPaths({ actorUserId: id(1), canEditAll: false })).items.find(item => item.pathId === pathId);
+    expect(summary?.archivedAt).toBe("2026-10-11T12:00:00.000Z");
+    expect(summary).not.toHaveProperty("definition");
+    await pg.query("insert into learning_path_versions(path_id,version_number,status,policy_version,policy_json) values($1,2,'draft','guided-v1','{}')", [pathId]);
+    expect((await provider.listEditorPaths({ actorUserId: id(1), canEditAll: true })).items.some(item => item.pathId === pathId)).toBe(false);
+  });
+
   it("creates one canonical draft, reads it back and leaves v1 step tables empty", async () => {
     const read = await provider.getEditorPath({ actorUserId: id(1), canEdit: true, canEditAll: false, pathId });
     expect(read.status).toBe("success");

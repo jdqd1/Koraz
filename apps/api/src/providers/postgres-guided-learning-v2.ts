@@ -6,6 +6,8 @@ import {
   validateRoutePackage,
   V2BoundRouteDefinitionSchema,
   V2EditorSourceCatalogSchema,
+  V2EditorWorkspaceResponseSchema,
+  type V2EditorPathSummary,
   V2BindingsSchema,
   V2IssueSchema,
   V2PolicySnapshotSchema,
@@ -485,6 +487,26 @@ async function editorReceipt<T>(transaction: Tx, actorUserId: string, key: strin
 
 export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> } = {}) {
   return {
+    async listEditorPaths(input: { actorUserId: string; canEditAll: boolean }) {
+      const result = await sql<V2EditorPathSummary>`
+        select p.id as "pathId", p.title, t.title as "topicTitle",
+          jsonb_array_length(v.definition_v2_json->'units') as "unitCount",
+          v.status, v.version_number as "versionNumber",
+          to_char(p.archived_at at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') as "archivedAt"
+        from public.learning_paths p
+        join lateral (
+          select status, version_number, policy_version, definition_v2_json
+          from public.learning_path_versions where path_id = p.id
+          order by version_number desc limit 1
+        ) v on true
+        join public.content_items t on t.id = p.topic_content_id
+        where v.policy_version = 'guided-v2.0'
+          and (${input.canEditAll} or p.created_by = ${input.actorUserId}::uuid)
+        order by p.updated_at desc, p.id
+        limit 200
+      `.execute(database);
+      return V2EditorWorkspaceResponseSchema.parse({ items: result.rows });
+    },
     async listEditorSourceCatalog(input: { actorUserId: string; canEditAll: boolean; q?: string; cursor?: string; limit: number }) {
       let guides = database.selectFrom("content_items").select(["id", "title", "version"])
         .where("kind", "=", "guide").where("status", "!=", "archived")
