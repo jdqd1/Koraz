@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { V2PublicActivity, V2AttemptManifest } from "@cediah/contracts";
 import styles from "./visual.module.css";
 import { readV2AttemptImage } from "../client";
+import ui from "../../activities/activity-ui.module.css";
 
 type Activity = Extract<V2PublicActivity, { kind: "image_target" }>;
 type Answer = Extract<V2AttemptManifest["acceptedResponses"][number]["answer"], { kind: "image_target" }>;
@@ -63,9 +64,9 @@ export function ImageTargetRenderer({ activity, image, hotspotTarget = null, alt
     if (activity.payload.mode === "hotspot" && target && point) onSubmit({ kind: "image_target", mode: "hotspot", targetKey: target.key, point: { ...point } });
     else if (activity.payload.mode === "labeling") onSubmit({ kind: "image_target", mode: "labeling", labelsByTarget: { ...labels } });
   }}>
-    <p id={`${id}-instructions`}>{activity.payload.mode === "hotspot" ? "Señala un punto de la imagen. También puedes enfocar la imagen y usar las flechas, o ajustar las coordenadas." : "Relaciona cada número de la imagen con una etiqueta usando los selectores."}</p>
+    <p className={styles.instruction} id={`${id}-instructions`}>{activity.payload.mode === "hotspot" ? "Toca la imagen para señalar tu respuesta." : "Elige una etiqueta para cada punto numerado."}</p>
     {activity.payload.mode === "hotspot" && activity.payload.targets.length > 1 ? <label>Consigna de selección<select disabled={disabled} value={targetKey} onChange={event => { setTargetKey(event.target.value); setPoint(null); }}>{activity.payload.targets.map(item => <option key={item.key} value={item.key}>{item.prompt}</option>)}</select></label> : null}
-    {activity.payload.mode === "hotspot" && target ? <p>{target.prompt}</p> : null}
+    {activity.payload.mode === "hotspot" && target && target.prompt !== activity.prompt ? <p>{target.prompt}</p> : null}
     {!safeImage ? <p role="alert">La imagen autorizada no está disponible. Tu respuesta aún no se ha enviado.</p> : <>
       <div className={styles.tools}><label htmlFor={`${id}-zoom`}>Ampliación de imagen</label><select id={`${id}-zoom`} value={zoom} disabled={locked} onChange={event => setZoom(Number(event.target.value))}>{[1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value * 100} %</option>)}</select></div>
       <div className={styles.viewport} role="region" aria-label="Área ampliada de imagen" tabIndex={0}><div ref={surface} className={styles.surface} style={{ width: `${zoom * 100}%`, height: `${300 * zoom}px` }} role="group" aria-label="Imagen para responder" aria-describedby={`${id}-instructions`} aria-disabled={locked} tabIndex={activity.payload.mode === "hotspot" ? 0 : undefined}
@@ -81,11 +82,11 @@ export function ImageTargetRenderer({ activity, image, hotspotTarget = null, alt
     </>}
     {activity.payload.mode === "hotspot" ? <>
       {!target ? <p role="alert">Falta la consigna autorizada para esta selección. Tu sesión se conserva.</p> : null}
-      <fieldset disabled={locked}><legend>Ajustar el punto seleccionado</legend><div className={styles.coordinates}>{(["x", "y"] as const).map(axis => <label key={axis}>{axis === "x" ? "Horizontal (%)" : "Vertical (%)"}<input type="number" min={0} max={100} step="any" value={point ? Number((point[axis] * 100).toFixed(4)) : ""} onChange={event => { if (event.target.value === "") { setPoint(null); return; } const value = Number(event.target.value); if (Number.isFinite(value)) move(axis === "x" ? value / 100 : point?.x ?? .5, axis === "y" ? value / 100 : point?.y ?? .5); }} /></label>)}</div></fieldset>
-      <p role="status">{point ? `Punto seleccionado: horizontal ${(point.x * 100).toFixed(1)} %, vertical ${(point.y * 100).toFixed(1)} %.` : "Aún no has seleccionado un punto."}</p>
+      <p role="status">{point ? "Punto seleccionado. Puedes tocar otro lugar para cambiarlo." : "Aún no has seleccionado un punto."}</p>
+      <details className={ui.disclosure}><summary>Ajustar el punto seleccionado</summary><div><p>Puedes enfocar la imagen y usar las flechas, o ajustar las coordenadas.</p><fieldset disabled={locked}><legend className="sr-only">Ajustar el punto seleccionado</legend><div className={styles.coordinates}>{(["x", "y"] as const).map(axis => <label key={axis}>{axis === "x" ? "Horizontal (%)" : "Vertical (%)"}<input type="number" min={0} max={100} step="any" value={point ? Number((point[axis] * 100).toFixed(4)) : ""} onChange={event => { if (event.target.value === "") { setPoint(null); return; } const value = Number(event.target.value); if (Number.isFinite(value)) move(axis === "x" ? value / 100 : point?.x ?? .5, axis === "y" ? value / 100 : point?.y ?? .5); }} /></label>)}</div></fieldset></div></details>
     </> : <fieldset disabled={locked}><legend>Etiquetas de los puntos numerados</legend><div className={styles.labels}>{activity.payload.targets.map((target, index) => <label key={target.key}>{`Punto ${index + 1}: ${target.prompt}`}<select value={labels[target.key] ?? ""} onChange={event => setLabels(current => ({ ...current, [target.key]: event.target.value }))}><option value="">Elige una etiqueta</option>{activity.payload.labels.map(label => <option key={label.key} value={label.key}>{label.text}</option>)}</select></label>)}</div></fieldset>}
-    {alternative ? <button type="button" className="learning-secondary-button" disabled={disabled} onClick={alternative.onSelect}>{alternative.label}</button> : null}
-    <button type="submit" className="learning-primary-button" disabled={locked || !complete}>Comprobar respuesta visual</button>
+    {alternative ? <details className={ui.disclosure}><summary>Otra forma de practicar</summary><div><button type="button" className="learning-secondary-button" disabled={disabled} onClick={alternative.onSelect}>{alternative.label}</button></div></details> : null}
+    <div className={ui.action}><button type="submit" className="learning-primary-button" disabled={locked || !complete}>Comprobar respuesta visual</button></div>
   </form>;
 }
 
@@ -102,8 +103,9 @@ export function AuthorizedImageTargetRenderer({ activity, attemptId, rowVersion,
     return () => controller.abort();
   }, [attemptId, activity.key, activity.payload.assetKey, rowVersion, retry, readImage]);
   return <>{!image ? <div role={error ? "alert" : "status"}><p>{error ? "No pudimos obtener la imagen autorizada. Tu respuesta no se ha enviado." : "Solicitando imagen autorizada…"}</p>{error ? <button type="button" disabled={disabled} onClick={() => { setImage(null); setError(false); setRetry(value => value + 1); }}>Reintentar acceso a la imagen</button> : null}</div> : null}
-    <ImageTargetRenderer activity={activity} image={image} disabled={disabled} onSubmit={onSubmit}
+    {image ? <ImageTargetRenderer activity={activity} image={image} disabled={disabled} onSubmit={onSubmit}
       onRetryImage={() => { setImage(null); setError(false); setRetry(value => value + 1); }}
       alternative={activity.payload.accessibleAlternativeKey ? { label: "Practicar con variante de texto o tabla", onSelect: onAlternative } : null} />
+      : error && activity.payload.accessibleAlternativeKey ? <button type="button" className="learning-secondary-button" disabled={disabled} onClick={onAlternative}>Practicar con variante de texto o tabla</button> : null}
   </>;
 }

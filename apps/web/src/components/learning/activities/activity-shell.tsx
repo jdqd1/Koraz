@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, CloudCheck, CloudSlash } from "@phosphor-icons/react";
 import {
   LearningAttemptMutationResponseSchema,
   type LearningAttempt,
@@ -18,6 +16,8 @@ import { QuizActivity } from "./quiz-activity";
 import { ReviewActivity } from "./review-activity";
 import type { ActivityMutation } from "./types";
 import { VideoActivity } from "./video-activity";
+import { ActivityHeader } from "./activity-header";
+import ui from "./activity-ui.module.css";
 
 export function ActivityShell({
   initialAttempt,
@@ -89,19 +89,12 @@ export function ActivityShell({
   }, [userId]);
 
   return (
-    <main className="learning-activity-main">
-      <header className="learning-activity-header">
-        <Link href={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje")}><ArrowLeft size={18} />{returnHref ? "Mi mapa" : attempt.pathSlug ? "Mi ruta" : "Inicio"}</Link>
-        <div>
-          <span>{attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Flashcards" : attempt.manifest.projection === "guide" ? "Guía" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}</span>
-          <h1>{attempt.manifest.title}</h1>
-        </div>
-        <div aria-live="polite" className={`learning-save-state is-${saveState}`}>
-          {saveState === "pending" || saveState === "failed" ? <CloudSlash size={18} /> : <CloudCheck size={18} />}
-          {saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente" : saveState === "failed" ? "Sin guardar" : "Guardado"}
-        </div>
-      </header>
-      <p aria-live="polite" className="learning-activity-message">{message}</p>
+    <main className={`${ui.session} ${ui.immersive}`} aria-label="Sesión de aprendizaje" data-engine-version="guided-v1">
+      <ActivityHeader title={attempt.manifest.title} eyebrow={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}
+        returnHref={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje/mapa")}
+        returnLabel={!returnHref && attempt.pathSlug ? "Volver a mi ruta" : "Volver a mi mapa"}
+        completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p>} />
+      <p aria-live="polite" className={message && message !== "Progreso guardado." ? ui.notice : "sr-only"}>{message}</p>
       {attempt.status === "completed" && !feedback ? <LearningCompletionPanel attempt={attempt} awards={awards} progress={progress} returnHref={returnHref} /> : null}
       {attempt.status !== "completed" || feedback ? (
         attempt.manifest.projection === "quiz" ? <QuizActivity attempt={attempt as LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "quiz" }> }} feedback={feedback} mutate={mutate} onFeedback={setFeedback} />

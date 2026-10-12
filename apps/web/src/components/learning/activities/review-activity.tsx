@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle, XCircle } from "@phosphor-icons/react";
 import type { LearningAttempt, LearningAttemptResponseRecord } from "@cediah/contracts";
 import type { ActivityMutation } from "./types";
+import ui from "./activity-ui.module.css";
 
 const grades = [
   ["again", "No la recordé"],
@@ -81,12 +82,13 @@ export function ReviewActivity({ attempt, feedback, mutate, onFeedback }: {
         {correct === false ? <XCircle aria-hidden="true" size={34} weight="fill" /> : <CheckCircle aria-hidden="true" size={34} weight="fill" />}
         <div>
           <h2>{retry ? "La veremos otra vez" : correct === false ? "Respuesta guardada" : "Repaso guardado"}</h2>
-          <p>{feedback.scheduleApplied
+          {feedback.grading.explanation ? <p>{feedback.grading.explanation}</p> : null}
+          {retry ? <p>Volverás a practicar este punto durante el repaso.</p> : null}
+          <details className={ui.disclosure}><summary>Detalles del repaso</summary><p>{feedback.scheduleApplied
             ? retry
               ? "Volverá a aparecer, como máximo dos veces en esta sesión. Este reintento no cuenta como una comprobación independiente."
               : "La próxima fecha se calculó desde la hora aceptada por el servidor."
-            : "Otro dispositivo o una práctica reciente ya había actualizado el calendario; esta respuesta no lo movió de nuevo."}</p>
-          {feedback.grading.explanation ? <p>{feedback.grading.explanation}</p> : null}
+            : "Otro dispositivo o una práctica reciente ya había actualizado el calendario; esta respuesta no lo movió de nuevo."}</p></details>
         </div>
         <button className="learning-primary-button" onClick={() => { setSelected(""); onFeedback(null); }} type="button">
           {attempt.status === "completed" ? "Ver resumen" : retry ? "Continuar el repaso" : "Siguiente"}<ArrowRight aria-hidden="true" size={18} />
