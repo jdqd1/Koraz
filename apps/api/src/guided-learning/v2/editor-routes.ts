@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { V2HttpContracts, type ContentProvider, type IdentityProvider } from "@cediah/contracts";
+import { V2HttpContracts, V2EditorWorkspaceResponseSchema, type ContentProvider, type IdentityProvider } from "@cediah/contracts";
 import { getContentCapabilities } from "../../content-authorization.js";
 import { resolveGuidedUser, sendGuidedUserError } from "../http.js";
 import type { createPostgresGuidedLearningV2Provider } from "../../providers/postgres-guided-learning-v2.js";
@@ -144,7 +144,7 @@ export function createEditorPreviewSimulator(packageInput: unknown, profile: z.i
 }
 
 type ImportProvider = Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>,
-  "validateImport" | "commitImport" | "exportPath" | "validatePath" | "transitionPath" | "createVersion"> & Partial<Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>, "createDraft" | "getEditorPath" | "saveDraft" | "previewPath" | "previewImage" | "convertV1" | "listEditorSourceCatalog">>;
+  "validateImport" | "commitImport" | "exportPath" | "validatePath" | "transitionPath" | "createVersion"> & Partial<Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>, "createDraft" | "getEditorPath" | "saveDraft" | "previewPath" | "previewImage" | "convertV1" | "listEditorSourceCatalog" | "listEditorPaths">>;
 export type GuidedV2EditorProvider = ImportProvider;
 
 /** Exported separately so the v2 registration can be connected without changing v1 routes. */
@@ -216,6 +216,21 @@ export async function registerGuidedV2EditorImportRoutes(app: FastifyInstance, d
     if (!request.url.startsWith("/v2/editor/learning-paths")) return;
     reply.header("Cache-Control", "private, no-store");
     if (error.message === "Origin not allowed") error.statusCode = 403;
+  });
+  app.get("/v2/editor/learning-paths", async (request, reply) => {
+    reply.header("Cache-Control", "private, no-store");
+    const actor = await resolveGuidedUser(request, dependencies.identityProvider);
+    if (actor.kind !== "authenticated") return sendGuidedUserError(actor, reply);
+    if (!dependencies.contentProvider || !dependencies.provider?.listEditorPaths) return reply.status(503).send({ error: "learning_unavailable" });
+    try {
+      const capabilities = getContentCapabilities(await dependencies.contentProvider.getRoles(actor.user.id));
+      if (!capabilities.canCreate && !capabilities.canEditAll) return reply.status(403).send({ error: "forbidden" });
+      const value = await dependencies.provider.listEditorPaths({ actorUserId: actor.user.id, canEditAll: capabilities.canEditAll });
+      return reply.send(V2EditorWorkspaceResponseSchema.parse(value));
+    } catch {
+      request.log.error("Guided v2 workspace request failed");
+      return reply.status(503).send({ error: "learning_unavailable" });
+    }
   });
   app.get(V2HttpContracts.editorSourceCatalog.path, async (request, reply) => {
     reply.header("Cache-Control", "private, no-store");

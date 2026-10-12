@@ -1,0 +1,188 @@
+{
+  "engineVersion": "guided-v2",
+  "enrollmentId": "a9b862e1-be53-47ef-a7b6-9e5e21413a7a",
+  "pathVersionId": "6e7c3d68-deba-419c-b4bc-9c0eb0a93593",
+  "rowVersion": 1,
+  "completedActivities": 32,
+  "dispensedActivities": 0,
+  "plannedRequiredActivities": 34,
+  "completedAt": null,
+  "masteredAt": null,
+  "consolidatedAt": null,
+  "objectives": [
+    {
+      "objectiveKey": "territorios-arteriales",
+      "label": "mastered",
+      "objectiveScore": 100,
+      "criticalErrorOpen": false,
+      "assisted": false,
+      "applicationDemonstrated": true,
+      "reviewDue": false,
+      "firstMasteredAt": "2026-10-11T17:35:20.910Z",
+      "firstConsolidatedAt": null
+    },
+    {
+      "objectiveKey": "retorno-sistemico",
+      "label": "mastered",
+      "objectiveScore": 100,
+      "criticalErrorOpen": false,
+      "assisted": false,
+      "applicationDemonstrated": true,
+      "reviewDue": false,
+      "firstMasteredAt": "2026-10-11T17:37:59.786Z",
+      "firstConsolidatedAt": null
+    },
+    {
+      "objectiveKey": "retorno-portal",
+      "label": "mastered",
+      "objectiveScore": 100,
+      "criticalErrorOpen": false,
+      "assisted": false,
+      "applicationDemonstrated": true,
+      "reviewDue": false,
+      "firstMasteredAt": "2026-10-11T17:38:44.719Z",
+      "firstConsolidatedAt": null
+    },
+    {
+      "objectiveKey": "tipos-comunicacion",
+      "label": "mastered",
+      "objectiveScore": 100,
+      "criticalErrorOpen": false,
+      "assisted": false,
+      "applicationDemonstrated": true,
+      "reviewDue": false,
+      "firstMasteredAt": "2026-10-11T17:39:30.307Z",
+      "firstConsolidatedAt": null
+    }
+  ],
+  "dueReviews": 0,
+  "nextAction": {
+    "kind": "none",
+    "key": null,
+    "reason": "La práctica sigue disponible; la próxima comprobación será después de 2026-10-12T17:37:40.707Z"
+  },
+  "maintenance": {
+    "generatedAt": "2026-10-11T17:39:39.460Z",
+    "timeZone": "UTC",
+    "diagnostic": {
+      "status": "omitted",
+      "assessmentKey": null
+    },
+    "activities": [],
+    "reviewBatch": [],
+    "agenda": [
+      {
+        "objectiveKey": "retorno-portal",
+        "dueAt": "2026-10-12T17:38:20.195Z",
+        "retention7": {
+          "dueAt": "2026-10-18T17:38:44.719Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        },
+        "retention30": {
+          "dueAt": "2026-11-10T17:38:44.719Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        }
+      },
+      {
+        "objectiveKey": "retorno-sistemico",
+        "dueAt": "2026-10-12T17:37:35.613Z",
+        "retention7": {
+          "dueAt": "2026-10-18T17:37:59.786Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        },
+        "retention30": {
+          "dueAt": "2026-11-10T17:37:59.786Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        }
+      },
+      {
+        "objectiveKey": "territorios-arteriales",
+        "dueAt": "2026-10-12T17:34:55.683Z",
+        "retention7": {
+          "dueAt": "2026-10-18T17:35:20.910Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        },
+        "retention30": {
+          "dueAt": "2026-11-10T17:35:20.910Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        }
+      },
+      {
+        "objectiveKey": "tipos-comunicacion",
+        "dueAt": "2026-10-12T17:39:05.693Z",
+        "retention7": {
+          "dueAt": "2026-10-18T17:39:30.307Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        },
+        "retention30": {
+          "dueAt": "2026-11-10T17:39:30.307Z",
+          "acceptedAt": null,
+          "elapsedDays": null
+        }
+      }
+    ],
+    "gates": [
+      {
+        "unitKey": "arterias",
+        "passed": true,
+        "score": 100,
+        "thresholdPercent": 80,
+        "missingCoreKeys": [],
+        "criticalErrorKeys": []
+      },
+      {
+        "unitKey": "cava",
+        "passed": true,
+        "score": 100,
+        "thresholdPercent": 80,
+        "missingCoreKeys": [],
+        "criticalErrorKeys": []
+      },
+      {
+        "unitKey": "porta",
+        "passed": true,
+        "score": 100,
+        "thresholdPercent": 80,
+        "missingCoreKeys": [],
+        "criticalErrorKeys": []
+      },
+      {
+        "unitKey": "comunicaciones",
+        "passed": true,
+        "score": 100,
+        "thresholdPercent": 80,
+        "missingCoreKeys": [],
+        "criticalErrorKeys": []
+      }
+    ],
+    "blockers": [],
+    "remediation": [],
+    "exhaustedBanks": [
+      {
+        "objectiveKey": "retorno-sistemico",
+        "availableAfter": "2026-10-12T17:37:40.707Z"
+      },
+      {
+        "objectiveKey": "retorno-portal",
+        "availableAfter": "2026-10-12T17:38:44.719Z"
+      }
+    ]
+  },
+  "availability": "active",
+  "versionHistory": [
+    {
+      "versionNumber": 1,
+      "engineVersion": "guided-v2",
+      "adoptedAt": "2026-10-11T17:34:37.599Z",
+      "completedAt": null,
+      "consumedActivities": []
+    }
+  ]
+}

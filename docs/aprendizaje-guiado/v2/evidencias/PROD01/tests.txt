@@ -7,3 +7,29 @@ apps/api test:  RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
 apps/web test:  RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
 apps/api test:  ❯ test/guided-v2-import.test.ts (18 tests | 1 failed) 20894ms
 apps/api test:      × exposes a validated endpoint with auth, capability and private no-store 6461ms
+apps/web test:  Test Files  62 passed (62)
+apps/web test:       Tests  485 passed (485)
+apps/web test:    Start at  13:20:41
+apps/web test:    Duration  142.08s (transform 8.72s, setup 0ms, import 603.39s, tests 6.29s, environment 18ms)
+apps/web test: Done
+apps/api test: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+apps/api test:  FAIL  test/guided-v2-import.test.ts > guided v2 import dry-run > exposes a validated endpoint with auth, capability and private no-store
+apps/api test: Error: Test timed out in 5000ms.
+apps/api test: If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+apps/api test:  ❯ test/guided-v2-import.test.ts:213:3
+apps/api test:     211|   });
+apps/api test:     212|
+apps/api test:     213|   it("exposes a validated endpoint with auth, capability and private n…
+apps/api test:        |   ^
+apps/api test:     214|     const app = Fastify();
+apps/api test:     215|     const identityProvider = { getUser: async () => ({ id: id(1) }) } …
+apps/api test: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+apps/api test:  Test Files  1 failed | 60 passed | 1 skipped (62)
+apps/api test:       Tests  1 failed | 551 passed | 49 skipped (601)
+apps/api test:    Start at  13:20:41
+apps/api test:    Duration  266.90s (transform 3.33s, setup 0ms, import 85.27s, tests 165.82s, environment 6ms)
+apps/api test: Failed
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 test: `vitest run`
+Exit status 1
+[ELIFECYCLE] Test failed. See above for more details.

@@ -32,6 +32,7 @@ export * from "./guided-learning.js";
 export * from "./learning-route-package.js";
 export * from "./learning-route-validation.js";
 export * from "./guided-learning-v2.js";
+export * from "./guided-learning-editor-workspace.js";
 
 export const HealthResponseSchema = z.object({
   checkedAt: z.string().datetime(),

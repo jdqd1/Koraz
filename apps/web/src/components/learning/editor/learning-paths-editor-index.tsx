@@ -1,6 +1,6 @@
 "use client";
 
-import type { LearningPathDetail, LearningPathStatus } from "@cediah/contracts";
+import type { LearningPathDetail, LearningPathStatus, V2EditorPathSummary } from "@cediah/contracts";
 import { Archive, ArrowCounterClockwise, Trash } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -63,10 +63,14 @@ function restoreFailureMessage(errorCode: string, status: number) {
 export function LearningPathsEditorIndex({
   canArchive = false,
   paths: initialPaths,
+  v2Paths = [],
+  v2Unavailable = false,
   transport = editorApi,
 }: {
   canArchive?: boolean;
   paths: LearningPathDetail[];
+  v2Paths?: V2EditorPathSummary[];
+  v2Unavailable?: boolean;
   transport?: Pick<EditorApi, "deletePath" | "transition">;
 }) {
   const router = useRouter();
@@ -115,10 +119,19 @@ export function LearningPathsEditorIndex({
         <Link className={styles.primaryButton} href="/panel/rutas/nueva">Crear ruta</Link>
       </header>
       {message ? <p aria-live="polite" className={styles.routeListMessage}>{message}</p> : null}
-      {paths.length === 0 ? (
+      {v2Unavailable ? <p role="status" className={styles.routeListMessage}>No pudimos cargar todas tus rutas. Actualiza la página para volver a intentarlo.</p> : null}
+      {paths.length === 0 && v2Paths.length === 0 ? (
         <section className={styles.card}><div className={styles.emptyState}><strong>Aún no hay rutas</strong><p>Crea la primera para organizar objetivos, materiales y práctica.</p></div></section>
       ) : (
         <ul className={styles.routeList}>
+          {v2Paths.map((path) => (
+            <li className={styles.routeListItem} key={path.pathId}>
+              <Link className={styles.routeLink} href={`/panel/rutas/${path.pathId}`}>
+                <span><strong>{path.title}</strong><small>{path.topicTitle} · {path.unitCount} unidades</small></span>
+                <span>{path.archivedAt ? "Archivada" : path.status === "draft" && path.versionNumber > 1 ? "Borrador de ruta publicada" : statusLabels[path.status]}</span>
+              </Link>
+            </li>
+          ))}
           {paths.map((path) => {
             const actions: RouteActionTarget["action"][] = path.archivedAt
               ? canArchive ? ["restore", "delete"] : ["delete"]

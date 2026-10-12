@@ -2,6 +2,7 @@ import "server-only";
 import {
   V2HttpContracts,
   V2CatalogResponseSchema,
+  V2EditorWorkspaceResponseSchema,
   V2HomeSnapshotSchema,
   LearningAttemptSchema,
   LearningEditorPathListResponseSchema,
@@ -188,6 +189,10 @@ export async function getLearningEditorWorkspace(): Promise<LearningEditorWorksp
   return parsed.success
     ? { items: parsed.data.items, status: "ready" }
     : { status: "unavailable" };
+}
+
+export function getLearningV2EditorWorkspace() {
+  return readGuidedV2("/v2/editor/learning-paths", V2EditorWorkspaceResponseSchema);
 }
 
 export async function getLearningEditorPath(pathId: string): Promise<LearningPathResult> {
