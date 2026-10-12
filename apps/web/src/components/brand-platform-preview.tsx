@@ -9,7 +9,7 @@ export function BrandPlatformPreview({ className = "" }: BrandPlatformPreviewPro
     <div className={`brand-platform-preview ${className}`.trim()} aria-hidden="true">
       <div className="brand-preview-window">
         <div className="brand-preview-sidebar">
-          <Image src="/brand/koras-mark-dark.png" alt="" width={1254} height={1254} />
+          <Image src="/brand/koras-mark-dark.png" alt="" width={1254} height={1254} sizes="40px" />
           <span className="is-active"><i /> Inicio</span>
           <span><i /> Materias</span>
           <span><i /> Rutas</span>
@@ -56,7 +56,7 @@ export function BrandPlatformPreview({ className = "" }: BrandPlatformPreviewPro
 
       <div className="brand-preview-phone">
         <span className="brand-preview-phone-speaker" />
-        <Image src="/brand/koras-mark-light.png" alt="" width={1254} height={1254} />
+        <Image src="/brand/koras-mark-light.png" alt="" width={1254} height={1254} sizes="40px" />
         <small>Próxima actividad</small>
         <strong>Intercambio alveolar</strong>
         <span className="brand-preview-phone-progress"><i /></span>
