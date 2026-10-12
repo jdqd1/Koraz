@@ -6,6 +6,8 @@ import { playerFixture } from "./player-fixture";
 import { fixtureId } from "./fixtures";
 import { createV2PlayerClient, type PlayerAction, type PlayerTransportStore } from "./client";
 
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
+
 function transportStore(): PlayerTransportStore {
   const values = new Map<string, string>();
   return { getItem: key => values.get(key) ?? null, setItem: (key, value) => { values.set(key, value); }, removeItem: key => { values.delete(key); } };

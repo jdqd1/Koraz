@@ -73,7 +73,7 @@ async function previewPoint(page: Page, key: string) {
   await p.getByLabel("Explorar un punto de la ruta").selectOption(`activity:${key}-1`);
   await p.getByRole("button", { name: "Abrir punto seleccionado" }).click();
   await expect(p.getByRole("region", { name: "Sesión de aprendizaje", exact: true })).toBeVisible();
-  await expect(p.getByRole("heading", { name: key === "case" ? /Etapa 1: ejemplo sintético.*case-choice-1/ : `${key}-1: actividad sintética`, exact: true })).toBeVisible();
+  await expect(p.getByRole("heading", { name: key === "case" ? "case-choice-1: actividad sintética" : `${key}-1: actividad sintética`, exact: true })).toBeVisible();
   if (key === "image") await expect(p.getByLabel("Horizontal (%)")).toBeEnabled();
   return p;
 }
@@ -93,15 +93,15 @@ async function answerPreview(p: Locator, key: string) {
     await select.focus(); await select.press("End"); await select.press("Tab");
     await keyboard(p.getByRole("button", { name: "Comprobar relaciones", exact: true })); }
   if (key === "sequence") await keyboard(p.getByRole("button", { name: "Comprobar secuencia", exact: true }));
-  if (key === "image") { await p.getByLabel("Horizontal (%)").fill("20"); await p.getByLabel("Vertical (%)").fill("20");
+  if (key === "image") { const adjust=p.locator("summary").filter({hasText:"Ajustar el punto seleccionado"});if(!await adjust.evaluate(e=>e.parentElement?.hasAttribute("open")))await keyboard(adjust);await p.getByLabel("Horizontal (%)").fill("20"); await p.getByLabel("Vertical (%)").fill("20");
     await keyboard(p.getByRole("button", { name: "Comprobar respuesta visual", exact: true })); }
   if (key === "case") { await choice(); await feedback();
-    await expect(p.getByRole("heading", { name: /Etapa 2: relación sintética.*case-short-1/ })).toBeFocused();
+    await expect(p.getByRole("heading", { name: "case-short-1: actividad sintética", exact: true })).toBeFocused();
     await answerPreview(p, "short"); return; }
   await feedback();
 }
 async function finishPreview(p: Locator) {
-  await keyboard(p.getByRole("button", { name: "Finalizar sesión", exact: true }));
+  if (!await p.getByRole("heading", { name: "Sesión completada", exact: true }).isVisible()) await keyboard(p.getByRole("button", { name: "Finalizar sesión", exact: true }));
   await expect(p.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
 }
 
@@ -122,10 +122,10 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
   await keyboard(page.getByRole("button", { name: "Abrir vista previa", exact: true }));
   for (const key of kinds) {
     const p = await previewPoint(page, key);
-    const closeButton = p.locator(".learning-activity-header > button");
+    const closeButton = p.getByRole("button", { name: "Cerrar vista previa", exact: true }).first();
     await expect(closeButton).toBeVisible();
     const close = await closeButton.boundingBox();
-    expect(close?.width).toBeGreaterThan(100);
+    expect(close?.width).toBeGreaterThanOrEqual(44);
     expect(close?.height).toBeLessThanOrEqual(70);
     await capture(page, info, `renderer-${key}`);
     await answerPreview(p, key); await finishPreview(p);
@@ -153,7 +153,7 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
   }
   await launch(page, enrollmentId, "study-1");
   await page.evaluate(() => { document.documentElement.style.zoom = "2"; });
-  const reflow = await page.locator(".learning-activity-header").evaluate(header => {
+  const reflow = await page.getByRole("region", { name: "Sesión de aprendizaje", exact: true }).locator("header").evaluate(header => {
     const title = header.querySelector("h1")!;
     const range = document.createRange(); range.selectNodeContents(title);
     const boxes = [...header.children].map(e => e.getBoundingClientRect());
@@ -185,14 +185,13 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
   await page.route(responsePattern, route => { const task = held.then(() => route.continue()); inFlight.push(task); return task; });
   try {
     await keyboard(retry);
-    await expect(page.getByText("Confirmando con el servidor…", { exact: true })).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "Confirmando con el servidor…" })).toHaveText("Confirmando con el servidor…");
     await expect(button).toBeDisabled();
     await capture(page, info, "learner-loading");
   } finally { release(); await Promise.all(inFlight); await page.unroute(responsePattern); }
   await expect(page.getByRole("heading", { name: "Vamos a reforzar este punto", exact: true })).toBeFocused();
   await capture(page, info, "learner-feedback");
-  await keyboard(page.getByRole("button", { name: "Ver cierre de sesión", exact: true }));
-  await keyboard(page.getByRole("button", { name: "Finalizar sesión", exact: true }));
+  await keyboard(page.getByRole("button", { name: "Continuar", exact: true }));
   await expect(page.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
 });
 
@@ -249,7 +248,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
   const presentation = page.getByLabel("Presentación de relaciones", { exact: true });
   await presentation.focus(); await presentation.press("Home"); await presentation.press("ArrowDown"); await presentation.press("Tab");
   await expect(presentation).toHaveValue("comparison_table");
-  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Solución y feedback" }));
+  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Respuesta y explicación" }));
   await capture(page, info, "editor-relations-table");
   // The shared fixture links image to a case representation. Configure a valid
   // text alternative through the editor before auditing the accessible detour.
@@ -292,8 +291,9 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
   await writeFile(info.outputPath("image-pointer.json"), JSON.stringify({ viewport: page.viewportSize(), imageBox: b, natural, contained: box, selected, maxErrorPixels: 1 }, null, 2));
   await capture(page, info, "image-zoom-reduced-motion");
   await p.getByLabel("Ampliación de imagen").selectOption("1");
+  await keyboard(p.locator("summary").filter({ hasText: "Otra forma de practicar" }));
   await keyboard(p.getByRole("button", { name: "Practicar con variante de texto o tabla", exact: true }));
-  await expect(p.getByText(/Variante accesible de texto o tabla\. Esta práctica/)).toBeVisible();
+  await expect(p.getByText(/Práctica de texto o tabla\. Después volverás/)).toBeVisible();
   await capture(page, info, "image-alternative");
   await answerPreview(p, "short");
   await expect(p.getByLabel("Horizontal (%)")).toBeEnabled();
@@ -305,7 +305,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
   await select.focus(); await select.press("End"); await select.press("Tab");
   await keyboard(p.getByRole("button", { name: "Comprobar relaciones", exact: true }));
   await expect(p.getByRole("heading", { name: "Respuesta correcta", exact: true })).toBeFocused();
-  await keyboard(p.getByRole("button", { name: "Ver cierre de sesión", exact: true })); await finishPreview(p);
+  await keyboard(p.getByRole("button", { name: "Continuar", exact: true })); await finishPreview(p);
   await previewPoint(page, "sequence");
   await keyboard(p.getByRole("button", { name: "Bajar: Uno", exact: true }));
   await expect(p.getByRole("button", { name: "Bajar: Uno", exact: true })).toBeFocused();

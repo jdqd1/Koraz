@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import type { V2PublicActivity } from "@cediah/contracts";
 import styles from "./visual.module.css";
+import ui from "../../activities/activity-ui.module.css";
 
 type Activity = Extract<V2PublicActivity, { kind: "match" }>;
 export function completePairs(activity: Activity, pairs: Record<string, string>) {
@@ -12,7 +13,7 @@ export function completePairs(activity: Activity, pairs: Record<string, string>)
 }
 
 /** Selections supply the same relations for keyboard, pointer and touch users. */
-export function MatchRenderer({ activity, disabled, onSubmit }: { activity: Activity; disabled: boolean; onSubmit: (pairs: Record<string, string>) => void }) {
+export function MatchRenderer({ activity, disabled, tools, onSubmit }: { activity: Activity; disabled: boolean; tools?: ReactNode; onSubmit: (pairs: Record<string, string>) => void }) {
   const [pairs, setPairs] = useState<Record<string, string>>({});
   const id = useId();
   const presentation = activity.payload.presentation;
@@ -25,11 +26,11 @@ export function MatchRenderer({ activity, disabled, onSubmit }: { activity: Acti
     return <label className={styles.relation} htmlFor={`${id}-${index}`}><span>{prompt.text}</span><span aria-hidden="true">→</span><select id={`${id}-${index}`} value={pairs[prompt.key] ?? ""} onChange={event => select(prompt.key, event.target.value)}><option value="">Elige una relación</option>{activity.payload.choices.map(choice => <option key={choice.key} value={choice.key}>{choice.text}</option>)}</select></label>;
   }
   return <form className={styles.form} onSubmit={event => { event.preventDefault(); if (!disabled && completePairs(activity, pairs)) onSubmit({ ...pairs }); }}>
-    <fieldset disabled={disabled}><legend>{presentation === "comparison_table" ? "Completa la tabla de comparación" : presentation === "causal_map" ? "Completa las relaciones del mapa" : "Relaciona cada elemento"}</legend>
-      <p>{activity.payload.allowReuse ? "Una opción puede relacionarse con varios elementos." : "Usa cada opción una vez."} Puedes completar todo con los selectores y el teclado.</p>
+    <fieldset disabled={disabled}><legend className="sr-only">{presentation === "comparison_table" ? "Completa la tabla de comparación" : presentation === "causal_map" ? "Completa las relaciones del mapa" : "Relaciona cada elemento"}</legend>
+      <p className={styles.instruction}>{activity.payload.allowReuse ? "Puedes repetir una opción." : "Usa cada opción una vez."}</p>
       {presentation === "comparison_table" ? <div className={styles.tableRegion} role="region" aria-label="Tabla de relaciones" tabIndex={0}><table><thead><tr><th scope="col">Elemento</th><th scope="col">Relación</th></tr></thead><tbody>{activity.payload.prompts.map((prompt, index) => <tr key={prompt.key}><th scope="row"><label htmlFor={`${id}-${index}`}>{prompt.text}</label></th><td><select id={`${id}-${index}`} value={pairs[prompt.key] ?? ""} onChange={event => select(prompt.key, event.target.value)}><option value="">Elige una relación</option>{activity.payload.choices.map(choice => <option key={choice.key} value={choice.key}>{choice.text}</option>)}</select></td></tr>)}</tbody></table></div>
         : <div className={presentation === "causal_map" ? styles.map : styles.pairs}>{activity.payload.prompts.map((prompt, index) => <div key={prompt.key}>{row(prompt, index)}</div>)}</div>}
     </fieldset><p role="status">{activity.payload.prompts.filter(prompt => pairs[prompt.key]).length} de {activity.payload.prompts.length} relaciones seleccionadas{duplicate ? ". Hay opciones repetidas; cambia una de esas relaciones antes de comprobar." : ""}</p>
-    <button type="submit" className="learning-primary-button" disabled={disabled || !completePairs(activity, pairs)}>Comprobar relaciones</button>
+    {tools}<div className={ui.action}><button type="submit" className="learning-primary-button" disabled={disabled || !completePairs(activity, pairs)}>Comprobar relaciones</button></div>
   </form>;
 }

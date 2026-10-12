@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
 import { RichTextDocumentSchema, type LearningAttempt } from "@cediah/contracts";
 import { RichTextRenderer } from "@/components/rich-text-renderer";
 import type { ActivityMutation } from "./types";
+import ui from "./activity-ui.module.css";
 
 export function GuideActivity({ attempt, mutate }: {
   attempt: LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "guide" }> };
@@ -39,7 +40,6 @@ export function GuideActivity({ attempt, mutate }: {
 
   return (
     <section className="learning-guide-activity">
-      <div className="learning-activity-counter">Lectura · posición guardada por sección</div>
       {section ? <article><span>Sección {sectionIndex + 1} de {attempt.manifest.sections.length}</span><h2>{section.heading}</h2><p>{section.body}</p></article>
         : document.success ? <article><RichTextRenderer document={document.data} /></article>
           : <article role="alert"><h2>Material no disponible</h2><p>Esta revisión no contiene una guía legible. No se registrará como completada; vuelve a la ruta y elige otra actividad.</p></article>}
@@ -47,7 +47,7 @@ export function GuideActivity({ attempt, mutate }: {
         <button disabled={busy || sectionIndex === 0} onClick={() => void savePosition(sectionIndex - 1)} type="button"><ArrowLeft size={18} />Anterior</button>
         <button disabled={busy || sectionIndex === attempt.manifest.sections.length - 1} onClick={() => void savePosition(sectionIndex + 1)} type="button">Siguiente<ArrowRight size={18} /></button>
       </nav> : null}
-      <button className="learning-primary-button" disabled={busy || !hasMaterial} onClick={() => void complete()} type="button"><Check size={18} />{busy ? "Guardando…" : "Terminé esta lectura"}</button>
+      <div className={ui.action}><button className="learning-primary-button" disabled={busy || !hasMaterial} onClick={() => void complete()} type="button"><Check size={18} />{busy ? "Guardando…" : "Terminé esta lectura"}</button></div>
     </section>
   );
 }
