@@ -17,6 +17,7 @@ import { ReviewWorkflowV2 } from "./review-workflow";
 import { ImportWizardV2 } from "./import-wizard";
 import { activitySaveIssuesV2 } from "./activity-model";
 import { sourceBindingIssuesV2 } from "./sources";
+import { ArrowLeft, ArrowRight, UploadSimple } from "@phosphor-icons/react";
 import { focusFieldIssueV2, normalizeFieldPathV2 } from "./sources-fields";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
@@ -55,8 +56,35 @@ export function EditorShellV2(props: {
   const surfaceRef = useRef<HTMLElement>(null);
   const importTrigger = useRef<HTMLButtonElement>(null);
   const pendingFocus = useRef<string | null>(null);
-  useLayoutEffect(() => { if (pendingFocus.current) { focusFieldIssueV2(surfaceRef.current, pendingFocus.current); pendingFocus.current = null; } });
+  const pendingStepFocus = useRef(false);
+  useLayoutEffect(() => {
+    if (pendingFocus.current) {
+      const path = pendingFocus.current;
+      pendingFocus.current = null;
+      requestAnimationFrame(() => focusFieldIssueV2(surfaceRef.current, path));
+    }
+    else if (pendingStepFocus.current) {
+      pendingStepFocus.current = false;
+      // Radix mounts the panel through Presence. Focus after that commit is complete.
+      requestAnimationFrame(() => {
+        const panel = surfaceRef.current?.querySelector<HTMLElement>('[role="tabpanel"][data-state="active"]');
+        panel?.focus(); panel?.scrollIntoView({ block: "start" });
+      });
+    }
+  });
   const pkg = state.draft.package;
+  const stepIndex = editorV2Sections.findIndex((section) => section.key === state.section);
+  const stepLabels = ["Datos y fuentes", "Objetivos", "Actividades", "Evaluación", "Revisión"];
+  const mobileStepLabels = ["Datos", "Objetivos", "Práctica", "Evaluar", "Revisar"];
+  const stepDescriptions = ["", `${pkg.objectives.length} objetivos · ${pkg.units.length} unidades`, `${pkg.activities.length} actividades`, `${pkg.assessments.length} evaluaciones`, "Comprobar y publicar"];
+  const saveHint = state.notice && state.notice !== "Cambios sin guardar. La revisión anterior ya no acredita esta copia."
+    ? state.notice : `Paso ${stepIndex + 1} de 5 · ${state.confirmed ? `Revisión ${state.confirmed.editVersion}` : "Guarda al completar los campos"}`;
+  function goToStep(index: number) {
+    const section = editorV2Sections[index];
+    if (!section) return;
+    pendingStepFocus.current = true;
+    controller.dispatch({ type: "section", section: section.key });
+  }
   const serialized = serializeEditorV2(state);
   const graphIssues = analyzeRouteGraph(pkg).issues;
   const bindingIssues = sourceBindingIssuesV2(state.draft);
@@ -74,17 +102,17 @@ export function EditorShellV2(props: {
   }
   async function save() { setShowErrors(true); const blocking = [...graphIssues, ...bindingIssues, ...activityIssues]; if (blocking.length) { locate(blocking[0]!.path); return; } await controller.save(); }
   function download() { editor.downloadDraft(); setCopyDownloaded(true); }
-  return <main ref={surfaceRef} className={`${styles.editor} ${local.editor}`} data-editor-surface data-engine-version="guided-v2">
-    <header className={styles.header}>
-      <div><Link className={styles.backLink} href="/panel/rutas">Volver a rutas</Link><h1>{state.confirmed ? pkg.route.title : "Nueva ruta"}</h1><p>Organiza objetivos, práctica y repaso con las fuentes de la ruta.</p></div>
-      <div className={styles.status}><strong>{state.confirmed ? editorStatusLabels[state.confirmed.status] : "Nueva ruta"}</strong><span>{state.confirmed ? `Revisión ${state.confirmed.editVersion}` : "Sin guardar"} · {state.dirty ? "Cambios sin guardar" : "Sin cambios pendientes"}</span></div>
+  return <section aria-label="Editor de ruta" ref={surfaceRef} className={`${styles.editor} ${local.editor}`} data-editor-surface data-engine-version="guided-v2">
+    <header className={local.header}>
+      <div><Link className={styles.backLink} href="/panel/rutas"><ArrowLeft size={16} aria-hidden /> Rutas de aprendizaje</Link><h1>{state.confirmed ? pkg.route.title : "Nueva ruta"}</h1></div>
+      <div className={local.headerTools}>{state.confirmed ? <span className={local.statusBadge}>{editorStatusLabels[state.confirmed.status]}</span> : null}<button ref={importTrigger} aria-label="Importar archivo de ruta" className={styles.secondaryButton} disabled={busy || Boolean(editor.recoveryCandidate)} type="button" onClick={() => setShowImport(true)}><UploadSimple size={18} aria-hidden /><span className={local.desktopLabel}>Importar archivo de ruta</span><span className={local.mobileLabel}>Importar</span></button></div>
     </header>
-    <div className={styles.inlineActions}><button ref={importTrigger} className={styles.secondaryButton} disabled={busy || Boolean(editor.recoveryCandidate)} type="button" onClick={() => setShowImport(true)}>Importar archivo de ruta</button></div>
     {showImport ? <ImportWizardV2 api={controller.api} state={state} onClose={() => { setShowImport(false); importTrigger.current?.focus(); }} /> : null}
-    <Tabs.Root activationMode="manual" className={styles.tabs} value={state.section} onValueChange={(section) => controller.dispatch({ type: "section", section: section as EditorV2Section })}>
-      <Tabs.List aria-label="Secciones del editor de rutas" className={`${styles.tabList} ${local.tabList}`}>
-        {editorV2Sections.map((section) => <Tabs.Trigger className={styles.tab} key={section.key} value={section.key}>{section.label}</Tabs.Trigger>)}
+    <Tabs.Root activationMode="manual" className={local.workspace} value={state.section} onValueChange={(section) => controller.dispatch({ type: "section", section: section as EditorV2Section })}>
+      <Tabs.List aria-label="Secciones del editor de rutas" className={local.stepList}>
+        {editorV2Sections.map((section, index) => <Tabs.Trigger className={local.step} aria-label={section.label} key={section.key} value={section.key}><span className={local.stepNumber} aria-hidden>{index + 1}</span><span><strong><span className={local.desktopLabel}>{stepLabels[index]}</span><span className={local.mobileLabel}>{mobileStepLabels[index]}</span></strong>{stepDescriptions[index] ? <small>{stepDescriptions[index]}</small> : null}</span></Tabs.Trigger>)}
       </Tabs.List>
+      <div className={local.stepContent}>
       <Tabs.Content className={styles.panel} value="sources">
         <RouteBasicsV2 draft={state.draft} disabled={disabled} onChange={editDraft} issues={errors} preserveSlug={Boolean(state.confirmed)} />
       </Tabs.Content>
@@ -92,13 +120,14 @@ export function EditorShellV2(props: {
       <Tabs.Content className={styles.panel} value="journey"><ActivityEditorV2 draft={state.draft} disabled={disabled} onChange={editDraft} issues={errors} /></Tabs.Content>
       <Tabs.Content className={styles.panel} value="assessment"><AssessmentEditorV2 draft={state.draft} disabled={disabled} onChange={editDraft} issues={errors} /></Tabs.Content>
       <Tabs.Content className={styles.panel} value="review">{showImport || editor.recoveryCandidate ? <p>Cierra la importación o resuelve la copia local para continuar la revisión.</p> : <ReviewWorkflowV2 state={state} controller={controller} canReview={props.canReview} canPublish={props.canPublish} onLocate={locate} />}</Tabs.Content>
+      </div>
     </Tabs.Root>
     {errors.length ? <section className={styles.recoveryBanner} aria-live="polite"><div><strong>Revisa estos campos</strong><ul>{errors.map((issue, index) => <li key={`${issue.path}:${index}`}>{fieldIssueLabel(normalizeFieldPathV2(issue.path), state.draft)} <button className={styles.textButton} type="button" onClick={() => locate(issue.path)}>Ir al campo</button></li>)}</ul></div></section> : null}
     {editor.recoveryCandidate ? <section aria-live="polite" className={styles.recoveryBanner}><div><strong>{editor.recoveryConflict ? "Hay una copia local de otra revisión" : "Hay cambios de esta pestaña sin guardar"}</strong><p>{editor.recoveryConflict ? "Descarga la copia para conservarla; no se aplicará sobre la nueva revisión." : "Puedes recuperar esta copia o descartarla."}</p></div><div className={styles.inlineActions}>{editor.recoveryConflict ? <button className={styles.secondaryButton} onClick={() => editor.downloadDraft(editor.recoveryCandidate!)} type="button">Descargar copia local</button> : <button className={styles.primaryAction} disabled={busy} onClick={editor.recover} type="button">Recuperar</button>}<button className={styles.textButton} disabled={busy} onClick={editor.discardRecovery} type="button">Descartar</button></div></section> : null}
     {state.conflict ? <section aria-live="polite" className={styles.conflictBanner}><div><strong>La ruta cambió en otra sesión</strong><p>Conserva tus cambios antes de abrir la versión guardada.</p></div><div className={styles.inlineActions}><button className={styles.secondaryButton} onClick={download} type="button">Descargar mis cambios</button><button className={styles.textButton} disabled={busy || !copyDownloaded} onClick={() => void controller.openSavedVersion()} type="button">Abrir versión guardada</button></div></section> : null}
     {!editor.recoveryAvailable ? <p role="status" className={styles.recoveryWarning}>La recuperación local no está disponible; descarga una copia antes de salir.</p> : null}
     {state.confirmedAt ? <p className={styles.metadataNote}>Confirmado en esta sesión: {new Date(state.confirmedAt).toLocaleString("es", { timeZone: "America/Caracas" })} · Revisión {state.confirmed?.editVersion}</p> : null}
-    <div className={`${styles.saveBar} ${local.saveBar}`}><div aria-live="polite"><strong>{busy ? state.operation === "loading" ? "Cargando versión…" : "Guardando borrador…" : state.dirty ? "Cambios sin guardar" : "Borrador al día"}</strong><span>{state.notice || "La versión mostrada procede del servidor."}</span></div><button className={styles.primaryAction} disabled={busy || showImport || !controller.canSave() || Boolean(editor.recoveryCandidate) || Boolean(state.confirmed && !state.dirty)} onClick={() => void save()} type="button">{state.operation === "saving" ? "Guardando…" : "Guardar borrador"}</button></div>
+    <div className={`${styles.saveBar} ${local.saveBar}`}><div aria-live="polite"><strong>{busy ? state.operation === "loading" ? "Cargando versión…" : "Guardando borrador…" : state.dirty ? "Cambios sin guardar" : "Borrador al día"}</strong><span data-context-hint={!state.notice || state.notice === "Cambios sin guardar. La revisión anterior ya no acredita esta copia." || state.notice === "Borrador confirmado por el servidor."}>{saveHint}</span></div><div className={local.footerActions}>{stepIndex > 0 ? <button className={styles.textButton} type="button" onClick={() => goToStep(stepIndex - 1)}><ArrowLeft size={16} aria-hidden /> Atrás</button> : null}<button className={stepIndex === 4 ? styles.primaryAction : styles.secondaryButton} disabled={busy || showImport || !controller.canSave() || Boolean(editor.recoveryCandidate) || Boolean(state.confirmed && !state.dirty)} onClick={() => void save()} type="button">{state.operation === "saving" ? "Guardando…" : "Guardar borrador"}</button>{stepIndex < 4 ? <button className={styles.primaryAction} type="button" onClick={() => goToStep(stepIndex + 1)}>Continuar <ArrowRight size={18} aria-hidden /></button> : null}</div></div>
     <AlertDialog.Root open={Boolean(editor.pendingNavigation)} onOpenChange={(open) => { if (!open) editor.setPendingNavigation(null); }}><AlertDialog.Portal><AlertDialog.Overlay className={`${styles.dialogOverlay} ${local.dialogOverlay}`} /><AlertDialog.Content className={`${styles.dialog} ${local.dialog}`} data-editor-surface onCloseAutoFocus={(event) => { event.preventDefault(); editor.restoreNavigationFocus(); }}><AlertDialog.Title className={styles.dialogTitle}>¿Salir con cambios sin guardar?</AlertDialog.Title><AlertDialog.Description className={styles.dialogDescription}>Puedes guardar, conservar la copia local o seguir editando.</AlertDialog.Description><div className={styles.dialogActions}><AlertDialog.Cancel asChild><button className={styles.secondaryButton} type="button">Seguir editando</button></AlertDialog.Cancel><button className={styles.textButton} disabled={busy} onClick={editor.leave} type="button">Salir sin guardar</button><button className={styles.primaryAction} disabled={busy || state.conflict} onClick={() => void editor.saveAndLeave()} type="button">Guardar y salir</button></div></AlertDialog.Content></AlertDialog.Portal></AlertDialog.Root>
-  </main>;
+  </section>;
 }

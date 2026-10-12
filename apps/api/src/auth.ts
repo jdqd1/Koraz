@@ -100,7 +100,7 @@ export function createBetterAuthService(
       autoSignIn: true,
       enabled: true,
       maxPasswordLength: 128,
-      minPasswordLength: 12,
+      minPasswordLength: 8,
       requireEmailVerification: configuration.requireEmailVerification,
       revokeSessionsOnPasswordReset: true,
       sendResetPassword: sendAuthEmail

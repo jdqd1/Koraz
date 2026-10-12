@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const AUTH_EMAIL_MAX_LENGTH = 254;
-export const AUTH_PASSWORD_MIN_LENGTH = 12;
+export const AUTH_PASSWORD_MIN_LENGTH = 8;
 export const AUTH_PASSWORD_MAX_LENGTH = 128;
 
 export type AuthFormMode =
@@ -41,9 +41,6 @@ export const NewPasswordSchema = z
   })
   .refine((value) => /[0-9]/.test(value), {
     message: "Incluye al menos un número.",
-  })
-  .refine((value) => /[^A-Za-z0-9\s]/.test(value), {
-    message: "Incluye al menos un símbolo.",
   });
 
 const RecoverSchema = z.object({ email: EmailSchema });
@@ -152,10 +149,6 @@ export const passwordRequirementChecks = [
     test: (value: string) => /[A-Z]/.test(value) && /[a-z]/.test(value),
   },
   { label: "Un número", test: (value: string) => /[0-9]/.test(value) },
-  {
-    label: "Un símbolo",
-    test: (value: string) => /[^A-Za-z0-9\s]/.test(value),
-  },
 ] as const;
 
 const INVALID_REDIRECT_CHARACTERS = /[\\\u0000-\u001f\u007f]/;

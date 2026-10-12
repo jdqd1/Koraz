@@ -65,8 +65,8 @@ describe("T024 objective forms and shared DAG rules", () => {
   it("renders named accessible controls, immutable CORE requirement and no UUID tasks", () => {
     const draft = draftFromRouteV2(editorV2FixtureRoute());
     const html = renderToStaticMarkup(<ObjectivesV2 draft={draft} disabled={false} onChange={() => {}} />);
-    for (const label of ["Capacidad observable", "Criticidad", "Verbo", "Unidad", "Fuentes del objetivo", "Añadir prerrequisito", "Añadir enlace"]) expect(html).toContain(label);
-    expect(html).toContain("CORE siempre es requerido"); expect(html).toContain("checked");
+    for (const label of ["Capacidad observable", "Prioridad", "Verbo", "Unidad", "Fuentes del objetivo", "Añadir prerrequisito", "Añadir enlace"]) expect(html).toContain(label);
+    expect(html).toContain("objetivo esencial"); expect(html).toContain("checked");
     expect(html).not.toContain(fixtureV2Id(1)); expect(html).not.toContain('type="hidden"');
     expect(RoutePackageSchema.safeParse({ ...draft.package, objectives: [{ ...draft.package.objectives[0]!, required: false }] }).success).toBe(false);
   });

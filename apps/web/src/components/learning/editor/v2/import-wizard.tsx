@@ -11,6 +11,8 @@ import { reviewFailureNoticeV2 } from "./review-workflow";
 import { editorStatusLabels } from "../editor-workflow";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
+import { ImportDropzoneV2 } from "./import-dropzone";
+import { X } from "@phosphor-icons/react";
 
 export const importLimitV2 = 10 * 1024 * 1024;
 export function importIssueFieldV2(path: string) {
@@ -39,6 +41,7 @@ export function ImportWizardV2({ api: providedApi, state, onClose }: { api?: Edi
   const [targetCurrent, setTarget] = useState(false);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
+  const [fileName, setFileName] = useState("");
   const [failureIssues, setFailureIssues] = useState<Report["issues"]>([]);
   const [imported, setImported] = useState<string | null>(null);
   const [importedAsDraft, setImportedAsDraft] = useState(true);
@@ -72,7 +75,7 @@ export function ImportWizardV2({ api: providedApi, state, onClose }: { api?: Edi
   async function read(file?: File) {
     if (!file || busy || imported || acceptedCommit) return;
     const sequence = ++fileSequence.current; setBusy(true); setNotice(""); setReport(null); setFailureIssues([]);
-    try { if (file.size > importLimitV2) throw new Error("El archivo supera 10 MiB."); const next = parseImportFileV2(await file.text()); if (sequence === fileSequence.current) { setDraft(next); setReport(null); setTarget(false); request.current = null; focus.current = "bindings.topicContentId"; } }
+    try { if (file.size > importLimitV2) throw new Error("El archivo supera 10 MiB."); const next = parseImportFileV2(await file.text()); if (sequence === fileSequence.current) { setDraft(next); setFileName(file.name); setReport(null); setTarget(false); request.current = null; focus.current = "bindings.topicContentId"; } }
     catch (error) { if (sequence === fileSequence.current) setNotice(error instanceof SyntaxError ? "El archivo no contiene JSON válido." : error instanceof Error ? error.message : "No se pudo leer el archivo."); }
     finally { if (sequence === fileSequence.current) setBusy(false); }
   }
@@ -106,9 +109,10 @@ export function ImportWizardV2({ api: providedApi, state, onClose }: { api?: Edi
     finally { setBusy(false); }
   }
   return <section ref={surface} className={`${local.stack} ${local.importWizard}`} aria-label="Importar ruta">
-    <section className={styles.card}><div className={styles.sectionHeading}><div><h2>Importar ruta</h2><p>Archivo → vínculos → comprobación → diferencias → importar borrador.</p></div>{onClose ? <button className={styles.textButton} disabled={busy} type="button" onClick={onClose}>Cerrar importación</button> : null}</div>
-      {state?.dirty ? <p>Los cambios del editor se conservan. Puedes importar una ruta nueva; guarda primero si quieres reemplazar este borrador.</p> : null}
-      <FieldV2 label="Archivo de ruta (JSON, hasta 10 MiB)" path="import.file">{(input) => <input {...input} type="file" accept=".json,application/json" disabled={busy || Boolean(imported) || Boolean(acceptedCommit)} onChange={(event) => void read(event.target.files?.[0])} />}</FieldV2>
+    <section className={styles.card}><div className={`${styles.sectionHeading} ${local.importHeading}`}><h2>Importar ruta</h2>{onClose ? <button className={local.closeImport} aria-label="Cerrar importación" title="Cerrar importación" disabled={busy} type="button" onClick={onClose}><X size={20} aria-hidden /></button> : null}</div>
+      <FieldV2 label="Archivo de ruta" path="import.file">{(input) => <ImportDropzoneV2 input={input}
+        disabled={busy || Boolean(imported) || Boolean(acceptedCommit)} fileName={fileName}
+        onFile={(file) => void read(file)} onReject={setNotice} />}</FieldV2>
       {notice ? <p role="status">{notice}</p> : null}{busy ? <p role="status">Comprobando con el servidor…</p> : null}
       {failureIssues.length ? <ul className={local.issueList}>{failureIssues.map((issue, index) => <li key={index}>{issue.message}<p>{issue.suggestedFix}</p><button type="button" onClick={() => { focus.current = importIssueFieldV2(issue.path); setNotice(`${issue.suggestedFix} · ${index + 1}`); }}>Ir al campo</button></li>)}</ul> : null}
       {imported ? <a className={styles.primaryAction} href={`/panel/rutas/${encodeURIComponent(imported)}`}>{importedAsDraft ? "Abrir borrador importado" : "Abrir ruta existente"}</a> : null}

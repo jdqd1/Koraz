@@ -47,12 +47,12 @@ describe("auth validation", () => {
     );
   });
 
-  it("accepts a strong registration password", () => {
+  it("accepts an eight-character registration password without a symbol", () => {
     expect(
       validateAuthInput("sign-up", {
-        confirmPassword: "Secure2!Password",
+        confirmPassword: "Secure12",
         email: "student@example.com",
-        password: "Secure2!Password",
+        password: "Secure12",
       }).success,
     ).toBe(true);
   });
