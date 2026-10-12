@@ -86,6 +86,28 @@ function facts(snapshot: GuidedV2SelectionSnapshot, now: number) {
     });
 }
 
+/** Rotate the objective's practice bank without exposing reserved assessments. */
+export function selectGuidedV2ReviewActivity(
+  definition: RoutePackage, objectiveKey: string,
+  events: readonly GuidedV2EvidenceEvent[], nowUtc: string,
+) {
+  const now = utc(nowUtc);
+  const { activitiesByObjective, activityByKey, children } = structure(definition);
+  const exposure = new Map<string, number>();
+  for (const event of events) {
+    if (utc(event.at) > now || event.kind === "response" && (!event.valid || event.purpose === "preview")) continue;
+    if (event.kind !== "response" && event.kind !== "reveal" && event.kind !== "interaction") continue;
+    const activity = activityByKey.get(event.activityKey);
+    if (!activity) continue;
+    exposure.set(activity.equivalenceKey, Math.max(exposure.get(activity.equivalenceKey) ?? -Infinity, utc(event.at)));
+  }
+  const lastExposure = (activity: RouteActivity) => exposure.get(activity.equivalenceKey) ?? -Infinity;
+  return (activitiesByObjective.get(objectiveKey) ?? [])
+    .filter((activity) => practice(activity) && independent(activity) && activity.phase === "retrieve"
+      && !children.has(activity.key) && now - lastExposure(activity) >= guidedV2PolicySnapshot.review.retryMinutes * 60000)
+    .sort((a, b) => lastExposure(a) < lastExposure(b) ? -1 : lastExposure(a) > lastExposure(b) ? 1 : 0)[0] ?? null;
+}
+
 /** A diagnostic samples roots and representative CORE only; missing coverage is explicit. */
 export function selectGuidedV2Diagnostic(definition: RoutePackage) {
   return copyDiagnostic(structure(definition).diagnosis);

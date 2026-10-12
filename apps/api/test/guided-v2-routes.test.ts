@@ -3,7 +3,7 @@ import { runInNewContext } from "node:vm";
 import ts from "typescript";
 import * as contracts from "@cediah/contracts";
 import Fastify from "fastify";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { Kysely, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler, type CompiledQuery, type DatabaseConnection, type QueryResult } from "kysely";
 import { RoutePackageSchema, V2HttpContracts, V2CatalogResponseSchema, V2HomeSnapshotSchema, type IdentityProvider } from "@cediah/contracts";
 import type { PGlite } from "@electric-sql/pglite";
@@ -255,6 +255,104 @@ describe("T021 actual learner HTTP and persisted services", () => {
     const completed = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: 13 }, undefined, "other");
     expect(completed.statusCode).toBe(200); expect(completed.json().state.completedActivities).toBe(12);
   }, 30000);
+});
+describe("review pacing through persisted learner HTTP", () => {
+  let pg: PGlite, database: Kysely<CediahDatabase>, app: ReturnType<typeof Fastify>;
+  let clock = at(), serial = 900000;
+  const flags: GuidedV2Flags = { enabled: true, newEnrollments: true };
+  const headers = { authorization: "Bearer learner" };
+  const get = () => app.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state`, headers });
+  const post = (path: string, payload: unknown, key = v2Id(serial++)) => app.inject({ method: "POST", url: `/v2/guided-learning/${path}`, payload,
+    headers: { ...headers, "idempotency-key": key } });
+  beforeAll(async () => {
+    pg = await createGuidedV2Database(); await seedGuidedV2Runtime(pg);
+    const route = fixture(), base = route.activities.find(item => item.key === "learn")!;
+    route.objectives.push({ ...route.objectives[0]!, key: "other", title: "Otra rama", criticality: "supporting", required: false });
+    route.units[0]!.objectiveKeys.push("other");
+    route.activities.push({ ...base, key: "other-study", equivalenceKey: "other-study", objectiveKey: "other" });
+    route.units[0]!.activityKeys.push("other-study");
+    const index = route.activities.findIndex(item => item.key === "a");
+    route.activities[index] = RoutePackageSchema.shape.activities.element.parse({ ...route.activities[index], kind: "short_answer",
+      prompt: "Sin pistas: ¿en qué nivel vertebral aproximado nace la AMI?",
+      payload: { acceptedAnswers: ["l3"], maxChars: 240, modelAnswer: "L3", normalization: "nfkc-lower-space" } });
+    await pg.query("update content_items set status='published',catalog_visibility='catalog',published_at=now(),published_by=$2 where id=$1", [v2Id(3), v2Id(1)]);
+    await pg.query("update learning_path_versions set definition_v2_json=$1 where id=$2", [JSON.stringify(RoutePackageSchema.parse(route)), v2Id(6)]);
+    await pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,topic_content_id) values($1,'topic','topic',$2)", [v2Id(6), v2Id(3)]);
+    await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [v2Id(6), v2Id(1)]);
+    await pg.query("update learning_paths set published_version_id=$1 where id=$2", [v2Id(6), v2Id(4)]);
+    database = databaseFor(pg); app = Fastify();
+    await registerGuidedV2Routes(app, { flags, identityProvider: identity, provider: createGuidedV2HttpProvider(database, { now: () => clock }) });
+  }, 120000);
+  beforeEach(async () => {
+    clock = at();
+    await pg.exec("delete from learning_events; delete from learning_mutation_receipts; delete from learning_v2_review_state; delete from learning_v2_objective_state; delete from learning_v2_activity_state; delete from learning_v2_responses; delete from learning_v2_attempts;");
+    await answer("learn", "activity");
+  });
+  afterAll(async () => { await app?.close(); await database?.destroy(); await pg?.close(); });
+  async function begin(key: string, kind: "activity" | "review") {
+    const current = (await get()).json().state;
+    const result = await post("attempts", { enrollmentId: v2Id(8), clientAttemptId: v2Id(serial++), target: { kind, key }, expectedEnrollmentVersion: current.rowVersion });
+    expect(result.statusCode, result.body).toBe(200); return result.json().attempt;
+  }
+  async function answer(key: string, kind: "activity" | "review", correct = true, assisted = false) {
+    const attempt = await begin(key, kind);
+    let expectedVersion = attempt.rowVersion as number;
+    if (assisted) {
+      const help = await post(`attempts/${attempt.attemptId}/help`, { activityKey: key, kind: "hint", expectedVersion });
+      expect(help.statusCode, help.body).toBe(200); expectedVersion = help.json().attempt.rowVersion;
+    }
+    const payload = { activityKey: key, answer: key === "learn" ? { kind: "study", acknowledged: true }
+      : key === "a" ? { kind: "short_answer", text: correct ? "L3" : "L1" }
+      : { kind: "single_choice", optionKey: correct ? "yes" : "no" }, confidence: null, expectedVersion };
+    const requestKey = v2Id(serial++), path = `attempts/${attempt.attemptId}/responses`;
+    const response = await post(path, payload, requestKey); expect(response.statusCode, response.body).toBe(200);
+    const completed = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: response.json().attempt.rowVersion });
+    expect(completed.statusCode, completed.body).toBe(200);
+    return { path, payload, requestKey, response };
+  }
+  it.each([false, true])("answers overdue reinforcement once, allows new work and survives reload/restart (assisted=%s)", async assisted => {
+    await answer("a", "activity", false);
+    clock = at(0, 600);
+    const pending = (await get()).json().state;
+    expect(pending.nextAction).toMatchObject({ kind: "review", key: "b" });
+    expect(pending.maintenance.reviewBatch).toHaveLength(1);
+    const review = await answer("b", "review", true, assisted);
+    const state = (await get()).json().state;
+    expect(state.dueReviews).toBe(0);
+    expect(state.nextAction).toMatchObject({ kind: "activity", key: "apply" });
+    expect(state.maintenance.reviewBatch).toEqual([]);
+    const stored = (await pg.query("select stage,lapses,last_extended_at,due_at from learning_v2_review_state where enrollment_id=$1", [v2Id(8)])).rows;
+    expect(stored).toEqual([{ stage: 0, lapses: 1, last_extended_at: null, due_at: at(1, 600) }]);
+    const replay = await post(review.path, review.payload, review.requestKey);
+    expect(replay.statusCode).toBe(200);
+    expect(replay.json()).toEqual({ ...review.response.json(), state });
+    const restarted = Fastify();
+    try {
+      await registerGuidedV2Routes(restarted, { flags, identityProvider: identity, provider: createGuidedV2HttpProvider(database, { now: () => clock }) });
+      const reload = await restarted.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state`, headers });
+      expect(reload.statusCode).toBe(200); expect(reload.json().state).toEqual(state);
+      expect((await pg.query("select stage,lapses,last_extended_at,due_at from learning_v2_review_state where enrollment_id=$1", [v2Id(8)])).rows).toEqual(stored);
+    } finally { await restarted.close(); }
+    const activity = await begin("apply", "activity");
+    expect(activity.activeActivity.key).toBe("apply");
+  });
+  it("rotates review questions and stops the retry chain after three failures in separate attempts", async () => {
+    await answer("a", "activity");
+    const keys: string[] = [];
+    for (let n = 0; n < 3; n++) {
+      clock = at(1, n * 600);
+      const state = (await get()).json().state;
+      expect(state.nextAction.kind).toBe("review"); keys.push(state.nextAction.key);
+      await answer(state.nextAction.key, "review", false);
+    }
+    expect(keys).toEqual(["b", "a", "b"]);
+    const state = (await get()).json().state;
+    expect(state.dueReviews).toBe(0);
+    expect(state.nextAction).toMatchObject({ kind: "activity", key: "other-study" });
+    expect((await pg.query("select stage,lapses,due_at from learning_v2_review_state where enrollment_id=$1", [v2Id(8)])).rows)
+      .toEqual([{ stage: 0, lapses: 3, due_at: at(2, 1200) }]);
+    expect((await begin("other-study", "activity")).activeActivity.key).toBe("other-study");
+  });
 });
 describe("T021 application registration and same-origin transport", () => {
   it("config defaults are closed and flags are enforced in buildApp", async () => {

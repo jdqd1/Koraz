@@ -59,6 +59,31 @@ const receipt = (n: number, days = 0, changes: Partial<ReviewResponseV2> = {}): 
 });
 
 describe("guided v2 pure scheduler", () => {
+  it.each([
+    {}, { assisted: true }, { score01: .5 },
+    { gradingSource: "self" as const, selfRating: "good" as const, score01: null },
+  ])("consumes overdue reinforcement without increasing stability (%j)", (changes) => {
+    const failed = receipt(1, 0, { score01: 0 });
+    const state = scheduleReviewV2(null, failed)!;
+    const reviewed = scheduleReviewV2(state, receipt(2, 0, {
+      purpose: "review", acceptedAt: at(0, 1 / 6), ...changes,
+    }), [failed])!;
+    expect(reviewed).toMatchObject({ stage: 0, lapses: 1, lastExtendedAt: null, dueAt: at(1, 1 / 6) });
+    expect(reviewDueV2(reviewed, new Date(at(0, 1 / 6))).kind).toBeNull();
+  });
+  it("caps failed review retries even when each review opens a new attempt", () => {
+    const history: ReviewResponseV2[] = [];
+    let state = null;
+    for (let n = 1; n <= 3; n++) {
+      const r = receipt(n, 0, { purpose: "review", sessionId: `review-${n}`,
+        score01: 0, acceptedAt: at(0, n / 6) });
+      state = scheduleReviewV2(state, r, history)!;
+      expect(state.dueAt).toBe(at(n === 3 ? 1 : 0, (n + (n === 3 ? 0 : 1)) / 6));
+      history.push(r);
+    }
+    expect(scheduleReviewV2(state, receipt(4, 2, { purpose: "review", sessionId: "later", score01: 0 }), history)?.dueAt)
+      .toBe(at(2, 1 / 6));
+  });
   it("P12 extends once per rolling 24h, uses actual acceptance and caps stage at four", () => {
     const first = scheduleReviewV2(null, receipt(1))!;
     expect(first).toMatchObject({ stage: 1, dueAt: at(1), lastExtendedAt: at() });

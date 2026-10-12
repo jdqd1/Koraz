@@ -9,7 +9,7 @@ import { randomUUID } from "node:crypto";
 import { RoutePackageSchema, V2RouteStateSchema, V2EditorPreviewProfileSchema as EditorPreviewProfileSchema, V2EditorPreviewActionSchema as EditorPreviewActionSchema, V2EditorPreviewHttpContracts, type RoutePackage } from "@cediah/contracts";
 import { gradeBasicActivity } from "./grading.js";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent } from "./evidence.js";
-import { selectGuidedV2NextAction, selectGuidedV2Diagnostic } from "./selection.js";
+import { selectGuidedV2NextAction, selectGuidedV2Diagnostic, selectGuidedV2ReviewActivity } from "./selection.js";
 import { scheduleReviewV2, reviewDueV2, type ReviewResponseV2, type ReviewStateV2 } from "./scheduler.js";
 import { guidedV2AttemptManifest, guidedV2FeedbackSources, type GuidedV2ManifestResponse } from "./manifests.js";
 import { accessibleVariant, activeGuidedV2ActivityKey, initialGuidedV2AttemptResume, prepareGuidedV2AttemptSnapshot, type GuidedV2AttemptSnapshot } from "./service.js";
@@ -41,14 +41,18 @@ export function createEditorPreviewSimulator(packageInput: unknown, profile: z.i
     if (activity) responseEvent(activity, 0, "server", activity.misconceptionMappings.find(mapping => definition.objectives.find(objective => objective.key === activity.objectiveKey)?.misconceptions.some(misconception => misconception.key === mapping.misconceptionKey && misconception.critical))!.responseKey, false, "learning");
   }
   function state() {
-    const due = [...reviews].flatMap(([objectiveKey, review]) => { const item = reviewDueV2(review, new Date(now)); return item.kind ? [{ key: objectiveKey, objectiveKey, dueAt: item.dueAt! }] : []; });
+    const due = [...reviews].flatMap(([objectiveKey, review]) => { const item = reviewDueV2(review, new Date(now)); return item.kind ? [{ key: objectiveKey, objectiveKey, dueAt: item.dueAt!, kind: item.kind }] : []; });
     const evidence = rebuildGuidedV2Evidence(definition, events, { dueObjectiveKeys: due.map(item => item.objectiveKey) });
     const retentionDue = definition.assessments.flatMap(item => {
       if (item.kind !== "retention7" && item.kind !== "retention30") return [];
       const dates = item.objectiveKeys.map(key => reviews.get(key)?.[item.kind === "retention7" ? "retention7DueAt" : "retention30DueAt"]);
       return dates.length && dates.every(Boolean) ? [{ key: item.key, dueAt: new Date(Math.max(...dates.map(value => Date.parse(value!)))).toISOString() }] : [];
     });
-    const selection = selectGuidedV2NextAction({ definition, evidence, events, sessionAttemptIds: attempts, diagnosticStatus, completedActivityKeys: completed, dispensedActivityKeys: [], completedAssessmentKeys: completedAssessments, openAttempts: [], retentionDue, reviewDue: due }, now);
+    const reviewDue = due.filter(item => item.kind === "review").flatMap(item => {
+      const activity = selectGuidedV2ReviewActivity(definition, item.objectiveKey, events, now);
+      return activity ? [{ key: activity.key, objectiveKey: item.objectiveKey, dueAt: item.dueAt }] : [];
+    });
+    const selection = selectGuidedV2NextAction({ definition, evidence, events, sessionAttemptIds: attempts, diagnosticStatus, completedActivityKeys: completed, dispensedActivityKeys: [], completedAssessmentKeys: completedAssessments, openAttempts: [], retentionDue, reviewDue }, now);
     const value = V2RouteStateSchema.parse({ engineVersion: "guided-v2", enrollmentId, pathVersionId, rowVersion: version, ...Object.fromEntries(["completedActivities", "dispensedActivities", "plannedRequiredActivities", "completedAt", "masteredAt", "consolidatedAt"].map(key => [key, evidence.route[key as keyof typeof evidence.route]])), objectives: evidence.objectives.map(({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated, reviewDue, firstMasteredAt, firstConsolidatedAt }) => ({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated, reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length, nextAction: selection.nextAction,
       maintenance: { generatedAt: now, timeZone: "America/Caracas", diagnostic: { status: selection.diagnostic.activityKeys.length ? diagnosticStatus : "unavailable", assessmentKey: selection.diagnostic.assessmentKey }, activities: selection.availableActivities.map(({ key, objectiveKey, reason }) => ({ key, objectiveKey, reason })), reviewBatch: selection.reviewBatch, agenda: [...reviews].map(([objectiveKey, review]) => { const masteredAt = evidence.objectives.find(item => item.objectiveKey === objectiveKey)?.firstMasteredAt; const measurement = (dueAt: string | null, acceptedAt: string | null) => ({ dueAt, acceptedAt, elapsedDays: acceptedAt && masteredAt ? Math.max(0, (Date.parse(acceptedAt) - Date.parse(masteredAt)) / 86400000) : null }); return { objectiveKey, dueAt: review.dueAt, retention7: measurement(review.retention7DueAt, review.retention7AcceptedAt), retention30: measurement(review.retention30DueAt, review.retention30AcceptedAt) }; }), gates: evidence.gates, blockers: evidence.availability.filter(item => !item.available).map(({ objectiveKey, blockedBy }) => ({ objectiveKey, blockedBy })), remediation: selection.remediationOffers.map(item => ({ objectiveKey: item.objectiveKey, confusion: definition.objectives.find(objective => objective.key === item.objectiveKey)?.misconceptions.find(misconception => misconception.key === item.misconceptionKey)?.description ?? "Revisar este concepto", message: item.message, activityKey: item.activityKey, bankExhausted: item.bankExhausted, availableAfter: item.availableAfter, pauseOffered: item.pauseOffered })), exhaustedBanks: selection.exhaustedBanks }
     });
@@ -73,9 +77,9 @@ export function createEditorPreviewSimulator(packageInput: unknown, profile: z.i
       if (current?.status === "in_progress") throw new Error("conflict");
       const target = action.body.target;
       if (target.kind === "review") {
-        const activity = definition.activities.find(item => item.objectiveKey === target.key && item.use === "learning" && !["study", "case", "constructed_response"].includes(item.kind));
-        if (!activity) throw new Error("bank_exhausted");
-        target.key = activity.key;
+        const offer = state().maintenance?.reviewBatch.find(item => item.key === target.key || item.objectiveKey === target.key);
+        if (!offer) throw new Error("bank_exhausted");
+        target.key = offer.key;
       }
       const snapshot = prepareGuidedV2AttemptSnapshot(definition, pathVersionId, target);
       if (!snapshot) throw new Error("bank_exhausted");

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { RoutePackageSchema, type RoutePackage } from "@cediah/contracts";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceResponse } from "../src/guided-learning/v2/evidence.js";
 import { prepareGuidedV2NextAction, selectGuidedV2Diagnostic, type GuidedV2SelectionSnapshot } from "../src/guided-learning/v2/service.js";
+import { selectGuidedV2ReviewActivity } from "../src/guided-learning/v2/selection.js";
 
 const epoch = Date.parse("2026-09-01T12:00:00Z");
 const at = (hours = 0) => new Date(epoch + hours * 3600000).toISOString();
@@ -53,6 +54,43 @@ function snapshot(definition = fixture(), events: GuidedV2EvidenceEvent[] = [], 
 const select = (input = snapshot(), hours = 1) => prepareGuidedV2NextAction(input, at(hours));
 const completeCore = ["explain", "example", "partial", "recall", "recall-b", "apply"].map((key) => `core-${key}`);
 const errorEvents = (definition: RoutePackage) => [response(definition, "core-recall", 1, { score01: 0, responseKey: "no" }), response(definition, "core-remedy", 2)];
+
+describe("guided v2 review bank rotation", () => {
+  it("chooses another family after answering the first question", () => {
+    const definition = fixture();
+    const events = [response(definition, "core-recall")];
+    expect(selectGuidedV2ReviewActivity(definition, "core", events, at(1))?.key).toBe("core-recall-b");
+  });
+  it("chooses the least recently exposed family when the whole bank has been used", () => {
+    const definition = fixture();
+    const events = ["core-recall", "core-recall-b", "core-verify", "core-verify-b"]
+      .map((key, i) => response(definition, key, i + 1, { at: at(-4 + i) }));
+    expect(selectGuidedV2ReviewActivity(definition, "core", events, at(1))?.key).toBe("core-recall");
+    expect(selectGuidedV2ReviewActivity(definition, "core", [...events].reverse(), at(1))?.key).toBe("core-recall");
+  });
+  it("respects the retry spacing even when variants share the same family", () => {
+    const definition = fixture();
+    for (const item of definition.activities.filter(item => item.objectiveKey === "core" && item.phase === "retrieve" && item.use === "learning")) item.equivalenceKey = "same-family";
+    const events = [response(definition, "core-recall", 1, { at: at() })];
+    expect(selectGuidedV2ReviewActivity(definition, "core", events, at(.1))).toBeNull();
+    expect(selectGuidedV2ReviewActivity(definition, "core", events, at(1 / 6))?.key).toBe("core-recall");
+  });
+  it("excludes application-only activities, self-report, case children and reserved pools", () => {
+    const definition = fixture();
+    for (const item of definition.activities.filter(item => item.objectiveKey === "core")) {
+      if (item.use === "learning" && item.phase === "retrieve") item.phase = "apply";
+    }
+    const recall = definition.activities.find(item => item.key === "core-recall")!;
+    recall.phase = "retrieve";
+    definition.activities.push(RoutePackageSchema.shape.activities.element.parse({ ...recall, key: "self", kind: "constructed_response",
+      payload: { modelAnswer: "Modelo", rubric: [{ key: "reason", criterion: "Explica", example: "Ejemplo" }], verificationActivityKey: "core-verify" } }));
+    definition.activities.push(RoutePackageSchema.shape.activities.element.parse({ ...recall, key: "case", kind: "case", phase: "apply", representation: "case",
+      payload: { stages: [{ key: "first", narrative: "Contexto de un caso", childActivityKey: recall.key },
+        { key: "second", narrative: "Aplicación del caso", childActivityKey: "core-apply" }] } }));
+    definition.units[0]!.activityKeys.push("self", "case");
+    expect(selectGuidedV2ReviewActivity(definition, "core", [], at(1))).toBeNull();
+  });
+});
 
 describe("T017 diagnostic and branch progression", () => {
   it("T038 immutable structural reuse keeps event/evidence inputs fresh and mutable drafts uncached", () => {

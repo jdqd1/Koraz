@@ -48,7 +48,11 @@ export function scheduleReviewV2(
     && state.retention30DueAt && t >= Date.parse(state.retention30DueAt)) state.retention30AcceptedAt ??= iso(t);
   const failures = history.filter((r) => r.valid && failure(r));
   if (failure(response)) {
-    const retries = failures.filter((r) => r.sessionId === response.sessionId).length;
+    // Each learner review is a separate attempt. Keep its retry budget across
+    // those attempts so repeatedly opening a review cannot reset the limit.
+    const retries = failures.filter((r) => r.sessionId === response.sessionId
+      || response.purpose === "review" && r.purpose === "review"
+        && t - Date.parse(r.acceptedAt) >= 0 && t - Date.parse(r.acceptedAt) < day).length;
     state.dueAt = iso(t + (retries < policy.review.immediateRetryLimit ? policy.review.retryMinutes * 60000 : day));
     state.stage = 0;
     state.lapses += 1;
@@ -63,6 +67,10 @@ export function scheduleReviewV2(
     // Assisted/partial/self-reported practice cannot postpone an active reinforcement.
     if (!failures.some((r) => t - Date.parse(r.acceptedAt) < day)) state.dueAt = iso(t + day);
   }
+  // A served, expired review must leave the due queue even when reinforcement
+  // or the 24h stability rule prevents advancing its stage. Preserve any future
+  // reinforcement and all mastery/retention facts.
+  if (!failure(response) && Date.parse(state.dueAt) <= t) state.dueAt = iso(t + day);
   state.lastAppliedResponseId = response.responseId;
   return state;
 }

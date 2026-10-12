@@ -91,7 +91,8 @@ describe("T033 isolated editorial simulator", () => {
     expect(r.sim.read().state.objectives[0]?.objectiveScore).toBe(before.objectives[0]?.objectiveScore);
     r.start("objective", "review");
     expect(r.sim.read().attempt?.purpose).toBe("review");
-    r.answer({ kind: "single_choice", optionKey: "a" }); r.run("complete");
+    expect(r.sim.read().attempt?.activeActivity?.key).toBe("match");
+    r.answer({ kind: "match", pairs: { p: "c" } }); r.run("complete");
     expect(r.sim.read().state.dueReviews).toBe(0);
   });
   it("allows omission without conferring mastery and reports empty routes explicitly", () => {

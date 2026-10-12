@@ -13,7 +13,7 @@ import { createPostgresGuidedV2AttemptService, createPostgresGuidedV2MetricsServ
   v2ContentAvailable, v2RebuildEvidence, v2Receipt, v2LockActor, createGuidedV2DefinitionReader, prepareCachedGuidedV2ActivitySnapshot, readGuidedV2SourceFacts, createGuidedV2SnapshotReader,
   type GuidedV2DefinitionReader, type GuidedV2EvidenceReadFacts, type GuidedV2SnapshotReader } from "../../providers/postgres-guided-learning-v2.js";
 import { parseGuidedV2AttemptSnapshot } from "./service.js";
-import { selectGuidedV2NextAction, selectGuidedV2Diagnostic } from "./selection.js";
+import { selectGuidedV2NextAction, selectGuidedV2Diagnostic, selectGuidedV2ReviewActivity } from "./selection.js";
 import { selectAssessmentV2, type AssessmentExposureV2, type AssessmentPlanV2 } from "./assessments.js";
 import { reviewDueV2, type ReviewStateV2 } from "./scheduler.js";
 import { hashRoutePackage } from "./validation.js";
@@ -178,7 +178,7 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       openedAt: events.find((event) => event.semantic_key === `v2-presented:${item.id}`)?.occurred_at.toISOString() ?? item.started_at.toISOString() })),
     retentionDue: due.flatMap((row) => definition.assessments.filter((item) => item.kind === row.due.kind).map((item) => ({ key: item.key, dueAt: row.due.dueAt! }))),
     reviewDue: due.filter((row) => row.due!.kind === "review").flatMap((row) => {
-      const activity = definition.activities.find((item) => item.objectiveKey === row.objectiveKey && item.phase === "retrieve" && ["learning", "gate"].includes(item.use));
+      const activity = selectGuidedV2ReviewActivity(definition, row.objectiveKey, policyEvents, at.toISOString());
       return activity ? [{ key: activity.key, objectiveKey: row.objectiveKey, dueAt: row.due.dueAt! }] : [];
     }) }, at.toISOString());
   const final = definition.assessments.find((item) => item.kind === "final" && !completedAssessmentKeys.includes(item.key));
