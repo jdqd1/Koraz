@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "status": "PASS DEPLOYMENT; AUTHENTICATED PRODUCTION UI NOT VERIFIED",
+  "deployed": true,
+  "productionState": "READY",
+  "verifiedAlias": "koraz.app",
+  "buildDurationSeconds": 128.832,
+  "readyAtUtc": "2026-10-12T20:46:22.561Z",
+  "pullRequest": "https://github.com/jdqd1/Koraz/pull/65",
+  "sourceCommit": "2d8b3c9936ef87b8e53301970897e275c2fbb7ab",
+  "mergeCommit": "1ffa241acb0715b06f1b99e9fc7c8e1cea195226",
+  "previousProductionCommit": "82bef3ca9ab31bd4a21fca1c7ae8bcfc68c638d3",
+  "previewDeployment": "dpl_BgYXesJ6DPNhsYNogq1zSPHNeZ7E",
+  "productionDeployment": "dpl_8mDF4CBJbNL4FW4tqYLaFpJXFnMT",
+  "productionDomain": "https://koraz.app",
+  "checks": {
+    "isolatedEditorUnitTests": { "status": "PASS", "tests": 98, "files": 9 },
+    "isolatedEditorBrowserTests": { "status": "PASS", "tests": 14, "desktop": 7, "mobile": 7, "displayElapsed": "1.6m" },
+    "focusedEslint": "PASS",
+    "webTypecheck": "PASS",
+    "githubCI": { "status": "PASS", "run": 38305354961, "lint": "PASS", "typecheck": "PASS", "tests": "PASS", "build": "PASS", "bracesRegression": "PASS", "dependencyAudit": "PASS" },
+    "reviewThreads": 0,
+    "previewBuild": "READY",
+    "initialProductionRuntimeErrors": { "errorGroups": 0, "fatalGroups": 0, "window": "10m", "note": "Immediate post-deploy log observation only; not long-term monitoring." },
+    "mergedEditorCodeEqualsTestedCommit": "PASS"
+  },
+  "scope": "Only route v2 editor components, protected development fixture, tests and design evidence. Current production landing preserved; no password, authentication, backend, database or learner-player changes included.",
+  "authenticatedProductionUI": "NO VERIFICADO: available browser redirected to login.",
+  "browserEvidenceScope": "Synthetic catalogue and editorial transport. Does not prove real database persistence or real route publication."
+}

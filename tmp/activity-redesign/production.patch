@@ -1,0 +1,1460 @@
+diff --git a/apps/web/playwright.activities.config.ts b/apps/web/playwright.activities.config.ts
+new file mode 100644
+index 0000000..a0ad8fc
+--- /dev/null
++++ b/apps/web/playwright.activities.config.ts
+@@ -0,0 +1,17 @@
++import { defineConfig, devices } from "@playwright/test";
++import base from "./playwright.config";
++
++export default defineConfig({
++  ...base,
++  tsconfig: "./tsconfig.activities.json",
++  testMatch: "activity-player-redesign.spec.ts",
++  outputDir: "../../tmp/activity-redesign/final",
++  reporter: [["list"], ["json", { outputFile: "../../tmp/activity-redesign/playwright.json" }]],
++  timeout: 90_000,
++  use: { ...base.use, permissions: ["local-network-access"] },
++  projects: [
++    { name: "mobile", use: { ...devices["iPhone 13"], defaultBrowserType: "chromium" } },
++    { name: "compact", use: { viewport: { width: 320, height: 740 }, isMobile: true, hasTouch: true } },
++    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
++  ],
++});
+diff --git a/apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx b/apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx
+index 215d77c..39af552 100644
+--- a/apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx
++++ b/apps/web/src/app/visual-fixtures/aprendizaje-v2/page.tsx
+@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
+ import { StudentV2Fixture } from "@/components/learning/v2/fixture-workspace";
+ import { PlayerFixture } from "@/components/learning/v2/player-fixture";
+ import { AppShell } from "@/components/app-shell";
++import { LegacyActivityPlayerFixture } from "@/components/learning/activities/activity-player-fixture";
+ export const dynamic = "force-dynamic";
+ export default async function StudentV2FixturePage({ searchParams }: { searchParams: Promise<{ estado?: string; surface?: string }> }) {
+   if (process.env.NODE_ENV !== "development") notFound();
+   const query = await searchParams;
++  if (query.surface === "legacy-player") return <AppShell activeKey="learning" guidedLearningEnabled headerTitle="Aprendizaje guiado" viewer={{ email: "actividad@example.test" }}><LegacyActivityPlayerFixture mode={query.estado ?? "quiz"} /></AppShell>;
+   if (query.surface === "player") return <AppShell activeKey="learning" guidedLearningEnabled headerTitle="Aprendizaje guiado" viewer={{ email: "t029@example.test" }}><PlayerFixture mode={query.estado ?? "study"} /></AppShell>;
+   return <Suspense fallback={<p role="status">Preparando prueba de aprendizaje…</p>}><StudentV2Fixture mode={query.estado ?? "ready"} surface={query.surface ?? "map"} /></Suspense>;
+ }
+diff --git a/apps/web/src/components/learning/activities/activity-header.tsx b/apps/web/src/components/learning/activities/activity-header.tsx
+new file mode 100644
+index 0000000..66002e5
+--- /dev/null
++++ b/apps/web/src/components/learning/activities/activity-header.tsx
+@@ -0,0 +1,25 @@
++import Link from "next/link";
++import { ArrowLeft, DotsThree } from "@phosphor-icons/react";
++import type { ReactNode } from "react";
++import styles from "./activity-ui.module.css";
++
++export function ActivityHeader({ title, eyebrow, returnHref, returnLabel = "Volver a mi mapa", onExit, details, completed, total, progressLabel = "Avance de la ruta" }: {
++  title: string; eyebrow: string; returnHref?: string; returnLabel?: string; onExit?: () => void; details: ReactNode;
++  completed?: number; total?: number; progressLabel?: string;
++}) {
++  return <header className={styles.header}>
++    <div className={styles.headerRow}>
++      {onExit ? <button type="button" className={styles.iconButton} onClick={onExit} aria-label="Cerrar vista previa"><ArrowLeft aria-hidden size={22} /></button>
++        : <Link className={styles.iconButton} href={returnHref ?? "/aprendizaje/mapa"} aria-label={returnLabel} title={returnLabel}><ArrowLeft aria-hidden size={22} /></Link>}
++      <div className={styles.headerTitle}><span>{eyebrow}</span><h1>{title}</h1></div>
++      <details className={styles.sessionDetails}>
++        <summary className={styles.iconButton} role="button" aria-label="Detalles de la sesión" title="Detalles de la sesión"><DotsThree aria-hidden size={26} weight="bold" /></summary>
++        <div className={styles.detailsPanel}><strong>Detalles de la sesión</strong>{details}</div>
++      </details>
++    </div>
++    {total !== undefined && total > 0 && completed !== undefined ? <div className={styles.progress}>
++      <progress aria-label={progressLabel} value={Math.min(completed, total)} max={total} />
++      <span>{completed} de {total}</span>
++    </div> : null}
++  </header>;
++}
+diff --git a/apps/web/src/components/learning/activities/activity-player-fixture.tsx b/apps/web/src/components/learning/activities/activity-player-fixture.tsx
+new file mode 100644
+index 0000000..eeab3bb
+--- /dev/null
++++ b/apps/web/src/components/learning/activities/activity-player-fixture.tsx
+@@ -0,0 +1,9 @@
++"use client";
++
++import { learningVisualProgress } from "../learning-visual-fixtures";
++import { ActivityShell } from "./activity-shell";
++import { legacyActivityFixture } from "./activity-player-fixtures";
++
++export function LegacyActivityPlayerFixture({ mode }: { mode: string }) {
++  return <ActivityShell key={mode} initialAttempt={legacyActivityFixture(mode)} initialProgress={learningVisualProgress} userId="activity-ui-fixture" returnHref="/aprendizaje/mapa" />;
++}
+diff --git a/apps/web/src/components/learning/activities/activity-player-fixtures.ts b/apps/web/src/components/learning/activities/activity-player-fixtures.ts
+new file mode 100644
+index 0000000..f5deea1
+--- /dev/null
++++ b/apps/web/src/components/learning/activities/activity-player-fixtures.ts
+@@ -0,0 +1,18 @@
++import { LearningAttemptSchema } from "@cediah/contracts";
++import { learningVisualAttempt } from "../learning-visual-fixtures";
++
++/** Public, synthetic display fixtures. The enclosing page is development-only. */
++export function legacyActivityFixture(mode: string) {
++  const base = learningVisualAttempt;
++  const id = base.manifest.projection === "quiz" ? base.manifest.questions[0]!.itemId : base.id;
++  const common = { title: "Práctica de conceptos", resourceRevisionId: base.id, sourceContentId: base.id };
++  const question = { itemId: id, memoryVersion: 1, objectiveIds: [], prompt: "¿Qué concepto precede a B?", options: [{ id: base.id, text: "Concepto A" }, { id: base.clientAttemptId, text: "Concepto C" }] };
++  const manifest = mode === "flashcards" ? { ...common, projection: "flashcards", completionRule: { type: "flashcards", minimumRated: 1 }, cards: [{ itemId: id, memoryVersion: 1, objectiveIds: [], front: "Recuerda la relación entre A y B" }] }
++    : mode === "guide" ? { ...common, projection: "guide", completionRule: { type: "guide", confirmationRequired: true }, document: null, selectedSectionIndexes: [], sections: [{ heading: "Una relación, paso a paso", body: "El concepto A precede a B. Primero identifica el origen y después relaciona el resultado.\n\nRecupera esta relación antes de pasar a la práctica." }, { heading: "Aplica lo aprendido", body: "Piensa en cómo cambia B cuando cambia A." }] }
++      : mode === "video" || mode === "external-video" ? { ...common, projection: "video", completionRule: { type: "video", minimumCoveragePercent: 90, externalDeclarationRequired: true }, durationSeconds: 60, externalUrl: mode === "external-video" ? "https://example.test/video" : null, range: null }
++        : mode === "review" || mode === "review-card" ? { projection: "review", title: "Repaso de conceptos", items: [{ resourceRevisionId: common.resourceRevisionId, sourceContentId: common.sourceContentId, itemId: id, memoryVersion: 1, objectiveIds: [], reviewStateVersion: 1, ...(mode === "review-card" ? { kind: "flashcards", front: "Recuerda la relación entre A y B" } : { kind: "quiz", prompt: question.prompt, options: question.options }) }] }
++          : { ...common, projection: "quiz", completionRule: { type: "quiz", completion: "submitted" }, questions: [question] };
++  return LearningAttemptSchema.parse({ ...base, manifest, status: "in_progress", score: null, submittedAt: null, responses: [], resume: { ...base.resume, currentIndex: 0, answeredItemIds: [] } });
++}
++
++
+diff --git a/apps/web/src/components/learning/activities/activity-shell.tsx b/apps/web/src/components/learning/activities/activity-shell.tsx
+index 532d7f8..0f01c64 100644
+--- a/apps/web/src/components/learning/activities/activity-shell.tsx
++++ b/apps/web/src/components/learning/activities/activity-shell.tsx
+@@ -1,8 +1,6 @@
+ "use client";
+ 
+-import Link from "next/link";
+ import { useCallback, useEffect, useState } from "react";
+-import { ArrowLeft, CloudCheck, CloudSlash } from "@phosphor-icons/react";
+ import {
+   LearningAttemptMutationResponseSchema,
+   type LearningAttempt,
+@@ -18,6 +16,8 @@ import { QuizActivity } from "./quiz-activity";
+ import { ReviewActivity } from "./review-activity";
+ import type { ActivityMutation } from "./types";
+ import { VideoActivity } from "./video-activity";
++import { ActivityHeader } from "./activity-header";
++import ui from "./activity-ui.module.css";
+ 
+ export function ActivityShell({
+   initialAttempt,
+@@ -89,19 +89,12 @@ export function ActivityShell({
+   }, [userId]);
+ 
+   return (
+-    <main className="learning-activity-main">
+-      <header className="learning-activity-header">
+-        <Link href={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje")}><ArrowLeft size={18} />{returnHref ? "Mi mapa" : attempt.pathSlug ? "Mi ruta" : "Inicio"}</Link>
+-        <div>
+-          <span>{attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Flashcards" : attempt.manifest.projection === "guide" ? "Guía" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}</span>
+-          <h1>{attempt.manifest.title}</h1>
+-        </div>
+-        <div aria-live="polite" className={`learning-save-state is-${saveState}`}>
+-          {saveState === "pending" || saveState === "failed" ? <CloudSlash size={18} /> : <CloudCheck size={18} />}
+-          {saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente" : saveState === "failed" ? "Sin guardar" : "Guardado"}
+-        </div>
+-      </header>
+-      <p aria-live="polite" className="learning-activity-message">{message}</p>
++    <main className={`${ui.session} ${ui.immersive}`} aria-label="Sesión de aprendizaje" data-engine-version="guided-v1">
++      <ActivityHeader title={attempt.manifest.title} eyebrow={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}
++        returnHref={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje/mapa")}
++        returnLabel={!returnHref && attempt.pathSlug ? "Volver a mi ruta" : "Volver a mi mapa"}
++        completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p>} />
++      <p aria-live="polite" className={message && message !== "Progreso guardado." ? ui.notice : "sr-only"}>{message}</p>
+       {attempt.status === "completed" && !feedback ? <LearningCompletionPanel attempt={attempt} awards={awards} progress={progress} returnHref={returnHref} /> : null}
+       {attempt.status !== "completed" || feedback ? (
+         attempt.manifest.projection === "quiz" ? <QuizActivity attempt={attempt as LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "quiz" }> }} feedback={feedback} mutate={mutate} onFeedback={setFeedback} />
+diff --git a/apps/web/src/components/learning/activities/activity-ui.module.css b/apps/web/src/components/learning/activities/activity-ui.module.css
+new file mode 100644
+index 0000000..0cce50f
+--- /dev/null
++++ b/apps/web/src/components/learning/activities/activity-ui.module.css
+@@ -0,0 +1,127 @@
++.session {
++  --activity-accent: #2458ee;
++  --activity-ink: #17233b;
++  --activity-muted: #63708a;
++  --activity-line: #dce3ef;
++  --activity-soft: #f4f7fc;
++  width: min(100%, 760px);
++  min-width: 0;
++  margin-inline: auto;
++  padding: 16px 20px calc(28px + env(safe-area-inset-bottom));
++  color: var(--activity-ink);
++  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  overflow-wrap: anywhere;
++}
++.header { position: relative; margin-bottom: 32px; }
++.immersive { isolation: isolate; }
++.headerRow { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 10px; }
++.headerTitle { min-width: 0; }
++.headerTitle > span { display: block; margin-bottom: 3px; color: var(--activity-muted); font-size: 12px; line-height: 1.4; }
++.headerTitle h1 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; letter-spacing: -.015em; }
++.iconButton { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 14px; background: transparent; color: var(--activity-accent); cursor: pointer; list-style: none; }
++.iconButton::-webkit-details-marker { display: none; }
++.iconButton:hover { background: #edf2ff; }
++.sessionDetails { position: relative; }
++.sessionDetails[open] > summary { background: #edf2ff; }
++.detailsPanel { position: absolute; right: 0; top: 50px; z-index: 20; width: min(340px, calc(100vw - 40px)); max-height: 65svh; overflow: auto; border: 1px solid var(--activity-line); border-radius: 18px; padding: 20px; background: #fff; box-shadow: 0 12px 40px #17233b16; font-size: 13px; line-height: 1.6; }
++.detailsPanel > strong { display: block; margin-bottom: 12px; font-size: 15px; }
++.detailsPanel p { margin: 10px 0; }
++.progress { display: flex; align-items: center; gap: 14px; margin-top: 20px; }
++.progress progress { flex: 1; width: 100%; min-width: 0; height: 6px; overflow: hidden; appearance: none; border: 0; border-radius: 99px; background: #eaf0f9; }
++.progress progress::-webkit-progress-bar { border-radius: 99px; background: #eaf0f9; }
++.progress progress::-webkit-progress-value { border-radius: 99px; background: var(--activity-accent); transition: width 180ms ease; }
++.progress progress::-moz-progress-bar { border-radius: 99px; background: var(--activity-accent); }
++.progress > span { flex: 0 0 auto; color: var(--activity-muted); font-size: 13px; font-variant-numeric: tabular-nums; }
++.content { min-width: 0; animation: appear 180ms ease-out; }
++.prompt { margin: 0 0 24px; font-size: clamp(23px, 5.7vw, 30px); line-height: 1.28; font-weight: 650; letter-spacing: -.035em; white-space: pre-wrap; }
++.eyebrow { margin: 0 0 10px; color: var(--activity-muted); font-size: 13px; font-weight: 500; }
++.context { margin: 0 0 24px; border-left: 3px solid #cbd8f5; padding: 2px 0 2px 16px; font-size: 15px; line-height: 1.65; color: #4f5e76; white-space: pre-wrap; }
++.session :global(.learning-question-card),
++.session :global(.learning-guide-activity),
++.session :global(.learning-flashcard),
++.session :global(.learning-video-activity),
++.session :global(.learning-completion-panel) { display: grid; gap: 20px; margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
++.session :global(.learning-question-card) h2,
++.session :global(.learning-flashcard) h2,
++.session :global(.learning-guide-activity) h2,
++.session :global(.learning-video-activity) h2 { font-size: clamp(23px, 5.7vw, 30px); line-height: 1.28; letter-spacing: -.035em; }
++.session :global(.learning-activity-counter) { color: var(--activity-muted); font-size: 13px; letter-spacing: 0; text-transform: none; font-weight: 500; }
++.session :global(.learning-primary-button) { display: inline-flex; min-height: 52px; width: 100%; justify-content: center; justify-self: stretch; align-items: center; gap: 8px; padding: 13px 20px; border: 1px solid transparent; border-radius: 16px; background: var(--activity-accent); box-shadow: none; color: #fff; font-size: 16px; font-weight: 600; line-height: 1.4; cursor: pointer; transition: background 140ms ease, transform 140ms ease; }
++.session :global(.learning-primary-button):hover:not(:disabled) { background: #1646d0; }
++.session :global(.learning-primary-button):active:not(:disabled) { transform: scale(.99); }
++.session :global(.learning-primary-button):disabled { background: #e6ebf5; color: #677590; opacity: 1; cursor: default; }
++.session :global(.learning-secondary-button) { min-height: 44px; border: 1px solid var(--activity-line); border-radius: 13px; box-shadow: none; background: #fff; color: #465575; padding: 10px 14px; font-size: 14px; font-weight: 500; }
++.session :is(button, a, summary, textarea, input, select):focus-visible { outline: 3px solid #8bacff; outline-offset: 3px; }
++.session :is(h2, h3)[tabindex="-1"]:focus { outline: none; }
++.session fieldset { min-width: 0; }
++.session :global(.learning-question-card) fieldset { gap: 10px; }
++.session :global(.learning-question-card) fieldset > label { min-height: 58px; gap: 12px; border-color: var(--activity-line); border-radius: 15px; padding: 14px 16px; color: var(--activity-ink); background: #fff; font-size: 16px; line-height: 1.4; transition: border-color 140ms ease, background 140ms ease; }
++.session :global(.learning-question-card) fieldset > label:has(input:checked) { border-color: var(--activity-accent); background: #f0f5ff; }
++.session :global(.learning-question-card) input[type="radio"] { width: 20px; height: 20px; margin: 0; accent-color: var(--activity-accent); }
++.inputField { position: relative; }
++.inputField textarea { display: block; resize: vertical; width: 100%; min-width: 0; min-height: 150px; border: 1px solid #cdd7e9; border-radius: 16px; padding: 18px 18px 38px; font: inherit; font-size: 16px; line-height: 1.6; color: var(--activity-ink); background: #fff; }
++.inputField textarea::placeholder { color: #7d89a0; }
++.characterCount { position: absolute; right: 16px; bottom: 12px; margin: 0; color: var(--activity-muted); font-size: 12px; font-variant-numeric: tabular-nums; pointer-events: none; }
++.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
++.tools button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; border: 0; border-radius: 14px; background: #f1f5fd; color: #3b568e; font-size: 14px; font-weight: 500; cursor: pointer; }
++.tools button[aria-pressed="true"] { background: #e6eeff; color: #1746cb; }
++.tools button:disabled { opacity: .5; cursor: default; }
++.help { position: relative; margin-top: 10px; padding: 18px; border-radius: 16px; background: #f1f5fd; color: #435a85; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
++.help h3 { margin: 0 36px 8px 0; font-size: 14px; }
++.help p { margin: 0; }
++.help small { display: block; margin-top: 10px; color: #657594; }
++.help > button { position: absolute; top: 5px; right: 5px; border: 0; background: transparent; color: inherit; min-width: 44px; min-height: 44px; cursor: pointer; }
++.action { position: sticky; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 5; margin-top: 8px; border-radius: 16px; box-shadow: 0 0 0 8px #fff, 0 10px 24px #fff; }
++.notice { margin: 16px 0; padding: 16px; border: 1px solid #e5d5a8; border-radius: 15px; color: #705526; background: #fff9ec; font-size: 14px; line-height: 1.6; }
++.notice p { margin: 0 0 12px; }
++.feedback { margin: 0 0 20px; padding: 20px; border: 1px solid #cbe8d8; border-radius: 18px; color: #187045; background: #effaf3; }
++.feedback[data-tone="incorrect"] { color: #8b5720; background: #fff8ed; border-color: #ecdcc2; }
++.feedback[data-tone="neutral"] { color: #375b94; background: #f1f5fd; border-color: #dbe5f5; }
++.feedback h3 { display: flex; align-items: center; gap: 9px; margin: 0; font-size: 18px; letter-spacing: -.02em; }
++.feedback p { margin-top: 10px; font-size: 15px; line-height: 1.65; white-space: pre-wrap; }
++.answerRecap { margin-bottom: 16px; padding: 18px; border: 1px solid var(--activity-line); border-radius: 16px; font-size: 18px; white-space: pre-wrap; line-height: 1.5; }
++.disclosure { margin: 12px 0 20px; border-radius: 15px; background: var(--activity-soft); font-size: 14px; line-height: 1.65; }
++.disclosure > summary { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 12px 16px; color: #475c80; cursor: pointer; list-style: none; font-weight: 500; }
++.disclosure > summary::-webkit-details-marker { display: none; }
++.disclosure > summary::after { content: "+"; margin-left: auto; font-size: 20px; }
++.disclosure[open] > summary::after { content: "−"; }
++.disclosure > :not(summary) { margin: 0; padding: 0 16px 16px; }
++.disclosure article + article { border-top: 1px solid var(--activity-line); padding-top: 16px; }
++.disclosure h3, .disclosure h4 { font-size: 14px; margin: 8px 0; }
++.disclosure blockquote { border-left: 2px solid #c9d6ed; padding-left: 12px; margin: 12px 0; white-space: pre-wrap; }
++.comparison { display: grid; gap: 16px; }
++.comparison > article { padding: 18px; border: 1px solid var(--activity-line); border-radius: 16px; }
++.comparison h3 { color: var(--activity-muted); font-size: 13px; font-weight: 500; margin: 0 0 10px; }
++.comparison p { font-size: 16px; line-height: 1.65; white-space: pre-wrap; }
++.ratings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 4px 0 0; }
++.ratings legend { margin-bottom: 12px; color: var(--activity-muted); font-size: 14px; }
++.ratings button { white-space: normal; }
++.completion { display: grid; justify-items: center; gap: 16px; padding-top: 20px; text-align: center; }
++.completion > svg { color: #219562; }
++.completion h2 { font-size: 28px; letter-spacing: -.03em; }
++.completion > p { color: var(--activity-muted); font-size: 15px; line-height: 1.6; }
++.completion > div, .completion > details { width: 100%; text-align: left; }
++.completion > a { color: #546586; font-size: 14px; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; }
++.session :global(.learning-flashcard) > article { min-height: 250px; padding: 26px 18px; border-radius: 20px; border: 1px solid var(--activity-line); background: #fafbfe; }
++.session :global(.learning-flashcard) > article > span,
++.session :global(.learning-flashcard-back) > span { color: #57667e; letter-spacing: 0; text-transform: none; font-weight: 500; font-size: 13px; }
++.session :global(.learning-recall-grades) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
++.session :global(.learning-recall-grades) button { min-height: 52px; border-radius: 14px; }
++.session :global(.learning-guide-activity) > article { min-height: auto; padding: 0; border: 0; background: transparent; }
++.session :global(.learning-guide-activity) > article p { color: #3e4e69; line-height: 1.8; font-size: 16px; }
++.session :global(.learning-feedback) { margin-top: 0; padding: 20px; border-radius: 18px; }
++.session :global(.learning-feedback) :global(.learning-primary-button) { grid-column: 1 / -1; }
++@keyframes appear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
++@media (min-width: 700px) {
++  .session { margin-top: 24px; padding: 28px 42px 36px; border: 1px solid var(--activity-line); border-radius: 28px; background: #fff; box-shadow: 0 12px 48px #17233b06; }
++  .header { margin-bottom: 40px; }
++  .headerTitle h1 { font-size: 16px; }
++  .comparison { grid-template-columns: 1fr 1fr; }
++  .inputField textarea { min-height: 175px; }
++}
++@media (max-width: 359px) { .session { padding-inline: 16px; } .ratings { grid-template-columns: 1fr; } }
++@media (max-width: 960px) {
++  :global(.app-shell):has(.immersive) :is(:global(.app-topbar), :global(.mobile-primary-nav)) { display: none; }
++  :global(.app-shell):has(.immersive) :global(.app-body) > :global(.app-main) { padding: 0; background: #fff; min-height: 100svh; }
++}
++@media (prefers-reduced-motion: reduce) { .content { animation: none; } .session *, .progress progress::-webkit-progress-value { transition: none !important; } }
+diff --git a/apps/web/src/components/learning/activities/guide-activity.tsx b/apps/web/src/components/learning/activities/guide-activity.tsx
+index ce8e22a..864348f 100644
+--- a/apps/web/src/components/learning/activities/guide-activity.tsx
++++ b/apps/web/src/components/learning/activities/guide-activity.tsx
+@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
+ import { RichTextDocumentSchema, type LearningAttempt } from "@cediah/contracts";
+ import { RichTextRenderer } from "@/components/rich-text-renderer";
+ import type { ActivityMutation } from "./types";
++import ui from "./activity-ui.module.css";
+ 
+ export function GuideActivity({ attempt, mutate }: {
+   attempt: LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "guide" }> };
+@@ -39,7 +40,6 @@ export function GuideActivity({ attempt, mutate }: {
+ 
+   return (
+     <section className="learning-guide-activity">
+-      <div className="learning-activity-counter">Lectura · posición guardada por sección</div>
+       {section ? <article><span>Sección {sectionIndex + 1} de {attempt.manifest.sections.length}</span><h2>{section.heading}</h2><p>{section.body}</p></article>
+         : document.success ? <article><RichTextRenderer document={document.data} /></article>
+           : <article role="alert"><h2>Material no disponible</h2><p>Esta revisión no contiene una guía legible. No se registrará como completada; vuelve a la ruta y elige otra actividad.</p></article>}
+@@ -47,7 +47,7 @@ export function GuideActivity({ attempt, mutate }: {
+         <button disabled={busy || sectionIndex === 0} onClick={() => void savePosition(sectionIndex - 1)} type="button"><ArrowLeft size={18} />Anterior</button>
+         <button disabled={busy || sectionIndex === attempt.manifest.sections.length - 1} onClick={() => void savePosition(sectionIndex + 1)} type="button">Siguiente<ArrowRight size={18} /></button>
+       </nav> : null}
+-      <button className="learning-primary-button" disabled={busy || !hasMaterial} onClick={() => void complete()} type="button"><Check size={18} />{busy ? "Guardando…" : "Terminé esta lectura"}</button>
++      <div className={ui.action}><button className="learning-primary-button" disabled={busy || !hasMaterial} onClick={() => void complete()} type="button"><Check size={18} />{busy ? "Guardando…" : "Terminé esta lectura"}</button></div>
+     </section>
+   );
+ }
+diff --git a/apps/web/src/components/learning/activities/learning-completion-panel.tsx b/apps/web/src/components/learning/activities/learning-completion-panel.tsx
+index fb8ea5b..aac366c 100644
+--- a/apps/web/src/components/learning/activities/learning-completion-panel.tsx
++++ b/apps/web/src/components/learning/activities/learning-completion-panel.tsx
+@@ -3,6 +3,7 @@
+ import Link from "next/link";
+ import { ArrowRight, CheckCircle, MapTrifold, Sparkle, Trophy } from "@phosphor-icons/react";
+ import type { LearningAttempt, LearningEnrollmentProgress, LearningReward } from "@cediah/contracts";
++import ui from "./activity-ui.module.css";
+ 
+ export function LearningCompletionPanel({ attempt, awards, progress, returnHref }: {
+   attempt: LearningAttempt;
+@@ -18,13 +19,13 @@ export function LearningCompletionPanel({ attempt, awards, progress, returnHref
+       <span className="learning-completion-check"><CheckCircle aria-hidden="true" size={52} weight="fill" /></span>
+       <span>Progreso guardado</span>
+       <h2>{attempt.manifest.projection === "review" ? "Repaso completado" : "Actividad completada"}</h2>
+-      {attempt.score ? <p><strong>Resultado: {attempt.score.correct} de {attempt.score.total}.</strong> {needsReinforcement ? "Conviene reforzar este punto; la ruta sigue completamente accesible." : "Buen trabajo: esta comprobación ya forma parte de tu evidencia."}</p> : <p>La evidencia quedó confirmada por el servidor. Puedes detenerte aquí o elegir cómo continuar.</p>}
++      {attempt.score ? <p><strong>Resultado: {attempt.score.correct} de {attempt.score.total}.</strong> {needsReinforcement ? "Conviene reforzar este punto." : "Puedes seguir con la siguiente actividad."}</p> : <p>Tu progreso está guardado. Continúa a tu ritmo.</p>}
+       {awardedXp > 0 ? <div className="learning-completion-reward"><Sparkle aria-hidden="true" size={22} weight="fill" /><span><strong>+{awardedXp} XP</strong><small>Puntos de aprendizaje nuevos</small></span></div> : null}
+       {milestones.length > 0 ? <ul className="learning-completion-milestones">{milestones.map((milestone) => <li key={milestone.awardKey}><Trophy aria-hidden="true" size={18} />{milestone.title}</li>)}</ul> : null}
+-      {progress ? <div>
++      {progress ? <details className={ui.disclosure}><summary>Avance de la ruta</summary><div>
+         <div className="learning-completion-progress-copy"><strong>{progress.percentage}% de la ruta</strong><span>{progress.completedEssentialSteps} de {progress.totalEssentialSteps} actividades esenciales</span></div>
+         <progress aria-label="Avance actualizado de la ruta" max={progress.totalEssentialSteps} value={progress.completedEssentialSteps} />
+-      </div> : <p>El calendario quedó actualizado solo para las respuestas aceptadas. Puedes elegir otra actividad o volver a Inicio.</p>}
++      </div></details> : null}
+       <div className="learning-completion-actions">
+         <Link className="learning-primary-button" href={returnHref ?? "/aprendizaje?tab=hoy"}>{returnHref ? "Volver a mi mapa" : "Continuar"} <ArrowRight aria-hidden="true" size={19} /></Link>
+         <Link className="learning-secondary-button" href={attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje?tab=rutas"}><MapTrifold aria-hidden="true" size={19} />{attempt.pathSlug ? "Volver a mi ruta" : "Elegir otra actividad"}</Link>
+diff --git a/apps/web/src/components/learning/activities/review-activity.tsx b/apps/web/src/components/learning/activities/review-activity.tsx
+index 37648c4..c2908ec 100644
+--- a/apps/web/src/components/learning/activities/review-activity.tsx
++++ b/apps/web/src/components/learning/activities/review-activity.tsx
+@@ -4,6 +4,7 @@ import { useState } from "react";
+ import { ArrowRight, CheckCircle, XCircle } from "@phosphor-icons/react";
+ import type { LearningAttempt, LearningAttemptResponseRecord } from "@cediah/contracts";
+ import type { ActivityMutation } from "./types";
++import ui from "./activity-ui.module.css";
+ 
+ const grades = [
+   ["again", "No la recordé"],
+@@ -81,12 +82,13 @@ export function ReviewActivity({ attempt, feedback, mutate, onFeedback }: {
+         {correct === false ? <XCircle aria-hidden="true" size={34} weight="fill" /> : <CheckCircle aria-hidden="true" size={34} weight="fill" />}
+         <div>
+           <h2>{retry ? "La veremos otra vez" : correct === false ? "Respuesta guardada" : "Repaso guardado"}</h2>
+-          <p>{feedback.scheduleApplied
++          {feedback.grading.explanation ? <p>{feedback.grading.explanation}</p> : null}
++          {retry ? <p>Volverás a practicar este punto durante el repaso.</p> : null}
++          <details className={ui.disclosure}><summary>Detalles del repaso</summary><p>{feedback.scheduleApplied
+             ? retry
+               ? "Volverá a aparecer, como máximo dos veces en esta sesión. Este reintento no cuenta como una comprobación independiente."
+               : "La próxima fecha se calculó desde la hora aceptada por el servidor."
+-            : "Otro dispositivo o una práctica reciente ya había actualizado el calendario; esta respuesta no lo movió de nuevo."}</p>
+-          {feedback.grading.explanation ? <p>{feedback.grading.explanation}</p> : null}
++            : "Otro dispositivo o una práctica reciente ya había actualizado el calendario; esta respuesta no lo movió de nuevo."}</p></details>
+         </div>
+         <button className="learning-primary-button" onClick={() => { setSelected(""); onFeedback(null); }} type="button">
+           {attempt.status === "completed" ? "Ver resumen" : retry ? "Continuar el repaso" : "Siguiente"}<ArrowRight aria-hidden="true" size={18} />
+diff --git a/apps/web/src/components/learning/activities/video-activity.tsx b/apps/web/src/components/learning/activities/video-activity.tsx
+index fb6fd9d..2f6dddc 100644
+--- a/apps/web/src/components/learning/activities/video-activity.tsx
++++ b/apps/web/src/components/learning/activities/video-activity.tsx
+@@ -9,6 +9,7 @@ import {
+   type LearningAttempt,
+ } from "@cediah/contracts";
+ import type { ActivityMutation } from "./types";
++import ui from "./activity-ui.module.css";
+ import {
+   compactVideoObservedRanges,
+   normalizeVideoDurationSeconds,
+@@ -111,13 +112,13 @@ export function VideoActivity({ attempt, mutate }: {
+ 
+   return (
+     <section className="learning-video-activity">
+-      <div className="learning-activity-counter">Video · puedes verlo u omitirlo</div>
+       {attempt.manifest.externalUrl ? (
+         <div className="learning-external-video">
+           <h2>Estudia el video en su fuente</h2>
+-          <p>Regresa después y confirma, o completa la actividad si ya conoces este contenido. Al no poder verificar la cobertura, recibirás {LEARNING_VIDEO_SKIPPED_XP} XP.</p>
++          <p>Ábrelo y vuelve aquí cuando termines.</p>
+           <a href={attempt.manifest.externalUrl} rel="noreferrer" target="_blank">Abrir video<ArrowSquareOut size={18} /></a>
+-          <button className="learning-primary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button"><Check size={18} />{busy ? "Guardando…" : `Completar video (+${LEARNING_VIDEO_SKIPPED_XP} XP)`}</button>
++          <details className={ui.disclosure}><summary>Cómo se registra esta actividad</summary><p>Al no poder verificar la cobertura, recibirás {LEARNING_VIDEO_SKIPPED_XP} XP.</p></details>
++          <button className="learning-primary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button"><Check size={18} />{busy ? "Guardando…" : "Completar video"}</button>
+         </div>
+       ) : (
+         <div className="learning-native-video">
+@@ -152,11 +153,11 @@ export function VideoActivity({ attempt, mutate }: {
+             preload="metadata"
+             src={mediaUrl || undefined}
+           />
+-          <p>{mediaError || (mediaUrl ? "La cobertura se guarda por segmentos reproducidos; saltar al final no completa la actividad." : "Solicitando reproducción segura…")}</p>
+-          <aside className="learning-video-skip">
++          {mediaError || !mediaUrl ? <p role={mediaError ? "alert" : "status"}>{mediaError || "Preparando el video…"}</p> : null}
++          <details className={ui.disclosure}><summary>Cómo se registra esta actividad</summary><p>La cobertura se guarda por segmentos reproducidos; saltar al final no completa la actividad. Recibirás {LEARNING_VIDEO_SKIPPED_XP} XP al omitirlo y {LEARNING_VIDEO_OBSERVED_XP} XP al reproducir al menos {coveragePercent}%.</p></details>
++          <aside>
+             <div>
+               <strong>¿Ya lo viste o no lo necesitas?</strong>
+-              <p>Puedes completar la lección sin reproducirlo. Recibirás {LEARNING_VIDEO_SKIPPED_XP} XP; al reproducir al menos {coveragePercent}% en este reproductor recibirás {LEARNING_VIDEO_OBSERVED_XP} XP.</p>
+             </div>
+             <button className="learning-secondary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button">
+               <SkipForward size={18} />{busy ? "Completando…" : "Omitir video y completar"}
+diff --git a/apps/web/src/components/learning/v2/composition.module.css b/apps/web/src/components/learning/v2/composition.module.css
+index 359eca7..82746d6 100644
+--- a/apps/web/src/components/learning/v2/composition.module.css
++++ b/apps/web/src/components/learning/v2/composition.module.css
+@@ -1,13 +1,17 @@
+-.sequence { display: grid; gap: 16px; min-width: 0; }
+-.sequence fieldset { min-width: 0; margin: 0; padding: 16px; border: 1px solid #cbd5e1; border-radius: 12px; }
+-.sequence legend { font-weight: 600; padding-inline: 6px; }
+-.steps { display: grid; gap: 12px; padding-left: 28px; }
+-.steps li { padding: 12px; border-bottom: 1px solid #cbd5e1; overflow-wrap: anywhere; }
+-.stepText { white-space: pre-wrap; }
+-.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+-.sequence button { min-height: 44px; }
+-.sequence button:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
++.sequence { display: grid; gap: 20px; min-width: 0; }
++.sequence fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
++.instruction, .scaffold { color: #63708a; font-size: 14px; line-height: 1.5; margin: 0 0 18px; }
++.steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
++.steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr) 88px; align-items: center; gap: 12px; border: 1px solid #dce3ef; border-radius: 16px; padding: 12px; background: #fff; overflow-wrap: anywhere; }
++.stepNumber { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #eff4ff; color: #2458ee; font-size: 14px; font-weight: 600; }
++.stepText { white-space: pre-wrap; font-size: 15px; line-height: 1.45; }
++.controls { display: flex; }
++.controls button { display: grid; place-items: center; min-width: 44px; min-height: 44px; border: 0; border-radius: 12px; background: #f4f7fc; color: #3d5e9c; cursor: pointer; }
++.controls button:disabled { opacity: .3; cursor: default; }
++.controls button:focus-visible { outline: 3px solid #8bacff; outline-offset: 2px; }
+ .caseStage { min-width: 0; }
+ .narrative, .recap { white-space: pre-wrap; overflow-wrap: anywhere; }
+-.scaffold { margin-bottom: 12px; }
+-@media (max-width: 540px) { .sequence fieldset { padding: 12px; } .steps { padding-left: 24px; } }
++.recap { margin-bottom: 20px; padding: 18px; border: 1px solid #dce3ef; border-radius: 16px; }
++.recap h3 { margin-bottom: 10px; color: #63708a; font-size: 13px; font-weight: 500; }
++.recap ol { padding-left: 20px; font-size: 15px; line-height: 1.6; }
++@media (max-width: 359px) { .steps li { gap: 8px; padding: 10px; } }
+diff --git a/apps/web/src/components/learning/v2/composition.tsx b/apps/web/src/components/learning/v2/composition.tsx
+index 3ec4f47..a11ddb1 100644
+--- a/apps/web/src/components/learning/v2/composition.tsx
++++ b/apps/web/src/components/learning/v2/composition.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ 
+ import type { V2AttemptManifest, V2PublicActivity } from "@cediah/contracts";
++import type { ReactNode } from "react";
+ import type { PlayerAction, readV2AttemptImage } from "./client";
+ import { StudyRenderer } from "./renderers/study";
+ import { ChoiceRenderer } from "./renderers/choice";
+@@ -13,21 +14,21 @@ import { CaseRenderer } from "./renderers/case";
+ import styles from "./composition.module.css";
+ 
+ type Answer = Extract<PlayerAction, { operation: "response" }>["body"]["answer"];
+-type Props = { activity: V2PublicActivity; attemptId: string; rowVersion: number; disabled: boolean;
++type Props = { activity: V2PublicActivity; attemptId: string; rowVersion: number; disabled: boolean; tools?: ReactNode;
+   readImage?: typeof readV2AttemptImage;
+   comparison: V2AttemptManifest["constructedResponse"]; onSubmit: (answer: Answer) => void; onReveal: () => void; onAlternative: () => void };
+ 
+ /** Presets are compositions of existing kinds, never a separate scoring system. */
+-export function ActivityComposition({ activity, attemptId, rowVersion, disabled, comparison, readImage, onSubmit, onReveal, onAlternative }: Props) {
++export function ActivityComposition({ activity, attemptId, rowVersion, disabled, comparison, readImage, tools, onSubmit, onReveal, onAlternative }: Props) {
+   let renderer;
+   switch (activity.kind) {
+-    case "study": renderer = <><p className={styles.scaffold}>{activity.payload.scaffold === "worked_example" ? "Ejemplo resuelto" : activity.payload.scaffold === "partial_example" ? "Ejemplo con apoyo parcial" : "Estudio guiado"}. Este apoyo es lectura; la práctica independiente se responde en otro paso.</p><StudyRenderer activity={activity} disabled={disabled} onSubmit={() => onSubmit({ kind: "study", acknowledged: true })} /></>; break;
+-    case "single_choice": renderer = <ChoiceRenderer activity={activity} disabled={disabled} onSubmit={optionKey => onSubmit({ kind: "single_choice", optionKey })} />; break;
+-    case "short_answer": renderer = <ShortRenderer activity={activity} disabled={disabled} onSubmit={text => onSubmit({ kind: "short_answer", text })} />; break;
+-    case "constructed_response": renderer = <ConstructedRenderer activity={activity} disabled={disabled} submittedText={comparison?.text ?? null} model={comparison?.stage === "revealed" ? comparison.modelAnswer : null} rubric={comparison?.stage === "revealed" ? comparison.rubric : []} onSubmit={text => onSubmit({ kind: "constructed_response", text, selfRating: null })} onReveal={onReveal} onRate={selfRating => { if (comparison?.stage === "revealed") onSubmit({ kind: "constructed_response", text: comparison.text, selfRating }); }} />; break;
+-    case "match": renderer = <MatchRenderer activity={activity} disabled={disabled} onSubmit={pairs => onSubmit({ kind: "match", pairs })} />; break;
++    case "study": renderer = <><p className={styles.scaffold}>{activity.payload.scaffold === "worked_example" ? "Ejemplo resuelto" : activity.payload.scaffold === "partial_example" ? "Ejemplo con apoyo parcial" : "Estudio guiado"}<span className="sr-only">. Este apoyo es lectura; la práctica independiente se responde en otro paso.</span></p><StudyRenderer activity={activity} disabled={disabled} onSubmit={() => onSubmit({ kind: "study", acknowledged: true })} /></>; break;
++    case "single_choice": renderer = <ChoiceRenderer activity={activity} disabled={disabled} tools={tools} onSubmit={optionKey => onSubmit({ kind: "single_choice", optionKey })} />; break;
++    case "short_answer": renderer = <ShortRenderer activity={activity} disabled={disabled} tools={tools} onSubmit={text => onSubmit({ kind: "short_answer", text })} />; break;
++    case "constructed_response": renderer = <ConstructedRenderer activity={activity} disabled={disabled} tools={tools} submittedText={comparison?.text ?? null} model={comparison?.stage === "revealed" ? comparison.modelAnswer : null} rubric={comparison?.stage === "revealed" ? comparison.rubric : []} onSubmit={text => onSubmit({ kind: "constructed_response", text, selfRating: null })} onReveal={onReveal} onRate={selfRating => { if (comparison?.stage === "revealed") onSubmit({ kind: "constructed_response", text: comparison.text, selfRating }); }} />; break;
++    case "match": renderer = <MatchRenderer activity={activity} disabled={disabled} tools={tools} onSubmit={pairs => onSubmit({ kind: "match", pairs })} />; break;
+     case "image_target": renderer = <AuthorizedImageTargetRenderer key={`${activity.key}:${rowVersion}`} activity={activity} attemptId={attemptId} rowVersion={rowVersion} disabled={disabled} readImage={readImage} onSubmit={onSubmit} onAlternative={onAlternative} />; break;
+-    case "sequence": renderer = <SequenceRenderer activity={activity} disabled={disabled} onSubmit={orderedKeys => onSubmit({ kind: "sequence", orderedKeys })} />; break;
++    case "sequence": renderer = <SequenceRenderer activity={activity} disabled={disabled} tools={tools} onSubmit={orderedKeys => onSubmit({ kind: "sequence", orderedKeys })} />; break;
+     case "case": return <CaseRenderer activity={activity} />;
+   }
+   return activity.representation === "case" ? <CaseRenderer activity={activity}>{renderer}</CaseRenderer> : renderer;
+diff --git a/apps/web/src/components/learning/v2/continue-session.tsx b/apps/web/src/components/learning/v2/continue-session.tsx
+new file mode 100644
+index 0000000..0ad044f
+--- /dev/null
++++ b/apps/web/src/components/learning/v2/continue-session.tsx
+@@ -0,0 +1,37 @@
++"use client";
++
++import Link from "next/link";
++import { useRef, useState } from "react";
++import { useRouter } from "next/navigation";
++import { ArrowRight } from "@phosphor-icons/react";
++import { createV2Launcher, V2RequestError } from "./client";
++import { actionTarget, type V2State } from "./model";
++import { safeMapReturnHref } from "../map/map-route";
++
++export function ContinueSession({ state, returnTo }: { state: V2State | null; returnTo?: string | null }) {
++  const router = useRouter();
++  const [launcher] = useState(() => createV2Launcher());
++  const lock = useRef(false);
++  const [busy, setBusy] = useState(false), [error, setError] = useState("");
++  const returnHref = safeMapReturnHref(returnTo) ?? "/aprendizaje/mapa";
++  const target = state ? actionTarget(state.nextAction) : null;
++  const canContinue = state && state.availability !== "maintenance" && (target || state.nextAction.kind === "resume" && state.nextAction.key);
++
++  async function open() {
++    if (!state || !canContinue || lock.current) return;
++    lock.current = true; setBusy(true); setError("");
++    try {
++      const result = state.nextAction.kind === "resume" && state.nextAction.key
++        ? await launcher.resume(state.nextAction.key) : target ? await launcher.start(state, target) : null;
++      if (!result || result.attempt.enrollmentId !== state.enrollmentId || result.attempt.pathVersionId !== state.pathVersionId) throw new Error("La sesión no corresponde a esta ruta.");
++      router.push(`/aprendizaje/sesiones/${result.attempt.attemptId}?${new URLSearchParams({ returnTo: returnHref })}`);
++    } catch (cause) {
++      setError(cause instanceof V2RequestError ? cause.message : "No pudimos abrir la siguiente actividad. Reintenta con conexión.");
++    } finally { lock.current = false; setBusy(false); }
++  }
++  return <div>
++    {canContinue ? <button type="button" className="learning-primary-button" disabled={busy} onClick={() => void open()}>{busy ? "Preparando…" : "Siguiente actividad"}<ArrowRight aria-hidden size={19} /></button>
++      : <Link className="learning-primary-button" href={returnHref}>Volver a mi mapa<ArrowRight aria-hidden size={19} /></Link>}
++    {error ? <div role="alert"><p>{error}</p><button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Actualizar sesión</button></div> : null}
++  </div>;
++}
+diff --git a/apps/web/src/components/learning/v2/player.module.css b/apps/web/src/components/learning/v2/player.module.css
+deleted file mode 100644
+index c2a24a7..0000000
+--- a/apps/web/src/components/learning/v2/player.module.css
++++ /dev/null
+@@ -1,15 +0,0 @@
+-.header.header {
+-  display: flex;
+-  flex-wrap: wrap;
+-}
+-
+-.header > div:nth-child(2) {
+-  flex: 1 1 220px;
+-  min-width: 0;
+-}
+-
+-.header > :first-child,
+-.header > div:last-child {
+-  flex: 0 1 auto;
+-  max-width: 100%;
+-}
+diff --git a/apps/web/src/components/learning/v2/player.test.tsx b/apps/web/src/components/learning/v2/player.test.tsx
+index 193278b..3c374fe 100644
+--- a/apps/web/src/components/learning/v2/player.test.tsx
++++ b/apps/web/src/components/learning/v2/player.test.tsx
+@@ -6,6 +6,8 @@ import { playerFixture } from "./player-fixture";
+ import { fixtureId } from "./fixtures";
+ import { createV2PlayerClient, type PlayerAction, type PlayerTransportStore } from "./client";
+ 
++vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
++
+ function transportStore(): PlayerTransportStore {
+   const values = new Map<string, string>();
+   return { getItem: key => values.get(key) ?? null, setItem: (key, value) => { values.set(key, value); }, removeItem: key => { values.delete(key); } };
+diff --git a/apps/web/src/components/learning/v2/player.tsx b/apps/web/src/components/learning/v2/player.tsx
+index 95ef1cd..c18b1ec 100644
+--- a/apps/web/src/components/learning/v2/player.tsx
++++ b/apps/web/src/components/learning/v2/player.tsx
+@@ -2,13 +2,16 @@
+ 
+ import Link from "next/link";
+ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
++import { ArrowCounterClockwise, ArrowRight, BookOpen, CaretUp, CheckCircle, Lightbulb, MapTrifold } from "@phosphor-icons/react";
+ import type { V2AttemptManifest, V2FeedbackSource, V2RouteState } from "@cediah/contracts";
+ import { safeMapReturnHref } from "../map/map-route";
+ import { createV2PlayerClient, readV2AttemptImage, V2RequestError, type PlayerAction, type PlayerResult } from "./client";
+ import { RouteSignals } from "./signals";
+ import { ActivityComposition, SequenceRecap } from "./composition";
+ import { MaintenanceSessionSummary } from "./maintenance";
+-import local from "./player.module.css";
++import { ActivityHeader } from "../activities/activity-header";
++import { ContinueSession } from "./continue-session";
++import ui from "../activities/activity-ui.module.css";
+ 
+ type Feedback = { activityKey: string; explanation: string; commonError: string; score01: number | null; sources?: V2FeedbackSource[]; partialScore01?: number };
+ function PartialFeedback({ value }: { value?: number }) {
+@@ -16,13 +19,22 @@ function PartialFeedback({ value }: { value?: number }) {
+ }
+ type Answer = Extract<PlayerAction, { operation: "response" }>["body"]["answer"];
+ function FeedbackSources({ sources }: { sources: V2FeedbackSource[] }) {
+-  if (!sources.length) return <p>No hay una fuente vinculada a esta respuesta.</p>;
+-  return <div><h3>Fuentes de esta respuesta</h3>{sources.map(source => <article key={source.key}>
++  if (!sources.length) return null;
++  return <details className={ui.disclosure}><summary><BookOpen aria-hidden size={18} />Fuente de la respuesta</summary><div>{sources.map(source => <article key={source.key}>
+     <h4>{source.title}</h4><p>{source.citation}</p>
+     <p>{[...source.locator.sectionPath, source.locator.heading, source.locator.page === null ? "" : `Página ${source.locator.page}`].filter(Boolean).join(" · ")}</p>
+     <blockquote style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>{source.excerpt}</blockquote>
+     {source.url ? <a href={source.url} target="_blank" rel="noopener noreferrer">Consultar referencia</a> : null}
+-  </article>)}</div>;
++  </article>)}</div></details>;
++}
++
++function AnswerRecap({ attempt, activityKey, activity }: { attempt: V2AttemptManifest; activityKey: string; activity: V2AttemptManifest["activeActivity"] }) {
++  const response = attempt.acceptedResponses.find(item => item.activityKey === activityKey);
++  if (!response) return null;
++  const answer = response.answer;
++  const text = answer.kind === "short_answer" || answer.kind === "constructed_response" ? answer.text
++    : answer.kind === "single_choice" && activity?.kind === "single_choice" ? activity.payload.options.find(item => item.key === answer.optionKey)?.text : null;
++  return text ? <p className={ui.answerRecap}>{text}</p> : <SequenceRecap response={response} activity={activity} />;
+ }
+ type PlayerProps = { initialAttempt: V2AttemptManifest; initialState: V2RouteState | null; returnTo?: string | null } & (
+   { preview?: false; transport?: ReturnType<typeof createV2PlayerClient>; readImage?: typeof readV2AttemptImage; onExit?: () => void }
+@@ -36,13 +48,19 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
+   const [message, setMessage] = useState("");
+   const [feedback, setFeedback] = useState<Feedback | null>(null);
+   const [help, setHelp] = useState<{ activityKey: string; kind: "hint" | "source" | "reveal"; text: string } | null>(null);
++  const [helpExpanded, setHelpExpanded] = useState(true);
+   const heading = useRef<HTMLHeadingElement>(null);
+   const [submittedActivity, setSubmittedActivity] = useState(initialAttempt.activeActivity);
+   const activity = attempt.activeActivity;
+   const comparison = attempt.constructedResponse?.activityKey === activity?.key ? attempt.constructedResponse : null;
+   const disabled = busy || pending || attempt.status !== "open";
+   const view = feedback ? `feedback:${feedback.activityKey}` : activity?.key ?? attempt.status;
+-  useEffect(() => { heading.current?.focus(); }, [view]);
++  const previousView = useRef(view);
++  useEffect(() => {
++    heading.current?.focus({ preventScroll: true });
++    if (!preview && previousView.current !== view) heading.current?.closest('[aria-label="Sesión de aprendizaje"]')?.scrollIntoView({ block: "start", behavior: "instant" });
++    previousView.current = view;
++  }, [view, preview]);
+ 
+   function apply(result: PlayerResult) {
+     if (result.value.attempt.enrollmentId !== initialAttempt.enrollmentId || result.value.attempt.pathVersionId !== initialAttempt.pathVersionId) throw new Error("La sesión recibida no corresponde a esta ruta.");
+@@ -50,6 +68,7 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
+     setAttempt(result.value.attempt);
+     if (result.operation === "help") {
+       setHelp({ activityKey: result.body.activityKey, ...result.value.help });
++      setHelpExpanded(true);
+       setMessage("Consulta registrada por el servidor. Esta actividad se practica con ayuda.");
+     } else if (result.operation === "alternative") {
+       setState(result.value.state); setFeedback(null); setHelp(null); setMessage("Variante de texto o tabla confirmada. Es práctica formativa; la actividad espacial sigue pendiente.");
+@@ -81,34 +100,65 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
+     } finally { lock.current = false; setBusy(false); }
+   }
+   function respond(answer: Answer) { if (activity && !disabled) void run({ operation: "response", body: { activityKey: activity.key, answer, confidence: null, expectedVersion: attempt.rowVersion } }); }
+-  function requestHelp(kind: "hint" | "source" | "reveal") { if (activity && !disabled) void run({ operation: "help", body: { activityKey: activity.key, kind, expectedVersion: attempt.rowVersion } }); }
+-  function next() { setFeedback(null); setHelp(null); }
++  function requestHelp(kind: "hint" | "source" | "reveal") {
++    if (help?.activityKey === activity?.key && help?.kind === kind && kind !== "reveal") { setHelpExpanded(value => !value); return; }
++    if (activity && !disabled) void run({ operation: "help", body: { activityKey: activity.key, kind, expectedVersion: attempt.rowVersion } });
++  }
++  function next() {
++    if (!activity) { void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } }); return; }
++    setFeedback(null); setHelp(null);
++  }
+   const Surface = preview ? "div" : "main";
+-  return <Surface><section aria-label="Sesión de aprendizaje" className="learning-activity-main" data-engine-version="guided-v2">
+-    <header className={`${local.header} learning-activity-header`}>{preview ? <button type="button" className="learning-secondary-button" onClick={onExit}>Cerrar vista previa</button> : <Link href={safeMapReturnHref(returnTo) ?? "/aprendizaje?tab=hoy"}>Volver a mi aprendizaje</Link>}<div><span>{attempt.purpose === "review" ? "Repaso" : "Aprendizaje guiado"}</span><h1>Tu sesión de aprendizaje</h1></div><div className={`learning-save-state is-${pending ? "pending" : busy ? "saving" : "confirmed"}`} role="status">{pending ? "Pendiente de confirmar" : busy ? preview ? "Simulando…" : "Guardando…" : preview ? "Estado simulado" : "Estado del servidor"}</div></header>
+-    <p className="learning-activity-message" role="status" aria-live="polite">{message}</p>
+-    {pending ? <div><p>Hay una solicitud pendiente de confirmar. El servidor debe confirmar su resultado antes de continuar.</p><button type="button" className="learning-primary-button" disabled={busy} onClick={() => void run()}>Reintentar solicitud pendiente</button></div> : null}
+-    {!pending && message.includes("Recarga") ? <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button> : null}
+-    {state ? <RouteSignals state={state} /> : <p role="alert">No pudimos cargar el resumen de progreso confirmado.</p>}
+-    {feedback ? <section className={`learning-feedback ${feedback.score01 === 0 ? "is-incorrect" : ""}`} role="status" aria-live="polite"><div style={{ gridColumn: "1 / -1", minWidth: 0 }}>
+-      <h2 ref={heading} tabIndex={-1}>{feedback.score01 === 1 ? "Respuesta correcta" : feedback.score01 === 0 ? "Vamos a reforzar este punto" : "Práctica registrada"}</h2>
+-      <PartialFeedback value={feedback.partialScore01} />
+-      {attempt.acceptedResponses.filter(response => response.activityKey === feedback.activityKey).map(response => <SequenceRecap key={response.activityKey} response={response} activity={submittedActivity} />)}
+-      {feedback.explanation ? <><h3>Por qué</h3><p style={{ whiteSpace: "pre-wrap" }}>{feedback.explanation}</p></> : <p>Respuesta guardada. La explicación se mostrará cuando el servidor la autorice.</p>}
+-      {feedback.commonError ? <><h3>Error frecuente</h3><p>{feedback.commonError}</p></> : null}
++  const returnHref = safeMapReturnHref(returnTo) ?? "/aprendizaje/mapa";
++  const hasError = !busy && (pending || /No pudimos|rechazó|Recarga|no están disponibles/.test(message));
++  const visibleActivity = feedback ? submittedActivity : activity;
++  // Only the authorized current narrative is present; later case stages never enter the DOM.
++  const promptParts = visibleActivity?.representation === "case" && visibleActivity.kind !== "case" ? visibleActivity.prompt.split("\n\n") : [];
++  const prompt = promptParts.length > 1 ? promptParts.at(-1)! : visibleActivity?.prompt;
++  const narrative = promptParts.length > 1 ? promptParts.slice(0, -1).join("\n\n") : null;
++  const tools = activity && attempt.purpose !== "assessment" && ["single_choice", "short_answer", "constructed_response", "sequence", "match"].includes(activity.kind) ? <div>
++    <div className={ui.tools}>
++      <button type="button" disabled={disabled} aria-label="Necesito ayuda" aria-pressed={help?.kind === "hint" && helpExpanded} onClick={() => requestHelp("hint")}><Lightbulb aria-hidden size={19} />Pista</button>
++      <button type="button" disabled={disabled} aria-label="Consultar fuente con ayuda" aria-pressed={help?.kind === "source" && helpExpanded} onClick={() => requestHelp("source")}><BookOpen aria-hidden size={19} />Fuente</button>
++    </div>
++    {helpExpanded && help?.activityKey === activity.key && help.kind !== "reveal" ? <aside className={ui.help} role="status">
++      <h3>{help.kind === "source" ? "Fuente para practicar con ayuda" : "Pista"}</h3><button type="button" aria-label="Ocultar ayuda" onClick={() => setHelpExpanded(false)}><CaretUp aria-hidden size={18} /></button>
++      <p>{help.text}</p><small>Práctica con ayuda</small>
++    </aside> : null}
++  </div> : null;
++  return <Surface className={`${ui.session} ${preview ? "" : ui.immersive}`}><section aria-label="Sesión de aprendizaje" data-engine-version="guided-v2">
++    <ActivityHeader title="Tu sesión de aprendizaje" eyebrow={preview ? "Vista previa · sin guardar progreso" : attempt.purpose === "review" ? "Repaso" : attempt.purpose === "assessment" ? "Evaluación" : "Práctica"} returnHref={returnHref} onExit={preview ? onExit : undefined} completed={state?.completedActivities} total={state?.plannedRequiredActivities} details={<>
++      <p>{pending ? "Pendiente de confirmar" : busy ? "Guardando…" : preview ? "Estado simulado" : "Progreso guardado"}</p>
++      {state ? <><RouteSignals state={state} /><p>{state.nextAction.reason}</p></> : <p>No pudimos cargar el resumen de progreso confirmado.</p>}
++    </>} />
++    <p className="sr-only" role="status" aria-live="polite">{message}</p>
++    {hasError ? <div className={ui.notice} role="alert"><p>{pending ? "Pendiente de confirmar. Reintenta para recuperar el resultado antes de continuar." : message}</p>
++      {pending ? <button type="button" className="learning-primary-button" disabled={busy} onClick={() => void run()}>Reintentar solicitud pendiente</button>
++        : <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button>}
++    </div> : null}
++    {feedback ? <section key={view} className={ui.content}>
++      <h2 className={ui.prompt}>{prompt}</h2>
++      <AnswerRecap attempt={attempt} activityKey={feedback.activityKey} activity={submittedActivity} />
++      <div className={ui.feedback} data-tone={feedback.score01 === 0 ? "incorrect" : feedback.score01 === null ? "neutral" : "correct"} role="status" aria-live="polite">
++        <h3 ref={heading} tabIndex={-1}>{feedback.score01 === 0 ? <ArrowCounterClockwise aria-hidden size={23} /> : <CheckCircle aria-hidden size={23} />}{feedback.score01 === 1 ? "Respuesta correcta" : feedback.score01 === 0 ? "Vamos a reforzar este punto" : "Práctica registrada"}</h3>
++        <PartialFeedback value={feedback.partialScore01} />
++        {feedback.explanation ? <p>{feedback.explanation}</p> : null}
++      </div>
++      {feedback.commonError ? <details className={ui.disclosure}><summary>Qué conviene recordar</summary><p>{feedback.commonError}</p></details> : null}
+       <FeedbackSources sources={feedback.sources ?? []} />
+-      <p>{state?.nextAction.reason}</p><button className="learning-primary-button" type="button" onClick={next}>{activity ? "Continuar" : "Ver cierre de sesión"}</button>
+-    </div></section> : attempt.status === "completed" ? <section className="learning-completion-panel"><h2 ref={heading} tabIndex={-1}>Sesión completada</h2><p>El recorrido y el dominio se muestran por separado en el resumen confirmado.</p><details><summary>Respuestas confirmadas</summary>{attempt.acceptedResponses.map(response => <article key={response.activityKey}><h3>{response.answer.kind === "study" ? "Lectura registrada" : "Respuesta guardada"}</h3><p>{response.feedback.explanation}</p><p>{response.feedback.commonError}</p><PartialFeedback value={response.feedback.partialScore01} /><FeedbackSources sources={response.feedback.sources ?? []} /></article>)}</details></section>
+-      : attempt.status !== "open" ? <section className="learning-empty"><h2 ref={heading} tabIndex={-1}>{attempt.status === "paused" ? "Sesión pausada" : "Sesión cerrada"}</h2><p>Tu historial se conserva. Vuelve a tu aprendizaje para comprobar las opciones disponibles.</p></section>
+-        : activity ? <section style={{ minWidth: 0, overflowWrap: "anywhere" }} aria-busy={busy}>
+-          <p className="learning-activity-counter">Objetivo: {state?.objectives.find(item => item.objectiveKey === activity.objectiveKey) ? "Práctica del objetivo actual" : "Recuperar y aplicar"}</p>
+-          <h2 ref={heading} tabIndex={-1} style={{ whiteSpace: "pre-wrap" }}>{activity.prompt}</h2>
+-          {attempt.accessiblePractice ? <p role="status">Variante accesible de texto o tabla. Esta práctica no acredita identificación espacial. Al responder volverás a la imagen pendiente.</p> : null}
+-          {activity.kind !== "study" ? <p>Recupera lo aprendido con tus palabras. La explicación del paso anterior ya no está en esta pantalla.</p> : null}
+-          <ActivityComposition key={activity.key} activity={activity} attemptId={attempt.attemptId} rowVersion={attempt.rowVersion} disabled={disabled} comparison={comparison} readImage={readImage} onSubmit={respond} onReveal={() => requestHelp("reveal")} onAlternative={() => { if (!disabled) void run({ operation: "alternative", body: { activityKey: activity.key, expectedVersion: attempt.rowVersion } }); }} />
+-          {activity.kind !== "study" && attempt.purpose !== "assessment" && ["single_choice", "short_answer", "constructed_response"].includes(activity.kind) ? <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 }}><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("hint")}>Necesito ayuda</button><button type="button" className="learning-secondary-button" disabled={disabled} onClick={() => requestHelp("source")}>Consultar fuente con ayuda</button></div> : null}
+-          {help?.activityKey === activity.key && help.kind !== "reveal" ? <aside role="status" style={{ marginTop: 16, whiteSpace: "pre-wrap" }}><h3>{help.kind === "source" ? "Fuente para practicar con ayuda" : "Pista"}</h3><p>{help.text}</p><p>Consulta registrada: práctica con ayuda.</p></aside> : null}
+-        </section> : <section className="learning-completion-panel"><h2 ref={heading} tabIndex={-1}>Respuestas guardadas</h2><p>Confirma el cierre para consultar el resultado de la sesión.</p><button type="button" className="learning-primary-button" disabled={disabled} onClick={() => void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } })}>Finalizar sesión</button></section>}
+-    {state && !pending && attempt.status === "completed" ? <MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /> : null}
++      <div className={ui.action}><button className="learning-primary-button" type="button" disabled={busy || pending} onClick={next}>Continuar<ArrowRight aria-hidden size={19} /></button></div>
++    </section> : attempt.status === "completed" ? <section className={ui.completion}>
++      <CheckCircle aria-hidden size={52} weight="duotone" /><h2 ref={heading} tabIndex={-1}>Sesión completada</h2><p>Tu progreso está guardado. Continúa a tu ritmo.</p>
++      {preview ? <button type="button" className="learning-primary-button" onClick={onExit}>Cerrar vista previa</button> : <ContinueSession state={state} returnTo={returnTo} />}
++      <details className={ui.disclosure}><summary>Respuestas confirmadas</summary><div>{attempt.acceptedResponses.map(response => <article key={response.activityKey}><h3>{response.answer.kind === "study" ? "Lectura registrada" : "Respuesta guardada"}</h3><p>{response.feedback.explanation}</p><p>{response.feedback.commonError}</p><PartialFeedback value={response.feedback.partialScore01} /><FeedbackSources sources={response.feedback.sources ?? []} /></article>)}</div></details>
++      {state && !pending ? <details className={ui.disclosure}><summary>Progreso y próximos repasos</summary><div><MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /></div></details> : null}
++      {!preview && state && state.availability !== "maintenance" && state.nextAction.kind !== "none" && state.nextAction.key ? <Link href={returnHref}><MapTrifold aria-hidden size={18} />Volver a mi mapa</Link> : null}
++    </section> : attempt.status !== "open" ? <section className={ui.completion}><h2 ref={heading} tabIndex={-1}>{attempt.status === "paused" ? "Sesión pausada" : "Sesión cerrada"}</h2><p>Tu historial se conserva.</p><Link href={returnHref} className="learning-primary-button">Volver a mi mapa</Link></section>
++      : activity ? <section key={activity.key} className={ui.content} aria-busy={busy}>
++        {narrative ? <p className={ui.context}>{narrative}</p> : null}
++        <h2 ref={heading} tabIndex={-1} className={ui.prompt}>{prompt}</h2>
++        {attempt.accessiblePractice ? <p className={ui.notice} role="status">Práctica de texto o tabla. Después volverás a la imagen pendiente.</p> : null}
++        <ActivityComposition key={activity.key} activity={activity} attemptId={attempt.attemptId} rowVersion={attempt.rowVersion} disabled={disabled} comparison={comparison} readImage={readImage} tools={tools} onSubmit={respond} onReveal={() => requestHelp("reveal")} onAlternative={() => { if (!disabled) void run({ operation: "alternative", body: { activityKey: activity.key, expectedVersion: attempt.rowVersion } }); }} />
++      </section> : <section className={ui.completion}><CheckCircle aria-hidden size={48} weight="duotone" /><h2 ref={heading} tabIndex={-1}>Respuestas guardadas</h2><p>Todo listo para cerrar esta sesión.</p><button type="button" className="learning-primary-button" disabled={disabled} onClick={() => void run({ operation: "complete", body: { expectedVersion: attempt.rowVersion } })}>Finalizar sesión</button></section>}
+   </section></Surface>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/case.tsx b/apps/web/src/components/learning/v2/renderers/case.tsx
+index ab834e0..3854e46 100644
+--- a/apps/web/src/components/learning/v2/renderers/case.tsx
++++ b/apps/web/src/components/learning/v2/renderers/case.tsx
+@@ -7,7 +7,6 @@ import styles from "../composition.module.css";
+ /** Runtime manifests contain the authorized child, with its current narrative in prompt. */
+ export function CaseRenderer({ activity, children }: { activity: V2PublicActivity; children?: ReactNode }) {
+   return <section className={styles.caseStage} aria-label="Paso del caso progresivo">
+-    <p>La siguiente parte del caso se mostrará cuando tu respuesta esté confirmada.</p>
+     {activity.kind === "case" ? <><p className={styles.narrative}>{activity.payload.activeStage.narrative}</p><p role="status">La pregunta de este paso debe cargarse desde la sesión confirmada. Recarga para continuar.</p></> : children}
+   </section>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/choice.tsx b/apps/web/src/components/learning/v2/renderers/choice.tsx
+index 4c26949..0107c69 100644
+--- a/apps/web/src/components/learning/v2/renderers/choice.tsx
++++ b/apps/web/src/components/learning/v2/renderers/choice.tsx
+@@ -1,11 +1,12 @@
+ "use client";
+-import { useState } from "react";
++import { useState, type ReactNode } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
++import ui from "../../activities/activity-ui.module.css";
+ 
+-export function ChoiceRenderer({ activity, disabled, onSubmit }: { activity: Extract<V2PublicActivity, { kind: "single_choice" }>; disabled: boolean; onSubmit: (optionKey: string) => void }) {
++export function ChoiceRenderer({ activity, disabled, tools, onSubmit }: { activity: Extract<V2PublicActivity, { kind: "single_choice" }>; disabled: boolean; tools?: ReactNode; onSubmit: (optionKey: string) => void }) {
+   const [selected, setSelected] = useState("");
+   return <form className="learning-question-card" onSubmit={event => { event.preventDefault(); if (selected && !disabled) onSubmit(selected); }}>
+-    <fieldset disabled={disabled}><legend>Elige una respuesta</legend>{activity.payload.options.map(option => <label key={option.key} className={selected === option.key ? "is-selected" : undefined}><input type="radio" name={activity.key} value={option.key} checked={selected === option.key} onChange={() => setSelected(option.key)} /><span>{option.text}</span></label>)}</fieldset>
+-    <button className="learning-primary-button" type="submit" disabled={disabled || !selected}>Comprobar respuesta</button>
++    <fieldset disabled={disabled}><legend className="sr-only">Elige una respuesta</legend>{activity.payload.options.map(option => <label key={option.key} className={selected === option.key ? "is-selected" : undefined}><input type="radio" name={activity.key} value={option.key} checked={selected === option.key} onChange={() => setSelected(option.key)} /><span>{option.text}</span></label>)}</fieldset>
++    {tools}<div className={ui.action}><button className="learning-primary-button" type="submit" disabled={disabled || !selected}>Comprobar respuesta</button></div>
+   </form>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/constructed.tsx b/apps/web/src/components/learning/v2/renderers/constructed.tsx
+index 1b6f3c4..99948d1 100644
+--- a/apps/web/src/components/learning/v2/renderers/constructed.tsx
++++ b/apps/web/src/components/learning/v2/renderers/constructed.tsx
+@@ -1,19 +1,24 @@
+ "use client";
+-import { useEffect, useRef, useState } from "react";
++import { useEffect, useRef, useState, type ReactNode } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
++import ui from "../../activities/activity-ui.module.css";
+ 
+-export function ConstructedRenderer({ activity, disabled, submittedText, model, rubric, onSubmit, onReveal, onRate }: {
++export function ConstructedRenderer({ activity, disabled, tools, submittedText, model, rubric, onSubmit, onReveal, onRate }: {
+   activity: Extract<V2PublicActivity, { kind: "constructed_response" }>; disabled: boolean; submittedText: string | null; model: string | null;
+   rubric: { key: string; criterion: string; example: string }[];
++  tools?: ReactNode;
+   onSubmit: (text: string) => void; onReveal: () => void; onRate: (rating: "again" | "hard" | "good") => void;
+ }) {
+   const [text, setText] = useState("");
+   const modelHeading = useRef<HTMLHeadingElement>(null);
+-  useEffect(() => { if (model !== null) modelHeading.current?.focus(); }, [model]);
++  useEffect(() => { if (model !== null) modelHeading.current?.focus({ preventScroll: true }); }, [model]);
+   return <section className="learning-question-card">
+-    {submittedText === null ? <form onSubmit={event => { event.preventDefault(); if (text.trim() && !disabled) onSubmit(text); }} style={{ display: "grid", gap: 12 }}>
+-      <label htmlFor={`answer-${activity.key}`}>Explica con tus palabras</label><textarea id={`answer-${activity.key}`} rows={6} maxLength={activity.payload.maxChars} value={text} disabled={disabled} onChange={event => setText(event.target.value)} style={{ width: "100%", minWidth: 0, font: "inherit", padding: 12, border: "1px solid var(--koraz-line-strong)", borderRadius: 12 }} />
+-      <p>La comparación es formativa; tu valoración no acredita dominio.</p><button type="submit" className="learning-primary-button" disabled={disabled || !text.trim()}>Guardar mi respuesta</button>
+-    </form> : <><h3>Tu respuesta guardada para comparar</h3><p style={{ whiteSpace: "pre-wrap" }}>{submittedText}</p>{model === null ? <button type="button" className="learning-primary-button" disabled={disabled} onClick={onReveal}>Comparar con el modelo</button> : <><h3 ref={modelHeading} tabIndex={-1}>Respuesta modelo</h3><p style={{ whiteSpace: "pre-wrap" }}>{model}</p><h3>Criterios para comparar</h3><ul>{rubric.map(item => <li key={item.key}><strong>{item.criterion}</strong><p>{item.example}</p></li>)}</ul><p>¿Qué necesitas practicar? Esta valoración no es una nota ni demuestra dominio.</p><fieldset disabled={disabled} style={{ border: 0, display: "flex", gap: 10, flexWrap: "wrap", padding: 0 }}><legend>Valora tu recuperación</legend>{([['again', 'Volver a practicar'], ['hard', 'Me costó'], ['good', 'Lo recuperé']] as const).map(([rating, label]) => <button key={rating} type="button" className="learning-secondary-button" onClick={() => onRate(rating)}>{label}</button>)}</fieldset></>}</>}
++    {submittedText === null ? <form className="learning-question-card" onSubmit={event => { event.preventDefault(); if (text.trim() && !disabled) onSubmit(text); }}>
++      <label className="sr-only" htmlFor={`answer-${activity.key}`}>Explica con tus palabras</label><div className={ui.inputField}><textarea id={`answer-${activity.key}`} placeholder="Explica con tus palabras…" rows={6} maxLength={activity.payload.maxChars} value={text} disabled={disabled} onChange={event => setText(event.target.value)} aria-describedby={`limit-${activity.key}`} /><p className={ui.characterCount} id={`limit-${activity.key}`}>{text.length} / {activity.payload.maxChars}<span className="sr-only"> caracteres</span></p></div>
++      {tools}<div className={ui.action}><button type="submit" className="learning-primary-button" disabled={disabled || !text.trim()}>Guardar mi respuesta</button></div>
++    </form> : <><div className={ui.comparison}><article><h3>Tu respuesta</h3><p>{submittedText}</p></article>{model !== null ? <article><h3 ref={modelHeading} tabIndex={-1}>Respuesta modelo</h3><p>{model}</p></article> : null}</div>{model === null ? <div className={ui.action}><button type="button" className="learning-primary-button" disabled={disabled} onClick={onReveal}>Comparar con el modelo</button></div> : <>
++      <details className={ui.disclosure}><summary>Criterios para comparar</summary><ul>{rubric.map(item => <li key={item.key}><strong>{item.criterion}</strong><p>{item.example}</p></li>)}</ul></details>
++      <fieldset className={ui.ratings} disabled={disabled}><legend>Valora tu recuperación</legend>{([['again', 'Volver a practicar'], ['hard', 'Me costó'], ['good', 'Lo recuperé']] as const).map(([rating, label]) => <button key={rating} type="button" className="learning-secondary-button" onClick={() => onRate(rating)}>{label}</button>)}</fieldset>
++    </>}</>}
+   </section>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/image-target.tsx b/apps/web/src/components/learning/v2/renderers/image-target.tsx
+index 306a10c..b4733f6 100644
+--- a/apps/web/src/components/learning/v2/renderers/image-target.tsx
++++ b/apps/web/src/components/learning/v2/renderers/image-target.tsx
+@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
+ import type { V2PublicActivity, V2AttemptManifest } from "@cediah/contracts";
+ import styles from "./visual.module.css";
+ import { readV2AttemptImage } from "../client";
++import ui from "../../activities/activity-ui.module.css";
+ 
+ type Activity = Extract<V2PublicActivity, { kind: "image_target" }>;
+ type Answer = Extract<V2AttemptManifest["acceptedResponses"][number]["answer"], { kind: "image_target" }>;
+@@ -63,9 +64,9 @@ export function ImageTargetRenderer({ activity, image, hotspotTarget = null, alt
+     if (activity.payload.mode === "hotspot" && target && point) onSubmit({ kind: "image_target", mode: "hotspot", targetKey: target.key, point: { ...point } });
+     else if (activity.payload.mode === "labeling") onSubmit({ kind: "image_target", mode: "labeling", labelsByTarget: { ...labels } });
+   }}>
+-    <p id={`${id}-instructions`}>{activity.payload.mode === "hotspot" ? "Señala un punto de la imagen. También puedes enfocar la imagen y usar las flechas, o ajustar las coordenadas." : "Relaciona cada número de la imagen con una etiqueta usando los selectores."}</p>
++    <p className={styles.instruction} id={`${id}-instructions`}>{activity.payload.mode === "hotspot" ? "Toca la imagen para señalar tu respuesta." : "Elige una etiqueta para cada punto numerado."}</p>
+     {activity.payload.mode === "hotspot" && activity.payload.targets.length > 1 ? <label>Consigna de selección<select disabled={disabled} value={targetKey} onChange={event => { setTargetKey(event.target.value); setPoint(null); }}>{activity.payload.targets.map(item => <option key={item.key} value={item.key}>{item.prompt}</option>)}</select></label> : null}
+-    {activity.payload.mode === "hotspot" && target ? <p>{target.prompt}</p> : null}
++    {activity.payload.mode === "hotspot" && target && target.prompt !== activity.prompt ? <p>{target.prompt}</p> : null}
+     {!safeImage ? <p role="alert">La imagen autorizada no está disponible. Tu respuesta aún no se ha enviado.</p> : <>
+       <div className={styles.tools}><label htmlFor={`${id}-zoom`}>Ampliación de imagen</label><select id={`${id}-zoom`} value={zoom} disabled={locked} onChange={event => setZoom(Number(event.target.value))}>{[1, 1.5, 2, 3].map(value => <option key={value} value={value}>{value * 100} %</option>)}</select></div>
+       <div className={styles.viewport} role="region" aria-label="Área ampliada de imagen" tabIndex={0}><div ref={surface} className={styles.surface} style={{ width: `${zoom * 100}%`, height: `${300 * zoom}px` }} role="group" aria-label="Imagen para responder" aria-describedby={`${id}-instructions`} aria-disabled={locked} tabIndex={activity.payload.mode === "hotspot" ? 0 : undefined}
+@@ -81,11 +82,11 @@ export function ImageTargetRenderer({ activity, image, hotspotTarget = null, alt
+     </>}
+     {activity.payload.mode === "hotspot" ? <>
+       {!target ? <p role="alert">Falta la consigna autorizada para esta selección. Tu sesión se conserva.</p> : null}
+-      <fieldset disabled={locked}><legend>Ajustar el punto seleccionado</legend><div className={styles.coordinates}>{(["x", "y"] as const).map(axis => <label key={axis}>{axis === "x" ? "Horizontal (%)" : "Vertical (%)"}<input type="number" min={0} max={100} step="any" value={point ? Number((point[axis] * 100).toFixed(4)) : ""} onChange={event => { if (event.target.value === "") { setPoint(null); return; } const value = Number(event.target.value); if (Number.isFinite(value)) move(axis === "x" ? value / 100 : point?.x ?? .5, axis === "y" ? value / 100 : point?.y ?? .5); }} /></label>)}</div></fieldset>
+-      <p role="status">{point ? `Punto seleccionado: horizontal ${(point.x * 100).toFixed(1)} %, vertical ${(point.y * 100).toFixed(1)} %.` : "Aún no has seleccionado un punto."}</p>
++      <p role="status">{point ? "Punto seleccionado. Puedes tocar otro lugar para cambiarlo." : "Aún no has seleccionado un punto."}</p>
++      <details className={ui.disclosure}><summary>Ajustar el punto seleccionado</summary><div><p>Puedes enfocar la imagen y usar las flechas, o ajustar las coordenadas.</p><fieldset disabled={locked}><legend className="sr-only">Ajustar el punto seleccionado</legend><div className={styles.coordinates}>{(["x", "y"] as const).map(axis => <label key={axis}>{axis === "x" ? "Horizontal (%)" : "Vertical (%)"}<input type="number" min={0} max={100} step="any" value={point ? Number((point[axis] * 100).toFixed(4)) : ""} onChange={event => { if (event.target.value === "") { setPoint(null); return; } const value = Number(event.target.value); if (Number.isFinite(value)) move(axis === "x" ? value / 100 : point?.x ?? .5, axis === "y" ? value / 100 : point?.y ?? .5); }} /></label>)}</div></fieldset></div></details>
+     </> : <fieldset disabled={locked}><legend>Etiquetas de los puntos numerados</legend><div className={styles.labels}>{activity.payload.targets.map((target, index) => <label key={target.key}>{`Punto ${index + 1}: ${target.prompt}`}<select value={labels[target.key] ?? ""} onChange={event => setLabels(current => ({ ...current, [target.key]: event.target.value }))}><option value="">Elige una etiqueta</option>{activity.payload.labels.map(label => <option key={label.key} value={label.key}>{label.text}</option>)}</select></label>)}</div></fieldset>}
+-    {alternative ? <button type="button" className="learning-secondary-button" disabled={disabled} onClick={alternative.onSelect}>{alternative.label}</button> : null}
+-    <button type="submit" className="learning-primary-button" disabled={locked || !complete}>Comprobar respuesta visual</button>
++    {alternative ? <details className={ui.disclosure}><summary>Otra forma de practicar</summary><div><button type="button" className="learning-secondary-button" disabled={disabled} onClick={alternative.onSelect}>{alternative.label}</button></div></details> : null}
++    <div className={ui.action}><button type="submit" className="learning-primary-button" disabled={locked || !complete}>Comprobar respuesta visual</button></div>
+   </form>;
+ }
+ 
+@@ -102,8 +103,9 @@ export function AuthorizedImageTargetRenderer({ activity, attemptId, rowVersion,
+     return () => controller.abort();
+   }, [attemptId, activity.key, activity.payload.assetKey, rowVersion, retry, readImage]);
+   return <>{!image ? <div role={error ? "alert" : "status"}><p>{error ? "No pudimos obtener la imagen autorizada. Tu respuesta no se ha enviado." : "Solicitando imagen autorizada…"}</p>{error ? <button type="button" disabled={disabled} onClick={() => { setImage(null); setError(false); setRetry(value => value + 1); }}>Reintentar acceso a la imagen</button> : null}</div> : null}
+-    <ImageTargetRenderer activity={activity} image={image} disabled={disabled} onSubmit={onSubmit}
++    {image ? <ImageTargetRenderer activity={activity} image={image} disabled={disabled} onSubmit={onSubmit}
+       onRetryImage={() => { setImage(null); setError(false); setRetry(value => value + 1); }}
+       alternative={activity.payload.accessibleAlternativeKey ? { label: "Practicar con variante de texto o tabla", onSelect: onAlternative } : null} />
++      : error && activity.payload.accessibleAlternativeKey ? <button type="button" className="learning-secondary-button" disabled={disabled} onClick={onAlternative}>Practicar con variante de texto o tabla</button> : null}
+   </>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/match.tsx b/apps/web/src/components/learning/v2/renderers/match.tsx
+index c068f68..89f7050 100644
+--- a/apps/web/src/components/learning/v2/renderers/match.tsx
++++ b/apps/web/src/components/learning/v2/renderers/match.tsx
+@@ -1,8 +1,9 @@
+ "use client";
+ 
+-import { useId, useState } from "react";
++import { useId, useState, type ReactNode } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
+ import styles from "./visual.module.css";
++import ui from "../../activities/activity-ui.module.css";
+ 
+ type Activity = Extract<V2PublicActivity, { kind: "match" }>;
+ export function completePairs(activity: Activity, pairs: Record<string, string>) {
+@@ -12,7 +13,7 @@ export function completePairs(activity: Activity, pairs: Record<string, string>)
+ }
+ 
+ /** Selections supply the same relations for keyboard, pointer and touch users. */
+-export function MatchRenderer({ activity, disabled, onSubmit }: { activity: Activity; disabled: boolean; onSubmit: (pairs: Record<string, string>) => void }) {
++export function MatchRenderer({ activity, disabled, tools, onSubmit }: { activity: Activity; disabled: boolean; tools?: ReactNode; onSubmit: (pairs: Record<string, string>) => void }) {
+   const [pairs, setPairs] = useState<Record<string, string>>({});
+   const id = useId();
+   const presentation = activity.payload.presentation;
+@@ -25,11 +26,11 @@ export function MatchRenderer({ activity, disabled, onSubmit }: { activity: Acti
+     return <label className={styles.relation} htmlFor={`${id}-${index}`}><span>{prompt.text}</span><span aria-hidden="true">→</span><select id={`${id}-${index}`} value={pairs[prompt.key] ?? ""} onChange={event => select(prompt.key, event.target.value)}><option value="">Elige una relación</option>{activity.payload.choices.map(choice => <option key={choice.key} value={choice.key}>{choice.text}</option>)}</select></label>;
+   }
+   return <form className={styles.form} onSubmit={event => { event.preventDefault(); if (!disabled && completePairs(activity, pairs)) onSubmit({ ...pairs }); }}>
+-    <fieldset disabled={disabled}><legend>{presentation === "comparison_table" ? "Completa la tabla de comparación" : presentation === "causal_map" ? "Completa las relaciones del mapa" : "Relaciona cada elemento"}</legend>
+-      <p>{activity.payload.allowReuse ? "Una opción puede relacionarse con varios elementos." : "Usa cada opción una vez."} Puedes completar todo con los selectores y el teclado.</p>
++    <fieldset disabled={disabled}><legend className="sr-only">{presentation === "comparison_table" ? "Completa la tabla de comparación" : presentation === "causal_map" ? "Completa las relaciones del mapa" : "Relaciona cada elemento"}</legend>
++      <p className={styles.instruction}>{activity.payload.allowReuse ? "Puedes repetir una opción." : "Usa cada opción una vez."}</p>
+       {presentation === "comparison_table" ? <div className={styles.tableRegion} role="region" aria-label="Tabla de relaciones" tabIndex={0}><table><thead><tr><th scope="col">Elemento</th><th scope="col">Relación</th></tr></thead><tbody>{activity.payload.prompts.map((prompt, index) => <tr key={prompt.key}><th scope="row"><label htmlFor={`${id}-${index}`}>{prompt.text}</label></th><td><select id={`${id}-${index}`} value={pairs[prompt.key] ?? ""} onChange={event => select(prompt.key, event.target.value)}><option value="">Elige una relación</option>{activity.payload.choices.map(choice => <option key={choice.key} value={choice.key}>{choice.text}</option>)}</select></td></tr>)}</tbody></table></div>
+         : <div className={presentation === "causal_map" ? styles.map : styles.pairs}>{activity.payload.prompts.map((prompt, index) => <div key={prompt.key}>{row(prompt, index)}</div>)}</div>}
+     </fieldset><p role="status">{activity.payload.prompts.filter(prompt => pairs[prompt.key]).length} de {activity.payload.prompts.length} relaciones seleccionadas{duplicate ? ". Hay opciones repetidas; cambia una de esas relaciones antes de comprobar." : ""}</p>
+-    <button type="submit" className="learning-primary-button" disabled={disabled || !completePairs(activity, pairs)}>Comprobar relaciones</button>
++    {tools}<div className={ui.action}><button type="submit" className="learning-primary-button" disabled={disabled || !completePairs(activity, pairs)}>Comprobar relaciones</button></div>
+   </form>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/sequence.tsx b/apps/web/src/components/learning/v2/renderers/sequence.tsx
+index 3074452..cf844ca 100644
+--- a/apps/web/src/components/learning/v2/renderers/sequence.tsx
++++ b/apps/web/src/components/learning/v2/renderers/sequence.tsx
+@@ -1,8 +1,10 @@
+ "use client";
+ 
+-import { useRef, useState } from "react";
++import { useRef, useState, type ReactNode } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
+ import styles from "../composition.module.css";
++import { ArrowDown, ArrowUp } from "@phosphor-icons/react";
++import ui from "../../activities/activity-ui.module.css";
+ 
+ type Activity = Extract<V2PublicActivity, { kind: "sequence" }>;
+ export function moveSequenceItem(order: readonly string[], key: string, offset: -1 | 1): string[] {
+@@ -18,7 +20,7 @@ export function validSequenceOrder(items: Activity["payload"]["items"], order: r
+     && order.every(key => items.some(item => item.key === key));
+ }
+ 
+-export function SequenceRenderer({ activity, disabled, onSubmit }: { activity: Activity; disabled: boolean; onSubmit: (orderedKeys: string[]) => void }) {
++export function SequenceRenderer({ activity, disabled, tools, onSubmit }: { activity: Activity; disabled: boolean; tools?: ReactNode; onSubmit: (orderedKeys: string[]) => void }) {
+   const [order, setOrder] = useState(() => activity.payload.items.map(item => item.key));
+   const [announcement, setAnnouncement] = useState("");
+   const controls = useRef(new Map<string, HTMLButtonElement>());
+@@ -32,14 +34,15 @@ export function SequenceRenderer({ activity, disabled, onSubmit }: { activity: A
+     controls.current.get(`${key}:${direction}`)?.focus();
+   }
+   return <form className={styles.sequence} onSubmit={event => { event.preventDefault(); if (!disabled && validSequenceOrder(activity.payload.items, order)) onSubmit([...order]); }}>
+-    <fieldset disabled={disabled}><legend>Ordena los pasos</legend>
+-      <p>Usa Subir y Bajar para colocar cada paso. Después comprueba el orden completo.</p>
++    <fieldset disabled={disabled}><legend className="sr-only">Ordena los pasos</legend>
++      <p className={styles.instruction}>Usa las flechas para ordenar los pasos.</p>
+       <ol className={styles.steps}>{order.map((key, index) => <li key={key}>
++        <span className={styles.stepNumber} aria-hidden>{index + 1}</span>
+         <span className={styles.stepText}>{activity.payload.items.find(item => item.key === key)?.text}</span>
+-        <div className={styles.controls}>{([-1, 1] as const).map(offset => <button key={offset} ref={element => { if (element) controls.current.set(`${key}:${offset}`, element); else controls.current.delete(`${key}:${offset}`); }} type="button" className="learning-secondary-button" disabled={disabled || (offset === -1 ? index === 0 : index === order.length - 1)} aria-label={`${offset === -1 ? "Subir" : "Bajar"}: ${activity.payload.items.find(item => item.key === key)?.text}`} onClick={() => move(key, offset)}>{offset === -1 ? "Subir" : "Bajar"}</button>)}</div>
++        <div className={styles.controls}>{([-1, 1] as const).map(offset => <button key={offset} ref={element => { if (element) controls.current.set(`${key}:${offset}`, element); else controls.current.delete(`${key}:${offset}`); }} type="button" disabled={disabled || (offset === -1 ? index === 0 : index === order.length - 1)} aria-label={`${offset === -1 ? "Subir" : "Bajar"}: ${activity.payload.items.find(item => item.key === key)?.text}`} onClick={() => move(key, offset)}>{offset === -1 ? <ArrowUp aria-hidden size={18} /> : <ArrowDown aria-hidden size={18} />}</button>)}</div>
+       </li>)}</ol>
+     </fieldset>
+-    <p role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
+-    <button type="submit" className="learning-primary-button" disabled={disabled || !validSequenceOrder(activity.payload.items, order)}>Comprobar secuencia</button>
++    <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
++    {tools}<div className={ui.action}><button type="submit" className="learning-primary-button" disabled={disabled || !validSequenceOrder(activity.payload.items, order)}>Comprobar secuencia</button></div>
+   </form>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/short.tsx b/apps/web/src/components/learning/v2/renderers/short.tsx
+index ef69cc4..ec42512 100644
+--- a/apps/web/src/components/learning/v2/renderers/short.tsx
++++ b/apps/web/src/components/learning/v2/renderers/short.tsx
+@@ -1,12 +1,13 @@
+ "use client";
+-import { useState } from "react";
++import { useState, type ReactNode } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
++import ui from "../../activities/activity-ui.module.css";
+ 
+-export function ShortRenderer({ activity, disabled, onSubmit }: { activity: Extract<V2PublicActivity, { kind: "short_answer" }>; disabled: boolean; onSubmit: (text: string) => void }) {
++export function ShortRenderer({ activity, disabled, tools, onSubmit }: { activity: Extract<V2PublicActivity, { kind: "short_answer" }>; disabled: boolean; tools?: ReactNode; onSubmit: (text: string) => void }) {
+   const [text, setText] = useState("");
+   return <form className="learning-question-card" onSubmit={event => { event.preventDefault(); if (text.trim() && !disabled) onSubmit(text); }}>
+-    <label htmlFor={`answer-${activity.key}`}>Tu respuesta</label><textarea id={`answer-${activity.key}`} rows={4} maxLength={activity.payload.maxChars} disabled={disabled} value={text} onChange={event => setText(event.target.value)} aria-describedby={`limit-${activity.key}`} style={{ width: "100%", minWidth: 0, font: "inherit", padding: 12, border: "1px solid var(--koraz-line-strong)", borderRadius: 12 }} />
+-    <p id={`limit-${activity.key}`}>{text.length} / {activity.payload.maxChars} caracteres</p>
+-    <button className="learning-primary-button" type="submit" disabled={disabled || !text.trim()}>Comprobar respuesta</button>
++    <label className="sr-only" htmlFor={`answer-${activity.key}`}>Tu respuesta</label><div className={ui.inputField}><textarea id={`answer-${activity.key}`} placeholder="Tu respuesta" rows={4} maxLength={activity.payload.maxChars} disabled={disabled} value={text} onChange={event => setText(event.target.value)} aria-describedby={`limit-${activity.key}`} />
++    <p className={ui.characterCount} id={`limit-${activity.key}`}>{text.length} / {activity.payload.maxChars}<span className="sr-only"> caracteres</span></p></div>
++    {tools}<div className={ui.action}><button className="learning-primary-button" type="submit" disabled={disabled || !text.trim()}>Comprobar respuesta</button></div>
+   </form>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/study.tsx b/apps/web/src/components/learning/v2/renderers/study.tsx
+index 4fd7cf7..eb98465 100644
+--- a/apps/web/src/components/learning/v2/renderers/study.tsx
++++ b/apps/web/src/components/learning/v2/renderers/study.tsx
+@@ -1,16 +1,16 @@
+ "use client";
+ import { useState } from "react";
+ import type { V2PublicActivity } from "@cediah/contracts";
++import ui from "../../activities/activity-ui.module.css";
+ 
+ export function StudyRenderer({ activity, disabled, onSubmit }: { activity: Extract<V2PublicActivity, { kind: "study" }>; disabled: boolean; onSubmit: () => void }) {
+   const [focus, setFocus] = useState(false);
+   const { body, focusSpans } = activity.payload;
+   const boundaries = [...new Set([0, body.length, ...focusSpans.flatMap(span => [span.start, span.end])])].filter(n => n >= 0 && n <= body.length).sort((a, b) => a - b);
+   return <section className="learning-guide-activity">
+-    {focusSpans.length ? <label><input type="checkbox" checked={focus} onChange={event => setFocus(event.target.checked)} /> Resaltar ideas clave</label> : null}
++    {focusSpans.length ? <label className={ui.eyebrow}><input type="checkbox" checked={focus} onChange={event => setFocus(event.target.checked)} /> Resaltar ideas clave</label> : null}
+     <article><p>{boundaries.slice(0, -1).map((start, index) => { const end = boundaries[index + 1]!; const text = body.slice(start, end); return focus && focusSpans.some(span => span.start <= start && span.end >= end) ? <mark key={start}>{text}</mark> : <span key={start}>{text}</span>; })}</p></article>
+-    {activity.payload.assetKey ? <p>Este paso incluye un recurso visual. Su visor se incorporará con las actividades visuales.</p> : null}
+-    <p>Leer cuenta para el recorrido. El dominio se comprueba al responder.</p>
+-    <button type="button" className="learning-primary-button" disabled={disabled} onClick={onSubmit}>Continuar a la práctica</button>
++    {activity.payload.assetKey ? <p className={ui.eyebrow}>El recurso visual de esta lectura no está disponible en este visor.</p> : null}
++    <div className={ui.action}><button type="button" className="learning-primary-button" disabled={disabled} onClick={onSubmit}>Continuar a la práctica</button></div>
+   </section>;
+ }
+diff --git a/apps/web/src/components/learning/v2/renderers/visual.module.css b/apps/web/src/components/learning/v2/renderers/visual.module.css
+index 6cb0fae..26ec3d7 100644
+--- a/apps/web/src/components/learning/v2/renderers/visual.module.css
++++ b/apps/web/src/components/learning/v2/renderers/visual.module.css
+@@ -1,17 +1,23 @@
+ .form { display: grid; gap: 16px; min-width: 0; }
+-.form fieldset { min-width: 0; margin: 0; padding: 16px; border: 1px solid #cbd5e1; border-radius: 12px; }
++.form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+ .form legend { font-weight: 600; padding-inline: 6px; }
+-.form select { width: 100%; min-width: 0; min-height: 44px; padding: 8px; font: inherit; color: inherit; background: #fff; border: 1px solid #94a3b8; border-radius: 8px; }
++.form select { width: 100%; min-width: 0; min-height: 48px; padding: 10px 12px; font: inherit; font-size: 16px; color: #334867; background: #fff; border: 1px solid #cdd7e9; border-radius: 12px; }
++.instruction, .form > p[role="status"] { font-size: 13px; color: #63708a; line-height: 1.6; }
+ .form button { min-height: 44px; }
+ .form :is(button, select, input):focus-visible, .surface:focus-visible, .viewport:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+-.pairs, .map { display: grid; gap: 12px; }
++.pairs, .map { display: grid; gap: 12px; margin-top: 16px; }
+ .relation { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; overflow-wrap: anywhere; }
+-.map .relation { border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px; }
++.relation { border: 1px solid #dce3ef; border-radius: 16px; padding: 16px; font-size: 15px; }
++.map .relation { background: #f7f9fd; }
+ .tableRegion { overflow: auto; max-width: 100%; }
+ .tableRegion table { width: 100%; border-collapse: collapse; }
+-.tableRegion th, .tableRegion td { text-align: left; padding: 12px; border-bottom: 1px solid #cbd5e1; overflow-wrap: anywhere; }
+-.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+-.viewport { overflow: auto; max-width: 100%; border: 1px solid #94a3b8; border-radius: 12px; }
++.tableRegion th, .tableRegion td { text-align: left; padding: 12px; border-bottom: 1px solid #dce3ef; overflow-wrap: anywhere; font-size: 14px; }
++.tableRegion thead { color: #63708a; }
++.tableRegion th { font-weight: 500; }
++.tableRegion td { min-width: 155px; }
++.tools { display: flex; align-items: center; justify-content: flex-end; gap: 10px; font-size: 13px; color: #63708a; }
++.tools select { width: auto; min-height: 44px; padding-block: 8px; font-size: 14px; }
++.viewport { overflow: auto; max-width: 100%; border: 1px solid #dce3ef; border-radius: 18px; background: #f8fafc; }
+ .surface { position: relative; height: 360px; touch-action: pan-x pan-y; }
+ .surface img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }
+ .marker { position: absolute; transform: translate(-50%, -50%); pointer-events: none; border: 2px solid #fff; background: #172554; color: #fff; border-radius: 50%; min-width: 28px; min-height: 28px; display: grid; place-items: center; box-shadow: 0 0 0 2px #172554; }
+@@ -19,5 +25,5 @@
+ .labels label { display: grid; gap: 6px; }
+ .coordinates { display: flex; flex-wrap: wrap; gap: 12px; }
+ .coordinates label { display: grid; gap: 6px; }
+-.coordinates input { width: 100px; min-height: 44px; font: inherit; }
+-@media (max-width: 540px) { .relation { grid-template-columns: minmax(0, 1fr); gap: 6px; } .relation > span[aria-hidden] { display: none; } .surface { height: 300px; } .tableRegion th, .tableRegion td { padding: 6px; } }
++.coordinates input { width: 100px; min-height: 44px; padding: 8px 12px; border: 1px solid #cdd7e9; border-radius: 12px; font: inherit; font-size: 16px; }
++@media (max-width: 540px) { .relation { grid-template-columns: minmax(0, 1fr); gap: 10px; } .relation > span[aria-hidden] { display: none; } .surface { height: 300px; } .tableRegion th, .tableRegion td { padding: 10px 6px; } }
+diff --git a/apps/web/tests/e2e/activity-player-redesign.spec.ts b/apps/web/tests/e2e/activity-player-redesign.spec.ts
+new file mode 100644
+index 0000000..64785db
+--- /dev/null
++++ b/apps/web/tests/e2e/activity-player-redesign.spec.ts
+@@ -0,0 +1,189 @@
++import { test, expect, type Page, type TestInfo } from "@playwright/test";
++import AxeBuilder from "@axe-core/playwright";
++import { V2HttpContracts, V2PublicActivitySchema, type V2AttemptManifest, type V2PublicActivity } from "@cediah/contracts";
++import { studentFixture, fixtureId } from "../../src/components/learning/v2/fixtures";
++import { legacyActivityFixture } from "../../src/components/learning/activities/activity-player-fixtures";
++import { learningVisualProgress } from "../../src/components/learning/learning-visual-fixtures";
++
++const source = { key: "source", title: "Fuente del ejercicio", citation: "Material sintético para verificar la interfaz.", locator: { heading: "Relaciones", sectionPath: ["Conceptos"], page: 2 }, excerpt: "A precede a B.", url: null };
++const feedback = { explanation: "A precede a B: identifica primero el origen y después el resultado.", commonError: "No confundas el origen con el resultado.", sources: [source] };
++const visualUrl = "https://activity-ui.example.test/figure.svg";
++const figure = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360"><rect width="600" height="360" fill="#f4f7fc"/><path d="M300 70v180m0-100-100 60m100-60 110 65" fill="none" stroke="#6483ba" stroke-width="20" stroke-linecap="round"/><circle cx="300" cy="70" r="28" fill="#b4c7ea"/><text x="40" y="325" font-family="sans-serif" font-size="16" fill="#63708a">Figura de práctica</text></svg>';
++
++function activityFor(mode: string): V2PublicActivity {
++  const base = { key: "practice-a", objectiveKey: "objective-a", phase: "retrieve", representation: "text", prompt: "¿Qué concepto precede a B?" };
++  const options = [{ key: "a", text: "Concepto A" }, { key: "b", text: "Concepto C" }, { key: "c", text: "Concepto D" }];
++  const activity = mode === "study" || mode === "worked-example" || mode === "partial-example" ? { ...base, kind: "study", phase: "learn", prompt: "Comprende la relación entre A y B", payload: { body: "El concepto A precede a B. Primero identifica el origen y después relaciona el resultado.\n\nIntenta recuperar esta relación cuando pases a la práctica.", focusSpans: [{ start: 3, end: 26 }], assetKey: null, scaffold: mode === "worked-example" ? "worked_example" : mode === "partial-example" ? "partial_example" : "explanation", videoRange: null } }
++    : mode === "short_answer" || mode === "constructed_response" ? { ...base, kind: mode, prompt: mode === "constructed_response" ? "Explica cómo se relacionan A y B" : base.prompt, payload: { maxChars: mode === "short_answer" ? 240 : 4000 } }
++      : ["match", "comparison_table", "causal_map"].includes(mode) ? { ...base, kind: "match", prompt: "Relaciona cada concepto con su función", payload: { presentation: mode === "match" ? "pairs" : mode, prompts: [{ key: "p1", text: "Concepto A" }, { key: "p2", text: "Concepto B" }], choices: [{ key: "c1", text: "Origen" }, { key: "c2", text: "Resultado" }], allowReuse: false } }
++        : mode === "sequence" ? { ...base, kind: "sequence", prompt: "Ordena la relación desde su origen", payload: { items: [{ key: "a", text: "Identificar el origen" }, { key: "b", text: "Reconocer el cambio" }, { key: "c", text: "Relacionar el resultado" }] } }
++          : mode === "image_target" || mode === "labeling" ? { ...base, kind: "image_target", representation: "image", prompt: mode === "labeling" ? "Identifica los puntos de la imagen" : "Señala el origen en la imagen", payload: { assetKey: "figure", mode: mode === "labeling" ? "labeling" : "hotspot", masking: "no_labels", targets: [{ key: "origin", prompt: "Origen", marker: mode === "labeling" ? { x: .5, y: .2 } : null }], labels: mode === "labeling" ? [{ key: "a", text: "Origen" }, { key: "b", text: "Resultado" }] : [] } }
++            : mode === "case-wrapper" ? { ...base, kind: "case", prompt: "Caso progresivo", payload: { activeStage: { key: "stage-a", narrative: "Un cambio en A modifica el resultado B.", childActivityKey: "child-a" } } }
++              : { ...base, kind: "single_choice", ...(mode === "case" ? { representation: "case", prompt: "Un cambio en A modifica el resultado B. Observa la relación antes de responder.\n\n¿Qué concepto inicia este cambio?" } : {}), payload: { options } };
++  return V2PublicActivitySchema.parse(activity);
++}
++
++async function mockPlayer(page: Page, mode: string, failFirst = false) {
++  const fixture = studentFixture();
++  let attempt: V2AttemptManifest = { ...fixture.attempt, activeActivity: activityFor(mode) };
++  let state = fixture.state;
++  const writes: { url: string; body: unknown; key: string | undefined }[] = [];
++  // Permit only this synthetic media origin in the fixture document. Runtime CSP stays unchanged.
++  await page.route("**/visual-fixtures/aprendizaje-v2?**", async route => {
++    if (route.request().resourceType() !== "document") return route.continue();
++    const response = await route.fetch(), headers = response.headers();
++    if (headers["content-security-policy"]) headers["content-security-policy"] = headers["content-security-policy"].replace("img-src 'self'", "img-src 'self' https://activity-ui.example.test");
++    await route.fulfill({ response, headers });
++  });
++  await page.route(visualUrl, route => route.fulfill({ contentType: "image/svg+xml", body: figure }));
++  await page.route("**/api/v2/guided-learning/**", async route => {
++    const request = route.request(), url = new URL(request.url()), path = url.pathname;
++    if (request.method() === "GET") {
++      if (path.endsWith("/image")) return route.fulfill({ json: V2HttpContracts.attemptImage.response.parse({ activityKey: attempt.activeActivity!.key, attemptVersion: attempt.rowVersion, image: { assetKey: "figure", url: visualUrl, alt: "Figura sintética de origen y ramas", expiresAt: "2035-01-01T00:00:00Z" } }) });
++      return route.fulfill({ json: path.endsWith("/state") ? { state } : { attempt } });
++    }
++    const body = request.postDataJSON();
++    writes.push({ url: path, body, key: request.headers()["idempotency-key"] });
++    if (path.endsWith("/responses") && failFirst) { failFirst = false; return route.abort("failed"); }
++    if (path.endsWith("/help")) {
++      const parsed = V2HttpContracts.attemptHelp.body.parse(body);
++      attempt = { ...attempt, rowVersion: attempt.rowVersion + 1 };
++      if (parsed.kind === "reveal" && attempt.constructedResponse) attempt.constructedResponse = { ...attempt.constructedResponse, stage: "revealed", modelAnswer: "A precede a B.", rubric: [{ key: "origin", criterion: "Identifica el origen", example: "Reconoce A antes de relacionar B." }] };
++      return route.fulfill({ json: V2HttpContracts.attemptHelp.response.parse({ attempt, help: { kind: parsed.kind, text: "Identifica el origen antes de relacionar el resultado." } }) });
++    }
++    if (path.endsWith("/responses")) {
++      const parsed = V2HttpContracts.attemptResponse.body.parse(body);
++      const accepted = parsed.answer.kind !== "constructed_response" || parsed.answer.selfRating !== null;
++      const score01 = parsed.answer.kind === "study" || parsed.answer.kind === "constructed_response" ? null : 1;
++      attempt = { ...attempt, rowVersion: attempt.rowVersion + 1 };
++      if (!accepted && parsed.answer.kind === "constructed_response") attempt.constructedResponse = { activityKey: parsed.activityKey, text: parsed.answer.text, stage: "submitted" };
++      if (accepted) {
++        attempt = { ...attempt, activeActivity: null, constructedResponse: undefined, acceptedResponses: [...attempt.acceptedResponses, { activityKey: parsed.activityKey, answer: parsed.answer, serverAcceptedAt: "2026-10-12T12:00:00Z", score01, feedback }] };
++        state = { ...state, rowVersion: state.rowVersion + 1, completedActivities: 3 };
++      }
++      return route.fulfill({ json: V2HttpContracts.attemptResponse.response.parse({ accepted, attempt, state, nextStep: attempt.activeActivity, feedback: { ...feedback, score01 } }) });
++    }
++    if (path.endsWith("/complete")) {
++      V2HttpContracts.attemptComplete.body.parse(body);
++      attempt = { ...attempt, status: "completed", rowVersion: attempt.rowVersion + 1 };
++      state = { ...state, rowVersion: state.rowVersion + 1, nextAction: { kind: "activity", key: "practice-b", reason: "Continúa con el siguiente concepto." } };
++      return route.fulfill({ json: V2HttpContracts.attemptComplete.response.parse({ attempt, state }) });
++    }
++    if (path.endsWith("/attempts")) {
++      V2HttpContracts.attemptCreate.body.parse(body);
++      return route.fulfill({ json: V2HttpContracts.attemptCreate.response.parse({ attempt: { ...attempt, attemptId: fixtureId(5), rowVersion: 1, status: "open", activeActivity: { ...activityFor("short_answer"), key: "practice-b" }, acceptedResponses: [] } }) });
++    }
++    return route.fulfill({ status: 404, json: { error: "unknown fixture request" } });
++  });
++  return writes;
++}
++
++async function capture(page: Page, info: TestInfo, name: string) {
++  const geometry = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth }));
++  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.width + 1);
++  const scan = await new AxeBuilder({ page }).include('[aria-label="Sesión de aprendizaje"]').disableRules(["landmark-one-main", "region"]).analyze();
++  expect(scan.violations.filter(item => ["serious", "critical"].includes(item.impact ?? ""))).toEqual([]);
++  await page.screenshot({ path: info.outputPath(`${name}.png`), fullPage: true, animations: "disabled", scale: "css", style: "nextjs-portal { visibility: hidden !important; }" });
++}
++
++for (const mode of ["study", "worked-example", "partial-example", "single_choice", "short_answer", "constructed_response", "match", "comparison_table", "causal_map", "sequence", "image_target", "labeling", "case", "case-wrapper"]) {
++  test(`v2 ${mode} stays focused, responds and keeps system details on demand`, async ({ page }, info) => {
++    const errors: string[] = []; page.on("pageerror", error => errors.push(error.message));
++    await mockPlayer(page, mode);
++    await page.goto(`/visual-fixtures/aprendizaje-v2?surface=player&estado=${mode}`);
++    await expect(page.getByRole("heading", { name: "Tu sesión de aprendizaje" })).toBeVisible();
++    await expect(page.getByText("Dominio por comprobar", { exact: true })).toBeHidden();
++    await page.getByRole("button", { name: "Detalles de la sesión" }).click();
++    await expect(page.getByText("Dominio por comprobar", { exact: true })).toBeVisible();
++    await page.getByRole("button", { name: "Detalles de la sesión" }).click();
++    if (mode === "image_target" || mode === "labeling") await expect(page.getByRole("img", { name: "Figura sintética de origen y ramas" })).toBeVisible();
++    await capture(page, info, mode);
++    if (mode === "case-wrapper") { await expect(page.getByText(/Recarga para continuar/)).toBeVisible(); return; }
++    if (mode.includes("example") || mode === "study") await page.getByRole("button", { name: "Continuar a la práctica" }).click();
++    else {
++      if (mode === "single_choice" || mode === "case") await page.getByRole("radio").first().check();
++      if (mode === "short_answer") await page.getByLabel("Tu respuesta", { exact: true }).fill("A");
++      if (mode === "constructed_response") {
++        await page.getByLabel("Explica con tus palabras").fill("A precede a B.");
++        await page.getByRole("button", { name: "Guardar mi respuesta" }).click();
++        await expect(page.getByRole("heading", { name: "Respuesta modelo" })).toHaveCount(0);
++        await page.getByRole("button", { name: "Comparar con el modelo" }).click();
++        await capture(page, info, "comparison");
++        await page.getByRole("button", { name: "Lo recuperé", exact: true }).click();
++      }
++      if (["match", "comparison_table", "causal_map"].includes(mode)) {
++        await page.getByRole("combobox", { name: "Concepto A", exact: true }).selectOption("c1"); await page.getByRole("combobox", { name: "Concepto B", exact: true }).selectOption("c2");
++      }
++      if (mode === "sequence") {
++        await page.getByRole("button", { name: "Bajar: Identificar el origen", exact: true }).click();
++        await expect(page.locator("ol > li").first()).toContainText("Reconocer el cambio");
++        await page.getByRole("button", { name: "Necesito ayuda", exact: true }).click();
++        await expect(page.getByRole("heading", { name: "Pista", exact: true })).toBeVisible();
++        await expect(page.locator("ol > li").first()).toContainText("Reconocer el cambio");
++        await page.getByRole("button", { name: "Ocultar ayuda", exact: true }).click();
++        await page.getByRole("button", { name: "Subir: Identificar el origen", exact: true }).click();
++      }
++      if (mode === "image_target") await page.getByRole("group", { name: "Imagen para responder" }).click();
++      if (mode === "labeling") await page.getByLabel("Punto 1: Origen").selectOption("a");
++      if (mode !== "constructed_response") await page.getByRole("button", { name: /^Comprobar/ }).click();
++      await expect(page.getByRole("heading", { name: mode === "constructed_response" ? "Práctica registrada" : "Respuesta correcta", exact: true })).toBeVisible();
++      await expect(page.getByText(source.citation, { exact: true })).toBeHidden();
++      if (mode === "short_answer") await capture(page, info, "feedback");
++      await page.getByRole("button", { name: "Continuar", exact: true }).click();
++    }
++    const finish = page.getByRole("button", { name: "Finalizar sesión", exact: true });
++    if (await finish.isVisible()) await finish.click();
++    await expect(page.getByRole("heading", { name: "Sesión completada", exact: true })).toBeVisible();
++    await expect(page.getByRole("button", { name: "Siguiente actividad", exact: true })).toBeVisible();
++    expect(errors).toEqual([]);
++  });
++}
++
++test("lost writes retry once with the same identity; next activity starts directly and preserves map exit", async ({ page }, info) => {
++  const writes = await mockPlayer(page, "short_answer", true);
++  await page.goto("/visual-fixtures/aprendizaje-v2?surface=player&estado=short_answer");
++  await page.getByLabel("Tu respuesta", { exact: true }).fill("A");
++  await page.getByRole("button", { name: "Necesito ayuda", exact: true }).click();
++  await expect(page.getByRole("heading", { name: "Pista", exact: true })).toBeVisible();
++  await page.getByRole("button", { name: "Ocultar ayuda", exact: true }).click();
++  await page.getByRole("button", { name: "Comprobar respuesta", exact: true }).click();
++  await expect(page.getByRole("button", { name: "Reintentar solicitud pendiente" })).toBeVisible();
++  await expect(page.getByRole("button", { name: "Comprobar respuesta", exact: true })).toBeDisabled();
++  await capture(page, info, "connection-error");
++  await page.getByRole("button", { name: "Reintentar solicitud pendiente" }).click();
++  await page.getByRole("button", { name: "Continuar", exact: true }).click();
++  await expect(page.getByRole("heading", { name: "Sesión completada", exact: true })).toBeVisible();
++  const responses = writes.filter(write => write.url.endsWith("/responses"));
++  expect(responses).toHaveLength(2); expect(responses[0]).toEqual(responses[1]);
++  await page.route(`**/aprendizaje/sesiones/${fixtureId(5)}?*`, route => route.fulfill({ contentType: "text/html", body: "<main>Siguiente sesión confirmada</main>" }));
++  await page.getByRole("button", { name: "Siguiente actividad", exact: true }).click();
++  await expect(page).toHaveURL(new RegExp(`/aprendizaje/sesiones/${fixtureId(5)}\\?returnTo=`));
++  const launch = writes.find(write => write.url.endsWith("/attempts"));
++  expect(launch?.body).toMatchObject({ enrollmentId: fixtureId(3), target: { kind: "activity", key: "practice-b" } });
++  expect(new URL(page.url()).searchParams.get("returnTo")).toBe("/aprendizaje/mapa");
++});
++
++for (const mode of ["quiz", "flashcards", "guide", "review", "review-card", "video", "external-video"]) {
++  test(`legacy ${mode} uses the same mobile activity surface`, async ({ page }, info) => {
++    let attempt = legacyActivityFixture(mode);
++    await page.route("**/api/guided-learning/attempts/**", async route => {
++      if (route.request().method() === "GET") return route.fulfill({ status: 403, json: { error: "fixture has no real media" } });
++      const body = route.request().postDataJSON();
++      const reveal = route.request().url().endsWith("/reveal");
++      attempt = { ...attempt, rowVersion: attempt.rowVersion + 1, ...(reveal ? { revealedCards: [{ itemId: body.itemId ?? (attempt.manifest.projection === "flashcards" ? attempt.manifest.cards[0]!.itemId : attempt.manifest.projection === "review" ? attempt.manifest.items[0]!.itemId : attempt.id), back: "A precede a B." }] } : { status: "completed", submittedAt: "2026-10-12T12:00:00Z" }) };
++      return route.fulfill({ json: { attempt, awards: [], feedback: null, progress: learningVisualProgress, saved: true } });
++    });
++    await page.goto(`/visual-fixtures/aprendizaje-v2?surface=legacy-player&estado=${mode}`);
++    await expect(page.getByRole("heading", { name: /Práctica de conceptos|Repaso de conceptos/ })).toBeVisible();
++    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
++    await capture(page, info, mode);
++    if (mode === "flashcards" || mode === "review-card") {
++      await page.getByRole("button", { name: "Mostrar respuesta" }).click();
++      await expect(page.getByText("A precede a B.", { exact: true })).toBeVisible();
++      await page.getByRole("button", { name: "La recordé", exact: true }).click();
++    } else if (mode === "guide") await page.getByRole("button", { name: "Terminé esta lectura" }).click();
++    else if (mode.includes("video")) await page.getByRole("button", { name: mode === "video" ? "Omitir video y completar" : "Completar video", exact: true }).click();
++    else { await page.getByRole("radio").first().check(); await page.getByRole("button", { name: "Comprobar", exact: true }).click(); }
++    await expect(page.getByRole("heading", { name: /Actividad completada|Repaso completado/ })).toBeVisible();
++  });
++}
+diff --git a/apps/web/tests/e2e/guided-v2-accessibility.spec.ts b/apps/web/tests/e2e/guided-v2-accessibility.spec.ts
+index f84dc9f..2a6bfb7 100644
+--- a/apps/web/tests/e2e/guided-v2-accessibility.spec.ts
++++ b/apps/web/tests/e2e/guided-v2-accessibility.spec.ts
+@@ -73,7 +73,7 @@ async function previewPoint(page: Page, key: string) {
+   await p.getByLabel("Explorar un punto de la ruta").selectOption(`activity:${key}-1`);
+   await p.getByRole("button", { name: "Abrir punto seleccionado" }).click();
+   await expect(p.getByRole("region", { name: "Sesión de aprendizaje", exact: true })).toBeVisible();
+-  await expect(p.getByRole("heading", { name: key === "case" ? /Etapa 1: ejemplo sintético.*case-choice-1/ : `${key}-1: actividad sintética`, exact: true })).toBeVisible();
++  await expect(p.getByRole("heading", { name: key === "case" ? "case-choice-1: actividad sintética" : `${key}-1: actividad sintética`, exact: true })).toBeVisible();
+   if (key === "image") await expect(p.getByLabel("Horizontal (%)")).toBeEnabled();
+   return p;
+ }
+@@ -93,15 +93,15 @@ async function answerPreview(p: Locator, key: string) {
+     await select.focus(); await select.press("End"); await select.press("Tab");
+     await keyboard(p.getByRole("button", { name: "Comprobar relaciones", exact: true })); }
+   if (key === "sequence") await keyboard(p.getByRole("button", { name: "Comprobar secuencia", exact: true }));
+-  if (key === "image") { await p.getByLabel("Horizontal (%)").fill("20"); await p.getByLabel("Vertical (%)").fill("20");
++  if (key === "image") { const adjust=p.locator("summary").filter({hasText:"Ajustar el punto seleccionado"});if(!await adjust.evaluate(e=>e.parentElement?.hasAttribute("open")))await keyboard(adjust);await p.getByLabel("Horizontal (%)").fill("20"); await p.getByLabel("Vertical (%)").fill("20");
+     await keyboard(p.getByRole("button", { name: "Comprobar respuesta visual", exact: true })); }
+   if (key === "case") { await choice(); await feedback();
+-    await expect(p.getByRole("heading", { name: /Etapa 2: relación sintética.*case-short-1/ })).toBeFocused();
++    await expect(p.getByRole("heading", { name: "case-short-1: actividad sintética", exact: true })).toBeFocused();
+     await answerPreview(p, "short"); return; }
+   await feedback();
+ }
+ async function finishPreview(p: Locator) {
+-  await keyboard(p.getByRole("button", { name: "Finalizar sesión", exact: true }));
++  if (!await p.getByRole("heading", { name: "Sesión completada", exact: true }).isVisible()) await keyboard(p.getByRole("button", { name: "Finalizar sesión", exact: true }));
+   await expect(p.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
+ }
+ 
+@@ -122,10 +122,10 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
+   await keyboard(page.getByRole("button", { name: "Abrir vista previa", exact: true }));
+   for (const key of kinds) {
+     const p = await previewPoint(page, key);
+-    const closeButton = p.locator(".learning-activity-header > button");
++    const closeButton = p.getByRole("button", { name: "Cerrar vista previa", exact: true }).first();
+     await expect(closeButton).toBeVisible();
+     const close = await closeButton.boundingBox();
+-    expect(close?.width).toBeGreaterThan(100);
++    expect(close?.width).toBeGreaterThanOrEqual(44);
+     expect(close?.height).toBeLessThanOrEqual(70);
+     await capture(page, info, `renderer-${key}`);
+     await answerPreview(p, key); await finishPreview(p);
+@@ -153,7 +153,7 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
+   }
+   await launch(page, enrollmentId, "study-1");
+   await page.evaluate(() => { document.documentElement.style.zoom = "2"; });
+-  const reflow = await page.locator(".learning-activity-header").evaluate(header => {
++  const reflow = await page.getByRole("region", { name: "Sesión de aprendizaje", exact: true }).locator("header").evaluate(header => {
+     const title = header.querySelector("h1")!;
+     const range = document.createRange(); range.selectNodeContents(title);
+     const boxes = [...header.children].map(e => e.getBoundingClientRect());
+@@ -185,14 +185,13 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
+   await page.route(responsePattern, route => { const task = held.then(() => route.continue()); inFlight.push(task); return task; });
+   try {
+     await keyboard(retry);
+-    await expect(page.getByText("Confirmando con el servidor…", { exact: true })).toBeVisible();
++    await expect(page.getByRole("status").filter({ hasText: "Confirmando con el servidor…" })).toHaveText("Confirmando con el servidor…");
+     await expect(button).toBeDisabled();
+     await capture(page, info, "learner-loading");
+   } finally { release(); await Promise.all(inFlight); await page.unroute(responsePattern); }
+   await expect(page.getByRole("heading", { name: "Vamos a reforzar este punto", exact: true })).toBeFocused();
+   await capture(page, info, "learner-feedback");
+-  await keyboard(page.getByRole("button", { name: "Ver cierre de sesión", exact: true }));
+-  await keyboard(page.getByRole("button", { name: "Finalizar sesión", exact: true }));
++  await keyboard(page.getByRole("button", { name: "Continuar", exact: true }));
+   await expect(page.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
+ });
+ 
+@@ -249,7 +248,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+   const presentation = page.getByLabel("Presentación de relaciones", { exact: true });
+   await presentation.focus(); await presentation.press("Home"); await presentation.press("ArrowDown"); await presentation.press("Tab");
+   await expect(presentation).toHaveValue("comparison_table");
+-  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Solución y feedback" }));
++  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Respuesta y explicación" }));
+   await capture(page, info, "editor-relations-table");
+   // The shared fixture links image to a case representation. Configure a valid
+   // text alternative through the editor before auditing the accessible detour.
+@@ -292,8 +291,9 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+   await writeFile(info.outputPath("image-pointer.json"), JSON.stringify({ viewport: page.viewportSize(), imageBox: b, natural, contained: box, selected, maxErrorPixels: 1 }, null, 2));
+   await capture(page, info, "image-zoom-reduced-motion");
+   await p.getByLabel("Ampliación de imagen").selectOption("1");
++  await keyboard(p.locator("summary").filter({ hasText: "Otra forma de practicar" }));
+   await keyboard(p.getByRole("button", { name: "Practicar con variante de texto o tabla", exact: true }));
+-  await expect(p.getByText(/Variante accesible de texto o tabla\. Esta práctica/)).toBeVisible();
++  await expect(p.getByText(/Práctica de texto o tabla\. Después volverás/)).toBeVisible();
+   await capture(page, info, "image-alternative");
+   await answerPreview(p, "short");
+   await expect(p.getByLabel("Horizontal (%)")).toBeEnabled();
+@@ -305,7 +305,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
+   await select.focus(); await select.press("End"); await select.press("Tab");
+   await keyboard(p.getByRole("button", { name: "Comprobar relaciones", exact: true }));
+   await expect(p.getByRole("heading", { name: "Respuesta correcta", exact: true })).toBeFocused();
+-  await keyboard(p.getByRole("button", { name: "Ver cierre de sesión", exact: true })); await finishPreview(p);
++  await keyboard(p.getByRole("button", { name: "Continuar", exact: true })); await finishPreview(p);
+   await previewPoint(page, "sequence");
+   await keyboard(p.getByRole("button", { name: "Bajar: Uno", exact: true }));
+   await expect(p.getByRole("button", { name: "Bajar: Uno", exact: true })).toBeFocused();
+diff --git a/apps/web/tests/e2e/guided-v2-journeys.spec.ts b/apps/web/tests/e2e/guided-v2-journeys.spec.ts
+index 5d8defc..0b1f8a4 100644
+--- a/apps/web/tests/e2e/guided-v2-journeys.spec.ts
++++ b/apps/web/tests/e2e/guided-v2-journeys.spec.ts
+@@ -42,7 +42,7 @@ async function feedback(page:Page|Locator){
+ }
+ async function clickCentered(locator:Locator){await locator.evaluate(element=>element.scrollIntoView({block:"center",inline:"nearest"}));await locator.click();}
+ async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith("__reactProps") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick==="function"))).toBe(true);}
+-async function finish(page:Page|Locator){await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(page.getByRole("heading",{name:"Sesión completada",exact:true})).toBeVisible();}
++async function finish(page:Page|Locator){const completed=page.getByRole("heading",{name:"Sesión completada",exact:true});if(!await completed.isVisible())await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(completed).toBeVisible();}
+ async function answer(page:Page|Locator,kind:string,wrong=false){
+   if(kind==="study"){await page.getByRole("button",{name:"Continuar a la práctica"}).click();return;}
+   if(kind==="single_choice"){await page.getByRole("radio",{name:wrong?"Respuesta B":"Respuesta A",exact:true}).check();await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
+@@ -50,8 +50,8 @@ async function answer(page:Page|Locator,kind:string,wrong=false){
+   if(kind==="constructed_response"){await page.getByLabel("Explica con tus palabras").fill("Una relación sintética.");await page.getByRole("button",{name:"Guardar mi respuesta"}).click();await page.getByRole("button",{name:"Comparar con el modelo"}).click();await expect(page.getByRole("heading",{name:"Respuesta modelo",exact:true})).toBeVisible();await page.getByRole("button",{name:"Lo recuperé",exact:true}).click();}
+   if(kind==="match"){await page.getByRole("combobox",{name:"Origen",exact:true}).selectOption("c");await clickCentered(page.getByRole("button",{name:"Comprobar relaciones"}));}
+   if(kind==="sequence"){await clickCentered(page.getByRole("button",{name:"Comprobar secuencia"}));}
+-  if(kind==="image_target"){await expect(page.getByLabel("Horizontal (%)")).toBeEnabled();await page.getByLabel("Horizontal (%)").fill("20");await page.getByLabel("Vertical (%)").fill("20");await clickCentered(page.getByRole("button",{name:"Comprobar respuesta visual"}));}
+-  if(kind==="case"){await expect(page.getByRole("heading",{name:/Etapa 2: relación sintética/})).toHaveCount(0);await answer(page,"single_choice");await expect(page.getByRole("heading",{name:/Etapa 2: relación sintética/})).toBeVisible();await answer(page,"short_answer");return;}
++  if(kind==="image_target"){await page.getByText("Ajustar el punto seleccionado",{exact:true}).first().click();await expect(page.getByLabel("Horizontal (%)")).toBeEnabled();await page.getByLabel("Horizontal (%)").fill("20");await page.getByLabel("Vertical (%)").fill("20");await clickCentered(page.getByRole("button",{name:"Comprobar respuesta visual"}));}
++  if(kind==="case"){await expect(page.getByText(/Etapa 2: relación sintética/)).toHaveCount(0);await answer(page,"single_choice");await expect(page.getByText(/Etapa 2: relación sintética/)).toBeVisible();await answer(page,"short_answer");return;}
+   await feedback(page);
+ }
+ const student=(base:number,mobile:boolean)=>`student-${base+(mobile?10:0)}`;
+@@ -72,12 +72,12 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
+   await expect(page.getByLabel("Guía y revisión")).not.toHaveValue("");
+   await type(page.getByLabel("Cita bibliográfica"),"Fuente sintética T035 (2026)");
+   await type(page.getByLabel("Sección o encabezado"),"Fixture");await type(page.getByLabel("Fragmento de la fuente"),"Contenido sintético para comprobar el software.");
+-  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Capacidad observable"),"Aplicar una relación sintética");
++  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Objetivo de aprendizaje"),"Aplicar una relación sintética");
+   await page.getByRole("group",{name:"Fuentes del objetivo"}).getByRole("checkbox").focus();await page.keyboard.press("Space");
+   await press(page.getByRole("tab",{name:"Recorrido",exact:true}));await press(page.getByRole("button",{name:"Añadir actividad",exact:true}));
+   await type(page.getByLabel("Consigna",{exact:true}),"Lee el ejemplo sintético.");await type(page.getByLabel("Contenido de estudio"),"Contenido sintético para comprobar el software.");
+   await expect(page.getByRole("group",{name:"Fuentes de la actividad",exact:true}).getByRole("checkbox")).toBeChecked();
+-  await press(page.getByText("Solución y feedback · solo edición",{exact:true}));await type(page.getByLabel("Explicación del feedback"),"La lectura está registrada; el dominio se comprobará con práctica.");
++  await press(page.getByText("Respuesta y explicación",{exact:true}));await type(page.getByLabel("Explicación de la respuesta"),"La lectura está registrada; el dominio se comprobará con práctica.");
+   await expect(page.getByRole("group",{name:"Fuentes del feedback y de los distractores",exact:true}).getByRole("checkbox")).toBeChecked();
+   const saved=page.waitForResponse(r=>r.request().method()==="POST" && r.url().endsWith("/api/v2/editor/learning-paths"));
+   await press(page.getByRole("button",{name:"Guardar borrador",exact:true}));
+@@ -150,7 +150,7 @@ test("E05 disconnect before/after commit, reload and two tabs preserve one answe
+     let original:{body:string|null;key:string|undefined}|undefined;
+     await page.route(pattern,async r=>{original={body:r.request().postData(),key:r.request().headers()["idempotency-key"]};if(afterCommit){const response=await r.fetch();expect(response.status()).toBe(200);}await r.abort("failed");resolve();});
+     await page.getByRole("button",{name:"Continuar a la práctica"}).click();await intercepted;
+-    await expect(page.getByText("Pendiente de confirmar",{exact:true})).toBeVisible();expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(afterCommit?1:0);
++    await expect(page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true})).toBeVisible();expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(afterCommit?1:0);
+     await page.unroute(pattern);await page.reload();
+     const retry=page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true});await expect(retry).toBeVisible();await hydrated(retry);const confirmed=page.waitForResponse(r=>r.request().method()==="POST" && r.url().includes(`/api/v2/guided-learning/attempts/${attemptId}/responses`));await retry.click();const receipt=await confirmed;expect(receipt.status()).toBe(200);expect({body:receipt.request().postData(),key:receipt.request().headers()["idempotency-key"]}).toEqual(original);
+     await expect(page.getByRole("button",{name:"Finalizar sesión",exact:true})).toBeVisible();await finish(page);expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(1);
+diff --git a/apps/web/tsconfig.activities.json b/apps/web/tsconfig.activities.json
+new file mode 100644
+index 0000000..e8bfcf0
+--- /dev/null
++++ b/apps/web/tsconfig.activities.json
+@@ -0,0 +1,9 @@
++{
++  "extends": "./tsconfig.json",
++  "compilerOptions": {
++    "paths": {
++      "@/*": ["./src/*"],
++      "@cediah/contracts": ["../../packages/contracts/src/index.ts"]
++    }
++  }
++}
+diff --git a/docs/diseno/2026-10-12-actividades-rutas.md b/docs/diseno/2026-10-12-actividades-rutas.md
+new file mode 100644
+index 0000000..cf67751
+--- /dev/null
++++ b/docs/diseno/2026-10-12-actividades-rutas.md
+@@ -0,0 +1,56 @@
++# Actividades de aprendizaje: rediseño de la interfaz
++
++Fecha: 12 de octubre de 2026.
++
++El reproductor presenta la tarea actual y una acción principal. El diseño prioriza móvil y utiliza una superficie blanca, tipografía de sistema, azul como acento, controles de al menos 44 px y transiciones de 180 ms que respetan la preferencia de movimiento reducido.
++
++## Cobertura
++
++| Superficie | Presentación |
++| --- | --- |
++| Estudio, ejemplos resueltos y ejemplos parciales | Texto de lectura y resaltado opcional |
++| Selección de respuesta | Opciones amplias y una comprobación |
++| Respuesta breve | Campo de respuesta y contador discreto |
++| Respuesta construida | Escritura, comparación autorizada y valoración |
++| Relaciones, tablas y mapas causales | Selectores agrupados por elemento |
++| Secuencias | Pasos numerados y flechas para reordenar |
++| Imágenes con punto o etiquetas | Imagen, ampliación, selección táctil y ajuste preciso bajo demanda |
++| Casos progresivos | Narrativa actual separada de la pregunta; sin etapas futuras |
++| Actividades anteriores | Cuestionarios, tarjetas, guías, repasos y videos con el mismo marco visual |
++
++La cabecera incluye regreso al mapa o a la ruta, avance confirmado y detalles de sesión. En móvil, la navegación general de la aplicación se oculta durante la actividad. Las pistas y fuentes se abren cuando el estudiante las solicita. La explicación principal del resultado permanece visible, con el error frecuente y las referencias bajo demanda.
++
++La continuación después del último feedback confirma el cierre directamente, sin mostrar una pantalla intermedia de cierre. Una sesión completada ofrece la siguiente actividad elegible que devuelve el servidor y conserva el mapa de regreso. Si no hay una actividad elegible, ofrece volver al mapa. Las lecturas mantienen su confirmación explícita de cierre.
++
++## Funcionamiento conservado
++
++No se modifican backend, migraciones, contratos, evaluación, selección de actividades ni reglas de progreso. Las ayudas conservan su registro; la comparación se muestra tras autorización. Las respuestas, el cierre y la nueva sesión requieren confirmación. Las solicitudes inciertas conservan su identidad de reintento y bloquean el envío de una respuesta nueva. El avance no concede dominio por sí mismo. Las fuentes de una respuesta anterior no se mantienen en la siguiente pregunta.
++
++La carga de imágenes conserva el acceso autorizado, la caducidad de la URL, el cálculo de coordenadas dentro de la imagen y la cancelación de lecturas antiguas. El ajuste mediante teclado y coordenadas permanece disponible en un desplegable. Los lectores de pantalla mantienen etiquetas, avisos y foco al cambiar de tarea o resultado.
++
++## Validación local
++
++- Web: 63 archivos y 492 pruebas de Vitest aprobados.
++- Browser: 66 de 66 comprobaciones efectivas aprobadas, con 22 escenarios en cada tamaño de 320, 390 y 1440 px. El resumen por escenario se guarda en `tmp/activity-redesign/validation-summary.json`; las ejecuciones y los rechecks permanecen separados, sin sumar repeticiones.
++- Axe: sin incidencias serias o críticas en las superficies capturadas. Se comprueba ausencia de desbordamiento horizontal, ayudas, comparación, orden conservado después de pedir ayuda, señalamiento, etiquetas, recuperación de conexión y navegación directa.
++- TypeScript, ESLint y compilación de Next.js aprobados. La compilación mantiene el aviso anterior de `::highlight` en `interactive-term-polish.css`, fuera del rediseño.
++- Galería y vista conjunta móvil: `tmp/activity-redesign/gallery.html` y `tmp/activity-redesign/mobile-preview.png`.
++
++Las primeras ejecuciones detectaron defectos en fixtures de comparación, imagen y estado anterior, además de un bloqueo de red local del navegador de pruebas. Se corrigieron los fixtures y se concedió acceso a red local únicamente en el contexto de Playwright. La CSP del documento de prueba permite solo su origen de imagen sintética; la CSP de la aplicación no cambia. Un recheck corrige el clic de escritorio que caía en el margen de la imagen, manteniendo las mismas aserciones. Las capturas ocultan exclusivamente el indicador de desarrollo de Next.js.
++
++Los escenarios usan material sintético y respuestas HTTP validadas por los contratos. No se atribuyen a una aceptación con API o base de datos reales, autenticación real, reproducción real de video, Safari nativo, staging o producción. No se ha realizado un despliegue.
++
++## Reproducción
++
++Con un servidor de desarrollo disponible, configurar `MAP_E2E_URL` con su dirección y ejecutar:
++
++```powershell
++pnpm.cmd --filter @cediah/web exec playwright test --config playwright.activities.config.ts
++```
++
++Para regenerar la galería y el resumen desde la raíz del repositorio:
++
++```powershell
++python tmp/activity-redesign/generate-gallery.py
++python tmp/activity-redesign/summarize-validation.py
++```

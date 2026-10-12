@@ -1,0 +1,54 @@
+{
+  "verifiedAt": "2026-10-12T20:51:51Z",
+  "previousProductionCommit": "82bef3ca9ab31bd4a21fca1c7ae8bcfc68c638d3",
+  "cause": "El rediseño estaba en una rama que aún no se había integrado en main.",
+  "pullRequest": "https://github.com/jdqd1/Koraz/pull/66",
+  "validatedHead": "c93e7bd691865c912da8b59e0e4ac26cdb1a1425",
+  "production": {
+    "commit": "81208bfeb16435799526942249885fb03edd59f0",
+    "deploymentId": "dpl_ATEhCVDn64qhdys1DTYMC8s27SCY",
+    "state": "READY",
+    "target": "production",
+    "framework": "nextjs",
+    "deploymentUrl": "https://cediah-amqp417w9-jdqd1s-projects.vercel.app",
+    "buildDurationSeconds": 99.218,
+    "aliases": [
+      {
+        "domain": "koraz.app",
+        "deploymentId": "dpl_ATEhCVDn64qhdys1DTYMC8s27SCY"
+      },
+      {
+        "domain": "www.koraz.app",
+        "deploymentId": "dpl_ATEhCVDn64qhdys1DTYMC8s27SCY"
+      }
+    ]
+  },
+  "validation": {
+    "webUnitTests": {
+      "filesPassed": 63,
+      "testsPassed": 492
+    },
+    "webLint": "PASS",
+    "githubCI": "PASS",
+    "vercelPreviewBuild": "READY",
+    "publicHome": "HTTP 200",
+    "publicAccessPage": "HTTP 200",
+    "publicActivityStyles": {
+      "url": "https://koraz.app/_next/static/chunks/1som9vmjj823p.css",
+      "status": 200,
+      "activityStylesPresent": true,
+      "blueAccent": true,
+      "mobileImmersiveStyles": true,
+      "safeAreaStyles": true
+    },
+    "runtimeErrorLogGroups": {
+      "window": "10m",
+      "deploymentScoped": true,
+      "groupsReturned": 0
+    },
+    "learnerInterfaceTests": "66 effective scenarios with synthetic data and mocked transport; prior local evidence.",
+    "authenticatedProductionActivityExecution": "NO VERIFICADO"
+  },
+  "changes": "Frontend del alumno y navegación. Sin cambios de backend, contratos, migraciones o reglas de evaluación.",
+  "preserved": "Landing y editor publicados en main."
+}
