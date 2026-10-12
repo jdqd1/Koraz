@@ -249,7 +249,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
   const presentation = page.getByLabel("Presentación de relaciones", { exact: true });
   await presentation.focus(); await presentation.press("Home"); await presentation.press("ArrowDown"); await presentation.press("Tab");
   await expect(presentation).toHaveValue("comparison_table");
-  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Solución y feedback" }));
+  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Respuesta y explicación" }));
   await capture(page, info, "editor-relations-table");
   // The shared fixture links image to a case representation. Configure a valid
   // text alternative through the editor before auditing the accessible detour.

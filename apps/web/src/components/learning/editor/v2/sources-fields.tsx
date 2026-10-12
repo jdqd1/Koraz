@@ -3,6 +3,7 @@
 import { useId, type ReactNode } from "react";
 import type { EditorV2Draft } from "./editor-model";
 import styles from "../route-editor.module.css";
+import local from "./styles.module.css";
 
 export type FormIssueV2 = { path: string; message: string };
 export type FormPropsV2 = { draft: EditorV2Draft; disabled: boolean; onChange: (draft: EditorV2Draft) => void; issues?: FormIssueV2[] };
@@ -15,7 +16,7 @@ export function FieldV2({ path, label, issues = [], children, hint, wide = false
   return <div className={`${styles.field} ${wide ? styles.wideField : ""}`}>
     <label htmlFor={id}>{label}</label>
     {children({ id, "data-field-path": path, "aria-invalid": invalid, "aria-describedby": hint || invalid ? `${id}-help` : undefined })}
-    {hint || invalid ? <small id={`${id}-help`} className={invalid ? styles.fieldError : styles.fieldHint}>{invalid ? `Revisa ${label.toLocaleLowerCase("es")}. ${hint ?? ""}` : hint}</small> : null}
+    {invalid ? <small id={`${id}-help`} className={styles.fieldError}>Revisa {label.toLocaleLowerCase("es")}. {hint}</small> : hint ? <details className={local.fieldHelp}><summary>Ayuda</summary><small id={`${id}-help`} className={styles.fieldHint}>{hint}</small></details> : null}
   </div>;
 }
 export function focusFieldIssueV2(surface: HTMLElement | null, path: string) {

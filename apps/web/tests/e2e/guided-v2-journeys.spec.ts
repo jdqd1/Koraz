@@ -72,13 +72,13 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
   await expect(page.getByLabel("Guía y revisión")).not.toHaveValue("");
   await type(page.getByLabel("Cita bibliográfica"),"Fuente sintética T035 (2026)");
   await type(page.getByLabel("Sección o encabezado"),"Fixture");await type(page.getByLabel("Fragmento de la fuente"),"Contenido sintético para comprobar el software.");
-  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Capacidad observable"),"Aplicar una relación sintética");
+  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Objetivo de aprendizaje"),"Aplicar una relación sintética");
   await page.getByRole("group",{name:"Fuentes del objetivo"}).getByRole("checkbox").focus();await page.keyboard.press("Space");
   await press(page.getByRole("tab",{name:"Recorrido",exact:true}));await press(page.getByRole("button",{name:"Añadir actividad",exact:true}));
   await type(page.getByLabel("Consigna",{exact:true}),"Lee el ejemplo sintético.");await type(page.getByLabel("Contenido de estudio"),"Contenido sintético para comprobar el software.");
   await expect(page.getByRole("group",{name:"Fuentes de la actividad",exact:true}).getByRole("checkbox")).toBeChecked();
-  await press(page.getByText("Solución y feedback · solo edición",{exact:true}));await type(page.getByLabel("Explicación del feedback"),"La lectura está registrada; el dominio se comprobará con práctica.");
-  await expect(page.getByRole("group",{name:"Fuentes del feedback y de los distractores",exact:true}).getByRole("checkbox")).toBeChecked();
+  await press(page.getByText("Respuesta y explicación",{exact:true}));await type(page.getByLabel("Explicación de la respuesta"),"La lectura está registrada; el dominio se comprobará con práctica.");
+  await expect(page.getByRole("group",{name:"Fuentes de la explicación",exact:true}).getByRole("checkbox")).toBeChecked();
   const saved=page.waitForResponse(r=>r.request().method()==="POST" && r.url().endsWith("/api/v2/editor/learning-paths"));
   await press(page.getByRole("button",{name:"Guardar borrador",exact:true}));
   const response=await saved;expect(response.status(),await response.text()).toBe(200);

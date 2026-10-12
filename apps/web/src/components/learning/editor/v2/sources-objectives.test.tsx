@@ -65,8 +65,8 @@ describe("T024 objective forms and shared DAG rules", () => {
   it("renders named accessible controls, immutable CORE requirement and no UUID tasks", () => {
     const draft = draftFromRouteV2(editorV2FixtureRoute());
     const html = renderToStaticMarkup(<ObjectivesV2 draft={draft} disabled={false} onChange={() => {}} />);
-    for (const label of ["Capacidad observable", "Criticidad", "Verbo", "Unidad", "Fuentes del objetivo", "Añadir prerrequisito", "Añadir enlace"]) expect(html).toContain(label);
-    expect(html).toContain("CORE siempre es requerido"); expect(html).toContain("checked");
+    for (const label of ["Objetivo de aprendizaje", "Prioridad", "Verbo", "Unidad", "Fuentes del objetivo", "Añadir prerrequisito", "Añadir enlace"]) expect(html).toContain(label);
+    expect(html).toContain("objetivo esencial"); expect(html).toContain("checked");
     expect(html).not.toContain(fixtureV2Id(1)); expect(html).not.toContain('type="hidden"');
     expect(RoutePackageSchema.safeParse({ ...draft.package, objectives: [{ ...draft.package.objectives[0]!, required: false }] }).success).toBe(false);
   });
@@ -103,8 +103,8 @@ describe("T024 sources and route basics", () => {
   it("normalizes JSON pointers and connects field errors to their input", () => {
     expect(normalizeFieldPathV2("/objectives/2/title")).toBe("package.objectives.2.title");
     expect(normalizeFieldPathV2("/bindings/topicContentId")).toBe("bindings.topicContentId");
-    const html = renderToStaticMarkup(<FieldV2 label="Capacidad observable" path="package.objectives.2.title" issues={[{ path: "/objectives/2/title", message: "missing" }]}>{(input) => <input {...input} />}</FieldV2>);
-    expect(html).toContain('aria-invalid="true"'); expect(html).toContain("aria-describedby"); expect(html).toContain("Revisa capacidad observable");
+    const html = renderToStaticMarkup(<FieldV2 label="Objetivo de aprendizaje" path="package.objectives.2.title" issues={[{ path: "/objectives/2/title", message: "missing" }]}>{(input) => <input {...input} />}</FieldV2>);
+    expect(html).toContain('aria-invalid="true"'); expect(html).toContain("aria-describedby"); expect(html).toContain("Revisa objetivo de aprendizaje");
   });
   it("shows route metadata and source locator fields without requiring catalogue UUID input", () => {
     const html = renderToStaticMarkup(<RouteBasicsV2 draft={draftFromRouteV2(editorV2FixtureRoute())} disabled={false} onChange={() => {}} preserveSlug />);
