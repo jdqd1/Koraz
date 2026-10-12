@@ -50,25 +50,30 @@
 /* The whole path extends beyond the stage; only its sides remain visible. */
 .orbitField { position: absolute; inset: 0; z-index: 1; mask-image: linear-gradient(to bottom, transparent, #000 19%, #000 77%, transparent 100%); }
 .orbitTrack { --orbit-play: running; position: absolute; inset: 0; pointer-events: none; }
-.ring0 { --radius-x: min(34vw, 510px); --radius-y: 600px; --orbit-duration: 180s; }
-.ring1 { --radius-x: min(40vw, 605px); --radius-y: 710px; --orbit-duration: 220s; }
-.ring2 { --radius-x: min(43vw, 650px); --radius-y: 840px; --orbit-duration: 270s; }
-.orbitLine { position: absolute; top: 50%; left: 50%; width: calc(var(--radius-x) * 2); height: calc(var(--radius-y) * 2); transform: translate(-50%, -50%); border: 1px solid #dce3f1; border-radius: 50%; }
-.traveller { position: absolute; top: 0; left: 0; width: max-content; offset-path: ellipse(var(--radius-x) var(--radius-y) at 50% 50%); offset-anchor: center; offset-rotate: 0deg; offset-distance: var(--phase); animation: orbitTravel var(--orbit-duration) linear infinite; animation-play-state: var(--orbit-play); }
+.ring0 { --radius-x: min(34vw, 510px); --radius-y: 340px; --orbit-duration: 180s; }
+.ring1 { --radius-x: min(40vw, 605px); --radius-y: 430px; --orbit-duration: 198s; }
+.ring2 { --radius-x: min(43vw, 650px); --radius-y: 460px; --orbit-duration: 216s; }
+.orbitLine { position: absolute; z-index: 0; top: 50%; left: 50%; width: calc(var(--radius-x) * 2); height: calc(var(--radius-y) * 2); transform: translate(-50%, -50%); border: 1px solid #dce3f1; border-radius: 50%; }
+.traveller { position: absolute; z-index: 2; top: 0; left: 0; width: max-content; offset-path: ellipse(var(--radius-x) var(--radius-y) at 50% 50%); offset-anchor: center; offset-rotate: 0deg; offset-distance: var(--phase); animation: orbitTravel var(--orbit-duration) linear infinite; animation-play-state: var(--orbit-play); }
 .ring1 .traveller { animation-direction: reverse; }
-.orbitTrack:has(.subjectCard:is(:hover, :focus-visible)) { --orbit-play: paused; z-index: 2; }
-/* Bring keyboard focus into the visible part of a path without resetting its animation clock. */
-.traveller:has(.subjectCard:focus-visible) { offset-distance: 0% !important; z-index: 3; }
+.traveller:has(.subjectCard[data-hovered="true"]) { z-index: 4; }
 .orbitField[data-motion-paused="true"] .traveller { animation-play-state: paused; }
-.orbitDot { width: var(--dot-size); height: var(--dot-size); border-radius: 50%; background: #8491af; }
+.orbitDot { z-index: 1; width: var(--dot-size); height: var(--dot-size); border-radius: 50%; background: #8491af; pointer-events: none; }
 .orbitDot:nth-child(3n) { background: #22304d; }
 .orbitDot:nth-child(4n) { background: #769aff; }
 .arrival { animation: subjectArrival 1250ms var(--arrival-delay) both; }
-.subjectCard { --tilt-x: 0deg; --tilt-y: 0deg; --tilt-z: 0deg; position: relative; display: flex; align-items: center; gap: 12px; padding: 7px 20px 7px 7px; border: 1px solid #ffffff; border-radius: 999px; background: #ffffffed; color: #101a31; box-shadow: 0 12px 36px #203d6810, 0 2px 5px #203d6804; text-decoration: none; font-size: 13px; font-weight: 550; white-space: nowrap; pointer-events: auto; transform: perspective(650px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(var(--tilt-z)); transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease; }
-.subjectCard:is(:hover, :focus-visible) { transform: perspective(650px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(var(--tilt-z)) scale(1.09); box-shadow: 0 16px 38px #203d6820; }
+.hoverLift { transform: scale(1); transition: transform 650ms cubic-bezier(.2,1.25,.3,1); }
+.hoverLift:has(.subjectCard[data-hovered="true"]) { transform: scale(1.08); animation: hoverCatch 760ms both; }
+.subjectCard { --tilt-x: 0deg; --tilt-y: 0deg; --tilt-z: 0deg; position: relative; display: flex; align-items: center; gap: 12px; padding: 7px 20px 7px 7px; border: 1px solid #ffffff; border-radius: 999px; background: #fff; color: #101a31; box-shadow: 0 12px 36px #203d6810, 0 2px 5px #203d6804; font-size: 13px; font-weight: 550; white-space: nowrap; pointer-events: auto; cursor: default; user-select: none; transform: perspective(650px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(var(--tilt-z)); transition: transform 350ms cubic-bezier(.2,.8,.2,1), box-shadow 350ms ease; }
+.subjectCard[data-hovered="true"] { box-shadow: 0 16px 38px #203d6820; }
 .subjectIcon { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; background: var(--subject-color); color: var(--subject-ink); box-shadow: inset 0 1px 5px #ffffff60, 0 0 0 5px color-mix(in srgb, var(--subject-color) 10%, transparent); }
 @keyframes orbitTravel { from { offset-distance: var(--phase); } to { offset-distance: calc(var(--phase) + 100%); } }
-@keyframes orbitTravelMobile { from { offset-distance: var(--mobile-phase); } to { offset-distance: calc(var(--mobile-phase) + 100%); } }
+@keyframes hoverCatch {
+  0% { transform: scale(1) rotate(0deg); animation-timing-function: cubic-bezier(.16,1,.3,1); }
+  42% { transform: scale(1.12) rotate(var(--catch-rotation)); animation-timing-function: ease-in-out; }
+  72% { transform: scale(1.06) rotate(calc(var(--catch-rotation) * -.25)); animation-timing-function: ease-out; }
+  100% { transform: scale(1.08) rotate(0deg); }
+}
 @keyframes subjectArrival {
   0% { opacity: 0; transform: translate(var(--arrival-x), var(--arrival-y)) rotate(var(--arrival-rotation)) scale(.65); animation-timing-function: cubic-bezier(.16,1,.3,1); }
   58% { opacity: 1; transform: translate(-5px, 4px) rotate(-3deg) scale(1.04); animation-timing-function: ease-in-out; }
@@ -141,8 +146,8 @@
 
 @media (min-width: 1700px) {
   .ring0 { --radius-x: 560px; }
-  .ring1 { --radius-x: 680px; }
-  .ring2 { --radius-x: 810px; }
+  .ring1 { --radius-x: 620px; }
+  .ring2 { --radius-x: 680px; }
 }
 @media (max-width: 1100px) {
   .page :global(.marketing-header) { width: calc(100% - 48px); gap: 22px; }
@@ -190,11 +195,9 @@
   .desktopBreak { display: none; }
   .page :global(.marketing-hero-actions) { margin-top: 28px; }
   .page :global(.marketing-primary-button) { min-width: 186px; min-height: 52px; border-radius: 14px; font-size: 13px; gap: 17px; }
-  .ring0 { --radius-x: max(280px, 78vw); --radius-y: 200px; }
-  .ring1 { --radius-x: max(350px, 95vw); --radius-y: 260px; }
-  .ring2 { --radius-x: max(420px, 115vw); --radius-y: 320px; }
-  .traveller { offset-distance: var(--mobile-phase); animation-name: orbitTravelMobile; }
-  .traveller:has(.subjectCard:focus-visible) { offset-path: none; top: 18%; left: 50%; right: auto; transform: translate(-50%, -50%); }
+  .ring0 { --radius-x: max(260px, 75vw); --radius-y: 185px; }
+  .ring1 { --radius-x: max(300px, 84vw); --radius-y: 240px; }
+  .ring2 { --radius-x: max(320px, 90vw); --radius-y: 285px; }
   .subjectCard { gap: 8px; padding: 6px 12px 6px 6px; font-size: 10px; }
   .subjectIcon { width: 30px; height: 30px; flex-basis: 30px; }
   .subjectIcon svg { width: 19px; height: 19px; }
@@ -237,9 +240,9 @@
   .page :global(.marketing-hero-copy) > p { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .traveller, .arrival { animation: none; }
-  .subjectCard, .page :is(a, button) { transition: none; }
-  .subjectCard:is(:hover, :focus-visible) { transform: none; }
+  .traveller, .arrival, .hoverLift:has(.subjectCard[data-hovered="true"]) { animation: none; }
+  .subjectCard, .hoverLift, .page :is(a, button) { transition: none; }
+  .subjectCard, .hoverLift:has(.subjectCard[data-hovered="true"]) { transform: none; }
 }
 @supports not (offset-path: ellipse(50% 50%)) {
   .traveller { top: 50%; left: 50%; animation: none; transform: translate(calc(var(--radius-x) * -1), -50%); }

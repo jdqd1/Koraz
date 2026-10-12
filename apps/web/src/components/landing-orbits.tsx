@@ -1,35 +1,100 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type PointerEvent } from "react";
-import Link from "next/link";
-import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Pulse, ShieldCheck } from "@phosphor-icons/react";
+import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Pulse, ShieldCheck, Brain, Stethoscope } from "@phosphor-icons/react";
 import styles from "./landing-orbit.module.css";
 
-// Eight evenly spaced anchors keep the inner orbit populated through a full revolution.
-// Arrival delays and momentum stay irregular and deterministic for SSR/hydration.
-const subjects = [
-  { name: "Anatomía", icon: Heartbeat, color: "#ff8e95", ink: "#76212f", ring: 0, phase: 0, delay: 180, x: -54, y: -32, rotation: -18 },
-  { name: "Fisiología", icon: Pulse, color: "#80b5ff", ink: "#154fa9", ring: 0, phase: 12.5, delay: 620, x: 36, y: -62, rotation: 14 },
-  { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57", ring: 0, phase: 25, delay: 940, x: -38, y: 48, rotation: 12 },
-  { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768", ring: 0, phase: 37.5, delay: 340, x: 56, y: 26, rotation: -12 },
-  { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944", ring: 0, phase: 50, delay: 760, x: -72, y: 15, rotation: 16 },
-  { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13", ring: 0, phase: 62.5, delay: 90, x: 62, y: -20, rotation: -20 },
-  { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700", ring: 0, phase: 75, delay: 470, x: -44, y: 64, rotation: -10 },
-  { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96", ring: 0, phase: 87.5, delay: 1100, x: 48, y: 42, rotation: 18 },
-  { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330", ring: 1, phase: 93, delay: 820, x: 34, y: 50, rotation: -15 },
-  { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85", ring: 1, phase: 43, delay: 260, x: -42, y: -40, rotation: 10 },
-  { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91", ring: 2, phase: 7, delay: 530, x: 40, y: -32, rotation: 17 },
-  { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541", ring: 2, phase: 57, delay: 1050, x: -35, y: 45, rotation: -11 },
+const subjectGroups = [
+  [
+    { name: "Anatomía", icon: Heartbeat, color: "#ff8e95", ink: "#76212f" },
+    { name: "Fisiología", icon: Pulse, color: "#80b5ff", ink: "#154fa9" },
+    { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57" },
+    { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944" },
+    { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700" },
+    { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330" },
+  ],
+  [
+    { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13" },
+    { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768" },
+    { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96" },
+    { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91" },
+  ],
+  [
+    { name: "Semiología", icon: Stethoscope, color: "#80b5ff", ink: "#154fa9" },
+    { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85" },
+    { name: "Neuroanatomía", icon: Brain, color: "#b99aff", ink: "#542c96" },
+    { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541" },
+  ],
 ] as const;
 
-function SubjectCard({ subject }: { subject: (typeof subjects)[number] }) {
+type Subject = (typeof subjectGroups)[number][number];
+type OrbitHover = (ring: number, hovered: boolean) => void;
+
+function createOrbitMotion(track: HTMLElement) {
+  let rate = 1;
+  let target = 1;
+  let frame = 0;
+  let animations: Animation[] = [];
+
+  function writeRate(value: number) {
+    rate = value;
+    animations.forEach((animation) => animation.updatePlaybackRate(value));
+  }
+
+  function sync() {
+    animations = track.getAnimations({ subtree: true }).filter((animation) =>
+      animation instanceof CSSAnimation && animation.animationName.includes("orbitTravel"));
+    writeRate(rate);
+  }
+
+  function settle() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    sync();
+    writeRate(target);
+    track.dataset.motionState = target === 0 ? "stopped" : "running";
+  }
+
+  function setHovered(hovered: boolean, canAnimate: boolean) {
+    target = hovered ? 0 : 1;
+    cancelAnimationFrame(frame);
+    sync();
+    if (!canAnimate || !animations.length || Math.abs(rate - target) < .001) { settle(); return; }
+    const from = rate;
+    const started = performance.now();
+    const duration = hovered ? 680 : 920;
+    track.dataset.motionState = hovered ? "braking" : "accelerating";
+
+    // Frames run only during the brief speed change; CSS owns ongoing movement.
+    function tick(now: number) {
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = progress * progress * (3 - 2 * progress);
+      writeRate(from + (target - from) * eased);
+      if (progress < 1) frame = requestAnimationFrame(tick);
+      else { frame = 0; track.dataset.motionState = target === 0 ? "stopped" : "running"; }
+    }
+    frame = requestAnimationFrame(tick);
+  }
+
+  return { sync, settle, setHovered, dispose: () => cancelAnimationFrame(frame) };
+}
+
+function SubjectCard({ subject, ring, index, phase, onHover }: { subject: Subject; ring: number; index: number; phase: number; onHover: OrbitHover }) {
   const bounds = useRef<DOMRect | null>(null);
   const Icon = subject.icon;
+  const seed = ring * 8 + index;
+  const rotation = ((seed * 13) % 37) - 18;
 
-  function tilt(event: PointerEvent<HTMLAnchorElement>) {
-    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  function leave(element: HTMLDivElement) {
+    bounds.current = null;
+    delete element.dataset.hovered;
+    ["--tilt-x", "--tilt-y", "--tilt-z"].forEach((property) => element.style.removeProperty(property));
+    onHover(ring, false);
+  }
+
+  function tilt(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !bounds.current) return;
     const rect = bounds.current;
-    if (!rect) return;
     const x = Math.max(-1, Math.min(1, (event.clientX - rect.left) / rect.width * 2 - 1));
     const y = Math.max(-1, Math.min(1, (event.clientY - rect.top) / rect.height * 2 - 1));
     event.currentTarget.style.setProperty("--tilt-x", `${-y * 9}deg`);
@@ -38,24 +103,29 @@ function SubjectCard({ subject }: { subject: (typeof subjects)[number] }) {
   }
 
   return (
-    <div className={styles.traveller} style={{
-      "--phase": `${subject.phase}%`, "--mobile-phase": `${subject.phase}%`,
-      "--arrival-delay": `${subject.delay}ms`,
-      "--arrival-x": `${subject.x}px`, "--arrival-y": `${subject.y}px`,
-      "--arrival-rotation": `${subject.rotation}deg`, "--subject-color": subject.color,
-      "--subject-ink": subject.ink,
+    <div className={styles.traveller} data-subject={subject.name} style={{
+      "--phase": `${phase}%`,
+      "--arrival-delay": `${90 + ((seed * 347) % 1050)}ms`,
+      "--arrival-x": `${((seed * 31) % 110) - 55}px`, "--arrival-y": `${((seed * 43) % 100) - 50}px`,
+      "--arrival-rotation": `${rotation}deg`, "--catch-rotation": `${rotation / 6}deg`,
+      "--subject-color": subject.color, "--subject-ink": subject.ink,
     } as CSSProperties}>
       <div className={styles.arrival}>
-        <Link className={styles.subjectCard} href="/asignaturas" prefetch={false} aria-label={`Explorar materias: ${subject.name}`}
-          onPointerEnter={(event) => { bounds.current = event.currentTarget.getBoundingClientRect(); }}
-          onPointerMove={tilt}
-          onPointerLeave={(event) => {
-            bounds.current = null;
-            ["--tilt-x", "--tilt-y", "--tilt-z"].forEach((property) => event.currentTarget.style.removeProperty(property));
-          }}>
-          <span className={styles.subjectIcon}><Icon size={26} weight="regular" aria-hidden="true" /></span>
-          <span className={styles.subjectLabel}>{subject.name}</span>
-        </Link>
+        <div className={styles.hoverLift}>
+          <div className={styles.subjectCard} role="img" aria-label={subject.name}
+            onPointerEnter={(event) => {
+              if (event.pointerType !== "mouse") return;
+              bounds.current = event.currentTarget.getBoundingClientRect();
+              event.currentTarget.dataset.hovered = "true";
+              onHover(ring, true);
+            }}
+            onPointerMove={tilt}
+            onPointerLeave={(event) => leave(event.currentTarget)}
+            onPointerCancel={(event) => leave(event.currentTarget)}>
+            <span className={styles.subjectIcon}><Icon size={26} weight="regular" aria-hidden="true" /></span>
+            <span className={styles.subjectLabel}>{subject.name}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -63,28 +133,46 @@ function SubjectCard({ subject }: { subject: (typeof subjects)[number] }) {
 
 export function LandingOrbits() {
   const field = useRef<HTMLDivElement>(null);
+  const hoverControllers = useRef<Array<(hovered: boolean) => void>>([]);
 
   useEffect(() => {
     const element = field.current;
     if (!element) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const controllers = [...element.querySelectorAll<HTMLElement>("[data-orbit]")].map(createOrbitMotion);
     let inView = true;
-    const update = () => { element.dataset.motionPaused = String(document.hidden || !inView); };
+    const canAnimate = () => !document.hidden && inView && !reduceMotion.matches;
+    hoverControllers.current = controllers.map((controller) => (hovered) => controller.setHovered(hovered, canAnimate()));
+    const update = () => {
+      element.dataset.motionPaused = String(document.hidden || !inView);
+      if (!canAnimate()) controllers.forEach((controller) => controller.settle());
+      else controllers.forEach((controller) => controller.sync());
+    };
     const observer = new IntersectionObserver(([entry]) => { inView = entry?.isIntersecting ?? false; update(); });
+    const resize = new ResizeObserver(() => controllers.forEach((controller) => controller.sync()));
     observer.observe(element);
+    resize.observe(element);
     document.addEventListener("visibilitychange", update);
+    reduceMotion.addEventListener("change", update);
     update();
-    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", update); };
+    return () => {
+      observer.disconnect(); resize.disconnect(); controllers.forEach((controller) => controller.dispose());
+      hoverControllers.current = [];
+      document.removeEventListener("visibilitychange", update); reduceMotion.removeEventListener("change", update);
+    };
   }, []);
 
   return (
-    <div className={styles.orbitField} ref={field} aria-label="Materias para explorar">
-      {[0, 1, 2].map((ring) => (
+    <div className={styles.orbitField} ref={field} aria-label="Materias médicas">
+      {subjectGroups.map((subjects, ring) => (
         <div className={`${styles.orbitTrack} ${styles[`ring${ring}`]}`} key={ring} data-orbit={ring}>
           <span className={styles.orbitLine} aria-hidden="true" />
-          {subjects.filter((subject) => subject.ring === ring).map((subject) => <SubjectCard subject={subject} key={subject.name} />)}
+          {subjects.map((subject, index) => <SubjectCard subject={subject} ring={ring} index={index}
+            phase={index * 100 / subjects.length + ring * 4 + 3} key={subject.name}
+            onHover={(orbit, hovered) => hoverControllers.current[orbit]?.(hovered)} />)}
           {[13, 28, 36, 62, 79, 88].map((phase, index) => (
             <span key={phase} className={`${styles.traveller} ${styles.orbitDot}`} aria-hidden="true"
-              style={{ "--phase": `${phase + ring * 3}%`, "--mobile-phase": `${phase + ring * 3}%`, "--dot-size": `${index % 3 === 0 ? 7 : 4}px` } as CSSProperties} />
+              style={{ "--phase": `${phase + ring * 3}%`, "--dot-size": `${index % 3 === 0 ? 7 : 4}px` } as CSSProperties} />
           ))}
         </div>
       ))}
