@@ -5,11 +5,7 @@ import { useState, type MouseEvent } from "react";
 import {
   ArrowRight,
   Check,
-  ClipboardText,
-  ClockCountdown,
-  BookOpen,
   Crown,
-  ImagesSquare,
   InstagramLogo,
   Lightning,
   List,
@@ -17,16 +13,9 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { BrandPlatformPreview } from "./brand-platform-preview";
+import { CediahLogo } from "./cediah-logo";
 import { LandingOrbits } from "./landing-orbits";
 import styles from "./landing-orbit.module.css";
-
-const featureItems = [
-  { title: "Materias médicas", icon: BookOpen },
-  { title: "Guías de estudio", icon: BookOpen },
-  { title: "Flashcards", icon: ImagesSquare },
-  { title: "Cuestionarios", icon: ClipboardText },
-  { title: "Seguimiento", icon: ClockCountdown },
-] as const;
 
 const planFeatures = [
   "Materias esenciales",
@@ -93,9 +82,8 @@ export function LandingScreen() {
     <main className={`marketing-page marketing-page-orbit ${styles.page}`}>
       <section className="marketing-hero" aria-labelledby="marketing-title">
         <header className="marketing-header">
-          <Link className="marketing-brand" href="/" aria-label="Koraz, inicio">
-            <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /><i /></span>
-            <span>KORAZ</span>
+          <Link className="marketing-brand" href="/" aria-label="Koras, inicio">
+            <CediahLogo variant="dark" priority sizes="36px" />
           </Link>
 
           <nav className="marketing-navigation" id="marketing-navigation" aria-label="Navegación principal">
@@ -104,7 +92,7 @@ export function LandingScreen() {
               <div>
                 <Link href="/aprendizaje">Rutas</Link>
                 <Link href="/asignaturas">Materias</Link>
-                <a href="#recursos" onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>Recursos</a>
+                <a href="#plataforma" onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>Recursos</a>
                 <a href="#planes" onClick={(event) => { scrollToPlans(event); event.currentTarget.closest("details")?.removeAttribute("open"); }}>Planes</a>
               </div>
             </details>
@@ -112,12 +100,11 @@ export function LandingScreen() {
               <a href="#marketing-title" aria-current="page">Inicio</a>
               <Link href="/aprendizaje">Rutas</Link>
               <Link href="/asignaturas">Materias</Link>
-              <a href="#recursos">Recursos</a>
+              <a href="#plataforma">Recursos</a>
               <a className="marketing-plans-link" href="#planes" onClick={scrollToPlans}>Planes</a>
             </div>
             <div className="marketing-nav-actions">
               <Link className="marketing-login" href={accessHref}>Iniciar sesión</Link>
-              <Link className="marketing-register" href={registerHref}>Comenzar</Link>
             </div>
           </nav>
         </header>
@@ -139,15 +126,6 @@ export function LandingScreen() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="marketing-features" id="recursos" aria-label="Recursos de la plataforma">
-        {featureItems.map(({ title, icon: Icon }) => (
-          <div className="marketing-feature" key={title}>
-            <Icon aria-hidden="true" size={35} weight="thin" />
-            <strong>{title}</strong>
-          </div>
-        ))}
       </section>
 
       <section className="marketing-platform" id="plataforma" aria-labelledby="platform-title">
@@ -253,7 +231,7 @@ export function LandingScreen() {
       <footer className="marketing-footer" id="instituciones">
         <div className="marketing-footer-inner">
           <div className="marketing-footer-brand">
-            <Link className="marketing-brand" href="/" aria-label="Koraz, inicio"><span className={styles.brandMark} aria-hidden="true"><i /><i /><i /><i /></span><span>KORAZ</span></Link>
+            <Link className="marketing-brand" href="/" aria-label="Koras, inicio"><CediahLogo variant="dark" sizes="36px" /></Link>
             <p>Aprendizaje que conecta,<br />conocimiento que se queda.</p>
             <div className="marketing-socials" aria-label="Redes sociales" role="group">
               <a href="#instagram" aria-label="Instagram"><InstagramLogo size={16} /></a>
@@ -267,7 +245,7 @@ export function LandingScreen() {
               </div>
             ))}
           </div>
-          <p className="marketing-copyright">© 2026 Koraz. Todos los derechos reservados.</p>
+          <p className="marketing-copyright">© 2026 Koras. Todos los derechos reservados.</p>
         </div>
       </footer>
     </main>

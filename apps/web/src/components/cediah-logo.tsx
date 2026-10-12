@@ -3,10 +3,11 @@ import Image from "next/image";
 type CediahLogoProps = {
   className?: string;
   priority?: boolean;
+  sizes?: string;
   variant?: "dark" | "light";
 };
 
-export function CediahLogo({ className = "", priority = false, variant = "dark" }: CediahLogoProps) {
+export function CediahLogo({ className = "", priority = false, sizes, variant = "dark" }: CediahLogoProps) {
   const markSource = variant === "light"
     ? "/brand/koras-mark-light.png"
     : "/brand/koras-mark-dark.png";
@@ -24,6 +25,7 @@ export function CediahLogo({ className = "", priority = false, variant = "dark" 
         width={1254}
         height={1254}
         priority={priority}
+        sizes={sizes}
       />
       <span className="koras-logo-copy koraz-logo-copy">
         <strong>KORAS</strong>

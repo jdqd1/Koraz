@@ -24,9 +24,9 @@
   z-index: 5;
 }
 .page :global(.marketing-brand) { display: inline-flex; align-items: center; gap: 12px; color: #0b1229; font-size: 23px; font-weight: 800; letter-spacing: .13em; }
-.brandMark { display: grid; grid-template-columns: repeat(2, 11px); gap: 3px; transform: rotate(-8deg); }
-.brandMark i { width: 11px; height: 11px; border-radius: 50%; background: #0755ff; }
-.brandMark i:nth-child(2), .brandMark i:nth-child(3) { background: #80acff; }
+.page :global(.marketing-brand .cediah-logo) { display: inline-flex; align-items: center; width: auto; height: auto; gap: 10px; padding: 0; background: transparent; overflow: visible; }
+.page :global(.marketing-brand .cediah-logo .koraz-logo-mark) { width: 36px !important; height: 36px !important; flex-basis: 36px; object-fit: contain; }
+.page :global(.marketing-brand .koraz-logo-copy strong) { font-size: 22px; letter-spacing: .16em; }
 .page :global(.marketing-navigation) { flex: 1; gap: 28px; margin-left: 0; justify-content: flex-end; }
 .page :global(.marketing-nav-links) { gap: clamp(18px, 2.2vw, 34px); margin-inline: auto; }
 .page :global(.marketing-nav-actions) { gap: 12px; }
@@ -57,6 +57,8 @@
 .traveller { position: absolute; top: 0; left: 0; width: max-content; offset-path: ellipse(var(--radius-x) var(--radius-y) at 50% 50%); offset-anchor: center; offset-rotate: 0deg; offset-distance: var(--phase); animation: orbitTravel var(--orbit-duration) linear infinite; animation-play-state: var(--orbit-play); }
 .ring1 .traveller { animation-direction: reverse; }
 .orbitTrack:has(.subjectCard:is(:hover, :focus-visible)) { --orbit-play: paused; z-index: 2; }
+/* Bring keyboard focus into the visible part of a path without resetting its animation clock. */
+.traveller:has(.subjectCard:focus-visible) { offset-distance: 0% !important; z-index: 3; }
 .orbitField[data-motion-paused="true"] .traveller { animation-play-state: paused; }
 .orbitDot { width: var(--dot-size); height: var(--dot-size); border-radius: 50%; background: #8491af; }
 .orbitDot:nth-child(3n) { background: #22304d; }
@@ -66,6 +68,7 @@
 .subjectCard:is(:hover, :focus-visible) { transform: perspective(650px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(var(--tilt-z)) scale(1.09); box-shadow: 0 16px 38px #203d6820; }
 .subjectIcon { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; background: var(--subject-color); color: var(--subject-ink); box-shadow: inset 0 1px 5px #ffffff60, 0 0 0 5px color-mix(in srgb, var(--subject-color) 10%, transparent); }
 @keyframes orbitTravel { from { offset-distance: var(--phase); } to { offset-distance: calc(var(--phase) + 100%); } }
+@keyframes orbitTravelMobile { from { offset-distance: var(--mobile-phase); } to { offset-distance: calc(var(--mobile-phase) + 100%); } }
 @keyframes subjectArrival {
   0% { opacity: 0; transform: translate(var(--arrival-x), var(--arrival-y)) rotate(var(--arrival-rotation)) scale(.65); animation-timing-function: cubic-bezier(.16,1,.3,1); }
   58% { opacity: 1; transform: translate(-5px, 4px) rotate(-3deg) scale(1.04); animation-timing-function: ease-in-out; }
@@ -162,8 +165,9 @@
 @media (max-width: 760px) {
   .page :global(.marketing-header) { width: calc(100% - 36px); height: 84px; gap: 16px; flex-direction: row; align-items: center; padding: 0; }
   .page :global(.marketing-brand) { font-size: 18px; gap: 9px; align-self: auto; }
-  .brandMark { grid-template-columns: repeat(2, 9px); gap: 2px; }
-  .brandMark i { width: 9px; height: 9px; }
+  .page :global(.marketing-brand .cediah-logo) { gap: 8px; }
+  .page :global(.marketing-brand .cediah-logo .koraz-logo-mark) { width: 30px !important; height: 30px !important; flex-basis: 30px; }
+  .page :global(.marketing-brand .koraz-logo-copy strong) { font-size: 18px; }
   .page :global(.marketing-navigation) { display: flex; width: auto; flex: 0 1 auto; margin-left: auto; justify-content: flex-end; }
   .page :global(.marketing-nav-links) { display: none; }
   .mobileMenu { display: block; }
@@ -178,22 +182,24 @@
   .page :global(.marketing-login) { border: 0; padding-inline: 6px; }
   .page :global(.marketing-register) { padding-inline: 13px; border-radius: 11px; }
   .page :global(.marketing-hero) { min-height: 0; }
-  .heroStage { height: 650px; }
-  .page :global(.marketing-hero-inner) { width: min(430px, calc(100% - 84px)); }
-  .page :global(.marketing-hero-copy) { padding-bottom: 24px; }
-  .page :global(.marketing-hero-copy) h1 { font-size: clamp(32px, 6.5vw, 44px); letter-spacing: -.055em; }
-  .page :global(.marketing-hero-copy) > p { width: calc(100vw - 112px); max-width: 240px; margin-top: 22px; font-size: 15px; line-height: 1.65; }
+  .heroStage { height: 660px; }
+  .page :global(.marketing-hero-inner) { width: min(430px, calc(100% - 40px)); }
+  .page :global(.marketing-hero-copy) { padding: 0; }
+  .page :global(.marketing-hero-copy) h1 { font-size: clamp(34px, 8.7vw, 44px); letter-spacing: -.055em; }
+  .page :global(.marketing-hero-copy) > p { width: calc(100vw - 68px); max-width: 290px; margin-top: 22px; font-size: 15px; line-height: 1.65; }
   .desktopBreak { display: none; }
   .page :global(.marketing-hero-actions) { margin-top: 28px; }
   .page :global(.marketing-primary-button) { min-width: 186px; min-height: 52px; border-radius: 14px; font-size: 13px; gap: 17px; }
-  .ring0 { --radius-x: calc(50vw - 38px); --radius-y: 425px; }
-  .ring1 { --radius-x: calc(50vw - 20px); --radius-y: 540px; }
-  .ring2 { --radius-x: calc(50vw - 3px); --radius-y: 620px; }
-  .subjectCard { gap: 0; padding: 6px; }
-  .subjectIcon { width: 40px; height: 40px; flex-basis: 40px; }
-  .subjectIcon svg { width: 23px; height: 23px; }
-  .subjectLabel { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); color: #425270; font-size: 9px; font-weight: 600; }
-  .orbitField { mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 80%, transparent); }
+  .ring0 { --radius-x: max(280px, 78vw); --radius-y: 200px; }
+  .ring1 { --radius-x: max(350px, 95vw); --radius-y: 260px; }
+  .ring2 { --radius-x: max(420px, 115vw); --radius-y: 320px; }
+  .traveller { offset-distance: var(--mobile-phase); animation-name: orbitTravelMobile; }
+  .traveller:has(.subjectCard:focus-visible) { offset-path: none; top: 18%; left: 50%; right: auto; transform: translate(-50%, -50%); }
+  .subjectCard { gap: 8px; padding: 6px 12px 6px 6px; font-size: 10px; }
+  .subjectIcon { width: 30px; height: 30px; flex-basis: 30px; }
+  .subjectIcon svg { width: 19px; height: 19px; }
+  .subjectLabel { position: static; transform: none; color: #263554; font-size: 10px; }
+  .orbitField { mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
   .page :global(.marketing-features) { width: calc(100% - 36px); min-height: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 8px; border-radius: 20px; padding: 26px 12px; }
   .page :global(.marketing-feature) { flex-direction: column; gap: 9px; min-height: 0; padding: 0; text-align: center; }
   .page :global(.marketing-feature:nth-child(n)) { grid-column: auto; }
@@ -225,11 +231,10 @@
   .page :global(.marketing-nav-actions) { gap: 3px; }
   .page :global(.marketing-login) { padding-inline: 3px; }
   .page :global(.marketing-register) { padding-inline: 10px; }
-  .heroStage { height: 610px; }
-  .page :global(.marketing-hero-inner) { width: calc(100% - 68px); }
-  .page :global(.marketing-hero-copy) h1 { font-size: clamp(29px, 8vw, 34px); }
-  .page :global(.marketing-hero-copy) > p { font-size: 13px; }
-  .subjectLabel { font-size: 8px; }
+  .heroStage { height: 630px; }
+  .page :global(.marketing-hero-inner) { width: calc(100% - 40px); }
+  .page :global(.marketing-hero-copy) h1 { font-size: clamp(30px, 8.7vw, 34px); }
+  .page :global(.marketing-hero-copy) > p { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .traveller, .arrival { animation: none; }

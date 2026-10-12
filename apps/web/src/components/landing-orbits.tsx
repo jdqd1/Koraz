@@ -2,23 +2,24 @@
 
 import { useEffect, useRef, type CSSProperties, type PointerEvent } from "react";
 import Link from "next/link";
-import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Graph, ShieldCheck } from "@phosphor-icons/react";
+import { Atom, Heartbeat, Microscope, Pill, Dna, Virus, Pulse, ShieldCheck } from "@phosphor-icons/react";
 import styles from "./landing-orbit.module.css";
 
-// Fixed, irregular seeds keep SSR/hydration identical while giving each arrival its own momentum.
+// Eight evenly spaced anchors keep the inner orbit populated through a full revolution.
+// Arrival delays and momentum stay irregular and deterministic for SSR/hydration.
 const subjects = [
-  { name: "Anatomía", icon: Heartbeat, color: "#ff8e95", ink: "#76212f", ring: 0, phase: 56, delay: 180, x: -54, y: -32, rotation: -18 },
-  { name: "Fisiología", icon: Graph, color: "#80b5ff", ink: "#154fa9", ring: 0, phase: 94, delay: 620, x: 36, y: -62, rotation: 14 },
-  { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57", ring: 0, phase: 43, delay: 940, x: -38, y: 48, rotation: 12 },
-  { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768", ring: 0, phase: 7, delay: 340, x: 56, y: 26, rotation: -12 },
-  { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944", ring: 1, phase: 50, delay: 760, x: -72, y: 15, rotation: 16 },
-  { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13", ring: 1, phase: 0, delay: 90, x: 62, y: -20, rotation: -20 },
-  { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700", ring: 2, phase: 45, delay: 470, x: -44, y: 64, rotation: -10 },
-  { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96", ring: 2, phase: 6, delay: 1100, x: 48, y: 42, rotation: 18 },
-  { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330", ring: 1, phase: 25, delay: 820, x: 34, y: 50, rotation: -15 },
-  { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85", ring: 1, phase: 75, delay: 260, x: -42, y: -40, rotation: 10 },
-  { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91", ring: 2, phase: 72, delay: 530, x: 40, y: -32, rotation: 17 },
-  { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541", ring: 2, phase: 24, delay: 1050, x: -35, y: 45, rotation: -11 },
+  { name: "Anatomía", icon: Heartbeat, color: "#ff8e95", ink: "#76212f", ring: 0, phase: 0, delay: 180, x: -54, y: -32, rotation: -18 },
+  { name: "Fisiología", icon: Pulse, color: "#80b5ff", ink: "#154fa9", ring: 0, phase: 12.5, delay: 620, x: 36, y: -62, rotation: 14 },
+  { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57", ring: 0, phase: 25, delay: 940, x: -38, y: 48, rotation: 12 },
+  { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768", ring: 0, phase: 37.5, delay: 340, x: 56, y: 26, rotation: -12 },
+  { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944", ring: 0, phase: 50, delay: 760, x: -72, y: 15, rotation: 16 },
+  { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13", ring: 0, phase: 62.5, delay: 90, x: 62, y: -20, rotation: -20 },
+  { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700", ring: 0, phase: 75, delay: 470, x: -44, y: 64, rotation: -10 },
+  { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96", ring: 0, phase: 87.5, delay: 1100, x: 48, y: 42, rotation: 18 },
+  { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330", ring: 1, phase: 93, delay: 820, x: 34, y: 50, rotation: -15 },
+  { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85", ring: 1, phase: 43, delay: 260, x: -42, y: -40, rotation: 10 },
+  { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91", ring: 2, phase: 7, delay: 530, x: 40, y: -32, rotation: 17 },
+  { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541", ring: 2, phase: 57, delay: 1050, x: -35, y: 45, rotation: -11 },
 ] as const;
 
 function SubjectCard({ subject }: { subject: (typeof subjects)[number] }) {
@@ -38,7 +39,8 @@ function SubjectCard({ subject }: { subject: (typeof subjects)[number] }) {
 
   return (
     <div className={styles.traveller} style={{
-      "--phase": `${subject.phase}%`, "--arrival-delay": `${subject.delay}ms`,
+      "--phase": `${subject.phase}%`, "--mobile-phase": `${subject.phase}%`,
+      "--arrival-delay": `${subject.delay}ms`,
       "--arrival-x": `${subject.x}px`, "--arrival-y": `${subject.y}px`,
       "--arrival-rotation": `${subject.rotation}deg`, "--subject-color": subject.color,
       "--subject-ink": subject.ink,
@@ -82,7 +84,7 @@ export function LandingOrbits() {
           {subjects.filter((subject) => subject.ring === ring).map((subject) => <SubjectCard subject={subject} key={subject.name} />)}
           {[13, 28, 36, 62, 79, 88].map((phase, index) => (
             <span key={phase} className={`${styles.traveller} ${styles.orbitDot}`} aria-hidden="true"
-              style={{ "--phase": `${phase + ring * 3}%`, "--dot-size": `${index % 3 === 0 ? 7 : 4}px` } as CSSProperties} />
+              style={{ "--phase": `${phase + ring * 3}%`, "--mobile-phase": `${phase + ring * 3}%`, "--dot-size": `${index % 3 === 0 ? 7 : 4}px` } as CSSProperties} />
           ))}
         </div>
       ))}
