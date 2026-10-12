@@ -14,6 +14,9 @@ Fecha: 2026-10-12. Implementación local para reducir la lectura y facilitar la 
 - Las ayudas extensas se abren desde cada campo; los errores siguen visibles y permiten abrir y enfocar el campo correspondiente.
 - La importación usa la etiqueta Archivo de ruta y una zona para arrastrar JSON o seleccionarlo con teclado. El nombre aparece después de leer un paquete válido; se mantienen el límite de 10 MiB, las comprobaciones y la importación explícita. No se importa automáticamente al soltar un archivo.
 - Se conserva el montaje de campos ocultos y la carga diferida de formularios de actividades.
+- Objetivos muestra primero Objetivo de aprendizaje, Unidad y Fuentes; verbo, prioridad y obligatoriedad quedan en Configuración del objetivo.
+- Las actividades separan la redacción de Configuración de la actividad. Fragmentos destacados y Opciones de estudio se abren bajo demanda; las respuestas usan la etiqueta Respuesta y explicación.
+- Los 13 tipos de actividad se mantienen, agrupados en Estudio, Preguntas, Visuales y casos y Actividades guiadas.
 
 ## Alcance y límites
 
@@ -28,3 +31,5 @@ Los resultados y las capturas finales se registran en `resultado.json`. Las prue
 Las ejecuciones iniciales se conservaron en `apps/web/.map-test-results/` y `tmp/route-editor-v2-redesign/e2e-recheck/`. Detectaron nombres de importación incorrectos, foco prematuro al montar los paneles, selectores inadecuados de la prueba y dos regiones main anidadas. Se corrigieron antes de las ejecuciones finales en `tmp/route-editor-v2-redesign/e2e-final/` y `tmp/route-editor-v2-redesign/e2e-polish/`. La validación posterior a la preferencia de encabezados está en `tmp/route-editor-v2-redesign/e2e-headings/`.
 
 La revisión automatizada de accesibilidad del editor no sustituye pruebas con lector de pantalla ni modifica el estado de aceptación de Q19/V04.
+
+La última simplificación pasó 98 pruebas unitarias del editor y 14 pruebas de navegador (8 del editor y 6 de importación, 7 por dispositivo), además de TypeScript, ESLint enfocado y revisión de espacios. Comprueba que los ajustes plegados siguen guardándose, conserva la obligatoriedad de los objetivos esenciales y verifica los 13 tipos de actividad. Se usó el servidor local activo en el puerto 31012 tras quedar indisponible el puerto 3100; los artefactos de ese intento se conservan en `tmp/route-editor-v2-redesign/e2e-forms/` y los finales en `tmp/route-editor-v2-redesign/e2e-forms-final/`. Las capturas `formulario-objetivo-vista.png` y `formulario-actividad-vista.png` muestran la revisión visual posterior al ajuste final de espaciado.

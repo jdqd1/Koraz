@@ -42,7 +42,7 @@ async function feedback(page:Page|Locator){
 }
 async function clickCentered(locator:Locator){await locator.evaluate(element=>element.scrollIntoView({block:"center",inline:"nearest"}));await locator.click();}
 async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith("__reactProps") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick==="function"))).toBe(true);}
-async function finish(page:Page|Locator){await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(page.getByRole("heading",{name:"Sesión completada",exact:true})).toBeVisible();}
+async function finish(page:Page|Locator){const completed=page.getByRole("heading",{name:"Sesión completada",exact:true});if(!await completed.isVisible())await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(completed).toBeVisible();}
 async function answer(page:Page|Locator,kind:string,wrong=false){
   if(kind==="study"){await page.getByRole("button",{name:"Continuar a la práctica"}).click();return;}
   if(kind==="single_choice"){await page.getByRole("radio",{name:wrong?"Respuesta B":"Respuesta A",exact:true}).check();await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
@@ -50,8 +50,8 @@ async function answer(page:Page|Locator,kind:string,wrong=false){
   if(kind==="constructed_response"){await page.getByLabel("Explica con tus palabras").fill("Una relación sintética.");await page.getByRole("button",{name:"Guardar mi respuesta"}).click();await page.getByRole("button",{name:"Comparar con el modelo"}).click();await expect(page.getByRole("heading",{name:"Respuesta modelo",exact:true})).toBeVisible();await page.getByRole("button",{name:"Lo recuperé",exact:true}).click();}
   if(kind==="match"){await page.getByRole("combobox",{name:"Origen",exact:true}).selectOption("c");await clickCentered(page.getByRole("button",{name:"Comprobar relaciones"}));}
   if(kind==="sequence"){await clickCentered(page.getByRole("button",{name:"Comprobar secuencia"}));}
-  if(kind==="image_target"){await expect(page.getByLabel("Horizontal (%)")).toBeEnabled();await page.getByLabel("Horizontal (%)").fill("20");await page.getByLabel("Vertical (%)").fill("20");await clickCentered(page.getByRole("button",{name:"Comprobar respuesta visual"}));}
-  if(kind==="case"){await expect(page.getByRole("heading",{name:/Etapa 2: relación sintética/})).toHaveCount(0);await answer(page,"single_choice");await expect(page.getByRole("heading",{name:/Etapa 2: relación sintética/})).toBeVisible();await answer(page,"short_answer");return;}
+  if(kind==="image_target"){await page.getByText("Ajustar el punto seleccionado",{exact:true}).first().click();await expect(page.getByLabel("Horizontal (%)")).toBeEnabled();await page.getByLabel("Horizontal (%)").fill("20");await page.getByLabel("Vertical (%)").fill("20");await clickCentered(page.getByRole("button",{name:"Comprobar respuesta visual"}));}
+  if(kind==="case"){await expect(page.getByText(/Etapa 2: relación sintética/)).toHaveCount(0);await answer(page,"single_choice");await expect(page.getByText(/Etapa 2: relación sintética/)).toBeVisible();await answer(page,"short_answer");return;}
   await feedback(page);
 }
 const student=(base:number,mobile:boolean)=>`student-${base+(mobile?10:0)}`;
@@ -72,12 +72,12 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
   await expect(page.getByLabel("Guía y revisión")).not.toHaveValue("");
   await type(page.getByLabel("Cita bibliográfica"),"Fuente sintética T035 (2026)");
   await type(page.getByLabel("Sección o encabezado"),"Fixture");await type(page.getByLabel("Fragmento de la fuente"),"Contenido sintético para comprobar el software.");
-  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Capacidad observable"),"Aplicar una relación sintética");
+  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Objetivo de aprendizaje"),"Aplicar una relación sintética");
   await page.getByRole("group",{name:"Fuentes del objetivo"}).getByRole("checkbox").focus();await page.keyboard.press("Space");
   await press(page.getByRole("tab",{name:"Recorrido",exact:true}));await press(page.getByRole("button",{name:"Añadir actividad",exact:true}));
   await type(page.getByLabel("Consigna",{exact:true}),"Lee el ejemplo sintético.");await type(page.getByLabel("Contenido de estudio"),"Contenido sintético para comprobar el software.");
   await expect(page.getByRole("group",{name:"Fuentes de la actividad",exact:true}).getByRole("checkbox")).toBeChecked();
-  await press(page.getByText("Solución y feedback · solo edición",{exact:true}));await type(page.getByLabel("Explicación del feedback"),"La lectura está registrada; el dominio se comprobará con práctica.");
+  await press(page.getByText("Respuesta y explicación",{exact:true}));await type(page.getByLabel("Explicación de la respuesta"),"La lectura está registrada; el dominio se comprobará con práctica.");
   await expect(page.getByRole("group",{name:"Fuentes del feedback y de los distractores",exact:true}).getByRole("checkbox")).toBeChecked();
   const saved=page.waitForResponse(r=>r.request().method()==="POST" && r.url().endsWith("/api/v2/editor/learning-paths"));
   await press(page.getByRole("button",{name:"Guardar borrador",exact:true}));
@@ -150,7 +150,7 @@ test("E05 disconnect before/after commit, reload and two tabs preserve one answe
     let original:{body:string|null;key:string|undefined}|undefined;
     await page.route(pattern,async r=>{original={body:r.request().postData(),key:r.request().headers()["idempotency-key"]};if(afterCommit){const response=await r.fetch();expect(response.status()).toBe(200);}await r.abort("failed");resolve();});
     await page.getByRole("button",{name:"Continuar a la práctica"}).click();await intercepted;
-    await expect(page.getByText("Pendiente de confirmar",{exact:true})).toBeVisible();expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(afterCommit?1:0);
+    await expect(page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true})).toBeVisible();expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(afterCommit?1:0);
     await page.unroute(pattern);await page.reload();
     const retry=page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true});await expect(retry).toBeVisible();await hydrated(retry);const confirmed=page.waitForResponse(r=>r.request().method()==="POST" && r.url().includes(`/api/v2/guided-learning/attempts/${attemptId}/responses`));await retry.click();const receipt=await confirmed;expect(receipt.status()).toBe(200);expect({body:receipt.request().postData(),key:receipt.request().headers()["idempotency-key"]}).toEqual(original);
     await expect(page.getByRole("button",{name:"Finalizar sesión",exact:true})).toBeVisible();await finish(page);expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(1);

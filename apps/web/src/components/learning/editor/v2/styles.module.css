@@ -43,11 +43,15 @@
 .footerActions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
 .unitHeading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 0; }
 .unitHeading small { color: var(--koraz-slate); font-size: 12px; font-weight: 400; letter-spacing: normal; }
+.itemActions { display: flex; justify-content: end; margin-bottom: 16px; }
+.activityCreator { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto; align-items: end; }
 
 @media (max-width: 1050px) {
   .workspace { grid-template-columns: 170px minmax(0, 1fr); gap: 20px; }
   .step { padding: 10px 8px; gap: 8px; }
   .headerTools { max-width: 240px; }
+  .activityCreator { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .activityCreator > button { grid-column: 1 / -1; justify-self: start; }
 }
 
 @media (max-width: 767px) {
@@ -74,6 +78,8 @@
   .footerActions { flex-wrap: wrap; gap: 8px; }
   .footerActions button { flex: 1 1 auto; font-size: 13px; padding-inline: 10px; }
   .footerActions button:first-child { flex-grow: 0; }
+  .activityCreator { grid-template-columns: minmax(0, 1fr); }
+  .activityCreator > button { width: 100%; grid-column: auto; justify-self: stretch; }
 }
 
 .visuallyHidden {
@@ -85,6 +91,7 @@
 }
 
 .stack { display: grid; gap: 20px; min-width: 0; }
+.stack > .optionsDisclosure { margin-top: 0; }
 .dialogOverlay { z-index: 180; }
 .dialog { z-index: 181; }
 .editor [data-editor-preview] > label { display: grid; min-width: 0; gap: 8px; }

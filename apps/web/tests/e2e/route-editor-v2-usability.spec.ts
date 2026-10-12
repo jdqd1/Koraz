@@ -32,8 +32,8 @@ test("new route stays focused on essentials and keeps edits across the five step
   await page.getByLabel("Nombre de nueva unidad").fill("Primera unidad");
   await page.getByRole("button", { name: "Añadir unidad", exact: true }).click();
   await page.getByRole("button", { name: "Añadir objetivo", exact: true }).click();
-  await expect(page.getByLabel("Capacidad observable")).toBeFocused();
-  await page.getByLabel("Capacidad observable").fill("Identificar las estructuras principales");
+  await expect(page.getByLabel("Objetivo de aprendizaje")).toBeFocused();
+  await page.getByLabel("Objetivo de aprendizaje").fill("Identificar las estructuras principales");
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
   await page.getByLabel("Tipo de nueva actividad").selectOption("study");
   await page.getByRole("button", { name: "Añadir actividad", exact: true }).click();
@@ -50,7 +50,7 @@ test("new route stays focused on essentials and keeps edits across the five step
   await expect(page.getByLabel("Descripción", { exact: true })).toHaveValue("Estudio y práctica del tema de ejemplo.");
   await page.getByRole("tab", { name: "Objetivos", exact: true }).click();
   await page.locator("summary").filter({ hasText: "Identificar las estructuras principales" }).click();
-  await expect(page.getByLabel("Capacidad observable")).toHaveValue("Identificar las estructuras principales");
+  await expect(page.getByLabel("Objetivo de aprendizaje")).toHaveValue("Identificar las estructuras principales");
   await noOverflow(page);
 });
 
@@ -61,9 +61,9 @@ test("editing collapsed options preserves the package and saves the confirmed ve
   await page.getByLabel("Dirigida a", { exact: true }).fill("Estudiantes de medicina");
   await page.locator("summary").filter({ hasText: "Presentación de la ruta" }).click();
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
-  await expect(page.getByLabel("Capacidad observable")).toBeHidden();
+  await expect(page.getByLabel("Objetivo de aprendizaje")).toBeHidden();
   await page.locator("summary").filter({ hasText: "Relacionar los ejemplos" }).click();
-  await expect(page.getByLabel("Capacidad observable")).toHaveValue("Relacionar los ejemplos");
+  await expect(page.getByLabel("Objetivo de aprendizaje")).toHaveValue("Relacionar los ejemplos");
   await page.screenshot({ path: info.outputPath("objectives.png"), fullPage: true });
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
   await expect(page.locator("[data-activity-form]")).toHaveCount(0);
@@ -96,4 +96,43 @@ test("validation opens a collapsed source and focuses its invalid field", async 
   await expect(page.getByLabel("Nombre de la fuente", { exact: true })).toBeFocused();
   await expect(page.getByLabel("Nombre de la fuente", { exact: true })).toHaveAttribute("aria-invalid", "true");
   expect(await page.evaluate(() => sessionStorage.getItem("t023:fixture-server:ready"))).toBeNull();
+});
+
+test("objective and activity settings stay out of the main form and preserve saved data", async ({ page }, info) => {
+  await openEditor(page);
+  await page.getByRole("tab", { name: "Objetivos", exact: true }).click();
+  await page.locator("summary").filter({ hasText: "Relacionar los ejemplos" }).click();
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Verbo", { exact: true })).toBeHidden();
+  await expect(page.getByLabel("Prioridad", { exact: true })).toBeHidden();
+  await page.screenshot({ path: info.outputPath("objective-form.png"), fullPage: true });
+  await page.locator("summary").filter({ hasText: "Configuración del objetivo" }).click();
+  const required = page.getByLabel(/^Obligatorio/);
+  await expect(required).toBeChecked();
+  await expect(required).toBeDisabled();
+  await page.getByLabel("Prioridad", { exact: true }).selectOption("high_yield");
+  await required.uncheck();
+  await page.getByRole("tab", { name: "Recorrido", exact: true }).click();
+  await expect(page.getByLabel("Tipo de nueva actividad").locator("optgroup")).toHaveCount(4);
+  await expect(page.getByLabel("Tipo de nueva actividad").locator("option")).toHaveCount(13);
+  await page.locator("summary").filter({ hasText: /^Estudio · Pregunta sintética$/ }).click();
+  await expect(page.getByLabel("Contenido de estudio", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Fase de aprendizaje", { exact: true })).toBeHidden();
+  await expect(page.getByLabel("Apoyo del ejemplo", { exact: true })).toBeHidden();
+  await page.getByLabel("Contenido de estudio", { exact: true }).fill("Contenido conservado después de ajustar la configuración.");
+  await page.screenshot({ path: info.outputPath("activity-form.png"), fullPage: true });
+  await page.locator("summary").filter({ hasText: "Configuración de la actividad" }).click();
+  await page.getByLabel("Fase de aprendizaje", { exact: true }).selectOption("learn");
+  await page.getByLabel("Actividad requerida", { exact: true }).uncheck();
+  await page.locator("summary").filter({ hasText: "Opciones de estudio" }).click();
+  await expect(page.getByLabel("Apoyo del ejemplo", { exact: true })).toHaveValue("explanation");
+  await page.getByRole("button", { name: "Guardar borrador", exact: true }).click();
+  await expect(page.getByText("Borrador al día", { exact: true })).toBeVisible();
+  const saved = await page.evaluate(() => JSON.parse(sessionStorage.getItem("t023:fixture-server:ready")!));
+  expect(saved.definition.objectives[0]).toMatchObject({ criticality: "high_yield", required: false, sourceKeys: ["source"] });
+  const study = saved.definition.activities.find((activity: { key: string }) => activity.key === "study");
+  expect(study).toMatchObject({ phase: "learn", required: false, sourceKeys: ["source"], payload: { body: "Contenido conservado después de ajustar la configuración.", scaffold: "explanation" } });
+  expect(saved.definition.activities.find((activity: { key: string }) => activity.key === "choice").payload.correctKey).toBe("a");
+  expect(saved.definition.units[0].activityKeys).toHaveLength(8);
+  await noOverflow(page);
 });

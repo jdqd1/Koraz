@@ -11,6 +11,13 @@ import local from "./styles.module.css";
 import { VisualActivityV2 } from "./visual-activity";
 import { EditorDisclosureV2 } from "./editor-disclosure";
 
+const presetGroups: { label: string; presets: ActivityPresetV2[] }[] = [
+  { label: "Estudio", presets: ["study"] },
+  { label: "Preguntas", presets: ["single_choice", "short_answer", "constructed_response", "card"] },
+  { label: "Visuales y casos", presets: ["match", "image_target", "sequence", "case", "comparison", "causal_map"] },
+  { label: "Actividades guiadas", presets: ["mechanism", "error"] },
+];
+
 export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: FormPropsV2) {
   const pkg = draft.package;
   const [preset, setPreset] = useState<ActivityPresetV2>("study");
@@ -30,8 +37,8 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
   function locate(path: string) { focusFieldIssueV2(surfaceRef.current, path); }
   return <div ref={surfaceRef} className={local.stack}>
     <section className={styles.card}><div className={styles.sectionHeading}><h2>Actividades</h2></div>
-      <fieldset className={styles.fieldset} disabled={disabled}><div className={styles.fieldGrid}>
-        <FieldV2 label="Tipo de nueva actividad" path="activity.newKind">{(input) => <select {...input} value={preset} onChange={(event) => setPreset(event.target.value as ActivityPresetV2)}>{Object.entries(activityTypesV2).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>}</FieldV2>
+      <fieldset className={styles.fieldset} disabled={disabled}><div className={`${styles.fieldGrid} ${local.activityCreator}`}>
+        <FieldV2 label="Tipo de nueva actividad" path="activity.newKind">{(input) => <select {...input} value={preset} onChange={(event) => setPreset(event.target.value as ActivityPresetV2)}>{presetGroups.map((group) => <optgroup key={group.label} label={group.label}>{group.presets.map((value) => <option key={value} value={value}>{activityTypesV2[value]}</option>)}</optgroup>)}</select>}</FieldV2>
         <FieldV2 label="Objetivo de nueva actividad" path="activity.newObjective">{(input) => <select {...input} value={selectedObjective} onChange={(event) => setObjectiveKey(event.target.value)}>{!selectedObjective ? <option value="">Añade un objetivo primero</option> : null}{pkg.objectives.map((objective) => <option value={objective.key} key={objective.key}>{objective.title || "Objetivo sin título"}</option>)}</select>}</FieldV2>
         <button ref={addRef} className={styles.primaryAction} type="button" disabled={disabled || !selectedObjective || pkg.activities.length >= 2000} onClick={() => { const next = addActivityV2(pkg, preset, selectedObjective); if (next === pkg) return; pendingFocus.current = `package.activities.${pkg.activities.length}.prompt`; change(next); }}>Añadir actividad</button>
       </div></fieldset>
@@ -55,7 +62,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
               {activity.kind === "study" ? <ActivityStudyV2 {...fields} activity={activity} /> : null}
               {activity.kind === "single_choice" ? <ActivityChoiceOptionsV2 {...fields} activity={activity} /> : null}
               <VisualActivityV2 {...fields} />
-              <details className={`${styles.disclosure} ${local.activitySolution}`}><summary>Solución y feedback · solo edición</summary><p className={styles.fieldHint}>Área editorial. La entrega de soluciones al alumno depende del envío o revelado autorizado por el servidor.</p><div className={local.stack}>
+              <details className={`${styles.disclosure} ${local.activitySolution}`}><summary>Respuesta y explicación</summary><details className={local.fieldHelp}><summary>Ayuda</summary><p className={styles.fieldHint}>La entrega de soluciones al alumno depende del envío o revelado autorizado por el servidor.</p></details><div className={local.stack}>
                 {activity.kind === "single_choice" ? <ActivityChoiceSolutionV2 {...fields} activity={activity} /> : null}
                 {activity.kind === "short_answer" ? <ActivityShortSolutionV2 {...fields} activity={activity} /> : null}
                 {activity.kind === "constructed_response" ? <ActivityConstructedSolutionV2 {...fields} activity={activity} /> : null}

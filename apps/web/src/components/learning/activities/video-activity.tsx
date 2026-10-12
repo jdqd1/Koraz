@@ -9,6 +9,7 @@ import {
   type LearningAttempt,
 } from "@cediah/contracts";
 import type { ActivityMutation } from "./types";
+import ui from "./activity-ui.module.css";
 import {
   compactVideoObservedRanges,
   normalizeVideoDurationSeconds,
@@ -111,13 +112,13 @@ export function VideoActivity({ attempt, mutate }: {
 
   return (
     <section className="learning-video-activity">
-      <div className="learning-activity-counter">Video · puedes verlo u omitirlo</div>
       {attempt.manifest.externalUrl ? (
         <div className="learning-external-video">
           <h2>Estudia el video en su fuente</h2>
-          <p>Regresa después y confirma, o completa la actividad si ya conoces este contenido. Al no poder verificar la cobertura, recibirás {LEARNING_VIDEO_SKIPPED_XP} XP.</p>
+          <p>Ábrelo y vuelve aquí cuando termines.</p>
           <a href={attempt.manifest.externalUrl} rel="noreferrer" target="_blank">Abrir video<ArrowSquareOut size={18} /></a>
-          <button className="learning-primary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button"><Check size={18} />{busy ? "Guardando…" : `Completar video (+${LEARNING_VIDEO_SKIPPED_XP} XP)`}</button>
+          <details className={ui.disclosure}><summary>Cómo se registra esta actividad</summary><p>Al no poder verificar la cobertura, recibirás {LEARNING_VIDEO_SKIPPED_XP} XP.</p></details>
+          <button className="learning-primary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button"><Check size={18} />{busy ? "Guardando…" : "Completar video"}</button>
         </div>
       ) : (
         <div className="learning-native-video">
@@ -152,11 +153,11 @@ export function VideoActivity({ attempt, mutate }: {
             preload="metadata"
             src={mediaUrl || undefined}
           />
-          <p>{mediaError || (mediaUrl ? "La cobertura se guarda por segmentos reproducidos; saltar al final no completa la actividad." : "Solicitando reproducción segura…")}</p>
-          <aside className="learning-video-skip">
+          {mediaError || !mediaUrl ? <p role={mediaError ? "alert" : "status"}>{mediaError || "Preparando el video…"}</p> : null}
+          <details className={ui.disclosure}><summary>Cómo se registra esta actividad</summary><p>La cobertura se guarda por segmentos reproducidos; saltar al final no completa la actividad. Recibirás {LEARNING_VIDEO_SKIPPED_XP} XP al omitirlo y {LEARNING_VIDEO_OBSERVED_XP} XP al reproducir al menos {coveragePercent}%.</p></details>
+          <aside>
             <div>
               <strong>¿Ya lo viste o no lo necesitas?</strong>
-              <p>Puedes completar la lección sin reproducirlo. Recibirás {LEARNING_VIDEO_SKIPPED_XP} XP; al reproducir al menos {coveragePercent}% en este reproductor recibirás {LEARNING_VIDEO_OBSERVED_XP} XP.</p>
             </div>
             <button className="learning-secondary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button">
               <SkipForward size={18} />{busy ? "Completando…" : "Omitir video y completar"}
