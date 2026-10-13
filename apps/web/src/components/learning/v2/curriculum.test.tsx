@@ -21,7 +21,7 @@ describe("unit and objective curriculum", () => {
     expect(html).toContain("Elegir la respuesta correcta");
     expect(html).not.toContain("Resolver un caso");
     expect(html).not.toContain("Comparar dos situaciones nuevas");
-    expect(html).toContain("Ahora");
+    expect(html).toContain('aria-current="step"');
     expect(JSON.stringify(fixture.state)).toBe(before);
   });
   it("keeps per-unit consumption separate from whole-route mastery and displays missing data honestly", () => {
@@ -67,7 +67,7 @@ describe("unit and objective curriculum", () => {
     for (const [path, state] of [[{ ...fixture.path, access: "revoked" as const }, fixture.state], [fixture.path, { ...fixture.state, availability: "maintenance" as const }], [fixture.path, null], [fixture.path, { ...fixture.state, pathVersionId: fixtureId(66) as typeof fixture.state.pathVersionId }]] as const) {
       const html = renderToStaticMarkup(<RouteCurriculum path={path} state={state} />);
       expect(html).not.toContain("Abrir actividad</button>");
-      expect(html).not.toContain("Ahora</span>");
+      expect(html).not.toContain('aria-current="step"');
     }
   });
   it("keeps resource references in their own unit and does not invent missing links", () => {
@@ -79,12 +79,12 @@ describe("unit and objective curriculum", () => {
     expect(second).not.toContain("source-a");
     expect(second).toContain("no tiene recursos de referencia asociados");
   });
-  it("shows the selected unit count rather than repeating total route consumption in its header", () => {
+  it("shows the selected unit count without including overall route progress", () => {
     const fixture = studentFixture();
     const html = renderToStaticMarkup(<V2MapPanel meta={{ ...fixture, unitKey: "unit-b" }} route={ROOT_MAP_ROUTE} onClose={() => {}} />);
-    const header = html.slice(0, html.indexOf("</header>"));
-    expect(header).toContain("0 de 3 completadas");
-    expect(header).not.toContain("2 actividades completadas de 6");
+    expect(html).toContain("0 de 3 completadas");
+    expect(html).not.toContain("2 actividades completadas de 6");
+    expect(html).not.toContain("Progreso de la ruta");
     expect(html).toContain("Otra unidad");
     expect(html).toContain("Contenido de la unidad");
   });

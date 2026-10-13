@@ -5,9 +5,9 @@ Rediseño local del 13 de octubre de 2026 para el detalle de las rutas guided-v2
 ## Interfaz
 
 - Pestañas **Actividades** y **Recursos**, compartidas por el panel y la ruta completa, con navegación por teclado.
-- Jerarquía unidad → objetivo → actividades. Cada actividad muestra formato, fase y estado. Las ya completadas o cubiertas quedan en un desplegable.
-- Actividad recomendada con la etiqueta **Ahora**, un acento azul y una sola acción principal fija en el pie del panel móvil.
-- Avance de actividades por unidad, separado del progreso general. Abrir o desplegar contenido no acredita progreso.
+- Jerarquía unidad → objetivo → actividades. Cada actividad muestra un icono alusivo a su formato junto al título. Las ya completadas o cubiertas quedan en un desplegable.
+- Actividad recomendada con un acento azul, una flecha y una sola acción principal fija en el pie del panel móvil. El paso actual también se identifica con `aria-current`.
+- Avance de actividades por unidad, separado del progreso general. La barra comparte columna y ancho con las pestañas. Abrir o desplegar contenido no acredita progreso.
 - Progreso general separado en **Actividades**, **Lo aprendido** y **Repaso con el tiempo**, con estados breves, iconos y explicación opcional.
 - Los objetivos usan **Por aprender**, **En práctica**, **Comprobado** y **Por reforzar**. El mapa usa etiquetas breves en lugar de una frase truncada.
 - Recursos asociados a la unidad, con referencias y localizadores. Solo se ofrece un enlace cuando la fuente tiene una URL real.
@@ -63,3 +63,16 @@ Las pruebas de API verifican que una lectura del estado no añade respuestas o e
 - [Ruta completa en móvil](ruta-390.png)
 
 La demostración utiliza datos sintéticos de desarrollo. No se desplegó esta entrega ni se verificó un cambio en `koraz.app`.
+
+## Ajustes de los siete comentarios del navegador
+
+- Se eliminó el texto «Unidad X de Y» del encabezado de la unidad.
+- Se sustituyeron las líneas de formato y fase por iconos específicos a la izquierda de cada título: lectura, preguntas, respuestas, relaciones, imágenes, secuencias y casos. Los iconos conservan una descripción accesible.
+- Se quitaron las etiquetas visibles «Ahora» y «Pendiente» de las tarjetas. La actividad recomendada conserva el acento azul y la flecha, y el botón de continuar conserva su destino autorizado.
+- La barra de avance de la unidad está en el mismo contenedor que las pestañas, para que ambas compartan exactamente sus bordes.
+- El panel de una unidad ya no muestra el progreso general de la ruta. Ese resumen permanece en la vista completa de la ruta y en el panel general, donde corresponde.
+- Se retiró la frase de material sintético de la referencia de demostración. Las citas bibliográficas reales siguen disponibles.
+
+Verificación de los ajustes: 22 pruebas web enfocadas y 7 pruebas de navegador PASS; alineación de barra y pestañas con diferencia máxima de 1 px a 320, 390, 768 y 1440 px; cero incidencias de Axe en la ruta y el panel nuevos. TypeScript web, ESLint enfocado y `git diff --check`: PASS. También se revisaron visualmente la unidad completada y sus recursos a 513 × 760 px. Las capturas anteriores se actualizaron con esta versión.
+
+La primera ejecución general de TypeScript encontró un error de sintaxis en `editor/v2/objectives.tsx`, ajeno a estos ajustes. Ese archivo cambió durante la verificación; la segunda ejecución general pasó. No se modificó ese archivo en esta revisión.

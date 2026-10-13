@@ -65,10 +65,25 @@ describe("T024 objective forms and shared DAG rules", () => {
   it("renders named accessible controls, immutable CORE requirement and no UUID tasks", () => {
     const draft = draftFromRouteV2(editorV2FixtureRoute());
     const html = renderToStaticMarkup(<ObjectivesV2 draft={draft} disabled={false} onChange={() => {}} />);
-    for (const label of ["Objetivo de aprendizaje", "Prioridad", "Verbo", "Unidad", "Fuentes del objetivo", "Añadir prerrequisito", "Añadir enlace"]) expect(html).toContain(label);
+    for (const label of ["Objetivo de aprendizaje", "Prioridad", "Acción del estudiante", "Unidad", "Fuentes del objetivo", "Objetivo previo", "Vincular objetivo"]) expect(html).toContain(label);
     expect(html).toContain("objetivo esencial"); expect(html).toContain("checked");
     expect(html).not.toContain(fixtureV2Id(1)); expect(html).not.toContain('type="hidden"');
     expect(RoutePackageSchema.safeParse({ ...draft.package, objectives: [{ ...draft.package.objectives[0]!, required: false }] }).success).toBe(false);
+  });
+  it("keeps objectives from every unit mounted for navigation and exact validation focus", () => {
+    const draft = draftFromRouteV2(editorV2FixtureRoute());
+    draft.package.units.push({ ...draft.package.units[0]!, key: "other", title: "Otra unidad", objectiveKeys: ["second"], activityKeys: [] });
+    draft.package.objectives.push({ ...draft.package.objectives[0]!, key: "second", title: "Explicar otro tema", unitKey: "other", prerequisiteKeys: ["objective"] });
+    const before = JSON.stringify(draft);
+    const html = renderToStaticMarkup(<ObjectivesV2 draft={draft} disabled={false} onChange={() => {}} />);
+    expect(html).toContain('aria-label="Ver objetivos de Otra unidad"');
+    for (const index of [0, 1]) {
+      expect(html.match(new RegExp(`data-field-path="package.objectives.${index}.title"`, "g"))).toHaveLength(1);
+      expect(html).toContain(`data-field-path="package.objectives.${index}.sourceKeys"`);
+      expect(html).toContain(`data-field-path="package.objectives.${index}.prerequisiteKeys"`);
+    }
+    expect(html).toContain("Explicar otro tema");
+    expect(JSON.stringify(draft)).toBe(before);
   });
 });
 describe("T024 sources and route basics", () => {

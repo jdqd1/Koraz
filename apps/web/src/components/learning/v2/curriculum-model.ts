@@ -3,7 +3,6 @@ import { type V2Path, type V2State } from "./model";
 export type V2Unit = V2Path["units"][number];
 export type CurriculumActivity = NonNullable<V2Unit["activities"]>[number];
 export const activityFormats = { study: "Lectura", single_choice: "Pregunta de opción múltiple", short_answer: "Respuesta breve", constructed_response: "Explicación escrita", match: "Relaciones", image_target: "Práctica visual", sequence: "Ordenar elementos", case: "Caso práctico" } as const;
-export const phaseLabels = { activate: "Explorar", learn: "Estudiar", retrieve: "Recordar", elaborate: "Relacionar", apply: "Aplicar", remediate: "Reforzar" } as const;
 export function activityTitle(activity: CurriculumActivity) {
   if (activity.kind === "study") return activity.scaffold === "worked_example" ? "Revisar un ejemplo resuelto" : activity.scaffold === "partial_example" ? "Completar un ejemplo guiado" : "Leer y comprender";
   return { single_choice: "Elegir la respuesta correcta", short_answer: "Recordar sin mirar", constructed_response: "Explicar con tus palabras", match: "Relacionar conceptos", image_target: "Identificar en la imagen", sequence: "Ordenar la secuencia", case: "Resolver un caso" }[activity.kind];

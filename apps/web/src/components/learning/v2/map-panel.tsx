@@ -24,11 +24,12 @@ export function V2MapPanel({ meta, route, onClose }: { meta: V2MapMeta; route: M
   const reason = recommendation?.target ? state?.maintenance?.activities.find(item => item.key === recommendation.key)?.reason ?? "Repaso disponible para este objetivo." : state?.nextAction.reason;
   return <aside className={`${mapStyles.panel} ${styles.panel}`} aria-label="Detalle de práctica por objetivos" data-engine-version="guided-v2">
     <header className={`${mapStyles.panelHeader} ${styles.header}`}><div className={styles.identity}><h2>{unit?.title ?? meta.card.title}</h2><div className={styles.meta}>
-      {unit && path ? <span>Unidad {path.units.indexOf(unit) + 1} de {path.units.length}</span> : <span>{path?.units.length ?? meta.card.unitCount} unidades</span>}
+      {!unit ? <span>{path?.units.length ?? meta.card.unitCount} unidades</span> : null}
       {unit?.activities ? <span>{unit.activities.length} actividades</span> : null}
-    </div>{progress?.total ? <div className={styles.progress}><span>{progress.completed} de {progress.total} completadas{progress.covered ? ` · ${progress.covered} ya cubiertas` : ""}</span><progress aria-label="Actividades completadas de esta unidad" value={progress.completed} max={progress.total} /></div> : null}</div><button type="button" className={mapStyles.iconButton} aria-label="Cerrar detalle" onClick={onClose}><X size={18} aria-hidden /></button></header>
+    </div></div><button type="button" className={mapStyles.iconButton} aria-label="Cerrar detalle" onClick={onClose}><X size={18} aria-hidden /></button></header>
     <div className={`${mapStyles.panelScroll} ${styles.scroll}`}>
-      {state ? <details className={styles.routeProgress}><summary>Progreso de la ruta <CaretDown size={14} aria-hidden /></summary><RouteSignals state={state} appearance="overview" /></details> : meta.card.enrollmentId ? <p className={styles.notice} role="alert">No pudimos cargar el estado confirmado.</p> : <p className={styles.notice}>Comienza la ruta para practicar sus objetivos.</p>}
+      {progress?.total ? <div className={styles.progress}><span>{progress.completed} de {progress.total} completadas{progress.covered ? ` · ${progress.covered} ya cubiertas` : ""}</span><progress aria-label="Actividades completadas de esta unidad" value={progress.completed} max={progress.total} /></div> : null}
+      {state ? !unit ? <details className={styles.routeProgress}><summary>Progreso de la ruta <CaretDown size={14} aria-hidden /></summary><RouteSignals state={state} appearance="overview" /></details> : null : meta.card.enrollmentId ? <p className={styles.notice} role="alert">No pudimos cargar el estado confirmado.</p> : <p className={styles.notice}>Comienza la ruta para practicar sus objetivos.</p>}
       {path ? <RouteContent key={unit?.key ?? path.pathVersionId} path={path} state={state} focusUnit={unit?.key} unitOnly={!!unit} returnTo={returnTo} /> : <p className={styles.notice}>Abre la ruta completa para consultar sus unidades y actividades.</p>}
     </div>
     <footer className={styles.footer}>

@@ -16,7 +16,12 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(panel.getByRole("heading", { name: "Sistema porta hepático", exact: true })).toBeVisible();
     await expect(panel.getByRole("heading", { name: "Ordenar el flujo portal y relacionar su topografía" })).toBeVisible();
     await expect(panel.getByText("3 de 9 completadas", { exact: true })).toBeVisible();
-    await expect(panel.locator('[data-current="true"]')).toContainText("Ahora");
+    await expect(panel.locator('[data-current="true"]')).toHaveAttribute("aria-current", "step");
+    await expect(panel.getByText("Ahora", { exact: true })).toHaveCount(0);
+    await expect(panel.getByText("Pendiente", { exact: true })).toHaveCount(0);
+    await expect(panel.getByText(/^Unidad \d+ de \d+$/)).toHaveCount(0);
+    await expect(panel.getByText("Progreso de la ruta", { exact: true })).toHaveCount(0);
+    await expect(panel.getByRole("img", { name: "Práctica visual", exact: true })).toBeVisible();
     await expect(panel.getByRole("heading", { name: "Relacionar la VCI con sus trayectos y tributarias" })).toHaveCount(0);
     const primary = panel.getByRole("button", { name: "Continuar actividad", exact: true });
     const mobileSheet = await page.getByRole("dialog", { name: "Detalle del mapa", exact: true }).count() > 0;
@@ -24,6 +29,10 @@ for (const width of [320, 390, 768, 1440]) {
     const box = await primary.boundingBox();
     expect(box!.height).toBeGreaterThanOrEqual(44);
     expect(box!.y + box!.height).toBeLessThanOrEqual(844);
+    const progressBounds = await panel.getByRole("progressbar", { name: "Actividades completadas de esta unidad", exact: true }).boundingBox();
+    const tabsBounds = await panel.getByRole("tablist", { name: "Contenido de la unidad", exact: true }).boundingBox();
+    expect(Math.abs(progressBounds!.x - tabsBounds!.x)).toBeLessThanOrEqual(1);
+    expect(Math.abs(progressBounds!.width - tabsBounds!.width)).toBeLessThanOrEqual(1);
     const overflow = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth, panels: [...document.querySelectorAll('[role="tabpanel"]')].filter(el => !el.hasAttribute("hidden")).map(el => ({ width: el.clientWidth, scrollWidth: el.scrollWidth })) }));
     expect(overflow.scrollWidth).toBeLessThanOrEqual(width);
     expect(overflow.panels.every(panel => panel.scrollWidth <= panel.width)).toBe(true);
@@ -32,6 +41,7 @@ for (const width of [320, 390, 768, 1440]) {
     await panel.getByRole("tab", { name: "Recursos", exact: true }).click();
     await expect(panel.getByText("Guía de vascularización abdominal", { exact: true })).toBeVisible();
     await expect(panel.getByText("Página 3", { exact: false })).toBeVisible();
+    await expect(panel.getByText("Material sintético para validar la interfaz; no es una fuente clínica.", { exact: true })).toHaveCount(0);
     await expect(primary).toBeVisible();
     if (width === 390) await page.screenshot({ path: resolve(evidence, "recursos-390.png") });
     await panel.getByRole("button", { name: "Cerrar detalle" }).click();

@@ -85,9 +85,21 @@ Validación local:
 - No hay una nueva verificación visual en navegador ni ejecución de Playwright. El bloqueo de acceso local registrado anteriormente sigue limitando esa comprobación.
 - No se desplegó este ajuste.
 
+## Objetivos
+
+La pestaña utiliza una columna de unidades y un área principal de edición. Las unidades muestran sus objetivos asociados y permiten ir al primero de ellos sin filtrar ni desmontar el resto. Añadir unidad sigue en esa columna, mientras que Añadir objetivo permanece como acción principal. La asignación inicial a la primera unidad y el selector para cambiarla mantienen el comportamiento anterior.
+
+El primer objetivo y los objetivos nuevos se abren desde el inicio. Nombre, unidad, acción del estudiante, prioridad y obligatoriedad quedan visibles. Las fuentes y los requisitos previos se agrupan en desplegables; las fuentes pendientes se abren inicialmente. Las etiquetas de prioridad y el nombre de la unidad ayudan a reconocer cada objetivo cerrado. La eliminación queda al final con su motivo de bloqueo cuando corresponda.
+
+Los requisitos previos muestran un objetivo seleccionable y la acción Vincular objetivo. El orden de aprendizaje queda disponible dentro de la columna de unidades. Los mensajes explican en lenguaje de uso los objetivos que se necesitan mutuamente, conservando la detección de ciclos y las reglas originales.
+
+Validación local: 11 archivos, 127 pruebas PASS; TypeScript, ESLint de los archivos ajustados y `git diff --check` PASS. La regresión nueva comprueba que los campos de todas las unidades sigan montados para su navegación y enfoque. La prueba E2E se actualizó, pero no se ejecutó en navegador.
+
+Product Design se aplicó usando el contexto de este chat y el código del producto; su preflight no encontró contexto guardado. La [QA visual de Objetivos](../../design-qa.md) está bloqueada por falta de capturas comparables y por el bloqueo del navegador registrado anteriormente. No se declara un cierre visual ni se desplegó esta iteración. Los informes anteriores de otros flujos permanecen como evidencia histórica independiente.
+
 ## Capturas
 
-Estas capturas corresponden al primer rediseño, antes de los ajustes posteriores de navegación, guardado, configuración y datos y fuentes.
+Estas capturas corresponden al primer rediseño, antes de los ajustes posteriores de navegación, guardado, configuración, datos y fuentes, y objetivos.
 
 - [Editor en escritorio](evidencias/editor-escritorio-1440.jpg)
 - [Selector de relaciones](evidencias/selector-relaciones-1440.jpg)

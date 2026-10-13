@@ -47,14 +47,15 @@
 .activity[data-current="true"] .stepMarker { color: #fff; background: #0071e3; border-color: #0071e3; }
 .activityBody { min-width: 0; padding: 14px 15px; border: 1px solid #e5e5ea; border-radius: 13px; background: #fff; }
 .activity[data-current="true"] .activityBody { background: #f0f6ff; border-color: #afcdf1; box-shadow: 0 0 0 1px rgb(0 102 204 / 3%); }
-.activityHeading { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.activityHeading > strong { flex: 1 1 150px; font-size: .86rem; font-weight: 600; line-height: 1.4; }
+.activityHeading { display: flex; align-items: center; gap: 10px; min-height: 32px; }
+.activityHeading > strong { flex: 1; min-width: 0; font-size: .86rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.activityTypeIcon { display: grid; place-items: center; flex: 0 0 32px; height: 32px; border-radius: 9px; background: #f2f2f5; color: #626267; }
+.activity[data-current="true"] .activityTypeIcon { background: #dfeeff; color: #0066cc; }
+.activity[data-done="true"] .activityTypeIcon { background: #eaf5ed; color: #24643a; }
+.optionalBadge { color: #626267; font-size: .67rem; line-height: 1.5; }
 .activityState { color: #626267; font-size: .67rem; line-height: 1.5; }
-.activity[data-current="true"] .activityState { font-weight: 600; color: #0055ad; background: #dfeeff; padding: 3px 7px; border-radius: 6px; }
 .activity[data-done="true"] .activityState { color: #24643a; }
-.activityMeta { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-top: 6px; color: #626267; font-size: .71rem; }
-.activityMeta > span + span::before { content: "·"; margin-right: 8px; color: #86868b; }
-.activityBody > div:last-child:not(.activityMeta) { margin: 10px 0 0; }
+.activityBody > .activityHeading + div { margin: 10px 0 0; }
 .activityBody :global(.learning-secondary-button) { font-size: .78rem; min-height: 44px; border-radius: 9px; padding: 9px 13px; box-shadow: none; }
 .review { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px; margin: 4px 0 12px 40px; border-radius: 12px; background: #f2f7fd; color: #0055ad; }
 .review > div { flex: 1; min-width: 150px; margin: 0; }

@@ -148,15 +148,15 @@ test("validation opens a collapsed source and focuses its invalid field", async 
   expect(await page.evaluate(() => sessionStorage.getItem("t023:fixture-server:ready"))).toBeNull();
 });
 
-test("objective and activity settings stay out of the main form and preserve saved data", async ({ page }, info) => {
+test("objective essentials stay visible and advanced activity settings preserve saved data", async ({ page }, info) => {
   await openEditor(page);
   await page.getByRole("tab", { name: "Objetivos", exact: true }).click();
-  await page.locator("summary").filter({ hasText: "Relacionar los ejemplos" }).click();
+  await page.getByRole("button", { name: "Ver objetivos de Unidad de ejemplo", exact: true }).click();
   await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toBeVisible();
-  await expect(page.getByLabel("Verbo", { exact: true })).toBeHidden();
-  await expect(page.getByLabel("Prioridad", { exact: true })).toBeHidden();
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toBeFocused();
+  await expect(page.getByLabel("Acción del estudiante", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Prioridad", { exact: true })).toBeVisible();
   await page.screenshot({ path: info.outputPath("objective-form.png"), fullPage: true });
-  await page.locator("summary").filter({ hasText: "Configuración del objetivo" }).click();
   const required = page.getByLabel(/^Obligatorio/);
   await expect(required).toBeChecked();
   await expect(required).toBeDisabled();

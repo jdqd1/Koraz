@@ -24,7 +24,7 @@ export function routeDesignFixture() {
         { key: `${unit.key}-case`, kind: "case", phase: "apply" },
         ...(unitIndex > 1 ? [{ key: `${unit.key}-explain`, kind: "constructed_response", phase: "apply" }] : []),
       ].map(activity => ({ ...activity, objectiveKey: unit.key, required: true })),
-      resources: [{ key: `${unit.key}-guide`, title: "Guía de vascularización abdominal", citation: "Material sintético para validar la interfaz; no es una fuente clínica.", url: null, locator: { heading: unit.title, sectionPath: [], page: unitIndex + 1 } }],
+      resources: [{ key: `${unit.key}-guide`, title: "Guía de vascularización abdominal", citation: "", url: null, locator: { heading: unit.title, sectionPath: [], page: unitIndex + 1 } }],
     })),
   });
   const state = V2RouteStateSchema.parse({ ...fixture.state, completedActivities: 16, plannedRequiredActivities: 34, dueReviews: 1,

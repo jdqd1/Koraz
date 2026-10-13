@@ -1,10 +1,12 @@
-import { ArrowRight, ArrowsClockwise, BookOpen, CaretDown, Check, CheckCircle, Circle, FileText, LinkSimple, LockSimple } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowsClockwise, BookOpen, CaretDown, ChatText, Check, CheckCircle, Circle, ClipboardText, FileText, ImageSquare, LinkSimple, ListChecks, LockSimple, PencilSimple, SortAscending } from "@phosphor-icons/react/dist/ssr";
 import { objectiveLabels, stateMatches, type V2Path, type V2State } from "./model";
-import { activityFormats, activityTitle, actionLocation, phaseLabels, unitActivityProgress, unitRecommendation, type CurriculumActivity, type V2Unit } from "./curriculum-model";
+import { activityFormats, activityTitle, actionLocation, unitActivityProgress, unitRecommendation, type CurriculumActivity, type V2Unit } from "./curriculum-model";
 import { authorizedMaintenanceTarget, RouteAction } from "./route-action";
 import { UnitObjectiveStatus } from "./signals";
 import { MaintenanceDate } from "./maintenance";
 import styles from "./curriculum.module.css";
+
+const activityIcons = { study: BookOpen, single_choice: ListChecks, short_answer: ChatText, constructed_response: PencilSimple, match: LinkSimple, image_target: ImageSquare, sequence: SortAscending, case: ClipboardText };
 
 export function RouteCurriculum({ path, state, focusUnit, unitOnly = false, returnTo }: { path: V2Path; state: V2State | null; focusUnit?: string; unitOnly?: boolean; returnTo?: string | null }) {
   const confirmed = stateMatches(path, state) ? state : null;
@@ -50,11 +52,11 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       const consumed = progress.get(activity.key);
       const done = consumed === "completed" || consumed === "dispensed";
       const blocked = !done && !!blocker?.blockedBy.length;
-      const label = next ? "Ahora" : consumed === "completed" ? "Completada" : consumed === "dispensed" ? "Ya cubierta" : paused ? "Pausada" : available ? "Disponible" : blocked ? "Más adelante" : (!state && path.enrollmentId) || (state && !state.activityProgress) ? "Estado por cargar" : "Pendiente";
-      return <li className={styles.activity} key={activity.key} data-current={next} data-done={done} data-blocked={blocked}>
+      const label = next ? null : consumed === "completed" ? "Completada" : consumed === "dispensed" ? "Ya cubierta" : paused ? "Pausada" : available ? "Disponible" : blocked ? "Más adelante" : (!state && path.enrollmentId) || (state && !state.activityProgress) ? "Estado por cargar" : null;
+      const Icon = activityIcons[activity.kind];
+      return <li className={styles.activity} key={activity.key} data-current={next} data-done={done} data-blocked={blocked} aria-current={next ? "step" : undefined}>
         <span className={styles.stepMarker} aria-hidden>{next ? <ArrowRight size={16} /> : done ? <Check size={15} /> : blocked ? <LockSimple size={14} /> : index + 1}</span>
-        <div className={styles.activityBody}><div className={styles.activityHeading}><strong>{activityTitle(activity)}</strong><span className={styles.activityState}>{label}</span></div>
-          <div className={styles.activityMeta}><span>{activityFormats[activity.kind]}</span><span>{phaseLabels[activity.phase]}</span>{!activity.required ? <span>Opcional</span> : null}</div>
+        <div className={styles.activityBody}><div className={styles.activityHeading}><span className={styles.activityTypeIcon} role="img" aria-label={activityFormats[activity.kind]} title={activityFormats[activity.kind]}><Icon size={19} aria-hidden /></span><strong>{activityTitle(activity)}</strong>{!activity.required ? <span className={styles.optionalBadge}>Opcional</span> : null}{label ? <span className={styles.activityState}>{label}</span> : null}</div>
           {available && !next ? <RouteAction path={path} state={state} target={target} returnTo={returnTo} label="Abrir actividad" showReason={false} appearance="secondary" /> : null}
         </div>
       </li>;

@@ -198,6 +198,51 @@
 .sourceFooter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--koraz-line); }
 .sourceFooter button { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; padding: 6px 0; border: 0; background: transparent; font-size: 12px; }
 .sourceFooter p { flex: 1 1 260px; margin: 0; font-size: 11px; line-height: 1.6; }
+.objectivesLayout { display: grid; grid-template-columns: minmax(260px, .62fr) minmax(0, 1.38fr); align-items: start; gap: 24px; min-width: 0; }
+.objectivesUnits { position: sticky; top: 100px; min-width: 0; }
+.objectivesUnitsHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.objectivesUnitsHeading h2 { margin: 0; font-size: 18px; }
+.objectivesUnitsHeading > span, .objectivesHeading h2 > span { padding: 2px 7px; border-radius: 6px; background: #ededf1; color: var(--koraz-slate); font-size: 11px; font-weight: 500; }
+.unitIndex { list-style: none; margin: 0 -8px 20px; padding: 0; }
+.unitIndex button { display: grid; grid-template-columns: 18px minmax(0, 1fr) 14px; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 12px 8px; border: 0; border-radius: 8px; background: transparent; color: var(--koraz-slate); text-align: left; font: inherit; cursor: pointer; }
+.unitIndex button:hover:not(:disabled) { background: #f2f6fb; color: var(--koraz-blue); }
+.unitIndex button > span { display: grid; gap: 4px; min-width: 0; }
+.unitIndex strong { color: var(--koraz-ink); font-size: 13px; font-weight: 550; line-height: 1.5; overflow-wrap: anywhere; }
+.unitIndex small { font-size: 11px; color: var(--koraz-slate); }
+.unitIndex button:disabled > svg:last-child { opacity: .3; }
+.newUnitForm { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--koraz-line); }
+.newUnitForm button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; }
+.unitsHint { margin-bottom: 20px; color: var(--koraz-slate); font-size: 13px; line-height: 1.7; }
+.objectivesPanel { padding: 24px 28px; }
+.objectivesHeading { align-items: center; flex-wrap: wrap; margin-bottom: 22px; }
+.objectivesHeading h2 { display: flex; align-items: center; gap: 10px; }
+.objectivesHeading button { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; min-height: 40px; }
+.objectiveNotice { padding: 10px 12px; margin: 0 0 16px; border-radius: 7px; color: #476254; background: #f0f6f2; font-size: 12px; }
+.objectivesEmpty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; min-height: 300px; text-align: center; }
+.objectivesEmpty svg { color: #86868b; }
+.objectivesEmpty h3, .objectivesEmpty p { margin: 0; }
+.objectivesEmpty h3 { font-size: 18px; }
+.objectivesEmpty p { max-width: 360px; color: var(--koraz-slate); font-size: 13px; line-height: 1.7; }
+.objectiveRow { border-top: 1px solid var(--koraz-line); padding: 8px 0; min-width: 0; }
+.objectiveRow > .itemDisclosure > summary { min-height: 64px; gap: 12px; }
+.objectiveRow > .itemDisclosure > summary > span:first-of-type { flex: 1; min-width: 0; }
+.objectiveRow > .itemDisclosure > summary strong { font-size: 15px; line-height: 1.5; }
+.objectiveRow .objectivePriority { display: inline-flex; flex-shrink: 0; border-radius: 5px; padding: 4px 8px; color: var(--koraz-slate); background: #f0f0f3; font-size: 11px; font-weight: 500; }
+.objectivePriority[data-priority='core'] { background: #eaf2ff; color: #005bbd; }
+.objectivePriority[data-priority='high_yield'] { color: #725c2a; background: #f8f3e8; }
+.objectiveFields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.objectiveRequired { align-self: end; min-height: 44px; }
+.objectiveSources { padding: 0; border: 0; border-radius: 0; }
+.objectiveFooter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--koraz-line); }
+.objectiveFooter button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; border: 0; background: transparent; font-size: 12px; flex-shrink: 0; }
+.objectiveFooter p { flex: 1 1 260px; margin: 0; font-size: 11px; line-height: 1.6; }
+.dependencyOrder { min-width: 0; }
+.dependencyOrder > p { margin: 0 0 16px; font-size: 12px; line-height: 1.7; }
+.dependencyOrder .orderList { padding-inline-start: 18px; margin: 0; }
+.dependencyOrder .orderList button { min-height: 36px; padding: 4px 0; font-size: 12px; line-height: 1.6; text-align: left; }
+.dependencyOrder .orderList li > span { padding-inline: 0; font-size: 11px; }
+.prerequisiteList { list-style: none; margin: 0; padding: 0; }
+.prerequisiteList li { padding: 10px 0; border-bottom: 1px solid var(--koraz-line); font-size: 13px; }
 .activitiesHeading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .activitiesHeading h2 { margin: 0; display: flex; align-items: center; gap: 10px; }
 .activitiesHeading h2 span { font-size: 12px; color: var(--koraz-slate); background: #e9e9ee; border-radius: 7px; padding: 2px 7px; font-weight: 500; }
@@ -349,6 +394,8 @@
   .activityCanvas { position: static; max-height: 600px; border-top: 1px solid var(--koraz-line); }
   .basicsLayout { grid-template-columns: minmax(0, 1fr); }
   .introCard { position: static; }
+  .objectivesLayout { grid-template-columns: minmax(0, 1fr); }
+  .objectivesUnits { position: static; }
 }
 @media (min-width: 1600px) {
   .activityWorkspace { grid-template-columns: 254px minmax(0, 1fr); }
@@ -363,6 +410,12 @@
 }
 @media (max-width: 767px) {
   .editor { padding: 20px 14px 150px; }
+  .objectivesLayout { grid-template-columns: minmax(0, 1fr); }
+  .objectivesUnits { position: static; }
+  .objectivesPanel { padding: 20px; }
+  .objectiveFields { grid-template-columns: minmax(0, 1fr); }
+  .objectivesHeading button, .newUnitForm button { min-height: 44px; }
+  .objectivesEmpty { padding: 24px 10px; }
   .sourcesPanel { padding: 20px; }
   .sourcesHeading button { min-height: 44px; }
   .sourceFields { grid-template-columns: minmax(0, 1fr); }

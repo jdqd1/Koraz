@@ -1,3 +1,40 @@
+# Product Design — Objetivos del editor de rutas (2026-10-13)
+
+final result: blocked
+
+## Alcance y bloqueo
+
+La implementación local de la pestaña Objetivos se reorganizó alrededor de las unidades, la edición del objetivo y sus requisitos previos. Se reutilizaron los estilos, colores e iconos del editor existente. Este informe no acredita una comparación visual: la política de seguridad del navegador integrado bloqueó el acceso a la vista local anteriormente en este chat. No se intentó acceder mediante otro navegador, comandos de navegador o una captura alternativa.
+
+- Fuente visual exacta de Objetivos: no disponible. El chat aporta capturas de otras partes del editor y un código existente como contexto de diseño; no son una captura comparable de esta pestaña.
+- Captura de implementación: no disponible.
+- URL prevista: `http://127.0.0.1:3000/visual-fixtures/editor-rutas-v2?estado=ready`, pestaña Objetivos.
+- Viewport previsto: escritorio 1440 × 900; revisión adicional a 390 × 844.
+- Estado previsto: primer objetivo abierto, fuentes y requisitos previos desplegables; nueva unidad y objetivo vacío como estados adicionales.
+- Dimensiones de imágenes, tamaño CSS y normalización de densidad: NO VERIFICADOS.
+- Comparación completa y de regiones: no realizada; faltan capturas comparables.
+
+## Superficies pendientes
+
+Tipografía, ritmo de espacios, colores, calidad de iconos y contenido visible permanecen NO VERIFICADOS visualmente. No se registran diferencias P0/P1/P2 desde el código ni se declara que no existan. La evaluación requiere ver la implementación en el navegador y contrastarla con la referencia de diseño.
+
+## Evidencia local independiente de la QA visual
+
+- Suite del editor: 11 archivos, 127 pruebas PASS.
+- TypeScript, ESLint de los archivos ajustados y `git diff --check`: PASS.
+- Una primera ejecución detectó un error de sintaxis en el control de fuentes. Se corrigió y la suite completa volvió a ejecutarse con el resultado anterior.
+- Se preservan los campos montados de todos los objetivos y sus rutas de enfoque, la obligatoriedad de los esenciales, el movimiento de actividades con su objetivo, la protección al eliminar y la detección de ciclos.
+- La prueba E2E se actualizó para comprobar el acceso desde una unidad y los controles principales visibles. No se ejecutó Playwright ni se probaron clic, teclado o consola en el navegador en esta iteración.
+- No se desplegó el cambio ni se acredita persistencia en producción.
+
+## Siguiente comprobación
+
+Obtener capturas de Objetivos y de su referencia visual, con el mismo tamaño de viewport y estado, comparar ambas y verificar creación, enfoque, requisitos previos y guardado. Cerrar este informe solo tras completar esa revisión.
+
+---
+
+## Informe histórico conservado — mapa de aprendizaje
+
 # QA visual - rutas de aprendizaje por niveles (2026-09-29)
 
 final result: passed
