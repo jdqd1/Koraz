@@ -6,6 +6,7 @@ import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
 import { v2MapItem, v2MapGroup, v2MapSummary } from "../v2-adapter";
+import { V2MapStatus } from "../v2-status";
 export type MapItemAction = "info" | "color";
 export type ItemData = {
   item: MapItem;
@@ -35,8 +36,8 @@ export const LearningMapItem = memo(function LearningMapItem({
 }) {
   const { item } = data;
   const v2 = v2MapItem(item), group = v2MapGroup(item);
-  const stateLabel = v2 ? v2.unitKey ? "Objetivos" : "Recorrido" : group ? "Práctica" : statusLabels[item.progress.status];
-  const v2Summary = v2 ? v2MapSummary(v2) : group ? `${group.length} rutas por objetivos · consulta su estado` : null;
+  const stateLabel = v2 ? v2.unitKey ? "Unidad" : "Ruta" : group ? "Rutas" : statusLabels[item.progress.status];
+  const v2Summary = v2 ? v2MapSummary(v2) : group ? `${group.length} ${group.length === 1 ? "ruta por unidades" : "rutas por unidades"}` : null;
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null),
     cancel = useRef<(() => void) | null>(null);
   const clear = () => {
@@ -158,7 +159,7 @@ export const LearningMapItem = memo(function LearningMapItem({
             {item.kind !== "lesson" && !v2?.unitKey && !group ? <small>{item.childCountLabel}</small> : null}
             <CaretRight className={styles.cardChevron} size={14} aria-hidden="true" />
           </span>
-          {v2Summary ? <span className={styles.cardSignals} title={v2Summary}>{v2Summary}</span> : null}
+          {v2 && !v2.unitKey ? <V2MapStatus meta={v2} /> : v2Summary ? <span className={styles.cardSignals} title={v2Summary}>{v2Summary}</span> : null}
           <span className={styles.progressTrack} aria-hidden="true">
             <span data-status={item.progress.status} style={{ width: `${item.progress.percentage ?? 0}%` }} />
           </span>

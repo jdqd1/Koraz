@@ -26,14 +26,14 @@ export function MaintenancePanel({ path, state }: { path: V2Path; state: V2State
   return <details className={`${styles.panel} ${styles.disclosure}`} aria-label="Mantenimiento de objetivos">
     <summary><CalendarBlank size={20} aria-hidden /><h2>Agenda de repaso</h2><CaretDown className={styles.caret} size={18} aria-hidden /></summary>
     <div className={styles.panelBody}>
-    {state.consolidatedAt ? <p className={styles.note}>Consolidación alcanzada: <MaintenanceDate value={state.consolidatedAt} timeZone={timeZone} compact /></p> : <p className={styles.note}>Consolidación pendiente de evidencia diferida.</p>}
+    {state.consolidatedAt ? <p className={styles.note}>Recordado en los repasos: <MaintenanceDate value={state.consolidatedAt} timeZone={timeZone} compact /></p> : <p className={styles.note}>Los próximos repasos comprobarán qué recuerdas con el tiempo.</p>}
     <ul className={styles.objectives}>{path.units.flatMap(unit => unit.objectives).map(objective => {
       const item = state.objectives.find(entry => entry.objectiveKey === objective.key);
       return <li key={objective.key}><details className={styles.objectiveDetail}>
         <summary><span><strong>{objective.title}</strong><span className={styles.badges}><span className={styles.badge} data-tone={item?.label}>{item ? objectiveLabels[item.label] : "Por comprobar"}</span>{item?.reviewDue ? <span className={styles.badge} data-tone="review">Repaso pendiente</span> : null}</span></span><CaretDown className={styles.caret} size={16} aria-hidden /></summary>
         <div className={styles.objectiveBody}>
-        {item?.firstMasteredAt ? <p className={styles.note}>Primer dominio: <MaintenanceDate value={item.firstMasteredAt} timeZone={timeZone} compact /></p> : null}
-        {item?.firstConsolidatedAt ? <p className={styles.note}>Primera consolidación: <MaintenanceDate value={item.firstConsolidatedAt} timeZone={timeZone} compact /></p> : null}
+        {item?.firstMasteredAt ? <p className={styles.note}>Aprendizaje comprobado por primera vez: <MaintenanceDate value={item.firstMasteredAt} timeZone={timeZone} compact /></p> : null}
+        {item?.firstConsolidatedAt ? <p className={styles.note}>Recordado en los repasos desde: <MaintenanceDate value={item.firstConsolidatedAt} timeZone={timeZone} compact /></p> : null}
         <MaintenanceSchedule state={state} objectiveKey={objective.key} />
         {!state.maintenance?.agenda.some(entry => entry.objectiveKey === objective.key) ? <p className={styles.note}>Aún no hay fechas de repaso programadas para este objetivo.</p> : null}
         </div>

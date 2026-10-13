@@ -5,7 +5,7 @@ import { editorV2FixturePackage, editorV2FixtureRoute, fixtureV2Id } from "./edi
 import { draftFromRouteV2 } from "./editor-model";
 import { tryPrerequisiteV2, DependencyOrderV2 } from "./dependencies";
 import { deleteObjectiveV2, moveObjectiveV2, objectiveDeletionBlockV2, ObjectivesV2 } from "./objectives";
-import { bindCatalogSourceV2, sourceBindingIssuesV2, sourceDeletionBlockV2 } from "./sources";
+import { bindCatalogSourceV2, sourceBindingIssuesV2, sourceDeletionBlockV2, SourcesV2 } from "./sources";
 import { FieldV2, normalizeFieldPathV2 } from "./sources-fields";
 import { RouteBasicsV2 } from "./route-basics";
 
@@ -110,5 +110,32 @@ describe("T024 sources and route basics", () => {
     const html = renderToStaticMarkup(<RouteBasicsV2 draft={draftFromRouteV2(editorV2FixtureRoute())} disabled={false} onChange={() => {}} preserveSlug />);
     for (const label of ["Dirigida a", "Disciplina", "Portada", "Tema del catálogo", "Nombre de la fuente", "Cita bibliográfica", "Sección o encabezado", "Página", "Ruta de secciones", "Fragmento de la fuente", "Fecha de comprobación"]) expect(html).toContain(label);
     expect(html).not.toContain('placeholder="UUID'); expect(html).not.toContain('value="guided-v2.0"');
+  });
+  it("keeps saved guide bindings and editable content when the catalogue is unavailable", () => {
+    const draft = draftFromRouteV2(editorV2FixtureRoute());
+    const before = JSON.stringify(draft);
+    const html = renderToStaticMarkup(<SourcesV2 draft={draft} disabled={false} onChange={() => {}} catalog={{ topics: [], items: [], nextCursor: null }} loading={false} error="No se pudo cargar el catálogo." query="" setQuery={() => {}} search={() => {}} more={() => {}} retry={() => {}} />);
+    expect(html).toContain("Reintentar catálogo");
+    expect(html).toContain("Guía vinculada");
+    expect(html).toContain(draft.bindings.sources[0]!.resourceRevisionId);
+    expect(html).toContain(draft.package.sources[0]!.excerpt);
+    expect(html).toContain('data-field-path="package.sources.0.binding"');
+    expect(html).toContain('data-field-path="package.sources.0.citation"');
+    expect(html).toContain('data-field-path="package.sources.0.locator.sectionPath"');
+    expect(html).not.toContain('type="file"');
+    expect(JSON.stringify(draft)).toBe(before);
+  });
+  it("keeps external reference verification and local document controls distinct from guide binding", () => {
+    const draft = draftFromRouteV2(editorV2FixtureRoute());
+    draft.bindings.sources = [];
+    Object.assign(draft.package.sources[0]!, { kind: "reference", url: "https://example.test/reference", verification: "verified", checkedAt: "2026-10-13" });
+    const before = JSON.stringify(draft);
+    const html = renderToStaticMarkup(<SourcesV2 draft={draft} disabled={false} onChange={() => {}} catalog={{ topics: [], items: [], nextCursor: null }} loading={false} error="" query="" setQuery={() => {}} search={() => {}} more={() => {}} retry={() => {}} />);
+    expect(html).toContain("https://example.test/reference");
+    expect(html).toContain('value="verified" selected=""');
+    expect(html).toContain('value="2026-10-13"');
+    expect(html).toContain('type="file"');
+    expect(html).not.toContain('data-field-path="package.sources.0.binding"');
+    expect(JSON.stringify(draft)).toBe(before);
   });
 });

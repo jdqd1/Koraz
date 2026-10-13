@@ -4,13 +4,13 @@ Fecha de cierre: 13 de octubre de 2026, America/Caracas.
 
 ## Resultado
 
-El editor guided-v2 se organiza alrededor del trabajo en escritorio: navegación horizontal compacta, actividades por unidad con búsqueda, lienzo central editable y configuración lateral. Los títulos identifican cada sección sin antetítulos ni descripciones repetidas. El estilo usa superficies neutras, tipografía de sistema, divisores sutiles y azul para las acciones y selecciones.
+El editor guided-v2 se organiza alrededor del trabajo en escritorio: navegación horizontal compacta, actividades por unidad con búsqueda, configuración como área principal de edición y una vista previa compacta en directo. Los títulos identifican cada sección sin antetítulos ni descripciones repetidas. El estilo usa superficies neutras, tipografía de sistema, divisores sutiles y azul para las acciones y selecciones.
 
 Antes de crear una actividad, el selector muestra un ejemplo interactivo, su finalidad y cuándo conviene usarla. Incluye los 13 tipos y composiciones existentes. Mecanismo crea dos actividades vinculadas; detección de errores crea un caso y dos preguntas. Los ejemplos del selector no se copian al borrador: la creación conserva los presets vacíos existentes.
 
-En cada actividad se puede editar el contenido en el lienzo y alternar a Probar. La vista de estudiante reutiliza los renderizadores de estudio, elección única, respuesta breve, respuesta construida, relaciones, secuencias e imágenes. Los casos permiten explorar sus etapas y las preguntas vinculadas. Las zonas de imágenes se editan en el lienzo central, con sus opciones en el panel lateral.
+En cada actividad se editan el contenido, la respuesta y la explicación en Configuración. La vista previa permanece visible mientras se edita; Probar activa sus controles para ensayar la respuesta. La vista de estudiante reutiliza los renderizadores de estudio, elección única, respuesta breve, respuesta construida, relaciones, secuencias e imágenes. Los casos permiten explorar sus etapas y las preguntas vinculadas. Las opciones y zonas de las imágenes también se editan en Configuración.
 
-## Validación local
+## Validación del primer rediseño
 
 - TypeScript del frontend: PASS.
 - ESLint de los archivos modificados: PASS.
@@ -52,9 +52,42 @@ Validación de esta iteración:
 - Se inspeccionó visualmente una versión intermedia de la barra de navegación, el pie compacto y los pendientes en la fixture local. La barra inferior medía aproximadamente 56 píxeles en la vista estrecha revisada.
 - La comprobación final de las acciones y del aspecto en navegador quedó NO VERIFICADA: la política de seguridad del navegador integrado bloqueó el acceso a la URL local. No se intentó acceder por otro navegador o mecanismo.
 
+## Configuración como área principal
+
+La configuración recibe aproximadamente el 62 % del área de edición en escritorio, con un ancho mínimo de 440 píxeles. La vista previa ocupa el resto y conserva un ancho mínimo de 300 píxeles. Cuando el espacio no permite ambas columnas, la configuración aparece primero y la vista previa después.
+
+Todos los campos para crear la actividad están en Configuración: consigna, lectura, opciones, relaciones, etapas, zonas de imágenes, respuesta y explicación. El contenido y la respuesta quedan visibles desde el inicio. Objetivo y fuentes, ayuda adicional y opciones avanzadas se agrupan en desplegables; los campos permanecen montados para que la validación pueda abrirlos y enfocarlos. Las fuentes muestran sección y página cuando están disponibles para distinguir materiales con el mismo título.
+
+La vista previa reutiliza los controles del estudiante y se actualiza mientras se edita. En Editar, las respuestas de prueba están desactivadas; Probar permite responder y reiniciar. Cambiar de modo reinicia el ensayo. La configuración permanece disponible en ambos modos y no se muestran soluciones privadas en la vista previa antes del revelado. La geometría de imágenes conserva el dibujo y las alternativas de teclado en el panel de configuración.
+
+Validación local de este ajuste:
+
+- Suite del editor: 11 archivos, 124 pruebas PASS.
+- Se comprueba que los 13 presets vacíos abran su contenido editable y una vista previa sin inventar datos ni modificar el borrador durante el renderizado.
+- TypeScript, ESLint de los archivos ajustados y `git diff --check`: PASS.
+- El primer typecheck detectó declaraciones compiladas de contratos desactualizadas frente al trabajo concurrente de la vista del estudiante. Se recompilaron los contratos y el typecheck completo pasó; no se modificó ese código concurrente.
+- La prueba E2E de vista previa se actualizó para comprobar el contenido en directo y la edición en Configuración. No se ejecutó la CLI de Playwright ni se acreditó una nueva comprobación visual: sigue pendiente por el bloqueo del navegador registrado arriba.
+- No se desplegó este ajuste.
+
+## Datos y fuentes
+
+En escritorio, los datos de la ruta ocupan una columna compacta y las fuentes reciben aproximadamente dos tercios del espacio. Título, descripción y tema son los campos iniciales; presentación, audiencia y portada permanecen disponibles en un desplegable. Una vista pequeña muestra el título, la descripción y la portada seleccionada, reutilizando las imágenes existentes.
+
+Las fuentes comparten una sola superficie con divisores discretos. Cada fila muestra el nombre, el tipo de material y su estado de vinculación o verificación. La primera fuente y las fuentes nuevas se abren inicialmente. Dentro, se priorizan el material vinculado, el fragmento utilizado y su sección o página; referencia, verificación y documento se agrupan sin desmontar sus campos. Las referencias externas muestran inicialmente los datos de verificación.
+
+La búsqueda de guías, los reintentos y la carga siguen usando el catálogo existente. Se conservaron la selección de versiones reales, el reinicio del fragmento al cambiar el documento, la huella local, la protección de fuentes utilizadas y el foco tras añadir o eliminar. Los indicadores muestran los datos actuales y no acreditan aprobación o publicación.
+
+Validación local:
+
+- Suite del editor: 11 archivos, 126 pruebas PASS.
+- Se añadieron regresiones para conservar vínculos y fragmentos cuando falla el catálogo, y para distinguir los controles de una referencia externa de los de una guía.
+- TypeScript, ESLint de los archivos ajustados y `git diff --check`: PASS.
+- No hay una nueva verificación visual en navegador ni ejecución de Playwright. El bloqueo de acceso local registrado anteriormente sigue limitando esa comprobación.
+- No se desplegó este ajuste.
+
 ## Capturas
 
-Estas capturas corresponden al primer rediseño, antes del último ajuste de la navegación y el pie de guardado.
+Estas capturas corresponden al primer rediseño, antes de los ajustes posteriores de navegación, guardado, configuración y datos y fuentes.
 
 - [Editor en escritorio](evidencias/editor-escritorio-1440.jpg)
 - [Selector de relaciones](evidencias/selector-relaciones-1440.jpg)

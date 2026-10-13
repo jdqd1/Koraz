@@ -16,13 +16,13 @@ describe("T028 map projection", () => {
     const route = { nodeId: root.items[0]!.occurrenceId, entryId: f.card.id, unitStableKey: "unit-a" };
     const unit = await client.level(route); expect(v2MapLevel(unit)!.state).toEqual(f.state); expect(unit.items[0]!.progress.percentage).toBeNull(); expect(unit.items[0]!.progress.status).not.toBe("completed");
     expect(v2MapSummary(v2MapItem(unit.items[0]!)!)).toContain("refuerzo pendiente");
-    const panel = renderToString(<V2MapPanel meta={v2MapLevel(unit)!} route={route} onClose={() => {}} />); expect(panel).toContain(f.state.nextAction.reason); expect(panel).toContain("Necesita refuerzo"); expect(panel).toContain("returnTo=");
+    const panel = renderToString(<V2MapPanel meta={v2MapLevel(unit)!} route={route} onClose={() => {}} />); expect(panel).toContain(f.state.nextAction.reason); expect(panel).toContain("Por reforzar"); expect(panel).toContain("returnTo=");
   });
   it("map buttons are navigation only and never expose a completion checkbox", async () => {
     const client = createV2MapClient(fixtureMapBase("completed"), reader("completed")); const root = await client.level(ROOT_MAP_ROUTE);
     const topic = await client.level({ nodeId: root.items[0]!.occurrenceId, entryId: null, unitStableKey: null }); const item = topic.items[0]!;
     const html = renderToString(<LearningMapItem data={{ item, selected: false, selecting: false, organizing: false, onOpen: () => {}, onAction: () => {}, onPrefetch: () => () => {} }} />);
-    expect(html).toContain("dominio por comprobar"); expect(html).not.toContain('type="checkbox"'); expect(html).not.toContain("Completar bloque");
+    expect(html).toContain("Por comprobar"); expect(html).not.toContain('type="checkbox"'); expect(html).not.toContain("Completar bloque");
   });
   it("blocks v2 completion mutations while preserving existing layout and v1 operations", async () => {
     const f = studentFixture(), base = fixtureMapBase(), mutate = vi.fn().mockResolvedValue({}); const client = createV2MapClient({ ...base, mutate }, reader());

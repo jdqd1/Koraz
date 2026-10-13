@@ -5,6 +5,10 @@ import { activityCatalogV2, activityExampleV2, activityPresetGroupsV2 } from "./
 import { ActivityStudentPreviewV2 } from "./activity-student-preview";
 import { activityTypesV2 } from "./activity-model";
 import { editorV2FixturePackage } from "./editor-fixtures";
+import { ActivityEditorV2 } from "./activity-editor";
+import { addActivityV2 } from "./activity-model";
+import { draftFromRouteV2 } from "./editor-model";
+import { editorV2FixtureRoute } from "./editor-fixtures";
 
 describe("activity examples and student preview", () => {
   const presets = activityPresetGroupsV2.flatMap(group => group.presets);
@@ -43,5 +47,32 @@ describe("activity examples and student preview", () => {
       expect(html).not.toContain("Respuesta modelo");
     }
     expect(JSON.stringify(pkg)).toBe(before);
+  });
+  it("keeps the result visible while editing without accepting a student response", () => {
+    const activity = activityExampleV2("short_answer")[0]!;
+    const html = renderToStaticMarkup(<ActivityStudentPreviewV2 activity={activity} interactive={false} />);
+    expect(html).toContain("Vista previa");
+    expect(html).toContain("En directo");
+    expect(html).toMatch(/<textarea[^>]*disabled=""/);
+    expect(html).not.toContain("Reiniciar");
+    expect(html).not.toContain("Respuesta modelo");
+  });
+  it("opens every blank activity preset with one editable prompt in configuration and a safe preview", () => {
+    for (const preset of presets) {
+      const draft = draftFromRouteV2(editorV2FixtureRoute());
+      draft.package = addActivityV2(draft.package, preset, "objective");
+      const activity = draft.package.activities[8]!;
+      const unit = draft.package.units[0]!;
+      unit.activityKeys = [activity.key, ...unit.activityKeys.filter(key => key !== activity.key)];
+      const before = JSON.stringify(draft);
+      const html = renderToStaticMarkup(<ActivityEditorV2 draft={draft} disabled={false} onChange={() => {}} />);
+      const configuration = /<aside[^>]*aria-label="Configuración de la actividad"[^>]*>([\s\S]*?)<\/aside>/.exec(html)?.[1];
+      expect(configuration).toContain('data-field-path="package.activities.8.prompt"');
+      expect(configuration).toContain('data-field-path="package.activities.8.feedback.explanation"');
+      expect(html.match(/data-field-path="package.activities.8.prompt"/g)).toHaveLength(1);
+      expect(html.match(/data-student-preview/g)).toHaveLength(1);
+      expect(html).toContain("Escribe");
+      expect(JSON.stringify(draft)).toBe(before);
+    }
   });
 });

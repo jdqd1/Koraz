@@ -104,13 +104,13 @@ describe("T029 transport and confirmed player rendering", () => {
   it("resumes completed history with confirmed feedback without awarding mastery", () => {
     const attempt = { ...responseReceipt().attempt, status: "completed" as const };
     const html = renderToString(<V2Player initialAttempt={attempt} initialState={f.state} />);
-    expect(html).toContain("Sesión completada"); expect(html).toContain("Explicación autorizada"); expect(html).toContain("Dominio por comprobar");
+    expect(html).toContain("Sesión completada"); expect(html).toContain("Explicación autorizada"); expect(html).toContain("Aprendizaje por comprobar");
   });
   it("shows server partial feedback in resumed history while mastery remains pending", () => {
     const receipt=responseReceipt(),response=receipt.attempt.acceptedResponses[0]!;
     const attempt={...receipt.attempt,status:"completed" as const,acceptedResponses:[{...response,score01:0,feedback:{...response.feedback,partialScore01:.75}}]};
     const html=renderToString(<V2Player initialAttempt={attempt} initialState={f.state} />);
-    expect(html).toContain("Acierto parcial:");expect(html).toContain("75");expect(html).toContain("Aún falta una respuesta completamente correcta.");expect(html).toContain("Dominio por comprobar");
+    expect(html).toContain("Acierto parcial:");expect(html).toContain("75");expect(html).toContain("Aún falta una respuesta completamente correcta.");expect(html).toContain("Aprendizaje por comprobar");
   });
   it("resumes submitted and revealed constructed stages only from the server manifest", () => {
     const fixture = playerFixture("constructed_response");

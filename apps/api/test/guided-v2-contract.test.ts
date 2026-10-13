@@ -17,6 +17,7 @@ import {
   V2PathCardSchema,
   toV2PublicActivity,
   toV2PublicPath,
+  toV2PublicUnits,
   type V2HttpRequest,
   type V2PathId,
 } from "@cediah/contracts";
@@ -122,6 +123,22 @@ describe("guided v2 contracts", () => {
     const publicPath = toV2PublicPath(bound, "available", null);
     expect(V2PublicPathSchema.parse(publicPath)).toEqual(publicPath);
     expect(JSON.stringify(publicPath)).not.toMatch(/reserved|correctKey|PRIVATE|definition|bindings|assessments/);
+    const definition = structuredClone(bound.definition);
+    definition.sources = [{ key: "source", kind: "guide", title: "Guía pública", citation: "Referencia", locator: { heading: "Sección", sectionPath: [], page: 2 }, url: null,
+      documentSha256: "b".repeat(64), excerpt: secret, verification: "provided", checkedAt: null }];
+    definition.activities.push(
+      RouteActivitySchema.parse({ ...root, key: "study", sourceKeys: ["source"], kind: "study", phase: "learn", payload: { body: secret, focusSpans: [], assetKey: null, scaffold: "explanation", videoRange: null } }),
+      RouteActivitySchema.parse({ ...root, key: "practice", kind: "single_choice", payload: { options: [{ key: "a", text: "A" }, { key: "b", text: "B" }], correctKey: "a", distractorFeedback: {} } }),
+      RouteActivitySchema.parse({ ...root, key: "child", kind: "single_choice", payload: { options: [{ key: "a", text: "A" }, { key: "b", text: "B" }], correctKey: "a", distractorFeedback: {} } }),
+      RouteActivitySchema.parse({ ...root, key: "child-two", kind: "single_choice", payload: { options: [{ key: "a", text: "A" }, { key: "b", text: "B" }], correctKey: "a", distractorFeedback: {} } }),
+      RouteActivitySchema.parse({ ...root, key: "case", kind: "case", payload: { stages: [{ key: "stage", narrative: secret, childActivityKey: "child" }, { key: "stage-two", narrative: secret, childActivityKey: "child-two" }] } }),
+    );
+    definition.units[0]!.activityKeys = ["study", "case", "child", "child-two", "practice", "reserved"];
+    const units = toV2PublicUnits(definition);
+    expect(units[0]!.activities!.map(item => item.key)).toEqual(["study", "case", "practice"]);
+    expect(units[0]!.resources).toEqual([{ key: "source", title: "Guía pública", citation: "Referencia", locator: { heading: "Sección", sectionPath: [], page: 2 }, url: null }]);
+    expect(JSON.stringify(units)).not.toMatch(/reserved|PRIVATE|prompt|payload|correctKey|documentSha256|excerpt|child/);
+    expect(V2PublicPathSchema.safeParse({ ...publicPath, units: [{ ...units[0], activities: [{ ...units[0]!.activities![0], payload: { body: secret } }] }] }).success).toBe(false);
   });
 
   it("types all §8.10 routes and rejects client supplied scoring fields", () => {

@@ -6,13 +6,14 @@ import { FieldV2, type FormIssueV2 } from "./sources-fields";
 import type { EditableActivityV2 } from "./activity-model";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
+import { EditorDisclosureV2 } from "./editor-disclosure";
 
 export type ActivityFieldsPropsV2<A extends EditableActivityV2 = EditableActivityV2> = {
   activity: A; pkg: RoutePackage; path: string; issues: FormIssueV2[]; onChange: (activity: A) => void;
 };
 export function ActivitySourcesV2({ pkg, value, path, label, onChange }: { pkg: RoutePackage; value: string[]; path: string; label: string; onChange: (keys: string[]) => void }) {
   return <fieldset className={local.choices} data-field-path={path} tabIndex={-1}><legend>{label}</legend>
-    {pkg.sources.map((source) => <label key={source.key} className={styles.checkboxRow}><input type="checkbox" checked={value.includes(source.key)} onChange={(event) => onChange(event.target.checked ? [...value, source.key] : value.filter((key) => key !== source.key))} />{source.title || "Fuente sin título"}</label>)}
+    {pkg.sources.map((source) => <label key={source.key} className={`${styles.checkboxRow} ${local.sourceChoice}`}><input type="checkbox" checked={value.includes(source.key)} onChange={(event) => onChange(event.target.checked ? [...value, source.key] : value.filter((key) => key !== source.key))} /><span>{source.title || "Fuente sin título"}{source.locator.heading || source.locator.page ? <small>{source.locator.heading}{source.locator.heading && source.locator.page ? " · " : ""}{source.locator.page ? `Página ${source.locator.page}` : ""}</small> : null}</span></label>)}
     {!pkg.sources.length ? <p className={styles.fieldHint}>Añade fuentes en Datos y fuentes.</p> : null}
     {value.some((key) => !pkg.sources.some((source) => source.key === key)) ? <p role="alert" className={styles.fieldError}>Hay fuentes ausentes. <button type="button" className={styles.textButton} onClick={() => onChange(value.filter((key) => pkg.sources.some((source) => source.key === key)))}>Retirar vínculos ausentes</button></p> : null}
   </fieldset>;
@@ -29,13 +30,13 @@ export function ActivityCommonV2(props: ActivityFieldsPropsV2) {
 export function ActivitySettingsV2({ activity, pkg, path, issues, onChange }: ActivityFieldsPropsV2) {
   function patch(values: Partial<EditableActivityV2>) { onChange({ ...activity, ...values } as EditableActivityV2); }
   const families = [...new Map(pkg.activities.filter((item) => item.key !== activity.key && item.equivalenceKey !== activity.equivalenceKey).map((item) => [item.equivalenceKey, item])).values()];
-  return <div className={local.stack}><div className={styles.fieldGrid}>
+  return <div className={local.activitySettings}><EditorDisclosureV2 title="Objetivo y fuentes" initiallyOpen={!activity.objectiveKey || !activity.sourceKeys.length}><div className={local.stack}><div className={styles.fieldGrid}>
     <FieldV2 label="Objetivo principal" path={`${path}.objectiveKey`} issues={issues}>{(input) => <select {...input} value={activity.objectiveKey} onChange={(event) => patch({ objectiveKey: event.target.value })}>{!pkg.objectives.some((item) => item.key === activity.objectiveKey) ? <option value={activity.objectiveKey}>Selecciona un objetivo existente</option> : null}{pkg.objectives.map((item) => <option key={item.key} value={item.key}>{item.title || "Objetivo sin título"}</option>)}</select>}</FieldV2>
-  </div><ActivitySourcesV2 pkg={pkg} value={activity.sourceKeys} path={`${path}.sourceKeys`} label="Fuentes de la actividad" onChange={(sourceKeys) => patch({ sourceKeys })} />
-    <details className={styles.disclosure}><summary>Configuración de la actividad</summary><div className={`${styles.fieldGrid} ${local.activityDetailGrid}`}>
+  </div><ActivitySourcesV2 pkg={pkg} value={activity.sourceKeys} path={`${path}.sourceKeys`} label="Fuentes de la actividad" onChange={(sourceKeys) => patch({ sourceKeys })} /></div></EditorDisclosureV2>
+    <details className={`${styles.disclosure} ${local.advancedSettings}`}><summary>Opciones avanzadas</summary><div className={`${styles.fieldGrid} ${local.activityDetailGrid}`}>
     <FieldV2 label="Fase de aprendizaje" path={`${path}.phase`} issues={issues}>{(input) => <select {...input} value={activity.phase} onChange={(event) => patch({ phase: event.target.value as RouteActivity["phase"] })}>{Object.entries(phases).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>}</FieldV2>
-    <label className={styles.checkboxRow}><input type="checkbox" data-field-path={`${path}.required`} checked={activity.required} onChange={(event) => patch({ required: event.target.checked })} />Actividad requerida</label>
       <FieldV2 label="Uso en el recorrido" path={`${path}.use`} issues={issues} hint="Las reservas necesitan preguntas exclusivas; el validador comprueba su separación.">{(input) => <select {...input} value={activity.use} onChange={(event) => patch({ use: event.target.value as RouteActivity["use"] })}>{Object.entries(uses).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>}</FieldV2>
+      <label className={styles.checkboxRow}><input type="checkbox" data-field-path={`${path}.required`} checked={activity.required} onChange={(event) => patch({ required: event.target.checked })} />Actividad requerida</label>
       <FieldV2 label="Representación" path={`${path}.representation`} issues={issues}>{(input) => <select {...input} value={activity.representation} onChange={(event) => patch({ representation: event.target.value as RouteActivity["representation"] })}>{Object.entries(representations).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>}</FieldV2>
       <FieldV2 label="Variante de la misma pregunta" path={`${path}.equivalenceKey`} issues={issues} hint="Los sinónimos y variantes del mismo ítem comparten familia; no cuentan como preguntas independientes.">{(input) => <select {...input} value={activity.equivalenceKey} onChange={(event) => patch({ equivalenceKey: event.target.value })}><option value={activity.equivalenceKey}>Familia actual</option>{families.map((item) => <option key={item.equivalenceKey} value={item.equivalenceKey}>{item.prompt || "Actividad sin consigna"}</option>)}</select>}</FieldV2>
       <button className={styles.secondaryButton} type="button" onClick={() => patch({ equivalenceKey: nextLocalKeyV2("familia", pkg.activities.map((item) => item.equivalenceKey)) })}>Asignar familia independiente</button>
@@ -47,7 +48,8 @@ export function ActivitySettingsV2({ activity, pkg, path, issues, onChange }: Ac
 }
 export function ActivityFeedbackV2({ activity, pkg, path, issues, onChange }: ActivityFieldsPropsV2) {
   return <div className={local.stack}><FieldV2 label="Explicación de la respuesta" path={`${path}.feedback.explanation`} issues={issues} hint="Explica el porqué de la respuesta, separado de la consigna.">{(input) => <textarea {...input} required rows={3} maxLength={4000} value={activity.feedback.explanation} onChange={(event) => onChange({ ...activity, feedback: { ...activity.feedback, explanation: event.target.value } })} />}</FieldV2>
-    <FieldV2 label="Error común y cómo corregirlo" path={`${path}.feedback.commonError`} issues={issues}>{(input) => <textarea {...input} rows={2} maxLength={4000} value={activity.feedback.commonError} onChange={(event) => onChange({ ...activity, feedback: { ...activity.feedback, commonError: event.target.value } })} />}</FieldV2>
+    <EditorDisclosureV2 title="Fuentes y ayuda adicional"><FieldV2 label="Error común y cómo corregirlo" path={`${path}.feedback.commonError`} issues={issues}>{(input) => <textarea {...input} rows={2} maxLength={4000} value={activity.feedback.commonError} onChange={(event) => onChange({ ...activity, feedback: { ...activity.feedback, commonError: event.target.value } })} />}</FieldV2>
     <ActivitySourcesV2 pkg={pkg} path={`${path}.feedback.sourceKeys`} label="Fuentes de la explicación" value={activity.feedback.sourceKeys} onChange={(sourceKeys) => onChange({ ...activity, feedback: { ...activity.feedback, sourceKeys } })} />
+    </EditorDisclosureV2>
   </div>;
 }

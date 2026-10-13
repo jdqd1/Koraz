@@ -5,6 +5,7 @@ import { sql, type Transaction } from "kysely";
 import {
   RoutePackageSchema, V2HttpContracts, V2RouteStateSchema, V2PublicPathSchema, V2AttemptManifestSchema,
   V2CatalogResponseSchema, V2HomeSnapshotSchema, V2PathCardSchema,
+  toV2PublicUnits,
   type IdentityProvider, type RoutePackage,
 } from "@cediah/contracts";
 import type { DatabaseClient, CediahDatabase } from "../../db/database.js";
@@ -216,6 +217,18 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       firstMasteredAt, firstConsolidatedAt }) => ({ objectiveKey, label, objectiveScore, criticalErrorOpen, assisted, applicationDemonstrated,
     reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length,
     availability: readOnly ? "maintenance" : "active", versionHistory: await readGuidedV2VersionHistory(transaction, enrollmentId),
+    activityProgress: evidence.activityProgress,
+    nextActionContext: (() => {
+      const action = selection.nextAction;
+      const target = action.kind === "resume" && action.key ? snapshots.get(action.key)?.target : null;
+      const activityKey = target && target.kind !== "assessment" ? target.key : ["activity", "review", "remediate"].includes(action.kind) ? action.key : null;
+      const activity = definition.activities.find(item => item.key === activityKey);
+      const assessmentKey = target?.kind === "assessment" ? target.key : ["gate", "retention"].includes(action.kind) ? action.key : null;
+      const assessment = definition.assessments.find(item => item.key === assessmentKey);
+      const objectiveKey = activity?.objectiveKey ?? (assessment?.objectiveKeys.length === 1 ? assessment.objectiveKeys[0]! : null);
+      const unitKey = assessment?.afterUnitKey ?? definition.objectives.find(item => item.key === objectiveKey)?.unitKey ?? null;
+      return { unitKey, objectiveKey };
+    })(),
     nextAction: readOnly ? { kind: "none", key: null, reason: "Ruta en mantenimiento; tu versión y tu historial se conservan." } : selection.nextAction, maintenance });
   return { enrollment, version, definition, evidence, attempts, responses, exposures, reviewStates, selection, state, diagnosticStatus };
 }
@@ -337,8 +350,7 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
     return { status: "success", value: { path: V2PublicPathSchema.parse({ engineVersion: "guided-v2", policyVersion: "guided-v2.0",
       pathId: row.id, pathVersionId: version.id, slug: row.slug, title: definition.route.title, summary: definition.route.summary,
       coverKey: definition.route.coverKey, topicLabel: definition.route.topicLabel, access: enrollment ? enrollment.status === "active" ? "enrolled" : "revoked" : "available",
-      enrollmentId: enrollment?.id ?? null, availability: maintenance ? "maintenance" : "active", units: definition.units.map((unit) => ({ key: unit.key, title: unit.title,
-        objectives: unit.objectiveKeys.map((key) => definition.objectives.find((item) => item.key === key)!).map(({ key, title, criticality }) => ({ key, title, criticality })) })) }) } };
+      enrollmentId: enrollment?.id ?? null, availability: maintenance ? "maintenance" : "active", units: toV2PublicUnits(definition) }) } };
   });
   return { async invoke(name, userId, params, body, key) {
     const maintenance = params.maintenance === true;

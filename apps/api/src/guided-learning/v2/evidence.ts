@@ -231,10 +231,18 @@ export function rebuildGuidedV2Evidence(
   const gates = units.map(unit => evaluateGuidedV2Gate(unit.definition, unit.key,
     unit.definition.objectives.map(objective => byKey.get(objective.key)!)));
   const gatesByUnit = new Map(gates.map(gate => [gate.unitKey, gate]));
+  const curriculumChildren = new Set(caseParents.flatMap(activity => activity.payload.stages.map(stage => stage.childActivityKey)));
   return {
     policyVersion: policy.version,
     objectives: states.map((state) => ({ ...state, reviewDue: options.dueObjectiveKeys?.includes(state.objectiveKey) ?? false })),
     gates,
+    // Read-only projection of the same accepted facts used by route consumption.
+    activityProgress: [...new Set(definition.units.flatMap(unit => unit.activityKeys))]
+      .flatMap(key => {
+        const activity = activities.get(key);
+        return activity && ["learning", "gate"].includes(activity.use) && !curriculumChildren.has(key)
+          ? [{ key, status: completed.has(key) ? "completed" as const : dispensed.has(key) ? "dispensed" as const : "pending" as const }] : [];
+      }),
     availability: definition.objectives.map(objective => ({ objectiveKey: objective.key,
       blockedBy: objective.prerequisiteKeys.filter(key => {
         const prerequisite = objectives.get(key);

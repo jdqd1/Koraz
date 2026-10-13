@@ -14,12 +14,12 @@ describe("T028 shared learner state", () => {
   it("keeps consumption, mastery, consolidation and due review independent on every surface", () => {
     const f = studentFixture("completed");
     const surfaces = [renderToString(<V2PathScreen path={f.path} state={f.state} />), renderToString(<LearningHomeScreen available home={null} homeAvailable paths={[f.card]} progress={[]} tab="progreso" v2States={[f.state]} />), renderToString(<LearningHomeScreen available home={null} homeAvailable paths={[f.card]} progress={[]} tab="hoy" v2Home={f.home} v2States={[f.state]} />), renderToString(<V2SessionEntry attempt={f.attempt} state={f.state} />), renderToString(<LearningPathCard path={f.card} />)];
-    for (const html of surfaces) { expect(html).toContain("Recorrido completado"); expect(html).toContain("Dominio por comprobar"); expect(html).toContain("Consolidación pendiente"); expect(html).not.toContain("Dominio alcanzado"); }
+    for (const html of surfaces) { expect(html).toContain("Actividades completadas"); expect(html).toContain("Aprendizaje por comprobar"); expect(html).toContain("Repaso a largo plazo pendiente"); expect(html).not.toContain("Aprendizaje comprobado"); }
   });
   it("retains previous achievement while displaying current critical reinforcement and blocker", () => {
     const f = studentFixture("critical"), html = renderToString(<V2PathScreen path={f.path} state={f.state} />);
-    for (const text of ["Dominio alcanzado", "Necesita refuerzo", "Dominio previo conservado", "error esencial", f.state.nextAction.reason]) expect(html).toContain(text);
-    expect(html).not.toContain("Completada</");
+    for (const text of ["Aprendizaje comprobado", "Por reforzar", "Tu aprendizaje anterior se conserva", "concepto esencial", f.state.nextAction.reason]) expect(html).toContain(text);
+    expect(html).toMatch(/data-label="reinforce"[^>]*>Por reforzar<\/span>/);
   });
   it("due reviews offer Repasar without inventing a due date or rewarding a view", () => {
     const f = studentFixture("review"), html = renderToString(<V2PathScreen path={f.path} state={f.state} />);

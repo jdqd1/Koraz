@@ -47,15 +47,15 @@ describe("T032 confirmed maintenance presentation", () => {
     const html = renderToString(<V2ReviewScreen path={fixture.path} state={state} />);
     expect(html).toContain("Estado por confirmar");
     expect(html).not.toContain("<time");
-    expect(html).not.toContain("Consolidación alcanzada");
+    expect(html).not.toContain("Recordado en los repasos");
     expect(html).not.toContain("</button>");
   });
   it("shows server consolidation dates rather than deriving a new achievement", () => {
     const fixture = studentFixture("consolidated");
     const html = renderToString(<V2ReviewScreen path={fixture.path} state={fixture.state} />);
     expect(html).toContain(`dateTime="${fixture.state.consolidatedAt}"`);
-    expect(html).toContain("Consolidación alcanzada:");
-    expect(renderToString(<V2ReviewScreen path={fixture.path} state={{ ...fixture.state, consolidatedAt: null }} />)).toContain("Consolidación pendiente de evidencia diferida");
+    expect(html).toContain("Recordado en los repasos:");
+    expect(renderToString(<V2ReviewScreen path={fixture.path} state={{ ...fixture.state, consolidatedAt: null }} />)).toContain("Los próximos repasos comprobarán qué recuerdas con el tiempo");
   });
   it("formats midnight boundaries in the requested zone without changing the instant", () => {
     const value = "2026-10-04T02:30:00.000Z";

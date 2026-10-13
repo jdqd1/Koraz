@@ -8,7 +8,7 @@ export type V2State = z.infer<typeof V2RouteStateSchema>;
 export type V2Home = z.infer<typeof V2HomeSnapshotSchema>;
 export type V2Attempt = z.infer<typeof V2AttemptManifestSchema>;
 export type RouteCard = LearningPathCard | V2Card;
-export const objectiveLabels = { new: "Por comprobar", learning: "En práctica", mastered: "Dominado", reinforce: "Necesita refuerzo" } as const;
+export const objectiveLabels = { new: "Por aprender", learning: "En práctica", mastered: "Comprobado", reinforce: "Por reforzar" } as const;
 export const covers = {
   "back-muscles": "/anatomy/back-muscles.png", heart: "/anatomy/heart.png", intestines: "/anatomy/intestines.png", lungs: "/anatomy/lungs.png",
   "neck-muscles": "/anatomy/neck-muscles.png", pelvis: "/anatomy/pelvis.png", skull: "/anatomy/skull.png", thigh: "/anatomy/thigh.png",
@@ -36,9 +36,9 @@ export function stateMatches(path: Pick<V2Path, "enrollmentId" | "pathVersionId"
 }
 export function routeSignals(state: V2State) {
   return {
-    completion: state.completedAt ? "Recorrido completado" : "Recorrido en curso",
-    mastery: state.masteredAt ? "Dominio alcanzado" : "Dominio por comprobar",
-    consolidation: state.consolidatedAt ? "Consolidación alcanzada" : "Consolidación pendiente",
+    completion: state.completedAt ? "Actividades completadas" : "Actividades en curso",
+    mastery: state.masteredAt ? "Aprendizaje comprobado" : "Aprendizaje por comprobar",
+    consolidation: state.consolidatedAt ? "Recordado en los repasos" : "Repaso a largo plazo pendiente",
     reinforcement: state.objectives.filter(objective => objective.label === "reinforce" || objective.criticalErrorOpen).length,
     review: state.dueReviews,
   };

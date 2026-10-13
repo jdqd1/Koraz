@@ -25,6 +25,7 @@ import { MapIconColorDialog } from "./map-icon-color-dialog";
 import styles from "./learning-map.module.css";
 import { guidedMapClient, v2MapItem, v2MapGroup, v2MapLevel, v2MapSummary } from "./v2-adapter";
 import { V2MapPanel } from "../v2/map-panel";
+import { V2MapStatus } from "./v2-status";
 const Canvas = dynamic(() => import("./learning-map-canvas"), {
   ssr: false,
   loading: () => <p className={styles.empty}>Preparando mapa…</p>,
@@ -365,7 +366,7 @@ function Workspace() {
               <CaretRight size={12} aria-hidden="true" />
             </span>)}
           </nav> : <span className={styles.itemCount}>{level.items.length} {itemCountLabel}</span>}
-          {v2Selection ? <span className={styles.levelStatus} title={v2MapSummary({ ...v2Selection, unitKey: undefined })}>{v2MapSummary({ ...v2Selection, unitKey: undefined })}</span>
+          {v2Selection ? <span className={styles.levelStatus} aria-label={v2MapSummary({ ...v2Selection, unitKey: undefined })}><V2MapStatus meta={v2Selection} /></span>
             : level.containerSummary.progress.percentage !== null ? <span className={styles.levelStatus}
               aria-label={`${level.containerSummary.progress.completedEssentialSteps} de ${level.containerSummary.progress.totalEssentialSteps} actividades esenciales completadas`}>
               <span className={styles.levelProgress} aria-hidden="true"><span style={{ width: `${level.containerSummary.progress.percentage}%` }} /></span>

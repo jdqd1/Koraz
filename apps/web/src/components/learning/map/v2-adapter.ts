@@ -12,20 +12,20 @@ export function v2MapItem(item: MapItem): V2MapMeta | null { return "guidedV2" i
 export function v2MapGroup(item: MapItem): V2MapMeta[] | null { return (item as MixedItem).guidedV2Group ?? null; }
 export function v2MapLevel(level: LearningMapLevelResponse | null): V2MapMeta | null { return level && "guidedV2" in level ? (level as V2Level).guidedV2 : null; }
 export function v2MapSummary(meta: V2MapMeta) {
-  if (!meta.card.enrollmentId) return "Ruta por comenzar · dominio por comprobar";
+  if (!meta.card.enrollmentId) return "Ruta por comenzar";
   if (meta.unitKey) {
     const objectives = meta.path?.units.find(unit => unit.key === meta.unitKey)?.objectives ?? [];
     if (!meta.state) return "Estado por cargar";
     const mastered = objectives.filter(objective => meta.state!.objectives.some(state => state.objectiveKey === objective.key && state.label === "mastered")).length;
     const reinforcement = objectives.some(objective => meta.state!.objectives.some(state => state.objectiveKey === objective.key && (state.label === "reinforce" || state.criticalErrorOpen)));
-    return `${mastered}/${objectives.length} objetivos dominados${reinforcement ? " · refuerzo pendiente" : ""}`;
+    return `${mastered} de ${objectives.length} ${objectives.length === 1 ? "objetivo comprobado" : "objetivos comprobados"}${reinforcement ? " · refuerzo pendiente" : ""}`;
   }
   if (!meta.state && meta.card.enrollmentId) return "Estado por cargar";
   const completed = meta.state ? !!meta.state.completedAt : meta.card.completed;
   const mastered = meta.state ? !!meta.state.masteredAt : meta.card.mastered;
   const consolidated = meta.state ? !!meta.state.consolidatedAt : meta.card.consolidated;
   const reviews = meta.state?.dueReviews;
-  return `${completed ? "Recorrido completado" : "Recorrido en curso"} · ${mastered ? "dominio alcanzado" : "dominio por comprobar"} · ${consolidated ? "consolidación alcanzada" : "consolidación pendiente"}${reviews === undefined ? "" : ` · ${reviews} repasos`}`;
+  return `${completed ? "Actividades completadas" : "Actividades en curso"} · ${mastered ? "Aprendizaje comprobado" : "Aprendizaje por comprobar"} · ${consolidated ? "Recordado en los repasos" : "Repaso a largo plazo pendiente"}${reviews ? ` · ${reviews} ${reviews === 1 ? "repaso pendiente" : "repasos pendientes"}` : ""}`;
 }
 const unavailable: MapProgress = { status: "unavailable", percentage: null, completedEssentialSteps: null, totalEssentialSteps: null, started: false };
 export function v2MapProgress(meta: V2MapMeta): MapProgress {

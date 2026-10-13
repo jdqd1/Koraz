@@ -1,25 +1,42 @@
 "use client";
 import Link from "next/link";
-import { X } from "@phosphor-icons/react";
+import { ArrowRight, CaretDown, X } from "@phosphor-icons/react";
 import type { V2MapMeta } from "../map/v2-adapter";
 import { buildMapHref } from "../map/map-route";
 import type { MapRoute } from "@cediah/contracts";
-import { routeHref } from "./model";
+import { routeHref, stateMatches } from "./model";
 import { RouteAction } from "./route-action";
-import { ObjectiveList, RouteSignals } from "./signals";
+import { RouteSignals } from "./signals";
+import { RouteContent } from "./route-content";
+import { recommendationTitle, unitActivityProgress } from "./curriculum-model";
+import { RouteReason } from "./route-reason";
 import mapStyles from "../map/learning-map.module.css";
-import styles from "./styles.module.css";
+import styles from "./map-panel.module.css";
 
 export function V2MapPanel({ meta, route, onClose }: { meta: V2MapMeta; route: MapRoute; onClose: () => void }) {
-  const unit = meta.path?.units.find(unit => unit.key === meta.unitKey);
+  const path = meta.path;
+  const unit = path?.units.find(unit => unit.key === meta.unitKey);
+  const state = path && stateMatches(path, meta.state) ? meta.state : null;
   const returnTo = buildMapHref(route);
-  return <aside className={mapStyles.panel} aria-label="Detalle de práctica por objetivos" data-engine-version="guided-v2">
-    <header className={mapStyles.panelHeader}><h2>{unit?.title ?? meta.card.title}</h2><button type="button" className={mapStyles.iconButton} aria-label="Cerrar detalle" onClick={onClose}><X size={18} /></button></header>
-    <div className={mapStyles.panelScroll}><div className={styles.panel}>
-      {meta.state ? <RouteSignals state={meta.state} /> : meta.card.enrollmentId ? <p role="alert">No pudimos cargar el estado confirmado.</p> : <p>Comienza la ruta para practicar sus objetivos.</p>}
-      {unit ? <><h3>Al terminar podrás</h3><ObjectiveList objectives={unit.objectives} state={meta.state} /></> : null}
-      {meta.path ? <><p>La siguiente acción corresponde al recorrido completo.</p><RouteAction path={meta.path} state={meta.state} returnTo={returnTo} /></> : null}
-      <Link className="learning-secondary-button" href={routeHref(meta.card.slug, unit?.key, returnTo)}>Ver en la ruta</Link>
-    </div></div>
+  const progress = unit ? unitActivityProgress(unit, state) : null;
+  const recommendation = path && state ? recommendationTitle(path, state, unit) ?? recommendationTitle(path, state) : null;
+  const paused = path?.availability === "maintenance" || state?.availability === "maintenance";
+  const reason = recommendation?.target ? state?.maintenance?.activities.find(item => item.key === recommendation.key)?.reason ?? "Repaso disponible para este objetivo." : state?.nextAction.reason;
+  return <aside className={`${mapStyles.panel} ${styles.panel}`} aria-label="Detalle de práctica por objetivos" data-engine-version="guided-v2">
+    <header className={`${mapStyles.panelHeader} ${styles.header}`}><div className={styles.identity}><h2>{unit?.title ?? meta.card.title}</h2><div className={styles.meta}>
+      {unit && path ? <span>Unidad {path.units.indexOf(unit) + 1} de {path.units.length}</span> : <span>{path?.units.length ?? meta.card.unitCount} unidades</span>}
+      {unit?.activities ? <span>{unit.activities.length} actividades</span> : null}
+    </div>{progress?.total ? <div className={styles.progress}><span>{progress.completed} de {progress.total} completadas{progress.covered ? ` · ${progress.covered} ya cubiertas` : ""}</span><progress aria-label="Actividades completadas de esta unidad" value={progress.completed} max={progress.total} /></div> : null}</div><button type="button" className={mapStyles.iconButton} aria-label="Cerrar detalle" onClick={onClose}><X size={18} aria-hidden /></button></header>
+    <div className={`${mapStyles.panelScroll} ${styles.scroll}`}>
+      {state ? <details className={styles.routeProgress}><summary>Progreso de la ruta <CaretDown size={14} aria-hidden /></summary><RouteSignals state={state} appearance="overview" /></details> : meta.card.enrollmentId ? <p className={styles.notice} role="alert">No pudimos cargar el estado confirmado.</p> : <p className={styles.notice}>Comienza la ruta para practicar sus objetivos.</p>}
+      {path ? <RouteContent key={unit?.key ?? path.pathVersionId} path={path} state={state} focusUnit={unit?.key} unitOnly={!!unit} returnTo={returnTo} /> : <p className={styles.notice}>Abre la ruta completa para consultar sus unidades y actividades.</p>}
+    </div>
+    <footer className={styles.footer}>
+      {path ? <>{paused ? <p className={styles.notice}>Ruta en mantenimiento. Tu historial se conserva.</p> : recommendation ? <div className={styles.next}><strong>{recommendation.title}</strong>{recommendation.unit ? <span>{recommendation.unit.title}{unit && recommendation.unit.key !== unit.key ? " · Otra unidad" : ""}</span> : null}</div> : state?.nextAction.kind === "none" ? <p className={styles.notice}><RouteReason reason={state.nextAction.reason} timeZone={state.maintenance?.timeZone} /></p> : null}
+        <RouteAction path={path} state={state} returnTo={returnTo} target={recommendation?.target} label={recommendation?.kind === "resume" ? "Retomar sesión" : recommendation?.kind === "review" || recommendation?.kind === "retention" ? "Repasar" : recommendation?.kind === "gate" ? "Comprobar lo aprendido" : recommendation?.kind === "remediate" ? "Reforzar" : "Continuar actividad"} showReason={false} />
+        {state && recommendation && reason ? <details className={styles.reason}><summary>Ver recomendación</summary><p><RouteReason reason={reason} timeZone={state.maintenance?.timeZone} /></p></details> : null}
+      </> : null}
+      <Link className={styles.routeLink} href={routeHref(meta.card.slug, unit?.key, returnTo)}>Ver ruta completa <ArrowRight size={15} aria-hidden /></Link>
+    </footer>
   </aside>;
 }

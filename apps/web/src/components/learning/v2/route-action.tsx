@@ -5,6 +5,7 @@ import { safeMapReturnHref } from "../map/map-route";
 import { actionLabel, actionTarget, stateMatches, type V2Path, type V2State } from "./model";
 import { createV2Launcher, V2RequestError } from "./client";
 import styles from "./styles.module.css";
+import { RouteReason } from "./route-reason";
 
 export type V2LaunchTarget = { kind: "activity" | "assessment" | "review"; key: string };
 /** A display offer is launchable only while it occurs in this server snapshot. */
@@ -48,7 +49,7 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
   const canStart = !maintenance && !offeredTarget && path.access === "available" && !path.enrollmentId;
   const canContinue = !maintenance && path.access === "enrolled" && confirmed && (offeredTarget ? authorizedMaintenanceTarget(confirmed, offeredTarget) : confirmed.nextAction.kind !== "none" && !!confirmed.nextAction.key);
   return <div className={styles.action}>
-    {confirmed && showReason ? <p>{confirmed.nextAction.reason}</p> : null}
+    {confirmed && showReason ? <p><RouteReason reason={confirmed.nextAction.reason} timeZone={confirmed.maintenance?.timeZone} /></p> : null}
     {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className={appearance === "secondary" ? "learning-secondary-button" : "learning-primary-button"}>{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <p role="alert">No pudimos cargar el estado confirmado. Actualiza la ruta para continuar.</p> : null}
     {message ? <div role="alert"><p>{message}</p><button type="button" className="learning-secondary-button" onClick={() => router.refresh()}>Actualizar ruta</button></div> : null}
   </div>;

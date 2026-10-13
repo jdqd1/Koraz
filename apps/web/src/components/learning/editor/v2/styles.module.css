@@ -155,8 +155,49 @@
 .footerActions { display: flex !important; flex: 0 0 auto; align-items: center; gap: 6px; }
 .footerActions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
 .itemActions { display: flex; justify-content: end; margin-bottom: 16px; }
-.basicsLayout { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 24px; }
+.basicsLayout { display: grid; grid-template-columns: minmax(300px, .68fr) minmax(0, 1.32fr); align-items: start; gap: 24px; }
 .introCard { position: sticky; top: 100px; }
+.routeBasicsFields { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.basicsHeading { margin-bottom: 24px; }
+.introCard textarea { min-height: 112px; }
+.routeSummaryPreview { display: flex; align-items: start; gap: 14px; margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--koraz-line); }
+.routeSummaryPreview > img { flex: 0 0 76px; width: 76px; height: 76px; padding: 10px; object-fit: contain; box-sizing: border-box; border-radius: 12px; background: var(--koraz-canvas); }
+.routeSummaryPreview > div { min-width: 0; }
+.routeSummaryPreview strong { display: block; font-size: 14px; font-weight: 600; line-height: 1.45; overflow-wrap: anywhere; }
+.routeSummaryPreview p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0; color: var(--koraz-slate); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.routeSummaryPreview span { color: var(--koraz-slate); font-size: 11px; }
+.sourcesArea { min-width: 0; }
+.sourceList { min-width: 0; }
+.sourcesPanel { padding: 24px 28px; }
+.sourcesHeading { flex-wrap: wrap; align-items: center; }
+.sourcesHeading h2 { display: flex; align-items: center; gap: 10px; }
+.sourcesHeading h2 > span { padding: 2px 7px; border-radius: 6px; color: var(--koraz-slate); background: #ededf1; font-size: 11px; font-weight: 500; }
+.sourcesHeading button { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; min-height: 40px; }
+.catalogSearch .optionsDisclosure { margin-top: 18px; }
+.catalogSearch .optionsDisclosure > summary { padding: 13px 0; font-size: 13px; }
+.catalogSearch .inlineForm button { display: inline-flex; align-items: center; gap: 7px; }
+.catalogStatus { margin: 0 0 14px; color: var(--koraz-slate); font-size: 12px; }
+.sourcesEmpty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 250px; padding: 24px; text-align: center; }
+.sourcesEmpty svg { color: #86868b; }
+.sourcesEmpty h3, .sourcesEmpty p { margin: 0; }
+.sourcesEmpty h3 { font-size: 17px; }
+.sourcesEmpty p { max-width: 340px; color: var(--koraz-slate); font-size: 13px; line-height: 1.7; }
+.sourceRow { min-width: 0; padding: 8px 0; border-top: 1px solid var(--koraz-line); }
+.sourceRow > .itemDisclosure > summary { gap: 12px; min-height: 60px; }
+.sourceRow > .itemDisclosure > summary > span:first-of-type { flex: 1; min-width: 0; }
+.sourceRow > .itemDisclosure > summary strong { font-size: 15px; font-weight: 600; line-height: 1.5; }
+.sourceRow .sourceBadges { display: flex; align-items: center; justify-content: end; flex-wrap: wrap; gap: 6px; max-width: 160px; flex-shrink: 0; }
+.sourceBadges > span { border-radius: 5px; padding: 3px 7px; background: #f0f0f3; color: var(--koraz-slate); font-size: 10px; font-weight: 500; white-space: nowrap; }
+.sourceBadges > span:last-child { color: #476254; background: #f0f6f2; }
+.sourceBadges > span[data-pending='true'] { color: #8a6221; background: #fbf4e8; }
+.sourceFields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.sourceFragment { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--koraz-line); }
+.sourceFragment h3 { margin: 0 0 16px; font-size: 14px; font-weight: 600; }
+.sourceFragment textarea { min-height: 140px; line-height: 1.7; }
+.sourcePending { margin: 14px 0 0; padding: 10px 12px; border-radius: 7px; color: #805c23; background: #fbf6ee; font-size: 12px; }
+.sourceFooter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--koraz-line); }
+.sourceFooter button { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; padding: 6px 0; border: 0; background: transparent; font-size: 12px; }
+.sourceFooter p { flex: 1 1 260px; margin: 0; font-size: 11px; line-height: 1.6; }
 .activitiesHeading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .activitiesHeading h2 { margin: 0; display: flex; align-items: center; gap: 10px; }
 .activitiesHeading h2 span { font-size: 12px; color: var(--koraz-slate); background: #e9e9ee; border-radius: 7px; padding: 2px 7px; font-weight: 500; }
@@ -189,8 +230,8 @@
 .modeSwitch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 9px; background: #efeff2; }
 .modeSwitch button { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 5px 11px; border: 0; border-radius: 6px; background: transparent; color: var(--koraz-slate); font: inherit; font-size: 12px; cursor: pointer; }
 .modeSwitch button[aria-pressed='true'] { background: #fff; color: var(--koraz-ink); box-shadow: 0 1px 3px #00000014; }
-.activityColumns { display: grid; grid-template-columns: minmax(0, 1fr) 250px; align-items: start; }
-.activityCanvas { min-width: 0; padding: 24px; background: #f5f5f7; align-self: stretch; }
+.activityColumns { display: grid; grid-template-columns: minmax(300px, .76fr) minmax(440px, 1.24fr); grid-template-areas: 'preview configuration'; align-items: start; }
+.activityCanvas { grid-area: preview; position: sticky; top: 100px; min-width: 0; padding: 20px; background: #f5f5f7; align-self: start; max-height: calc(100dvh - 200px); overflow-y: auto; box-sizing: border-box; }
 .editSurface, .studentPreview { min-width: 0; border-radius: 12px; background: #fff; border: 1px solid var(--koraz-line); box-shadow: 0 2px 8px #00000003; }
 .editSurface > .visuallyHidden { margin: 0; }
 .canvasHeader, .previewTools { display: flex; align-items: center; gap: 7px; padding: 12px 18px; border-bottom: 1px solid var(--koraz-line); color: var(--koraz-slate); font-size: 11px; }
@@ -210,24 +251,42 @@
 .studentAnswerGhost > span { color: var(--koraz-slate); font-size: 11px; }
 .studentAnswerGhost textarea { resize: none; padding: 12px; width: 100%; box-sizing: border-box; border: 1px solid var(--koraz-line); background: #fafafa; font: inherit; }
 .studentAnswerGhost button { justify-self: start; }
-.activityInspector { min-width: 0; padding: 22px 18px; border-left: 1px solid var(--koraz-line); }
-.activityInspector h3 { margin: 0 0 18px; }
-.activityInspector > fieldset > div > div { grid-template-columns: minmax(0, 1fr); }
-.activityInspector :is(label, legend) { font-size: 12px; }
-.activityInspector select { font-size: 12px; min-height: 38px; }
+.activityInspector { grid-area: configuration; min-width: 0; padding: 28px; border-left: 1px solid var(--koraz-line); background: #fff; }
+.activityInspector > fieldset { max-width: 760px; margin-inline: auto; }
+.activityInspector h3 { margin: 0 0 24px; font-size: 18px; }
+.activityInspector :is(label, legend) { font-size: 13px; }
+.activityInspector select { font-size: 13px; min-height: 44px; }
+.activityInspector textarea { font-size: 14px; line-height: 1.65; }
+.activityInspector textarea.canvasPrompt { min-height: 96px; font-size: 16px; }
+.activityInspector textarea.canvasBody { min-height: 180px; }
+.configurationSection { margin-bottom: 28px; }
+.configurationSection + .configurationSection { padding-top: 24px; border-top: 1px solid var(--koraz-line); }
+.configurationSection > h4 { margin: 0 0 16px; font-size: 14px; font-weight: 600; }
+.activityInspector .stack { gap: 16px; }
+.activityInspector .activityOption { align-items: end; }
+.activityInspector .activityOption > div { flex: 1; min-width: 0; }
+.activityInspector .activityOption button { flex-shrink: 0; min-height: 36px; }
+.activitySettings .optionsDisclosure { margin-top: 0; }
+.activitySettings .advancedSettings { margin-top: 0; }
+.sourceChoice { align-items: start !important; }
+.sourceChoice > input { margin-top: 3px !important; }
+.sourceChoice > span { min-width: 0; display: grid; gap: 3px; overflow-wrap: anywhere; }
+.sourceChoice small { color: var(--koraz-slate); font-size: 11px; font-weight: 400; }
 .activityInspector .choices { border: 0; border-radius: 0; padding: 0; }
 .activityInspector .choices legend { margin-bottom: 8px; font-weight: 500; }
 .activityInspector .choices label { line-height: 1.5; font-weight: 400; }
 .activityInspector details > summary { font-size: 12px; font-weight: 550; }
-.activityInspector .activityDetailGrid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.activityInspector .activityDetailGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .activityInspector .activitySolution { margin-top: 20px; padding-top: 16px; }
 .activityInspector .activitySolution h4 { font-size: 12px; }
 .activityInspector .activitySolution p { font-size: 11px; }
 .activityInspector .activitySolution div { min-width: 0; }
 .activityInspector .activitySubcard { padding: 10px; }
-.activityInspector .activitySubcard > div { grid-template-columns: minmax(0, 1fr); }
-.activityInspector .relationRow { grid-template-columns: minmax(0, 1fr); }
-.activityInspector textarea { font-size: 12px; }
+.activityInspector .relationRow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.activityCanvas .studentCard { padding: 20px; }
+.activityCanvas .studentResponse { gap: 16px; }
+.activityCanvas .studentResponse h3, .activityCanvas .studentCard > h3 { font-size: 18px; overflow-wrap: anywhere; }
+.previewLive { color: #56705f; font-size: 10px; }
 .inspectorDelete { margin-top: 28px; border-top: 1px solid var(--koraz-line); padding-top: 16px; }
 .inspectorDelete button { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; border: 0; padding-inline: 0; background: transparent; min-height: 32px; }
 .inspectorDelete p { font-size: 11px; line-height: 1.6; }
@@ -285,17 +344,16 @@
 
 @container (max-width: 1000px) {
   .activityWorkspace { grid-template-columns: 200px minmax(0, 1fr); }
-  .activityColumns { grid-template-columns: minmax(0, 1fr); }
-  .activityInspector { border-left: 0; border-top: 1px solid var(--koraz-line); }
-  .activityInspector > fieldset > div > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .activityColumns { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'configuration' 'preview'; }
+  .activityInspector { border-left: 0; }
+  .activityCanvas { position: static; max-height: 600px; border-top: 1px solid var(--koraz-line); }
   .basicsLayout { grid-template-columns: minmax(0, 1fr); }
   .introCard { position: static; }
 }
 @media (min-width: 1600px) {
   .activityWorkspace { grid-template-columns: 254px minmax(0, 1fr); }
-  .activityColumns { grid-template-columns: minmax(0, 1fr) 280px; }
-  .activityCanvas { padding: 32px; }
-  .canvasEditable, .studentCard { padding: 32px; }
+  .activityCanvas { padding: 24px; }
+  .activityInspector { padding: 32px; }
 }
 @media (max-width: 1100px) {
   .step { padding-inline: 10px; }
@@ -305,6 +363,11 @@
 }
 @media (max-width: 767px) {
   .editor { padding: 20px 14px 150px; }
+  .sourcesPanel { padding: 20px; }
+  .sourcesHeading button { min-height: 44px; }
+  .sourceFields { grid-template-columns: minmax(0, 1fr); }
+  .sourceRow .sourceBadges { max-width: 90px; }
+  .routeSummaryPreview { margin-top: 20px; }
   .header { display: flex; gap: 10px; }
   .headerTitle { gap: 8px; }
   .header h1 { font-size: 22px; }
@@ -329,11 +392,13 @@
   .activityWorkspace { grid-template-columns: minmax(0, 1fr); }
   .activityNavigator { border-right: 0; border-bottom: 1px solid var(--koraz-line); }
   .activityList { max-height: 185px; }
-  .activityColumns { grid-template-columns: minmax(0, 1fr); }
+  .activityColumns { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'configuration' 'preview'; }
   .activityCanvas { padding: 14px; }
   .canvasEditable, .studentCard { padding: 20px; }
   .activityToolbar { padding: 12px 16px; }
-  .activityInspector > fieldset > div > div { grid-template-columns: minmax(0, 1fr); }
+  .activityInspector { padding: 20px; border-left: 0; }
+  .activityInspector .activityDetailGrid, .activityInspector .relationRow { grid-template-columns: minmax(0, 1fr); }
+  .activityCanvas { position: static; max-height: 540px; }
   .activityWelcome { padding: 40px 20px; }
   .editor .saveBar { bottom: calc(92px + env(safe-area-inset-bottom)); padding: 5px 8px; gap: 8px; }
   .pickerDialog { width: calc(100vw - 20px); max-height: calc(100dvh - 20px); border-radius: 14px; }

@@ -79,33 +79,28 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
       {activity && fields ? <div className={local.activityDetail} data-activity-form={activity.key} key={activity.key}>
         <div className={local.activityToolbar}><h3>{activityTypesV2[activity.kind]}</h3><div className={local.modeSwitch} aria-label="Modo de actividad"><button type="button" aria-pressed={mode === "edit"} onClick={() => setMode("edit")}><PencilSimple size={16} aria-hidden /> Editar</button><button type="button" aria-pressed={mode === "preview"} onClick={() => setMode("preview")}><Eye size={17} aria-hidden /> Probar</button></div></div>
         <div className={local.activityColumns}>
-          <div className={local.activityCanvas}>
-            <details className={local.editSurface} open={mode === "edit"} onToggle={event => { if (event.currentTarget.open) setMode("edit"); }}>
-              <summary className={local.visuallyHidden}>Editar contenido de la actividad</summary>
-              <div className={local.canvasHeader}><Eye size={16} aria-hidden /><span>Contenido que verá el estudiante</span><span className={local.editableBadge}>Editable</span></div>
-              <fieldset disabled={disabled} className={`${styles.fieldset} ${local.canvasEditable}`}><div className={local.stack}>
+          <aside className={local.activityInspector} aria-label="Configuración de la actividad">
+            <fieldset disabled={disabled} className={styles.fieldset}><h3>Configuración</h3>
+              <section className={local.configurationSection} aria-label="Contenido de la actividad"><h4>Contenido</h4><div className={local.stack}>
                 <ActivityPromptV2 {...fields} />
                 {activity.kind === "study" ? <ActivityStudyV2 {...fields} activity={activity} /> : null}
                 {activity.kind === "single_choice" ? <ActivityChoiceOptionsV2 {...fields} activity={activity} /> : null}
-                <VisualActivityV2 {...fields} solution={activity.kind === "image_target"} />
-                {activity.kind === "short_answer" || activity.kind === "constructed_response" ? <div className={local.studentAnswerGhost}><span>{activity.kind === "short_answer" ? "Respuesta del estudiante" : "El estudiante explicará con sus palabras"}</span><textarea disabled rows={activity.kind === "short_answer" ? 3 : 5} placeholder="Aquí escribirá su respuesta…" aria-label="Ejemplo del espacio de respuesta del estudiante" /><button className="learning-primary-button" type="button" disabled>{activity.kind === "short_answer" ? "Comprobar respuesta" : "Guardar mi respuesta"}</button></div> : null}
-                {activity.kind === "study" ? <button className="learning-primary-button" type="button" disabled>Continuar a la práctica</button> : null}
-              </div></fieldset>
-            </details>
-            {mode === "preview" ? <ActivityStudentPreviewV2 activity={activity} activities={pkg.activities} assets={pkg.assets} /> : null}
-          </div>
-          <aside className={local.activityInspector} aria-label="Configuración de la actividad">
-            <fieldset disabled={disabled} className={styles.fieldset}><h3>Configuración</h3><ActivitySettingsV2 {...fields} />{activity.kind === "image_target" ? <VisualActivityV2 {...fields} /> : null}
-              <details className={`${styles.disclosure} ${local.activitySolution}`}><summary>Respuesta y explicación</summary><div className={local.stack}>
+                <VisualActivityV2 {...fields} />
+              </div></section>
+              <section className={local.configurationSection} aria-label="Respuesta y explicación"><h4>{activity.kind === "study" ? "Explicación" : "Respuesta y explicación"}</h4><div className={local.stack}>
                 {activity.kind === "single_choice" ? <ActivityChoiceSolutionV2 {...fields} activity={activity} /> : null}
                 {activity.kind === "short_answer" ? <ActivityShortSolutionV2 {...fields} activity={activity} /> : null}
                 {activity.kind === "constructed_response" ? <ActivityConstructedSolutionV2 {...fields} activity={activity} /> : null}
-                {activity.kind !== "image_target" ? <VisualActivityV2 {...fields} solution /> : null}
+                <VisualActivityV2 {...fields} solution />
                 <ActivityFeedbackV2 {...fields} />
-              </div></details>
+              </div></section>
+              <ActivitySettingsV2 {...fields} />
             </fieldset>
             <div className={local.inspectorDelete}><button className={styles.dangerButton} type="button" disabled={disabled || Boolean(block)} title={block ?? undefined} onClick={() => setDeleting(activity.key)}><Trash size={16} aria-hidden /> Eliminar actividad</button>{block ? <p className={styles.fieldHint}>{block}</p> : null}</div>
           </aside>
+          <div className={local.activityCanvas}>
+            <ActivityStudentPreviewV2 key={`${activity.key}:${mode}`} activity={activity} activities={pkg.activities} assets={pkg.assets} interactive={mode === "preview"} />
+          </div>
         </div>
       </div> : <div className={local.activityWelcome}><BookOpen size={40} weight="light" aria-hidden /><h3>{pkg.objectives.length ? "Crea tu primera actividad" : "Añade un objetivo para comenzar"}</h3><p>{pkg.objectives.length ? "Explora los tipos y prueba un ejemplo antes de elegir." : "Cada actividad pertenece a un objetivo de aprendizaje."}</p>{pkg.objectives.length ? <button className={styles.primaryAction} type="button" disabled={disabled} onClick={() => setPickerOpen(true)}>Elegir actividad</button> : null}</div>}
     </div>

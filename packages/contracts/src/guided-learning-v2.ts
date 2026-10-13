@@ -6,6 +6,7 @@ import {
   RoutePackageSchema,
   RouteSourceSchema,
   type RouteActivity,
+  type RoutePackage,
 } from "./learning-route-package.js";
 
 const Id = z.uuid();
@@ -154,6 +155,43 @@ export function toV2PublicActivity(activity: RouteActivity, activeStageIndex = 0
   }
 }
 
+/** Curriculum metadata only. Prompts, answers and assessment reserves stay private. */
+const V2CurriculumActivitySchema = z.strictObject({
+  key: RouteKeySchema, objectiveKey: RouteKeySchema,
+  kind: z.enum(["study", "single_choice", "short_answer", "constructed_response", "match", "image_target", "sequence", "case"]),
+  phase: PublicBase.shape.phase, required: z.boolean(),
+  scaffold: PublicStudy.shape.payload.shape.scaffold.optional(),
+});
+const V2CurriculumResourceSchema = RouteSourceSchema.pick({ key: true, title: true, citation: true, locator: true, url: true }).strict();
+const V2PublicUnitSchema = z.strictObject({
+  key: RouteKeySchema, title: z.string(),
+  objectives: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), criticality: RoutePackageSchema.shape.objectives.element.shape.criticality })),
+  // Optional for older servers and stored receipts, never fabricated by the client.
+  activities: z.array(V2CurriculumActivitySchema).optional(),
+  resources: z.array(V2CurriculumResourceSchema).optional(),
+});
+export function toV2PublicUnits(definition: RoutePackage): z.infer<typeof V2PublicUnitSchema>[] {
+  const activities = new Map(definition.activities.map(activity => [activity.key, activity]));
+  const objectives = new Map(definition.objectives.map(objective => [objective.key, objective]));
+  const children = new Set(definition.activities.flatMap(activity => activity.kind === "case" ? activity.payload.stages.map(stage => stage.childActivityKey) : []));
+  return definition.units.map(unit => {
+    const entries = unit.activityKeys.flatMap(key => {
+      const activity = activities.get(key);
+      return activity && ["learning", "gate"].includes(activity.use) && !children.has(key) && unit.objectiveKeys.includes(activity.objectiveKey) ? [activity] : [];
+    });
+    const sourceKeys = new Set([...unit.objectiveKeys.flatMap(key => objectives.get(key)?.sourceKeys ?? []), ...entries.flatMap(activity => activity.sourceKeys)]);
+    return {
+      key: unit.key, title: unit.title,
+      objectives: unit.objectiveKeys.flatMap(key => {
+        const objective = objectives.get(key);
+        return objective ? [{ key: objective.key, title: objective.title, criticality: objective.criticality }] : [];
+      }),
+      activities: entries.map(activity => ({ key: activity.key, objectiveKey: activity.objectiveKey, kind: activity.kind, phase: activity.phase, required: activity.required,
+        ...(activity.kind === "study" ? { scaffold: activity.payload.scaffold } : {}) })),
+      resources: definition.sources.filter(source => sourceKeys.has(source.key)).map(({ key, title, citation, locator, url }) => ({ key, title, citation, locator, url })),
+    };
+  });
+}
 export const V2PublicPathSchema = z.strictObject({
   engineVersion: V2EngineVersionSchema, policyVersion: V2PolicyVersionSchema,
   pathId: V2PathIdSchema, pathVersionId: V2PathVersionIdSchema,
@@ -161,7 +199,7 @@ export const V2PublicPathSchema = z.strictObject({
   topicLabel: z.string(), access: z.enum(["available", "enrolled", "revoked"]),
   enrollmentId: V2EnrollmentIdSchema.nullable(),
   availability: z.enum(["active", "maintenance"]).optional(),
-  units: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), objectives: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), criticality: RoutePackageSchema.shape.objectives.element.shape.criticality })) })),
+  units: z.array(V2PublicUnitSchema),
 });
 export function toV2PublicPath(bound: V2BoundRouteDefinition, access: z.infer<typeof V2PublicPathSchema>["access"], enrollmentId: V2EnrollmentId | null): z.infer<typeof V2PublicPathSchema> {
   const { definition, pathId, pathVersionId, engineVersion, policyVersion } = bound;
@@ -169,10 +207,7 @@ export function toV2PublicPath(bound: V2BoundRouteDefinition, access: z.infer<ty
     engineVersion, policyVersion, pathId, pathVersionId,
     slug: definition.route.slug, title: definition.route.title, summary: definition.route.summary,
     coverKey: definition.route.coverKey, topicLabel: definition.route.topicLabel, access, enrollmentId,
-    units: definition.units.map((unit) => ({ key: unit.key, title: unit.title, objectives: unit.objectiveKeys.flatMap((key) => {
-      const objective = definition.objectives.find((item) => item.key === key);
-      return objective ? [{ key: objective.key, title: objective.title, criticality: objective.criticality }] : [];
-    }) })),
+    units: toV2PublicUnits(definition),
   };
 }
 
@@ -225,6 +260,8 @@ export const V2RouteStateSchema = z.strictObject({
   objectives: z.array(V2ObjectiveStateSchema),
   dueReviews: z.number().int().nonnegative(),
   nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1) }),
+  nextActionContext: z.strictObject({ unitKey: RouteKeySchema.nullable(), objectiveKey: RouteKeySchema.nullable() }).optional(),
+  activityProgress: z.array(z.strictObject({ key: RouteKeySchema, status: z.enum(["pending", "completed", "dispensed"]) })).optional(),
   // Additive projection; historical idempotency receipts remain valid without it.
   maintenance: V2MaintenanceSchema.optional(),
   availability: z.enum(["active", "maintenance"]).optional(),

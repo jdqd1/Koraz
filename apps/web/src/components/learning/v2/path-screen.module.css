@@ -39,9 +39,10 @@
 .nextStep { display: grid; align-content: center; gap: 12px; background: var(--route-soft); border-color: #dce8f6; }
 .nextStepHeading { display: flex; align-items: center; gap: 12px; }
 .actionIcon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; border-radius: 13px; background: #e2edfb; color: var(--route-blue); }
-.nextStep > div:nth-child(2) { margin: 0; }
-.nextStep > div:nth-child(2) > button { width: 100%; }
+.nextStep > div:not(.nextStepHeading) { margin: 0; }
+.nextStep :global(.learning-primary-button) { width: 100%; }
 .nextStep > p, .nextStep [role="alert"] { color: var(--route-muted); font-size: .9rem; }
+.nextStep .actionUnit { font-size: .85rem; padding-left: 54px; line-height: 1.4; }
 .reason { font-size: .8rem; }
 .reason summary { color: #4e627b; min-height: 28px; }
 .reason p { margin-top: 6px; color: var(--route-muted); line-height: 1.55; }

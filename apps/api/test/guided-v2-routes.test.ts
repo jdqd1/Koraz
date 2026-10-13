@@ -76,6 +76,9 @@ describe("T021 actual learner HTTP and persisted services", () => {
     const response = await get("paths/http-route"); expect(response.statusCode).toBe(200);
     expect(V2HttpContracts.publicPath.response.parse(response.json()).path.pathVersionId).toBe(v2Id(6));
     expect(response.body).not.toContain("correctKey"); expect(response.body).not.toContain("PRIVATE_FEEDBACK");
+    expect(response.json().path.units[0].activities.map((item: { key: string }) => item.key)).toEqual(["learn", "a", "b", "apply"]);
+    expect(response.json().path.units[0].resources[0].title).toBe("Fuente de la versión fijada");
+    expect(response.body).not.toMatch(/PRIVATE|final-a|final-b|seven|thirty|prompt|candidateActivityKeys|payload/);
     const catalog = await get("paths?limit=1"); expect(catalog.statusCode).toBe(200);
     expect(V2CatalogResponseSchema.parse(catalog.json()).items[0]!.engineVersion).toBe("guided-v2");
     const home = await get("home"); expect(home.statusCode).toBe(200); V2HomeSnapshotSchema.parse(home.json());
@@ -95,6 +98,8 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(state.maintenance).toMatchObject({ generatedAt: at().toISOString(), timeZone: "America/Caracas", diagnostic: { status: "pending", assessmentKey: "diagnosis" }, agenda: [], reviewBatch: [] });
     expect(state.maintenance!.gates[0]).toMatchObject({ passed: false, missingCoreKeys: ["core"] });
     expect(state.maintenance!.activities[0]).toMatchObject({ key: "learn", objectiveKey: "core" });
+    expect(state.activityProgress).toEqual(["learn", "a", "b", "apply"].map(key => ({ key, status: "pending" })));
+    expect(state.nextActionContext).toEqual({ unitKey: "unit", objectiveKey: "core" });
     expect(response.body).not.toMatch(/PRIVATE_|correctKey|candidateActivityKeys|equivalenceKey|rubric|final-a|final-b|seven-test|thirty-test/);
     const after = (await pg.query("select (select count(*) from learning_v2_responses)::int as responses,(select count(*) from learning_events)::int as events,(select count(*) from learning_v2_review_state)::int as reviews")).rows;
     expect(after).toEqual(before);
@@ -116,6 +121,7 @@ describe("T021 actual learner HTTP and persisted services", () => {
   it("resumes one attempt and commits learning/feedback/heartbeat with server versions", async () => {
     const created = await launch("learn"); expect(created.statusCode).toBe(200);
     const manifest = V2HttpContracts.attemptCreate.response.parse(created.json()).attempt;
+    expect((await get(`enrollments/${v2Id(8)}/state`)).json().state.nextActionContext).toEqual({ unitKey: "unit", objectiveKey: "core" });
     expect((await get(`attempts/${manifest.attemptId}`)).json()).toEqual(created.json());
     expect((await launch("learn")).statusCode).toBe(409);
     const heartbeat = await post(`attempts/${manifest.attemptId}/heartbeat`, { clientEventId: v2Id(serial++), visible: true, interactionAgeMs: 0 });
@@ -124,6 +130,8 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(answered.statusCode).toBe(200); V2HttpContracts.attemptResponse.response.parse(answered.json());
     expect(answered.json().state.maintenance.diagnostic).toEqual({ status: "omitted", assessmentKey: null });
     expect(answered.json().state.maintenance.agenda).toEqual([]);
+    expect(answered.json().state.activityProgress).toContainEqual({ key: "learn", status: "completed" });
+    expect(answered.json().state.completedActivities).toBe(1);
     expect((await post(`attempts/${manifest.attemptId}/complete`, { expectedVersion: 2 })).statusCode).toBe(200);
     const feedback = { activityKey: "learn", acknowledged: true };
     expect((await post(`attempts/${manifest.attemptId}/feedback-viewed`, feedback)).statusCode).toBe(200);
@@ -144,6 +152,7 @@ describe("T021 actual learner HTTP and persisted services", () => {
     }
     const state = await get(`enrollments/${v2Id(8)}/state`); expect(state.statusCode).toBe(200);
     expect(state.json().state.objectives[0].label).toBe("mastered"); expect(state.body).not.toContain("evidenceWindow");
+    expect(state.json().state.activityProgress).toEqual(["learn", "a", "b", "apply"].map(key => ({ key, status: "completed" })));
   });
   it("selects/fixes one reserved item per objective and exposes correction only on segment submission", async () => {
     const created = await launch("final-test", "assessment"); expect(created.statusCode, created.body).toBe(200);

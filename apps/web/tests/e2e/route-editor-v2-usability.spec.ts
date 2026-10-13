@@ -43,9 +43,13 @@ test("student preview follows live edits and keeps the private answer behind rev
   await page.locator('summary[aria-label="Estudio · Pregunta sintética"]').click();
   await page.getByLabel("Consigna", { exact: true }).fill("Lee este contenido antes de practicar");
   await page.getByLabel("Contenido de estudio", { exact: true }).fill("Contenido actualizado desde el lienzo editable.");
-  await page.getByRole("button", { name: "Probar", exact: true }).click();
+  const configuration = page.getByRole("complementary", { name: "Configuración de la actividad", exact: true });
+  await expect(configuration.getByLabel("Consigna", { exact: true })).toBeVisible();
   const preview = page.locator("[data-student-preview]");
   await expect(preview).toContainText("Contenido actualizado desde el lienzo editable.");
+  await expect(preview.getByText("En directo", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Probar", exact: true }).click();
+  await expect(preview.getByRole("button", { name: "Reiniciar", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Editar", exact: true }).click();
   await expect(page.getByLabel("Contenido de estudio", { exact: true })).toHaveValue("Contenido actualizado desde el lienzo editable.");
   await page.locator('summary[aria-label="Respuesta construida · Pregunta sintética"]').click();
@@ -170,7 +174,7 @@ test("objective and activity settings stay out of the main form and preserve sav
   await expect(page.getByLabel("Apoyo del ejemplo", { exact: true })).toBeHidden();
   await page.getByLabel("Contenido de estudio", { exact: true }).fill("Contenido conservado después de ajustar la configuración.");
   await page.screenshot({ path: info.outputPath("activity-form.png"), fullPage: true });
-  await page.locator("summary").filter({ hasText: "Configuración de la actividad" }).click();
+  await page.locator("summary").filter({ hasText: "Opciones avanzadas" }).click();
   await page.getByLabel("Fase de aprendizaje", { exact: true }).selectOption("learn");
   await page.getByLabel("Actividad requerida", { exact: true }).uncheck();
   await page.locator("summary").filter({ hasText: "Opciones de estudio" }).click();

@@ -114,7 +114,7 @@ test("v2 cards fit their signals and open the confirmed objective details", asyn
   }
   const panel = page.getByRole("complementary", { name: "Detalle de práctica por objetivos" });
   await expect(panel).toBeVisible();
-  await expect(panel.getByText(/^Necesita refuerzo/).first()).toBeVisible();
+  await expect(panel.getByText(/^Por reforzar/).first()).toBeVisible();
   await expect(panel.getByRole("button", { name: "Reforzar", exact: true })).toBeVisible();
   await expect(panel.getByRole("button", { name: "Cerrar detalle" })).toBeVisible();
 });

@@ -21,9 +21,20 @@
 .activityProgress progress::-webkit-progress-value { border-radius: 99px; background: #0066cc; }
 .activityProgress progress::-moz-progress-bar { border-radius: 99px; background: #0066cc; }
 .milestones { display: grid; gap: 8px; list-style: none; padding: 0; margin: 0; }
-.milestones li { display: flex; align-items: center; gap: 8px; color: #626267; font-size: .79rem; }
+.milestones li { display: flex; align-items: center; gap: 8px; color: #626267; font-size: .79rem; min-width: 0; }
+.milestones strong { flex: 1; color: #1d1d1f; font-size: .78rem; font-weight: 500; }
+.milestoneIcon { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border-radius: 9px; background: #f0f0f3; }
+.milestoneState { display: inline-flex; align-items: center; gap: 5px; font-size: .71rem; }
 .milestones svg { flex: 0 0 auto; color: #a3a3ab; }
+.milestoneIcon svg { color: #6e6e73; }
 .milestones [data-reached="true"] svg { color: #24804a; }
+.milestones [data-reached="true"] .milestoneIcon { background: #eaf5ed; }
+.milestones [data-reached="true"] .milestoneState { color: #24643a; }
+.progressHelp { color: #626267; font-size: .75rem; }
+.progressHelp summary { min-height: 44px; cursor: pointer; display: flex; align-items: center; color: #0066cc; }
+.progressHelp p { margin: 4px 0 0; line-height: 1.6; }
+.signalBadge { display: inline-flex; align-items: center; gap: 5px; background: #f0f0f3; border-radius: 7px; padding: 4px 8px; font-size: .73rem; color: #626267; }
+.signalBadge[data-reached="true"] { background: #eaf5ed; color: #24643a; }
 .progressNotes { display: flex; flex-wrap: wrap; gap: 6px; color: #626267; font-size: .76rem; }
 .reviewBadge, .reinforceBadge { display: inline-flex; align-items: center; gap: 5px; width: fit-content; border-radius: 7px; padding: 4px 8px; background: #eaf2fd; color: #0055ad; font-size: .76rem; font-weight: 500; }
 .reinforceBadge { color: #865500; background: #fcf3de; }
