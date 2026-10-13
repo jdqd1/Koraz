@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ReactFlowProvider } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
@@ -25,7 +25,6 @@ import { MapIconColorDialog } from "./map-icon-color-dialog";
 import styles from "./learning-map.module.css";
 import { guidedMapClient, v2MapItem, v2MapGroup, v2MapLevel, v2MapSummary } from "./v2-adapter";
 import { V2MapPanel } from "../v2/map-panel";
-import v2Styles from "../v2/styles.module.css";
 const Canvas = dynamic(() => import("./learning-map-canvas"), {
   ssr: false,
   loading: () => <p className={styles.empty}>Preparando mapa…</p>,
@@ -60,6 +59,7 @@ function Workspace() {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
+    let frame = 0;
     const size = () => {
       const parent = el.parentElement;
       const padding = parent
@@ -67,19 +67,26 @@ function Workspace() {
         : 0;
       el.style.setProperty(
         "--map-height",
-        `${Math.max(400, window.innerHeight - el.getBoundingClientRect().top - padding)}px`,
+        `${Math.max(240, (window.visualViewport?.height ?? window.innerHeight) - el.getBoundingClientRect().top - padding)}px`,
       );
+    };
+    const scheduleSize = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(size);
     };
     const observer = new ResizeObserver((entries) => {
       setWide(entries[0]!.contentRect.width >= 768);
-      size();
+      scheduleSize();
     });
     observer.observe(el);
-    window.addEventListener("resize", size);
+    window.addEventListener("resize", scheduleSize);
+    window.visualViewport?.addEventListener("resize", scheduleSize);
     size();
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", size);
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", scheduleSize);
+      window.visualViewport?.removeEventListener("resize", scheduleSize);
     };
   }, []);
   const currentLevelKey = level?.levelKey;
@@ -186,13 +193,13 @@ function Workspace() {
       );
     }
   }
-  const selected = level?.selectedLesson || level?.route.unitStableKey && v2MapLevel(level)
+  const selected = useMemo(() => level?.selectedLesson || level?.route.unitStableKey && v2MapLevel(level)
       ? [
           level.route.unitStableKey
             ? `lesson:${level.route.unitStableKey}`
             : level.route.entryId!,
         ]
-      : [];
+      : [], [level]);
   const unavailableSelection =
     level?.route.entryId &&
     !level.selectedLesson &&
@@ -334,26 +341,9 @@ function Workspace() {
               </button>
             ) : null}
             <div className={styles.headerText}>
-              {level?.route.nodeId ? (
-                <nav className={styles.breadcrumbs} aria-label="Ruta del mapa">
-                  {level.ancestry.slice(0, -1).map((ancestor, index) => (
-                    <span key={index}>
-                      <button onClick={() => { setInfo(null); navigate(ancestor.route); }}>
-                        {ancestor.title}
-                      </button>
-                      <CaretRight size={12} />
-                    </span>
-                  ))}
-                </nav>
-              ) : null}
               <h1 ref={heading} tabIndex={-1}>
                 {level?.containerSummary.title ?? "Mi mapa de aprendizaje"}
               </h1>
-              {v2Selection ? <span className={`${styles.status} ${v2Styles.mapNotice}`}>{v2MapSummary({ ...v2Selection, unitKey: undefined })}</span> : level?.containerSummary.progress.percentage !== null && level ? (
-                <span className={styles.status}>
-                  {`${level.containerSummary.progress.percentage} % · ${level.containerSummary.progress.completedEssentialSteps}/${level.containerSummary.progress.totalEssentialSteps} esenciales`}
-                </span>
-              ) : null}
             </div>
           </div>
           <div className={styles.headerActions}>
@@ -365,6 +355,20 @@ function Workspace() {
             </button>
           </div>
         </header>
+        {level ? <div className={styles.navigationLine}>
+          {level.route.nodeId ? <nav className={styles.breadcrumbs} aria-label="Ruta del mapa">
+            {level.ancestry.slice(0, -1).map((ancestor, index) => <span key={index}>
+              <button onClick={() => { setInfo(null); navigate(ancestor.route); }}>{ancestor.title}</button>
+              <CaretRight size={12} aria-hidden="true" />
+            </span>)}
+          </nav> : <span className={styles.itemCount}>{level.items.length} {level.items.every(item => item.kind === "lesson") ? "lecciones" : "rutas"}</span>}
+          {v2Selection ? <span className={styles.levelStatus} title={v2MapSummary({ ...v2Selection, unitKey: undefined })}>{v2MapSummary({ ...v2Selection, unitKey: undefined })}</span>
+            : level.containerSummary.progress.percentage !== null ? <span className={styles.levelStatus}
+              aria-label={`${level.containerSummary.progress.completedEssentialSteps} de ${level.containerSummary.progress.totalEssentialSteps} actividades esenciales completadas`}>
+              <span className={styles.levelProgress} aria-hidden="true"><span style={{ width: `${level.containerSummary.progress.percentage}%` }} /></span>
+              {level.containerSummary.progress.percentage} % de avance
+            </span> : null}
+        </div> : null}
         {error ? (
           <div className={styles.notice} role="alert">
             {error}

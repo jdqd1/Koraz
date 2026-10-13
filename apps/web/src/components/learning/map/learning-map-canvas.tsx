@@ -136,7 +136,7 @@ export default function LearningMapCanvas({
     if (!size.width || framedLevel.current === frameKey) return;
     framedLevel.current = frameKey;
     const saved = readSpatialSnapshot(key);
-    const initialZoom = saved?.viewport.zoom ?? zoom;
+    const initialZoom = saved?.viewport.zoom ?? 1;
     pendingFrame.current = { key, zoom: initialZoom, top: saved ? -saved.viewport.y : 0, left: saved ? -saved.viewport.x : 0 };
     void flow.setViewport({ x: Math.max(0, (size.width - layout.contentWidth * initialZoom) / 2), y: 0, zoom: initialZoom });
   }, [key, flow, size.width, size.height, layout.contentWidth, zoom]);
@@ -189,6 +189,11 @@ export default function LearningMapCanvas({
     void flow.setViewport({ x: Math.max(0, (size.width - layout.contentWidth * nextZoom) / 2), y: 0, zoom: nextZoom });
   };
   const fitLevel = () => {
+    if (Math.abs(zoom - fittedZoom) < 0.001) {
+      pendingFrame.current = null;
+      scroller.current?.scrollTo({ left: 0, top: 0 });
+      return;
+    }
     changeZoom(fittedZoom);
     pendingFrame.current = { key, zoom: fittedZoom, top: 0, left: 0 };
   };
