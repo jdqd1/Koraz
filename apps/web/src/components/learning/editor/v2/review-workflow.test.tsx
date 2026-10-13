@@ -102,7 +102,7 @@ describe("T027 roles, confirmed state and recovery", () => {
     expect(controller.confirmWorkflow({ ...route, pathVersionId: fixtureV2Id(99) as typeof route.pathVersionId, editVersion: 1, status: "draft" })).toBe(true);
   });
   it("describes source/revision recovery and keeps server incidence details", async () => {
-    expect(reviewFailureNoticeV2("SOURCE_CHANGED", 409)).toContain("vuelve a validar");
+    expect(reviewFailureNoticeV2("SOURCE_CHANGED", 409)).toContain("vuelve a comprobar");
     expect(reviewFailureNoticeV2("VERSION_CONFLICT", 409)).toContain("copia local");
     const issue = { code: "SOURCE_CHANGED", severity: "error", path: "/sources/0", message: "Cambió", suggestedFix: "Vincula" };
     const api = createEditorV2Api(async () => Response.json({ error: "route_not_ready", issues: [issue] }, { status: 422 }));

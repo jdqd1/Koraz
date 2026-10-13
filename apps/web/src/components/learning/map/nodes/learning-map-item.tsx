@@ -143,7 +143,7 @@ export const LearningMapItem = memo(function LearningMapItem({
           <span className={styles.iconWell} style={data.iconColor ? { color: data.iconColor } : undefined}>
             <MedicalMapIcon iconKey={item.iconKey} />
           </span>
-          <span className={styles.badge} data-status={item.progress.status}>
+          <span className={styles.badge} data-status={item.progress.status} title={stateLabel}>
             {stateLabel}
           </span>
         </span>

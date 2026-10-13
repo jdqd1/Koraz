@@ -210,6 +210,9 @@ function Workspace() {
         item.availability !== "available",
     );
   const v2Selection = v2MapLevel(level);
+  const itemCountLabel = level?.items.length && level.items.every(item => item.kind === "lesson")
+    ? level.items.length === 1 ? "lección" : "lecciones"
+    : level?.items.length === 1 ? "ruta" : "rutas";
   const v2Info = info && info !== "container" ? v2MapItem(info) : null;
   const panel = level && (v2Selection && (level.route.unitStableKey || detail || info) || v2Info) ? (
     <V2MapPanel meta={v2Info ?? v2Selection!} route={level.route} onClose={closePanel} />
@@ -361,7 +364,7 @@ function Workspace() {
               <button onClick={() => { setInfo(null); navigate(ancestor.route); }}>{ancestor.title}</button>
               <CaretRight size={12} aria-hidden="true" />
             </span>)}
-          </nav> : <span className={styles.itemCount}>{level.items.length} {level.items.every(item => item.kind === "lesson") ? "lecciones" : "rutas"}</span>}
+          </nav> : <span className={styles.itemCount}>{level.items.length} {itemCountLabel}</span>}
           {v2Selection ? <span className={styles.levelStatus} title={v2MapSummary({ ...v2Selection, unitKey: undefined })}>{v2MapSummary({ ...v2Selection, unitKey: undefined })}</span>
             : level.containerSummary.progress.percentage !== null ? <span className={styles.levelStatus}
               aria-label={`${level.containerSummary.progress.completedEssentialSteps} de ${level.containerSummary.progress.totalEssentialSteps} actividades esenciales completadas`}>

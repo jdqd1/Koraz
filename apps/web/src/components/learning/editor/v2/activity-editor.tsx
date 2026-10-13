@@ -53,7 +53,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
     return !search || Boolean(item && `${item.prompt} ${activityTypesV2[item.kind]}`.toLocaleLowerCase("es").includes(search.toLocaleLowerCase("es")));
   };
   return <div ref={surfaceRef} className={local.stack}>
-    <div className={local.activitiesHeading}><h2>Actividades <span>{pkg.activities.length}</span></h2><button ref={addRef} className={styles.primaryAction} type="button" disabled={disabled || !pkg.objectives.length || pkg.activities.length >= 2000} onClick={() => setPickerOpen(true)}><Plus size={18} aria-hidden /> Añadir actividad</button></div>
+    <div className={local.activitiesHeading}><h2>Actividades <span>{pkg.activities.length}</span></h2><button ref={addRef} data-field-path="activity.new" className={styles.primaryAction} type="button" disabled={disabled || !pkg.objectives.length || pkg.activities.length >= 2000} onClick={() => setPickerOpen(true)}><Plus size={18} aria-hidden /> Añadir actividad</button></div>
     <ActivityPickerV2 pkg={pkg} disabled={disabled} open={pickerOpen} onOpenChange={setPickerOpen} onCreate={create} />
     <div className={local.activityWorkspace}>
       <aside className={local.activityNavigator} aria-label="Actividades por unidad">

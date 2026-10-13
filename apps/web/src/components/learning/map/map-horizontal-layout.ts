@@ -3,7 +3,7 @@ import type { Positions } from "./map-layout";
 /** One column of children, branching horizontally from the group's midpoint. */
 export function horizontalLevelLayout(ids: string[], width: number, height: number, compact: boolean) {
   const cardWidth = compact ? Math.min(320, Math.max(192, width - 120)) : 300;
-  const cardHeight = 160;
+  const cardHeight = 144;
   const originWidth = compact ? 72 : 156;
   const originHeight = 60;
   const gap = compact ? 24 : 112;

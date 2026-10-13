@@ -1,29 +1,3 @@
-.editor { width: min(100%, 1240px); padding-top: 28px; }
-.header { display: flex; justify-content: space-between; align-items: start; gap: 24px; margin-bottom: 32px; }
-.header h1 { font-size: clamp(26px, 3vw, 32px); letter-spacing: -.035em; margin: 16px 0 8px; }
-.header p { margin: 0; color: var(--koraz-slate); }
-.header a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; }
-.headerTools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: end; }
-.headerTools button { display: inline-flex; align-items: center; gap: 8px; }
-.mobileLabel { display: none; }
-.statusBadge { padding: 6px 10px; border-radius: 6px; color: var(--koraz-slate); background: var(--koraz-canvas); font-size: 12px; font-weight: 700; }
-.workspace { display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: start; gap: 32px; min-width: 0; }
-.stepList { display: grid; gap: 6px; position: sticky; top: 96px; }
-.step { display: flex; align-items: center; gap: 12px; min-width: 0; min-height: 76px; padding: 12px; border: 1px solid transparent; border-radius: 12px; font: inherit; text-align: left; color: var(--koraz-slate); background: transparent; cursor: pointer; }
-.step > span:last-child { display: grid; gap: 5px; min-width: 0; }
-.step strong { font-size: 14px; font-weight: 650; }
-.step small { font-size: 12px; line-height: 1.4; }
-.stepNumber { display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border: 1px solid var(--koraz-line-strong); border-radius: 50%; font-size: 12px; font-weight: 700; background: var(--koraz-surface); }
-.step:hover { background: var(--koraz-surface); }
-.step[data-state='active'] { border-color: var(--koraz-line); background: var(--koraz-surface); color: var(--koraz-ink); }
-.step[data-state='active'] .stepNumber { color: white; background: var(--koraz-blue); border-color: var(--koraz-blue); }
-.step[data-state='active'] small { color: var(--koraz-slate); }
-.stepContent { min-width: 0; }
-.stepContent [role='tabpanel'] { scroll-margin-top: 100px; }
-.stepContent [role='tabpanel']:focus-visible { outline: 2px solid var(--koraz-blue); outline-offset: 6px; border-radius: 12px; }
-.editor h2 { font-size: 22px; letter-spacing: -.025em; }
-.editor h3 { font-size: 17px; }
-.editor :is(input, textarea, select) { font-weight: 400; }
 .optionsDisclosure { min-width: 0; margin-top: 20px; border-top: 1px solid var(--koraz-line); }
 .optionsDisclosure > summary { display: flex; align-items: center; gap: 12px; padding: 16px 0; cursor: pointer; color: var(--koraz-slate); font-size: 14px; }
 .optionsDisclosure > summary::before, .itemDisclosure > summary::before { content: '+'; flex-shrink: 0; font-size: 20px; line-height: 1; font-weight: 400; }
@@ -39,48 +13,6 @@
 .fieldHelp > summary { cursor: pointer; color: var(--koraz-slate); font-size: 12px; width: fit-content; }
 .fieldHelp small { display: block; margin-top: 8px; line-height: 1.5; }
 .editor summary:focus-visible { outline: 3px solid var(--koraz-blue); outline-offset: 4px; border-radius: 4px; }
-.footerActions { display: flex !important; align-items: center; gap: 12px; }
-.footerActions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
-.unitHeading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 0; }
-.unitHeading small { color: var(--koraz-slate); font-size: 12px; font-weight: 400; letter-spacing: normal; }
-.itemActions { display: flex; justify-content: end; margin-bottom: 16px; }
-.activityCreator { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto; align-items: end; }
-
-@media (max-width: 1050px) {
-  .workspace { grid-template-columns: 170px minmax(0, 1fr); gap: 20px; }
-  .step { padding: 10px 8px; gap: 8px; }
-  .headerTools { max-width: 240px; }
-  .activityCreator { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .activityCreator > button { grid-column: 1 / -1; justify-self: start; }
-}
-
-@media (max-width: 767px) {
-  .editor { padding-top: 20px; }
-  .header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; margin-bottom: 16px; }
-  .header h1 { font-size: 24px; margin: 10px 0 0; }
-  .header p { display: none; }
-  .header a { font-size: 12px; }
-  .headerTools { flex-direction: column; align-items: end; justify-content: end; max-width: 125px; gap: 8px; }
-  .headerTools button { font-size: 13px; padding-inline: 10px; }
-  .desktopLabel { display: none; }
-  .mobileLabel { display: inline; }
-  .workspace { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .stepList { position: static; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
-  .step { flex-direction: column; justify-content: start; min-height: 68px; padding: 8px 2px; gap: 8px; text-align: center; }
-  .step strong { font-size: 11px; font-weight: 600; overflow-wrap: anywhere; }
-  .step small { display: none; }
-  .stepNumber { width: 26px; height: 26px; flex-basis: 26px; }
-  .introCard > div:first-child { margin-bottom: 16px; }
-  .introCard > div:first-child p { font-size: 14px; line-height: 1.4; margin: 6px 0 0; }
-  .editor .saveBar { padding: 8px 12px; gap: 6px; }
-  .saveBar > div:first-child strong { font-size: 12px; line-height: 16px; }
-  .saveBar [data-context-hint='true'] { display: none; }
-  .footerActions { flex-wrap: wrap; gap: 8px; }
-  .footerActions button { flex: 1 1 auto; font-size: 13px; padding-inline: 10px; }
-  .footerActions button:first-child { flex-grow: 0; }
-  .activityCreator { grid-template-columns: minmax(0, 1fr); }
-  .activityCreator > button { width: 100%; grid-column: auto; justify-self: stretch; }
-}
 
 .visuallyHidden {
   position: absolute;
@@ -164,6 +96,7 @@
   .editor .saveBar { position: static; }
 }
 
+
 /* Desktop route studio. Keep the visual vocabulary local to the v2 editor. */
 .editor, .pickerDialog {
   --koraz-ink: #1d1d1f;
@@ -180,28 +113,34 @@
   -webkit-font-smoothing: antialiased;
 }
 .editor { width: min(100%, 1660px); padding: 24px 24px 120px; }
-.header { align-items: center; gap: 20px; margin-bottom: 24px; }
+.header { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 24px; }
 .headerTitle { display: flex; align-items: center; min-width: 0; gap: 14px; }
 .header h1 { margin: 0; font-size: clamp(24px, 2.2vw, 30px); font-weight: 650; letter-spacing: -.04em; line-height: 1.2; overflow-wrap: anywhere; }
 .iconButton { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: 0 0 36px; padding: 0; border: 1px solid var(--koraz-line); border-radius: 50%; color: var(--koraz-slate); background: #fff; cursor: pointer; }
 .iconButton:hover { color: var(--koraz-ink); background: var(--koraz-canvas); }
-.headerTools { max-width: none; flex-wrap: nowrap; }
+.headerTools { display: flex; align-items: center; justify-content: end; max-width: none; flex-wrap: nowrap; gap: 12px; }
+.headerTools button { display: inline-flex; align-items: center; gap: 8px; }
+.desktopLabel { display: inline; }
+.mobileLabel { display: none; }
 .headerTools button { min-height: 38px; font-size: 13px; font-weight: 500; }
-.statusBadge { border-radius: 20px; background: #fff; border: 1px solid var(--koraz-line); font-weight: 500; }
+.statusBadge { padding: 5px 10px; border-radius: 20px; background: #fff; border: 1px solid var(--koraz-line); color: var(--koraz-slate); font-size: 12px; font-weight: 500; }
 .workspace { display: block; container-type: inline-size; }
+.stepContent { min-width: 0; }
+.stepContent [role='tabpanel'] { scroll-margin-top: 100px; }
+.stepContent [role='tabpanel']:focus-visible { outline: 2px solid var(--koraz-blue); outline-offset: 6px; border-radius: 12px; }
 .stepList { display: flex; position: static; align-items: center; gap: 4px; padding: 5px; margin-bottom: 26px; width: fit-content; max-width: 100%; box-sizing: border-box; border: 1px solid var(--koraz-line); border-radius: 12px; background: #ededf0; }
-.step { min-height: 40px; padding: 7px 14px; gap: 8px; border: 0; border-radius: 8px; white-space: nowrap; text-align: center; transition: background .15s, color .15s, box-shadow .15s; }
+.step { display: flex; align-items: center; min-height: 40px; padding: 7px 14px; gap: 8px; border: 0; border-radius: 8px; white-space: nowrap; text-align: center; font: inherit; color: var(--koraz-slate); background: transparent; cursor: pointer; transition: background .15s, color .15s, box-shadow .15s; }
 .step strong { font-size: 13px; font-weight: 550; }
-.stepNumber { width: 21px; height: 21px; flex-basis: 21px; font-size: 11px; background: transparent; border: 0; color: #76767f; }
+.stepNumber { display: grid; place-items: center; width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; font-size: 11px; background: transparent; border: 0; color: #76767f; }
 .step small { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; padding: 1px 4px; border-radius: 5px; background: #dedee3; font-size: 10px; }
 .step[data-state='active'] { background: #fff; color: var(--koraz-ink); box-shadow: 0 1px 4px #00000012; }
 .step[data-state='active'] .stepNumber { background: #0069d9; color: #fff; }
 .step[data-state='active'] small { background: #edf4ff; color: #0069d9; }
 .step:hover:not([data-state='active']) { background: #ffffff70; }
-.editor h2 { font-size: 21px; font-weight: 650; }
+.editor h2 { font-size: 21px; font-weight: 650; letter-spacing: -.03em; }
 .editor h3 { font-size: 15px; font-weight: 600; }
 .editor label { font-weight: 500; font-size: 13px; }
-.editor :is(input, select, textarea), .pickerDialog :is(input, select, textarea) { font-size: 14px; color: var(--koraz-ink); border-color: var(--koraz-line-strong); border-radius: 8px; line-height: 1.6; }
+.editor :is(input, select, textarea), .pickerDialog :is(input, select, textarea) { font-size: 14px; font-weight: 400; color: var(--koraz-ink); border-color: var(--koraz-line-strong); border-radius: 8px; line-height: 1.6; }
 .editor :is(input, select, textarea):focus-visible, .pickerDialog :is(input, select, textarea):focus-visible { outline: 3px solid #0069d928; outline-offset: 1px; border-color: #0069d9; }
 .editor button { font-size: 13px; font-weight: 550; }
 .editor button:disabled { cursor: not-allowed; }
@@ -209,7 +148,9 @@
 .saveBar > div:first-child strong { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 550; }
 .saveBar > div:first-child strong::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #86868b; }
 .saveBar > div:first-child span { font-size: 11px; }
-.footerActions { gap: 8px; }
+.footerActions { display: flex !important; align-items: center; gap: 8px; }
+.footerActions button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
+.itemActions { display: flex; justify-content: end; margin-bottom: 16px; }
 .basicsLayout { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 24px; }
 .introCard { position: sticky; top: 100px; }
 .activitiesHeading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
@@ -367,6 +308,10 @@
   .headerTools { flex-direction: row; max-width: none; }
   .headerTools button { padding-inline: 10px; }
   .headerTools .statusBadge { display: none; }
+  .desktopLabel { display: none; }
+  .mobileLabel { display: inline; }
+  .footerActions { flex-wrap: nowrap; }
+  .footerActions button { flex: 1 1 auto; padding-inline: 8px; font-size: 12px; }
   .stepList { display: grid; width: 100%; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; padding: 4px; }
   .step { min-height: 38px; padding: 6px 2px; flex-direction: row; gap: 0; }
   .step strong { font-size: 10px; }

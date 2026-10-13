@@ -23,12 +23,18 @@ try {
     });
     for (const state of ["root", "large"]) {
       await page.goto(`http://localhost:3000/visual-fixtures/mapa?estado=${state}`);
-      await page.locator(".react-flow__node article").first().waitFor();
+      await page.locator(".react-flow__node article").first().waitFor({ state: "attached" });
+      if (state === "root") {
+        await page.getByRole("button", { name: "Restablecer zoom al 100 %" }).click();
+        await page.waitForTimeout(200);
+        await page.screenshot({ path: fileURLToPath(new URL(`default-${width}.png`, output)), fullPage: true });
+      }
       await page.getByRole("button", { name: "Ajustar vista", exact: true }).click();
       await page.waitForTimeout(600);
       const region = page.getByRole("region", { name: /Mapa del nivel/ });
       await region.evaluate(el => { el.scrollTop = 0; });
       await page.waitForTimeout(200);
+      if (state === "root") await page.screenshot({ path: fileURLToPath(new URL(`initial-${width}.png`, output)), fullPage: true });
       const metrics = await region.evaluate(async (el) => {
         const commits = window.__mapCommits;
         const frames = [];
@@ -51,8 +57,36 @@ try {
       results.push({ width, state, ...metrics });
       if (state === "root") await page.screenshot({ path: fileURLToPath(new URL(`map-${width}.png`, output)), fullPage: true });
     }
+    for (const [name, query] of [
+      ["lesson", "?node=b1000000-0000-4000-8000-000000000001&item=b1000000-0000-4000-8000-000000000022&unit=leccion-2"],
+      ["long", "?estado=long"],
+      ["empty", "?estado=empty"],
+      ["error", "?estado=error"],
+    ]) {
+      await page.goto(`http://localhost:3000/visual-fixtures/mapa${query}`);
+      await page.getByRole("region", { name: "Mapa de aprendizaje", exact: true }).getByRole("heading", { level: 1 }).waitFor();
+      if (name === "lesson") await page.getByRole("heading", { name: "Corazón", exact: true }).waitFor();
+      else if (name === "long") {
+        await page.locator(".react-flow__node article").first().waitFor({ state: "attached" });
+        await page.getByRole("button", { name: "Ajustar vista", exact: true }).click();
+      }
+      else await page.getByRole("heading", { level: 2 }).waitFor();
+      await page.screenshot({ path: fileURLToPath(new URL(`${name}-${width}.png`, output)), fullPage: true });
+    }
+    await page.goto("http://localhost:3000/visual-fixtures/aprendizaje-v2?surface=map&estado=critical");
+    for (let level = 0; level < 3; level++) {
+      await page.locator('[data-phase="idle"]').waitFor();
+      await page.locator(".react-flow__node article [data-map-open]").first().click();
+    }
+    await page.getByRole("complementary", { name: "Detalle de práctica por objetivos" }).waitFor();
+    await page.screenshot({ path: fileURLToPath(new URL(`objectives-${width}.png`, output)), fullPage: true });
     await page.close();
   }
+  const narrow = await browser.newPage({ viewport: { width: 320, height: 844 }, reducedMotion: "reduce" });
+  await narrow.goto("http://localhost:3000/visual-fixtures/mapa?estado=long");
+  await narrow.locator(".react-flow__node article").first().waitFor();
+  await narrow.screenshot({ path: fileURLToPath(new URL("long-320.png", output)), fullPage: true });
+  await narrow.close();
 } finally { await browser.close(); }
 await writeFile(new URL("performance.json", output), JSON.stringify({
   environment: "Local Next development; Chromium; 40 animation-frame scroll steps; synthetic fixture",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { horizontalLevelLayout } from "./map-horizontal-layout";
+import { horizontalLevelLayout, visibleLevelRange } from "./map-horizontal-layout";
 
 describe("horizontal level layout", () => {
   for (const width of [320, 390, 767, 1024, 1440]) {
@@ -26,4 +26,33 @@ describe("horizontal level layout", () => {
       });
     }
   }
+});
+
+describe("visible row window", () => {
+  it("keeps the same window for small scroll movements and bounds a 200-card map", () => {
+    const range = (top: number) => visibleLevelRange(200, top, 600, 1, 12, 176);
+    expect(range(0)).toEqual(range(10));
+    expect(range(10)).toEqual(range(20));
+    for (const top of [0, 176, 12_000, 35_000]) {
+      const window = range(top);
+      expect(window.end - window.start).toBeLessThanOrEqual(9);
+      expect(window.start).toBeGreaterThanOrEqual(0);
+      expect(window.end).toBeLessThanOrEqual(200);
+      const firstVisible = Math.max(0, Math.min(199, Math.floor((top - 12) / 176)));
+      expect(window.start).toBeLessThanOrEqual(firstVisible);
+      expect(window.end).toBeGreaterThan(firstVisible);
+    }
+  });
+  it("covers the first and last rows at every supported zoom", () => {
+    for (const zoom of [.65, 1, 1.35]) {
+      const first = visibleLevelRange(200, 0, 600, zoom, 12, 176);
+      const last = visibleLevelRange(200, (12 + 199 * 176) * zoom, 600, zoom, 12, 176);
+      expect(first.start).toBe(0);
+      expect(last.end).toBe(200);
+      expect(last.start).toBeLessThan(200);
+    }
+  });
+  it("keeps all cards available in ordinary levels", () => {
+    expect(visibleLevelRange(8, 400, 600, .65, 12, 176)).toEqual({ start: 0, end: 8 });
+  });
 });

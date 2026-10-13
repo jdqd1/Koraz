@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowsOut, Minus, Plus, Stack } from "@phosphor-icons/react"
 import type { LearningMapLevelResponse, MapItem } from "@cediah/contracts";
 import { LearningNode, BlockNode, LessonNode, type FlowMapNode, type MapItemAction } from "./nodes/learning-map-item";
 import { horizontalLevelLayout, visibleLevelRange } from "./map-horizontal-layout";
-import { readSpatialSnapshot, writeSpatialSnapshot, spatialKey } from "./map-spatial-state";
+import { readSpatialSnapshot, writeSpatialSnapshot, spatialKey, type SpatialSnapshot } from "./map-spatial-state";
 import styles from "./learning-map.module.css";
 
 type OriginNode = Node<{ title: string; root: boolean; onBack: () => void }, "origin">;
@@ -62,6 +62,7 @@ export default function LearningMapCanvas({
   const pendingFrame = useRef<{ key: string; zoom: number; top: number; left: number } | null>(null);
   const scrollFrame = useRef<number | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingSnapshot = useRef<{ key: string; value: SpatialSnapshot } | null>(null);
   const drag = useRef<{ id: number; x: number; y: number; left: number; top: number } | null>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const compact = size.width > 0 && size.width < 768;
@@ -86,18 +87,27 @@ export default function LearningMapCanvas({
     rangeRef.current = next;
     setWindowRange(next);
   }, [key, level.items.length, size.height, zoom, layout.firstCardY, layout.rowStride]);
-  const saveFrame = useCallback(() => {
+  const recordFrame = useCallback(() => {
     const element = scroller.current;
     if (!element || !size.width || !size.height || pendingFrame.current) return;
-    writeSpatialSnapshot(key, {
+    pendingSnapshot.current = { key, value: {
       schemaVersion: 1,
       // Scroll is native; React Flow's own viewport always keeps y = 0.
       viewport: { x: -element.scrollLeft, y: -element.scrollTop, zoom },
       selectedOccurrenceId: selected[0] ?? null, focusedOccurrenceId: selected[0] ?? null,
       navigationPath: level.ancestry.map((ancestor) => ancestor.route),
       containerWidth: size.width, containerHeight: size.height,
-    });
+    } };
   }, [key, zoom, selected, level.ancestry, size.width, size.height]);
+  const flushFrame = useCallback(() => {
+    const pending = pendingSnapshot.current;
+    if (pending) writeSpatialSnapshot(pending.key, pending.value);
+    pendingSnapshot.current = null;
+  }, []);
+  useEffect(() => {
+    window.addEventListener("pagehide", flushFrame);
+    return () => window.removeEventListener("pagehide", flushFrame);
+  }, [flushFrame]);
   const onScroll = useCallback(() => {
     // Ordinary levels scroll without React updates. Large levels update at most once per frame,
     // and keep the same node objects until a row enters or leaves the overscan window.
@@ -107,18 +117,20 @@ export default function LearningMapCanvas({
         syncVisibleRange();
       });
     }
+    recordFrame();
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(saveFrame, 180);
-  }, [virtualized, syncVisibleRange, saveFrame]);
+    saveTimer.current = setTimeout(flushFrame, 180);
+  }, [virtualized, syncVisibleRange, recordFrame, flushFrame]);
   useEffect(() => {
     const frame = requestAnimationFrame(syncVisibleRange);
     return () => cancelAnimationFrame(frame);
   }, [syncVisibleRange]);
   useEffect(() => () => {
     if (scrollFrame.current !== null) cancelAnimationFrame(scrollFrame.current);
+    scrollFrame.current = null;
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveFrame();
-  }, [saveFrame]);
+    flushFrame();
+  }, [key, flushFrame]);
 
   useEffect(() => {
     const element = scroller.current;
@@ -182,6 +194,7 @@ export default function LearningMapCanvas({
   const edges = useMemo(() => itemEdges.slice(range.start, range.end), [itemEdges, range.start, range.end]);
   const changeZoom = (next: number) => {
     const nextZoom = Math.min(1.35, Math.max(0.65, next));
+    if (Math.abs(nextZoom - zoom) < 0.001) return;
     const element = scroller.current;
     pendingFrame.current = { key, zoom: nextZoom,
       top: Math.max(0, ((element?.scrollTop ?? 0) + size.height / 2) * nextZoom / zoom - size.height / 2),
@@ -219,6 +232,7 @@ export default function LearningMapCanvas({
       "--level-card-width": `${layout.cardWidth}px`, "--level-card-height": `${layout.cardHeight}px`,
     } as CSSProperties}>
       <div className={styles.canvasScroll} ref={scroller} onScroll={onScroll}
+        onClickCapture={() => { recordFrame(); flushFrame(); }}
         onPointerDown={startDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
         onPointerMove={(event) => {
           const start = drag.current;

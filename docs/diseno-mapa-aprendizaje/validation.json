@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-13",
+  "status": "PASS_LOCAL",
+  "scope": "Learning map presentation, native navigation, viewport restoration and rendering performance",
+  "unitTests": { "passed": 40, "files": 3 },
+  "browserTests": {
+    "mapRegressionsPassed": 22,
+    "navigationPassed": 10,
+    "volumePassed": 1,
+    "deviceSpecificSkipped": 3,
+    "latestNavigationRun": "browser-verified/.last-run.json"
+  },
+  "accessibility": { "seriousViolations": 0, "criticalViolations": 0, "surfaces": ["map", "lesson"], "projects": ["desktop", "mobile"] },
+  "typecheck": "PASS",
+  "focusedEslint": "PASS",
+  "diffCheck": "PASS",
+  "performance": { "baseline": "before/performance.json", "final": "final/performance.json", "warmNavigationP95Ms": 509, "warmNavigationSamples": 30 },
+  "production": "NOT_VERIFIED",
+  "realAccountPersistence": "NOT_VERIFIED",
+  "apiAndLearningRules": "UNCHANGED"
+}

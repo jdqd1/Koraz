@@ -14,6 +14,7 @@ import { PreviewV2 } from "./preview";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
 import { EditorDisclosureV2 } from "./editor-disclosure";
+import { ReviewTasksV2 } from "./review-tasks";
 
 type Transition = "in_review" | "changes_requested" | "approved" | "published";
 export function reviewActionsV2(state: EditorV2State, capabilities: { canReview: boolean; canPublish: boolean }): Transition[] {
@@ -26,9 +27,9 @@ export function reviewActionsV2(state: EditorV2State, capabilities: { canReview:
 }
 const labels: Record<Transition, string> = { in_review: "Enviar a revisión", changes_requested: "Solicitar cambios", approved: "Aprobar revisión", published: "Publicar ruta" };
 export function reviewFailureNoticeV2(code: string, status: number) {
-  if (code === "SOURCE_CHANGED" || code === "source_changed") return "La fuente cambió. Tus cambios están conservados: revisa los vínculos y vuelve a validar.";
+  if (code === "SOURCE_CHANGED" || code === "source_changed") return "Una fuente se actualizó. Tus cambios están conservados: revisa el material vinculado y vuelve a comprobar la ruta.";
   if (status === 409) return "La revisión guardada cambió. Conserva una copia local y abre la versión guardada antes de continuar.";
-  if (status === 422) return "El servidor encontró incidencias. Corrige los campos indicados antes de continuar.";
+  if (status === 422) return "Hay datos por completar. Revisa los puntos indicados antes de continuar.";
   if (status === 401 || status === 403) return "No se pudo autorizar esta acción. Conserva tus cambios y comprueba la sesión y los permisos.";
   return "No se pudo confirmar la acción. Reintentar conserva la misma solicitud y tus cambios.";
 }
@@ -63,7 +64,7 @@ export function ReviewWorkflowV2({ state, controller, canReview = false, canPubl
         if (!result.ok) { fail(result.code, result.status, result.issues); return; }
         if (result.value.validatedEditVersion !== null && result.value.validatedEditVersion !== base.editVersion) { fail("VERSION_CONFLICT", 409); return; }
         setReport({ revision: base.editVersion, hash: base.contentHash, issues: result.value.issues, ready: result.value.ready });
-        setNotice(result.value.ready ? "La validación del servidor está al día." : "Revisa las incidencias del servidor."); pending.current = null;
+        setNotice(result.value.ready ? "La comprobación está al día." : "La comprobación encontró puntos por completar."); pending.current = null;
       } else {
         let confirmed: V2BoundRouteDefinition;
         if (action === "version") {
@@ -81,18 +82,18 @@ export function ReviewWorkflowV2({ state, controller, canReview = false, canPubl
           if (confirmed.pathVersionId !== base.pathVersionId || confirmed.editVersion !== base.editVersion + 1 || confirmed.status !== action || confirmed.contentHash !== base.contentHash) { fail("invalid_confirmation", 503); return; }
         }
         if (!controller.confirmWorkflow(confirmed)) { fail("invalid_confirmation", 503); return; }
-        setReport(null); setNotice("Estado confirmado por el servidor."); pending.current = null;
+        setReport(null); setNotice("El estado de la ruta se actualizó."); pending.current = null;
       }
     } catch { fail("network_error", 503); }
     finally { if (controller.getSnapshot().operation !== "idle") controller.dispatch({ type: "operation", operation: "idle" }); }
   }
   return <div className={local.stack}><section className={styles.card}><div className={styles.sectionHeading}><h2>Revisión de la ruta</h2></div>
-    <FieldV2 label="Nota de revisión o de nueva versión" path="review.note">{(input) => <textarea {...input} maxLength={4000} disabled={state.operation !== "idle"} value={note} onChange={(event) => setNote(event.target.value)} />}</FieldV2>
-    <p role="status" className={styles.fieldHint}>{state.dirty ? "Guarda los cambios antes de validar, revisar o exportar." : reviewIsCurrentV2(state) ? "La aprobación corresponde al contenido confirmado." : "Este contenido necesita una revisión vigente antes de publicarse."}</p>
-    <div className={styles.inlineActions}><button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("validate")}>Validar contenido</button>{reviewActionsV2(state, { canReview, canPublish }).map((action) => <button className={action === "changes_requested" ? styles.secondaryButton : styles.primaryAction} disabled={blocked || (action === "published" && !reviewIsCurrentV2(state))} key={action} type="button" onClick={() => action === "published" ? setPublishing(true) : void run(action)}>{labels[action]}</button>)}{state.confirmed?.status === "published" ? <button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("version")}>Crear nueva versión</button> : null}</div>
-    <p role="status">{state.operation !== "idle" ? "Confirmando con el servidor…" : notice}</p>
-    <p>{currentReport ? `Validación del servidor · revisión ${currentReport.revision}` : "Comprobación local de cobertura; aún no confirma catálogo ni permisos."}</p>
-    <ul className={local.issueList}>{issues.map((issue, index) => <li key={`${issue.code}:${issue.path}:${index}`}><strong>{issue.severity === "error" ? "Pendiente" : "Aviso"}:</strong> {issue.message}<p>{issue.suggestedFix}</p><button className={styles.textButton} type="button" onClick={() => onLocate(issue.path)}>Ir al campo</button></li>)}</ul>{!issues.length ? <p>No hay incidencias en esta comprobación.</p> : null}
+    <p role="status" className={styles.fieldHint}>{state.dirty ? "Guarda tus cambios para comprobar la ruta y enviarla a revisión." : reviewIsCurrentV2(state) ? "La revisión de este contenido está al día." : "Envía el contenido a revisión antes de publicarlo."}</p>
+    <div className={styles.inlineActions}><button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("validate")}>Comprobar ruta</button>{reviewActionsV2(state, { canReview, canPublish }).map((action) => <button className={action === "changes_requested" ? styles.secondaryButton : styles.primaryAction} disabled={blocked || (action === "published" && !reviewIsCurrentV2(state))} key={action} type="button" onClick={() => action === "published" ? setPublishing(true) : void run(action)}>{labels[action]}</button>)}{state.confirmed?.status === "published" ? <button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("version")}>Crear nueva versión</button> : null}</div>
+    {state.operation !== "idle" || notice ? <p role="status" className={local.reviewCheckStatus}>{state.operation !== "idle" ? "Procesando…" : notice}</p> : null}
+    <p className={local.reviewCheckStatus}>{currentReport ? "Resultado de la comprobación del contenido guardado." : "Estos pendientes corresponden al borrador. Comprobar ruta también revisa las fuentes y tus permisos."}</p>
+    <ReviewTasksV2 issues={issues} pkg={state.draft.package} onLocate={onLocate} />
+    <EditorDisclosureV2 title={state.confirmed?.status === "published" ? "Cambios de la nueva versión" : "Mensaje para el revisor"}><FieldV2 label={state.confirmed?.status === "published" ? "Describe los cambios" : "Mensaje para el revisor"} path="review.note">{(input) => <textarea {...input} rows={2} placeholder="Añade una observación que ayude a revisar el contenido…" maxLength={4000} disabled={state.operation !== "idle"} value={note} onChange={(event) => setNote(event.target.value)} />}</FieldV2></EditorDisclosureV2>
     <EditorDisclosureV2 title="Notas editoriales"><FieldV2 label="Notas editoriales de la ruta" path="package.editorial.notes">{(input) => <textarea {...input} maxLength={4000} disabled={state.operation !== "idle" || !controller.canEdit()} value={state.draft.package.editorial.notes} onChange={(event) => controller.edit({ ...state.draft, package: { ...state.draft.package, editorial: { ...state.draft.package.editorial, notes: event.target.value } } })} />}</FieldV2>
   </EditorDisclosureV2></section><PreviewV2 key={`${state.confirmed?.pathVersionId}:${state.confirmed?.editVersion}:${state.dirty}`} state={state} disabled={blocked} /><EditorDisclosureV2 title="Archivos y derechos" description={`${state.draft.package.assets.length} archivos vinculados`}><ReviewAssetsV2 draft={state.draft} disabled={state.operation !== "idle" || !controller.canEdit()} onChange={(draft) => controller.edit(draft)} /></EditorDisclosureV2>{state.confirmed ? <ExportPackageV2 pathId={state.confirmed.pathId} api={controller.api} disabled={blocked} /> : null}
     <AlertDialog.Root open={publishing} onOpenChange={setPublishing}><AlertDialog.Portal><AlertDialog.Overlay className={styles.dialogOverlay} /><AlertDialog.Content className={styles.dialog} data-editor-surface><AlertDialog.Title className={styles.dialogTitle}>Publicar la ruta revisada</AlertDialog.Title><AlertDialog.Description className={styles.dialogDescription}>Publicar «{state.confirmed?.definition.route.title}», revisión {state.confirmed?.editVersion}, con la aprobación vigente. La versión publicada quedará inmutable.</AlertDialog.Description><div className={styles.dialogActions}><AlertDialog.Cancel asChild><button className={styles.secondaryButton} type="button">Cancelar</button></AlertDialog.Cancel><AlertDialog.Action asChild><button className={styles.primaryAction} disabled={blocked || !canPublish || !reviewIsCurrentV2(state)} onClick={() => void run("published")} type="button">Confirmar publicación</button></AlertDialog.Action></div></AlertDialog.Content></AlertDialog.Portal></AlertDialog.Root>
