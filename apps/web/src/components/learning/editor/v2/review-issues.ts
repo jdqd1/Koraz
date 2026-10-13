@@ -1,19 +1,21 @@
-import type { RoutePackage } from "@cediah/contracts";
+import type { RoutePackage, V2IssueSchema } from "@cediah/contracts";
+import type { z } from "zod";
 
 type Issue = { code: string; path: string; message: string; suggestedFix: string; severity: "error" | "warning" };
 export type ReviewTaskV2 = { title: string; detail: string; action: string; path: string; context: string; group: string };
 type Copy = Pick<ReviewTaskV2, "title" | "detail">;
+type IssueCode = z.infer<typeof V2IssueSchema>["code"];
 
-const commonCopy: Record<string, Copy> = {
+const commonCopy: Record<IssueCode, Copy> = {
   SCHEMA_UNSUPPORTED: { title: "Actualiza el archivo de la ruta", detail: "Este archivo utiliza un formato que el editor no puede abrir. Exporta una copia compatible e impórtala de nuevo." },
   SCHEMA_INVALID: { title: "Completa o corrige este dato", detail: "Revisa el campo marcado y completa la información solicitada." },
   DUPLICATE_KEY: { title: "Hay un elemento repetido", detail: "Revisa el elemento indicado. Cada objetivo, actividad o pregunta debe tener su propio lugar en la ruta." },
   REFERENCE_MISSING: { title: "Revisa el contenido vinculado", detail: "Selecciona un elemento que exista en esta ruta o retira el vínculo que ya no se utiliza." },
   DAG_CYCLE: { title: "Ajusta los requisitos previos", detail: "Hay objetivos que se necesitan mutuamente para comenzar. Retira uno de esos requisitos para que el estudiante tenga un punto de inicio." },
   OBJECTIVE_COVERAGE: { title: "Completa este paso del aprendizaje", detail: "Revisa las actividades y las preguntas que acompañan a este objetivo." },
-  BANK_TOO_SMALL: { title: "Añade más preguntas distintas", detail: "Prepara al menos 5 preguntas diferentes: incluye 2 de memoria y una de aplicación en un formato distinto al de la lectura. Las variantes de una misma pregunta cuentan como una sola." },
+  BANK_TOO_SMALL: { title: "Añade más preguntas distintas", detail: "Prepara al menos 5 preguntas diferentes que se corrijan automáticamente: incluye 2 de memoria y una de aplicación en un formato distinto al de la lectura. Las variantes de una misma pregunta cuentan como una sola." },
   RESERVE_LEAK: { title: "Separa las preguntas de cada evaluación", detail: "La evaluación final y los repasos a 7 y 30 días necesitan preguntas propias, sin reutilizar las de práctica ni sus variantes." },
-  CRITICAL_GATE_MISSING: { title: "Comprueba lo aprendido en la unidad", detail: "Añade una Comprobación de unidad y una pregunta con corrección objetiva para cada objetivo obligatorio de esa unidad." },
+  CRITICAL_GATE_MISSING: { title: "Comprueba lo aprendido en la unidad", detail: "Añade una Comprobación de unidad con preguntas que se corrijan automáticamente para cada objetivo obligatorio de esa unidad." },
   SOURCE_UNRESOLVED: { title: "Completa la fuente de estudio", detail: "Añade la referencia, el fragmento utilizado y su sección o página. Comprueba que el material esté revisado." },
   SOURCE_CHANGED: { title: "Una fuente se ha actualizado", detail: "Revisa el material vinculado y comprueba que las actividades sigan correspondiendo a la versión actual." },
   ASSET_REQUIRED: { title: "Completa el recurso visual", detail: "Vincula la imagen y revisa su descripción, dimensiones y alternativa de texto antes de publicar." },
@@ -67,7 +69,7 @@ export function reviewTaskV2(issue: Issue, pkg: RoutePackage): ReviewTaskV2 {
   const source = owner === "sources" ? pkg.sources[index] : undefined;
   const asset = owner === "assets" ? pkg.assets[index] : undefined;
   const task: ReviewTaskV2 = {
-    ...(commonCopy[issue.code] ?? { title: "Revisa este dato de la ruta", detail: "Abre el elemento indicado y comprueba su contenido antes de continuar." }),
+    ...(commonCopy[issue.code as IssueCode] ?? { title: "Revisa este dato de la ruta", detail: "Abre el elemento indicado y comprueba su contenido antes de continuar." }),
     path: issue.path,
     group: owner === "activities" ? "Actividades" : owner === "assessments" || owner === "reviewPlan" ? "Evaluación y repaso" : owner === "sources" || owner === "assets" || owner === "bindings" ? "Fuentes y archivos" : owner === "objectives" || owner === "units" ? "Objetivos y unidades" : "Revisión",
     action: owner === "activities" ? "Editar actividad" : owner === "objectives" ? "Revisar objetivo" : owner === "units" ? "Revisar unidad" : owner === "sources" ? "Completar fuente" : owner === "assets" ? "Revisar archivo" : owner === "assessments" || owner === "reviewPlan" ? "Revisar evaluación" : "Revisar contenido",
@@ -90,7 +92,16 @@ export function reviewTaskV2(issue: Issue, pkg: RoutePackage): ReviewTaskV2 {
     else if (activity) { task.action = "Ajustar pregunta"; task.path = `/activities/${index}/equivalenceKey`; }
     else {
       assessments();
-      if (/Falta evaluación/.test(issue.message)) copy("Añade la evaluación que falta", `Crea ${issue.message.includes("retention7") ? "el repaso a 7 días" : issue.message.includes("retention30") ? "el repaso a 30 días" : "la evaluación final"} y selecciona sus preguntas exclusivas.`);
+      const kind = /\bevaluación (final|retention7|retention30)\b/.exec(issue.message)?.[1];
+      const name = kind === "retention7" ? "el repaso a 7 días" : kind === "retention30" ? "el repaso a 30 días" : "la evaluación final";
+      if (/Falta evaluación/.test(issue.message)) copy("Añade la evaluación que falta", `Crea ${name} y selecciona sus preguntas exclusivas.`);
+      else if (kind && /no cubre/.test(issue.message)) {
+        copy(`Completa ${name}`, "Incluye una pregunta exclusiva para cada objetivo obligatorio, sin reutilizar las de práctica ni sus variantes.");
+        const missing = pkg.objectives.find(item => issue.message.endsWith(`no cubre ${item.key}.`));
+        if (missing) task.context = `Objetivo: ${missing.title || "Sin título"}`;
+      }
+      const assessmentIndex = pkg.assessments.findIndex(item => item.kind === kind);
+      if (assessmentIndex >= 0) task.path = `/assessments/${assessmentIndex}/objectiveKeys`;
     }
   }
   if (issue.code === "CRITICAL_GATE_MISSING") {
@@ -98,21 +109,36 @@ export function reviewTaskV2(issue: Issue, pkg: RoutePackage): ReviewTaskV2 {
     else assessments();
   }
   if (issue.code === "OBJECTIVE_COVERAGE") {
-    if (parts.includes("verificationActivityKey")) copy("Añade una pregunta de comprobación", "Vincula una pregunta con corrección objetiva del mismo objetivo, usada en la práctica o en la comprobación de unidad. La autoevaluación de una tarjeta necesita este complemento.");
-    else if (parts.includes("stages")) copy("Revisa las etapas del caso", /secuencia/.test(issue.message) ? "Las preguntas deben aparecer justo después del caso y en el mismo orden que sus etapas. Revisa las actividades vinculadas a cada etapa." : "Cada etapa necesita una pregunta propia. Selecciona actividades distintas y evita incluir un caso dentro de otro.");
+    if (parts.includes("verificationActivityKey")) copy("Añade una pregunta de comprobación", "Vincula una pregunta del mismo objetivo que se corrija automáticamente, usada en la práctica o en la comprobación de unidad. La autoevaluación de una tarjeta necesita este complemento.");
+    else if (parts.includes("stages")) {
+      copy("Revisa las etapas del caso", /secuencia/.test(issue.message) ? "Las preguntas deben aparecer justo después del caso y en el mismo orden que sus etapas. Revisa las actividades vinculadas a cada etapa." : "Cada etapa necesita una pregunta propia. Selecciona actividades distintas y evita incluir un caso dentro de otro.");
+      const stage = Number(parts[parts.indexOf("stages") + 1]);
+      if (Number.isInteger(stage)) task.context = `Etapa ${stage + 1} del caso: ${activity?.prompt || "Sin consigna"}`;
+    }
     else if (owner === "reviewPlan") { copy("Incluye los objetivos en el repaso", "Selecciona todos los objetivos obligatorios para que el estudiante pueda repasarlos después de completar la ruta."); task.action = "Configurar repaso"; }
     else if (objective) {
-      copy("Completa el recorrido de este objetivo", "Incluye una lectura, una pregunta de memoria, una actividad para relacionar o explicar y una pregunta de aplicación."); activities();
+      copy("Completa el recorrido de este objetivo", /objetivo opcional/.test(issue.message) ? "Añade una pregunta de memoria y otra de aplicación que se corrijan automáticamente." : "Incluye una lectura, una pregunta de memoria, una actividad para relacionar o explicar y una pregunta de aplicación."); activities();
     }
     else if (owner === "objectives") copy("Define qué debe aprender el estudiante", "Añade al menos una unidad y un objetivo de prioridad Esencial marcado como obligatorio.");
     else if (owner === "editorial") { copy("Resuelve las observaciones de revisión", "Revisa las observaciones abiertas y completa los cambios solicitados antes de publicar."); task.path = "package.editorial.notes"; }
     else if (/diagnóstico/i.test(issue.message)) {
       assessments();
       copy("Revisa la evaluación inicial", issue.severity === "warning" ? "Esta ruta tiene menos de 4 objetivos y su evaluación inicial es más corta. Indica esta limitación en las notas de revisión." : "El diagnóstico debe evaluar los objetivos esenciales que no tienen requisitos previos: entre 4 y 8 preguntas, o todos los objetivos disponibles si la ruta tiene menos de 4.");
+      const diagnosticIndex = pkg.assessments.findIndex(item => item.kind === "diagnostic");
+      if (owner === "assessments" && !pkg.assessments[index] && diagnosticIndex >= 0) task.path = `/assessments/${diagnosticIndex}/candidateActivityKeys`;
       if (issue.severity === "warning") { task.path = "review.note"; task.action = "Añadir nota"; }
       if (activity) { task.path = `/activities/${index}/objectiveKey`; task.action = "Revisar objetivo de la pregunta"; }
     }
-    else if (/checkpoint/i.test(issue.message)) { assessments(); copy("Revisa la comprobación acumulativa", "Comprueba los objetivos obligatorios al terminar cada bloque de 3 unidades, y también el último bloque si quedan 2 unidades."); }
+    else if (/checkpoint/i.test(issue.message)) {
+      assessments(); copy("Revisa la comprobación acumulativa", "Comprueba los objetivos obligatorios al terminar cada bloque de 3 unidades, y también el último bloque si quedan 2 unidades.");
+      const afterUnit = pkg.units.find(item => issue.message === `Falta checkpoint después de ${item.key}.` || issue.message.startsWith(`Checkpoint ${item.key} omite `));
+      const missingObjective = pkg.objectives.find(item => issue.message.endsWith(` omite ${item.key}.`));
+      if (afterUnit) {
+        task.context = `Unidad: ${afterUnit.title || "Sin título"}${missingObjective ? ` · Objetivo: ${missingObjective.title || "Sin título"}` : ""}`;
+        const checkpointIndex = pkg.assessments.findIndex(item => item.kind === "checkpoint" && item.afterUnitKey === afterUnit.key);
+        if (checkpointIndex >= 0) task.path = `/assessments/${checkpointIndex}/objectiveKeys`;
+      }
+    }
     else if (parts.includes("candidateActivityKeys")) copy("Revisa las preguntas de la evaluación", "Incluye el objetivo de cada pregunta seleccionada. Las preguntas de un caso deben mantenerse dentro de su caso; usa una pregunta independiente para esta evaluación.");
     else if (activity) copy("Completa el contenido de la actividad", "Sustituye los textos pendientes por una consigna y una explicación listas para el estudiante.");
   }

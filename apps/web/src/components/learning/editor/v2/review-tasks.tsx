@@ -6,10 +6,13 @@ import local from "./styles.module.css";
 
 type Issue = Parameters<typeof reviewTaskV2>[0];
 export function ReviewTasksV2({ issues, pkg, onLocate }: { issues: Issue[]; pkg: RoutePackage; onLocate: (path: string) => void }) {
-  const tasks = issues.map(issue => ({ issue, ...reviewTaskV2(issue, pkg) }));
+  const tasks = [...new Map(issues.map(issue => {
+    const task = { issue, ...reviewTaskV2(issue, pkg) };
+    return [JSON.stringify([issue.code, issue.severity, task.path, task.title, task.detail, task.context]), task] as const;
+  })).values()];
   const groups = [...new Set(tasks.map(task => task.group))];
-  const errors = issues.filter(issue => issue.severity === "error").length;
-  const warnings = issues.length - errors;
+  const errors = tasks.filter(task => task.issue.severity === "error").length;
+  const warnings = tasks.length - errors;
   if (!issues.length) return <div className={local.reviewClear} data-review-tasks><CheckCircle size={22} aria-hidden /><span>Sin pendientes en esta comprobación</span></div>;
   return <section className={local.reviewTasks} aria-label="Pendientes de la ruta" data-review-tasks>
     <div className={local.reviewTasksHeading}><h3>Por completar</h3><span>{errors ? `${errors} ${errors === 1 ? "pendiente" : "pendientes"}` : ""}{errors && warnings ? " · " : ""}{warnings ? `${warnings} ${warnings === 1 ? "sugerencia" : "sugerencias"}` : ""}</span></div>
