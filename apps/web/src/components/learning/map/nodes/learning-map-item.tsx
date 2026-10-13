@@ -1,12 +1,11 @@
 "use client";
 import { memo, useEffect, useRef } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { Check, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
+import { CaretRight, DotsThree, DotsSixVertical } from "@phosphor-icons/react";
 import type { MapItem } from "@cediah/contracts";
 import { MedicalMapIcon } from "../medical-map-icon";
 import styles from "../learning-map.module.css";
 import { v2MapItem, v2MapGroup, v2MapSummary } from "../v2-adapter";
-import v2Styles from "../../v2/styles.module.css";
 export type MapItemAction = "info" | "color";
 export type ItemData = {
   item: MapItem;
@@ -62,6 +61,7 @@ export const LearningMapItem = memo(function LearningMapItem({
       className={styles.card}
       data-kind={item.kind}
       data-selected={data.selected}
+      data-status={item.progress.status}
       aria-label={`${item.title}, ${v2Summary ?? statusLabels[item.progress.status]}, ${item.childCountLabel}`}
     >
       {handles ? (
@@ -136,29 +136,29 @@ export const LearningMapItem = memo(function LearningMapItem({
         aria-pressed={data.selecting ? data.selected : undefined}
         aria-label={`${data.selecting ? "Seleccionar" : "Abrir"} ${item.title}`}
       >
-        <span className={styles.roadmapMarker} data-status={item.progress.status} aria-hidden="true">
-          {item.progress.status === "completed" ? <Check size={13} weight="bold" /> : null}
-        </span>
         {data.selecting ? (
           <span aria-hidden="true">{data.selected ? "☑" : "☐"}</span>
         ) : null}
-        <span className={styles.iconWell} style={data.iconColor ? { color: data.iconColor } : undefined}>
-          <MedicalMapIcon iconKey={item.iconKey} />
+        <span className={styles.cardTop}>
+          <span className={styles.iconWell} style={data.iconColor ? { color: data.iconColor } : undefined}>
+            <MedicalMapIcon iconKey={item.iconKey} />
+          </span>
+          <span className={styles.badge} data-status={item.progress.status}>
+            {stateLabel}
+          </span>
         </span>
         <span className={styles.cardContent}>
           <span className={styles.cardHeading}>
             <strong title={item.title}>{item.title}</strong>
-            <span className={styles.badge} data-status={item.progress.status}>
-              {stateLabel}
-            </span>
           </span>
           <span className={styles.cardMetric}>
             <span className={styles.percentage}>
               {v2?.unitKey || group ? item.childCountLabel : item.progress.percentage === null ? "—" : `${item.progress.percentage} %${v2 ? " de avance" : ""}`}
             </span>
-            {item.kind !== "lesson" ? <small>{item.childCountLabel}</small> : null}
+            {item.kind !== "lesson" && !v2?.unitKey && !group ? <small>{item.childCountLabel}</small> : null}
+            <CaretRight className={styles.cardChevron} size={14} aria-hidden="true" />
           </span>
-          {v2Summary ? <span className={v2Styles.mapSignals} title={v2Summary}>{v2Summary}</span> : null}
+          {v2Summary ? <span className={styles.cardSignals} title={v2Summary}>{v2Summary}</span> : null}
           <span className={styles.progressTrack} aria-hidden="true">
             <span data-status={item.progress.status} style={{ width: `${item.progress.percentage ?? 0}%` }} />
           </span>

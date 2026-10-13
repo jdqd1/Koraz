@@ -14,6 +14,51 @@ async function noOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 }
 
+test("activity picker explains and previews every type before creating blank content", async ({ page }) => {
+  await openEditor(page);
+  await page.getByRole("tab", { name: "Recorrido", exact: true }).click();
+  await page.getByRole("button", { name: "Añadir actividad", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Elegir actividad" });
+  const types = dialog.getByRole("navigation", { name: "Tipos de actividad" }).locator("button");
+  await expect(types).toHaveCount(13);
+  for (const button of await types.all()) {
+    await button.click();
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+    await expect(dialog.getByText("Cuándo usarla", { exact: true })).toBeVisible();
+    await expect(dialog.locator("[data-student-preview]")).toBeVisible();
+  }
+  await dialog.getByRole("button", { name: "Respuesta breve", exact: true }).click();
+  await dialog.getByLabel("Tu respuesta", { exact: true }).fill("tarjeta");
+  await dialog.getByRole("button", { name: "Comprobar respuesta", exact: true }).click();
+  await expect(dialog.getByRole("status")).toContainText("Respuesta de prueba enviada");
+  await dialog.getByRole("button", { name: "Crear actividad", exact: true }).click();
+  await expect(page.getByLabel("Consigna", { exact: true })).toBeFocused();
+  await expect(page.getByLabel("Consigna", { exact: true })).toHaveValue("");
+  await expect(page.locator("[data-activity-form]")).toHaveCount(1);
+});
+
+test("student preview follows live edits and keeps the private answer behind reveal", async ({ page }) => {
+  await openEditor(page);
+  await page.getByRole("tab", { name: "Recorrido", exact: true }).click();
+  await page.locator('summary[aria-label="Estudio · Pregunta sintética"]').click();
+  await page.getByLabel("Consigna", { exact: true }).fill("Lee este contenido antes de practicar");
+  await page.getByLabel("Contenido de estudio", { exact: true }).fill("Contenido actualizado desde el lienzo editable.");
+  await page.getByRole("button", { name: "Probar", exact: true }).click();
+  const preview = page.locator("[data-student-preview]");
+  await expect(preview).toContainText("Contenido actualizado desde el lienzo editable.");
+  await page.getByRole("button", { name: "Editar", exact: true }).click();
+  await expect(page.getByLabel("Contenido de estudio", { exact: true })).toHaveValue("Contenido actualizado desde el lienzo editable.");
+  await page.locator('summary[aria-label="Respuesta construida · Pregunta sintética"]').click();
+  await page.getByRole("button", { name: "Probar", exact: true }).click();
+  await expect(preview.getByRole("heading", { name: "Respuesta modelo" })).toHaveCount(0);
+  await preview.getByLabel("Explica con tus palabras").fill("Mi explicación de prueba");
+  await preview.getByRole("button", { name: "Guardar mi respuesta" }).click();
+  await preview.getByRole("button", { name: "Comparar con el modelo" }).click();
+  await expect(preview.getByRole("heading", { name: "Respuesta modelo" })).toBeVisible();
+  await preview.getByRole("button", { name: "Reiniciar" }).click();
+  await expect(preview.getByLabel("Explica con tus palabras")).toHaveValue("");
+});
+
 test("new route stays focused on essentials and keeps edits across the five steps", async ({ page }, info) => {
   await openEditor(page, "new");
   await expect(page.getByRole("heading", { name: "Nueva ruta" })).toBeVisible();
@@ -35,8 +80,9 @@ test("new route stays focused on essentials and keeps edits across the five step
   await expect(page.getByLabel("Objetivo de aprendizaje")).toBeFocused();
   await page.getByLabel("Objetivo de aprendizaje").fill("Identificar las estructuras principales");
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
-  await page.getByLabel("Tipo de nueva actividad").selectOption("study");
   await page.getByRole("button", { name: "Añadir actividad", exact: true }).click();
+  await page.getByRole("button", { name: "Estudio", exact: true }).click();
+  await page.getByRole("button", { name: "Crear actividad", exact: true }).click();
   await expect(page.getByLabel("Consigna", { exact: true })).toBeFocused();
   await page.getByLabel("Consigna", { exact: true }).fill("Lee la sección de estructuras");
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
@@ -66,7 +112,7 @@ test("editing collapsed options preserves the package and saves the confirmed ve
   await expect(page.getByLabel("Objetivo de aprendizaje")).toHaveValue("Relacionar los ejemplos");
   await page.screenshot({ path: info.outputPath("objectives.png"), fullPage: true });
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
-  await expect(page.locator("[data-activity-form]")).toHaveCount(0);
+  await expect(page.locator("[data-activity-form]")).toHaveCount(1);
   await page.getByRole("button", { name: "Guardar borrador", exact: true }).click();
   await expect(page.getByText("Borrador al día", { exact: true })).toBeVisible();
   const saved = await page.evaluate(() => JSON.parse(sessionStorage.getItem("t023:fixture-server:ready")!));
@@ -111,11 +157,14 @@ test("objective and activity settings stay out of the main form and preserve sav
   await expect(required).toBeChecked();
   await expect(required).toBeDisabled();
   await page.getByLabel("Prioridad", { exact: true }).selectOption("high_yield");
+  // CORE objectives remain required. Switch criticality before changing this field.
+  await expect(required).toBeEnabled();
   await required.uncheck();
   await page.getByRole("tab", { name: "Recorrido", exact: true }).click();
-  await expect(page.getByLabel("Tipo de nueva actividad").locator("optgroup")).toHaveCount(4);
-  await expect(page.getByLabel("Tipo de nueva actividad").locator("option")).toHaveCount(13);
-  await page.locator("summary").filter({ hasText: /^Estudio · Pregunta sintética$/ }).click();
+  await page.getByRole("button", { name: "Añadir actividad", exact: true }).click();
+  await expect(page.getByRole("navigation", { name: "Tipos de actividad" }).locator("button")).toHaveCount(13);
+  await page.getByRole("button", { name: "Cerrar selector de actividades" }).click();
+  await page.locator('summary[aria-label="Estudio · Pregunta sintética"]').click();
   await expect(page.getByLabel("Contenido de estudio", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Fase de aprendizaje", { exact: true })).toBeHidden();
   await expect(page.getByLabel("Apoyo del ejemplo", { exact: true })).toBeHidden();

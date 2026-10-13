@@ -104,11 +104,12 @@ describe("T025 feedback, objective verification and private solutions", () => {
     const added = addActivityV2(pkg, "study", "objective"); const key = added.activities.at(-1)!.key;
     const deleted = deleteActivityV2(added, key); expect(deleted.activities).toEqual(pkg.activities); expect(deleted.units[0]!.activityKeys).not.toContain(key);
   });
-  it("renders activity summaries and defers closed activity forms", () => {
+  it("renders the first activity in the canvas and defers other activity forms", () => {
     const html = renderToStaticMarkup(<ActivityEditorV2 draft={draftFromRouteV2(editorV2FixtureRoute())} disabled={false} onChange={() => {}} />);
-    for (const label of ["Estudio", "Elección única", "Respuesta breve", "Respuesta construida", "Tarjeta de recuperación", "Validación por objetivo"]) expect(html).toContain(label);
-    expect(html.match(/data-lazy-activity="true"/g)).toHaveLength(8);
-    expect(html).not.toContain("data-activity-form");
+    for (const label of ["Estudio", "Elección única", "Respuesta breve", "Respuesta construida", "Validación por objetivo", "Contenido que verá el estudiante"]) expect(html).toContain(label);
+    expect(html.match(/data-lazy-activity="true"/g)).toHaveLength(7);
+    expect(html.match(/data-activity-form=/g)).toHaveLength(1);
+    expect(html).toContain('data-activity-form="study"');
     expect(html).not.toContain("Opción correcta");
     expect(html).not.toContain('placeholder="UUID');
     expect(html).not.toContain('value="guided-v2.0"');

@@ -1,13 +1,15 @@
 import type { V2Path, V2State } from "./model";
 import styles from "./maintenance.module.css";
+import { CaretDown, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 
 export function GatePanel({ path, state }: { path: V2Path; state: V2State }) {
   const objectives = path.units.flatMap(unit => unit.objectives);
   const errors = state.objectives.filter(item => item.criticalErrorOpen);
   const maintenance = state.maintenance;
   const title = (key: string) => objectives.find(objective => objective.key === key)?.title ?? "Objetivo por comprobar";
-  return <section className={styles.panel} aria-label="Comprobaciones y requisitos">
-    <h2>Qué falta por comprobar</h2>
+  return <details className={`${styles.panel} ${styles.disclosure}`} aria-label="Comprobaciones y requisitos">
+    <summary><ShieldCheck size={20} aria-hidden /><h2>Comprobaciones</h2>{errors.length ? <span className={styles.badge} data-tone="reinforce">Requiere refuerzo</span> : null}<CaretDown className={styles.caret} size={18} aria-hidden /></summary>
+    <div className={styles.panelBody}>
     {maintenance ? <ul>{maintenance.gates.map(gate => <li key={gate.unitKey}>
       <strong>{path.units.find(unit => unit.key === gate.unitKey)?.title ?? "Unidad"}: {gate.passed ? "Comprobación alcanzada" : "Comprobación pendiente"}</strong>
       {!gate.passed ? <><p>{gate.score === null ? "Aún no hay evidencia evaluada." : `Resultado confirmado: ${Math.round(gate.score)} %. Umbral de esta comprobación: ${gate.thresholdPercent} %.`}</p>
@@ -18,5 +20,6 @@ export function GatePanel({ path, state }: { path: V2Path; state: V2State }) {
       : <p>No hay errores esenciales abiertos en el estado confirmado. Las comprobaciones disponibles se indican en la acción recomendada.</p>}
     {maintenance?.blockers.length ? <ul>{maintenance.blockers.map(blocker => <li key={blocker.objectiveKey}>{title(blocker.objectiveKey)} depende de: {blocker.blockedBy.map(title).join("; ")}. Demuestra estos objetivos y sus comprobaciones para continuar en esta rama.</li>)}</ul> : null}
     <p>{state.nextAction.reason}</p>
-  </section>;
+    </div>
+  </details>;
 }

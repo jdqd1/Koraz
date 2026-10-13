@@ -20,11 +20,16 @@ export function ActivitySourcesV2({ pkg, value, path, label, onChange }: { pkg: 
 const phases: Record<RouteActivity["phase"], string> = { activate: "Activar conocimientos", learn: "Aprender", retrieve: "Recuperar", elaborate: "Elaborar", apply: "Aplicar", remediate: "Reforzar" };
 const uses: Record<RouteActivity["use"], string> = { learning: "Aprendizaje", diagnostic: "Diagnóstico", gate: "Comprobación de unidad", final: "Reserva final", retention7: "Reserva a 7 días", retention30: "Reserva a 30 días" };
 const representations: Record<RouteActivity["representation"], string> = { text: "Texto", image: "Imagen", table: "Tabla", diagram: "Diagrama", case: "Caso", video: "Video" };
-export function ActivityCommonV2({ activity, pkg, path, issues, onChange }: ActivityFieldsPropsV2) {
+export function ActivityPromptV2({ activity, path, issues, onChange }: ActivityFieldsPropsV2) {
+  return <FieldV2 label={activity.kind === "constructed_response" ? "Pregunta o frente de la tarjeta" : "Consigna"} path={`${path}.prompt`} issues={issues} wide>{(input) => <textarea {...input} className={local.canvasPrompt} placeholder="Escribe lo que verá el estudiante…" required rows={2} maxLength={4000} value={activity.prompt} onChange={(event) => onChange({ ...activity, prompt: event.target.value })} />}</FieldV2>;
+}
+export function ActivityCommonV2(props: ActivityFieldsPropsV2) {
+  return <div className={local.stack}><ActivityPromptV2 {...props} /><ActivitySettingsV2 {...props} /></div>;
+}
+export function ActivitySettingsV2({ activity, pkg, path, issues, onChange }: ActivityFieldsPropsV2) {
   function patch(values: Partial<EditableActivityV2>) { onChange({ ...activity, ...values } as EditableActivityV2); }
   const families = [...new Map(pkg.activities.filter((item) => item.key !== activity.key && item.equivalenceKey !== activity.equivalenceKey).map((item) => [item.equivalenceKey, item])).values()];
   return <div className={local.stack}><div className={styles.fieldGrid}>
-    <FieldV2 label={activity.kind === "constructed_response" ? "Pregunta o frente de la tarjeta" : "Consigna"} path={`${path}.prompt`} issues={issues} wide>{(input) => <textarea {...input} required rows={3} maxLength={4000} value={activity.prompt} onChange={(event) => patch({ prompt: event.target.value })} />}</FieldV2>
     <FieldV2 label="Objetivo principal" path={`${path}.objectiveKey`} issues={issues}>{(input) => <select {...input} value={activity.objectiveKey} onChange={(event) => patch({ objectiveKey: event.target.value })}>{!pkg.objectives.some((item) => item.key === activity.objectiveKey) ? <option value={activity.objectiveKey}>Selecciona un objetivo existente</option> : null}{pkg.objectives.map((item) => <option key={item.key} value={item.key}>{item.title || "Objetivo sin título"}</option>)}</select>}</FieldV2>
   </div><ActivitySourcesV2 pkg={pkg} value={activity.sourceKeys} path={`${path}.sourceKeys`} label="Fuentes de la actividad" onChange={(sourceKeys) => patch({ sourceKeys })} />
     <details className={styles.disclosure}><summary>Configuración de la actividad</summary><div className={`${styles.fieldGrid} ${local.activityDetailGrid}`}>

@@ -2,13 +2,13 @@ import type { Positions } from "./map-layout";
 
 /** One column of children, branching horizontally from the group's midpoint. */
 export function horizontalLevelLayout(ids: string[], width: number, height: number, compact: boolean) {
-  const cardWidth = compact ? Math.min(220, Math.max(156, width - 168)) : 260;
-  const cardHeight = compact ? 104 : 96;
-  const originWidth = compact ? 96 : 164;
+  const cardWidth = compact ? Math.min(320, Math.max(192, width - 120)) : 300;
+  const cardHeight = 160;
+  const originWidth = compact ? 72 : 156;
   const originHeight = 60;
-  const gap = compact ? 40 : 144;
-  const margin = compact ? 16 : 48;
-  const rowGap = compact ? 20 : 28;
+  const gap = compact ? 24 : 112;
+  const margin = compact ? 12 : 40;
+  const rowGap = compact ? 16 : 24;
   const groupHeight = ids.length * cardHeight + Math.max(0, ids.length - 1) * rowGap;
   const contentWidth = Math.max(width, margin * 2 + originWidth + gap + cardWidth);
   const contentHeight = Math.max(height, groupHeight + margin * 2 + 64);
@@ -23,6 +23,15 @@ export function horizontalLevelLayout(ids: string[], width: number, height: numb
   return {
     positions, cardWidth, cardHeight, originWidth, originHeight,
     origin: { x: left, y: centerY - originHeight / 2 },
-    contentWidth, contentHeight,
+    contentWidth, contentHeight, firstCardY: top, rowStride: cardHeight + rowGap,
+  };
+}
+
+/** Keep a few rows outside the native scroll viewport; updates only cross row boundaries. */
+export function visibleLevelRange(count: number, top: number, height: number, zoom: number, firstY: number, stride: number) {
+  if (count < 30) return { start: 0, end: count };
+  return {
+    start: Math.max(0, Math.min(count - 1, Math.floor((top / zoom - firstY) / stride) - 2)),
+    end: Math.min(count, Math.max(1, Math.ceil(((top + height) / zoom - firstY) / stride) + 2)),
   };
 }

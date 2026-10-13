@@ -115,7 +115,7 @@ function useWorkspace(account: string, client: MapClient) {
             if (enteringTimer.current === timer) enteringTimer.current = null;
             if (!controller.signal.aborted && current === token.current)
               setPhase("idle");
-            }, 800);
+            }, 260);
           enteringTimer.current = timer;
           controller.signal.addEventListener("abort", () => {
             clearTimeout(timer);

@@ -21,15 +21,15 @@ async function enroll(page:Page){
   await expect(page.getByRole("button",{name:"Continuar",exact:true}).first()).toBeVisible();
 }
 async function interactive(page:Page){
-  await page.waitForFunction(()=>{const button=document.querySelector(".learning-path-hero button");return button && Object.keys(button).some(k=>k.startsWith("__reactProps") && typeof (button as unknown as Record<string,{onClick?:unknown}>)[k]?.onClick==="function");});
+  await page.waitForFunction(()=>{const button=document.querySelector('[aria-label="Acción recomendada"] button');return button && Object.keys(button).some(k=>k.startsWith("__reactProps") && typeof (button as unknown as Record<string,{onClick?:unknown}>)[k]?.onClick==="function");});
 }
 async function launch(page:Page,key?:string){
   await page.goto(route);
   // SSR exposes the button before React attaches its event handler.
   await interactive(page);
   if(key){const current=await state(page);const branchIndex=current.maintenance.activities.findIndex((activity:{key:string})=>activity.key===key);expect(branchIndex).toBeGreaterThanOrEqual(0);
-    await page.getByRole("main").getByText("Refuerzo, repaso y mantenimiento",{exact:true}).click();
-    const branches=page.getByRole("region",{name:"Otras ramas disponibles"});
+    const branches=page.locator('details[aria-label="Otras ramas disponibles"]');
+    await branches.locator(':scope > summary').click();
     await branches.getByRole("button",{name:"Practicar este objetivo",exact:true}).nth(branchIndex).click();
   }else await page.getByRole("button",{name:"Continuar",exact:true}).first().click();
   await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
@@ -127,7 +127,7 @@ test("E03 beginner help and CORE error are confirmed by the server",async({page}
   const attemptId=await launch(page);await expect(page.getByText("Explicación sintética confirmada.",{exact:true})).toHaveCount(0);
   await page.getByRole("button",{name:"Necesito ayuda",exact:true}).click();await expect(page.getByRole("heading",{name:"Pista",exact:true})).toBeVisible();await answer(page,"single_choice",true);await finish(page);
   expect((await server(page,`/__test/responses/${attemptId}`)).rows).toEqual([{activity_key:"choice-1",assisted:true}]);
-  const confirmed=await state(page);expect(confirmed.objectives[0].criticalErrorOpen).toBe(true);expect(confirmed.nextAction.kind).toBe("remediate");await page.goto(route);await expect(page.getByRole("region",{name:"Refuerzo dirigido"}).getByText("Confusión CORE sintética",{exact:true})).toBeVisible();
+  const confirmed=await state(page);expect(confirmed.objectives[0].criticalErrorOpen).toBe(true);expect(confirmed.nextAction.kind).toBe("remediate");await page.goto(route);await expect(page.locator('details[aria-label="Refuerzo dirigido"]').getByText("Confusión CORE sintética",{exact:true})).toBeVisible();
 });
 
 test("E04 all eight kinds persist through the learner UI on desktop and mobile",async({page},info)=>{
@@ -173,10 +173,10 @@ test("E06 home, real map, route, session and review keep the pinned server state
   for(const [key,kind] of [["study","study"],["constructed","constructed_response"],["choice","single_choice"],["short","short_answer"],["apply","single_choice"]]){await launch(page,`${key}-1`);await answer(page,kind!);await finish(page);}
   const confirmed=await state(page);expect(confirmed.objectives[0].firstMasteredAt).not.toBeNull();
   await page.request.post(api+"/__test/clock",{data:{days:1}});
-  await page.goto("/aprendizaje/repaso?motor=guided-v2&ruta=t035-small");await expect(page.getByRole("heading",{name:"Práctica y mantenimiento",exact:true})).toBeVisible();
+  await page.goto("/aprendizaje/repaso?motor=guided-v2&ruta=t035-small");await expect(page.getByRole("heading",{name:"Repaso y práctica",exact:true})).toBeVisible();
   const current=await state(page);expect(current.pathVersionId).toBe(confirmed.pathVersionId);expect(current.objectives[0].reviewDue).toBe(true);
   await expect(page.getByText(`${current.completedActivities} actividades completadas de ${current.plannedRequiredActivities}`,{exact:true})).toBeVisible();
-  await page.getByRole("button",{name:"Repasar objetivo 1",exact:true}).click();await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
+  await page.getByRole("group",{name:"Grupo de repaso",exact:true}).getByRole("button",{name:"Repasar",exact:true}).first().click();await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
   const attemptId=page.url().split("/sesiones/")[1]!.split("?")[0]!;
   const manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;expect(manifest.purpose).toBe("review");
   await answer(page,manifest.activeActivity.kind);await finish(page);expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(1);
@@ -194,7 +194,8 @@ test("E07 corrected and published route completes diagnosis, final and delayed r
   };
   await page.goto(href);await interactive(page);await page.getByRole("button",{name:"Comenzar",exact:true}).click();
   await expect(page.getByRole("button",{name:"Continuar",exact:true}).first()).toBeVisible();
-  await page.getByRole("main").getByText("Refuerzo, repaso y mantenimiento",{exact:true}).click();
+  const diagnostic=page.locator('details[aria-label="Diagnóstico inicial"]');
+  if(!await diagnostic.evaluate(element=>element.hasAttribute("open")))await diagnostic.locator(':scope > summary').click();
   await page.getByRole("button",{name:"Comenzar diagnóstico",exact:true}).click();
   const sessions:{attemptId:string;purpose:string;status:string;acceptedKeys:string[]}[]=[];
   async function consume(){
@@ -221,7 +222,7 @@ test("E07 corrected and published route completes diagnosis, final and delayed r
   for(let n=0;!(await confirmed()).completedAt;n++){
     expect(n).toBeLessThan(20);
     await page.goto(href);await interactive(page);const before=await confirmed();actions.push(before.nextAction.kind);
-    await page.locator(".learning-path-hero").getByRole("button",{name:"Continuar",exact:true}).click();
+    await page.getByRole("region",{name:"Acción recomendada"}).getByRole("button",{name:"Continuar",exact:true}).click();
     await consume();
   }
   const completed=await confirmed();expect(completed.pathVersionId).toBe(f.versionId);
@@ -232,7 +233,7 @@ test("E07 corrected and published route completes diagnosis, final and delayed r
   await page.request.post(api+"/__test/clock",{data:{days:7}});
   await page.goto(href);await interactive(page);
   const due=await confirmed();expect(due.nextAction.kind).toBe("retention");
-  await page.locator(".learning-path-hero").getByRole("button",{name:"Repasar",exact:true}).click();
+  await page.getByRole("region",{name:"Acción recomendada"}).getByRole("button",{name:"Repasar",exact:true}).click();
   const retained=await consume();expect(retained.purpose).toBe("assessment");
   const after=await confirmed();expect(after.maintenance.agenda[0].retention7.acceptedAt).not.toBeNull();
   await page.goto(href);await page.reload();expect(await confirmed()).toEqual(after);

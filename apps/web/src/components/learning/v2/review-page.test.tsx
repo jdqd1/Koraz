@@ -28,7 +28,7 @@ describe("T032 review page dispatch", () => {
     api.getLearningV2State.mockResolvedValue({ status: "ready", value: { state: fixture.state } });
     const html = renderToString(await LearningReviewPage({ searchParams: Promise.resolve({ motor: "guided-v2", ruta: fixture.path.slug }) }));
     expect(api.getLearningV2State).toHaveBeenCalledWith(fixture.path.enrollmentId);
-    expect(html).toContain("Práctica y mantenimiento"); expect(html).not.toContain("guided-v1");
+    expect(html).toContain("Repaso y práctica"); expect(html).not.toContain("guided-v1");
     expect(api.getLearningV2Home).not.toHaveBeenCalled();
   });
   it.each(["unauthorized", "forbidden", "not_found", "unavailable"])("keeps %s v2 lookup from silently launching v1", async status => {

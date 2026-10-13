@@ -14,3 +14,20 @@
 .stateList { display: grid; gap: 16px; margin-top: 16px; }
 .notice { border: 1px solid #dbe4ff; border-radius: 12px; padding: 12px 16px; margin-block: 12px; }
 .notice a { text-decoration: underline; }
+.progressOverview { display: grid; gap: 14px; min-width: 0; }
+.activityProgress { display: grid; gap: 10px; color: #626267; font-size: .8rem; }
+.activityProgress progress { appearance: none; display: block; width: 100%; height: 6px; border: 0; border-radius: 99px; overflow: hidden; background: #e9e9ed; color: #0066cc; }
+.activityProgress progress::-webkit-progress-bar { border-radius: 99px; background: #e9e9ed; }
+.activityProgress progress::-webkit-progress-value { border-radius: 99px; background: #0066cc; }
+.activityProgress progress::-moz-progress-bar { border-radius: 99px; background: #0066cc; }
+.milestones { display: grid; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.milestones li { display: flex; align-items: center; gap: 8px; color: #626267; font-size: .79rem; }
+.milestones svg { flex: 0 0 auto; color: #a3a3ab; }
+.milestones [data-reached="true"] svg { color: #24804a; }
+.progressNotes { display: flex; flex-wrap: wrap; gap: 6px; color: #626267; font-size: .76rem; }
+.reviewBadge, .reinforceBadge { display: inline-flex; align-items: center; gap: 5px; width: fit-content; border-radius: 7px; padding: 4px 8px; background: #eaf2fd; color: #0055ad; font-size: .76rem; font-weight: 500; }
+.reinforceBadge { color: #865500; background: #fcf3de; }
+.unitStatus, .objectives .objectiveLabel { display: inline-flex; width: fit-content; padding: 3px 7px; border-radius: 6px; background: #f0f0f3; color: #626267; font-size: .71rem; font-weight: 500; }
+.unitStatus[data-label="mastered"], .objectives .objectiveLabel[data-label="mastered"] { color: #24643a; background: #eaf5ed; }
+.unitStatus[data-label="learning"], .objectives .objectiveLabel[data-label="learning"] { color: #0055ad; background: #eaf2fd; }
+.unitStatus[data-label="reinforce"], .objectives .objectiveLabel[data-label="reinforce"] { color: #865500; background: #fcf3de; }

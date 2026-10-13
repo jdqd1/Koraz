@@ -76,9 +76,9 @@ export function EditorShellV2(props: {
   const stepIndex = editorV2Sections.findIndex((section) => section.key === state.section);
   const stepLabels = ["Datos y fuentes", "Objetivos", "Actividades", "Evaluación", "Revisión"];
   const mobileStepLabels = ["Datos", "Objetivos", "Práctica", "Evaluar", "Revisar"];
-  const stepDescriptions = ["", `${pkg.objectives.length} objetivos · ${pkg.units.length} unidades`, `${pkg.activities.length} actividades`, `${pkg.assessments.length} evaluaciones`, "Comprobar y publicar"];
+  const stepDescriptions = ["", String(pkg.objectives.length), String(pkg.activities.length), String(pkg.assessments.length), ""];
   const saveHint = state.notice && state.notice !== "Cambios sin guardar. La revisión anterior ya no acredita esta copia."
-    ? state.notice : `Paso ${stepIndex + 1} de 5 · ${state.confirmed ? `Revisión ${state.confirmed.editVersion}` : "Guarda al completar los campos"}`;
+    ? state.notice : state.confirmed ? `Revisión ${state.confirmed.editVersion}` : "Guarda al completar los campos";
   function goToStep(index: number) {
     const section = editorV2Sections[index];
     if (!section) return;
@@ -102,15 +102,15 @@ export function EditorShellV2(props: {
   }
   async function save() { setShowErrors(true); const blocking = [...graphIssues, ...bindingIssues, ...activityIssues]; if (blocking.length) { locate(blocking[0]!.path); return; } await controller.save(); }
   function download() { editor.downloadDraft(); setCopyDownloaded(true); }
-  return <section aria-label="Editor de ruta" ref={surfaceRef} className={`${styles.editor} ${local.editor}`} data-editor-surface data-engine-version="guided-v2">
+  return <section aria-label="Editor de ruta" ref={surfaceRef} className={`${styles.editor} ${local.editor}`} data-editor-surface data-engine-version="guided-v2" data-current-section={state.section}>
     <header className={local.header}>
-      <div><Link className={styles.backLink} href="/panel/rutas"><ArrowLeft size={16} aria-hidden /> Rutas de aprendizaje</Link><h1>{state.confirmed ? pkg.route.title : "Nueva ruta"}</h1></div>
+      <div className={local.headerTitle}><Link className={local.iconButton} aria-label="Volver a rutas de aprendizaje" href="/panel/rutas"><ArrowLeft size={20} aria-hidden /></Link><h1>{state.confirmed ? pkg.route.title : "Nueva ruta"}</h1></div>
       <div className={local.headerTools}>{state.confirmed ? <span className={local.statusBadge}>{editorStatusLabels[state.confirmed.status]}</span> : null}<button ref={importTrigger} aria-label="Importar archivo de ruta" className={styles.secondaryButton} disabled={busy || Boolean(editor.recoveryCandidate)} type="button" onClick={() => setShowImport(true)}><UploadSimple size={18} aria-hidden /><span className={local.desktopLabel}>Importar archivo de ruta</span><span className={local.mobileLabel}>Importar</span></button></div>
     </header>
     {showImport ? <ImportWizardV2 api={controller.api} state={state} onClose={() => { setShowImport(false); importTrigger.current?.focus(); }} /> : null}
     <Tabs.Root activationMode="manual" className={local.workspace} value={state.section} onValueChange={(section) => controller.dispatch({ type: "section", section: section as EditorV2Section })}>
       <Tabs.List aria-label="Secciones del editor de rutas" className={local.stepList}>
-        {editorV2Sections.map((section, index) => <Tabs.Trigger className={local.step} aria-label={section.label} key={section.key} value={section.key}><span className={local.stepNumber} aria-hidden>{index + 1}</span><span><strong><span className={local.desktopLabel}>{stepLabels[index]}</span><span className={local.mobileLabel}>{mobileStepLabels[index]}</span></strong>{stepDescriptions[index] ? <small>{stepDescriptions[index]}</small> : null}</span></Tabs.Trigger>)}
+        {editorV2Sections.map((section, index) => <Tabs.Trigger className={local.step} aria-label={section.label} key={section.key} value={section.key}><span className={local.stepNumber} aria-hidden>{index + 1}</span><strong><span className={local.desktopLabel}>{stepLabels[index]}</span><span className={local.mobileLabel}>{mobileStepLabels[index]}</span></strong>{stepDescriptions[index] ? <small>{stepDescriptions[index]}</small> : null}</Tabs.Trigger>)}
       </Tabs.List>
       <div className={local.stepContent}>
       <Tabs.Content className={styles.panel} value="sources">

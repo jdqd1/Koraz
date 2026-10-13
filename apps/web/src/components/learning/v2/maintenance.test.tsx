@@ -99,7 +99,7 @@ describe("T032 confirmed maintenance presentation", () => {
     const state = { ...fixture.state, nextAction: studentFixture("resume").state.nextAction };
     for (const target of [{ kind: "activity" as const, key: "practice-b" }, { kind: "review" as const, key: "review-a" }]) expect(authorizedMaintenanceTarget(state, target)).toBe(false);
     const html = renderToString(<V2ReviewScreen path={fixture.path} state={state} />);
-    expect(html).not.toContain("Repasar objetivo 1</button>"); expect(html).not.toContain("Practicar este objetivo</button>");
+    expect(html).not.toContain("Repasar</button>"); expect(html).not.toContain("Practicar este objetivo</button>");
   });
   it("uses server time and profile zone for overdue dates, regardless of the browser clock", () => {
     vi.useFakeTimers(); vi.setSystemTime("2000-01-01T00:00:00Z");

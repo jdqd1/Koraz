@@ -20,7 +20,7 @@ export function authorizedMaintenanceTarget(state: V2State, target: V2LaunchTarg
     || maintenance.remediation.some(item => item.activityKey === target.key && !item.bankExhausted && !item.pauseOffered);
 }
 
-export function RouteAction({ path, state, returnTo, target: offeredTarget, label, showReason = true }: { path: V2Path; state: V2State | null; returnTo?: string | null; target?: V2LaunchTarget; label?: string; showReason?: boolean }) {
+export function RouteAction({ path, state, returnTo, target: offeredTarget, label, showReason = true, appearance = "primary" }: { path: V2Path; state: V2State | null; returnTo?: string | null; target?: V2LaunchTarget; label?: string; showReason?: boolean; appearance?: "primary" | "secondary" }) {
   const router = useRouter();
   const [transport] = useState(() => createV2Launcher());
   const inFlight = useRef(false);
@@ -49,7 +49,7 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
   const canContinue = !maintenance && path.access === "enrolled" && confirmed && (offeredTarget ? authorizedMaintenanceTarget(confirmed, offeredTarget) : confirmed.nextAction.kind !== "none" && !!confirmed.nextAction.key);
   return <div className={styles.action}>
     {confirmed && showReason ? <p>{confirmed.nextAction.reason}</p> : null}
-    {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className="learning-primary-button">{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <p role="alert">No pudimos cargar el estado confirmado. Actualiza la ruta para continuar.</p> : null}
+    {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className={appearance === "secondary" ? "learning-secondary-button" : "learning-primary-button"}>{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <p role="alert">No pudimos cargar el estado confirmado. Actualiza la ruta para continuar.</p> : null}
     {message ? <div role="alert"><p>{message}</p><button type="button" className="learning-secondary-button" onClick={() => router.refresh()}>Actualizar ruta</button></div> : null}
   </div>;
 }
