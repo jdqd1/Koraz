@@ -249,7 +249,7 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
         ?? (error?.remediationCompletedAt ? verificationItem?.key ?? null : remediation?.key ?? null),
       bankExhausted, availableAfter, editorIncident: bankExhausted || !misconception || !remediation,
       pauseOffered: paused, alternatives: ["pause", "other_branch", "review_later"] as const,
-      message: bankExhausted ? `La práctica sigue disponible; la próxima comprobación será después de ${availableAfter ?? "una revisión editorial del banco"}`
+      message: bankExhausted ? availableAfter ? `Puedes seguir practicando. Podrás volver a comprobar lo que recuerdas a partir de ${availableAfter}.` : "Puedes seguir practicando. Las preguntas para comprobar lo que recuerdas todavía no están disponibles."
         : paused ? "Puedes pausar, elegir otra rama o repasar después" : "Revisar la confusión, el fragmento fuente y el ejemplo antes de comprobar" }];
   });
   const remediationInfo = remediationOffers.find((item) => item.objectiveKey === blocking) ?? null;
@@ -303,7 +303,7 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     ? { kind: "remediate", key: selectedRemediation.activityKey, reason: selectedRemediation.message }
     : { kind: "none", key: null, reason: selectedRemediation.message };
   else if (selected) nextAction = { kind: "activity", key: selected.key, reason: selected.reason };
-  else if (exhaustedBanks[0]) nextAction.reason = `La práctica sigue disponible; la próxima comprobación será después de ${exhaustedBanks[0].availableAfter}`;
+  else if (exhaustedBanks[0]) nextAction.reason = `Puedes seguir practicando. Podrás volver a comprobar lo que recuerdas a partir de ${exhaustedBanks[0].availableAfter}.`;
   return { nextAction, diagnostic: copyDiagnostic(diagnosis), support, remediation: remediationInfo,
     exhaustedBanks, remediationOffers,
     reviewBatch, availableActivities: initial.filter((item) => item.objectiveKey !== blocking),

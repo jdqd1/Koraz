@@ -237,8 +237,10 @@ button.originLabel { cursor: pointer; }
 .suggestion div { flex: 1; min-width: 0; }
 .suggestion small { display: block; margin-top: 5px; color: var(--map-muted); font-size: 12px; line-height: 18px; }
 .sheetHandle { display: none; }
-.panelBackdrop { position: fixed; inset: 0; z-index: 180; background: rgb(15 20 30 / 24%); }
-.modalPanel { position: fixed; top: 76px; right: 0; bottom: 0; z-index: 181; width: min(400px, 90vw); background: var(--map-surface); }
+.panelBackdrop { position: fixed; inset: 0; z-index: 180; background: rgb(15 20 30 / 24%); animation: panel-backdrop-in 180ms ease-out both; }
+.modalPanel { position: fixed; top: 76px; right: 0; bottom: 0; z-index: 181; width: min(400px, 90vw); background: var(--map-surface); animation: panel-open 240ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes panel-open { from { opacity: .65; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes panel-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
 .modalPanel .panel { width: 100%; height: 100%; border-left: 0; }
 .modalPanel:focus, .dialog:focus { outline: none; }
 .empty { max-width: 520px; margin: auto; padding: 40px 24px; color: var(--map-muted); text-align: center; }
@@ -323,7 +325,7 @@ button.originLabel { cursor: pointer; }
   .controls { bottom: calc(100px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .flow, .diagramChild .card, .connectionPath { animation: none !important; transition: none !important; }
+  .flow, .diagramChild .card, .connectionPath, .modalPanel, .panelBackdrop { animation: none !important; transition: none !important; }
 }
 @media (forced-colors: active) {
   .card, .originLabel, .controls { border-color: CanvasText; }

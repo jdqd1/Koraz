@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TimeZoneSchema } from "./time-zone.js";
 import {
   LearningProjectionSchema,
   PublicLearningQuestionSchema,
@@ -717,13 +718,13 @@ export const LearningPreferencesSchema = z.strictObject({
   examDate: z.string().date().nullable(),
   pendingConstancy: z.strictObject({
     effectiveOn: z.string().date(),
-    timezone: z.string().trim().min(1).max(80),
+    timezone: TimeZoneSchema,
     weeklyGoalDays: z.union([z.literal(2), z.literal(3), z.literal(5)]).nullable(),
   }).nullable(),
   pinnedEnrollmentId: z.string().uuid().nullable(),
   rowVersion: z.number().int().nonnegative(),
   sessionMinutes: LearningSessionMinutesSchema,
-  timezone: z.string().trim().min(1).max(80),
+  timezone: TimeZoneSchema,
   weeklyGoalDays: z.union([z.literal(2), z.literal(3), z.literal(5)]).nullable(),
 });
 export const LearningPreferencesUpdateRequestSchema = z.strictObject({
@@ -731,7 +732,7 @@ export const LearningPreferencesUpdateRequestSchema = z.strictObject({
   expectedVersion: z.number().int().nonnegative(),
   pinnedEnrollmentId: z.string().uuid().nullable().optional(),
   sessionMinutes: LearningSessionMinutesSchema.optional(),
-  timezone: z.string().trim().min(1).max(80).optional(),
+  timezone: TimeZoneSchema.optional(),
   weeklyGoalDays: z.union([z.literal(2), z.literal(3), z.literal(5)]).nullable().optional(),
 }).refine((value) => Object.keys(value).some((key) => key !== "expectedVersion"), {
   message: "At least one preference is required",

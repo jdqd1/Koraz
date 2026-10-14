@@ -113,13 +113,11 @@ test("horizontal branches meet the source and card sides after resizing, scrolli
   await checkEndpoints();
   await page.screenshot({ path: testInfo.outputPath("horizontal-connections.png"), fullPage: true });
 });
-test("slow level navigation responds immediately and completes the diagram transition", async ({ page }) => {
+test("prefetched or slow level navigation updates the URL immediately and settles the diagram", async ({ page }) => {
   await page.goto(`${root}?estado=slow`);
   await expect(page.getByRole("button", { name: "Abrir Anatomía" })).toBeVisible();
-  const leaving = page.waitForFunction(() => document.querySelector('[data-phase="leaving"]'));
   await page.getByRole("button", { name: "Abrir Anatomía" }).click();
-  await leaving;
-  await expect(page).toHaveURL(/node=/);
+  await expect(page).toHaveURL(/node=/, { timeout: 500 });
   await expect(page.getByRole("heading", { name: "Anatomía", exact: true })).toBeVisible();
   await expect(page.locator('[data-phase="idle"]')).toBeVisible();
 });

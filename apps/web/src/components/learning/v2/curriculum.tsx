@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowsClockwise, BookOpen, CaretDown, ChatText, Check, CheckCircle, Circle, ClipboardText, FileText, ImageSquare, LinkSimple, ListChecks, LockSimple, PencilSimple, SortAscending } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowsClockwise, BookOpen, CaretDown, CaretRight, ChatText, Check, CheckCircle, Circle, ClipboardText, FileText, ImageSquare, LinkSimple, ListChecks, LockSimple, PencilSimple, SortAscending } from "@phosphor-icons/react/dist/ssr";
 import { objectiveLabels, stateMatches, type V2Path, type V2State } from "./model";
 import { activityFormats, activityTitle, actionLocation, unitActivityProgress, unitRecommendation, type CurriculumActivity, type V2Unit } from "./curriculum-model";
 import { authorizedMaintenanceTarget, RouteAction } from "./route-action";
@@ -40,11 +40,8 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
     const exhausted = state?.maintenance?.exhaustedBanks.find(item => item.objectiveKey === objective.key);
     const upcoming = state?.maintenance?.agenda.find(item => item.objectiveKey === objective.key);
     const entries = activities?.map((activity, index) => ({ activity, index }));
-    const isDone = (entry: { activity: CurriculumActivity }) => entry.activity.key !== recommendedKey && ["completed", "dispensed"].includes(progress.get(entry.activity.key) ?? "");
-    const completed = entries?.filter(isDone) ?? [];
-    const remaining = entries?.filter(entry => !isDone(entry)) ?? [];
-    const completedCount = completed.filter(entry => progress.get(entry.activity.key) === "completed").length;
-    const coveredCount = completed.length - completedCount;
+    const completedCount = entries?.filter(entry => progress.get(entry.activity.key) === "completed").length ?? 0;
+    const coveredCount = entries?.filter(entry => progress.get(entry.activity.key) === "dispensed").length ?? 0;
     function activityRow({ activity, index }: { activity: CurriculumActivity; index: number }) {
       const target = { kind: "activity" as const, key: activity.key };
       const available = !!state && !paused && path.access === "enrolled" && authorizedMaintenanceTarget(state, target);
@@ -62,20 +59,20 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       </li>;
     }
     return <section className={styles.objective} key={objective.key} aria-label={`Objetivo: ${objective.title}`}>
-      <div className={styles.objectiveHeading}><h3>{objective.title}</h3><span className={styles.objectiveBadge} data-label={status?.label}>{status ? objectiveLabels[status.label] : state ? "Por comprobar" : path.enrollmentId ? "Estado por cargar" : "Por aprender"}</span></div>
+      <div className={styles.objectiveHeading} data-objective-heading><h3><span className={styles.objectiveLabel}>Objetivo:</span> {objective.title}</h3><span className={styles.objectiveBadge} data-label={status?.label}>{status ? objectiveLabels[status.label] : state ? "Por comprobar" : path.enrollmentId ? "Estado por cargar" : "Por aprender"}</span></div>
       {status?.criticalErrorOpen ? <p className={styles.notice}>Hay un concepto esencial por reforzar antes de continuar con las actividades que dependen de él.</p> : null}
       {status?.firstMasteredAt && status.label !== "mastered" ? <p className={styles.note}>Tu aprendizaje anterior se conserva. Ahora toca reforzarlo.</p> : null}
       {blocker?.blockedBy.length ? <details className={styles.help}><summary><LockSimple size={14} aria-hidden />Qué necesitas antes</summary><ul>{blocker.blockedBy.map(key => <li key={key}>{path.units.flatMap(item => item.objectives).find(item => item.key === key)?.title ?? "Completar el objetivo previo"}</li>)}</ul></details> : null}
       {activities?.length ? <>
-        {completed.length ? <details className={styles.completed}><summary><CheckCircle size={17} aria-hidden /><span>{completedCount ? `${completedCount} ${completedCount === 1 ? "actividad completada" : "actividades completadas"}` : ""}{completedCount && coveredCount ? " · " : ""}{coveredCount ? `${coveredCount} ${coveredCount === 1 ? "ya cubierta" : "ya cubiertas"}` : ""}</span><CaretDown size={14} aria-hidden /></summary><ol className={styles.activityList} aria-label={`Actividades realizadas de ${objective.title}`}>{completed.map(activityRow)}</ol></details> : null}
-        {remaining.length ? <ol className={styles.activityList} aria-label={`Actividades de ${objective.title}`}>{remaining.map(activityRow)}</ol> : null}
+        {completedCount || coveredCount ? <p className={styles.completed}><CheckCircle size={16} aria-hidden /><span>{completedCount ? `${completedCount} ${completedCount === 1 ? "actividad completada" : "actividades completadas"}` : ""}{completedCount && coveredCount ? " · " : ""}{coveredCount ? `${coveredCount} ${coveredCount === 1 ? "ya cubierta" : "ya cubiertas"}` : ""}</span></p> : null}
+        <ol className={styles.activityList} aria-label={`Actividades de ${objective.title}`}>{entries?.map(activityRow)}</ol>
       </> : <p className={styles.empty}>{activities ? "No hay actividades de práctica en este objetivo." : "Actualiza la ruta para consultar las actividades de este objetivo."}</p>}
-      {review && state ? <div className={styles.review}><ArrowsClockwise size={18} aria-hidden /><div><strong>Repasar este objetivo</strong><span>Pendiente desde <MaintenanceDate value={review.dueAt} timeZone={state.maintenance?.timeZone} compact /></span></div>{!paused && state.nextAction.key !== review.key ? <RouteAction path={path} state={state} target={{ kind: "review", key: review.key }} returnTo={returnTo} label="Repasar" showReason={false} appearance="secondary" /> : null}</div> : status?.reviewDue ? <span className={styles.reviewNote}><ArrowsClockwise size={15} aria-hidden />Tienes un repaso pendiente</span> : null}
-      {exhausted ? <p className={styles.note}>Puedes seguir practicando. La próxima comprobación estará disponible el <MaintenanceDate value={exhausted.availableAfter} timeZone={state?.maintenance?.timeZone} compact />.</p> : upcoming && !review ? <p className={styles.note}>Próximo repaso: <MaintenanceDate value={upcoming.dueAt} timeZone={state?.maintenance?.timeZone} compact /></p> : null}
+      {review && state ? <div className={styles.review} data-current={!paused && recommendedKey === review.key}><ArrowsClockwise size={18} aria-hidden /><div><strong>Es momento de repasar</strong><span>Vuelve a practicar este objetivo para recordar lo aprendido.</span></div>{!paused && state.nextAction.key !== review.key ? <RouteAction path={path} state={state} target={{ kind: "review", key: review.key }} returnTo={returnTo} label="Repasar" showReason={false} appearance="secondary" /> : null}</div> : status?.reviewDue ? <span className={styles.reviewNote}><ArrowsClockwise size={15} aria-hidden />Tienes un repaso pendiente</span> : null}
+      {upcoming && !review ? <p className={styles.note}><ArrowsClockwise size={16} aria-hidden />Vuelve a repasar <MaintenanceDate value={upcoming.dueAt} timeZone={state?.maintenance?.timeZone} relativeTo={state?.maintenance?.generatedAt} friendly /> para recordar lo aprendido.</p> : exhausted ? <p className={styles.note}>Podrás volver a comprobar lo que recuerdas <MaintenanceDate value={exhausted.availableAfter} timeZone={state?.maintenance?.timeZone} relativeTo={state?.maintenance?.generatedAt} friendly /> Mientras tanto, puedes seguir practicando.</p> : null}
       {status?.firstConsolidatedAt ? <p className={styles.reviewNote}><CheckCircle size={15} aria-hidden />Recordado en los repasos</p> : null}
     </section>;
   })}
-  {gate ? <div className={styles.unitCheck}>{gate.passed ? <CheckCircle size={20} weight="fill" aria-hidden /> : <Circle size={20} aria-hidden />}<span><strong>Comprobar esta unidad</strong><span>{gate.passed ? "Lo aprendido está comprobado" : "Al terminar la práctica, comprueba lo aprendido"}</span></span></div> : null}
+  {gate ? <div className={styles.unitCheck} data-passed={gate.passed} data-current={!gate.passed && state?.nextAction.kind === "gate" && state.nextActionContext?.unitKey === unit.key}>{gate.passed ? <CheckCircle size={21} weight="fill" aria-hidden /> : <Circle size={21} aria-hidden />}<span><strong>{gate.passed ? "Ya demostraste lo que aprendiste" : "Pon a prueba lo que aprendiste"}</strong><span>{gate.passed ? "Resolviste la evaluación de esta unidad. Los repasos te ayudarán a recordarla con el tiempo." : "Al terminar las actividades, responde unas preguntas para ver qué recuerdas y qué conviene repasar."}</span></span></div> : null}
   </div>;
 }
 
@@ -85,7 +82,8 @@ export function CurriculumResources({ path, focusUnit, unitOnly = false }: { pat
     {!unitOnly ? <h3>{unit.title}</h3> : null}
     {unit.resources?.length ? <ul>{unit.resources.map(resource => <li key={resource.key}><span className={styles.resourceIcon}>{resource.url ? <LinkSimple size={20} aria-hidden /> : <BookOpen size={20} aria-hidden />}</span><div>
       {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer">{resource.title}<ArrowRight size={14} aria-hidden /><span className={styles.srOnly}> (se abre en otra pestaña)</span></a> : <strong>{resource.title}</strong>}
-      {resource.citation ? <p>{resource.citation}</p> : null}{resource.locator.heading || resource.locator.page ? <span className={styles.locator}><FileText size={13} aria-hidden />{[resource.locator.heading, resource.locator.page ? `Página ${resource.locator.page}` : ""].filter(Boolean).join(" · ")}</span> : null}
+      {resource.locator.heading || resource.locator.sectionPath.length || resource.locator.page ? <div className={styles.locator}><FileText size={15} aria-hidden /><div><ol className={styles.locatorPath} aria-label="Secciones de lectura">{[...new Set([...resource.locator.sectionPath, ...resource.locator.heading.split("/").map(part => part.trim())].filter(Boolean))].map((heading, index) => <li key={heading}>{index ? <CaretRight size={11} aria-hidden /> : null}<span>{heading}</span></li>)}</ol>{resource.locator.page ? <span className={styles.pageLabel}>Página {resource.locator.page}</span> : null}</div></div> : null}
+      {resource.citation ? <details className={styles.sourceNote}><summary>Sobre esta fuente<CaretDown size={13} aria-hidden /></summary><p>{resource.citation}</p></details> : null}
     </div></li>)}</ul> : <p className={styles.empty}>{unit.resources ? "Esta unidad no tiene recursos de referencia asociados." : "Actualiza la ruta para consultar sus recursos."}</p>}
   </section>)}</div>;
 }

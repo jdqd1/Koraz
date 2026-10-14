@@ -10,6 +10,7 @@ import {
 } from "@cediah/contracts";
 import type { DatabaseClient, CediahDatabase } from "../../db/database.js";
 import { resolveGuidedUser, sendGuidedUserError } from "../http.js";
+import { learningTimeZone } from "../time-zone.js";
 import { createPostgresGuidedV2AttemptService, createPostgresGuidedV2MetricsService,
   v2ContentAvailable, v2RebuildEvidence, v2Receipt, v2LockActor, createGuidedV2DefinitionReader, prepareCachedGuidedV2ActivitySnapshot, readGuidedV2SourceFacts, createGuidedV2SnapshotReader,
   type GuidedV2DefinitionReader, type GuidedV2EvidenceReadFacts, type GuidedV2SnapshotReader } from "../../providers/postgres-guided-learning-v2.js";
@@ -187,9 +188,7 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
     && evidence.route.completedActivities + evidence.route.dispensedActivities === evidence.route.plannedRequiredActivities) {
     selection.nextAction = { kind: "gate", key: final.key, reason: "Evaluación final disponible; las actividades completadas no implican dominio acreditado" };
   }
-  const preferences = await transaction.selectFrom("learning_preferences").select("timezone").where("user_id", "=", userId).executeTakeFirst();
-  let timeZone = preferences?.timezone ?? "UTC";
-  try { new Intl.DateTimeFormat("es", { timeZone }); } catch { timeZone = "UTC"; }
+  const timeZone = await learningTimeZone(transaction, userId);
   const measurement = (firstMasteredAt: string, dueAt: string | null, acceptedAt: string | null) => ({ dueAt, acceptedAt,
     elapsedDays: acceptedAt && firstMasteredAt ? Math.max(0, (Date.parse(acceptedAt) - Date.parse(firstMasteredAt)) / 86400000) : null });
   // Explicit public allowlist: no activity payloads, reserves, sources, mappings or solutions.

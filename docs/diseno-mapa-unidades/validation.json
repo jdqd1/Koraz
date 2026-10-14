@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-13",
+  "reportTimeZone": "America/Caracas",
+  "status": "PASS_LOCAL",
+  "commentsAddressed": [1, 2, 3, 4, 5, 6, 7, 8],
+  "checks": {
+    "contractsBuildAndTypecheck": "PASS",
+    "webTypecheck": "PASS",
+    "apiTypecheck": "PASS",
+    "focusedWebLint": "PASS",
+    "focusedApiLint": "PASS",
+    "diffWhitespace": "PASS",
+    "webUnitTests": { "passed": 46, "files": 6, "log": "web-tests-final.log" },
+    "dateUiFinalRecheck": { "passed": 27, "files": 2, "log": "date-ui-final.log" },
+    "adminDateFormatting": { "passed": 2, "files": 1, "log": "admin-dates.log" },
+    "apiIntegrationAndTimezoneTests": { "passed": 48, "files": 3, "engine": "PGlite", "log": "api-tests.log" },
+    "selectionAndSchedulingTests": { "passed": 62, "skipped": 10, "files": 2, "log": "scheduling-tests.log" },
+    "mobileBrowserRegression": {
+      "passedInitially": 25,
+      "skipped": 1,
+      "initialFailures": 1,
+      "resolvedFailure": "The old test required observing the leaving phase, which prefetch can make too brief to observe.",
+      "focusedRerun": { "passed": 2, "projects": ["desktop", "mobile"], "log": "navigation-regression.log" },
+      "finalResult": "26 mobile cases verified; one desktop mouse gesture is intentionally skipped on mobile",
+      "log": "mobile-tests.log"
+    },
+    "responsiveWidths": [320, 390, 430, 768, 1440],
+    "axe": { "routeViolations": 0, "panelViolations": 0 },
+    "countryDisplay": ["America/Caracas", "Europe/Madrid"],
+    "dayBoundaryAndTimezoneRules": ["America/New_York", "Asia/Tokyo", "Pacific/Kiritimati", "UTC"],
+    "reducedMotion": "PASS",
+    "hydrationErrorsInFinalMobileRun": 0,
+    "unitNavigation": { "viewport": "430x932", "forwardMs": 108.3, "backMs": 103.3, "thresholdMs": 200, "source": "navigation-performance.json", "scope": "local fixture in Chromium mobile profile" }
+  },
+  "preserved": ["server-authoritative state", "UTC instants and elapsed review intervals", "historical events", "version and access validation", "v1 navigation", "account-scoped cache limits", "nodes and flow connections", "source references"],
+  "notVerified": ["production deployment", "physical mobile hardware", "live authenticated account persistence", "independent PostgreSQL server", "CI"],
+  "knownLimits": ["Unprepared routes still require network access", "The detected user zone follows the device timezone setting", "Prior PostCSS highlight warnings remain"],
+  "dependenciesAdded": 0,
+  "schemaMigrationRequired": false
+}

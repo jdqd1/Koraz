@@ -1,4 +1,5 @@
 "use client";
+import { PLATFORM_TIME_ZONE } from "@cediah/contracts";
 
 import {
   type ChangeEvent,
@@ -406,6 +407,7 @@ export function VideoTestUploader() {
               El enlace de reproducción vence a las{" "}
               {asset.expiresAt
                 ? new Intl.DateTimeFormat("es-VE", {
+                    timeZone: PLATFORM_TIME_ZONE,
                     hour: "2-digit",
                     minute: "2-digit",
                   }).format(new Date(asset.expiresAt))

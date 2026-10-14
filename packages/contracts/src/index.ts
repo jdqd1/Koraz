@@ -29,6 +29,7 @@ export {
 } from "./learning-content.js";
 
 export * from "./guided-learning.js";
+export * from "./time-zone.js";
 export * from "./learning-route-package.js";
 export * from "./learning-route-validation.js";
 export * from "./guided-learning-v2.js";

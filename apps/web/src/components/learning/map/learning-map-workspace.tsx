@@ -16,7 +16,7 @@ import type {
 } from "@cediah/contracts";
 import { MapWorkspaceProvider, useMapWorkspace } from "./map-provider";
 import type { MapClient } from "./map-client";
-import { buildMapHref, ROOT_MAP_ROUTE } from "./map-route";
+import { buildMapHref, mapItemRoute, ROOT_MAP_ROUTE } from "./map-route";
 import { LearningMapItem, type MapItemAction } from "./nodes/learning-map-item";
 import { MedicalMapIcon } from "./medical-map-icon";
 import { LessonDetailPanel } from "./lesson-detail-panel";
@@ -108,17 +108,7 @@ function Workspace() {
   const routeFor = useCallback(
     (item: MapItem): MapRoute => {
       if (!level) return ROOT_MAP_ROUTE;
-      return level.levelKey === "root" && item.kind === "block" && item.pathId
-        ? { nodeId: item.pathId, entryId: item.pathId, unitStableKey: null }
-        : item.kind === "node"
-        ? { nodeId: item.occurrenceId, entryId: null, unitStableKey: null }
-        : level.levelKey.startsWith("block:")
-          ? { ...level.route, unitStableKey: item.unitStableKey }
-          : {
-              nodeId: level.route.nodeId,
-              entryId: item.occurrenceId,
-              unitStableKey: null,
-            };
+      return mapItemRoute(level, item);
     },
     [level],
   );
@@ -216,7 +206,7 @@ function Workspace() {
     : level?.items.length === 1 ? "ruta" : "rutas";
   const v2Info = info && info !== "container" ? v2MapItem(info) : null;
   const panel = level && (v2Selection && (level.route.unitStableKey || detail || info) || v2Info) ? (
-    <V2MapPanel meta={v2Info ?? v2Selection!} route={level.route} onClose={closePanel} />
+    <V2MapPanel meta={v2Info ?? v2Selection!} route={level.route} onClose={closePanel} onSelectUnit={key => navigate({ ...level.route, unitStableKey: key })} />
   ) : unavailableSelection ? (
     <aside className={styles.panel} aria-label="Lección no disponible">
       <header className={styles.panelHeader}>

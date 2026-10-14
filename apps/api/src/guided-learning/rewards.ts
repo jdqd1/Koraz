@@ -1,4 +1,5 @@
 import { sql, type Selectable, type Transaction } from "kysely";
+import { learningTimeZone as rewardTimezone } from "./time-zone.js";
 import {
   LEARNING_VIDEO_OBSERVED_XP,
   LEARNING_VIDEO_SKIPPED_XP,
@@ -6,6 +7,8 @@ import {
   LearningRewardSchema,
   V2ObjectiveRewardSchema,
   V2RewardSchema,
+  PLATFORM_TIME_ZONE,
+  localDateInTimeZone,
   type V2ObjectiveRewardKind,
   type LearningMilestone,
   type LearningProjection,
@@ -87,17 +90,7 @@ function toIso(value: Date | string) {
   return (value instanceof Date ? value : new Date(value)).toISOString();
 }
 
-function localDate(value: Date, timezone: string) {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone: timezone,
-    year: "numeric",
-  }).formatToParts(value);
-  const part = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((entry) => entry.type === type)?.value ?? "";
-  return `${part("year")}-${part("month")}-${part("day")}`;
-}
+const localDate = localDateInTimeZone;
 
 export function toLearningReward(row: RewardRow): LearningReward {
   return LearningRewardSchema.parse({
@@ -107,17 +100,6 @@ export function toLearningReward(row: RewardRow): LearningReward {
     title: rewardTitles[row.reward_kind],
     xp: row.xp,
   });
-}
-
-async function rewardTimezone(
-  database: RewardDatabase,
-  userId: string,
-) {
-  const preference = await database.selectFrom("learning_preferences")
-    .select("timezone")
-    .where("user_id", "=", userId)
-    .executeTakeFirst();
-  return preference?.timezone ?? "UTC";
 }
 
 async function insertReward(
@@ -268,7 +250,7 @@ async function lockedRewardTimezone(
     pending_preferences_json: {},
     pinned_enrollment_id: null,
     session_minutes: 10,
-    timezone: "UTC",
+    timezone: PLATFORM_TIME_ZONE,
     user_id: userId,
     weekly_goal_days: null,
   }).onConflict((conflict) => conflict.column("user_id").doNothing()).execute();

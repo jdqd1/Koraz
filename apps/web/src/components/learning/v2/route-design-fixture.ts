@@ -2,7 +2,7 @@ import { V2PathCardSchema, V2PublicPathSchema, V2RouteStateSchema } from "@cedia
 import { studentFixture } from "./fixtures";
 
 /** Development-only example matching the route shown in the design brief. */
-export function routeDesignFixture() {
+export function routeDesignFixture(mode = "abdomen") {
   const fixture = studentFixture();
   const units = [
     { key: "arteries", title: "Territorios y trayectos arteriales", objective: "Entender los trayectos y territorios arteriales" },
@@ -24,7 +24,8 @@ export function routeDesignFixture() {
         { key: `${unit.key}-case`, kind: "case", phase: "apply" },
         ...(unitIndex > 1 ? [{ key: `${unit.key}-explain`, kind: "constructed_response", phase: "apply" }] : []),
       ].map(activity => ({ ...activity, objectiveKey: unit.key, required: true })),
-      resources: [{ key: `${unit.key}-guide`, title: "Guía de vascularización abdominal", citation: "", url: null, locator: { heading: unit.title, sectionPath: [], page: unitIndex + 1 } }],
+      resources: [{ key: `${unit.key}-guide`, title: "Guía de vascularización abdominal", citation: unitIndex === 0 ? "Snapshot suministrado 2026-10-08 con aclaraciones editoriales RC01 de 2026-10-11. Material de prueba para la interfaz." : "", url: null,
+        locator: { heading: unitIndex === 0 ? "Continuidad entre los territorios arteriales digestivos" : unit.title, sectionPath: unitIndex === 0 ? ["Aorta abdominal", "Ramas viscerales impares"] : [], page: unitIndex === 0 ? null : unitIndex + 1 } }],
     })),
   });
   const state = V2RouteStateSchema.parse({ ...fixture.state, completedActivities: 16, plannedRequiredActivities: 34, dueReviews: 1,
@@ -45,6 +46,19 @@ export function routeDesignFixture() {
     },
     versionHistory: [{ versionNumber: 1, engineVersion: "guided-v2", adoptedAt: "2026-10-12T23:00:00Z", completedAt: null, consumedActivities: ["Territorios arteriales", "Retorno venoso"] }],
   });
+  if (mode === "abdomen-complete") {
+    state.completedActivities = state.plannedRequiredActivities;
+    state.completedAt = "2026-10-13T00:20:00Z";
+    state.activityProgress = state.activityProgress!.map(activity => ({ ...activity, status: "completed" }));
+    state.dueReviews = 0;
+    state.objectives = state.objectives.map(objective => ({ ...objective, reviewDue: false }));
+    state.nextAction = { kind: "none", key: null, reason: "La práctica sigue disponible; la próxima comprobación será después de 2026-10-14T05:00:14.480Z" };
+    state.maintenance!.generatedAt = "2026-10-14T00:30:00Z";
+    state.maintenance!.reviewBatch = [];
+    state.maintenance!.activities = [];
+    state.maintenance!.exhaustedBanks = [{ objectiveKey: "arteries", availableAfter: "2026-10-14T05:00:14.480Z" }];
+    state.maintenance!.agenda = state.maintenance!.agenda.map(item => ({ ...item, dueAt: "2026-10-17T00:20:00Z" }));
+  }
   const card = V2PathCardSchema.parse({ ...fixture.card, title: path.title, slug: path.slug, coverKey: path.coverKey, topicLabel: path.topicLabel, unitCount: path.units.length });
   return { ...fixture, path, state, card, home: { ...fixture.home, activePath: card } };
 }

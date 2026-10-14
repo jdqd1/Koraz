@@ -1,4 +1,5 @@
 "use client";
+import { formatPlatformDateTime } from "@/lib/date-time";
 
 import {
   ArrowClockwise,
@@ -406,7 +407,7 @@ export function InteractiveTermAdminScreen({ initialTerms, viewerEmail }: Props)
                 <h2>{draft.name || "Concepto sin nombre"}</h2>
                 {!creating && selectedTerm ? (
                   <p>
-                    {selectedTerm.usageCount} apariciones indexadas · actualizado {new Date(selectedTerm.updatedAt).toLocaleDateString("es")}
+                    {selectedTerm.usageCount} apariciones indexadas · actualizado {formatPlatformDateTime(selectedTerm.updatedAt)} (hora de Venezuela)
                   </p>
                 ) : (
                   <p>Los cambios de matching reindexarán las guías automáticamente.</p>

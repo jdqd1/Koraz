@@ -6,6 +6,8 @@ import {
   LearningObjectiveSchema,
   LearningPreferencesSchema,
   LearningTaskOverrideResponseSchema,
+  PLATFORM_TIME_ZONE,
+  localDateInTimeZone,
   type GuidedLearningProvider,
   type LearningEnrollmentProgress,
   type LearningHome,
@@ -32,6 +34,7 @@ import {
   type LearningTaskCandidate,
 } from "../guided-learning/review-scheduler.js";
 import { readLearningRewardSummary } from "../guided-learning/rewards.js";
+import { learningEventTime } from "../guided-learning/time-zone.js";
 import { readLearningEnrollmentProgress } from "./postgres-learning-activities.js";
 
 type QueryDatabase = DatabaseClient | Transaction<CediahDatabase>;
@@ -67,16 +70,7 @@ function isTimezone(value: string) {
   }
 }
 
-function localDate(value: Date, timezone: string) {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone: timezone,
-    year: "numeric",
-  }).formatToParts(value);
-  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((entry) => entry.type === type)?.value ?? "";
-  return `${part("year")}-${part("month")}-${part("day")}`;
-}
+const localDate = localDateInTimeZone;
 
 function nextLocalMonday(now: Date, timezone: string) {
   const today = localDate(now, timezone);
@@ -98,7 +92,7 @@ function defaultPreferences(): LearningPreferences {
     pinnedEnrollmentId: null,
     rowVersion: 0,
     sessionMinutes: 10,
-    timezone: "UTC",
+    timezone: PLATFORM_TIME_ZONE,
     weeklyGoalDays: null,
   });
 }
@@ -112,7 +106,7 @@ function preferencesFromRow(row: PreferenceRow, now: Date): LearningPreferences 
     pinnedEnrollmentId: row.pinned_enrollment_id,
     rowVersion: row.row_version,
     sessionMinutes: row.session_minutes,
-    timezone: effective ? pending.timezone : row.timezone,
+    timezone: row.timezone,
     weeklyGoalDays: effective ? pending.weeklyGoalDays : row.weekly_goal_days,
   });
 }
@@ -517,20 +511,19 @@ export function createPostgresLearningInsightMethods(
         }
         const current = row ? preferencesFromRow(row, now) : defaultPreferences();
         const existingPending = row ? parsePending(row.pending_preferences_json) : null;
-        const pendingStillFuture = existingPending && existingPending.effectiveOn > localDate(now, row?.timezone ?? "UTC")
+        const pendingStillFuture = existingPending && existingPending.effectiveOn > localDate(now, row?.timezone ?? PLATFORM_TIME_ZONE)
           ? existingPending
           : null;
-        const constancyChanged = input.request.timezone !== undefined ||
-          Object.prototype.hasOwnProperty.call(input.request, "weeklyGoalDays");
-        const targetTimezone = input.request.timezone ?? pendingStillFuture?.timezone ?? current.timezone;
+        const constancyChanged = Object.prototype.hasOwnProperty.call(input.request, "weeklyGoalDays");
+        const targetTimezone = input.request.timezone ?? current.timezone;
         const targetGoal = Object.prototype.hasOwnProperty.call(input.request, "weeklyGoalDays")
           ? input.request.weeklyGoalDays ?? null
           : pendingStillFuture?.weeklyGoalDays ?? current.weeklyGoalDays;
         const pending = constancyChanged ? {
-          effectiveOn: nextLocalMonday(now, current.timezone),
+          effectiveOn: nextLocalMonday(now, targetTimezone),
           timezone: targetTimezone,
           weeklyGoalDays: targetGoal,
-        } : pendingStillFuture;
+        } : pendingStillFuture ? { ...pendingStillFuture, timezone: targetTimezone } : null;
         let saved: PreferenceRow;
         if (!row) {
           saved = await transaction.insertInto("learning_preferences").values({
@@ -538,7 +531,7 @@ export function createPostgresLearningInsightMethods(
             pending_preferences_json: (pending ?? {}) as JsonValue,
             pinned_enrollment_id: input.request.pinnedEnrollmentId ?? null,
             session_minutes: input.request.sessionMinutes ?? 10,
-            timezone: "UTC",
+            timezone: targetTimezone,
             user_id: input.userId,
             weekly_goal_days: null,
           }).returningAll().executeTakeFirstOrThrow();
@@ -551,7 +544,7 @@ export function createPostgresLearningInsightMethods(
               : input.request.pinnedEnrollmentId,
             row_version: row.row_version + 1,
             session_minutes: input.request.sessionMinutes ?? row.session_minutes,
-            timezone: current.timezone,
+            timezone: targetTimezone,
             weekly_goal_days: current.weeklyGoalDays,
           }).where("user_id", "=", input.userId)
             .where("row_version", "=", row.row_version)
@@ -659,14 +652,12 @@ export function createPostgresLearningInsightMethods(
           attempt_id: null,
           enrollment_id: null,
           event_type: "task_override_updated",
-          local_date: now.toISOString().slice(0, 10),
-          occurred_at: now,
+          ...await learningEventTime(transaction, input.userId, now),
           payload_json: {
             action: input.request.action,
             taskCount: input.request.taskKeys.length,
           },
           semantic_key: `task_override_updated:${input.idempotencyKey}`,
-          timezone: "UTC",
           user_id: input.userId,
         }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing())
           .execute();

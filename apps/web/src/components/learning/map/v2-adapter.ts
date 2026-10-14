@@ -11,6 +11,13 @@ type MixedItem = MapItem & { guidedV2Group?: V2MapMeta[] };
 export function v2MapItem(item: MapItem): V2MapMeta | null { return "guidedV2" in item ? (item as V2Item).guidedV2 : null; }
 export function v2MapGroup(item: MapItem): V2MapMeta[] | null { return (item as MixedItem).guidedV2Group ?? null; }
 export function v2MapLevel(level: LearningMapLevelResponse | null): V2MapMeta | null { return level && "guidedV2" in level ? (level as V2Level).guidedV2 : null; }
+/** Units share one confirmed path/state; changing the visible unit needs no request. */
+export function projectV2MapUnit(level: LearningMapLevelResponse | null, route: MapRoute): LearningMapLevelResponse | null {
+  const meta = v2MapLevel(level);
+  if (!level || !meta?.path || level.route.nodeId !== route.nodeId || level.route.entryId !== route.entryId
+    || route.unitStableKey && !meta.path.units.some(unit => unit.key === route.unitStableKey)) return null;
+  return { ...level, route, guidedV2: { ...meta, unitKey: route.unitStableKey ?? undefined } } as V2Level;
+}
 export function v2MapSummary(meta: V2MapMeta) {
   if (!meta.card.enrollmentId) return "Ruta por comenzar";
   if (meta.unitKey) {
@@ -53,7 +60,11 @@ export function createV2MapClient(base: MapClient = mapClient, reader = createV2
     const cards = await catalog(signal);
     const card = cards.find(card => card.id === route.entryId || card.id === route.nodeId);
     if (card) {
-      const path = await reader.path(card.slug, signal);
+      const parentRoute = { nodeId: route.nodeId, entryId: null, unitStableKey: null };
+      const [path, cardMeta, root, parent] = await Promise.all([
+        reader.path(card.slug, signal), meta(card, signal), base.level(ROOT_MAP_ROUTE, signal),
+        route.nodeId && route.nodeId !== card.id ? base.level(parentRoute, signal) : null,
+      ]);
       // A v1 enrollment takes precedence over a newer published v2 card in the map.
       if (path.access !== "enrolled" && !card.enrollmentId) {
         const legacy = await base.level({ ...route, unitStableKey: null }, signal).catch(() => null);
@@ -61,10 +72,7 @@ export function createV2MapClient(base: MapClient = mapClient, reader = createV2
       }
       if (path.pathId !== card.id || path.pathVersionId !== card.pathVersionId || path.enrollmentId !== card.enrollmentId) throw new Error("La versión de la ruta cambió. Actualiza el mapa.");
       if (route.unitStableKey && !path.units.some(unit => unit.key === route.unitStableKey)) throw new Error("Esta unidad no existe en tu versión de la ruta.");
-      const root = await base.level(ROOT_MAP_ROUTE, signal);
-      const parentRoute = { nodeId: route.nodeId, entryId: null, unitStableKey: null };
-      const parent = route.nodeId && route.nodeId !== card.id ? await base.level(parentRoute, signal) : null;
-      const confirmed = { ...await meta(card, signal), path };
+      const confirmed = { ...cardMeta, path };
       const key = `block:${card.id}`;
       const routeWithoutUnit = { ...route, unitStableKey: null };
       const projected: V2Level = { ...root, route, levelKey: key, layout: { schemaVersion: 1, levelKey: key, rowVersion: 0, positions: {} },
@@ -73,9 +81,8 @@ export function createV2MapClient(base: MapClient = mapClient, reader = createV2
         containerSummary: { title: path.title, description: path.summary, progress: v2MapProgress(confirmed) }, resolvedVersionIds: [path.pathVersionId], guidedV2: { ...confirmed, unitKey: route.unitStableKey ?? undefined } };
       return projected;
     }
-    const original = await base.level(route, signal);
+    const [original, metas] = await Promise.all([base.level(route, signal), Promise.all(cards.map(card => meta(card, signal)))]);
     if (!cards.length) return original;
-    const metas = await Promise.all(cards.map(card => meta(card, signal)));
     const byId = new Map<string, V2MapMeta>(metas.map(meta => [meta.card.id, meta]));
     const seen = new Set<string>();
     const items = await Promise.all(original.items.map(async item => {

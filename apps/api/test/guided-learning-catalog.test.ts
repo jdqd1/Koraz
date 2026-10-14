@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { learningEventTime } from "../src/guided-learning/time-zone.js";
 import {
   Kysely,
   PostgresAdapter,
@@ -1062,14 +1063,33 @@ describe("guided-learning catalog and versioning", () => {
     ]));
   });
 
-  it("defers constancy timezone changes to the next local week with optimistic idempotency", async () => {
+  it("keeps a pending weekly goal and historical events when the user's country changes", async () => {
+    const previousClock = clockNow;
+    clockNow = new Date("2026-10-14T02:30:00Z");
+    try {
+      const preferences = await provider.getPreferences({ userId: otherStudentId });
+      const history = await pg.query("select occurred_at, local_date, timezone from learning_events where user_id = $1 order by id", [otherStudentId]);
+      const first = await provider.updatePreferences({ userId: otherStudentId, idempotencyKey: "6d000000-0000-4000-8000-000000000001",
+        request: { expectedVersion: preferences.rowVersion, timezone: "America/New_York", weeklyGoalDays: 5 } });
+      if (first.status !== "success") throw new Error("Expected preferences");
+      expect(await learningEventTime(database, otherStudentId, clockNow)).toEqual({ occurred_at: clockNow, local_date: "2026-10-13", timezone: "America/New_York" });
+      const moved = await provider.updatePreferences({ userId: otherStudentId, idempotencyKey: "6d000000-0000-4000-8000-000000000002",
+        request: { expectedVersion: first.value.rowVersion, timezone: "Asia/Tokyo" } });
+      if (moved.status !== "success") throw new Error("Expected updated timezone");
+      expect(moved.value.timezone).toBe("Asia/Tokyo");
+      expect(moved.value.pendingConstancy).toMatchObject({ effectiveOn: first.value.pendingConstancy!.effectiveOn, weeklyGoalDays: 5 });
+      expect(await learningEventTime(database, otherStudentId, clockNow)).toEqual({ occurred_at: clockNow, local_date: "2026-10-14", timezone: "Asia/Tokyo" });
+      expect((await pg.query("select occurred_at, local_date, timezone from learning_events where user_id = $1 order by id", [otherStudentId])).rows).toEqual(history.rows);
+    } finally { clockNow = previousClock; }
+  });
+  it("applies timezone changes immediately while deferring only the weekly goal, with optimistic idempotency", async () => {
     clockNow = new Date("2026-09-06T12:11:00.000Z");
     const defaults = await provider.getPreferences({ userId: studentId });
-    expect(defaults).toMatchObject({ pendingConstancy: null, rowVersion: 1, sessionMinutes: 10, timezone: "UTC", weeklyGoalDays: null });
+    expect(defaults).toMatchObject({ pendingConstancy: null, rowVersion: 1, sessionMinutes: 10, timezone: "America/Caracas", weeklyGoalDays: null });
     const request = {
       expectedVersion: 1,
       sessionMinutes: 5 as const,
-      timezone: "America/Caracas",
+      timezone: "Europe/Madrid",
       weeklyGoalDays: 3 as const,
     };
     const updated = await provider.updatePreferences({
@@ -1080,11 +1100,12 @@ describe("guided-learning catalog and versioning", () => {
     expect(updated.status).toBe("success");
     if (updated.status !== "success") throw new Error("Expected preferences");
     expect(updated.value).toMatchObject({
-      pendingConstancy: { effectiveOn: "2026-09-07", timezone: "America/Caracas", weeklyGoalDays: 3 },
+      pendingConstancy: { effectiveOn: "2026-09-07", timezone: "Europe/Madrid", weeklyGoalDays: 3 },
       sessionMinutes: 5,
-      timezone: "UTC",
+      timezone: "Europe/Madrid",
       weeklyGoalDays: null,
     });
+    expect((await pg.query("select timezone from learning_preferences where user_id = $1", [studentId])).rows).toEqual([{ timezone: "Europe/Madrid" }]);
     expect(await provider.updatePreferences({
       idempotencyKey: "6c000000-0000-4000-8000-000000000001",
       request,
@@ -1099,7 +1120,7 @@ describe("guided-learning catalog and versioning", () => {
     clockNow = new Date("2026-09-07T12:11:00.000Z");
     expect(await provider.getPreferences({ userId: studentId })).toMatchObject({
       pendingConstancy: null,
-      timezone: "America/Caracas",
+      timezone: "Europe/Madrid",
       weeklyGoalDays: 3,
     });
     expect((await provider.getHome({ userId: studentId })).constancy).toEqual({

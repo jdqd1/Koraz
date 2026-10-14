@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useSyncExternalStore } from "react";
+import { formatPlatformDateTime } from "@/lib/date-time";
 import type { EditorV2State } from "./editor-model";
 import { openPreviewV2, type PreviewConnection, type PreviewSnapshot } from "./preview-transport";
 import { V2Player } from "../../v2/player";
@@ -32,7 +33,7 @@ function PreviewSession({ connection, onClose }: { connection: PreviewConnection
   const next = snapshot.state.nextAction;
   const nextTarget = snapshot.targets.find(item => item.key === next.key);
   return <div style={{ minWidth: 0, overflowWrap: "anywhere" }}>
-    <p>Reloj simulado: <time dateTime={snapshot.now}>{new Date(snapshot.now).toLocaleString("es-VE", { timeZone: "America/Caracas" })}</time> (America/Caracas).</p>
+    <p>Reloj simulado: <time dateTime={snapshot.now}>{formatPlatformDateTime(snapshot.now)}</time> (hora de Venezuela).</p>
     <p>La sesión editorial vence en diez minutos reales. Cerrar o reiniciar descarta sus resultados.</p>
     {snapshot.profileWarning ? <p role="alert">{snapshot.profileWarning}</p> : null}
     <div className={styles.inlineActions}>{[1, 7, 30].map(days => <button className={styles.secondaryButton} key={days} type="button" disabled={busy || open} onClick={() => void run("clock", undefined, undefined, days)}>Avanzar {days} {days === 1 ? "día" : "días"}</button>)}<button className={styles.textButton} type="button" onClick={onClose}>Cerrar vista previa</button></div>

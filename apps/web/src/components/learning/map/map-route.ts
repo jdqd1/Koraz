@@ -1,9 +1,16 @@
-import { MapQuerySchema, type MapRoute } from "@cediah/contracts";
+import { MapQuerySchema, type LearningMapLevelResponse, type MapItem, type MapRoute } from "@cediah/contracts";
 export const ROOT_MAP_ROUTE: MapRoute = {
   nodeId: null,
   entryId: null,
   unitStableKey: null,
 };
+export function mapItemRoute(level: LearningMapLevelResponse, item: MapItem): MapRoute {
+  return level.levelKey === "root" && item.kind === "block" && item.pathId
+    ? { nodeId: item.pathId, entryId: item.pathId, unitStableKey: null }
+    : item.kind === "node" ? { nodeId: item.occurrenceId, entryId: null, unitStableKey: null }
+    : level.levelKey.startsWith("block:") ? { ...level.route, unitStableKey: item.unitStableKey }
+    : { nodeId: level.route.nodeId, entryId: item.occurrenceId, unitStableKey: null };
+}
 export function parseMapRoute(params: URLSearchParams): MapRoute | null {
   const parsed = MapQuerySchema.safeParse(
     Object.fromEntries(

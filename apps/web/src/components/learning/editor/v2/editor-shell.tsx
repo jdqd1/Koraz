@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { formatPlatformDateTime } from "@/lib/date-time";
 import { AlertDialog, Tabs } from "radix-ui";
 import { useLayoutEffect, useRef, useState } from "react";
 import { analyzeRouteGraph, type V2BoundRouteDefinition } from "@cediah/contracts";
@@ -128,7 +129,7 @@ export function EditorShellV2(props: {
     {!editor.recoveryAvailable ? <p role="status" className={styles.recoveryWarning}>La recuperación local no está disponible; descarga una copia antes de salir.</p> : null}
     {saveNotice ? <p role="status" className={local.saveNotice}>{saveNotice}</p> : null}
     <div className={`${styles.saveBar} ${local.saveBar}`} data-last-step={stepIndex === 4}>
-      <div className={local.saveStatus} aria-live="polite" data-dirty={state.dirty} title={state.confirmedAt ? `Último guardado: ${new Date(state.confirmedAt).toLocaleString("es", { timeZone: "America/Caracas" })}` : saveStatus}><strong>{saveStatus}</strong></div>
+      <div className={local.saveStatus} aria-live="polite" data-dirty={state.dirty} title={state.confirmedAt ? `Último guardado: ${formatPlatformDateTime(state.confirmedAt)} (hora de Venezuela)` : saveStatus}><strong>{saveStatus}</strong></div>
       <div className={local.footerActions}>
         {stepIndex > 0 ? <button className={`${styles.textButton} ${local.previousAction}`} aria-label="Atrás" title="Atrás" type="button" onClick={() => goToStep(stepIndex - 1)}><ArrowLeft size={16} aria-hidden /><span className={local.desktopLabel}>Atrás</span></button> : null}
         <button className={`${stepIndex === 4 ? styles.primaryAction : styles.secondaryButton} ${local.saveControl}`} aria-label={state.operation === "saving" ? "Guardando…" : "Guardar borrador"} title="Guardar borrador" disabled={busy || showImport || !controller.canSave() || Boolean(editor.recoveryCandidate) || Boolean(state.confirmed && !state.dirty)} onClick={() => void save()} type="button"><FloppyDisk size={17} className={local.mobileIcon} aria-hidden /><span className={local.desktopLabel}>{state.operation === "saving" ? "Guardando…" : "Guardar borrador"}</span><span className={local.mobileLabel}>{state.operation === "saving" ? "Guardando…" : "Guardar"}</span></button>

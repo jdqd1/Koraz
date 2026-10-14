@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TimeZoneSchema } from "./time-zone.js";
 import { LearningPathStatusSchema, LearningRewardSchema } from "./guided-learning.js";
 import {
   RouteActivitySchema,
@@ -241,7 +242,7 @@ export const V2ObjectiveStateSchema = z.strictObject({
 const MaintenanceMeasurement = z.strictObject({ dueAt: Timestamp.nullable(), acceptedAt: Timestamp.nullable(), elapsedDays: z.number().nonnegative().nullable() });
 export const V2MaintenanceSchema = z.strictObject({
   generatedAt: Timestamp,
-  timeZone: z.string().refine(value => { try { new Intl.DateTimeFormat("es", { timeZone: value }); return true; } catch { return false; } }, "Zona IANA inválida"),
+  timeZone: TimeZoneSchema,
   diagnostic: z.strictObject({ status: z.enum(["pending", "completed", "omitted", "unavailable"]), assessmentKey: RouteKeySchema.nullable() }),
   activities: z.array(z.strictObject({ key: RouteKeySchema, objectiveKey: RouteKeySchema, reason: z.string().min(1) })),
   reviewBatch: z.array(z.strictObject({ key: RouteKeySchema, objectiveKey: RouteKeySchema, dueAt: Timestamp })).max(10),

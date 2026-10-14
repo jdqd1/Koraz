@@ -40,6 +40,7 @@ import {
 import { gradeQuizOption } from "../guided-learning/adapters/quiz.js";
 import { recomputeObjectiveEvidence } from "../guided-learning/learning-evidence.js";
 import { withLearningReceipt } from "../guided-learning/mutation-receipt.js";
+import { learningEventTime } from "../guided-learning/time-zone.js";
 import { hashLearningSnapshot } from "../guided-learning/snapshot-hash.js";
 import {
   filterReviewCandidateOverrides,
@@ -449,26 +450,23 @@ async function finishAttempt(
       .where("row_version", "=", stepProgress.row_version).executeTakeFirstOrThrow();
   }
 
+  const eventTime = await learningEventTime(transaction, row.user_id, acceptedAt);
   await transaction.insertInto("learning_events").values({
     attempt_id: row.id,
     enrollment_id: row.enrollment_id,
     event_type: "activity_completed",
-    local_date: acceptedAt.toISOString().slice(0, 10),
-    occurred_at: acceptedAt,
+    ...eventTime,
     payload_json: { completionMethod: method, projection: manifest.projection },
     semantic_key: `activity_completed:${row.id}`,
-    timezone: "UTC",
     user_id: row.user_id,
   }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
   const stepEvent = await transaction.insertInto("learning_events").values({
     attempt_id: row.id,
     enrollment_id: row.enrollment_id,
     event_type: "step_completed",
-    local_date: acceptedAt.toISOString().slice(0, 10),
-    occurred_at: acceptedAt,
+    ...eventTime,
     payload_json: { stepId: row.step_id },
     semantic_key: `step_completed:${row.enrollment_id}:${row.step_id}`,
-    timezone: "UTC",
     user_id: row.user_id,
   }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing())
     .returning("id").executeTakeFirst();
@@ -529,11 +527,9 @@ async function finishAttempt(
       attempt_id: row.id,
       enrollment_id: row.enrollment_id,
       event_type: "unit_completed",
-      local_date: acceptedAt.toISOString().slice(0, 10),
-      occurred_at: acceptedAt,
+      ...eventTime,
       payload_json: { unitId: completionContext.unit_id },
       semantic_key: `unit_completed:${row.enrollment_id}:${completionContext.unit_stable_key}:${completionContext.unit_pedagogy_version}`,
-      timezone: "UTC",
       user_id: row.user_id,
     }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing())
       .returning("id").executeTakeFirst();
@@ -569,11 +565,9 @@ async function finishAttempt(
       attempt_id: row.id,
       enrollment_id: row.enrollment_id,
       event_type: "route_completed",
-      local_date: acceptedAt.toISOString().slice(0, 10),
-      occurred_at: acceptedAt,
+      ...eventTime,
       payload_json: { pathVersionId: row.path_version_id },
       semantic_key: `route_completed:${row.enrollment_id}:${row.path_version_id}`,
-      timezone: "UTC",
       user_id: row.user_id,
     }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing())
       .returning("id").executeTakeFirst();
@@ -612,11 +606,9 @@ async function finishReviewAttempt(
     attempt_id: row.id,
     enrollment_id: null,
     event_type: "review_session_completed",
-    local_date: acceptedAt.toISOString().slice(0, 10),
-    occurred_at: acceptedAt,
+    ...await learningEventTime(transaction, row.user_id, acceptedAt),
     payload_json: { itemCount: resume.answeredItemIds.length + resume.ratedItemIds.length },
     semantic_key: `review_session_completed:${row.id}`,
-    timezone: "UTC",
     user_id: row.user_id,
   }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
   const enrollmentIds = [...new Set(manifest.items.flatMap((item) => item.evidenceEnrollmentIds))].sort();
@@ -731,11 +723,9 @@ export function createPostgresLearningActivityMethods(
             attempt_id: row.id,
             enrollment_id: null,
             event_type: "review_session_started",
-            local_date: acceptedAt.toISOString().slice(0, 10),
-            occurred_at: acceptedAt,
+            ...await learningEventTime(transaction, input.userId, acceptedAt),
             payload_json: { itemCount: candidates.length, sessionMinutes },
             semantic_key: `review_session_started:${row.client_attempt_id}`,
-            timezone: "UTC",
             user_id: input.userId,
           }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
         }
@@ -822,9 +812,9 @@ export function createPostgresLearningActivityMethods(
           await markStepStarted(transaction, row);
           await transaction.insertInto("learning_events").values({
             attempt_id: row.id, enrollment_id: row.enrollment_id, event_type: "activity_started",
-            local_date: acceptedAt.toISOString().slice(0, 10), occurred_at: acceptedAt,
+            ...await learningEventTime(transaction, input.userId, acceptedAt),
             payload_json: { projection: row.projection }, semantic_key: `activity_started:${row.client_attempt_id}`,
-            timezone: "UTC", user_id: input.userId,
+            user_id: input.userId,
           }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
         }
         return mutationResponse(transaction, row, input.userId);
@@ -1105,15 +1095,13 @@ export function createPostgresLearningActivityMethods(
             attempt_id: row.id,
             enrollment_id: null,
             event_type: "review_applied",
-            local_date: acceptedAt.toISOString().slice(0, 10),
-            occurred_at: acceptedAt,
+            ...await learningEventTime(transaction, input.userId, acceptedAt),
             payload_json: {
               itemId: input.request.itemId,
               memoryVersion,
               round: input.request.round,
             },
             semantic_key: `review_applied:${inserted.id}`,
-            timezone: "UTC",
             user_id: input.userId,
           }).returning("id").executeTakeFirstOrThrow();
           if (input.request.round === 1) awards.push(...await awardAppliedReview(transaction, {

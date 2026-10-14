@@ -21,8 +21,10 @@ import {
   parentMapRoute,
   ROOT_MAP_ROUTE,
   mapNavigationHref,
+  mapItemRoute,
 } from "./map-route";
 import { isolateMapAccount } from "./map-spatial-state";
+import { projectV2MapUnit, v2MapLevel } from "./v2-adapter";
 
 function useWorkspace(account: string, client: MapClient) {
   const search = useSearchParams();
@@ -54,6 +56,8 @@ function useWorkspace(account: string, client: MapClient) {
       const key = buildMapHref(route);
       const cached = !fresh && cache.get(key);
       if (cached) return cached;
+      const projected = !fresh && projectV2MapUnit(levelRef.current, route);
+      if (projected) { cache.set(key, projected); return projected; }
       const pending = !fresh && inFlight.current.get(key);
       if (pending) return pending;
       const generation = cacheGeneration.current;
@@ -179,8 +183,34 @@ function useWorkspace(account: string, client: MapClient) {
       void refresh().catch(() => {});
     };
     window.addEventListener("focus", focus);
-    return () => window.removeEventListener("focus", focus);
+    window.addEventListener("koraz:timezone-changed", focus);
+    return () => {
+      window.removeEventListener("focus", focus);
+      window.removeEventListener("koraz:timezone-changed", focus);
+    };
   }, [refresh]);
+  useEffect(() => {
+    if (!level) return;
+    let disposed = false;
+    const routes = [level.ancestry.at(-2)?.route ?? parentMapRoute(level.route),
+      ...level.items.slice(0, 2).map(item => mapItemRoute(level, item))];
+    const timer = window.setTimeout(() => {
+      void (async () => {
+        for (const route of routes) {
+          if (disposed) return;
+          if (buildMapHref(route) !== buildMapHref(level.route)) await load(route).catch(() => {});
+        }
+      })();
+    }, 80);
+    return () => { disposed = true; window.clearTimeout(timer); };
+  }, [level, load]);
+  useEffect(() => {
+    if (!v2MapLevel(level)?.state?.maintenance || !level?.route.unitStableKey) return;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") void refresh().catch(() => {});
+    }, 60_000);
+    return () => window.clearInterval(timer);
+  }, [level, refresh]);
   useEffect(() => () => {
     if (enteringTimer.current !== null) window.clearTimeout(enteringTimer.current);
   }, []);
@@ -241,6 +271,7 @@ function useWorkspace(account: string, client: MapClient) {
   }, [load, stopMotion]);
   const prefetch = useCallback(
     (route: MapRoute) => {
+      if (cache.get(buildMapHref(route)) || inFlight.current.has(buildMapHref(route)) || projectV2MapUnit(levelRef.current, route)) return () => {};
       if (prefetchCount.current >= 2) return () => {};
       prefetchCount.current++;
       void load(route)
@@ -250,7 +281,7 @@ function useWorkspace(account: string, client: MapClient) {
         });
       return () => {};
     },
-    [load],
+    [cache, load],
   );
   return {
     account,

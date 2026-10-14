@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { learningEventTime } from "../guided-learning/time-zone.js";
 import type { S3ObjectStorage } from "./s3-object-storage.js";
 import { sql, type Insertable, type Selectable, type Transaction } from "kysely";
 import {
@@ -206,7 +207,7 @@ async function v2MetricEvent(transaction: Tx, input: {
   await transaction.insertInto("learning_events").values({ user_id: input.userId,
     enrollment_id: input.enrollmentId, attempt_id: null, event_type: input.kind, semantic_key: input.semanticKey,
     payload_json: { pathVersionId: input.pathVersionId, ...(input.interval ?? {}), ...(input.objective ?? {}) },
-    policy_version: "guided-v2.0", occurred_at: input.at,
+    policy_version: "guided-v2.0", ...await learningEventTime(transaction, input.userId, input.at),
   }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
 }
 
@@ -1574,7 +1575,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             await transaction.insertInto("learning_events").values({ user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
               event_type: "help_requested", semantic_key: `v2-alternative:${row.id}:${input.activityKey}`,
               payload_json: { v2AttemptId: row.id, activityKey: input.activityKey, alternativeActivityKey: variant.key, modality: variant.representation, kind: "accessible_practice" },
-              policy_version: "guided-v2.0", occurred_at: now() }).onConflict(conflict => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
+              policy_version: "guided-v2.0", ...await learningEventTime(transaction, input.userId, now()) }).onConflict(conflict => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
             await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, now(), { definition: authorized });
             const manifest = await v2AttemptManifestFromRow(transaction, updated, authorized);
             return manifest ? { status: "success", value: manifest } : { status: "conflict" };
@@ -1640,7 +1641,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               user_id: input.userId, enrollment_id: enrollment.id, attempt_id: null,
               event_type: "activity_presented", semantic_key: `v2-presented:${created.id}`,
               payload_json: { v2AttemptId: created.id, targetKey: input.target.key }, policy_version: "guided-v2.0",
-              occurred_at: now(),
+              ...await learningEventTime(transaction, input.userId, now()),
             }).execute();
             await v2MetricEvent(transaction, { userId: input.userId, enrollmentId: enrollment.id, pathVersionId: version.id,
               kind: "route_started", semanticKey: `v2-route-started:${enrollment.id}:${version.id}`, at: now() });
@@ -1708,7 +1709,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
               event_type: "help_requested", semantic_key: `v2-help:${row.id}:${activity.key}:${input.kind}`,
               payload_json: { v2AttemptId: row.id, activityKey: activity.key, kind: input.kind }, policy_version: "guided-v2.0",
-              occurred_at: now(),
+              ...await learningEventTime(transaction, input.userId, now()),
             }).onConflict((conflict) => conflict.columns(["user_id", "semantic_key"]).doNothing()).execute();
             await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, now(), { definition: authorized });
             const manifest = await v2AttemptManifestFromRow(transaction, updated, authorized);
@@ -1809,7 +1810,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
               event_type: "response_accepted", semantic_key: `v2-response:${row.id}:${activity.key}`,
               payload_json: { v2AttemptId: row.id, responseId: response.id, activityKey: activity.key },
-              policy_version: "guided-v2.0", occurred_at: serverTime,
+              policy_version: "guided-v2.0", ...await learningEventTime(transaction, input.userId, serverTime),
             }).execute();
             await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime,
               { definition: authorized, readSnapshot: input.readSnapshot });
@@ -1855,7 +1856,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
                 : row.purpose === "review" ? "review_completed" : "activity_completed",
               semantic_key: `v2-complete:${row.id}`,
               payload_json: { v2AttemptId: row.id, responsesCount: count.count },
-              policy_version: "guided-v2.0", occurred_at: serverTime,
+              policy_version: "guided-v2.0", ...await learningEventTime(transaction, input.userId, serverTime),
             }).execute();
             if (snapshot.target.kind === "assessment") {
               const kind = authorized.definition.assessments.find((item) => item.key === snapshot.target.key)?.kind;

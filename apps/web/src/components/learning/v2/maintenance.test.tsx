@@ -2,7 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 import { renderToString } from "react-dom/server";
 import { studentFixture, fixtureId } from "./fixtures";
 import { V2ReviewScreen } from "./review";
-import { MaintenanceDate, formatMaintenanceDate } from "./maintenance";
+import { MaintenanceDate, formatMaintenanceDate, formatFriendlyMaintenanceDate } from "./maintenance";
+import { PlatformTimeZone } from "../../user-time-zone";
 import { createV2Launcher } from "./client";
 import { V2HttpContracts } from "@cediah/contracts";
 import { maintenanceFixture } from "./maintenance-fixtures";
@@ -64,6 +65,24 @@ describe("T032 confirmed maintenance presentation", () => {
     const html = renderToString(<MaintenanceDate value={value} timeZone="America/Caracas" />);
     expect(html).toContain(`dateTime="${value}"`);
     expect(html).toContain("America/Caracas");
+  });
+  it("uses the server reference day for friendly dates in each country", () => {
+    const reference = "2026-10-14T02:00:00Z", dueAt = "2026-10-14T05:20:00Z";
+    expect(formatFriendlyMaintenanceDate(dueAt, "America/Caracas", reference)).toMatch(/^mañana a la 1:20/);
+    expect(formatFriendlyMaintenanceDate(dueAt, "Europe/Madrid", reference)).toMatch(/^hoy a las 7:20/);
+    expect(formatFriendlyMaintenanceDate("2027-01-04T05:20:00Z", "America/Caracas", reference)).toContain("2027");
+    const html = renderToString(<MaintenanceDate value={dueAt} timeZone="America/Caracas" relativeTo={reference} friendly />);
+    expect(html).toContain(`dateTime="${dueAt}"`);
+    expect(html).toContain("mañana a la 1:20");
+  });
+  it("keeps the administration on Venezuela time independently of a learner's saved zone", () => {
+    const value = "2026-10-14T02:30:00Z";
+    const admin = renderToString(<PlatformTimeZone><MaintenanceDate value={value} timeZone="Europe/Madrid" /></PlatformTimeZone>);
+    expect(admin).toContain('data-time-zone="America/Caracas"');
+    expect(admin).toContain("13 de octubre");
+    const learner = renderToString(<MaintenanceDate value={value} timeZone="Europe/Madrid" />);
+    expect(learner).toContain('data-time-zone="Europe/Madrid"');
+    expect(learner).toContain("14 de octubre");
   });
   it("keeps omission and retention language neutral and avoids made-up dates", () => {
     const fixture = studentFixture();

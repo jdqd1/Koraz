@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { type FormEvent, type KeyboardEvent, useId, useMemo, useRef, useState } from "react";
+import { type FormEvent, type KeyboardEvent, useId, useRef, useState } from "react";
 import { GearSix, X } from "@phosphor-icons/react";
 import {
   LearningPreferencesSchema,
   type LearningPreferences,
 } from "@cediah/contracts";
 import { useBodyScrollLock } from "@/lib/use-body-scroll-lock";
+import { useUserTimeZone } from "../user-time-zone";
 
 type SelectablePath = { enrollmentId: string; title: string };
 
@@ -25,14 +26,12 @@ export function LearningPreferencesDialog({ paths, preferences }: {
     preferences.pendingConstancy?.weeklyGoalDays ?? preferences.weeklyGoalDays,
   );
   const [pinnedEnrollmentId, setPinnedEnrollmentId] = useState(preferences.pinnedEnrollmentId ?? "");
-  const [timezone, setTimezone] = useState(
-    preferences.pendingConstancy?.timezone ?? preferences.timezone,
-  );
   const requestKeys = useRef(new Map<string, string>());
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLElement>(null);
   const titleId = useId();
-  const deviceTimezone = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC", []);
+  const deviceTimezone = useUserTimeZone(preferences.timezone);
   useBodyScrollLock(open);
 
   function close() {
@@ -53,7 +52,7 @@ export function LearningPreferencesDialog({ paths, preferences }: {
     ));
     const first = controls[0];
     const last = controls.at(-1);
-    if (!first || !last) return;
+    if (!first || !last) { event.preventDefault(); return; }
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
@@ -66,14 +65,12 @@ export function LearningPreferencesDialog({ paths, preferences }: {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const currentGoal = confirmedPreferences.pendingConstancy?.weeklyGoalDays ?? confirmedPreferences.weeklyGoalDays;
-    const currentTimezone = confirmedPreferences.pendingConstancy?.timezone ?? confirmedPreferences.timezone;
     const body: Record<string, unknown> = { expectedVersion: confirmedPreferences.rowVersion };
     if (sessionMinutes !== confirmedPreferences.sessionMinutes) body.sessionMinutes = sessionMinutes;
     if ((pinnedEnrollmentId || null) !== confirmedPreferences.pinnedEnrollmentId) {
       body.pinnedEnrollmentId = pinnedEnrollmentId || null;
     }
     if (weeklyGoalDays !== currentGoal) body.weeklyGoalDays = weeklyGoalDays;
-    if (timezone !== currentTimezone) body.timezone = timezone;
     if (Object.keys(body).length === 1) {
       setMessage("No hay cambios pendientes.");
       return;
@@ -102,9 +99,8 @@ export function LearningPreferencesDialog({ paths, preferences }: {
       setSessionMinutes(parsed.data.sessionMinutes);
       setWeeklyGoalDays(parsed.data.pendingConstancy?.weeklyGoalDays ?? parsed.data.weeklyGoalDays);
       setPinnedEnrollmentId(parsed.data.pinnedEnrollmentId ?? "");
-      setTimezone(parsed.data.pendingConstancy?.timezone ?? parsed.data.timezone);
       setMessage(parsed.data.pendingConstancy
-        ? `Sesión actualizada. La meta o zona horaria cambiará el ${parsed.data.pendingConstancy.effectiveOn}.`
+        ? `Preferencias guardadas. Tu meta semanal cambiará el ${parsed.data.pendingConstancy.effectiveOn}.`
         : "Preferencias guardadas.");
       router.refresh();
     } catch {
@@ -116,10 +112,21 @@ export function LearningPreferencesDialog({ paths, preferences }: {
 
   return (
     <>
-      <button className="learning-settings-button" ref={triggerRef} type="button" onClick={() => {
+      <button className="learning-settings-button" ref={triggerRef} type="button" onClick={async () => {
         setMessage("");
         setOpen(true);
-        window.requestAnimationFrame(() => closeRef.current?.focus());
+        window.requestAnimationFrame(() => dialogRef.current?.focus());
+        setBusy(true);
+        try {
+          const response = await fetch("/api/guided-learning/preferences", { cache: "no-store" });
+          if (!response.ok) throw new Error();
+          const latest = LearningPreferencesSchema.parse(await response.json());
+          setConfirmedPreferences(latest);
+          setSessionMinutes(latest.sessionMinutes);
+          setWeeklyGoalDays(latest.pendingConstancy?.weeklyGoalDays ?? latest.weeklyGoalDays);
+          setPinnedEnrollmentId(latest.pinnedEnrollmentId ?? "");
+        } catch { setMessage("No pudimos actualizar tus preferencias. Reintenta con conexión."); }
+        finally { setBusy(false); window.requestAnimationFrame(() => closeRef.current?.focus()); }
       }}>
         <GearSix aria-hidden="true" size={19} /> Ajustar aprendizaje
       </button>
@@ -127,7 +134,7 @@ export function LearningPreferencesDialog({ paths, preferences }: {
         <div className="learning-dialog-backdrop" role="presentation" onMouseDown={(event) => {
           if (event.target === event.currentTarget) close();
         }}>
-          <section aria-busy={busy} aria-labelledby={titleId} aria-modal="true" className="learning-dialog learning-preferences-dialog" role="dialog" onKeyDown={handleKeyDown}>
+          <section ref={dialogRef} tabIndex={-1} aria-busy={busy} aria-labelledby={titleId} aria-modal="true" className="learning-dialog learning-preferences-dialog" role="dialog" onKeyDown={handleKeyDown}>
             <header>
               <span className="learning-dialog-icon"><GearSix aria-hidden="true" size={22} /></span>
               <div><span>Preferencias</span><h2 id={titleId}>Ajusta tu próxima sesión</h2></div>
@@ -148,11 +155,7 @@ export function LearningPreferencesDialog({ paths, preferences }: {
                 <small>No hay rachas perdidas ni penalizaciones por pausar.</small>
               </fieldset>
               {paths.length > 1 ? <label><span>Ruta destacada en Inicio</span><select disabled={busy} value={pinnedEnrollmentId} onChange={(event) => setPinnedEnrollmentId(event.target.value)}>{paths.map((path) => <option key={path.enrollmentId} value={path.enrollmentId}>{path.title}</option>)}</select></label> : null}
-              <label>
-                <span>Zona horaria para tu semana</span>
-                <input disabled={busy} maxLength={80} required value={timezone} onChange={(event) => setTimezone(event.target.value)} />
-                {deviceTimezone !== timezone ? <button className="learning-inline-action" disabled={busy} type="button" onClick={() => setTimezone(deviceTimezone)}>Usar {deviceTimezone}</button> : <small>Coincide con este dispositivo.</small>}
-              </label>
+              <p>Horario de {deviceTimezone.split("/").at(-1)?.replaceAll("_", " ")}<br /><small>Se ajusta automáticamente al horario de tu dispositivo.</small></p>
               <footer><button disabled={busy} type="button" onClick={close}>Cerrar</button><button className="learning-primary-button" disabled={busy} type="submit">{busy ? "Guardando…" : "Guardar preferencias"}</button></footer>
               <p aria-live="polite" className="learning-dialog-message">{message}</p>
             </form>

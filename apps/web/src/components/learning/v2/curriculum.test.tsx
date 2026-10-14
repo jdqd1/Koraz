@@ -11,6 +11,15 @@ import { ROOT_MAP_ROUTE } from "../map/map-route";
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 describe("unit and objective curriculum", () => {
+  it("keeps every activity in its original order, with visible completed rows and a named objective", () => {
+    const fixture = studentFixture();
+    const html = renderToStaticMarkup(<RouteCurriculum path={fixture.path} state={fixture.state} focusUnit="unit-a" unitOnly />);
+    expect(html).not.toContain("<details");
+    expect(html).toContain("Objetivo:");
+    expect(html.indexOf("Leer y comprender")).toBeLessThan(html.indexOf("Relacionar conceptos"));
+    expect(html.indexOf("Relacionar conceptos")).toBeLessThan(html.indexOf("Elegir la respuesta correcta"));
+    expect((html.match(/data-done="true"/g) ?? []).length).toBe(2);
+  });
   it("shows only the selected unit and its objective's activities without changing progress", () => {
     const fixture = studentFixture();
     const before = JSON.stringify(fixture.state);
@@ -87,6 +96,8 @@ describe("unit and objective curriculum", () => {
     expect(html).not.toContain("Progreso de la ruta");
     expect(html).toContain("Otra unidad");
     expect(html).toContain("Contenido de la unidad");
+    expect(html.indexOf("Ver ruta completa")).toBeLessThan(html.indexOf("</header>"));
+    expect(html.slice(html.indexOf("<footer"))).not.toContain("Ver ruta completa");
   });
   it("formats UTC reasons for people and retains the exact instant", () => {
     const instant = "2026-10-14T05:00:14.480Z";

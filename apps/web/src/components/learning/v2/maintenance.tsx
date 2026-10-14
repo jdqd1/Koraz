@@ -1,24 +1,46 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { localDateInTimeZone } from "@cediah/contracts";
+import { useUserTimeZone } from "../../user-time-zone";
 import { objectiveLabels, type V2Path, type V2State } from "./model";
 import styles from "./maintenance.module.css";
 import { CaretDown, CalendarBlank } from "@phosphor-icons/react/dist/ssr";
 
 /** Formatting only: dates and achievements always come from a confirmed DTO. */
 export function formatMaintenanceDate(value: string, timeZone: string) {
-  return new Intl.DateTimeFormat("es-VE", { timeZone, dateStyle: "long", timeStyle: "short" }).format(new Date(value));
+  const date = new Date(value), clock = maintenanceClock(date, timeZone);
+  const day = new Intl.DateTimeFormat("es-VE", { timeZone, day: "numeric", month: "long", year: "numeric" }).format(date);
+  return `${day} ${clock.hour === 1 ? "a la" : "a las"} ${clock.text}`;
 }
 
-const subscribeZone = () => () => {};
-const browserZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
-const serverZone = () => null;
+// Node and browsers use different ICU separators/day periods; assemble the clock consistently for hydration.
+function maintenanceClock(date: Date, timeZone: string) {
+  const parts = new Intl.DateTimeFormat("es-VE", { timeZone, hour: "numeric", minute: "2-digit", hourCycle: "h23" }).formatToParts(date);
+  const hour24 = Number(parts.find(part => part.type === "hour")!.value), hour = hour24 % 12 || 12;
+  return { hour, text: `${hour}:${parts.find(part => part.type === "minute")!.value} ${hour24 < 12 ? "a. m." : "p. m."}` };
+}
 
-export function MaintenanceDate({ value, timeZone, compact = false }: { value: string; timeZone?: string; compact?: boolean }) {
-  const localZone = useSyncExternalStore(subscribeZone, browserZone, serverZone);
-  const zone = timeZone ?? localZone;
-  const full = `${formatMaintenanceDate(value, zone ?? "UTC")} (${zone ?? "UTC"})`;
-  return <time dateTime={value} title={compact ? full : undefined}>{compact ? new Intl.DateTimeFormat("es-VE", { timeZone: zone ?? "UTC", day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" }).format(new Date(value)) : full}</time>;
+export function formatFriendlyMaintenanceDate(value: string, timeZone: string, relativeTo?: string) {
+  const date = new Date(value), reference = relativeTo ? new Date(relativeTo) : null;
+  const localDay = localDateInTimeZone(date, timeZone);
+  const referenceDay = reference ? localDateInTimeZone(reference, timeZone) : null;
+  const difference = referenceDay ? (Date.parse(`${localDay}T00:00:00Z`) - Date.parse(`${referenceDay}T00:00:00Z`)) / 86_400_000 : null;
+  const sameYear = referenceDay?.slice(0, 4) === localDay.slice(0, 4);
+  const parts = new Intl.DateTimeFormat("es-VE", { timeZone, weekday: "long", day: "numeric", month: "long", year: "numeric" }).formatToParts(date);
+  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find(item => item.type === type)!.value;
+  const day = difference === 0 ? "hoy" : difference === 1 ? "mañana" : `el ${part("weekday")} ${part("day")} de ${part("month")}${sameYear ? "" : ` de ${part("year")}`}`;
+  const clock = maintenanceClock(date, timeZone);
+  return `${day} ${clock.hour === 1 ? "a la" : "a las"} ${clock.text}`;
+}
+
+export function MaintenanceDate({ value, timeZone, compact = false, friendly = false, relativeTo }: { value: string; timeZone?: string; compact?: boolean; friendly?: boolean; relativeTo?: string }) {
+  const zone = useUserTimeZone(timeZone);
+  const formatted = formatMaintenanceDate(value, zone);
+  const full = `${formatted} (${zone})`;
+  const date = new Date(value);
+  const text = friendly ? formatFriendlyMaintenanceDate(value, zone, relativeTo) : compact
+    ? `${new Intl.DateTimeFormat("es-VE", { timeZone: zone, day: "numeric", month: "short", year: "numeric" }).format(date)}, ${maintenanceClock(date, zone).text}` : formatted;
+  return <time dateTime={value} title={full} data-time-zone={zone}>{text}</time>;
 }
 
 export function MaintenancePanel({ path, state }: { path: V2Path; state: V2State }) {
@@ -41,7 +63,7 @@ export function MaintenancePanel({ path, state }: { path: V2Path; state: V2State
       </li>;
     })}</ul>
     {!state.maintenance ? <p>Actualiza la ruta para consultar las próximas fechas de repaso y evaluación.</p> : null}
-    {timeZone ? <p className={styles.note}>Fechas en {timeZone}.</p> : null}
+    <p className={styles.note}>Las fechas se muestran en tu horario local.</p>
     <details className={styles.help}><summary>Cómo se comprueba lo aprendido</summary><p>El repaso y las evaluaciones diferidas permiten volver a comprobar lo aprendido. Las mediciones de 7 y 30 días cuentan días reales desde el dominio; no prometen memoria permanente.</p><p>Un repaso pendiente no significa que hayas fallado.</p></details>
     </div>
   </details>;
