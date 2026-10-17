@@ -46,6 +46,167 @@ function databaseFor(pg: PGlite) {
     createDriver: () => ({ acquireConnection: async () => connection, beginTransaction: async () => { await pg.exec("begin"); }, commitTransaction: async () => { await pg.exec("commit"); },
       rollbackTransaction: async () => { await pg.exec("rollback"); }, destroy: async () => {}, init: async () => {}, releaseConnection: async () => {} }) } });
 }
+
+describe("diagnostic admission to a selected objective", () => {
+  let pg: PGlite, database: Kysely<CediahDatabase>, app: ReturnType<typeof Fastify>;
+  let clock = at(), serial = 70000;
+  const headers = { authorization: "Bearer learner" };
+  const flags = { enabled: true, newEnrollments: true };
+  function route() {
+    const definition = fixture(), core = definition.objectives[0]!;
+    for (const [key, prerequisite] of [["middle", "core"], ["last", "middle"], ["unassessed", "core"], ["uncovered", "unassessed"]]) {
+      definition.objectives.push({ ...core, key: key!, title: key!, unitKey: key!, prerequisiteKeys: [prerequisite!] });
+      const learn = definition.activities[0]!;
+      definition.activities.push({ ...learn, key: `${key}-learn`, objectiveKey: key!, equivalenceKey: `${key}-learn` });
+      if (key !== "unassessed") for (const sourceKey of ["a", "b", "apply"]) {
+        const source = definition.activities.find(item => item.key === sourceKey)!;
+        definition.activities.push({ ...source, key: `${key}-${sourceKey}`, objectiveKey: key!, equivalenceKey: `${key}-${sourceKey}` });
+      }
+      definition.units.push({ ...definition.units[0]!, key: key!, title: key!, objectiveKeys: [key!],
+        activityKeys: definition.activities.filter(item => item.objectiveKey === key).map(item => item.key) });
+    }
+    return RoutePackageSchema.parse(definition);
+  }
+  beforeAll(async () => {
+    pg = await createGuidedV2Database(); await seedGuidedV2Runtime(pg);
+    await pg.query("update content_items set status='published',catalog_visibility='catalog',published_at=now(),published_by=$2 where id=$1", [v2Id(3), v2Id(1)]);
+    await pg.query("update learning_path_versions set definition_v2_json=$1 where id=$2", [JSON.stringify(route()), v2Id(6)]);
+    await pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,topic_content_id) values($1,'topic','topic',$2)", [v2Id(6), v2Id(3)]);
+    await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [v2Id(6), v2Id(1)]);
+    database = databaseFor(pg); app = Fastify();
+    await registerGuidedV2Routes(app, { flags, identityProvider: identity, provider: createGuidedV2HttpProvider(database, { now: () => clock }) });
+  }, 120000);
+  beforeEach(async () => {
+    clock = at();
+    await pg.exec("delete from learning_events; delete from learning_mutation_receipts; delete from learning_v2_review_state; delete from learning_v2_objective_state; delete from learning_v2_activity_state; delete from learning_v2_responses; delete from learning_v2_attempts;");
+    const seeded = await pg.query<{ id: string }>("insert into learning_events(user_id,enrollment_id,event_type,semantic_key,payload_json,policy_version,occurred_at,local_date,timezone) values($1,$2,'activity_completed','fixture-balance','{}','guided-v2.0',$3,'2026-09-01','UTC') returning id", [v2Id(1), v2Id(8), clock]);
+    await pg.query("insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date,created_at) values($1,'fixture-balance','activity_recall',80,$2,'2026-09-01',$3)", [v2Id(1), seeded.rows[0]!.id, clock]);
+  });
+  afterAll(async () => { await app?.close(); await database?.destroy(); await pg?.close(); });
+  const get = () => app.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state`, headers });
+  const post = (path: string, payload: unknown, key = v2Id(serial++)) => app.inject({ method: "POST", url: `/v2/guided-learning/${path}`, payload,
+    headers: { ...headers, "idempotency-key": key } });
+  const begin = (target: { kind: "assessment" | "activity"; key: string; objectiveKey?: string }) => post("attempts", {
+    enrollmentId: v2Id(8), clientAttemptId: v2Id(serial++), target, expectedEnrollmentVersion: 1 });
+  async function practice(key: string, correct = true, assisted = false) {
+    const start = await begin({ kind: "activity", key }); expect(start.statusCode, start.body).toBe(200);
+    let attempt = start.json().attempt;
+    if (assisted) {
+      const helped = await post(`attempts/${attempt.attemptId}/help`, { activityKey: key, kind: "hint", expectedVersion: attempt.rowVersion });
+      expect(helped.statusCode, helped.body).toBe(200); attempt = helped.json().attempt;
+    }
+    const payload = { activityKey: key, answer: key === "learn" ? { kind: "study", acknowledged: true }
+      : { kind: "single_choice", optionKey: correct ? "yes" : "no" }, confidence: null, expectedVersion: attempt.rowVersion };
+    const requestKey = v2Id(serial++), path = `attempts/${attempt.attemptId}/responses`;
+    const result = await post(path, payload, requestKey); expect(result.statusCode, result.body).toBe(200);
+    const end = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: result.json().attempt.rowVersion });
+    expect(end.statusCode, end.body).toBe(200);
+    return { result, end, path, payload, requestKey };
+  }
+  it.each([false, true])("requires a fully submitted independent diagnostic and preserves mastery (passed=%s)", async correct => {
+    const before = (await get()).json().state;
+    expect(before.maintenance.placements.find((item: { objectiveKey: string }) => item.objectiveKey === "last")).toMatchObject({ status: "available", prerequisiteKeys: ["middle", "core"] });
+    expect((await begin({ kind: "activity", key: "last-learn" })).statusCode).toBe(409);
+    const start = await begin({ kind: "assessment", key: "diagnosis", objectiveKey: "last" });
+    expect(start.statusCode, start.body).toBe(200);
+    let attempt = start.json().attempt;
+    expect(attempt.placement).toMatchObject({ objectiveKey: "last", status: "pending" });
+    expect(attempt.totalActivities).toBe(6);
+    expect((await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: attempt.rowVersion })).statusCode).toBe(409);
+    let n = 0;
+    while (attempt.activeActivity) {
+      const answer = await post(`attempts/${attempt.attemptId}/responses`, { activityKey: attempt.activeActivity.key,
+        answer: { kind: "single_choice", optionKey: !correct && n++ === 0 ? "no" : "yes" }, confidence: null, expectedVersion: attempt.rowVersion });
+      expect(answer.statusCode, answer.body).toBe(200);
+      expect(answer.json().feedback).toMatchObject({ score01: null, explanation: "" });
+      expect(answer.json().state.maintenance.blockers.some((item: { objectiveKey: string }) => item.objectiveKey === "last")).toBe(true);
+      attempt = answer.json().attempt;
+    }
+    const receiptKey = v2Id(serial++), payload = { expectedVersion: attempt.rowVersion };
+    const finished = await post(`attempts/${attempt.attemptId}/complete`, payload, receiptKey);
+    expect(finished.statusCode, finished.body).toBe(200);
+    expect(finished.json().attempt.placement.status).toBe(correct ? "passed" : "reinforce");
+    const state = finished.json().state;
+    expect(state.completedActivities).toBe(before.completedActivities);
+    expect(state.masteredAt).toBeNull(); expect(state.consolidatedAt).toBeNull();
+    expect(state.objectives.every((item: { objectiveScore: number | null }) => item.objectiveScore === null)).toBe(true);
+    expect((await pg.query("select activity_key from learning_v2_activity_state where enrollment_id=$1 and state='completed'", [v2Id(8)])).rows).toHaveLength(0);
+    expect(state.maintenance.blockers.some((item: { objectiveKey: string }) => item.objectiveKey === "last")).toBe(!correct);
+    expect(state.maintenance.blockers.some((item: { objectiveKey: string }) => item.objectiveKey === "middle")).toBe(true);
+    expect((await post(`attempts/${attempt.attemptId}/complete`, payload, receiptKey)).statusCode).toBe(200);
+    const restarted = Fastify();
+    try {
+      await registerGuidedV2Routes(restarted, { flags, identityProvider: identity, provider: createGuidedV2HttpProvider(database, { now: () => clock }) });
+      const reloaded = await restarted.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state`, headers });
+      expect(reloaded.json().state).toEqual(state);
+    } finally { await restarted.close(); }
+    expect((await begin({ kind: "activity", key: "last-learn" })).statusCode).toBe(correct ? 200 : 409);
+  });
+  it("refuses missing diagnostic coverage, foreign objectives and reserved assessments", async () => {
+    const offer = (await get()).json().state.maintenance.placements.find((item: { objectiveKey: string }) => item.objectiveKey === "uncovered");
+    expect(offer).toMatchObject({ status: "unavailable", missingObjectiveKeys: ["unassessed"] });
+    for (const target of [{ kind: "assessment" as const, key: "diagnosis", objectiveKey: "uncovered" },
+      { kind: "assessment" as const, key: "diagnosis", objectiveKey: "foreign" },
+      { kind: "assessment" as const, key: "final-test", objectiveKey: "last" }]) expect((await begin(target)).statusCode).toBe(409);
+    expect((await begin({ kind: "activity", key: "learn", objectiveKey: "last" })).statusCode).toBe(400);
+  });
+  it("offers admission instead of looping reviews once a unit has been consumed below mastery", async () => {
+    let state;
+    for (const [index, key] of ["learn", "a", "b", "apply"].entries()) {
+      const start = await begin({ kind: "activity", key });
+      expect(start.statusCode, start.body).toBe(200);
+      const attempt = start.json().attempt;
+      const answered = await post(`attempts/${attempt.attemptId}/responses`, { activityKey: key,
+        answer: key === "learn" ? { kind: "study", acknowledged: true } : { kind: "single_choice", optionKey: key === "a" ? "no" : "yes" },
+        confidence: null, expectedVersion: attempt.rowVersion });
+      expect(answered.statusCode, answered.body).toBe(200);
+      const ended = await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: answered.json().attempt.rowVersion });
+      expect(ended.statusCode, ended.body).toBe(200); state = ended.json().state;
+      clock = at(0, index + 1);
+    }
+    clock = at(0, 604); state = (await get()).json().state;
+    expect(state.nextAction).toMatchObject({ kind: "gate", key: "diagnosis", objectiveKey: "middle" });
+    expect(state.nextActionContext).toEqual({ unitKey: "middle", objectiveKey: "middle" });
+    expect(state.objectives[0]).toMatchObject({ label: "learning", objectiveScore: 200 / 3 });
+  });
+  it("requires earned XP on the server before creating a diagnostic", async () => {
+    await pg.query("delete from learning_rewards where user_id=$1 and award_key='fixture-balance'", [v2Id(1)]);
+    const state = (await get()).json().state;
+    expect(state.motivation.totalXp).toBe(0);
+    expect(state.maintenance.placements.find((item: { objectiveKey: string }) => item.objectiveKey === "last"))
+      .toMatchObject({ status: "xp_required", requiredXp: 40, remainingXp: 40 });
+    expect((await begin({ kind: "assessment", key: "diagnosis", objectiveKey: "last" })).statusCode).toBe(409);
+  });
+  it.each([false, true])("awards more XP for correcting errors and awards each family once per day (previously correct=%s)", async correct => {
+    await practice("learn"); await practice("a", correct);
+    clock = at(0, 600);
+    const repeated = await practice("a");
+    const xp = correct ? 2 : 5;
+    expect(repeated.result.json().state.motivation.extraToday).toBe(xp);
+    expect(repeated.result.json().state.completedActivities).toBe(2);
+    const total = repeated.result.json().state.motivation.totalXp;
+    expect(total).toBe(85 + xp);
+    const replay = await post(repeated.path, repeated.payload, repeated.requestKey);
+    expect(replay.statusCode).toBe(200); expect(replay.json().state.motivation.totalXp).toBe(total);
+    clock = at(0, 1200);
+    const again = await practice("a");
+    expect(again.result.json().state.motivation.totalXp).toBe(total);
+    expect(again.result.json().attempt.earnedXp ?? 0).toBe(0);
+  });
+  it("keeps assisted repeats formative and applies the daily XP ceiling", async () => {
+    await practice("learn"); await practice("a", false);
+    clock = at(0, 600);
+    const assisted = await practice("a", true, true);
+    expect(assisted.result.json().state.motivation.totalXp).toBe(80);
+    expect(assisted.result.json().state.motivation.extraToday).toBe(0);
+    await pg.query("update learning_rewards set reward_kind='review_applied',xp=20 where user_id=$1 and award_key='fixture-balance'", [v2Id(1)]);
+    clock = at(0, 1200);
+    const capped = await practice("a");
+    expect(capped.result.json().state.motivation.extraToday).toBe(20);
+    expect(capped.result.json().attempt.earnedXp ?? 0).toBe(5);
+    expect(capped.result.json().state.motivation.totalXp).toBe(25);
+  });
+});
 describe("T021 actual learner HTTP and persisted services", () => {
   let pg: PGlite, database: Kysely<CediahDatabase>, app: ReturnType<typeof Fastify>;
   let clock = at(), serial = 50000;
@@ -128,7 +289,7 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(heartbeat.statusCode).toBe(200);
     const answered = await post(`attempts/${manifest.attemptId}/responses`, { activityKey: "learn", answer: { kind: "study", acknowledged: true }, confidence: null, expectedVersion: 1 });
     expect(answered.statusCode).toBe(200); V2HttpContracts.attemptResponse.response.parse(answered.json());
-    expect(answered.json().state.maintenance.diagnostic).toEqual({ status: "omitted", assessmentKey: null });
+    expect(answered.json().state.maintenance.diagnostic).toEqual({ status: "omitted", assessmentKey: "diagnosis" });
     expect(answered.json().state.maintenance.agenda).toEqual([]);
     expect(answered.json().state.activityProgress).toContainEqual({ key: "learn", status: "completed" });
     expect(answered.json().state.completedActivities).toBe(1);

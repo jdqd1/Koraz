@@ -19,7 +19,7 @@ export type GuidedV2SelectionSnapshot = {
   reviewDue: readonly { key: string; objectiveKey: string; dueAt: string }[];
 };
 type Action = { kind: "resume" | "remediate" | "retention" | "review" | "gate" | "activity" | "none";
-  key: string | null; reason: string };
+  key: string | null; reason: string; objectiveKey?: string };
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 function utc(value: string): number {
   const time = Date.parse(value);
@@ -173,6 +173,8 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     if (activity) exposure.set(activity.equivalenceKey, utc(event.at));
   }
   const eligibleAt = (activity: RouteActivity) => (exposure.get(activity.equivalenceKey) ?? -Infinity) + reuseMs;
+  const practiceAt = (activity: RouteActivity) => (exposure.get(activity.equivalenceKey) ?? -Infinity)
+    + guidedV2PolicySnapshot.review.retryMinutes * 60000;
   const support = order.map((objectiveKey) => {
     const pool = (activitiesByObjective.get(objectiveKey) ?? []).filter(practice);
     const responses = responsesByObjective.get(objectiveKey) ?? [];
@@ -213,9 +215,18 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     const check = pool.find((item) => item.key === adaptation.checkActivityKey);
     const scaffold = adaptation.scaffoldActivityKeys.map((key) => pool.find((item) => item.key === key)).find(Boolean);
     const reinforced = activityByKey.get(adaptation.reinforcedExplanationKey ?? "");
-    const activity = reinforced ?? check ?? scaffold ?? pool.find((item) => item.kind === "study" || eligibleAt(item) <= now);
+    const pending = pool.find((item) => item.kind === "study" || practiceAt(item) <= now);
+    const extraPractice = !pool.length && !evidenceByKey.get(objectiveKey)?.mastered
+      ? (activitiesByObjective.get(objectiveKey) ?? []).filter(item => practice(item) && independent(item)
+        && item.phase !== "remediate" && !children.has(item.key) && practiceAt(item) <= now)
+        .sort((a, b) => (exposure.get(a.equivalenceKey) ?? -Infinity) - (exposure.get(b.equivalenceKey) ?? -Infinity))[0]
+      : undefined;
+    const activity = reinforced ?? check ?? scaffold ?? pending ?? extraPractice;
     return activity ? [{ kind: "activity" as const, key: activity.key, objectiveKey,
-      reason: check ? "Ir a comprobar este objetivo; el diagnóstico no otorga dominio" : "Siguiente actividad de la rama disponible" }] : [];
+      reason: check ? "Ir a comprobar este objetivo; el diagnóstico no otorga dominio"
+        : extraPractice || activity.kind !== "study" && eligibleAt(activity) > now
+          ? "Puedes practicar ahora. Repetir una pregunta no sustituye una comprobación independiente ni el repaso espaciado."
+          : "Siguiente actividad de la rama disponible" }] : [];
   });
   const branch = new Set<string>();
   const visit = (key: string) => {
@@ -269,7 +280,9 @@ export function selectGuidedV2NextAction(snapshot: GuidedV2SelectionSnapshot, no
     && definition.assessments.some((assessment) => assessment.key === item.key && ["retention7", "retention30"].includes(assessment.kind))
     && !snapshot.completedAssessmentKeys.includes(item.key)).sort((a, b) => utc(a.dueAt) - utc(b.dueAt) || compare(a.key, b.key));
   const gate = definition.assessments.find((item) => ["unit_gate", "checkpoint"].includes(item.kind)
-    && !snapshot.completedAssessmentKeys.includes(item.key) && item.objectiveKeys.every((key) => available.has(key))
+    && (!snapshot.completedAssessmentKeys.includes(item.key) || item.kind === "unit_gate"
+      && item.candidateActivityKeys.every(key => { const activity = activityByKey.get(key); return activity && eligibleAt(activity) <= now; }))
+    && item.objectiveKeys.every((key) => available.has(key))
     && !!item.afterUnitKey && unitByKey.get(item.afterUnitKey)!.activityKeys
       .filter((key) => { const activity = activityByKey.get(key); return activity?.required && !children.has(key)
         && practice(activity) && activity.phase !== "remediate"; })

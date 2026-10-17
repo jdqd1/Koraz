@@ -22,6 +22,8 @@ import { hashRoutePackage } from "./validation.js";
 import type { GuidedV2EvidenceEvent } from "./evidence.js";
 import { hashLearningSnapshot } from "../snapshot-hash.js";
 import { guidedV2FeedbackSources } from "./manifests.js";
+import { placementOffers } from "./placement.js";
+import { readMotivationV2 } from "./motivation.js";
 import { planGuidedV2Upgrade, adoptGuidedV2Upgrade, acceptsUpgradeFact, readGuidedV2VersionHistory } from "./upgrade.js";
 
 type Tx = Transaction<CediahDatabase>;
@@ -160,7 +162,7 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       retention30AcceptedAt: row.retention30_accepted_at?.toISOString() ?? null } as ReviewStateV2 }));
   const due = reviewStates.map((row) => ({ ...row, due: reviewDueV2(row.state, at) })).filter((row) => row.due.kind !== null);
   const completedAssessmentKeys = attempts.filter((item) => item.path_version_id === version.id && item.status === "completed").flatMap((item) => {
-    const snapshot = snapshots.get(item.id); return snapshot?.target.kind === "assessment" ? [snapshot.target.key] : [];
+    const snapshot = snapshots.get(item.id); return snapshot?.target.kind === "assessment" && !snapshot.placement ? [snapshot.target.key] : [];
   });
   const diagnosticStatus = definition.assessments.some((item) => item.kind === "diagnostic" && completedAssessmentKeys.includes(item.key))
     ? "completed" as const : attempts.some((item) => item.purpose === "activity") ? "omitted" as const : "pending" as const;
@@ -171,7 +173,16 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       ? [snapshot.target.key] : [];
   });
   const sessionAttempts = new Set(responses.filter((response) => at.getTime() - response.accepted_at.getTime() < 86400000).map((response) => response.attempt_id));
-  const selection = selectGuidedV2NextAction({ definition, evidence,
+  const admissionOffers = placementOffers(definition, evidence, policyEvents, attempts.flatMap(item => {
+    const snapshot = snapshots.get(item.id);
+    return item.status === "completed" && item.path_version_id === version.id && snapshot?.placement ? [{ snapshot,
+      answers: responses.filter(response => response.attempt_id === item.id).map(response => ({ activityKey: response.activity_key,
+        score01: response.score01, gradingSource: response.grading_source, assisted: response.assisted })) }] : [];
+  }), at.toISOString(), version.id);
+  const admissions = new Set(admissionOffers.filter(item => item.status === "passed").map(item => item.objectiveKey));
+  const accessibleEvidence = { ...evidence, availability: evidence.availability.map(item => admissions.has(item.objectiveKey)
+    ? { ...item, available: true, blockedBy: [] } : item) };
+  const selection = selectGuidedV2NextAction({ definition, evidence: accessibleEvidence,
     events: policyEvents, sessionAttemptIds: attempts.filter((item) => sessionAttempts.has(item.id)).map((item) => item.id), diagnosticStatus,
     completedActivityKeys: [...responses.filter((item) => ["learning", "gate"].includes(item.purpose)).map((item) => item.activity_key),
       ...completedCaseKeys],
@@ -183,10 +194,26 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       const activity = selectGuidedV2ReviewActivity(definition, row.objectiveKey, policyEvents, at.toISOString());
       return activity ? [{ key: activity.key, objectiveKey: row.objectiveKey, dueAt: row.due.dueAt! }] : [];
     }) }, at.toISOString());
+  const motivation = await readMotivationV2(transaction, { userId, pathVersionId: version.id, definition, evidence: accessibleEvidence,
+    events: policyEvents, at, pausedObjectiveKeys: selection.pausedObjectiveKeys,
+    hiddenAssessmentAttemptIds: attempts.filter(item => item.purpose === "assessment" && item.status !== "completed").map(item => item.id) });
+  const placements = admissionOffers.map(item => {
+    const requiredXp = item.prerequisiteKeys.length * 20, remainingXp = Math.max(0, requiredXp - motivation.totalXp);
+    return { ...item, requiredXp, remainingXp: item.status === "passed" ? 0 : remainingXp,
+      status: item.status === "available" && remainingXp > 0 ? "xp_required" as const : item.status };
+  });
   const final = definition.assessments.find((item) => item.kind === "final" && !completedAssessmentKeys.includes(item.key));
   if (selection.nextAction.kind === "none" && final && evidence.route.plannedRequiredActivities > 0
     && evidence.route.completedActivities + evidence.route.dispensedActivities === evidence.route.plannedRequiredActivities) {
     selection.nextAction = { kind: "gate", key: final.key, reason: "Evaluación final disponible; las actividades completadas no implican dominio acreditado" };
+  }
+  const pendingActivities = new Set(evidence.activityProgress.filter(item => item.status === "pending").map(item => item.key));
+  const pendingWork = selection.availableActivities.some(item => pendingActivities.has(item.key)
+    && definition.activities.some(activity => activity.key === item.key && activity.required && activity.phase !== "remediate"));
+  const admission = placements.find(item => item.status === "available" && item.assessmentKey);
+  if (admission && !pendingWork && ["activity", "review", "none"].includes(selection.nextAction.kind)) {
+    selection.nextAction = { kind: "gate", key: admission.assessmentKey, objectiveKey: admission.objectiveKey,
+      reason: "Puedes comprobar los conocimientos previos para entrar al siguiente objetivo. La práctica y los repasos siguen disponibles." };
   }
   const timeZone = await learningTimeZone(transaction, userId);
   const measurement = (firstMasteredAt: string, dueAt: string | null, acceptedAt: string | null) => ({ dueAt, acceptedAt,
@@ -195,18 +222,19 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
   const maintenance = {
     generatedAt: at.toISOString(), timeZone,
     diagnostic: { status: selection.diagnostic.assessmentKey && selection.diagnostic.activityKeys.length ? diagnosticStatus : "unavailable",
-      assessmentKey: diagnosticStatus === "pending" && selection.diagnostic.activityKeys.length ? selection.diagnostic.assessmentKey : null },
+      assessmentKey: diagnosticStatus !== "completed" && selection.diagnostic.activityKeys.length ? selection.diagnostic.assessmentKey : null },
     activities: selection.availableActivities.map(({ key, objectiveKey, reason }) => ({ key, objectiveKey, reason })),
     reviewBatch: selection.reviewBatch.map(({ key, objectiveKey, dueAt }) => ({ key, objectiveKey, dueAt })),
     agenda: reviewStates.map(({ objectiveKey, firstMasteredAt, state: review }) => ({ objectiveKey, dueAt: review.dueAt,
       retention7: measurement(firstMasteredAt, review.retention7DueAt, review.retention7AcceptedAt),
       retention30: measurement(firstMasteredAt, review.retention30DueAt, review.retention30AcceptedAt) })),
     gates: evidence.gates.map(({ unitKey, passed, score, thresholdPercent, missingCoreKeys, criticalErrorKeys }) => ({ unitKey, passed, score, thresholdPercent, missingCoreKeys, criticalErrorKeys })),
-    blockers: evidence.availability.filter(item => !item.available).map(({ objectiveKey, blockedBy }) => ({ objectiveKey, blockedBy })),
+    blockers: accessibleEvidence.availability.filter(item => !item.available).map(({ objectiveKey, blockedBy }) => ({ objectiveKey, blockedBy })),
     remediation: selection.remediationOffers.map(({ objectiveKey, confusion, message, activityKey, bankExhausted, availableAfter, pauseOffered }) => ({ objectiveKey, confusion, message,
       activityKey: activityKey && (selection.nextAction.key === activityKey || selection.availableActivities.some(item => item.key === activityKey)) ? activityKey : null,
       bankExhausted, availableAfter, pauseOffered })),
     exhaustedBanks: selection.exhaustedBanks.map(({ objectiveKey, availableAfter }) => ({ objectiveKey, availableAfter })),
+    placements: placements.map(({ objectiveKey, assessmentKey, status, prerequisiteKeys, missingObjectiveKeys, availableAfter, requiredXp, remainingXp }) => ({ objectiveKey, assessmentKey, status, prerequisiteKeys, missingObjectiveKeys, availableAfter, requiredXp, remainingXp })),
   };
   const state = V2RouteStateSchema.parse({ engineVersion: "guided-v2", enrollmentId, pathVersionId: version.id, rowVersion: enrollment.row_version,
     completedActivities: evidence.route.completedActivities, dispensedActivities: evidence.route.dispensedActivities,
@@ -217,6 +245,7 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
     reviewDue, firstMasteredAt, firstConsolidatedAt })), dueReviews: due.length,
     availability: readOnly ? "maintenance" : "active", versionHistory: await readGuidedV2VersionHistory(transaction, enrollmentId),
     activityProgress: evidence.activityProgress,
+    motivation,
     nextActionContext: (() => {
       const action = selection.nextAction;
       const target = action.kind === "resume" && action.key ? snapshots.get(action.key)?.target : null;
@@ -224,12 +253,13 @@ async function loadContext(transaction: Tx, userId: string, enrollmentId: string
       const activity = definition.activities.find(item => item.key === activityKey);
       const assessmentKey = target?.kind === "assessment" ? target.key : ["gate", "retention"].includes(action.kind) ? action.key : null;
       const assessment = definition.assessments.find(item => item.key === assessmentKey);
-      const objectiveKey = activity?.objectiveKey ?? (assessment?.objectiveKeys.length === 1 ? assessment.objectiveKeys[0]! : null);
+      const objectiveKey = action.objectiveKey ?? (target?.kind === "assessment" ? target.objectiveKey : null)
+        ?? activity?.objectiveKey ?? (assessment?.objectiveKeys.length === 1 ? assessment.objectiveKeys[0]! : null);
       const unitKey = assessment?.afterUnitKey ?? definition.objectives.find(item => item.key === objectiveKey)?.unitKey ?? null;
       return { unitKey, objectiveKey };
     })(),
     nextAction: readOnly ? { kind: "none", key: null, reason: "Ruta en mantenimiento; tu versión y tu historial se conservan." } : selection.nextAction, maintenance });
-  return { enrollment, version, definition, evidence, attempts, responses, exposures, reviewStates, selection, state, diagnosticStatus };
+  return { enrollment, version, definition, evidence, attempts, responses, exposures, reviewStates, selection, state, diagnosticStatus, placements };
 }
 
 export function createGuidedV2HttpProvider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> } = {}): GuidedV2HttpProvider {
@@ -273,15 +303,24 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       : input.definition;
     let novelKeys: string[] = [];
     let assessmentSelection: AssessmentPlanV2 | null = null;
+    const placementObjectiveKey = input.target.kind === "assessment" ? input.target.objectiveKey : undefined;
     if (input.target.kind === "assessment") {
       const assessment = definition.assessments.find((item) => item.key === input.target.key);
       if (!assessment) return null;
       if (assessment.kind === "diagnostic") {
-        if (current.diagnosticStatus !== "pending") return null;
-        assessment.candidateActivityKeys = selectGuidedV2Diagnostic(definition).activityKeys;
+        if (input.target.objectiveKey) {
+          const placement = current.placements.find(item => item.objectiveKey === placementObjectiveKey && item.assessmentKey === assessment.key && item.status === "available");
+          if (!placement) return null;
+          assessment.candidateActivityKeys = placement.activityKeys;
+        } else {
+          if (current.diagnosticStatus === "completed") return null;
+          assessment.candidateActivityKeys = selectGuidedV2Diagnostic(definition).activityKeys;
+        }
       } else if (assessment.kind === "unit_gate") {
+        if (input.target.objectiveKey) return null;
         if (current.selection.nextAction.key !== assessment.key) return null;
       } else {
+        if (input.target.objectiveKey) return null;
         if (["checkpoint", "unit_gate"].includes(assessment.kind) && current.selection.nextAction.key !== assessment.key) return null;
         if (assessment.kind === "final" && current.state.completedActivities + current.state.dispensedActivities < current.state.plannedRequiredActivities) return null;
         const selected = selectAssessmentV2({ definition, pathVersionId: input.pathVersionId, assessmentKey: assessment.key, nowUtc: input.at.toISOString(),
@@ -298,10 +337,13 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       const activity = definition.activities.find((item) => item.key === key);
       if (!activity || !["learning", "gate"].includes(activity.use)) return null;
       if (input.target.kind === "review" ? !current.selection.reviewBatch.some((item) => item.key === key)
-        : !current.selection.availableActivities.some((item) => item.key === key) && current.selection.nextAction.key !== key) return null;
+        : !current.selection.availableActivities.some((item) => item.key === key) && current.selection.nextAction.key !== key
+          && !current.state.motivation?.practiceOffers.some(item => item.key === key && item.available)) return null;
     }
     const snapshot = prepareCachedGuidedV2ActivitySnapshot(definition, input.pathVersionId, input.target);
+    const placement = placementObjectiveKey ? current.placements.find(item => item.objectiveKey === placementObjectiveKey) : null;
     return snapshot ? { ...snapshot, contentHash: definition === input.definition ? snapshot.contentHash : hashRoutePackage(input.definition), novelKeys,
+      ...(placement ? { placement: { objectiveKey: placement.objectiveKey, prerequisiteKeys: placement.prerequisiteKeys } } : {}),
       ...(assessmentSelection ? { assessmentSelection } : {}) } : null;
   } });
   const metrics = createPostgresGuidedV2MetricsService(database, { now });
@@ -311,6 +353,7 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       .where("id", "=", manifest.attemptId).where("user_id", "=", userId).executeTakeFirst();
     const snapshot = parseGuidedV2AttemptSnapshot(row?.snapshot_json);
     if (!snapshot) return manifest;
+    if (snapshot.placement && manifest.status !== "completed") return manifest;
     const version = await database.selectFrom("learning_path_versions").select("definition_v2_json")
       .where("id", "=", manifest.pathVersionId).executeTakeFirst();
     const definition = RoutePackageSchema.safeParse(version?.definition_v2_json);

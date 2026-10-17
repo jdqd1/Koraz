@@ -8,13 +8,14 @@ import { createV2Launcher, V2RequestError } from "./client";
 import { actionTarget, type V2State } from "./model";
 import { safeMapReturnHref } from "../map/map-route";
 
-export function ContinueSession({ state, returnTo }: { state: V2State | null; returnTo?: string | null }) {
+export function ContinueSession({ state, returnTo, preferredObjectiveKey }: { state: V2State | null; returnTo?: string | null; preferredObjectiveKey?: string }) {
   const router = useRouter();
   const [launcher] = useState(() => createV2Launcher());
   const lock = useRef(false);
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
   const returnHref = safeMapReturnHref(returnTo) ?? "/aprendizaje/mapa";
-  const target = state ? actionTarget(state.nextAction) : null;
+  const preferred = state?.nextAction.kind !== "resume" && state?.maintenance?.activities.find(item => item.objectiveKey === preferredObjectiveKey);
+  const target = preferred ? { kind: "activity" as const, key: preferred.key } : state ? actionTarget(state.nextAction) : null;
   const canContinue = state && state.availability !== "maintenance" && (target || state.nextAction.kind === "resume" && state.nextAction.key);
 
   async function open() {

@@ -59,6 +59,23 @@ export function routeDesignFixture(mode = "abdomen") {
     state.maintenance!.exhaustedBanks = [{ objectiveKey: "arteries", availableAfter: "2026-10-14T05:00:14.480Z" }];
     state.maintenance!.agenda = state.maintenance!.agenda.map(item => ({ ...item, dueAt: "2026-10-17T00:20:00Z" }));
   }
+  if (mode === "abdomen-xp" || mode === "abdomen-xp-ready") {
+    const ready = mode === "abdomen-xp-ready";
+    state.motivation = { totalXp: ready ? 40 : 20, routeXp: 20, extraToday: 5,
+      rules: { firstRecall: 5, mastery: 10, consolidation: 15, practice: 2, recovery: 5, dailyLimit: 20 },
+      practiceOffers: [{ key: "vena-cava-recall", objectiveKey: "vena-cava", xp: 5, available: true, availableAfter: null, reason: "correct_error" }] };
+    state.maintenance!.diagnostic = { status: "omitted", assessmentKey: "diagnosis" };
+    state.maintenance!.activities = [{ key: "vena-cava-sequence", objectiveKey: "vena-cava", reason: "Sigue practicando la VCI." }];
+    state.maintenance!.blockers = [{ objectiveKey: "portal", blockedBy: ["vena-cava"] }];
+    state.maintenance!.placements = [{ objectiveKey: "portal", assessmentKey: "diagnosis", status: ready ? "available" : "xp_required",
+      prerequisiteKeys: ["arteries", "vena-cava"], missingObjectiveKeys: [], availableAfter: null, requiredXp: 40, remainingXp: ready ? 0 : 20 }];
+    state.objectives[0]!.label = "learning";
+    state.objectives[0]!.objectiveScore = 60;
+    state.maintenance!.gates[0] = { ...state.maintenance!.gates[0]!, passed: false, score: 60, missingCoreKeys: ["arteries"] };
+    state.nextAction = { kind: "activity", key: "vena-cava-sequence", reason: "Practica ahora; los repasos mantienen lo aprendido." };
+    state.dueReviews = 0;
+    state.maintenance!.reviewBatch = [];
+  }
   const card = V2PathCardSchema.parse({ ...fixture.card, title: path.title, slug: path.slug, coverKey: path.coverKey, topicLabel: path.topicLabel, unitCount: path.units.length });
   return { ...fixture, path, state, card, home: { ...fixture.home, activePath: card } };
 }

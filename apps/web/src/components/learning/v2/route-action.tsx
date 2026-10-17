@@ -6,18 +6,22 @@ import { actionLabel, actionTarget, stateMatches, type V2Path, type V2State } fr
 import { createV2Launcher, V2RequestError } from "./client";
 import styles from "./styles.module.css";
 import { RouteReason } from "./route-reason";
+import type { V2AttemptTarget } from "@cediah/contracts";
 
-export type V2LaunchTarget = { kind: "activity" | "assessment" | "review"; key: string };
+export type V2LaunchTarget = V2AttemptTarget;
 /** A display offer is launchable only while it occurs in this server snapshot. */
 export function authorizedMaintenanceTarget(state: V2State, target: V2LaunchTarget) {
   if (state.nextAction.kind === "resume") return false;
+  if (target.kind === "assessment" && target.objectiveKey) return state.maintenance?.placements?.some(item => item.objectiveKey === target.objectiveKey
+    && item.assessmentKey === target.key && item.status === "available") ?? false;
   const recommended = actionTarget(state.nextAction);
   if (recommended?.kind === target.kind && recommended.key === target.key) return true;
   const maintenance = state.maintenance;
   if (!maintenance) return false;
-  if (target.kind === "assessment") return maintenance.diagnostic.status === "pending" && maintenance.diagnostic.assessmentKey === target.key;
+  if (target.kind === "assessment") return maintenance.diagnostic.status !== "completed" && maintenance.diagnostic.status !== "unavailable" && maintenance.diagnostic.assessmentKey === target.key;
   if (target.kind === "review") return maintenance.reviewBatch.some(item => item.key === target.key);
   return maintenance.activities.some(item => item.key === target.key)
+    || state.motivation?.practiceOffers.some(item => item.key === target.key && item.available)
     || maintenance.remediation.some(item => item.activityKey === target.key && !item.bankExhausted && !item.pauseOffered);
 }
 

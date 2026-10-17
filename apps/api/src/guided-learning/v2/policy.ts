@@ -58,7 +58,8 @@ export function guidedV2ObjectiveAvailability(
   return definition.objectives.map((objective) => {
     const blockedBy = objective.prerequisiteKeys.filter((key) => {
       const prerequisite = definition.objectives.find((item) => item.key === key);
-      return !byKey.get(key)?.mastered || (prerequisite?.criticality === "core" && !gates.get(prerequisite.unitKey)?.passed);
+      return !byKey.get(key)?.mastered || (prerequisite?.criticality === "core" && prerequisite.unitKey !== objective.unitKey
+        && !gates.get(prerequisite.unitKey)?.passed);
     });
     return { objectiveKey: objective.key, available: blockedBy.length === 0, blockedBy };
   });

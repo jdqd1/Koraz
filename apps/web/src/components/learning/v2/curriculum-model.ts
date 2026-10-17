@@ -47,5 +47,5 @@ export function recommendationTitle(path: V2Path, state: V2State, unit?: V2Unit)
   const recommendation = unitRecommendation(path, state, unit);
   if (!recommendation) return null;
   return { ...recommendation, title: recommendation.kind === "resume" ? "Retomar tu sesión" : recommendation.kind === "review" || recommendation.kind === "retention" ? "Repasar lo aprendido"
-    : recommendation.kind === "gate" ? "Comprobar lo aprendido" : recommendation.kind === "remediate" ? "Reforzar este objetivo" : recommendation.activity ? activityTitle(recommendation.activity) : "Continuar la práctica" };
+    : recommendation.kind === "gate" ? state.nextAction.objectiveKey ? "Diagnóstico para avanzar" : "Comprobar lo aprendido" : recommendation.kind === "remediate" ? "Reforzar este objetivo" : recommendation.activity ? activityTitle(recommendation.activity) : "Continuar la práctica" };
 }

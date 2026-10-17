@@ -50,7 +50,7 @@ import {
 } from "../guided-learning/v2/service.js";
 import { guidedV2AttemptManifest } from "../guided-learning/v2/manifests.js";
 import { convertGuidedV1, readUpgradeEvidence, upgradeEvidenceVersions, acceptsUpgradeFact } from "../guided-learning/v2/upgrade.js";
-import { awardObjectiveV2 } from "../guided-learning/rewards.js";
+import { awardObjectiveV2, awardPracticeV2 } from "../guided-learning/rewards.js";
 import { calculateMetricsV2, heartbeatIntervalV2, type MetricLearnerV2, type MetricAssessmentV2, type MetricHeartbeatV2 } from "../guided-learning/v2/metrics.js";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceState } from "../guided-learning/v2/evidence.js";
 import { scheduleReviewV2, type ReviewResponseV2, type ReviewStateV2 } from "../guided-learning/v2/scheduler.js";
@@ -1153,6 +1153,7 @@ async function v2AttemptManifestFromRow(transaction: Tx, row: AttemptRow,
     const feedback = grading && "feedback" in grading && grading.feedback && typeof grading.feedback === "object"
       ? grading.feedback : null;
     return { activityKey: response.activity_key, answer: response.answer_json, acceptedAt: response.accepted_at,
+      gradingSource: response.grading_source, assisted: response.assisted,
       score01: response.score01, explanation: feedback?.explanation ?? "", commonError: feedback?.commonError ?? "",
       ...(feedback?.partialScore01 === undefined ? {} : { partialScore01: feedback.partialScore01 }) };
   });
@@ -1164,7 +1165,11 @@ async function v2AttemptManifestFromRow(transaction: Tx, row: AttemptRow,
     if (!parsed.success) return null;
     definition = parsed.data;
   }
+  const rewards = await transaction.selectFrom("learning_rewards as reward").innerJoin("learning_events as event", "event.id", "reward.event_id")
+    .select(sql<string>`coalesce(sum(reward.xp),0)::text`.as("xp")).where("reward.user_id", "=", row.user_id)
+    .where(sql<string>`event.payload_json->>'v2AttemptId'`, "=", row.id).executeTakeFirstOrThrow();
   return guidedV2AttemptManifest({ attemptId: row.id, enrollmentId: row.enrollment_id,
+    earnedXp: Number(rewards.xp),
     pathVersionId: row.path_version_id, purpose: row.purpose, rowVersion: row.row_version,
     status: row.status, snapshot, resume, responses, sources: definition.sources });
 }
@@ -1487,6 +1492,7 @@ export async function v2RebuildEvidence(transaction: Tx, userId: string, enrollm
       row_version: sql<number>`learning_v2_objective_state.row_version + 1`, updated_at: now,
     })).execute();
   const awards: Parameters<typeof awardObjectiveV2>[1][] = [];
+  const attemptStatus = new Map(attempts.map(item => [item.id, item.status]));
   for (const objective of options.award === false ? [] : state.objectives) {
     const firstRecall = (factsByObjective.get(objective.objectiveKey) ?? []).filter((event) =>
       event.valid && !event.assisted && event.gradingSource === "server" && event.score01 === 1
@@ -1496,9 +1502,14 @@ export async function v2RebuildEvidence(transaction: Tx, userId: string, enrollm
       ["v2_objective_recalled", firstRecall?.at],
       ["v2_objective_mastered", objective.firstMasteredAt],
       ["v2_objective_consolidated", objective.firstConsolidatedAt],
-    ] as const) if (acceptedAt && !inheritedResponseTimes.get(objective.objectiveKey)?.has(acceptedAt)) awards.push({
-      userId, enrollmentId, pathVersionId, objectiveKey: objective.objectiveKey, kind, acceptedAt: new Date(acceptedAt),
-    });
+    ] as const) if (acceptedAt && !inheritedResponseTimes.get(objective.objectiveKey)?.has(acceptedAt)) {
+      const source = (factsByObjective.get(objective.objectiveKey) ?? []).find(event => event.at === acceptedAt);
+      // Reward changes must not reveal a protected assessment's item grading.
+      if (source && snapshots.get(source.attemptId)?.target.kind === "assessment"
+        && ["in_progress", "paused"].includes(attemptStatus.get(source.attemptId) ?? "")) continue;
+      awards.push({ userId, enrollmentId, pathVersionId, objectiveKey: objective.objectiveKey, kind,
+        acceptedAt: new Date(acceptedAt), attemptId: source?.attemptId });
+    }
   }
   // Read completed event/reward pairs once in this actor-locked operation. Keep
   // the original award function for new awards and for incomplete pairs, so its
@@ -1636,6 +1647,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
                 pathVersionId: version.id, target: input.target, definition: definition.data, at: now() })
               : prepareCachedGuidedV2ActivitySnapshot(definition.data, version.id, input.target);
             if (!snapshot) return { status: options.prepareSnapshot ? "conflict" : "not_found" };
+            if (input.target.kind === "assessment" && input.target.objectiveKey && !snapshot.placement) return { status: "conflict" };
             const created = await transaction.insertInto("learning_v2_attempts").values({
               user_id: input.userId, enrollment_id: enrollment.id, path_version_id: version.id,
               client_attempt_id: input.clientAttemptId, purpose: input.target.kind,
@@ -1780,7 +1792,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
               path_version_id: row.path_version_id, activity_key: activity.key,
               objective_key: activity.objectiveKey, equivalence_key: activity.equivalenceKey,
               item_revision_hash: guidedV2ItemRevisionHash(activity), modality: activity.representation,
-              purpose: row.purpose === "review" ? "review" : activity.use,
+              purpose: snapshot.placement ? "diagnostic" : row.purpose === "review" ? "review" : activity.use,
               answer_json: answer.data as JsonValue, grading_json: graded as JsonValue,
               grading_source: graded.gradingSource, confidence: input.confidence,
               assisted: Boolean(resume.accessiblePractice) || resume.assistedKeys.includes(activity.key), novel_at_presentation: Boolean(
@@ -1794,7 +1806,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             }).where("id", "=", row.id).where("row_version", "=", input.expectedVersion)
               .returningAll().executeTakeFirst();
             if (!updated) return { status: "version_conflict" };
-            if (!resume.accessiblePractice) await transaction.insertInto("learning_v2_activity_state").values({
+            if (!resume.accessiblePractice && !snapshot.placement) await transaction.insertInto("learning_v2_activity_state").values({
               enrollment_id: row.enrollment_id, user_id: input.userId, path_version_id: row.path_version_id,
               activity_key: activity.key, state: "completed", evidence_attempt_id: row.id,
             }).onConflict((conflict) => conflict.columns(["enrollment_id", "path_version_id", "activity_key"])
@@ -1810,12 +1822,17 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
                 .doUpdateSet({ state: "completed", evidence_attempt_id: row.id,
                   row_version: sql<number>`learning_v2_activity_state.row_version + 1`, updated_at: serverTime })).execute();
             }
-            await transaction.insertInto("learning_events").values({
+            const acceptedEvent = await transaction.insertInto("learning_events").values({
               user_id: input.userId, enrollment_id: row.enrollment_id, attempt_id: null,
               event_type: "response_accepted", semantic_key: `v2-response:${row.id}:${activity.key}`,
               payload_json: { v2AttemptId: row.id, responseId: response.id, activityKey: activity.key },
               policy_version: "guided-v2.0", ...await learningEventTime(transaction, input.userId, serverTime),
-            }).execute();
+            }).returning("id").executeTakeFirstOrThrow();
+            if (row.purpose !== "assessment" && graded.gradingSource === "server" && graded.score01 === 1
+              && !resume.accessiblePractice && !resume.assistedKeys.includes(activity.key)) await awardPracticeV2(transaction, {
+                userId: input.userId, pathVersionId: row.path_version_id, objectiveKey: activity.objectiveKey,
+                equivalenceKey: activity.equivalenceKey, responseId: response.id, eventId: acceptedEvent.id, acceptedAt: serverTime,
+              });
             await v2RebuildEvidence(transaction, input.userId, row.enrollment_id, row.path_version_id, serverTime,
               { definition: authorized, readSnapshot: input.readSnapshot });
             const manifest = await v2AttemptManifestFromRow(transaction, updated, authorized);

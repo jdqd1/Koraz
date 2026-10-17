@@ -251,6 +251,10 @@ export const V2MaintenanceSchema = z.strictObject({
   blockers: z.array(z.strictObject({ objectiveKey: RouteKeySchema, blockedBy: Keys })),
   remediation: z.array(z.strictObject({ objectiveKey: RouteKeySchema, confusion: z.string(), message: z.string(), activityKey: RouteKeySchema.nullable(), bankExhausted: z.boolean(), availableAfter: Timestamp.nullable(), pauseOffered: z.boolean() })),
   exhaustedBanks: z.array(z.strictObject({ objectiveKey: RouteKeySchema, availableAfter: Timestamp })),
+  placements: z.array(z.strictObject({ objectiveKey: RouteKeySchema, assessmentKey: RouteKeySchema.nullable(),
+    status: z.enum(["available", "passed", "unavailable", "xp_required"]), prerequisiteKeys: Keys,
+    missingObjectiveKeys: Keys, availableAfter: Timestamp.nullable(), requiredXp: z.number().int().nonnegative().optional(),
+    remainingXp: z.number().int().nonnegative().optional() })).optional(),
 });
 export const V2RouteStateSchema = z.strictObject({
   engineVersion: V2EngineVersionSchema, enrollmentId: V2EnrollmentIdSchema,
@@ -260,9 +264,13 @@ export const V2RouteStateSchema = z.strictObject({
   masteredAt: Timestamp.nullable(), consolidatedAt: Timestamp.nullable(),
   objectives: z.array(V2ObjectiveStateSchema),
   dueReviews: z.number().int().nonnegative(),
-  nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1) }),
+  nextAction: z.strictObject({ kind: z.enum(["resume", "remediate", "retention", "review", "gate", "activity", "none"]), key: RouteKeySchema.nullable(), reason: z.string().min(1), objectiveKey: RouteKeySchema.optional() }),
   nextActionContext: z.strictObject({ unitKey: RouteKeySchema.nullable(), objectiveKey: RouteKeySchema.nullable() }).optional(),
   activityProgress: z.array(z.strictObject({ key: RouteKeySchema, status: z.enum(["pending", "completed", "dispensed"]) })).optional(),
+  motivation: z.strictObject({ totalXp: z.number().int().nonnegative(), routeXp: z.number().int().nonnegative(), extraToday: z.number().int().nonnegative(),
+    rules: z.strictObject({ firstRecall: z.literal(5), mastery: z.literal(10), consolidation: z.literal(15), practice: z.literal(2), recovery: z.literal(5), dailyLimit: z.literal(20) }),
+    practiceOffers: z.array(z.strictObject({ key: RouteKeySchema, objectiveKey: RouteKeySchema, xp: z.number().int().nonnegative(),
+      available: z.boolean(), availableAfter: Timestamp.nullable(), reason: z.enum(["correct_error", "maintain"]) })) }).optional(),
   // Additive projection; historical idempotency receipts remain valid without it.
   maintenance: V2MaintenanceSchema.optional(),
   availability: z.enum(["active", "maintenance"]).optional(),
@@ -293,6 +301,9 @@ export const V2AttemptManifestSchema = z.strictObject({
   activeActivity: V2PublicActivitySchema.nullable(),
   constructedResponse: V2ConstructedResumeSchema.nullable().optional(),
   accessiblePractice: z.strictObject({ sourceActivityKey: RouteKeySchema }).nullable().optional(),
+  placement: z.strictObject({ objectiveKey: RouteKeySchema, status: z.enum(["pending", "passed", "reinforce"]),
+    failedObjectiveKeys: Keys }).optional(),
+  earnedXp: z.number().int().nonnegative().optional(),
   acceptedResponses: z.array(z.strictObject({ activityKey: RouteKeySchema, answer: V2AnswerSchema, serverAcceptedAt: Timestamp, score01: z.number().min(0).max(1).nullable(), feedback: V2FeedbackSchema })),
 }).superRefine((value, context) => {
   if (value.accessiblePractice && (value.status !== "open" || !value.activeActivity
@@ -368,6 +379,13 @@ const Ack = z.strictObject({ accepted: z.boolean(), rowVersion: Version });
 const MutationHeaders = z.strictObject({ idempotencyKey: Id });
 const NoHeaders = Empty;
 
+export const V2AttemptTargetSchema = z.discriminatedUnion("kind", [
+  z.strictObject({ kind: z.literal("activity"), key: RouteKeySchema }),
+  z.strictObject({ kind: z.literal("review"), key: RouteKeySchema }),
+  z.strictObject({ kind: z.literal("assessment"), key: RouteKeySchema, objectiveKey: RouteKeySchema.optional() }),
+]);
+export type V2AttemptTarget = z.infer<typeof V2AttemptTargetSchema>;
+
 type Endpoint<M extends "GET" | "POST" | "PATCH", P extends z.ZodType, Q extends z.ZodType, B extends z.ZodType, R extends z.ZodType, H extends z.ZodType> = {
   method: M;
   path: string;
@@ -395,7 +413,7 @@ export const V2HttpContracts = {
   publicPath: route("GET", "/v2/guided-learning/paths/:slug", SlugParams, Empty, Empty, z.strictObject({ path: V2PublicPathSchema })),
   enrollmentCreate: route("POST", "/v2/guided-learning/enrollments", Empty, Empty, z.strictObject({ pathId: V2PathIdSchema }), StateResponse),
   enrollmentState: route("GET", "/v2/guided-learning/enrollments/:id/state", EnrollmentParams, Empty, Empty, StateResponse),
-  attemptCreate: route("POST", "/v2/guided-learning/attempts", Empty, Empty, z.strictObject({ clientAttemptId: Id, enrollmentId: V2EnrollmentIdSchema, target: z.strictObject({ kind: z.enum(["activity", "assessment", "review"]), key: RouteKeySchema }), expectedEnrollmentVersion: Version }), AttemptResponse),
+  attemptCreate: route("POST", "/v2/guided-learning/attempts", Empty, Empty, z.strictObject({ clientAttemptId: Id, enrollmentId: V2EnrollmentIdSchema, target: V2AttemptTargetSchema, expectedEnrollmentVersion: Version }), AttemptResponse),
   attemptGet: route("GET", "/v2/guided-learning/attempts/:id", AttemptParams, Empty, Empty, AttemptResponse),
   attemptImage: route("GET", "/v2/guided-learning/attempts/:id/image", AttemptParams, z.strictObject({ activityKey: RouteKeySchema, expectedVersion: z.coerce.number().int().positive() }), Empty, V2ImageResourceSchema),
   attemptAlternative: route("POST", "/v2/guided-learning/attempts/:id/alternative", AttemptParams, Empty, z.strictObject({ activityKey: RouteKeySchema, expectedVersion: Version }), AttemptResponse.extend({ state: V2RouteStateSchema })),

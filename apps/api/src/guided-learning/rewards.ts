@@ -34,12 +34,13 @@ const v2Awards = {
 /** Called only with evidence reconstructed from accepted server facts. No v1 attempt FK. */
 export async function awardObjectiveV2(transaction: Transaction<CediahDatabase>, input: {
   userId: string; enrollmentId: string; pathVersionId: string; objectiveKey: string;
-  kind: V2ObjectiveRewardKind; acceptedAt: Date;
+  kind: V2ObjectiveRewardKind; acceptedAt: Date; attemptId?: string;
 }) {
   const awardKey = `v2:${input.pathVersionId}:${input.objectiveKey}:${input.kind}`;
   const timezone = await rewardTimezone(transaction, input.userId);
   const date = localDate(input.acceptedAt, timezone);
-  const payload = { pathVersionId: input.pathVersionId, objectiveKey: input.objectiveKey };
+  const payload = { pathVersionId: input.pathVersionId, objectiveKey: input.objectiveKey,
+    ...(input.attemptId ? { v2AttemptId: input.attemptId } : {}) };
   const event = await transaction.insertInto("learning_events").values({
     user_id: input.userId, enrollment_id: input.enrollmentId, attempt_id: null,
     event_type: input.kind, semantic_key: awardKey, payload_json: payload,
@@ -65,6 +66,33 @@ export async function readLearningRewardsV2(database: RewardDatabase, userId: st
     return V2RewardSchema.parse({ awardKey: row.award_key, awardedAt: toIso(row.created_at), kind,
       title: kind in v2Awards ? v2Awards[kind as V2ObjectiveRewardKind].title : rewardTitles[kind as LearningRewardKind], xp: row.xp });
   });
+}
+
+/** Actor lock, server grading and one award per family/day keep retries idempotent. */
+export async function awardPracticeV2(transaction: Transaction<CediahDatabase>, input: {
+  userId: string; pathVersionId: string; objectiveKey: string; equivalenceKey: string;
+  responseId: string; eventId: string; acceptedAt: Date;
+}) {
+  const previous = await transaction.selectFrom("learning_v2_responses as response")
+    .innerJoin("learning_v2_attempts as attempt", "attempt.id", "response.attempt_id")
+    .select(["response.score01", "response.accepted_at"])
+    .where("response.user_id", "=", input.userId).where("response.path_version_id", "=", input.pathVersionId)
+    .where("equivalence_key", "=", input.equivalenceKey).where("objective_key", "=", input.objectiveKey)
+    .where("response.id", "!=", input.responseId).where("accepted_at", "<=", input.acceptedAt)
+    .where("grading_source", "=", "server").where(eb => eb.or([
+      eb("response.purpose", "in", ["learning", "review", "gate"]),
+      eb.and([eb("response.purpose", "=", "diagnostic"), eb("attempt.status", "=", "completed")]),
+    ]))
+    .where("score01", "is not", null).orderBy("accepted_at", "desc").orderBy("response.id", "desc").executeTakeFirst();
+  if (!previous || input.acceptedAt.getTime() - previous.accepted_at.getTime() < 600000) return null;
+  const timezone = await rewardTimezone(transaction, input.userId), date = localDate(input.acceptedAt, timezone);
+  const total = await transaction.selectFrom("learning_rewards").select(sql<string>`coalesce(sum(xp),0)::text`.as("xp"))
+    .where("user_id", "=", input.userId).where("reward_kind", "=", "review_applied").where("local_date", "=", date).executeTakeFirstOrThrow();
+  const xp = Math.min(previous.score01 === 0 ? 5 : 2, Math.max(0, 20 - Number(total.xp)));
+  if (!xp) return null;
+  return insertReward(transaction, { acceptedAt: input.acceptedAt, timezone, userId: input.userId,
+    awardKey: `v2-practice:${input.pathVersionId}:${input.objectiveKey}:${input.equivalenceKey}:${date}`,
+    kind: "review_applied", eventId: input.eventId, xp });
 }
 
 const rewardTitles: Record<LearningRewardKind, string> = {

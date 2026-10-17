@@ -8,6 +8,9 @@ import { createV2Launcher } from "./client";
 import { V2HttpContracts } from "@cediah/contracts";
 import { maintenanceFixture } from "./maintenance-fixtures";
 import { authorizedMaintenanceTarget } from "./route-action";
+import { ObjectivePlacement, DiagnosticPanel } from "./diagnostic";
+import { actionTarget } from "./model";
+import { LearningPoints } from "./motivation";
 
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
@@ -119,6 +122,45 @@ describe("T032 confirmed maintenance presentation", () => {
     for (const target of [{ kind: "activity" as const, key: "practice-b" }, { kind: "review" as const, key: "review-a" }]) expect(authorizedMaintenanceTarget(state, target)).toBe(false);
     const html = renderToString(<V2ReviewScreen path={fixture.path} state={state} />);
     expect(html).not.toContain("Repasar</button>"); expect(html).not.toContain("Practicar este objetivo</button>");
+  });
+  it("shows a targeted diagnostic only from the confirmed admission offer", () => {
+    const fixture = maintenanceFixture();
+    const objectiveKey = fixture.path.units[0]!.objectives[0]!.key;
+    fixture.state.maintenance.placements = [{ objectiveKey, assessmentKey: "diagnosis", status: "available", prerequisiteKeys: ["previous"], missingObjectiveKeys: [], availableAfter: null }];
+    const target = { kind: "assessment" as const, key: "diagnosis", objectiveKey };
+    expect(authorizedMaintenanceTarget(fixture.state, target)).toBe(true);
+    expect(actionTarget({ kind: "gate", key: "diagnosis", objectiveKey, reason: "Diagnóstico de acceso" })).toEqual(target);
+    expect(authorizedMaintenanceTarget(fixture.state, { ...target, objectiveKey: "foreign" })).toBe(false);
+    const html = renderToString(<ObjectivePlacement path={fixture.path} state={fixture.state} objectiveKey={objectiveKey} returnTo="/aprendizaje/mapa?unit=unit" />);
+    expect(html).toContain("Hacer diagnóstico para avanzar</button>");
+    fixture.state.maintenance.placements[0]!.status = "unavailable";
+    expect(authorizedMaintenanceTarget(fixture.state, target)).toBe(false);
+    expect(renderToString(<ObjectivePlacement path={fixture.path} state={fixture.state} objectiveKey={objectiveKey} />)).not.toContain("</button>");
+    fixture.state.maintenance.placements[0]!.status = "passed";
+    expect(renderToString(<ObjectivePlacement path={fixture.path} state={fixture.state} objectiveKey={objectiveKey} />)).toContain("Conocimientos previos comprobados");
+  });
+  it("keeps the initial diagnosis accessible after beginning the route", () => {
+    const fixture = maintenanceFixture();
+    fixture.state.maintenance.diagnostic = { status: "omitted", assessmentKey: "diagnosis" };
+    expect(authorizedMaintenanceTarget(fixture.state, { kind: "assessment", key: "diagnosis" })).toBe(true);
+    const html = renderToString(<DiagnosticPanel path={fixture.path} state={fixture.state} />);
+    expect(html).toContain("aunque ya hayas comenzado");
+    expect(html).toContain("Comenzar diagnóstico</button>");
+  });
+  it("shows confirmed XP, the remaining diagnostic requirement and rewarded repeats", () => {
+    const fixture = maintenanceFixture(), objectiveKey = fixture.path.units[0]!.objectives[0]!.key;
+    fixture.state.maintenance.placements = [{ objectiveKey, assessmentKey: "diagnosis", status: "xp_required", prerequisiteKeys: ["previous", "other"],
+      missingObjectiveKeys: [], availableAfter: null, requiredXp: 40, remainingXp: 20 }];
+    fixture.state.motivation = { totalXp: 20, routeXp: 15, extraToday: 5,
+      rules: { firstRecall: 5, mastery: 10, consolidation: 15, practice: 2, recovery: 5, dailyLimit: 20 },
+      practiceOffers: [{ key: "practice-a", objectiveKey, xp: 5, available: true, availableAfter: null, reason: "correct_error" }] };
+    const html = renderToString(<LearningPoints path={fixture.path} state={fixture.state} />);
+    expect(html).toContain("20 XP"); expect(html).toContain("Te faltan 20 XP"); expect(html).toContain("Practicar por hasta 5 XP</button>");
+    expect(authorizedMaintenanceTarget(fixture.state, { kind: "assessment", key: "diagnosis", objectiveKey })).toBe(false);
+    expect(authorizedMaintenanceTarget(fixture.state, { kind: "activity", key: "practice-a" })).toBe(true);
+    expect(authorizedMaintenanceTarget(fixture.state, { kind: "activity", key: "private-reserve" })).toBe(false);
+    const locked = renderToString(<ObjectivePlacement path={fixture.path} state={fixture.state} objectiveKey={objectiveKey} />);
+    expect(locked.replaceAll("<!-- -->", "")).toContain("Te faltan 20 XP"); expect(locked).not.toContain("Hacer diagnóstico para avanzar</button>");
   });
   it("uses server time and profile zone for overdue dates, regardless of the browser clock", () => {
     vi.useFakeTimers(); vi.setSystemTime("2000-01-01T00:00:00Z");

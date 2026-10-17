@@ -4,6 +4,7 @@ import { activityFormats, activityTitle, actionLocation, unitActivityProgress, u
 import { authorizedMaintenanceTarget, RouteAction } from "./route-action";
 import { UnitObjectiveStatus } from "./signals";
 import { MaintenanceDate } from "./maintenance";
+import { ObjectivePlacement } from "./diagnostic";
 import styles from "./curriculum.module.css";
 
 const activityIcons = { study: BookOpen, single_choice: ListChecks, short_answer: ChatText, constructed_response: PencilSimple, match: LinkSimple, image_target: ImageSquare, sequence: SortAscending, case: ClipboardText };
@@ -39,6 +40,7 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
     const review = state?.maintenance?.reviewBatch.find(item => item.objectiveKey === objective.key);
     const exhausted = state?.maintenance?.exhaustedBanks.find(item => item.objectiveKey === objective.key);
     const upcoming = state?.maintenance?.agenda.find(item => item.objectiveKey === objective.key);
+    const admission = state?.maintenance?.placements?.find(item => item.objectiveKey === objective.key);
     const entries = activities?.map((activity, index) => ({ activity, index }));
     const completedCount = entries?.filter(entry => progress.get(entry.activity.key) === "completed").length ?? 0;
     const coveredCount = entries?.filter(entry => progress.get(entry.activity.key) === "dispensed").length ?? 0;
@@ -49,7 +51,7 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       const consumed = progress.get(activity.key);
       const done = consumed === "completed" || consumed === "dispensed";
       const blocked = !done && !!blocker?.blockedBy.length;
-      const label = next ? null : consumed === "completed" ? "Completada" : consumed === "dispensed" ? "Ya cubierta" : paused ? "Pausada" : available ? "Disponible" : blocked ? "Más adelante" : (!state && path.enrollmentId) || (state && !state.activityProgress) ? "Estado por cargar" : null;
+      const label = next ? null : consumed === "completed" ? "Completada" : consumed === "dispensed" ? "Ya cubierta" : paused ? "Pausada" : available ? "Disponible" : blocked ? admission ? admission.status === "xp_required" ? `${admission.remainingXp} XP + diagnóstico` : "Diagnóstico o conocimientos previos" : "Más adelante" : (!state && path.enrollmentId) || (state && !state.activityProgress) ? "Estado por cargar" : null;
       const Icon = activityIcons[activity.kind];
       return <li className={styles.activity} key={activity.key} data-current={next} data-done={done} data-blocked={blocked} aria-current={next ? "step" : undefined}>
         <span className={styles.stepMarker} aria-hidden>{next ? <ArrowRight size={16} /> : done ? <Check size={15} /> : blocked ? <LockSimple size={14} /> : index + 1}</span>
@@ -63,6 +65,7 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       {status?.criticalErrorOpen ? <p className={styles.notice}>Hay un concepto esencial por reforzar antes de continuar con las actividades que dependen de él.</p> : null}
       {status?.firstMasteredAt && status.label !== "mastered" ? <p className={styles.note}>Tu aprendizaje anterior se conserva. Ahora toca reforzarlo.</p> : null}
       {blocker?.blockedBy.length ? <details className={styles.help}><summary><LockSimple size={14} aria-hidden />Qué necesitas antes</summary><ul>{blocker.blockedBy.map(key => <li key={key}>{path.units.flatMap(item => item.objectives).find(item => item.key === key)?.title ?? "Completar el objetivo previo"}</li>)}</ul></details> : null}
+      {state ? <ObjectivePlacement path={path} state={state} objectiveKey={objective.key} returnTo={returnTo} /> : null}
       {activities?.length ? <>
         {completedCount || coveredCount ? <p className={styles.completed}><CheckCircle size={16} aria-hidden /><span>{completedCount ? `${completedCount} ${completedCount === 1 ? "actividad completada" : "actividades completadas"}` : ""}{completedCount && coveredCount ? " · " : ""}{coveredCount ? `${coveredCount} ${coveredCount === 1 ? "ya cubierta" : "ya cubiertas"}` : ""}</span></p> : null}
         <ol className={styles.activityList} aria-label={`Actividades de ${objective.title}`}>{entries?.map(activityRow)}</ol>

@@ -26,6 +26,13 @@ export async function createGuidedV2Server() {
     actors.set(token,actor);
     await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)",[actor.id,actor.name,actor.email]);
   }
+  for (const [index, token] of ["xp-success", "xp-failure", "xp-success-mobile", "xp-failure-mobile"].entries()) {
+    const actor = { id: id(100 + index), name: "Alumno de diagnóstico", email: `${token}@example.test` };
+    actors.set(token, actor);
+    await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)", [actor.id, actor.name, actor.email]);
+    const event = await db.pool.query("insert into learning_events(user_id,event_type,semantic_key,payload_json,policy_version,occurred_at,local_date,timezone) values($1,'activity_completed','xp-fixture','{}','guided-v2.0',$2,'2026-10-04','UTC') returning id", [actor.id, clock]);
+    await db.pool.query("insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date) values($1,'xp-fixture','activity_recall',50,$2,'2026-10-04')", [actor.id, event.rows[0].id]);
+  }
   // Catalog identifiers deliberately stay outside the actor range.
   const bindings=structuredClone(guidedV2FixtureBindings);
   bindings.topicContentId=id(120);bindings.sources[0]!.sourceContentId=id(121);bindings.sources[0]!.resourceRevisionId=id(123);bindings.assets[0]!.assetId=id(124);
@@ -38,8 +45,18 @@ export async function createGuidedV2Server() {
   await db.pool.query("insert into content_assets(id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at) values($1,$2,$3,'image','test-assets','fixture.png','fixture.png','image/png',$4,'ready',now())",[id(124),id(120),id(1),guidedV2Image.length]);
   const editor=createPostgresGuidedLearningV2Provider(db.database,{now,assetStorage});
   const fixtures:Record<string,{pathId:string;slug:string;versionId:string;objectives:number;activities:number}>={};
-  for(const [key,count,publish] of [["small",1,true],["large",200,true],["editorial",1,false],["editorial-mobile",1,false]] as const){
+  for(const [key,count,publish] of [["small",1,true],["large",200,true],["editorial",1,false],["editorial-mobile",1,false],["admission",2,true]] as const){
     const pkg=guidedV2Fixture(count); if(key.startsWith("editorial")){pkg.packageKey=`t035-${key}`;pkg.route.slug=`t035-${key}`;pkg.route.title="Ruta editorial T035";}
+    if(key === "admission") {
+      pkg.packageKey="xp-admission"; pkg.route.slug="xp-admission"; pkg.route.title="Diagnóstico y XP";
+      pkg.objectives[1]!.prerequisiteKeys=["objective-1"];
+      const diagnostic = pkg.assessments.find(item => item.kind === "diagnostic")!;
+      diagnostic.objectiveKeys=["objective-1"];
+      diagnostic.candidateActivityKeys=diagnostic.candidateActivityKeys.filter(key => pkg.activities.find(item => item.key === key)?.objectiveKey === "objective-1");
+      const removed = new Set(pkg.activities.filter(item => item.objectiveKey === "objective-2" && item.use === "diagnostic").map(item => item.key));
+      pkg.activities=pkg.activities.filter(item => !removed.has(item.key));
+      pkg.units.forEach(unit => { unit.activityKeys=unit.activityKeys.filter(key => !removed.has(key)); });
+    }
     const created=await editor.createDraft({actorUserId:id(1),canCreate:true,canEditAll:true,enforceAccess:true,package:pkg,bindings});
     if(created.status!=="success") throw new Error(JSON.stringify(created));
     let route=created.value;

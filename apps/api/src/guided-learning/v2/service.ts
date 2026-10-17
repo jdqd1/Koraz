@@ -6,6 +6,7 @@ import {
   type RoutePackage,
   type RouteActivity,
   type RouteValidationIssue,
+  V2AttemptTargetSchema, type V2AttemptTarget,
 } from "@cediah/contracts";
 import { hashRoutePackage } from "./validation.js";
 import { hashLearningSnapshot } from "../snapshot-hash.js";
@@ -119,13 +120,14 @@ export function prepareGuidedV2Draft(packageInput: unknown, bindingsInput: unkno
   } };
 }
 
-export type GuidedV2AttemptTarget = { kind: "activity" | "assessment" | "review"; key: string };
+export type GuidedV2AttemptTarget = V2AttemptTarget;
 export type GuidedV2AttemptSnapshot = {
   target: GuidedV2AttemptTarget;
   pathVersionId: string;
   contentHash: string;
   activities: RouteActivity[];
   orderedKeys: string[];
+  placement?: { objectiveKey: string; prerequisiteKeys: string[] };
 };
 export type GuidedV2AttemptResume = {
   activeIndex: number;
@@ -194,8 +196,9 @@ export function prepareGuidedV2AttemptSnapshot(
 export function parseGuidedV2AttemptSnapshot(input: unknown): GuidedV2AttemptSnapshot | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
   const value = input as Record<string, unknown>;
-  const target = value.target as GuidedV2AttemptTarget | undefined;
-  if (!target || !["activity", "assessment", "review"].includes(target.kind)
+  const parsedTarget = V2AttemptTargetSchema.safeParse(value.target);
+  const target = parsedTarget.success ? parsedTarget.data : undefined;
+  if (!target
     || typeof target.key !== "string" || typeof value.pathVersionId !== "string"
     || typeof value.contentHash !== "string" || !Array.isArray(value.activities)
     || !Array.isArray(value.orderedKeys) || !value.orderedKeys.every((key) => typeof key === "string")) return null;
@@ -204,8 +207,15 @@ export function parseGuidedV2AttemptSnapshot(input: unknown): GuidedV2AttemptSna
   const keys = new Set(activities.data.map((activity) => activity.key));
   if (value.orderedKeys.length === 0 || new Set(value.orderedKeys).size !== value.orderedKeys.length
     || value.orderedKeys.some((key) => !keys.has(key))) return null;
+  const placement = value.placement as GuidedV2AttemptSnapshot["placement"];
+  if (placement && (target.kind !== "assessment" || !target.objectiveKey || target.objectiveKey !== placement.objectiveKey
+    || !Array.isArray(placement.prerequisiteKeys) || !placement.prerequisiteKeys.length
+    || !placement.prerequisiteKeys.every(key => typeof key === "string")
+    || activities.data.some(item => !["learning", "gate", "diagnostic"].includes(item.use)
+      || ["study", "case", "constructed_response"].includes(item.kind)))) return null;
+  if (target.kind === "assessment" && target.objectiveKey && !placement) return null;
   return { target, pathVersionId: value.pathVersionId, contentHash: value.contentHash,
-    activities: activities.data, orderedKeys: value.orderedKeys as string[] };
+    activities: activities.data, orderedKeys: value.orderedKeys as string[], ...(placement ? { placement } : {}) };
 }
 
 export function initialGuidedV2AttemptResume(): GuidedV2AttemptResume {

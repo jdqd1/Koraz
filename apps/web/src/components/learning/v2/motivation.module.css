@@ -1,0 +1,13 @@
+.points { padding: 16px; border: 1px solid #e5e5ea; border-radius: 14px; background: #fff; color: #1d1d1f; font-size: .82rem; min-width: 0; }
+.balance { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.balance svg { color: #ab6c05; flex-shrink: 0; }
+.balance strong { font-size: 1.08rem; }
+.balance span { color: #626267; margin-left: auto; font-size: .75rem; }
+.goal { display: grid; gap: 7px; margin-top: 14px; }
+.goal strong { font-size: .8rem; }
+.goal progress { width: 100%; height: 7px; accent-color: #0066cc; }
+.points p { color: #626267; line-height: 1.6; margin: 8px 0; overflow-wrap: anywhere; }
+.points summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: #0066cc; margin-top: 6px; }
+.repeats { display: grid; gap: 12px; margin: 12px 0 0; padding: 0; list-style: none; }
+.repeats li { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid #e5e5ea; }
+.repeats span { color: #626267; overflow-wrap: anywhere; }

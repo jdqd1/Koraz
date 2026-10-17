@@ -367,7 +367,7 @@ describe("guided v2 attempt persistence", () => {
         (select count(*)::int from public.learning_events where payload_json->>'v2AttemptId' = $1::text) as events,
         (select count(*)::int from public.learning_mutation_receipts where user_id = $2) as receipts`,
     [attemptId, userId]);
-    expect(persisted.rows[0]).toMatchObject({ responses: 2, events: 4 });
+    expect(persisted.rows[0]).toMatchObject({ responses: 2, events: 5 });
     expect(persisted.rows[0]!.receipts).toBeGreaterThanOrEqual(6);
   });
 

@@ -246,7 +246,8 @@ export function rebuildGuidedV2Evidence(
     availability: definition.objectives.map(objective => ({ objectiveKey: objective.key,
       blockedBy: objective.prerequisiteKeys.filter(key => {
         const prerequisite = objectives.get(key);
-        return !byKey.get(key)?.mastered || (prerequisite?.criticality === "core" && !gatesByUnit.get(prerequisite.unitKey)?.passed);
+        return !byKey.get(key)?.mastered || (prerequisite?.criticality === "core" && prerequisite.unitKey !== objective.unitKey
+          && !gatesByUnit.get(prerequisite.unitKey)?.passed);
       }),
     })).map(item => ({ objectiveKey: item.objectiveKey, available: item.blockedBy.length === 0, blockedBy: item.blockedBy })),
     route: {

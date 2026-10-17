@@ -2,6 +2,7 @@ import { V2AttemptManifestSchema, toV2PublicActivity, type RouteActivity, type R
 import { validateCaseStage, type CaseStageState } from "./grading.js";
 import { accessibleVariant, activeGuidedV2ActivityKey, type GuidedV2AttemptResume, type GuidedV2AttemptSnapshot } from "./service.js";
 import { assessmentCoverageV2, type AssessmentPlanV2 } from "./assessments.js";
+import { placementResult } from "./placement.js";
 
 type CaseActivity = Extract<RouteActivity, { kind: "case" }>;
 
@@ -26,6 +27,8 @@ export type GuidedV2ManifestResponse = {
   answer: unknown;
   acceptedAt: Date;
   score01: number | null;
+  gradingSource?: string;
+  assisted?: boolean;
   explanation: string;
   commonError: string;
   partialScore01?: number;
@@ -47,12 +50,13 @@ export function guidedV2AttemptManifest(input: {
   snapshot: GuidedV2AttemptSnapshot; resume: GuidedV2AttemptResume;
   responses: readonly GuidedV2ManifestResponse[];
   sources?: RoutePackage["sources"];
+  earnedXp?: number;
 }): V2AttemptManifest {
   const activeKey = activeGuidedV2ActivityKey(input.snapshot, input.resume);
   const activity = activeKey ? input.snapshot.activities.find((item) => item.key === activeKey) : undefined;
   const reserved = (key: string) => input.snapshot.activities.some((item) => item.key === key
     && ["final", "retention7", "retention30"].includes(item.use));
-  const deferred = input.purpose === "assessment" && input.snapshot.orderedKeys.some(reserved) && input.status !== "completed";
+  const deferred = input.purpose === "assessment" && (input.snapshot.placement || input.snapshot.orderedKeys.some(reserved)) && input.status !== "completed";
   let activeActivity = activity && (input.purpose === "assessment" || !reserved(activity.key)) ? toV2PublicActivity(activity) : null;
   if (activeActivity?.kind === "image_target") {
     const variant = accessibleVariant(input.snapshot, activeActivity.key);
@@ -70,7 +74,11 @@ export function guidedV2AttemptManifest(input: {
     engineVersion: "guided-v2", attemptId: input.attemptId, enrollmentId: input.enrollmentId,
     pathVersionId: input.pathVersionId, policyVersion: "guided-v2.0", purpose: input.purpose,
     rowVersion: input.rowVersion,
+    ...(input.earnedXp ? { earnedXp: input.earnedXp } : {}),
     status: input.status === "in_progress" ? "open" : input.status,
+    ...(input.snapshot.placement ? { placement: input.status === "completed"
+      ? placementResult(input.snapshot, input.responses.map(item => ({ ...item, gradingSource: item.gradingSource ?? "none", assisted: item.assisted ?? true })))
+      : { objectiveKey: input.snapshot.placement.objectiveKey, status: "pending", failedObjectiveKeys: [] } } : {}),
     activeActivity: input.status === "in_progress" ? activeActivity : null,
     accessiblePractice: input.status === "in_progress" && input.resume.accessiblePractice
       ? { sourceActivityKey: input.resume.accessiblePractice.sourceActivityKey } : null,

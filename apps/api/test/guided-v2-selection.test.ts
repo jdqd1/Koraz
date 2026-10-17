@@ -3,6 +3,7 @@ import { RoutePackageSchema, type RoutePackage } from "@cediah/contracts";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceResponse } from "../src/guided-learning/v2/evidence.js";
 import { prepareGuidedV2NextAction, selectGuidedV2Diagnostic, type GuidedV2SelectionSnapshot } from "../src/guided-learning/v2/service.js";
 import { selectGuidedV2ReviewActivity } from "../src/guided-learning/v2/selection.js";
+import { placementOffers, placementResult } from "../src/guided-learning/v2/placement.js";
 
 const epoch = Date.parse("2026-09-01T12:00:00Z");
 const at = (hours = 0) => new Date(epoch + hours * 3600000).toISOString();
@@ -54,6 +55,36 @@ function snapshot(definition = fixture(), events: GuidedV2EvidenceEvent[] = [], 
 const select = (input = snapshot(), hours = 1) => prepareGuidedV2NextAction(input, at(hours));
 const completeCore = ["explain", "example", "partial", "recall", "recall-b", "apply"].map((key) => `core-${key}`);
 const errorEvents = (definition: RoutePackage) => [response(definition, "core-recall", 1, { score01: 0, responseKey: "no" }), response(definition, "core-remedy", 2)];
+
+describe("independent diagnostic admission", () => {
+  it("requires every prerequisite, independent server grading and the enrolled version", () => {
+    const definition = fixture(), evidence = rebuildGuidedV2Evidence(definition, []);
+    const diagnostic = definition.activities.find(item => item.key === "core-diagnostic")!;
+    const attempt = { target: { kind: "assessment" as const, key: "diagnosis", objectiveKey: "child" }, pathVersionId: "enrolled",
+      contentHash: "test", activities: [diagnostic], orderedKeys: [diagnostic.key], placement: { objectiveKey: "child", prerequisiteKeys: ["core"] } };
+    const answer = { activityKey: diagnostic.key, score01: 1, gradingSource: "server", assisted: false };
+    expect(placementResult(attempt, [])?.status).toBe("pending");
+    for (const invalid of [{ ...answer, assisted: true }, { ...answer, gradingSource: "self" }, { ...answer, score01: 0 }]) {
+      expect(placementResult(attempt, [invalid])?.status).toBe("reinforce");
+    }
+    const offers = (pathVersionId = "enrolled", states = evidence) => placementOffers(definition, states, [], [{ snapshot: attempt, answers: [answer] }], at(1), pathVersionId);
+    expect(offers().find(item => item.objectiveKey === "child")?.status).toBe("passed");
+    expect(offers("other-version").find(item => item.objectiveKey === "child")?.status).toBe("available");
+    expect(offers("enrolled", rebuildGuidedV2Evidence(definition, errorEvents(definition))).find(item => item.objectiveKey === "child")?.status).toBe("unavailable");
+    expect(evidence.objectives[0]).toMatchObject({ mastered: false, objectiveScore: null });
+  });
+  it("requires two recall families and an application, with a ten minute practice boundary", () => {
+    const definition = fixture(); definition.objectives[2]!.prerequisiteKeys = ["core", "other"];
+    const events = [response(definition, "core-apply", 1, { at: at() })];
+    const evidence = rebuildGuidedV2Evidence(definition, events);
+    const offers = (hours = 0) => placementOffers(definition, evidence, events, [], at(hours), "enrolled").find(item => item.objectiveKey === "child");
+    expect(offers()).toMatchObject({ status: "unavailable", availableAfter: at(1 / 6), prerequisiteKeys: ["core", "other"] });
+    expect(offers(1 / 6)?.status).toBe("available");
+    expect(offers(1 / 6)?.activityKeys).toHaveLength(6);
+    definition.activities.find(item => item.key === "other-apply")!.equivalenceKey = "core-apply";
+    expect(offers(1)).toMatchObject({ status: "unavailable", missingObjectiveKeys: ["other"] });
+  });
+});
 
 describe("guided v2 review bank rotation", () => {
   it("chooses another family after answering the first question", () => {
@@ -169,6 +200,19 @@ describe("T017 diagnostic and branch progression", () => {
     expect(select({ ...input, selectedObjectiveKey: "other" }).nextAction.key).toBe("other-explain");
     expect(input.evidence.availability.find((item) => item.objectiveKey === "child")!.available).toBe(false);
   });
+  it("requires prior mastery within a unit without requiring the unfinished unit's own gate", () => {
+    const definition = fixture();
+    const child = definition.units.find(item => item.key === "unit-child")!;
+    definition.objectives.find(item => item.key === "child")!.unitKey = "unit-core";
+    definition.units[0]!.objectiveKeys.push("child"); definition.units[0]!.activityKeys.push(...child.activityKeys);
+    definition.units = definition.units.filter(item => item.key !== child.key);
+    const before = rebuildGuidedV2Evidence(definition, []);
+    expect(before.availability.find(item => item.objectiveKey === "child")?.available).toBe(false);
+    const events = ["core-recall", "core-recall-b", "core-apply"].map((key, n) => response(definition, key, n + 1));
+    const after = rebuildGuidedV2Evidence(definition, events);
+    expect(after.gates.find(item => item.unitKey === "unit-core")?.passed).toBe(false);
+    expect(after.availability.find(item => item.objectiveKey === "child")?.available).toBe(true);
+  });
   it("P09 a 90% average cannot bypass missing CORE mastery; optional failure cannot close a passed gate", () => {
     const input = snapshot();
     input.evidence.objectives[0]!.objectiveScore = 90;
@@ -275,14 +319,14 @@ describe("T017 diagnostic and branch progression", () => {
   it("gate is offered after initial work; diagnosis does not satisfy it", () => {
     const input = snapshot(undefined, [], { completedActivityKeys: completeCore });
     expect(select(input).nextAction).toMatchObject({ kind: "gate", key: "gate-core" });
-    expect(select({ ...input, completedAssessmentKeys: ["gate-core"] }).nextAction.kind).toBe("activity");
+    expect(select({ ...input, completedAssessmentKeys: ["gate-core"] }).nextAction).toMatchObject({ kind: "gate", key: "gate-core" });
   });
   it("all initial candidates exhausted yields an explicit date and preserves state", () => {
     const definition = fixture(1);
     const events = ["recall", "recall-b", "apply", "verify", "verify-b"].map((key, i) => response(definition, `core-${key}`, i + 1, { assisted: true }));
     const input = snapshot(definition, events, { completedActivityKeys: ["core-explain", "core-example", "core-partial"] });
     const result = select(input);
-    expect(result.nextAction.kind).toBe("none");
+    expect(result.nextAction).toMatchObject({ kind: "activity", key: "core-recall" });
     expect(result.exhaustedBanks).toMatchObject([{ objectiveKey: "core", bankExhausted: true, availableAfter: at(24.01) }]);
     expect(input.evidence.objectives[0]!.mastered).toBe(false);
   });
@@ -291,6 +335,27 @@ describe("T017 diagnostic and branch progression", () => {
     expect(serialized).not.toContain("correctKey");
     expect(serialized).not.toContain("core-reserve");
     expect(serialized).not.toContain("distractorFeedback");
+  });
+  it("continues pending practice within the 24h evidence window without crediting repeats", () => {
+    const definition = fixture(1);
+    definition.activities.find(item => item.key === "core-recall-b")!.equivalenceKey = "core-recall";
+    const events = [response(definition, "core-recall", 1, { at: at(), score01: 0, responseKey: null })];
+    const input = snapshot(definition, events, { completedActivityKeys: [...completeCore.filter(key => key !== "core-recall-b")] });
+    expect(select(input).nextAction).toMatchObject({ kind: "activity", key: "core-recall-b" });
+    const repeated = response(definition, "core-recall-b", 2, { at: at(1) });
+    expect(rebuildGuidedV2Evidence(definition, [...events, repeated]).objectives[0]).toMatchObject({ objectiveScore: 0, mastered: false });
+    expect(input.evidence.availability).toEqual(rebuildGuidedV2Evidence(definition, events).availability);
+  });
+  it("offers independent extra practice after consuming a unit that is still below mastery", () => {
+    const definition = fixture(1);
+    const events = [response(definition, "core-recall", 1, { score01: 0, responseKey: null }), response(definition, "core-recall-b", 2), response(definition, "core-apply", 3)];
+    const input = snapshot(definition, events, { completedActivityKeys: completeCore, completedAssessmentKeys: ["gate-core"] });
+    definition.activities.find(item => item.key === "core-verify")!.equivalenceKey = "core-recall";
+    const result = select(input);
+    expect(result.nextAction.kind).toBe("activity");
+    expect(result.availableActivities[0]?.key).toBe("core-verify-b");
+    expect(result.nextAction.key).not.toBe("core-reserve");
+    expect(input.evidence.objectives[0]?.mastered).toBe(false);
   });
   it("a critical confusion in an optional objective offers targeted remediation without blocking CORE", () => {
     const definition = fixture();

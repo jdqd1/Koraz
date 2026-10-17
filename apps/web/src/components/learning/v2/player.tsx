@@ -79,6 +79,7 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
           setSubmittedActivity(activity);
           setHelp(null);
           if (result.body.answer.kind === "study") { setFeedback(null); }
+          else if (result.value.attempt.placement) setFeedback(null);
           else setFeedback({ activityKey: result.body.activityKey, ...result.value.feedback });
           setMessage(preview ? "Respuesta simulada. No guarda progreso." : "Respuesta confirmada y guardada.");
         } else if (result.body.answer.kind === "constructed_response" && result.body.answer.selfRating === null) {
@@ -127,9 +128,10 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
     </aside> : null}
   </div> : null;
   return <Surface className={`${ui.session} ${preview ? "" : ui.immersive}`}><section aria-label="Sesión de aprendizaje" data-engine-version="guided-v2">
-    <ActivityHeader title="Tu sesión de aprendizaje" eyebrow={preview ? "Vista previa · sin guardar progreso" : attempt.purpose === "review" ? "Repaso" : attempt.purpose === "assessment" ? "Evaluación" : "Práctica"} returnHref={returnHref} onExit={preview ? onExit : undefined} completed={state?.completedActivities} total={state?.plannedRequiredActivities} details={<>
+    <ActivityHeader title={attempt.placement ? "Diagnóstico para avanzar" : "Tu sesión de aprendizaje"} eyebrow={preview ? "Vista previa · sin guardar progreso" : attempt.purpose === "review" ? "Repaso" : attempt.purpose === "assessment" ? "Evaluación" : "Práctica"} returnHref={returnHref} onExit={preview ? onExit : undefined} completed={state?.completedActivities} total={state?.plannedRequiredActivities} details={<>
       <p>{pending ? "Pendiente de confirmar" : busy ? "Guardando…" : preview ? "Estado simulado" : "Progreso guardado"}</p>
       {state ? <><RouteSignals state={state} /><p>{state.nextAction.reason}</p></> : <p>No pudimos cargar el resumen de progreso confirmado.</p>}
+      {state?.motivation ? <p>{state.motivation.totalXp} XP acumulados · +{attempt.earnedXp ?? 0} XP en esta sesión</p> : null}
     </>} />
     <p className="sr-only" role="status" aria-live="polite">{message}</p>
     {hasError ? <div className={ui.notice} role="alert"><p>{pending ? "Pendiente de confirmar. Reintenta para recuperar el resultado antes de continuar." : message}</p>
@@ -142,14 +144,16 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
       <div className={ui.feedback} data-tone={feedback.score01 === 0 ? "incorrect" : feedback.score01 === null ? "neutral" : "correct"} role="status" aria-live="polite">
         <h3 ref={heading} tabIndex={-1}>{feedback.score01 === 0 ? <ArrowCounterClockwise aria-hidden size={23} /> : <CheckCircle aria-hidden size={23} />}{feedback.score01 === 1 ? "Respuesta correcta" : feedback.score01 === 0 ? "Vamos a reforzar este punto" : "Práctica registrada"}</h3>
         <PartialFeedback value={feedback.partialScore01} />
+        {attempt.earnedXp ? <p>+{attempt.earnedXp} XP ganados en esta sesión</p> : null}
         {feedback.explanation ? <p>{feedback.explanation}</p> : null}
       </div>
       {feedback.commonError ? <details className={ui.disclosure}><summary>Qué conviene recordar</summary><p>{feedback.commonError}</p></details> : null}
       <FeedbackSources sources={feedback.sources ?? []} />
       <div className={ui.action}><button className="learning-primary-button" type="button" disabled={busy || pending} onClick={next}>Continuar<ArrowRight aria-hidden size={19} /></button></div>
     </section> : attempt.status === "completed" ? <section className={ui.completion}>
-      <CheckCircle aria-hidden size={52} weight="duotone" /><h2 ref={heading} tabIndex={-1}>Sesión completada</h2><p>Tu progreso está guardado. Continúa a tu ritmo.</p>
-      {preview ? <button type="button" className="learning-primary-button" onClick={onExit}>Cerrar vista previa</button> : <ContinueSession state={state} returnTo={returnTo} />}
+      <CheckCircle aria-hidden size={52} weight="duotone" /><h2 ref={heading} tabIndex={-1}>{attempt.placement ? attempt.placement.status === "passed" ? "Puedes avanzar a tu objetivo" : "Refuerza los conocimientos previos" : "Sesión completada"}</h2><p>{attempt.placement ? attempt.placement.status === "passed" ? "Comprobaste los conocimientos previos. Ahora puedes empezar el objetivo elegido. Las actividades, el dominio y los repasos se mantienen por separado." : "El diagnóstico te muestra qué temas conviene practicar antes de avanzar. Tu progreso se conserva." : "Tu progreso está guardado. Continúa a tu ritmo."}</p>
+      {state?.motivation ? <p>Ganaste {attempt.earnedXp ?? 0} XP · Total: {state.motivation.totalXp} XP</p> : null}
+      {preview ? <button type="button" className="learning-primary-button" onClick={onExit}>Cerrar vista previa</button> : <ContinueSession state={state} returnTo={returnTo} preferredObjectiveKey={attempt.placement?.status === "passed" ? attempt.placement.objectiveKey : attempt.placement?.failedObjectiveKeys[0]} />}
       <details className={ui.disclosure}><summary>Respuestas confirmadas</summary><div>{attempt.acceptedResponses.map(response => <article key={response.activityKey}><h3>{response.answer.kind === "study" ? "Lectura registrada" : "Respuesta guardada"}</h3><p>{response.feedback.explanation}</p><p>{response.feedback.commonError}</p><PartialFeedback value={response.feedback.partialScore01} /><FeedbackSources sources={response.feedback.sources ?? []} /></article>)}</div></details>
       {state && !pending ? <details className={ui.disclosure}><summary>Progreso y próximos repasos</summary><div><MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /></div></details> : null}
       {!preview && state && state.availability !== "maintenance" && state.nextAction.kind !== "none" && state.nextAction.key ? <Link href={returnHref}><MapTrifold aria-hidden size={18} />Volver a mi mapa</Link> : null}

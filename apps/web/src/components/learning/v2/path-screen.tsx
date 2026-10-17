@@ -11,6 +11,8 @@ import styles from "./path-screen.module.css";
 import { RouteContent } from "./route-content";
 import { recommendationTitle } from "./curriculum-model";
 import { RouteReason } from "./route-reason";
+import { DiagnosticPanel } from "./diagnostic";
+import { LearningPoints } from "./motivation";
 
 export function RouteNextStep({ path, state, returnTo }: { path: V2Path; state: V2State | null; returnTo?: string | null }) {
   const kind = state?.nextAction.kind;
@@ -18,7 +20,7 @@ export function RouteNextStep({ path, state, returnTo }: { path: V2Path; state: 
   const paused = path.availability === "maintenance" || state?.availability === "maintenance";
   const title = paused ? "Ruta en mantenimiento" : path.access === "revoked" ? "Acceso no disponible" : path.enrollmentId && !state ? "Estado por confirmar" : kind === "review" || kind === "retention" ? "Es momento de repasar"
     : kind === "remediate" ? "Refuerza lo aprendido" : kind === "resume" ? "Retoma tu sesión"
-      : kind === "gate" ? "Comprueba lo aprendido" : kind === "none" ? "Tu siguiente paso"
+      : kind === "gate" ? state?.nextAction.objectiveKey ? "Comprueba tus conocimientos previos" : "Comprueba lo aprendido" : kind === "none" ? "Tu siguiente paso"
         : path.access === "available" ? "Comienza tu ruta" : recommendation?.title ?? "Continúa aprendiendo";
   const Icon = kind === "review" || kind === "retention" ? ArrowsClockwise : kind === "resume" || paused ? Clock : Play;
   return <section className={styles.nextStep} aria-label="Acción recomendada">
@@ -42,8 +44,9 @@ export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Pat
     </header>
     <div className={styles.overview}>
       <RouteNextStep path={path} state={confirmed} returnTo={safe} />
-      {confirmed ? <section className={styles.progress} aria-label="Tu progreso"><h2>Tu progreso</h2><RouteSignals state={confirmed} appearance="overview" /></section> : null}
+      {confirmed ? <section className={styles.progress} aria-label="Tu progreso"><h2>Tu progreso</h2><RouteSignals state={confirmed} appearance="overview" /><LearningPoints path={path} state={confirmed} returnTo={safe} /></section> : null}
     </div>
+    {confirmed?.maintenance?.diagnostic.assessmentKey && confirmed.maintenance.diagnostic.status !== "completed" ? <DiagnosticPanel path={path} state={confirmed} /> : null}
     <section className={styles.units} aria-labelledby="v2-units-title"><div className={styles.sectionHeading}><h2 id="v2-units-title">Unidades de la ruta</h2><span>{path.units.length}</span></div>
       <RouteContent path={path} state={confirmed} focusUnit={focusUnit} returnTo={safe} />
     </section>

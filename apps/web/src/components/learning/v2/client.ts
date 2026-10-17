@@ -1,4 +1,4 @@
-import { V2HttpContracts, V2CatalogResponseSchema, V2RouteStateSchema } from "@cediah/contracts";
+import { V2HttpContracts, V2CatalogResponseSchema, V2RouteStateSchema, type V2AttemptTarget } from "@cediah/contracts";
 import { z } from "zod";
 import type { V2Card, V2Path, V2State } from "./model";
 
@@ -141,7 +141,7 @@ export function createV2Launcher(fetcher: Fetcher = fetch, uuid = () => crypto.r
   }
   return {
     enroll: (pathId: V2Path["pathId"]) => mutate("enrollments", { pathId }, V2HttpContracts.enrollmentCreate.response),
-    start: (state: V2State, target: { kind: "activity" | "assessment" | "review"; key: string }) => mutate("attempts", { enrollmentId: state.enrollmentId, expectedEnrollmentVersion: state.rowVersion, target }, V2HttpContracts.attemptCreate.response),
+    start: (state: V2State, target: V2AttemptTarget) => mutate("attempts", { enrollmentId: state.enrollmentId, expectedEnrollmentVersion: state.rowVersion, target }, V2HttpContracts.attemptCreate.response),
     async resume(id: string) {
       const response = await fetcher(`/api/v2/guided-learning/attempts/${encodeURIComponent(id)}`, { cache: "no-store" });
       if (!response.ok) throw new V2RequestError(response.status);

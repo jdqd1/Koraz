@@ -47,9 +47,12 @@ export function actionLabel(action: V2State["nextAction"] | null) {
   if (!action || action.kind === "none") return "Ver ruta";
   if (action.kind === "review" || action.kind === "retention") return "Repasar";
   if (action.kind === "remediate") return "Reforzar";
+  if (action.objectiveKey) return "Hacer diagnóstico para avanzar";
   return "Continuar";
 }
 export function actionTarget(action: V2State["nextAction"]) {
   if (!action.key || action.kind === "none" || action.kind === "resume") return null;
-  return { kind: action.kind === "gate" || action.kind === "retention" ? "assessment" as const : action.kind === "review" ? "review" as const : "activity" as const, key: action.key };
+  if (action.kind === "gate" || action.kind === "retention") return { kind: "assessment" as const, key: action.key,
+    ...(action.objectiveKey ? { objectiveKey: action.objectiveKey } : {}) };
+  return { kind: action.kind === "review" ? "review" as const : "activity" as const, key: action.key };
 }
