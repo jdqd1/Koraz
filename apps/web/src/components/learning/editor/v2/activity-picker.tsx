@@ -13,11 +13,11 @@ import local from "./styles.module.css";
 
 export const activityIconsV2 = { study: BookOpen, single_choice: CheckCircle, short_answer: TextT, constructed_response: ChatText, card: Cards, match: ArrowsLeftRight, image_target: Image, sequence: ListNumbers, case: Stethoscope, comparison: Table, causal_map: Graph, mechanism: FlowArrow, error: MagnifyingGlass };
 
-export function ActivityPickerV2({ pkg, disabled, open, onOpenChange, onCreate }: {
+export function ActivityPickerV2({ pkg, disabled, open, onOpenChange, onCreate, presets }: {
   pkg: RoutePackage; disabled: boolean; open: boolean; onOpenChange: (open: boolean) => void;
-  onCreate: (preset: ActivityPresetV2, objectiveKey: string) => void;
+  onCreate: (preset: ActivityPresetV2, objectiveKey: string) => void; presets?: readonly ActivityPresetV2[];
 }) {
-  const [preset, setPreset] = useState<ActivityPresetV2>("study");
+  const [preset, setPreset] = useState<ActivityPresetV2>(presets?.[0] ?? "study");
   const creating = useRef(false);
   const [objectiveKey, setObjectiveKey] = useState("");
   const selectedObjective = pkg.objectives.some(item => item.key === objectiveKey) ? objectiveKey : pkg.objectives[0]?.key ?? "";
@@ -31,7 +31,7 @@ export function ActivityPickerV2({ pkg, disabled, open, onOpenChange, onCreate }
     <Dialog.Content className={local.pickerDialog} data-editor-surface aria-describedby={undefined} onCloseAutoFocus={event => { if (creating.current) { event.preventDefault(); creating.current = false; } }}>
       <header className={local.pickerHeader}><Dialog.Title>Elegir actividad</Dialog.Title><Dialog.Close asChild><button className={local.iconButton} type="button" aria-label="Cerrar selector de actividades"><X size={22} aria-hidden /></button></Dialog.Close></header>
       <div className={local.pickerBody}>
-        <nav className={local.pickerTypes} aria-label="Tipos de actividad">{activityPresetGroupsV2.map(group => <div key={group.label}><h3>{group.label}</h3>{group.presets.map(value => {
+        <nav className={local.pickerTypes} aria-label="Tipos de actividad">{activityPresetGroupsV2.filter(group => group.presets.some(value => !presets || presets.includes(value))).map(group => <div key={group.label}><h3>{group.label}</h3>{group.presets.filter(value => !presets || presets.includes(value)).map(value => {
           const Icon = activityIconsV2[value];
           return <button type="button" key={value} aria-pressed={preset === value} onClick={() => { setPreset(value); setExampleIndex(0); }}><Icon size={20} aria-hidden /><span>{activityTypesV2[value]}</span></button>;
         })}</div>)}</nav>

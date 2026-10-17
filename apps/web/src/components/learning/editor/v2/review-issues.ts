@@ -14,7 +14,7 @@ const commonCopy: Record<IssueCode, Copy> = {
   DAG_CYCLE: { title: "Ajusta los requisitos previos", detail: "Hay objetivos que se necesitan mutuamente para comenzar. Retira uno de esos requisitos para que el estudiante tenga un punto de inicio." },
   OBJECTIVE_COVERAGE: { title: "Completa este paso del aprendizaje", detail: "Revisa las actividades y las preguntas que acompañan a este objetivo." },
   BANK_TOO_SMALL: { title: "Añade más preguntas distintas", detail: "Prepara al menos 5 preguntas diferentes que se corrijan automáticamente: incluye 2 de memoria y una de aplicación en un formato distinto al de la lectura. Las variantes de una misma pregunta cuentan como una sola." },
-  RESERVE_LEAK: { title: "Separa las preguntas de cada evaluación", detail: "La evaluación final y los repasos a 7 y 30 días necesitan preguntas propias, sin reutilizar las de práctica ni sus variantes." },
+  RESERVE_LEAK: { title: "Separa las preguntas de cada evaluación", detail: "La evaluación final y los controles posteriores necesitan preguntas propias, sin reutilizar las de práctica ni sus variantes." },
   CRITICAL_GATE_MISSING: { title: "Comprueba lo aprendido en la unidad", detail: "Añade una Comprobación de unidad con preguntas que se corrijan automáticamente para cada objetivo obligatorio de esa unidad." },
   SOURCE_UNRESOLVED: { title: "Completa la fuente de estudio", detail: "Añade la referencia, el fragmento utilizado y su sección o página. Comprueba que el material esté revisado." },
   SOURCE_CHANGED: { title: "Una fuente se ha actualizado", detail: "Revisa el material vinculado y comprueba que las actividades sigan correspondiendo a la versión actual." },
@@ -31,7 +31,7 @@ const commonCopy: Record<IssueCode, Copy> = {
   CONVERSION_REVIEW: { title: "Revisa la ruta adaptada", detail: "Comprueba el contenido de la nueva versión y solicita su revisión antes de publicarla." },
   CONVERSION_DEPENDENCIES: { title: "Revisa los requisitos previos", detail: "Confirma qué objetivos debe completar el estudiante antes de avanzar a los siguientes." },
   CONVERSION_PEDAGOGY: { title: "Completa las actividades de aprendizaje", detail: "Añade las actividades que faltan para comprender, recordar, relacionar y aplicar el contenido." },
-  CONVERSION_RESERVES: { title: "Prepara las preguntas de evaluación", detail: "Añade preguntas exclusivas para la evaluación final y los repasos a 7 y 30 días." },
+  CONVERSION_RESERVES: { title: "Prepara las preguntas de evaluación", detail: "Añade preguntas exclusivas para la evaluación final y los controles posteriores a 7 y 30 días." },
   CONVERSION_OBJECTIVE_MISSING: { title: "Añade el objetivo que falta", detail: "Vincula el contenido a un objetivo de aprendizaje antes de continuar." },
   CONVERSION_RESOURCE_MISSING: { title: "Vuelve a vincular el material", detail: "Selecciona el recurso que corresponde a esta actividad." },
   CONVERSION_SOURCES: { title: "Revisa las fuentes de la nueva versión", detail: "Vincula los materiales utilizados y comprueba que sus referencias estén completas." },
@@ -39,7 +39,7 @@ const commonCopy: Record<IssueCode, Copy> = {
 
 const fieldCopy: Record<string, Copy> = {
   prompt: { title: "Revisa la consigna", detail: "Escribe la pregunta o instrucción que verá el estudiante, con un máximo de 4000 caracteres." },
-  body: { title: "Completa la lectura", detail: "Añade el texto que debe estudiar el alumno, con un máximo de 10 000 caracteres." },
+  body: { title: "Completa la explicación", detail: "Redacta una explicación didáctica con tus palabras, con un máximo de 10 000 caracteres. El fragmento literal se conserva en la fuente." },
   modelAnswer: { title: "Completa la respuesta modelo", detail: "Escribe la respuesta que servirá para corregir o comparar el intento del estudiante." },
   explanation: { title: "Explica la respuesta", detail: "Añade una explicación que ayude a entender por qué la respuesta es correcta." },
   distractorFeedback: { title: "Explica las opciones incorrectas", detail: "Añade una explicación para cada opción incorrecta. Así el estudiante podrá entender y corregir su error." },
@@ -88,12 +88,12 @@ export function reviewTaskV2(issue: Issue, pkg: RoutePackage): ReviewTaskV2 {
   }
   if (issue.code === "BANK_TOO_SMALL") activities();
   if (issue.code === "RESERVE_LEAK") {
-    if (objective) { copy("Prepara las preguntas del final y los repasos", "Añade una pregunta distinta y exclusiva para cada evaluación: final, repaso a 7 días y repaso a 30 días. No reutilices las preguntas de práctica ni sus variantes."); activities(); }
+    if (objective) { copy("Prepara las preguntas del final y los controles posteriores", "Añade una pregunta distinta y exclusiva para el final, el control a 7 días y el control a 30 días. Comprueban conservación posterior. No reutilices las preguntas de práctica ni sus variantes."); activities(); }
     else if (activity) { task.action = "Ajustar pregunta"; task.path = `/activities/${index}/equivalenceKey`; }
     else {
       assessments();
       const kind = /\bevaluación (final|retention7|retention30)\b/.exec(issue.message)?.[1];
-      const name = kind === "retention7" ? "el repaso a 7 días" : kind === "retention30" ? "el repaso a 30 días" : "la evaluación final";
+      const name = kind === "retention7" ? "el control a 7 días" : kind === "retention30" ? "el control a 30 días" : "la evaluación final";
       if (/Falta evaluación/.test(issue.message)) copy("Añade la evaluación que falta", `Crea ${name} y selecciona sus preguntas exclusivas.`);
       else if (kind && /no cubre/.test(issue.message)) {
         copy(`Completa ${name}`, "Incluye una pregunta exclusiva para cada objetivo obligatorio, sin reutilizar las de práctica ni sus variantes.");

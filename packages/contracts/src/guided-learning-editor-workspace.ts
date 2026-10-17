@@ -13,3 +13,11 @@ export const V2EditorPathSummarySchema = z.strictObject({
 });
 export const V2EditorWorkspaceResponseSchema = z.strictObject({ items: z.array(V2EditorPathSummarySchema) });
 export type V2EditorPathSummary = z.infer<typeof V2EditorPathSummarySchema>;
+
+/** Content from one pinned guide revision, available only to authorized editors. */
+export const V2EditorSourceSectionsSchema = z.strictObject({
+  sourceContentId: z.uuid(), resourceRevisionId: z.uuid(),
+  documentSha256: z.string().regex(/^[a-fA-F0-9]{64}$/),
+  title: z.string().min(1).max(500),
+  sections: z.array(z.strictObject({ heading: z.string().max(500), body: z.string().max(30_000) })).max(100),
+});

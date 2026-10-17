@@ -15,6 +15,7 @@ import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
 import { EditorDisclosureV2 } from "./editor-disclosure";
 import { ReviewTasksV2 } from "./review-tasks";
+import { CheckCircle, CircleDashed } from "@phosphor-icons/react";
 
 type Transition = "in_review" | "changes_requested" | "approved" | "published";
 export function reviewActionsV2(state: EditorV2State, capabilities: { canReview: boolean; canPublish: boolean }): Transition[] {
@@ -87,9 +88,11 @@ export function ReviewWorkflowV2({ state, controller, canReview = false, canPubl
     } catch { fail("network_error", 503); }
     finally { if (controller.getSnapshot().operation !== "idle") controller.dispatch({ type: "operation", operation: "idle" }); }
   }
-  return <div className={local.stack}><section className={styles.card}><div className={styles.sectionHeading}><h2>Revisión de la ruta</h2></div>
-    <p role="status" className={styles.fieldHint}>{state.dirty ? "Guarda tus cambios para comprobar la ruta y enviarla a revisión." : reviewIsCurrentV2(state) ? "La revisión de este contenido está al día." : "Envía el contenido a revisión antes de publicarlo."}</p>
-    <div className={styles.inlineActions}><button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("validate")}>Comprobar ruta</button>{reviewActionsV2(state, { canReview, canPublish }).map((action) => <button className={action === "changes_requested" ? styles.secondaryButton : styles.primaryAction} disabled={blocked || (action === "published" && !reviewIsCurrentV2(state))} key={action} type="button" onClick={() => action === "published" ? setPublishing(true) : void run(action)}>{labels[action]}</button>)}{state.confirmed?.status === "published" ? <button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("version")}>Crear nueva versión</button> : null}</div>
+  const pkg = state.draft.package;
+  return <div className={`${local.stack} ${local.reviewLayout}`}><section className={`${styles.card} ${local.reviewOverview}`}><div className={local.reviewOverviewHeading}><h2>Revisión de la ruta</h2><span className={local.reviewState} data-ready={reviewIsCurrentV2(state)}>{reviewIsCurrentV2(state) ? <CheckCircle size={17} aria-hidden /> : <CircleDashed size={17} aria-hidden />}{reviewIsCurrentV2(state) ? "Revisión vigente" : "Por revisar"}</span></div>
+    <dl className={local.reviewStats}><div><dt>Unidades</dt><dd>{pkg.units.length}</dd></div><div><dt>Objetivos</dt><dd>{pkg.objectives.length}</dd></div><div><dt>Actividades</dt><dd>{pkg.activities.length}</dd></div><div><dt>Evaluaciones</dt><dd>{pkg.assessments.length}</dd></div></dl>
+    <p role="status" className={local.contextNote}>{state.dirty ? "Guarda tus cambios para comprobar la ruta y enviarla a revisión." : reviewIsCurrentV2(state) ? "La revisión de este contenido está al día." : "Comprueba el contenido y prueba el recorrido antes de enviarlo a revisión."}</p>
+    <div className={`${styles.inlineActions} ${local.reviewActions}`}><button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("validate")}>Comprobar ruta</button>{reviewActionsV2(state, { canReview, canPublish }).map((action) => <button className={action === "changes_requested" ? styles.secondaryButton : styles.primaryAction} disabled={blocked || (action === "published" && !reviewIsCurrentV2(state))} key={action} type="button" onClick={() => action === "published" ? setPublishing(true) : void run(action)}>{labels[action]}</button>)}{state.confirmed?.status === "published" ? <button className={styles.secondaryButton} disabled={blocked} type="button" onClick={() => void run("version")}>Crear nueva versión</button> : null}</div>
     {state.operation !== "idle" || notice ? <p role="status" className={local.reviewCheckStatus}>{state.operation !== "idle" ? "Procesando…" : notice}</p> : null}
     <p className={local.reviewCheckStatus}>{currentReport ? "Resultado de la comprobación del contenido guardado." : "Estos pendientes corresponden al borrador. Comprobar ruta también revisa las fuentes y tus permisos."}</p>
     <ReviewTasksV2 issues={issues} pkg={state.draft.package} onLocate={onLocate} />

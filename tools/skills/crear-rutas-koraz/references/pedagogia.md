@@ -34,6 +34,33 @@ Una actividad objetiva es `single_choice`, `short_answer`, `match`, `sequence` o
 
 La explicación para el alumno usa lenguaje del tema. Conserva conteos de familias, equivalenceKey, alias del evaluador y decisiones del motor en las notas o el informe editorial, sin añadirlos a prompts, feedback, rúbricas o modelos educativos. No refuerces una afirmación de la guía mediante calificadores que no proporciona (por ejemplo, «constante» o «siempre»); conserva su alcance y variabilidad.
 
+## Autoría y preparación del examen
+
+### Redacción que enseña
+
+`sources[].excerpt` conserva el pasaje literal para cotejarlo. `study.payload.body`, la explicación de feedback y la respuesta modelo se redactan de nuevo: una explicación docente no consiste en pegar ese pasaje ni añadirle una frase introductoria. Mantén el alcance y la incertidumbre de la guía, pero organiza el razonamiento desde lo conocido hacia lo nuevo, muestra una relación útil y cierra con lo que conviene recuperar sin ayuda.
+
+Usa primera persona cuando ayude a enseñar: «Voy a seguir el recorrido desde su origen» o «Si comparo estas dos relaciones, la diferencia es…». Alterna de forma natural con preguntas y explicaciones directas; no empieces todos los párrafos con «yo» ni fuerces «imagina» en cada actividad. Evita entusiasmo artificial, relatos de experiencia clínica propia, identidad de profesor humano, muletillas y referencias al funcionamiento de la IA. La cercanía está en explicar bien y anticipar la duda.
+
+Para `feedback.commonError`, identifica qué dos conceptos, pasos o relaciones puede confundir el estudiante **en esta actividad**, por qué la confusión falla y qué dato permite corregirla. No repitas «revisa el fragmento», «no intercambies territorios» ni una fórmula universal en todo el banco. Que la confusión sea pedagógicamente plausible no permite inventar hechos ni afirmar que su frecuencia se midió. Si no puede sustentarse, deja el campo vacío y registra la limitación; no rellenes por obligación.
+
+### Fuentes reconocibles en el editor
+
+- Títulos únicos y breves: nombre abreviado de guía + sección específica. Si se repite un encabezado, añade su sección padre. Un hash igual no exige un nombre igual.
+- `citation`: autores, título, edición/año y publicación cuando estén aportados. Si solo existe una guía identificada por título, cita ese título real y documenta la limitación bibliográfica; nunca uses logs de procesamiento, hashes, revisión pendiente o «snapshot suministrado» como cita.
+- `locator.heading` y `sectionPath`: encabezados reales, en orden, con el mínimo fragmento literal suficiente para respaldar el contenido. El selector del editor muestra esos encabezados como etiquetas y su contenido como vista previa.
+- `objectives[].sourceKeys`: documenta dónde se enseña esa capacidad y sirve como fuente inicial de sus nuevas actividades. `activities[].sourceKeys` y `feedback.sourceKeys` pueden precisar otros fragmentos cuando la pregunta o su corrección los necesiten; no repitas todas las fuentes por comodidad.
+
+### Preparación de un examen próximo
+
+Diseña el aprendizaje inicial para poder estudiar, recuperar, corregir, mezclar y completar la evaluación final antes del examen. El repaso empieza en la propia unidad y vuelve en los checkpoints; los controles a 7/30 días no cumplen esa función si el examen sucede antes. Incluye retornos acumulativos con demandas distintas y pausas conceptuales, sin imponer minutos mágicos ni repetir inmediatamente la misma pregunta como condición para aprender algo nuevo.
+
+El contrato 2.0 sigue exigiendo reservas `retention7` y `retention30` para comprobar conservación posterior. Se mantienen en el paquete y aparecen en «Conservar lo aprendido», separados de las evaluaciones durante la ruta. No son una espera para completar la preparación inicial. No cambies sus nombres internos, fechas o reglas para simular un modo intensivo: el paquete no configura fecha de examen ni intervalos personalizados, y el servidor mantiene la agenda.
+
+Las preguntas de gates/checkpoints pueden volver a usar banco de práctica. Diagnóstico, final y cada control posterior tienen bancos exclusivos. Para el final cambia la operación mental o la representación con hechos sustentados: recuperar una relación, contrastarla con otra y usarla en una situación son demandas distintas; intercambiar palabras o nombres conserva la misma familia. El informe explica con ejemplos de la propia ruta qué cambia entre práctica y final.
+
+La investigación de referencia respalda recuperar y distribuir el estudio, pero no demuestra que ocho familias, un 80 % ni el calendario 1/3/7/14/30 sean óptimos universales. Distingue evidencia educativa de reglas de producto. No declares eficacia clínica o retención demostrada por validar un archivo.
+
 ## Banco y familias
 
 Por **cada objetivo requerido**:

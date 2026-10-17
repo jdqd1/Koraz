@@ -13,9 +13,25 @@ import { getLearningEditorPathForEngine } from "@/lib/server/guided-learning-api
 import { POST } from "@/app/api/v2/editor/learning-paths/route";
 import { GET, PATCH } from "@/app/api/v2/editor/learning-paths/[...path]/route";
 import { GET as sourceCatalog } from "@/app/api/v2/editor/learning-paths/source-catalog/route";
+import { GET as sourceSections } from "@/app/api/v2/editor/learning-paths/source-sections/[resourceRevisionId]/route";
 
 beforeEach(() => { vi.clearAllMocks(); mocks.session.mockResolvedValue({ status: "ready", cookie: "test=session" }); });
 describe("T023 web dispatch and BFF", () => {
+  it("forwards pinned source sections with authentication and strict response validation", async () => {
+    const revision = fixtureV2Id(6), url = `http://localhost/api/v2/editor/learning-paths/source-sections/${revision}`;
+    const context = { params: Promise.resolve({ resourceRevisionId: revision }) };
+    const body = { sourceContentId: fixtureV2Id(5), resourceRevisionId: revision, title: "Guía", documentSha256: "a".repeat(64), sections: [{ heading: "Sección", body: "Fragmento" }] };
+    mocks.request.mockResolvedValue({ status: 200, body });
+    const read = await sourceSections(new Request(url), context);
+    expect(read.status).toBe(200); expect(await read.json()).toEqual(body);
+    expect(read.headers.get("cache-control")).toBe("private, no-store");
+    expect(mocks.request).toHaveBeenCalledWith(expect.objectContaining({ path: `/v2/editor/learning-paths/source-sections/${revision}`, method: "GET" }));
+    expect((await sourceSections(new Request(url), { params: Promise.resolve({ resourceRevisionId: "bad" }) })).status).toBe(400);
+    mocks.request.mockResolvedValue({ status: 200, body: { ...body, unexpected: "private" } });
+    expect((await sourceSections(new Request(url), context)).status).toBe(502);
+    mocks.session.mockResolvedValue({ status: "anonymous" });
+    expect((await sourceSections(new Request(url), context)).status).toBe(401);
+  });
   it("forwards the T024 source catalogue privately and rejects invalid query/session/DTO", async () => {
     const body = { topics: [{ id: fixtureV2Id(3), title: "Tema" }], items: [], nextCursor: null };
     mocks.request.mockResolvedValue({ status: 200, body });

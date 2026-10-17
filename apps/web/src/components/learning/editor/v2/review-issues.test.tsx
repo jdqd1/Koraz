@@ -35,7 +35,7 @@ describe("friendly review tasks", () => {
   it("identifies the missing evaluation and its objective in plain language", () => {
     const pkg = editorV2FixturePackage();
     const task = reviewTaskV2(issue("RESERVE_LEAK", "/assessments", "La evaluación retention7 no cubre objective."), pkg);
-    expect(task.title).toContain("repaso a 7 días");
+    expect(task.title).toContain("control a 7 días");
     expect(task.context).toBe("Objetivo: Relacionar los ejemplos");
     expect(task.title).not.toContain("retention7");
   });

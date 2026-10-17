@@ -121,9 +121,10 @@ describe("T024 sources and route basics", () => {
     const html = renderToStaticMarkup(<FieldV2 label="Objetivo de aprendizaje" path="package.objectives.2.title" issues={[{ path: "/objectives/2/title", message: "missing" }]}>{(input) => <input {...input} />}</FieldV2>);
     expect(html).toContain('aria-invalid="true"'); expect(html).toContain("aria-describedby"); expect(html).toContain("Revisa objetivo de aprendizaje");
   });
-  it("shows route metadata and source locator fields without requiring catalogue UUID input", () => {
+  it("shows route essentials and section controls without asking for technical guide metadata", () => {
     const html = renderToStaticMarkup(<RouteBasicsV2 draft={draftFromRouteV2(editorV2FixtureRoute())} disabled={false} onChange={() => {}} preserveSlug />);
-    for (const label of ["Dirigida a", "Disciplina", "Portada", "Tema del catálogo", "Nombre de la fuente", "Cita bibliográfica", "Sección o encabezado", "Página", "Ruta de secciones", "Fragmento de la fuente", "Fecha de comprobación"]) expect(html).toContain(label);
+    for (const label of ["Disciplina", "Tema del catálogo", "Nombre de la fuente", "Elegir sección de la guía", "Sección o encabezado", "Página", "Ruta de secciones", "Fragmento de la fuente"]) expect(html).toContain(label);
+    for (const path of ["package.route.audience", "package.route.coverKey", "package.sources.0.citation", "package.sources.0.url", "package.sources.0.verification", "package.sources.0.documentSha256"]) expect(html).not.toContain(`data-field-path="${path}"`);
     expect(html).not.toContain('placeholder="UUID'); expect(html).not.toContain('value="guided-v2.0"');
   });
   it("keeps saved guide bindings and editable content when the catalogue is unavailable", () => {
@@ -135,7 +136,7 @@ describe("T024 sources and route basics", () => {
     expect(html).toContain(draft.bindings.sources[0]!.resourceRevisionId);
     expect(html).toContain(draft.package.sources[0]!.excerpt);
     expect(html).toContain('data-field-path="package.sources.0.binding"');
-    expect(html).toContain('data-field-path="package.sources.0.citation"');
+    expect(html).not.toContain('data-field-path="package.sources.0.citation"');
     expect(html).toContain('data-field-path="package.sources.0.locator.sectionPath"');
     expect(html).not.toContain('type="file"');
     expect(JSON.stringify(draft)).toBe(before);

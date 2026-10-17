@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { V2HttpContracts, V2EditorWorkspaceResponseSchema, type ContentProvider, type IdentityProvider } from "@cediah/contracts";
+import { V2HttpContracts, V2EditorWorkspaceResponseSchema, V2EditorSourceSectionsSchema, type ContentProvider, type IdentityProvider } from "@cediah/contracts";
 import { getContentCapabilities } from "../../content-authorization.js";
 import { resolveGuidedUser, sendGuidedUserError } from "../http.js";
 import type { createPostgresGuidedLearningV2Provider } from "../../providers/postgres-guided-learning-v2.js";
@@ -148,7 +148,7 @@ export function createEditorPreviewSimulator(packageInput: unknown, profile: z.i
 }
 
 type ImportProvider = Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>,
-  "validateImport" | "commitImport" | "exportPath" | "validatePath" | "transitionPath" | "createVersion"> & Partial<Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>, "createDraft" | "getEditorPath" | "saveDraft" | "previewPath" | "previewImage" | "convertV1" | "listEditorSourceCatalog" | "listEditorPaths">>;
+  "validateImport" | "commitImport" | "exportPath" | "validatePath" | "transitionPath" | "createVersion"> & Partial<Pick<ReturnType<typeof createPostgresGuidedLearningV2Provider>, "createDraft" | "getEditorPath" | "saveDraft" | "previewPath" | "previewImage" | "convertV1" | "listEditorSourceCatalog" | "getEditorSourceSections" | "listEditorPaths">>;
 export type GuidedV2EditorProvider = ImportProvider;
 
 /** Exported separately so the v2 registration can be connected without changing v1 routes. */
@@ -233,6 +233,24 @@ export async function registerGuidedV2EditorImportRoutes(app: FastifyInstance, d
       return reply.send(V2EditorWorkspaceResponseSchema.parse(value));
     } catch {
       request.log.error("Guided v2 workspace request failed");
+      return reply.status(503).send({ error: "learning_unavailable" });
+    }
+  });
+  app.get("/v2/editor/learning-paths/source-sections/:resourceRevisionId", async (request, reply) => {
+    reply.header("Cache-Control", "private, no-store");
+    const actor = await resolveGuidedUser(request, dependencies.identityProvider);
+    if (actor.kind !== "authenticated") return sendGuidedUserError(actor, reply);
+    if (!dependencies.contentProvider || !dependencies.provider?.getEditorSourceSections) return reply.status(503).send({ error: "learning_unavailable" });
+    try {
+      const capabilities = getContentCapabilities(await dependencies.contentProvider.getRoles(actor.user.id));
+      if (!capabilities.canCreate && !capabilities.canEditAll) return reply.status(403).send({ error: "forbidden" });
+      const params = z.strictObject({ resourceRevisionId: z.uuid() }).safeParse(request.params);
+      if (!params.success) return reply.status(400).send({ error: "invalid_request" });
+      const result = await dependencies.provider.getEditorSourceSections({ ...params.data, actorUserId: actor.user.id, canEditAll: capabilities.canEditAll });
+      if (result.status !== "success") return reply.status(result.status === "not_found" ? 404 : 409).send({ error: result.status });
+      return reply.send(V2EditorSourceSectionsSchema.parse(result.value));
+    } catch {
+      request.log.error("Guided v2 source sections request failed");
       return reply.status(503).send({ error: "learning_unavailable" });
     }
   });

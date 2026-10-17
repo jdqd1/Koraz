@@ -5,11 +5,10 @@ import { AlertDialog } from "radix-ui";
 import { Eye, PencilSimple, Plus, MagnifyingGlass, Trash, CaretRight, BookOpen } from "@phosphor-icons/react";
 import { focusFieldIssueV2, type FormPropsV2 } from "./sources-fields";
 import { activityDeletionBlockV2, activityTypesV2, activityValidationV2, addActivityV2, deleteActivityV2, replaceActivityV2, type ActivityPresetV2 } from "./activity-model";
-import { ActivityPromptV2, ActivitySettingsV2, ActivityFeedbackV2 } from "./activity-fields";
-import { ActivityStudyV2, ActivityChoiceOptionsV2, ActivityChoiceSolutionV2, ActivityShortSolutionV2, ActivityConstructedSolutionV2 } from "./activity-payloads";
+import { ActivitySettingsV2 } from "./activity-fields";
+import { ActivityContentV2 } from "./activity-content";
 import { ActivityPickerV2, activityIconsV2 } from "./activity-picker";
 import { ActivityStudentPreviewV2 } from "./activity-student-preview";
-import { VisualActivityV2 } from "./visual-activity";
 import { EditorDisclosureV2 } from "./editor-disclosure";
 import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
@@ -81,19 +80,7 @@ export function ActivityEditorV2({ draft, disabled, onChange, issues = [] }: For
         <div className={local.activityColumns}>
           <aside className={local.activityInspector} aria-label="Configuración de la actividad">
             <fieldset disabled={disabled} className={styles.fieldset}><h3>Configuración</h3>
-              <section className={local.configurationSection} aria-label="Contenido de la actividad"><h4>Contenido</h4><div className={local.stack}>
-                <ActivityPromptV2 {...fields} />
-                {activity.kind === "study" ? <ActivityStudyV2 {...fields} activity={activity} /> : null}
-                {activity.kind === "single_choice" ? <ActivityChoiceOptionsV2 {...fields} activity={activity} /> : null}
-                <VisualActivityV2 {...fields} />
-              </div></section>
-              <section className={local.configurationSection} aria-label="Respuesta y explicación"><h4>{activity.kind === "study" ? "Explicación" : "Respuesta y explicación"}</h4><div className={local.stack}>
-                {activity.kind === "single_choice" ? <ActivityChoiceSolutionV2 {...fields} activity={activity} /> : null}
-                {activity.kind === "short_answer" ? <ActivityShortSolutionV2 {...fields} activity={activity} /> : null}
-                {activity.kind === "constructed_response" ? <ActivityConstructedSolutionV2 {...fields} activity={activity} /> : null}
-                <VisualActivityV2 {...fields} solution />
-                <ActivityFeedbackV2 {...fields} />
-              </div></section>
+              <ActivityContentV2 {...fields} />
               <ActivitySettingsV2 {...fields} />
             </fieldset>
             <div className={local.inspectorDelete}><button className={styles.dangerButton} type="button" disabled={disabled || Boolean(block)} title={block ?? undefined} onClick={() => setDeleting(activity.key)}><Trash size={16} aria-hidden /> Eliminar actividad</button>{block ? <p className={styles.fieldHint}>{block}</p> : null}</div>

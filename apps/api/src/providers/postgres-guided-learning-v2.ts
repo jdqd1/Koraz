@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { readEditorSourceSectionsV2 } from "../guided-learning/v2/source-sections.js";
 import { learningEventTime } from "../guided-learning/time-zone.js";
 import type { S3ObjectStorage } from "./s3-object-storage.js";
 import { sql, type Insertable, type Selectable, type Transaction } from "kysely";
@@ -507,6 +508,9 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         limit 200
       `.execute(database);
       return V2EditorWorkspaceResponseSchema.parse({ items: result.rows });
+    },
+    getEditorSourceSections(input: { actorUserId: string; canEditAll: boolean; resourceRevisionId: string }) {
+      return readEditorSourceSectionsV2(database, input);
     },
     async listEditorSourceCatalog(input: { actorUserId: string; canEditAll: boolean; q?: string; cursor?: string; limit: number }) {
       let guides = database.selectFrom("content_items").select(["id", "title", "version"])

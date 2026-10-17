@@ -8,11 +8,13 @@ import type { CediahDatabase } from "../src/db/database.js";
 import { hashLearningSnapshot } from "../src/guided-learning/snapshot-hash.js";
 import { createPostgresGuidedLearningV2Provider } from "../src/providers/postgres-guided-learning-v2.js";
 import { registerGuidedV2EditorImportRoutes } from "../src/guided-learning/v2/editor-routes.js";
+import { guideSectionsV2 } from "../src/guided-learning/v2/source-sections.js";
+import { guideAdapter } from "../src/guided-learning/adapters/guide.js";
 
 describe("T024 editorial source catalogue", () => {
   let pg: PGlite, db: Kysely<CediahDatabase>, app: ReturnType<typeof Fastify>, provider: ReturnType<typeof createPostgresGuidedLearningV2Provider>;
   let roles: PlatformRole[] = ["content_creator"];
-  const payload = { body: "SYNTHETIC_SOURCE_TEXT_NEVER_IN_CATALOG" };
+  const payload = { projection: "guide", sourceContentId: v2Id(10), sourceVersion: 1, title: "Guía vigente", content: { document: null, sections: [{ heading: "Primera sección", body: "SYNTHETIC_SOURCE_TEXT_NEVER_IN_CATALOG" }, { heading: "Otra sección", body: "Otro fragmento" }] } };
   const hash = hashLearningSnapshot(payload);
   beforeAll(async () => {
     pg = await createGuidedV2Database();
@@ -42,7 +44,7 @@ describe("T024 editorial source catalogue", () => {
     expect(catalog.items.find((item) => item.title === "Guía propia")?.revision).not.toBeNull();
     for (const title of ["Guía cambiada", "Guía sin revisión", "Guía corrupta", "Guía recurso retirado"]) expect(catalog.items.find((item) => item.title === title)?.revision).toBeNull();
     expect(catalog.topics).toEqual([{ id: v2Id(20), title: "Tema propio" }]);
-    expect(JSON.stringify(catalog)).not.toContain(payload.body);
+    expect(JSON.stringify(catalog)).not.toContain(payload.content.sections[0]!.body);
     expect((await pg.query("select count(*)::int n from learning_resource_revisions")).rows).toEqual(before);
   });
   it("paginates deterministically and filters a literal search; reviewer can read private guides", async () => {
@@ -72,5 +74,27 @@ describe("T024 editorial source catalogue", () => {
     expect(read.statusCode).toBe(200);
     expect(read.headers["cache-control"]).toBe("private, no-store");
     expect(read.json()).toEqual({ items: [] });
+  });
+  it("reads the pinned revision privately, rejects inaccessible or corrupt sources and never writes", async () => {
+    const url = (id: string) => `/v2/editor/learning-paths/source-sections/${id}`;
+    const headers = { authorization: "editor" };
+    expect((await app.inject({ url: url(v2Id(210)) })).statusCode).toBe(401);
+    roles = ["student"];
+    expect((await app.inject({ url: url(v2Id(210)), headers })).statusCode).toBe(403);
+    roles = ["content_creator"];
+    expect((await app.inject({ url: url("invalid"), headers })).statusCode).toBe(400);
+    for (const key of [212, 213, 217, 999]) expect((await app.inject({ url: url(v2Id(key)), headers })).statusCode).toBe(404);
+    expect((await app.inject({ url: url(v2Id(216)), headers })).statusCode).toBe(409);
+    const before = (await pg.query("select count(*)::int n from learning_resource_revisions")).rows;
+    await pg.query("update content_items set title='Título posterior', version=2 where id=$1", [v2Id(10)]);
+    const read = await app.inject({ url: url(v2Id(210)), headers });
+    expect(read.statusCode).toBe(200);
+    expect(read.headers["cache-control"]).toBe("private, no-store");
+    expect(read.json()).toEqual({ sourceContentId: v2Id(10), resourceRevisionId: v2Id(210), title: "Guía vigente", documentSha256: hash, sections: payload.content.sections });
+    expect((await pg.query("select count(*)::int n from learning_resource_revisions")).rows).toEqual(before);
+  });
+  it("previews a guide with only a rich document without dropping its text", () => {
+    const content = guideAdapter.parse({ document: { type: "doc", content: [{ type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Relaciones" }] }, { type: "paragraph", content: [{ type: "text", text: "Una relación " }, { type: "text", text: "importante." }] }] }, sections: [] });
+    expect(guideSectionsV2(content)).toEqual([{ heading: "Relaciones", body: "Una relación importante." }]);
   });
 });

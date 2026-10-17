@@ -81,8 +81,8 @@ test("new route stays focused on essentials and keeps edits across the five step
   await page.getByLabel("Nombre de nueva unidad").fill("Primera unidad");
   await page.getByRole("button", { name: "Añadir unidad", exact: true }).click();
   await page.getByRole("button", { name: "Añadir objetivo", exact: true }).click();
-  await expect(page.getByLabel("Objetivo de aprendizaje")).toBeFocused();
-  await page.getByLabel("Objetivo de aprendizaje").fill("Identificar las estructuras principales");
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toBeFocused();
+  await page.getByLabel("Objetivo de aprendizaje", { exact: true }).fill("Identificar las estructuras principales");
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
   await page.getByRole("button", { name: "Añadir actividad", exact: true }).click();
   await page.getByRole("button", { name: "Estudio", exact: true }).click();
@@ -100,20 +100,20 @@ test("new route stays focused on essentials and keeps edits across the five step
   await expect(page.getByLabel("Descripción", { exact: true })).toHaveValue("Estudio y práctica del tema de ejemplo.");
   await page.getByRole("tab", { name: "Objetivos", exact: true }).click();
   await page.locator("summary").filter({ hasText: "Identificar las estructuras principales" }).click();
-  await expect(page.getByLabel("Objetivo de aprendizaje")).toHaveValue("Identificar las estructuras principales");
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toHaveValue("Identificar las estructuras principales");
   await noOverflow(page);
 });
 
 test("editing collapsed options preserves the package and saves the confirmed version", async ({ page }, info) => {
   await openEditor(page);
   await page.getByLabel("Título", { exact: true }).fill("Ruta editada con el nuevo flujo");
-  await page.locator("summary").filter({ hasText: "Presentación de la ruta" }).click();
-  await page.getByLabel("Dirigida a", { exact: true }).fill("Estudiantes de medicina");
-  await page.locator("summary").filter({ hasText: "Presentación de la ruta" }).click();
+  await expect(page.getByLabel("Dirigida a", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Portada", { exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
-  await expect(page.getByLabel("Objetivo de aprendizaje")).toBeHidden();
   await page.locator("summary").filter({ hasText: "Relacionar los ejemplos" }).click();
-  await expect(page.getByLabel("Objetivo de aprendizaje")).toHaveValue("Relacionar los ejemplos");
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toBeHidden();
+  await page.locator("summary").filter({ hasText: "Relacionar los ejemplos" }).click();
+  await expect(page.getByLabel("Objetivo de aprendizaje", { exact: true })).toHaveValue("Relacionar los ejemplos");
   await page.screenshot({ path: info.outputPath("objectives.png"), fullPage: true });
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
   await expect(page.locator("[data-activity-form]")).toHaveCount(1);
@@ -122,7 +122,8 @@ test("editing collapsed options preserves the package and saves the confirmed ve
   const saved = await page.evaluate(() => JSON.parse(sessionStorage.getItem("t023:fixture-server:ready")!));
   expect(saved.editVersion).toBe(2);
   expect(saved.definition.route.title).toBe("Ruta editada con el nuevo flujo");
-  expect(saved.definition.route.audience).toBe("Estudiantes de medicina");
+  expect(saved.definition.route.audience).toBe("Estudiantes");
+  expect(saved.definition.route.coverKey).toBe("heart");
   expect(saved.definition.objectives).toHaveLength(1);
   expect(saved.definition.activities).toHaveLength(8);
   expect(saved.bindings.sources[0].resourceRevisionId).toBe(id(6));
@@ -188,4 +189,83 @@ test("objective essentials stay visible and advanced activity settings preserve 
   expect(saved.definition.activities.find((activity: { key: string }) => activity.key === "choice").payload.correctKey).toBe("a");
   expect(saved.definition.units[0].activityKeys).toHaveLength(8);
   await noOverflow(page);
+});
+
+test("guide sections preview a pinned document and fill a distinct source without metadata inputs", async ({ page }, info) => {
+  await page.route("**/api/v2/editor/learning-paths/source-sections/**", route => route.fulfill({ json: { sourceContentId: id(5), resourceRevisionId: id(6), documentSha256: "a".repeat(64), title: "Guía sintética", sections: [{ heading: "Arterias", body: "Fragmento original sobre el primer territorio." }, { heading: "Sistema porta", body: "Fragmento original sobre la relación entre dos territorios." }] } }));
+  await openEditor(page);
+  await page.getByRole("region", { name: "Fuente 1", exact: true }).locator("summary").filter({ hasText: "Guía sintética" }).click();
+  for (const label of ["Cita bibliográfica", "Enlace HTTPS", "Estado bibliográfico", "Huella del documento"]) await expect(page.getByLabel(label, { exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "Elegir sección de la guía", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Secciones de la guía", exact: true });
+  await dialog.getByRole("button", { name: "Sistema porta", exact: true }).click();
+  await expect(dialog.getByLabel("Vista previa de la sección")).toHaveValue("Fragmento original sobre la relación entre dos territorios.");
+  await page.screenshot({ path: info.outputPath("source-sections.png") });
+  await dialog.getByRole("button", { name: "Usar esta sección", exact: true }).click();
+  await expect(page.getByLabel("Nombre de la fuente", { exact: true })).toHaveValue("Guía sintética · Sistema porta");
+  await page.getByRole("button", { name: "Guardar borrador", exact: true }).click();
+  await expect(page.getByText("Borrador al día", { exact: true })).toBeVisible();
+  const saved = await page.evaluate(() => JSON.parse(sessionStorage.getItem("t023:fixture-server:ready")!));
+  expect(saved.definition.sources[0]).toMatchObject({ title: "Guía sintética · Sistema porta", documentSha256: "a".repeat(64), excerpt: "Fragmento original sobre la relación entre dos territorios.", locator: { heading: "Sistema porta", sectionPath: ["Sistema porta"], page: null } });
+  expect(saved.definition.route).toMatchObject({ audience: "Estudiantes", coverKey: "heart" });
+  await noOverflow(page);
+});
+
+test("compact help supports keyboard focus and Escape without an inline disclosure", async ({ page }) => {
+  await openEditor(page);
+  await page.getByRole("tab", { name: "Objetivos", exact: true }).click();
+  await page.getByRole("button", { name: "Ver objetivos de Unidad de ejemplo", exact: true }).click();
+  const help = page.getByRole("button", { name: "Ayuda sobre objetivo de aprendizaje", exact: true });
+  await help.focus();
+  await expect(page.getByRole("tooltip")).toContainText("identificar las relaciones");
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("tooltip")).toBeHidden();
+  await expect(page.locator("summary").filter({ hasText: /^Ayuda$/ })).toHaveCount(0);
+  const audit = await new AxeBuilder({ page }).include("[data-editor-surface]").analyze();
+  expect(audit.violations).toEqual([]);
+});
+
+test("assessment questions can be authored with answers in place and remain exclusive", async ({ page }, info) => {
+  await openEditor(page);
+  await page.getByRole("tab", { name: "Evaluación y repaso", exact: true }).click();
+  await page.getByRole("button", { name: "Crear pregunta", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Elegir actividad", exact: true });
+  await expect(dialog.getByRole("button", { name: "Estudio", exact: true })).toHaveCount(0);
+  await dialog.getByRole("button", { name: "Crear actividad", exact: true }).click();
+  await expect(page.getByLabel("Consigna", { exact: true })).toBeFocused();
+  await page.getByLabel("Consigna", { exact: true }).fill("¿Qué relación permite distinguir los dos territorios?");
+  await page.getByLabel("Opción 1", { exact: true }).fill("Relación sustentada");
+  await page.getByLabel("Opción 2", { exact: true }).fill("Relación intercambiada");
+  await page.getByLabel("Opción correcta", { exact: true }).selectOption("opcion-1");
+  await page.getByLabel("Por qué es incorrecta: opción 2", { exact: true }).fill("Intercambia los puntos de origen que permite distinguir la fuente.");
+  await page.getByLabel("Explicación de la respuesta", { exact: true }).fill("Voy a comparar el punto de origen de cada relación. Ese dato permite distinguirlas aunque cambie el enunciado.");
+  await page.screenshot({ path: info.outputPath("assessment-question.png"), fullPage: true });
+  await page.getByRole("button", { name: "Guardar borrador", exact: true }).click();
+  await expect(page.getByText("Borrador al día", { exact: true })).toBeVisible();
+  const saved = await page.evaluate(() => JSON.parse(sessionStorage.getItem("t023:fixture-server:ready")!));
+  const question = saved.definition.activities.at(-1);
+  expect(question.use).toBe("final");
+  expect(question.payload.correctKey).toBe("opcion-1");
+  expect(saved.definition.assessments[0].candidateActivityKeys).toEqual([question.key]);
+  expect(saved.definition.activities.find((item: { key: string }) => item.key === "choice").payload.correctKey).toBe("a");
+  await page.getByRole("tab", { name: "Revisión", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Revisión de la ruta", exact: true })).toBeVisible();
+  await page.screenshot({ path: info.outputPath("review.png"), fullPage: true });
+  await noOverflow(page);
+});
+
+test("failed or mismatched section previews preserve the source and let the editor retry", async ({ page }) => {
+  let valid = false;
+  await page.route("**/api/v2/editor/learning-paths/source-sections/**", route => route.fulfill({ json: { sourceContentId: id(5), resourceRevisionId: id(6), documentSha256: valid ? "a".repeat(64) : "b".repeat(64), title: "Guía sintética", sections: [{ heading: "Otra versión", body: "Contenido sin aplicar" }] } }));
+  await openEditor(page);
+  await page.getByRole("region", { name: "Fuente 1", exact: true }).locator("summary").filter({ hasText: "Guía sintética" }).click();
+  await page.getByRole("button", { name: "Elegir sección de la guía", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Secciones de la guía", exact: true });
+  await expect(dialog.getByRole("alert")).toContainText("El fragmento guardado se conserva");
+  valid = true;
+  await dialog.getByRole("button", { name: "Reintentar secciones", exact: true }).click();
+  await expect(dialog.getByLabel("Vista previa de la sección")).toHaveValue("Contenido sin aplicar");
+  await dialog.getByRole("button", { name: "Cerrar secciones", exact: true }).click();
+  await expect(page.getByLabel("Nombre de la fuente", { exact: true })).toHaveValue("Guía sintética");
+  await expect(page.getByText("Borrador al día", { exact: true })).toBeVisible();
 });

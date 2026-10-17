@@ -10,6 +10,7 @@ import styles from "../route-editor.module.css";
 import local from "./styles.module.css";
 import { EditorDisclosureV2 } from "./editor-disclosure";
 import { BookOpen, CaretRight, Plus, Target, Trash } from "@phosphor-icons/react";
+import { sourceLabelV2 } from "./source-labels";
 
 type Objective = RoutePackage["objectives"][number];
 export const objectiveVerbsV2: Record<Objective["verb"], string> = { identify: "Identificar", recall: "Recordar", relate: "Relacionar", differentiate: "Diferenciar", explain: "Explicar", predict: "Predecir", order: "Ordenar", apply: "Aplicar", integrate: "Integrar" };
@@ -68,13 +69,14 @@ export function ObjectivesV2({ draft, disabled, onChange, issues = [] }: FormPro
         <label className={`${styles.checkboxRow} ${local.objectiveRequired}`}><input data-field-path={`${path}.required`} disabled={disabled || objective.criticality === "core"} type="checkbox" checked={objective.required} onChange={(event) => patch(objective.key, { required: event.target.checked })} />Obligatorio{objective.criticality === "core" ? " (objetivo esencial)" : ""}</label>
       </div>
       <EditorDisclosureV2 title="Fuentes del objetivo" initiallyOpen={!objective.sourceKeys.length}>
+        <p className={local.contextNote}>Indica dónde se enseña esta capacidad. Las actividades nuevas heredarán estas fuentes para que no tengas que elegirlas cada vez.</p>
         <fieldset className={`${local.choices} ${local.objectiveSources}`} data-field-path={`${path}.sourceKeys`} tabIndex={-1}>
           <legend className={local.visuallyHidden}>Fuentes del objetivo</legend>
           {pkg.sources.map(source => <label className={`${styles.checkboxRow} ${local.sourceChoice}`} key={source.key}>
             <input type="checkbox" checked={objective.sourceKeys.includes(source.key)} onChange={event => patch(objective.key, {
               sourceKeys: event.target.checked ? [...objective.sourceKeys, source.key] : objective.sourceKeys.filter(key => key !== source.key),
             })} />
-            <span>{source.title || "Fuente sin título"}{source.locator.heading ? <small>{source.locator.heading}</small> : null}</span>
+            <span>{sourceLabelV2(pkg.sources, source)}{source.locator.heading && !source.title.includes(source.locator.heading) ? <small>{source.locator.heading}</small> : null}</span>
           </label>)}
           {!pkg.sources.length ? <p className={styles.fieldHint}>Añade una fuente en Datos y fuentes.</p> : null}
           {objective.sourceKeys.some(key => !pkg.sources.some(source => source.key === key)) ? <p role="alert" className={styles.fieldError}>Hay una fuente ausente. <button className={styles.textButton} type="button" onClick={() => patch(objective.key, { sourceKeys: objective.sourceKeys.filter(key => pkg.sources.some(source => source.key === key)) })}>Retirar referencias ausentes</button></p> : null}

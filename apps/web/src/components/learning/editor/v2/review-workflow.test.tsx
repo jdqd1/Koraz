@@ -5,7 +5,7 @@ import { createEditorV2Api } from "./editor-api";
 import { createEditorV2State, draftFromRouteV2 } from "./editor-model";
 import { createEditorV2Controller } from "./editor-controller";
 import { editorV2FixtureRoute, fixtureV2Id } from "./editor-fixtures";
-import { addAssessmentV2, assessmentCandidatesV2, AssessmentEditorV2 } from "./assessment-editor";
+import { addAssessmentV2, addAssessmentQuestionV2, assessmentCandidatesV2, AssessmentEditorV2 } from "./assessment-editor";
 import { parseImportFileV2, importLimitV2, importIssueFieldV2 } from "./import-wizard";
 import { ReviewAssetsV2 } from "./review-assets";
 import { reviewActionsV2, reviewFailureNoticeV2, ReviewWorkflowV2 } from "./review-workflow";
@@ -42,12 +42,27 @@ describe("T027 portable import and assessment setup", () => {
     expect(() => parseImportFileV2(" ".repeat(importLimitV2 + 1))).toThrow("10 MiB");
   });
   it("counts multibyte content against the byte limit", () => { expect(() => parseImportFileV2("é".repeat(importLimitV2 / 2 + 1))).toThrow("10 MiB"); });
-  it("does not fabricate a bank or a threshold justification", () => {
+  it("uses product defaults and required objectives without fabricating a question bank", () => {
     const pkg = editorV2FixtureRoute().definition;
     const next = addAssessmentV2(pkg, "retention7");
-    expect(next.assessments.at(-1)).toMatchObject({ kind: "retention7", thresholdPercent: 80, thresholdRationale: "", candidateActivityKeys: [] });
+    expect(next.assessments.at(-1)).toMatchObject({ kind: "retention7", thresholdPercent: 80, thresholdRationale: expect.stringContaining("criterio de producto"), objectiveKeys: ["objective"], candidateActivityKeys: [] });
     expect(next.activities).toBe(pkg.activities);
     expect(addAssessmentV2(next, "retention7").assessments.at(-1)?.key).not.toBe(next.assessments.at(-1)?.key);
+  });
+  it("creates an exclusive blank question in its assessment without changing practice or another reserve", () => {
+    const pkg = editorV2FixtureRoute().definition;
+    const before = structuredClone(pkg);
+    const next = addAssessmentQuestionV2(pkg, "final", "single_choice", "objective");
+    const question = next.activities.at(-1)!;
+    expect(question).toMatchObject({ use: "final", prompt: "", objectiveKey: "objective", sourceKeys: ["source"], payload: { correctKey: "opcion-1" } });
+    expect(next.assessments[0]!.candidateActivityKeys).toEqual([question.key]);
+    expect(assessmentCandidatesV2(next, next.assessments[0]!).map(item => item.key)).toEqual([question.key]);
+    expect(next.units[0]!.activityKeys).toContain(question.key);
+    expect(pkg).toEqual(before);
+    expect(addAssessmentQuestionV2(pkg, "final", "study", "objective")).toBe(pkg);
+    expect(addAssessmentQuestionV2(pkg, "final", "single_choice", "absent")).toBe(pkg);
+    const deferred = addAssessmentV2(pkg, "retention7");
+    expect(addAssessmentQuestionV2(deferred, deferred.assessments.at(-1)!.key, "short_answer", "objective").activities.at(-1)).toMatchObject({ phase: "retrieve", use: "retention7" });
   });
   it("filters reserves, objectives and case children without changing the package", () => {
     const pkg = editorV2FixtureRoute().definition;
@@ -68,6 +83,14 @@ describe("T027 portable import and assessment setup", () => {
     expect(RoutePackageSchema.parse(JSON.parse(JSON.stringify(pkg)))).toEqual(pkg);
     const html = renderToStaticMarkup(<AssessmentEditorV2 draft={{ package: pkg, bindings: editorV2FixtureRoute().bindings }} disabled={false} onChange={() => {}} />);
     expect(html).toContain("falta banco de preguntas"); expect(html).toContain("Justificación del umbral"); expect(html).toContain("package.assessments.0.thresholdRationale");
+  });
+  it("does not offer case wrappers or labelled images as automatically corrected questions", () => {
+    const pkg = editorV2FixtureRoute().definition;
+    const item = { ...pkg.assessments[0]!, kind: "unit_gate" as const };
+    const image = pkg.activities.find(activity => activity.kind === "image_target")!;
+    image.payload.masking = "all_labels";
+    expect(assessmentCandidatesV2(pkg, item).map(activity => activity.key)).not.toContain(image.key);
+    expect(assessmentCandidatesV2(pkg, item).map(activity => activity.key)).not.toContain("case");
   });
 });
 describe("T027 roles, confirmed state and recovery", () => {
