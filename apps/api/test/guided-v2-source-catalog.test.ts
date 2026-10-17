@@ -8,7 +8,7 @@ import type { CediahDatabase } from "../src/db/database.js";
 import { hashLearningSnapshot } from "../src/guided-learning/snapshot-hash.js";
 import { createPostgresGuidedLearningV2Provider } from "../src/providers/postgres-guided-learning-v2.js";
 import { registerGuidedV2EditorImportRoutes } from "../src/guided-learning/v2/editor-routes.js";
-import { guideSectionsV2 } from "../src/guided-learning/v2/source-sections.js";
+import { guideSectionsV2, guideSnapshotSectionsV2 } from "../src/guided-learning/v2/source-sections.js";
 import { guideAdapter } from "../src/guided-learning/adapters/guide.js";
 
 describe("T024 editorial source catalogue", () => {
@@ -16,18 +16,20 @@ describe("T024 editorial source catalogue", () => {
   let roles: PlatformRole[] = ["content_creator"];
   const payload = { projection: "guide", sourceContentId: v2Id(10), sourceVersion: 1, title: "Guía vigente", content: { document: null, sections: [{ heading: "Primera sección", body: "SYNTHETIC_SOURCE_TEXT_NEVER_IN_CATALOG" }, { heading: "Otra sección", body: "Otro fragmento" }] } };
   const hash = hashLearningSnapshot(payload);
+  const legacy = { title: "Guía conservada", originalDocumentSha256: "c".repeat(64), text: "# Guía conservada\n\n## Primera sección\n\nFragmento original.\n\n```text\n## Esto no es otra sección\n```\n\n## Segunda sección\n\nOtro fragmento original." };
   beforeAll(async () => {
     pg = await createGuidedV2Database();
     const connection: DatabaseConnection = { async executeQuery<R>(query: CompiledQuery): Promise<QueryResult<R>> { const result = await pg.query<R>(query.sql, [...query.parameters]); return { rows: result.rows, numAffectedRows: BigInt(result.affectedRows ?? 0) }; }, async *streamQuery<R>(): AsyncIterableIterator<QueryResult<R>> { yield { rows: [] }; } };
     db = new Kysely<CediahDatabase>({ dialect: { createAdapter: () => new PostgresAdapter(), createIntrospector: (d) => new PostgresIntrospector(d), createQueryCompiler: () => new PostgresQueryCompiler(), createDriver: () => ({ acquireConnection: async () => connection, beginTransaction: async () => { await pg.exec("begin"); }, commitTransaction: async () => { await pg.exec("commit"); }, rollbackTransaction: async () => { await pg.exec("rollback"); }, destroy: async () => {}, init: async () => {}, releaseConnection: async () => {} }) } });
     await pg.query("insert into auth_users(id,name,email) values($1,'Editor','t024@example.test'),($2,'Other','other-t024@example.test')", [v2Id(1), v2Id(2)]);
-    for (const [n, title, status, visibility, owner] of [[10, "Guía vigente", "published", "catalog", 2], [11, "Guía propia", "draft", "guided_only", 1], [12, "Guía ajena privada", "draft", "guided_only", 2], [13, "Guía retirada", "archived", "catalog", 1], [14, "Guía cambiada", "published", "catalog", 2], [15, "Guía sin revisión", "published", "catalog", 2], [16, "Guía corrupta", "published", "catalog", 2], [17, "Guía recurso retirado", "published", "catalog", 2]]) {
+    for (const [n, title, status, visibility, owner] of [[10, "Guía vigente", "published", "catalog", 2], [11, "Guía propia", "draft", "guided_only", 1], [12, "Guía ajena privada", "draft", "guided_only", 2], [13, "Guía retirada", "archived", "catalog", 1], [14, "Guía cambiada", "published", "catalog", 2], [15, "Guía sin revisión", "published", "catalog", 2], [16, "Guía corrupta", "published", "catalog", 2], [17, "Guía recurso retirado", "published", "catalog", 2], [18, "Guía conservada", "published", "catalog", 2]]) {
       await pg.query("insert into content_items(id,kind,slug,title,summary,topic,status,catalog_visibility,author_user_id,published_at,published_by) values($1,'guide',$2,$3,'Fixture','Tema',$4,$5,$6,$7,$8)", [v2Id(Number(n)), `t024-${n}`, title, status, visibility, v2Id(Number(owner)), status === "published" ? new Date() : null, status === "published" ? v2Id(Number(owner)) : null]);
     }
     await pg.query("insert into content_items(id,kind,slug,title,summary,topic,author_user_id) values($1,'topic','t024-topic','Tema propio','Fixture','Tema',$2)", [v2Id(20), v2Id(1)]);
-    for (const n of [10, 11, 12, 13, 14, 16, 17]) {
+    for (const n of [10, 11, 12, 13, 14, 16, 17, 18]) {
       await pg.query("insert into learning_resources(id,source_content_id,projection,adapter_key,retired_at) values($1,$2,'guide','guide-adapter',$3)", [v2Id(n + 100), v2Id(n), n === 17 ? new Date() : null]);
-      await pg.query("insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,1,1,1,1,$3,$4)", [v2Id(n + 200), v2Id(n + 100), payload, n === 16 ? "b".repeat(64) : hash]);
+      const snapshot = n === 18 ? legacy : payload;
+      await pg.query("insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,1,1,1,1,$3,$4)", [v2Id(n + 200), v2Id(n + 100), snapshot, n === 16 ? "b".repeat(64) : hashLearningSnapshot(snapshot)]);
     }
     await pg.query("update content_items set version=2 where id=$1", [v2Id(14)]);
     provider = createPostgresGuidedLearningV2Provider(db);
@@ -96,5 +98,19 @@ describe("T024 editorial source catalogue", () => {
   it("previews a guide with only a rich document without dropping its text", () => {
     const content = guideAdapter.parse({ document: { type: "doc", content: [{ type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "Relaciones" }] }, { type: "paragraph", content: [{ type: "text", text: "Una relación " }, { type: "text", text: "importante." }] }] }, sections: [] });
     expect(guideSectionsV2(content)).toEqual([{ heading: "Relaciones", body: "Una relación importante." }]);
+  });
+  it("reads original text snapshots by section without weakening integrity or modifying the revision", async () => {
+    const before = await pg.query("select payload_json,payload_hash from learning_resource_revisions where id=$1", [v2Id(218)]);
+    const url = `/v2/editor/learning-paths/source-sections/${v2Id(218)}`;
+    const read = await app.inject({ url, headers: { authorization: "editor" } });
+    expect(read.statusCode).toBe(200);
+    expect(read.json()).toMatchObject({ title: legacy.title, documentSha256: hashLearningSnapshot(legacy), sections: [{ heading: "Primera sección", body: "Fragmento original.\n\n```text\n## Esto no es otra sección\n```" }, { heading: "Segunda sección", body: "Otro fragmento original." }] });
+    expect((await pg.query("select payload_json,payload_hash from learning_resource_revisions where id=$1", [v2Id(218)])).rows).toEqual(before.rows);
+    expect(guideSnapshotSectionsV2({ ...legacy, originalDocumentSha256: "inventado" }, v2Id(18))).toBeNull();
+    const windows = guideSnapshotSectionsV2({ ...legacy, text: legacy.text.replace(/\n/g, "\r\n") }, v2Id(18));
+    expect(windows!.sections[0]!.body).toBe(read.json().sections[0].body.replace(/\n/g, "\r\n"));
+    expect(guideSnapshotSectionsV2({ ...payload, sourceContentId: v2Id(999) }, v2Id(10))).toBeNull();
+    await pg.query("insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,2,2,1,1,$3,$4)", [v2Id(238), v2Id(118), { ...legacy, text: "Texto cambiado" }, hashLearningSnapshot(legacy)]);
+    expect((await app.inject({ url: `/v2/editor/learning-paths/source-sections/${v2Id(238)}`, headers: { authorization: "editor" } })).statusCode).toBe(409);
   });
 });
