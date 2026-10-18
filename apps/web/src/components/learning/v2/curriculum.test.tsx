@@ -74,8 +74,12 @@ describe("unit and objective curriculum", () => {
   it("offers pending work in the selected unit before routine reviews, while retaining remediation", () => {
     const fixture = maintenanceFixture(), unit = fixture.path.units[1]!;
     const state = { ...fixture.state, nextActionContext: { unitKey: unit.key, objectiveKey: "objective-b" },
-      nextAction: { kind: "review" as const, key: "practice-b", reason: "Repaso pendiente" } };
+      nextAction: { kind: "review" as const, key: "review-b", reason: "Repaso pendiente" },
+      maintenance: { ...fixture.state.maintenance, reviewBatch: [{ key: "review-b", objectiveKey: "objective-b", dueAt: "2026-10-03T02:30:00.000Z" }] } };
     expect(unitRecommendation(fixture.path, state, unit)).toMatchObject({ kind: "activity", target: { kind: "activity", key: "practice-b" } });
+    const html = renderToStaticMarkup(<V2MapPanel meta={{ ...fixture, state, unitKey: unit.key }} route={ROOT_MAP_ROUTE} onClose={() => {}} onSelectUnit={() => {}} />);
+    expect(html.slice(0, html.indexOf("<footer"))).toContain("Repasar</button>");
+    expect(html.slice(html.indexOf("<footer"))).toContain("Continuar actividad");
     expect(unitRecommendation(fixture.path, { ...state, nextAction: { ...state.nextAction, kind: "remediate" } }, unit)).toMatchObject({ kind: "remediate", target: undefined });
     expect(unitRecommendation(fixture.path, { ...state, maintenance: undefined }, unit)).toMatchObject({ kind: "review", target: undefined });
   });
