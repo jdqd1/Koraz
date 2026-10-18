@@ -5,7 +5,9 @@ import {
   PutObjectCommand,
   S3Client,
   type HeadObjectCommandOutput,
+  type GetObjectCommandOutput,
 } from "@aws-sdk/client-s3";
+import { createHash } from "node:crypto";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const maximumPresignedUrlLifetimeSeconds = 7 * 24 * 60 * 60;
@@ -18,7 +20,7 @@ type S3ObjectCommand =
   | PutObjectCommand;
 
 export type S3CommandClient = {
-  send(command: S3ObjectCommand): Promise<unknown>;
+  send(command: S3ObjectCommand, options?: { abortSignal?: AbortSignal }): Promise<unknown>;
 };
 
 type PresignRequest = (
@@ -55,6 +57,7 @@ export type S3ObjectStorage = {
     metadata?: Readonly<Record<string, string>>;
   }): Promise<string>;
   headObject(key: string): Promise<StoredObject | null>;
+  hashObject(input: { key: string; maxBytes: number }): Promise<{ sha256: string; sizeBytes: number; contentType?: string } | null>;
   removeObject(key: string): Promise<void>;
 };
 
@@ -201,6 +204,39 @@ export function createS3ObjectStorage(
       } catch (error) {
         if (isMissingObjectError(error)) return null;
         throw error;
+      }
+    },
+
+    async hashObject(input) {
+      assertObjectKey(input.key);
+      if (!Number.isSafeInteger(input.maxBytes) || input.maxBytes < 1 || input.maxBytes > 500_000_000) {
+        throw new Error("Invalid object verification size");
+      }
+      const abort = new AbortController();
+      let body: (AsyncIterable<Uint8Array> & { destroy?: (error?: Error) => void }) | undefined;
+      const timeout = setTimeout(() => { abort.abort(); body?.destroy?.(new Error("Object verification timed out")); }, 15_000);
+      try {
+        const object = await client.send(new GetObjectCommand({ Bucket: configuration.bucket, Key: input.key }),
+          { abortSignal: abort.signal }) as GetObjectCommandOutput;
+        body = object.Body as typeof body;
+        if (!body || typeof body[Symbol.asyncIterator] !== "function") throw new Error("Object body is not readable");
+        if (object.ContentLength !== undefined && object.ContentLength > input.maxBytes) throw new Error("Object exceeds verification size");
+        const hash = createHash("sha256");
+        let sizeBytes = 0;
+        for await (const chunk of body) {
+          sizeBytes += chunk.byteLength;
+          if (sizeBytes > input.maxBytes) throw new Error("Object exceeds verification size");
+          hash.update(chunk);
+        }
+        return { sha256: hash.digest("hex"), sizeBytes,
+          ...(object.ContentType ? { contentType: object.ContentType } : {}) };
+      } catch (error) {
+        if (isMissingObjectError(error)) return null;
+        throw error;
+      } finally {
+        clearTimeout(timeout);
+        body?.destroy?.();
+        abort.abort();
       }
     },
 

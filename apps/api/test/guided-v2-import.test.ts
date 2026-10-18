@@ -5,7 +5,7 @@ import {
   Kysely, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler,
   type CompiledQuery, type DatabaseConnection, type QueryResult,
 } from "kysely";
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { RoutePackageSchema, type ContentProvider, type IdentityProvider, type RoutePackage } from "@cediah/contracts";
 import type { CediahDatabase } from "../src/db/database.js";
 import { MAX_ROUTE_IMPORT_BYTES, diffRoutePackages, parseRouteImport } from "../src/guided-learning/v2/import.js";
@@ -198,6 +198,93 @@ describe("guided v2 import dry-run", () => {
       expect(result.value.issues).toContainEqual(expect.objectContaining({ code: "VALIDATION_PENDING", path: "/assets/0/sha256" }));
     }
   });
+
+  function imagePackage(rightsStatus: "owned" | "licensed" | "public_domain" = "licensed") {
+    const pkg = namedFixture("verified-image-" + rightsStatus.replaceAll("_", "-"));
+    pkg.assets.push({ key: "image", mediaType: "image", originalFileName: "image.png", sha256: "c".repeat(64),
+      alt: "Ilustración", caption: "Ilustración", sourceKeys: ["guide"], rightsStatus,
+      credit: "DBCLS · CC BY-SA 2.1 JP · https://creativecommons.org/licenses/by-sa/2.1/jp/", width: 100, height: 100 });
+    return pkg;
+  }
+  const imageBindings = () => ({ ...bindings(), assets: [{ key: "image", assetId: id(7) }] });
+  function imageProvider(hashObject = vi.fn().mockResolvedValue({ sha256: "c".repeat(64), sizeBytes: 100, contentType: "image/png" })) {
+    return { hashObject, service: createPostgresGuidedLearningV2Provider(database, {
+      assetStorage: { bucket: "test-assets", createDownloadUrl: vi.fn(), hashObject },
+    }) };
+  }
+
+  it.each(["licensed", "public_domain"] as const)("imports %s files with credit, owner declaration and verified stored bytes", async (rightsStatus) => {
+    const { service, hashObject } = imageProvider();
+    const validated = await service.validateImport(request({ package: imagePackage(rightsStatus), bindings: imageBindings() }));
+    expect(validated).toMatchObject({ status: "success", value: { readyToImport: true } });
+    expect(hashObject).toHaveBeenCalledWith({ key: "import-image-0.png", maxBytes: 100 });
+    if (validated.status !== "success") return;
+    const committed = await service.commitImport({ actorUserId: id(1), canCreate: true, canEditAll: false,
+      importId: validated.value.importId, hash: validated.value.hash, expectedVersion: null, idempotencyKey: crypto.randomUUID() });
+    expect(committed.status).toBe("success");
+    expect(hashObject).toHaveBeenCalledTimes(2);
+  });
+
+  it("detects replacement bytes again at commit and creates no route", async () => {
+    const { service, hashObject } = imageProvider();
+    const validated = await service.validateImport(request({ package: imagePackage(), bindings: imageBindings() }));
+    if (validated.status !== "success") throw new Error("Expected a validation session");
+    const before = (await pg.query<{ n: number }>("select count(*)::int as n from public.learning_paths")).rows[0]!.n;
+    hashObject.mockResolvedValue({ sha256: "d".repeat(64), sizeBytes: 100, contentType: "image/png" });
+    const result = await service.commitImport({ actorUserId: id(1), canCreate: true, canEditAll: false,
+      importId: validated.value.importId, hash: validated.value.hash, expectedVersion: null, idempotencyKey: crypto.randomUUID() });
+    expect(result).toMatchObject({ status: "invalid", issues: expect.arrayContaining([expect.objectContaining({ code: "SOURCE_CHANGED", path: "/assets/0/sha256" })]) });
+    expect((await pg.query<{ n: number }>("select count(*)::int as n from public.learning_paths")).rows[0]!.n).toBe(before);
+  });
+
+  it("rechecks stored bytes on a replay instead of reusing an obsolete ready flag", async () => {
+    const { service, hashObject } = imageProvider();
+    const input = request({ package: imagePackage(), bindings: imageBindings() });
+    const first = await service.validateImport(input);
+    expect(first).toMatchObject({ status: "success", value: { readyToImport: true } });
+    hashObject.mockResolvedValue({ sha256: "d".repeat(64), sizeBytes: 100, contentType: "image/png" });
+    const replay = await service.validateImport(input);
+    expect(replay).toMatchObject({ status: "success", value: { readyToImport: false,
+      issues: expect.arrayContaining([expect.objectContaining({ code: "SOURCE_CHANGED" })]) } });
+    if (first.status === "success" && replay.status === "success") expect(replay.value.importId).toBe(first.value.importId);
+  });
+
+  it("does not confuse a portable missing image issue with a catalogue blocker on replay", async () => {
+    const pkg = fixture(); pkg.editorial.unresolvedIssues.push({ code: "ASSET_REQUIRED", severity: "error", path: "/objectives",
+      message: "Falta imagen para publicar.", suggestedFix: "Completar el material visual antes de publicar." });
+    const input = request({ package: pkg });
+    expect(await provider.validateImport(input)).toMatchObject({ status: "success", value: { readyToImport: true } });
+    expect(await provider.validateImport(input)).toMatchObject({ status: "success", value: { readyToImport: true } });
+  });
+
+  it("refuses missing credit, missing digest and declarations by an unrelated editor before reading storage", async () => {
+    const { service, hashObject } = imageProvider();
+    const noCredit = imagePackage(); noCredit.assets[0]!.credit = "";
+    const noDigest = imagePackage(); noDigest.assets[0]!.sha256 = null;
+    await pg.exec(`update public.content_items set status='published',published_at=now(),published_by='${id(1)}' where id in ('${id(3)}','${id(4)}')`);
+    try {
+      for (const input of [request({ package: noCredit, bindings: imageBindings() }),
+        request({ package: noDigest, bindings: imageBindings() }),
+        request({ actorUserId: id(2), package: imagePackage(), bindings: imageBindings() })]) {
+        expect(await service.validateImport(input)).toMatchObject({ status: "success", value: { readyToImport: false } });
+      }
+      expect(hashObject).not.toHaveBeenCalled();
+    } finally { await pg.exec(`update public.content_items set status='draft' where id in ('${id(3)}','${id(4)}')`); }
+  });
+
+  it.each([null, "unavailable"])("fails closed for missing or unreadable storage: %s", async (state) => {
+    const hashObject = state === null ? vi.fn().mockResolvedValue(null) : vi.fn().mockRejectedValue(new Error("offline"));
+    const { service } = imageProvider(hashObject);
+    expect(await service.validateImport(request({ package: imagePackage(), bindings: imageBindings() }))).toMatchObject({ status: "success", value: { readyToImport: false } });
+  });
+
+  it.each([{ sizeBytes: 99, contentType: "image/png" }, { sizeBytes: 100, contentType: "text/html" }])(
+    "rejects altered stored size or MIME type even when the supplied digest matches: %j", async (metadata) => {
+      const { service } = imageProvider(vi.fn().mockResolvedValue({ sha256: "c".repeat(64), ...metadata }));
+      expect(await service.validateImport(request({ package: imagePackage(), bindings: imageBindings() }))).toMatchObject({
+        status: "success", value: { readyToImport: false, issues: expect.arrayContaining([expect.objectContaining({ code: "SOURCE_CHANGED" })]) },
+      });
+    });
 
   it("reuses an idempotency key only for the same package and bindings", async () => {
     const input = request();

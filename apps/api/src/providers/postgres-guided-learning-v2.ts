@@ -11,7 +11,6 @@ import {
   V2EditorWorkspaceResponseSchema,
   type V2EditorPathSummary,
   V2BindingsSchema,
-  V2IssueSchema,
   V2PolicySnapshotSchema,
   V2AnswerSchema,
   V2ImageResourceSchema,
@@ -68,6 +67,7 @@ type Tx = Transaction<CediahDatabase>;
 type Path = Selectable<LearningPathTable>;
 type Version = Selectable<LearningPathVersionTable>;
 type LoadedDefinition = { pathVersionId: string; definition: RoutePackage };
+type GuidedV2AssetStorage = Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> & Partial<Pick<S3ObjectStorage, "hashObject">>;
 export type GuidedV2DefinitionMetadata = Pick<Version, "id" | "policy_version" | "status" | "edit_version"> & { updatedAt: string };
 export type GuidedV2DefinitionReader = (transaction: Tx, id: string, metadata?: GuidedV2DefinitionMetadata | null) => Promise<RoutePackage | null>;
 const definitionReaders = new WeakMap<DatabaseClient, GuidedV2DefinitionReader>();
@@ -300,6 +300,7 @@ async function insertBindings(transaction: Tx, pathVersionId: string, prepared: 
 async function validateImportCatalog(
   transaction: Tx, definition: RoutePackage, bindings: GuidedV2Bindings,
   actorUserId: string, canEditAll: boolean,
+  assetStorage?: GuidedV2AssetStorage,
 ): Promise<RouteValidationIssue[]> {
   const blockers: RouteValidationIssue[] = [];
   await v2LockCatalog(transaction, "topic", bindings.topicContentId);
@@ -349,6 +350,7 @@ async function validateImportCatalog(
     const row = await transaction.selectFrom("content_assets")
       .innerJoin("content_items", "content_items.id", "content_assets.content_item_id")
       .select(["content_assets.status as asset_status", "content_assets.owner_user_id", "content_assets.kind", "content_assets.original_file_name",
+        "content_assets.storage_bucket", "content_assets.storage_path", "content_assets.size_bytes", "content_assets.mime_type",
         "content_items.author_user_id", "content_items.status as content_status", "content_items.catalog_visibility"])
       .where("content_assets.id", "=", binding.assetId).executeTakeFirst();
     if (!row || row.asset_status !== "ready" || row.kind !== asset.mediaType || row.original_file_name !== asset.originalFileName
@@ -357,11 +359,39 @@ async function validateImportCatalog(
       blockers.push(importIssue("ASSET_REQUIRED", `/assets/${index}`, `El asset ${asset.key} no está disponible para este editor.`, "Selecciona un asset accesible y listo."));
       continue;
     }
-    if (asset.rightsStatus !== "owned" || row.owner_user_id !== actorUserId) blockers.push(
-      importIssue("ASSET_RIGHTS", `/assets/${index}/rightsStatus`, `No hay prueba de derechos para el asset ${asset.key}.`, "Confirma los derechos del archivo con su propietario antes de importar."),
-    );
-    if (asset.sha256) blockers.push(importIssue("VALIDATION_PENDING", `/assets/${index}/sha256`,
-      `El catálogo no conserva un digest verificable del archivo ${asset.key}.`, "Aporta una comprobación de hash del archivo en el catálogo antes del commit."));
+    const ownFile = row.owner_user_id === actorUserId;
+    const declaredReuse = ["licensed", "public_domain"].includes(asset.rightsStatus);
+    // A declaration is pinned to the editorial package; publication still requires its human review.
+    if (!((asset.rightsStatus === "owned" && ownFile)
+      || (declaredReuse && (ownFile || canEditAll) && asset.credit.trim()))) {
+      blockers.push(importIssue("ASSET_RIGHTS", `/assets/${index}/rightsStatus`,
+        `Los derechos del asset ${asset.key} no están acreditados por su propietario o un administrador.`,
+        "El propietario o un administrador debe declarar la licencia o dominio público y aportar el crédito y procedencia antes de la revisión editorial."));
+      continue;
+    }
+    if (declaredReuse && !asset.sha256) {
+      blockers.push(importIssue("VALIDATION_PENDING", `/assets/${index}/sha256`,
+        `La reutilización del asset ${asset.key} requiere identificar el archivo exacto.`, "Incluye su SHA-256 para comprobar el archivo del almacenamiento."));
+      continue;
+    }
+    if (asset.sha256) {
+      if (!assetStorage?.hashObject || row.storage_bucket !== assetStorage.bucket) {
+        blockers.push(importIssue("VALIDATION_PENDING", `/assets/${index}/sha256`,
+          `No se puede comprobar el archivo almacenado de ${asset.key}.`, "Configura el almacenamiento autorizado y repite la comprobación."));
+        continue;
+      }
+      try {
+        const actual = await assetStorage.hashObject({ key: row.storage_path, maxBytes: Number(row.size_bytes) });
+        if (!actual) blockers.push(importIssue("ASSET_REQUIRED", `/assets/${index}`,
+          `El archivo de ${asset.key} no existe en el almacenamiento.`, "Vuelve a vincular un archivo disponible."));
+        else if (actual.sha256.toLowerCase() !== asset.sha256.toLowerCase() || actual.sizeBytes !== Number(row.size_bytes)
+          || actual.contentType !== row.mime_type) blockers.push(importIssue("SOURCE_CHANGED", `/assets/${index}/sha256`,
+          `Los bytes o metadatos del archivo ${asset.key} no coinciden con la revisión.`, "Comprueba el archivo correcto y solicita revisión del paquete actualizado."));
+      } catch {
+        blockers.push(importIssue("VALIDATION_PENDING", `/assets/${index}/sha256`,
+          `No se pudo terminar la comprobación del archivo ${asset.key}.`, "Comprueba su disponibilidad y tamaño y vuelve a validar; no se aceptó el hash declarado."));
+      }
+    }
   }
   return blockers;
 }
@@ -417,8 +447,8 @@ async function boundDefinition(transaction: Tx, path: Path, version: Version): P
   });
 }
 
-async function publicationIssues(transaction: Tx, route: V2BoundRouteDefinition, actorUserId: string, canEditAll: boolean, canPublish: boolean) {
-  const catalog = await validateImportCatalog(transaction, route.definition, route.bindings, actorUserId, canEditAll);
+async function publicationIssues(transaction: Tx, route: V2BoundRouteDefinition, actorUserId: string, canEditAll: boolean, canPublish: boolean, assetStorage?: GuidedV2AssetStorage) {
+  const catalog = await validateImportCatalog(transaction, route.definition, route.bindings, actorUserId, canEditAll, assetStorage);
   const bound = validateBoundRoutePackage(route.definition, route.bindings, {
     actorCanPublish: canPublish,
     topicAvailable: !catalog.some((issue) => issue.path === "/bindings/topicContentId"),
@@ -487,7 +517,7 @@ async function editorReceipt<T>(transaction: Tx, actorUserId: string, key: strin
   return result;
 }
 
-export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: Pick<S3ObjectStorage, "bucket" | "createDownloadUrl"> } = {}) {
+export function createPostgresGuidedLearningV2Provider(database: DatabaseClient, options: { now?: () => Date; assetStorage?: GuidedV2AssetStorage } = {}) {
   return {
     async listEditorPaths(input: { actorUserId: string; canEditAll: boolean }) {
       const result = await sql<V2EditorPathSummary>`
@@ -586,15 +616,12 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
             targetVersionId = version.id;
           }
           const diff = diffRoutePackages(before, parsed.definition);
+          const blockers = await validateImportCatalog(transaction, parsed.definition, bindings.data, input.actorUserId, input.canEditAll, options.assetStorage);
+          const issues = [...parsed.issues, ...blockers];
           if (existing) return { status: "success" as const, value: {
             importId: existing.id, hash, expiresAt: existing.expires_at.toISOString(),
-            issues: V2IssueSchema.array().parse(existing.issues_json), diff,
-            readyToImport: !V2IssueSchema.array().parse(existing.issues_json).some((issue) =>
-              ["SOURCE_UNRESOLVED", "SOURCE_CHANGED", "ASSET_REQUIRED", "ASSET_RIGHTS", "ACCESS_REVOKED", "VALIDATION_PENDING"].includes(issue.code)),
+            issues, diff, readyToImport: blockers.length === 0,
           } };
-
-          const blockers = await validateImportCatalog(transaction, parsed.definition, bindings.data, input.actorUserId, input.canEditAll);
-          const issues = [...parsed.issues, ...blockers];
           const expiresAt = new Date(now.getTime() + ROUTE_IMPORT_TTL_MS);
           const session = await transaction.insertInto("learning_v2_imports").values({
             actor_user_id: input.actorUserId, idempotency_key: input.idempotencyKey,
@@ -652,7 +679,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
           if (parsed.status !== "success" || !bindings.success || prepared.status !== "success") return { status: "conflict" as const };
           if (prepared.value.contentHash !== session.content_hash || hashImportBindings(bindings.data) !== session.bindings_hash
             || parsed.definition.packageKey !== session.package_key || parsed.definition.revision !== session.revision) return { status: "conflict" as const };
-          const blockers = await validateImportCatalog(transaction, parsed.definition, bindings.data, input.actorUserId, input.canEditAll);
+          const blockers = await validateImportCatalog(transaction, parsed.definition, bindings.data, input.actorUserId, input.canEditAll, options.assetStorage);
           if (blockers.length > 0) return { status: "invalid" as const, issues: blockers };
 
           const priorQuery = transaction.selectFrom("learning_v2_imports").selectAll()
@@ -761,7 +788,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         return await database.transaction().execute(async (transaction) => {
           if (input.idempotencyKey && !(await v2LockActor(transaction, input.actorUserId))) return { status: "not_found" };
           if (input.enforceAccess) {
-            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll === true);
+            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll === true, options.assetStorage);
             if (issues.length) return { status: "invalid", issues };
           }
           return editorReceipt(transaction, input.actorUserId, input.idempotencyKey, { operation: "editorCreate", input }, async () => {
@@ -790,7 +817,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         if (!version || version.policy_version !== "guided-v2.0") return { status: "not_found" };
         const value = await boundDefinition(transaction, path, version);
         if (input.enforceAccess) {
-          const issues = await validateImportCatalog(transaction, value.definition, value.bindings, input.actorUserId, input.canEditAll);
+          const issues = await validateImportCatalog(transaction, value.definition, value.bindings, input.actorUserId, input.canEditAll, options.assetStorage);
           if (issues.length) return { status: "invalid", issues };
         }
         return { status: "success", value };
@@ -813,7 +840,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
             .where("id", "=", input.pathId).forUpdate().executeTakeFirst();
           if (!path || (!input.canEditAll && path.created_by !== input.actorUserId)) return { status: "not_found" as const };
           if (input.enforceAccess) {
-            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+            const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll, options.assetStorage);
             if (issues.length) return { status: "invalid", issues };
           }
           return editorReceipt<V2BoundRouteDefinition>(transaction, input.actorUserId, input.idempotencyKey, { operation: "editorPatch", input }, async () => {
@@ -872,7 +899,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         if (!path || (!input.canEditAll && path.created_by !== input.actorUserId)) return { status: "not_found" };
         const version = await transaction.selectFrom("learning_path_versions").select("policy_version").where("path_id", "=", path.id).orderBy("version_number", "desc").executeTakeFirst();
         if (version?.policy_version !== "guided-v2.0") return { status: "not_found" };
-        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll, options.assetStorage);
         if (issues.length) return { status: "invalid", issues };
         const prior = await transaction.selectFrom("learning_mutation_receipts").select("idempotency_key").where("user_id", "=", input.actorUserId).where("idempotency_key", "=", input.idempotencyKey).executeTakeFirst();
         if (!prior) {
@@ -894,7 +921,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
       return database.transaction().execute(async transaction => {
         const path = await transaction.selectFrom("learning_paths").select("created_by").where("id", "=", input.pathId).forShare().executeTakeFirst();
         if (!path || !input.canEditAll && path.created_by !== input.actorUserId) return { status: "not_found" };
-        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll);
+        const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll, options.assetStorage);
         if (issues.length) return { status: "invalid", issues };
         const activity = prepared.value.definition.activities.find(item => item.key === input.activityKey);
         if (activity?.kind !== "image_target") return { status: "not_found" };
@@ -933,7 +960,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         if (!version || version.policy_version !== "guided-v2.0") return { status: "not_found" as const };
         if (version.edit_version !== input.expectedVersion) return { status: "version_conflict" as const };
         const route = await boundDefinition(transaction, path, version);
-        const issues = await publicationIssues(transaction, route, input.actorUserId, input.canEditAll, input.canPublish);
+        const issues = await publicationIssues(transaction, route, input.actorUserId, input.canEditAll, input.canPublish, options.assetStorage);
         return { status: "success" as const, value: {
           issues, validatedEditVersion: version.edit_version,
           ready: !issues.some((issue) => issue.severity === "error"),
@@ -973,11 +1000,11 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
           const route = await boundDefinition(transaction, path, version);
           if (input.status === "in_review" || input.status === "approved") {
             const issues = [...validateRoutePackage(route.definition).issues,
-              ...await validateImportCatalog(transaction, route.definition, route.bindings, input.actorUserId, input.canEditAll)];
+              ...await validateImportCatalog(transaction, route.definition, route.bindings, input.actorUserId, input.canEditAll, options.assetStorage)];
             if (issues.some((issue) => issue.severity === "error")) return { status: "invalid" as const, issues };
           }
           if (input.status === "published") {
-            const issues = await publicationIssues(transaction, route, input.actorUserId, input.canEditAll, input.canPublish);
+            const issues = await publicationIssues(transaction, route, input.actorUserId, input.canEditAll, input.canPublish, options.assetStorage);
             if (issues.some((issue) => issue.severity === "error")) return { status: "invalid" as const, issues };
           }
           const now = options.now?.() ?? new Date();

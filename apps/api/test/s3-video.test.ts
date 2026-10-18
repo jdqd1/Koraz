@@ -5,6 +5,8 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import { describe, expect, it, vi } from "vitest";
+import { Readable } from "node:stream";
+import { createHash } from "node:crypto";
 import {
   createS3ObjectStorage,
   type S3CommandClient,
@@ -25,6 +27,41 @@ const storageConfiguration = {
 };
 
 describe("S3 object storage", () => {
+  it("hashes the stored bytes in a stream instead of trusting object metadata", async () => {
+    const bytes = Buffer.from("verified asset bytes");
+    const send = vi.fn().mockResolvedValue({ Body: Readable.from([bytes.subarray(0, 4), bytes.subarray(4)]),
+      ContentLength: bytes.length, ContentType: "image/png", Metadata: { sha256: "forged" } });
+    const storage = createS3ObjectStorage(storageConfiguration, { client: { send } });
+    await expect(storage.hashObject({ key: "assets/image.png", maxBytes: bytes.length })).resolves.toEqual({
+      sha256: createHash("sha256").update(bytes).digest("hex"), sizeBytes: bytes.length, contentType: "image/png",
+    });
+    expect(send.mock.calls[0]![0]).toBeInstanceOf(GetObjectCommand);
+    expect(send.mock.calls[0]![0].input).toEqual({ Bucket: "video-test", Key: "assets/image.png" });
+  });
+
+  it("rejects an oversized streamed body even when ContentLength is missing, and closes it", async () => {
+    const body = Readable.from([Buffer.from("too large")]);
+    const storage = createS3ObjectStorage(storageConfiguration, { client: { send: vi.fn().mockResolvedValue({ Body: body }) } });
+    await expect(storage.hashObject({ key: "assets/image.png", maxBytes: 3 })).rejects.toThrow("exceeds verification size");
+    expect(body.destroyed).toBe(true);
+  });
+
+  it("does not treat a missing object as a verified hash", async () => {
+    const storage = createS3ObjectStorage(storageConfiguration, { client: { send: vi.fn().mockRejectedValue({ name: "NoSuchKey" }) } });
+    await expect(storage.hashObject({ key: "assets/missing.png", maxBytes: 100 })).resolves.toBeNull();
+  });
+
+  it("terminates a stalled stream within the verification timeout", async () => {
+    vi.useFakeTimers();
+    try {
+      const body = new Readable({ read() {} });
+      const storage = createS3ObjectStorage(storageConfiguration, { client: { send: vi.fn().mockResolvedValue({ Body: body }) } });
+      const rejected = expect(storage.hashObject({ key: "assets/stalled.png", maxBytes: 100 })).rejects.toThrow("timed out");
+      await vi.advanceTimersByTimeAsync(15_000);
+      await rejected;
+      expect(body.destroyed).toBe(true);
+    } finally { vi.useRealTimers(); }
+  });
   it("presigns provider-neutral PUT and GET commands with the configured bucket", async () => {
     const client: S3CommandClient = { send: vi.fn() };
     const presign = vi
@@ -123,6 +160,7 @@ describe("S3 video provider", () => {
         metadata: {},
       }),
       removeObject: vi.fn().mockResolvedValue(undefined),
+      hashObject: vi.fn(),
       ...overrides,
     };
   }
