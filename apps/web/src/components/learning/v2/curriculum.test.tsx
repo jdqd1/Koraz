@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { studentFixture, fixtureId } from "./fixtures";
 import { maintenanceFixture } from "./maintenance-fixtures";
 import { RouteCurriculum, CurriculumResources } from "./curriculum";
-import { actionLocation, unitActivityProgress, unitRecommendation } from "./curriculum-model";
+import { actionLocation, recommendationTitle, unitActivityProgress, unitRecommendation } from "./curriculum-model";
 import { V2MapPanel } from "./map-panel";
 import { RouteReason } from "./route-reason";
 import { ROOT_MAP_ROUTE } from "../map/map-route";
@@ -70,6 +70,29 @@ describe("unit and objective curriculum", () => {
     const resume = { ...fixture.state, nextAction: { kind: "resume" as const, key: fixtureId(4), reason: "Sesión pendiente" } };
     expect(unitRecommendation(fixture.path, resume, unit)).toMatchObject({ kind: "resume", target: undefined, unit: { key: "unit-a" } });
     expect(unitRecommendation(fixture.path, { ...fixture.state, maintenance: undefined }, unit)).toBeNull();
+  });
+  it("offers pending work in the selected unit before routine reviews, while retaining remediation", () => {
+    const fixture = maintenanceFixture(), unit = fixture.path.units[1]!;
+    const state = { ...fixture.state, nextActionContext: { unitKey: unit.key, objectiveKey: "objective-b" },
+      nextAction: { kind: "review" as const, key: "practice-b", reason: "Repaso pendiente" } };
+    expect(unitRecommendation(fixture.path, state, unit)).toMatchObject({ kind: "activity", target: { kind: "activity", key: "practice-b" } });
+    expect(unitRecommendation(fixture.path, { ...state, nextAction: { ...state.nextAction, kind: "remediate" } }, unit)).toMatchObject({ kind: "remediate", target: undefined });
+    expect(unitRecommendation(fixture.path, { ...state, maintenance: undefined }, unit)).toMatchObject({ kind: "review", target: undefined });
+  });
+  it("makes an available admission the selected unit's main action and preserves its goal", () => {
+    const fixture = maintenanceFixture("review"), unit = fixture.path.units[1]!;
+    const state = { ...fixture.state, maintenance: { ...fixture.state.maintenance, activities: [],
+      placements: [{ objectiveKey: "objective-b", assessmentKey: "diagnosis", status: "available" as const,
+        prerequisiteKeys: ["objective-a"], missingObjectiveKeys: [], availableAfter: null, requiredXp: 20, remainingXp: 0 }] } };
+    expect(recommendationTitle(fixture.path, state, unit)).toMatchObject({ kind: "gate", diagnostic: true, title: "Diagnóstico para avanzar",
+      target: { kind: "assessment", key: "diagnosis", objectiveKey: "objective-b" }, unit: { key: unit.key } });
+    const html = renderToStaticMarkup(<V2MapPanel meta={{ ...fixture, state, unitKey: unit.key }} route={ROOT_MAP_ROUTE} onClose={() => {}} onSelectUnit={() => {}} />);
+    expect(html.slice(html.indexOf("<footer"))).toContain("Hacer diagnóstico para avanzar");
+    expect(html.slice(html.indexOf("<footer"))).not.toContain("Repasar</button>");
+    for (const status of ["xp_required", "unavailable"] as const) {
+      const blocked = { ...state, maintenance: { ...state.maintenance, placements: state.maintenance.placements.map(item => ({ ...item, status })) } };
+      expect(unitRecommendation(fixture.path, blocked, unit)).toBeNull();
+    }
   });
   it("keeps revoked, maintenance, missing and mismatched state unlaunchable", () => {
     const fixture = maintenanceFixture();

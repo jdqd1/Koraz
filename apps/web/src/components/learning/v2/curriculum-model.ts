@@ -33,12 +33,25 @@ export function unitRecommendation(path: V2Path, state: V2State | null, unit?: V
   if (!state) return null;
   const location = actionLocation(path, state);
   // Resume the open session before offering any other activity.
-  if (!unit || state.nextAction.kind === "resume" || location.unit?.key === unit.key) {
+  if (!unit || state.nextAction.kind === "resume") {
     return state.nextAction.kind === "none" ? null : { ...location, target: undefined, kind: state.nextAction.kind, key: state.nextAction.key };
   }
   const objectives = new Set(unit.objectives.map(objective => objective.key));
+  const activities = state.maintenance?.activities.filter(item => objectives.has(item.objectiveKey));
+  const pending = activities?.find(item => state.activityProgress?.some(progress => progress.key === item.key && progress.status === "pending"));
+  // The learner chose this unit: offer its confirmed new work before a routine review.
+  // Open sessions, remediation and assessments keep the server's priority.
+  if (pending && (location.unit?.key !== unit.key || ["review", "activity", "none"].includes(state.nextAction.kind))) {
+    return { ...actionLocation(path, state, pending.key), target: { kind: "activity" as const, key: pending.key }, kind: "activity" as const, key: pending.key };
+  }
+  const placement = state.maintenance?.placements?.find(item => item.status === "available" && item.assessmentKey && objectives.has(item.objectiveKey));
+  if (placement && (location.unit?.key !== unit.key || ["review", "activity", "none"].includes(state.nextAction.kind))) {
+    return { unit, objective: unit.objectives.find(item => item.key === placement.objectiveKey), activity: undefined,
+      target: { kind: "assessment" as const, key: placement.assessmentKey!, objectiveKey: placement.objectiveKey }, kind: "gate" as const, key: placement.assessmentKey };
+  }
+  if (location.unit?.key === unit.key) return state.nextAction.kind === "none" ? null : { ...location, target: undefined, kind: state.nextAction.kind, key: state.nextAction.key };
   const review = state.maintenance?.reviewBatch.find(item => objectives.has(item.objectiveKey));
-  const activity = state.maintenance?.activities.find(item => objectives.has(item.objectiveKey));
+  const activity = activities?.[0];
   const offered = review ?? activity;
   if (!offered) return null;
   return { ...actionLocation(path, state, offered.key), target: { kind: review ? "review" as const : "activity" as const, key: offered.key }, kind: review ? "review" as const : "activity" as const, key: offered.key };
@@ -46,6 +59,7 @@ export function unitRecommendation(path: V2Path, state: V2State | null, unit?: V
 export function recommendationTitle(path: V2Path, state: V2State, unit?: V2Unit) {
   const recommendation = unitRecommendation(path, state, unit);
   if (!recommendation) return null;
-  return { ...recommendation, title: recommendation.kind === "resume" ? "Retomar tu sesión" : recommendation.kind === "review" || recommendation.kind === "retention" ? "Repasar lo aprendido"
-    : recommendation.kind === "gate" ? state.nextAction.objectiveKey ? "Diagnóstico para avanzar" : "Comprobar lo aprendido" : recommendation.kind === "remediate" ? "Reforzar este objetivo" : recommendation.activity ? activityTitle(recommendation.activity) : "Continuar la práctica" };
+  const diagnostic = recommendation.kind === "gate" && Boolean(recommendation.target?.kind === "assessment" ? recommendation.target.objectiveKey : state.nextAction.objectiveKey);
+  return { ...recommendation, diagnostic, title: recommendation.kind === "resume" ? "Retomar tu sesión" : recommendation.kind === "review" || recommendation.kind === "retention" ? "Repasar lo aprendido"
+    : recommendation.kind === "gate" ? diagnostic ? "Diagnóstico para avanzar" : "Comprobar lo aprendido" : recommendation.kind === "remediate" ? "Reforzar este objetivo" : recommendation.activity ? activityTitle(recommendation.activity) : "Continuar la práctica" };
 }
