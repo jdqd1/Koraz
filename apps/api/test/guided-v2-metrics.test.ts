@@ -240,14 +240,20 @@ describe("guided v2 metrics/rewards persisted in isolated PGlite", () => {
     expect((await pg.query("select count(*)::int as n from learning_events where event_type='heartbeat'")).rows).toEqual([{ n: 5 }]);
     expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(5);
   });
-  it("automatic mastery grants +10; cache rebuilding and repeated correct answers grant no extra XP", async () => {
+  it("automatic mastery grants +10 once; rebuilding grants zero and spaced practice grants +2 once", async () => {
     clock = new Date(at(0, 1)); await respond(await create("recall-b"), "recall-b");
     clock = new Date(at(0, 2)); await respond(await create("apply"), "apply");
     expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(15);
     await pg.query("update learning_v2_objective_state set evidence_json='{}',first_mastered_at=null where enrollment_id=$1", [v2Id(8)]);
     await attempts.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) });
-    await respond(await create("recall-a"), "recall-a");
     expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(15);
+    const practice = await respond(await create("recall-a"), "recall-a");
+    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(17);
+    expect(await attempts.respond(practice.input)).toEqual(practice.result);
+    await respond(await create("recall-a"), "recall-a");
+    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(17);
+    expect((await readLearningRewardsV2(database, v2Id(1))).filter(item => item.kind === "review_applied"))
+      .toMatchObject([{ xp: 2 }]);
   });
   it("first consolidation grants +15 once and records actual retention aggregates", async () => {
     const study = await create("explain");
@@ -263,7 +269,7 @@ describe("guided v2 metrics/rewards persisted in isolated PGlite", () => {
     await submit("final-test", "final");
     clock = new Date(at(7, 2)); await submit("seven-test", "retention-seven");
     clock = new Date(at(30, 2)); await submit("thirty-test", "retention-thirty");
-    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(30);
+    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(32);
     const aggregate = await adapter.metrics({ pathId: v2Id(4), pathVersionId: v2Id(6), cohortStart: at(), cohortEnd: at(1) });
     expect(aggregate).toMatchObject({ status: "success", value: { enrolled: 2, evaluated: 1, immediate: 100,
       retention7: { eligible: 1, responded: 1, mean: 100, daysElapsed: [7] },
@@ -278,9 +284,9 @@ describe("guided v2 metrics/rewards persisted in isolated PGlite", () => {
     const before = (await pg.query("select * from learning_rewards where award_key='legacy'")).rows;
     await database.transaction().execute((transaction) => awardObjectiveV2(transaction, { userId: v2Id(1), enrollmentId: v2Id(8), pathVersionId: v2Id(6),
       objectiveKey: "core", kind: "v2_objective_mastered", acceptedAt: clock }));
-    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(33);
+    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(35);
     expect((await readLearningRewardSummary(database, v2Id(1))).milestones).toHaveLength(1);
-    expect(await readLearningRewardsV2(database, v2Id(1))).toHaveLength(4);
+    expect(await readLearningRewardsV2(database, v2Id(1))).toHaveLength(5);
     expect((await pg.query("select * from learning_rewards where award_key='legacy'")).rows).toEqual(before);
     await expect(pg.query("insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date) select $1,'invalid','unknown',5,id,'2026-08-01' from learning_events where semantic_key='legacy'", [v2Id(1)])).rejects.toThrow("learning_rewards_reward_kind_check");
   });
@@ -299,7 +305,7 @@ describe("guided v2 metrics/rewards persisted in isolated PGlite", () => {
     expect((await pg.query("select count(*)::int as n from learning_events where semantic_key=$1", [`v2-response:${attemptId}:recall-c`])).rows).toEqual([{ n: 0 }]);
     expect((await pg.query("select evidence_json,first_mastered_at,row_version from learning_v2_objective_state where enrollment_id=$1", [v2Id(8)])).rows).toEqual(before);
     await attempts.readEvidence({ userId: v2Id(1), enrollmentId: v2Id(8) });
-    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(33);
+    expect((await readLearningRewardSummary(database, v2Id(1))).points).toBe(35);
   });
   it("version/path mismatch returns not_found without revealing cohort information", async () => {
     expect(await adapter.metrics({ pathId: v2Id(999), pathVersionId: v2Id(6), cohortStart: at(), cohortEnd: at(1) })).toEqual({ status: "not_found" });

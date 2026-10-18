@@ -111,10 +111,12 @@ describe("diagnostic admission to a selected objective", () => {
     expect(start.statusCode, start.body).toBe(200);
     let attempt = start.json().attempt;
     expect(attempt.placement).toMatchObject({ objectiveKey: "last", status: "pending" });
-    expect(attempt.totalActivities).toBe(6);
+    expect(V2HttpContracts.attemptCreate.response.safeParse(start.json()).success).toBe(true);
     expect((await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: attempt.rowVersion })).statusCode).toBe(409);
     let n = 0;
+    const answeredKeys: string[] = [];
     while (attempt.activeActivity) {
+      answeredKeys.push(attempt.activeActivity.key);
       const answer = await post(`attempts/${attempt.attemptId}/responses`, { activityKey: attempt.activeActivity.key,
         answer: { kind: "single_choice", optionKey: !correct && n++ === 0 ? "no" : "yes" }, confidence: null, expectedVersion: attempt.rowVersion });
       expect(answer.statusCode, answer.body).toBe(200);
@@ -122,6 +124,8 @@ describe("diagnostic admission to a selected objective", () => {
       expect(answer.json().state.maintenance.blockers.some((item: { objectiveKey: string }) => item.objectiveKey === "last")).toBe(true);
       attempt = answer.json().attempt;
     }
+    expect(answeredKeys).toHaveLength(6);
+    expect(new Set(answeredKeys).size).toBe(6);
     const receiptKey = v2Id(serial++), payload = { expectedVersion: attempt.rowVersion };
     const finished = await post(`attempts/${attempt.attemptId}/complete`, payload, receiptKey);
     expect(finished.statusCode, finished.body).toBe(200);
