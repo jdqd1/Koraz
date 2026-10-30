@@ -2,6 +2,12 @@ import { describe, expect, it } from "vitest";
 import { getSafeNextPath, validateAuthInput } from "./validation";
 
 describe("auth validation", () => {
+  it("accepts eight characters without a symbol and rejects seven", () => {
+    for (const mode of ["sign-up", "update-password"] as const) {
+      expect(validateAuthInput(mode, { email: "student@example.test", password: "Secure12", confirmPassword: "Secure12" }).success).toBe(true);
+      expect(validateAuthInput(mode, { email: "student@example.test", password: "Secur12", confirmPassword: "Secur12" }).success).toBe(false);
+    }
+  });
   it("normalizes a valid email without changing the password", () => {
     const result = validateAuthInput("sign-in", {
       email: "  Student@Example.COM ",

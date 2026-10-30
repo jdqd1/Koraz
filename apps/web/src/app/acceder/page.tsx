@@ -20,6 +20,7 @@ const callbackErrorMessages: Record<string, string> = {
 };
 
 const authMessages: Record<string, string> = {
+  "sesiones-cerradas": "Cerramos todas tus sesiones. Inicia sesión para continuar.",
   "contrasena-actualizada":
     "Tu contraseña fue actualizada. Inicia sesión con la nueva contraseña.",
 };

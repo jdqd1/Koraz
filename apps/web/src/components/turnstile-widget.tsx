@@ -20,6 +20,7 @@ type TurnstileApi = {
       "expired-callback": () => void;
       sitekey: string;
       theme: "auto";
+      appearance: "interaction-only";
     },
   ) => string;
   reset: (widgetId: string) => void;
@@ -62,6 +63,7 @@ export function TurnstileWidget({
       "expired-callback": () => onTokenChangeRef.current(null),
       sitekey: siteKey,
       theme: "auto",
+      appearance: "interaction-only",
     });
 
     return () => {

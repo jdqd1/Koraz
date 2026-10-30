@@ -36,6 +36,9 @@ services:
         generateValue: true
       - key: AUTH_REQUIRE_EMAIL_VERIFICATION
         value: "false"
+      - key: AUTH_PROXY_SECRET
+        # Same server-only value in Vercel. A generated independent value breaks the proxy.
+        sync: false
       # Use server-side S3 access keys from Supabase Storage. These keys must
       # never be exposed through NEXT_PUBLIC_* variables.
       - key: STORAGE_S3_ENDPOINT

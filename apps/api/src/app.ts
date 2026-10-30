@@ -362,9 +362,12 @@ export async function buildApp(
         ? false
         : {
             level: environment.NODE_ENV === "production" ? "info" : "debug",
+            serializers: { req: (request) => ({ method: request.method,
+              url: request.url?.split("?")[0]?.replace(/(\/api\/auth\/reset-password\/).*/, "$1[redacted]") }) },
             redact: [
               "req.headers.authorization",
               "req.headers.cookie",
+              "req.headers.x-auth-proxy-secret",
               "res.headers.set-cookie",
             ],
           },
@@ -399,6 +402,7 @@ export async function buildApp(
     app.route({
       method: ["GET", "POST"],
       url: "/api/auth/*",
+      bodyLimit: 16_384,
       async handler(request, reply) {
         const headers = new Headers();
         for (const [name, value] of Object.entries(request.headers)) {

@@ -210,6 +210,7 @@ function ShellChrome({
   profilePending = false,
   welcome = false,
 }: AppShellProps) {
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [studyMenuOpen, setStudyMenuOpen] = useState(
     activeKey === "study" || studyNavigation.some((item) => item.key === activeKey),
@@ -225,7 +226,7 @@ function ShellChrome({
   const accessRoles = useAccessRoles();
   const sidebarCollapsed = useSidebarCollapsedPreference();
   const session = authClient.useSession();
-  const viewer = session.isPending
+  const viewer = session.isPending || session.error
     ? initialViewer ?? null
     : session.data?.user.email
       ? { email: session.data.user.email }
@@ -236,6 +237,13 @@ function ShellChrome({
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMaterialsRef = useRef<HTMLDivElement>(null);
   useNavigationIntent();
+  const lastSessionCheck = useRef(0);
+  useEffect(() => {
+    if (lastSessionCheck.current === 0) { lastSessionCheck.current = Date.now(); return; }
+    if (document.visibilityState !== "visible" || Date.now() - lastSessionCheck.current < 3_600_000) return;
+    lastSessionCheck.current = Date.now();
+    void authClient.getSession();
+  }, [pathname]);
 
   const drawerOpen = !isDesktopSidebar && sidebarOpen;
   useBodyScrollLock(drawerOpen);
@@ -557,6 +565,7 @@ function ShellChrome({
                       </div>
                       {showContentManagement && <Link href="/panel/contenido" onClick={() => setProfileOpen(false)}>Administrar contenido</Link>}
                       {showRoleManagement && <Link href="/panel/administracion/roles" onClick={() => setProfileOpen(false)}>Administrar roles</Link>}
+                      <Link href="/dashboard/seguridad" onClick={() => setProfileOpen(false)}>Seguridad de la cuenta</Link>
                       <button
                         className="profile-sign-out"
                         disabled={isSigningOut}

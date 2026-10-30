@@ -1,4 +1,5 @@
 import { getServerEnvironment } from "@/lib/server/env";
+import { isSameOriginRequest } from "@/lib/request-origin";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,6 @@ const forwardedRequestHeaders = [
   "sec-fetch-site",
   "user-agent",
   "x-captcha-response",
-  "x-forwarded-for",
 ] as const;
 
 function createUpstreamHeaders(request: Request) {
@@ -27,6 +27,11 @@ function createUpstreamHeaders(request: Request) {
     if (value) headers.set(name, value);
   }
 
+  const environment = getServerEnvironment();
+  if (environment.AUTH_PROXY_SECRET) headers.set("x-auth-proxy-secret", environment.AUTH_PROXY_SECRET);
+  // Vercel overwrites this edge header; never forward a visitor's alternate IP headers.
+  const ip = process.env.VERCEL ? request.headers.get("x-vercel-forwarded-for") : "127.0.0.1";
+  if (ip && !ip.includes(",")) headers.set("x-forwarded-for", ip);
   const publicUrl = new URL(request.url);
   headers.set("x-forwarded-host", publicUrl.host);
   headers.set("x-forwarded-proto", publicUrl.protocol.slice(0, -1));
@@ -68,6 +73,9 @@ async function forwardAuthRequest(
     environment.API_BASE_URL,
   );
   const hasBody = request.method !== "GET" && request.method !== "HEAD";
+  if (hasBody && !isSameOriginRequest(request)) {
+    return Response.json({ code: "INVALID_ORIGIN" }, { status: 403, headers: { "Cache-Control": "private, no-store" } });
+  }
 
   try {
     const upstreamResponse = await fetch(upstreamUrl, {

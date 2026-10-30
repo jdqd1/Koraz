@@ -53,6 +53,7 @@ export interface AuthUserTable {
 }
 
 export interface AuthSessionTable {
+  remember_me: Generated<boolean | null>;
   created_at: GeneratedTimestamp;
   expires_at: ColumnType<Date, Date | string, Date | string>;
   id: Generated<string>;
@@ -733,7 +734,7 @@ export interface CediahDatabase {
 export type DatabaseClient = Kysely<CediahDatabase>;
 
 export function createPostgresPool(configuration: PoolConfig) {
-  return new Pool(configuration);
+  return new Pool({ max: 8, connectionTimeoutMillis: 5_000, idleTimeoutMillis: 30_000, ...configuration });
 }
 
 export function createPostgresDatabase(pool: Pool): DatabaseClient {

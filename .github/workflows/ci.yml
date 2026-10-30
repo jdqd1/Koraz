@@ -11,6 +11,17 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: koraz_test
+          POSTGRES_DB: koraz_guided_v2_control_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["55435:5432"]
+        options: >-
+          --health-cmd "pg_isready -U koraz_test -d koraz_guided_v2_control_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -25,6 +36,11 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      - run: pnpm --filter @cediah/api exec vitest run test/auth-security.test.ts
+        env:
+          NODE_ENV: test
+          KORAZ_TEST_DATABASE: "true"
+          KORAZ_GUIDED_V2_TEST_DATABASE_URL: postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_control_test
       - run: pnpm build
       - run: node work/test/prod01/braces-regression.mjs
       - run: pnpm audit --audit-level high

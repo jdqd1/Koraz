@@ -1,8 +1,8 @@
 import { z } from "zod";
+import { AUTH_PASSWORD_MIN_LENGTH, AUTH_PASSWORD_MAX_LENGTH, NewPasswordSchema } from "@cediah/contracts";
+export { AUTH_PASSWORD_MIN_LENGTH, AUTH_PASSWORD_MAX_LENGTH, NewPasswordSchema };
 
 export const AUTH_EMAIL_MAX_LENGTH = 254;
-export const AUTH_PASSWORD_MIN_LENGTH = 12;
-export const AUTH_PASSWORD_MAX_LENGTH = 128;
 
 export type AuthFormMode =
   | "recover"
@@ -25,26 +25,6 @@ const ExistingPasswordSchema = z
   .string()
   .min(1, "Escribe tu contraseña.")
   .max(AUTH_PASSWORD_MAX_LENGTH, "La contraseña es demasiado larga.");
-
-export const NewPasswordSchema = z
-  .string()
-  .min(
-    AUTH_PASSWORD_MIN_LENGTH,
-    `Usa al menos ${AUTH_PASSWORD_MIN_LENGTH} caracteres.`,
-  )
-  .max(AUTH_PASSWORD_MAX_LENGTH, "Usa como máximo 128 caracteres.")
-  .refine((value) => /[a-z]/.test(value), {
-    message: "Incluye al menos una letra minúscula.",
-  })
-  .refine((value) => /[A-Z]/.test(value), {
-    message: "Incluye al menos una letra mayúscula.",
-  })
-  .refine((value) => /[0-9]/.test(value), {
-    message: "Incluye al menos un número.",
-  })
-  .refine((value) => /[^A-Za-z0-9\s]/.test(value), {
-    message: "Incluye al menos un símbolo.",
-  });
 
 const RecoverSchema = z.object({ email: EmailSchema });
 const SignInSchema = z.object({
@@ -152,10 +132,6 @@ export const passwordRequirementChecks = [
     test: (value: string) => /[A-Z]/.test(value) && /[a-z]/.test(value),
   },
   { label: "Un número", test: (value: string) => /[0-9]/.test(value) },
-  {
-    label: "Un símbolo",
-    test: (value: string) => /[^A-Za-z0-9\s]/.test(value),
-  },
 ] as const;
 
 const INVALID_REDIRECT_CHARACTERS = /[\\\u0000-\u001f\u007f]/;
@@ -227,6 +203,8 @@ export function getPublicAuthErrorMessage(
   ) {
     return "La contraseña no cumple la política de seguridad. Revisa todos los requisitos.";
   }
+
+  if (code === "PASSWORD_COMPROMISED") return "Esta contraseña aparece en filtraciones conocidas. Elige otra contraseña.";
 
   if (mode === "recover") {
     return "No fue posible solicitar el enlace. Inténtalo de nuevo más tarde.";

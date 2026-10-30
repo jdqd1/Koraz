@@ -15,11 +15,14 @@ export async function AuthenticatedAppLayout({
 }: AuthenticatedAppLayoutProps) {
   const current = await getCurrentUser();
 
+  if (current.status === "unavailable") {
+    return <main className="page-shell"><h1>No pudimos conectar</h1>
+      <p>Tu sesión sigue guardada. Inténtalo de nuevo en unos momentos.</p>
+      <a className="button button-primary" href="">Reintentar</a></main>;
+  }
   if (current.status !== "authenticated") {
     redirect(
-      current.status === "unavailable"
-        ? "/acceder?error=configuracion"
-        : "/acceder?error=sesion",
+      "/acceder?error=sesion",
     );
   }
 

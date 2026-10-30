@@ -23,7 +23,7 @@ export async function createRealAuthHarness(){
   const createdUsers=new Set<string>();
   async function signUp(){
     const response=await app.inject({method:'POST',url:'/api/auth/sign-up/email',headers:{host:'127.0.0.1:41043',origin:'http://127.0.0.1:31043'},
-      payload:{name:'Alumno de prueba T042',email:`t042-${randomUUID()}@example.test`,password:randomBytes(24).toString('hex')}});
+      payload:{name:'Alumno de prueba T042',email:`t042-${randomUUID()}@example.test`,password:'Aa1'+randomBytes(24).toString('hex')}});
     assert.equal(response.statusCode,200,`Real Better Auth signup returned ${response.statusCode}`);
     const userId=response.json().user.id as string;createdUsers.add(userId);
     const values=response.headers['set-cookie'];const cookies=(Array.isArray(values)?values:[values]).filter((x):x is string=>Boolean(x));

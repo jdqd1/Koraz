@@ -6,6 +6,7 @@ const UuidSchema = z.string().uuid();
 
 const EnvironmentSchema = z
   .object({
+    AUTH_PROXY_SECRET: z.string().min(32).optional(),
     AUTH_REQUIRE_EMAIL_VERIFICATION: z.enum(["true", "false"]).default("false"),
     BETTER_AUTH_SECRET: z.string().min(32).optional(),
     BETTER_AUTH_URL: z.string().url().optional(),
@@ -48,6 +49,9 @@ const EnvironmentSchema = z
     WEB_ORIGINS: z.string().default("http://localhost:3000,http://127.0.0.1:3000"),
   })
   .superRefine((environment, context) => {
+    if (environment.NODE_ENV === "production" && environment.BETTER_AUTH_SECRET && !environment.AUTH_PROXY_SECRET) {
+      context.addIssue({ code: "custom", message: "Production authentication requires AUTH_PROXY_SECRET" });
+    }
     const authValues = [environment.BETTER_AUTH_SECRET, environment.BETTER_AUTH_URL];
     if (environment.AUTH_DATABASE_URL && (!environment.DATABASE_URL || !authValues.every(Boolean))) {
       context.addIssue({ code: "custom", message: "AUTH_DATABASE_URL requires a configured application database and authentication" });
@@ -248,6 +252,7 @@ export function readEnvironment(source: NodeJS.ProcessEnv = process.env): ApiEnv
       ? {
           databaseUrl: environment.AUTH_DATABASE_URL ?? environment.DATABASE_URL,
           publicUrl: new URL(environment.BETTER_AUTH_URL).origin,
+          proxySecret: environment.AUTH_PROXY_SECRET,
           requireEmailVerification: environment.AUTH_REQUIRE_EMAIL_VERIFICATION === "true",
           secret: environment.BETTER_AUTH_SECRET,
           smtp,

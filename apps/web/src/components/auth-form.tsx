@@ -72,6 +72,7 @@ export function AuthForm({
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const captchaSiteKey = getPublicTurnstileSiteKey();
@@ -172,15 +173,14 @@ export function AuthForm({
       if (validation.value.mode === "sign-up") {
         const callbackUrl = new URL("/auth/callback", window.location.origin);
         callbackUrl.searchParams.set("next", targetPath);
-        const { data, error } = await authClient.signUp.email(
-          {
+        const signUpInput = {
             callbackURL: callbackUrl.toString(),
             email: validation.value.email,
             name: validation.value.email,
             password: validation.value.password,
-          },
-          captchaFetchOptions,
-        );
+            rememberMe,
+        };
+        const { data, error } = await authClient.signUp.email(signUpInput, captchaFetchOptions);
         if (error) throw error;
         setPassword("");
         setConfirmPassword("");
@@ -202,6 +202,7 @@ export function AuthForm({
         {
           email: validation.value.email,
           password: validation.value.password,
+            rememberMe,
         },
         captchaFetchOptions,
       );
@@ -391,6 +392,14 @@ export function AuthForm({
             </p>
           )}
         </>
+      )}
+
+      {!isRecovery && (
+        <label className="auth-remember">
+          <input type="checkbox" name="rememberMe" checked={rememberMe} disabled={isSubmitting}
+            onChange={event => setRememberMe(event.target.checked)} />
+          <span>Mantener sesión iniciada</span>
+        </label>
       )}
 
       {captchaSiteKey && (
