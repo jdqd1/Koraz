@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { LearningAttemptMutationResponseSchema, type LearningAttemptResponseRecord } from "@cediah/contracts";
+import { heldLearningOptionIds, LearningAttemptMutationResponseSchema, V2HttpContracts, type LearningAttemptResponseRecord } from "@cediah/contracts";
 import { legacyActivityFixture } from "../../src/components/learning/activities/activity-player-fixtures";
+import { playerFixture } from "../../src/components/learning/v2/player-fixture";
+import { learningVisualPathDetail } from "../../src/components/learning/learning-visual-fixtures";
 import { fixtureId } from "../../src/components/learning/v2/fixtures";
 
 test("H18 consulting a version cannot retry an unconfirmed adoption", async ({ page }) => {
@@ -70,3 +72,51 @@ for (const mode of ["review", "review-card"]) for (const correct of [true, false
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   });
 }
+
+test("F01 keeps a mixed step, a video-only step and a retired step visible with the correct destinations", async ({ page }) => {
+  const steps = learningVisualPathDetail.version.units[0]!.steps;
+  await page.goto("/visual-fixtures/aprendizaje?estado=path-editorial");
+  await expect(page.getByText("Material en revisión editorial.", { exact: true })).toBeVisible();
+  await expect(page.locator(`a[href*="${heldLearningOptionIds[2]}"]`)).toHaveCount(0);
+  for (const [label, step, option] of [
+    ["Resolver preguntas", steps[0]!, steps[2]!.options[0]!],
+    ["Reproducir video", steps[1]!, steps[0]!.options[0]!],
+  ] as const) {
+    const link = page.getByRole("link", { name: new RegExp(label) });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", `/aprendizaje/rutas/${learningVisualPathDetail.slug}/actividades/${step.id}?opcion=${option.id}`);
+  }
+  await expect(page.getByText("Paso con material retirado", { exact: true })).toBeVisible();
+  await expect(page.getByText("Material no disponible", { exact: false })).toBeVisible();
+});
+
+test("F01 offers only available help and identifies the source separately", async ({ page }) => {
+  const { attempt, state } = playerFixture("single_choice");
+  const kinds: string[] = [];
+  let hasHint = false;
+  await page.route("**/api/v2/guided-learning/**", async route => {
+    const manifest = { ...attempt, activeActivity: { ...attempt.activeActivity!, hasHint } };
+    if (route.request().method() === "GET") {
+      return route.fulfill({ json: route.request().url().endsWith("/state") ? { state } : { attempt: manifest } });
+    }
+    const { kind } = V2HttpContracts.attemptHelp.body.parse(route.request().postDataJSON());
+    kinds.push(kind);
+    return route.fulfill({ json: V2HttpContracts.attemptHelp.response.parse({
+      attempt: { ...manifest, rowVersion: manifest.rowVersion + 1 },
+      help: { kind, text: kind === "source" ? "Sección de la guía sintética." : "Compara el orden de A y B." },
+    }) });
+  });
+  await page.goto("/visual-fixtures/aprendizaje-v2?surface=player&estado=single_choice");
+  const source = page.getByRole("button", { name: "Consultar fuente con ayuda" });
+  const hint = page.getByRole("button", { name: "Necesito ayuda" });
+  await expect(source).toBeVisible();
+  await expect(hint).toHaveCount(0);
+  expect(kinds).toEqual([]);
+  await source.click();
+  await expect(page.getByText("Sección de la guía sintética.")).toBeVisible();
+  hasHint = true;
+  await page.reload();
+  await hint.click();
+  await expect(page.getByText("Compara el orden de A y B.")).toBeVisible();
+  expect(kinds).toEqual(["source", "hint"]);
+});

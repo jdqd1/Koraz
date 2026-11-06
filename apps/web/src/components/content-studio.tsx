@@ -51,7 +51,8 @@ import { isPublishedPermittedDraftUpdate } from "@/lib/content-editing";
 import { findVideoLinkedGuide, getVideoGuideContent } from "@/lib/content-guide-links";
 import { uniqueRegions } from "@/lib/content-regions";
 import { useEditorPublicationIndex } from "@/lib/use-editor-publication-index";
-import { questionAnswer, withQuestionAnswer } from "@/lib/question-answer";
+import { QuizPanel } from "./quiz-panel";
+import { quizFieldIssue, type QuizFieldIssue } from "@/lib/question-answer";
 import { TopicSelector } from "./topic-selector";
 import { StudioConfirmDialog } from "./studio-confirm-dialog";
 import { StudioNameDialog } from "./studio-name-dialog";
@@ -75,6 +76,7 @@ type Asset = NonNullable<ContentItem["asset"]>;
 type GuideItem = Extract<ContentItem, { kind: "guide" }>;
 type VideoDraft = Extract<ContentDraft, { kind: "video" }>;
 type Mime = ContentAssetUploadResponse["asset"]["mimeType"];
+type QuizFocusRequest = { issue: QuizFieldIssue; sequence: number };
 type TargetStatus = Exclude<ContentStatus, "draft">;
 type GuideEditorReturnContext = {
   draft: VideoDraft;
@@ -420,7 +422,7 @@ function missingGuideContent(draft: ContentDraft) {
     draft.content.keyPoints.every((point) => point.trim());
   const hasQuestionnaire = draft.content.quiz.questions.length > 0 &&
     draft.content.quiz.questions.every(
-      (question) => question.prompt.trim() && questionAnswer(question).trim(),
+      (question, index) => !quizFieldIssue(question, index),
     );
 
   if (!hasDocument) missing.push("contenido de la guía");
@@ -520,112 +522,6 @@ function StringList({
   );
 }
 
-type QuizQuestion = Extract<ContentDraft, { kind: "quiz" }>["content"]["questions"][number];
-
-function QuizQuestionsEditor({
-  allowEmpty = false,
-  questions,
-  onChange,
-  title,
-}: {
-  allowEmpty?: boolean;
-  questions: QuizQuestion[];
-  onChange: (questions: QuizQuestion[]) => void;
-  title: string;
-}) {
-  const emptyQuestion = () => ensureQuestionIdentity(
-    { correctOptionIndex: 0, explanation: "", options: ["", ""], prompt: "" },
-    () => crypto.randomUUID(),
-  ).value as QuizQuestion;
-  const updateQuestion = (index: number, patch: Partial<QuizQuestion>) =>
-    onChange(
-      questions.map((question, position) =>
-        position === index ? { ...question, ...patch } : question,
-      ),
-    );
-
-  return (
-    <section className="studio-builder studio-question-answer-builder" aria-label={title}>
-      <header className="studio-builder-heading">
-        <div>
-          <CardsThree size={19} />
-          <h4>{title}</h4>
-        </div>
-        <span>{questions.length} {questions.length === 1 ? "tarjeta" : "tarjetas"}</span>
-      </header>
-      {questions.map((question, questionIndex) => (
-        <article className="studio-repeater studio-question-answer-card" key={questionIndex}>
-          <header>
-            <span className="studio-question-number">{String(questionIndex + 1).padStart(2, "0")}</span>
-            <strong>Pregunta y respuesta</strong>
-            <button
-              aria-label={`Eliminar pregunta ${questionIndex + 1}`}
-              disabled={!allowEmpty && questions.length <= 1}
-              type="button"
-              onClick={() => onChange(questions.filter((_, index) => index !== questionIndex))}
-            >
-              <Trash size={16} />
-            </button>
-          </header>
-          <label className="studio-field">
-            <span>Pregunta</span>
-            <textarea
-              required
-              maxLength={2000}
-              rows={2}
-              value={question.prompt}
-              onChange={(event) => updateQuestion(questionIndex, { prompt: event.target.value })}
-            />
-          </label>
-          <label className="studio-field studio-answer-field">
-            <span>Respuesta</span>
-            <textarea
-              required
-              aria-label={`Respuesta ${questionIndex + 1}`}
-              maxLength={500}
-              placeholder="Escribe la respuesta directa…"
-              rows={2}
-              value={questionAnswer(question)}
-              onChange={(event) =>
-                updateQuestion(questionIndex, withQuestionAnswer(question, event.target.value))
-              }
-            />
-          </label>
-          <label className="studio-field">
-            <span>Contexto adicional <small>(opcional)</small></span>
-            <textarea
-              maxLength={4000}
-              rows={2}
-              value={question.explanation}
-              onChange={(event) => updateQuestion(questionIndex, { explanation: event.target.value })}
-            />
-          </label>
-        </article>
-      ))}
-      {questions.length === 0 && (
-        <button
-          className="studio-builder-empty"
-          type="button"
-          onClick={() => onChange([emptyQuestion()])}
-        >
-          <Plus size={19} />
-          <span>Añadir la primera pregunta</span>
-        </button>
-      )}
-      {questions.length > 0 && (
-        <button
-          className="studio-add"
-          disabled={questions.length >= 100}
-          type="button"
-          onClick={() => onChange([...questions, emptyQuestion()])}
-        >
-          <Plus size={16} /> Añadir pregunta
-        </button>
-      )}
-    </section>
-  );
-}
-
 function GuideEditorLaunch({
   description,
   label,
@@ -674,6 +570,7 @@ function GuideEditorLaunch({
 }
 
 function TypeEditor({
+  focusRequest,
   draft,
   linkedGuide,
   onManageLinkedGuide,
@@ -681,6 +578,7 @@ function TypeEditor({
   onChange,
 }: {
   draft: ContentDraft;
+  focusRequest: QuizFocusRequest | null;
   linkedGuide?: GuideItem;
   onManageLinkedGuide?: () => void;
   onOpenGuide: () => void;
@@ -716,8 +614,11 @@ function TypeEditor({
   if (draft.kind === "quiz") {
     return (
       <div className="studio-type-editor">
-        <QuizQuestionsEditor
-          title="Cuestionario"
+        <QuizPanel
+          key={focusRequest?.sequence ?? 0}
+          focusIssue={focusRequest?.issue}
+          requireQuestion
+          disabled={false}
           questions={draft.content.questions}
           onChange={(questions) => onChange({ ...draft, content: { ...draft.content, questions } })}
         />
@@ -906,6 +807,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
   const [notice, setNotice] = useState<PlatformNotice | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
+  const [quizFocus, setQuizFocus] = useState<QuizFocusRequest | null>(null);
   const [guideEditing, setGuideEditing] = useState(false);
   const [guideCreateOpen, setGuideCreateOpen] = useState(false);
   const [archiveConfirmationOpen, setArchiveConfirmationOpen] = useState(false);
@@ -1021,6 +923,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
   }
 
   function resetFeedback() {
+    setQuizFocus(null);
     setNotice(null);
     setArchiveConfirmationOpen(false);
     setNewSubjectName("");
@@ -1265,6 +1168,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
   }
 
   function leaveGuideEditor(discard: boolean) {
+    setQuizFocus(null);
     const returnContext = guideReturnRef.current;
     if (returnContext) {
       setDraft(structuredClone(returnContext.draft));
@@ -1444,6 +1348,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
       return false;
     }
 
+    if (item && ["published", "archived"].includes(item.status) && !subjectOnlyAssignment && focusInvalidQuestion()) return false;
     setBusy("save");
     setNotice(null);
 
@@ -1517,8 +1422,27 @@ export function ContentStudio({ initialWorkspace }: Props) {
     }
   }
 
+  function focusInvalidQuestion() {
+    if (!draft) return false;
+    const questions = draft.kind === "quiz" ? draft.content.questions
+      : draft.kind === "video" || draft.kind === "guide" ? draft.content.quiz.questions : [];
+    for (const [index, question] of questions.entries()) {
+      const issue = quizFieldIssue(question, index);
+      if (!issue) continue;
+      setQuizFocus(previous => ({ issue, sequence: (previous?.sequence ?? 0) + 1 }));
+      if (draft.kind !== "quiz" && !guideEditing) {
+        guideEntryDraftRef.current = structuredClone(draft);
+        setGuideEditing(true);
+      }
+      setNotice({ text: `Pregunta ${index + 1}. ${issue.message}`, tone: "error" });
+      return true;
+    }
+    return false;
+  }
+
   async function transition(status: TargetStatus) {
     if (!item || busy) return;
+    if (["in_review", "approved", "published"].includes(status) && focusInvalidQuestion()) return;
     if (hasUnsavedChanges) {
       if (status === "in_review") {
         const saved = await save();
@@ -1868,13 +1792,12 @@ export function ContentStudio({ initialWorkspace }: Props) {
           ready:
             videoGuideResources.quiz.questions.length > 0 &&
             videoGuideResources.quiz.questions.every(
-              (question) =>
-                question.prompt.trim().length > 0 &&
-                questionAnswer(question).trim().length > 0,
+              (question, index) => !quizFieldIssue(question, index),
             ),
         },
       ]
     : [];
+  const videoHasInvalidQuestion = draft?.kind === "video" && draft.content.quiz.questions.some((question, index) => !!quizFieldIssue(question, index));
   const videoComplete = videoChecklist.length > 0 && videoChecklist.every((requirement) => requirement.ready);
   const videoReadyCount = videoChecklist.filter((requirement) => requirement.ready).length;
   const videoNextStepIndex = videoChecklist.findIndex((requirement) => !requirement.ready);
@@ -1889,6 +1812,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
       >
         <GuideEditorScreen
           key={`${editingId ?? "new"}-${draft.kind}`}
+          focusIssue={quizFocus?.issue}
           asset={item?.asset}
           busy={busy !== null}
           draft={draft}
@@ -2100,12 +2024,8 @@ export function ContentStudio({ initialWorkspace }: Props) {
                     <button
                       aria-label={action.label}
                       className={`studio-button studio-editor-action studio-button-${action.tone}${action.status === "archived" ? " is-icon-only" : ""}`}
-                      disabled={
-                        busy !== null ||
-                        (draft.kind === "video" &&
-                          (action.status === "in_review" || action.status === "published") &&
-                          !videoComplete)
-                      }
+                      disabled={busy !== null || (draft.kind === "video" && !videoComplete && !videoHasInvalidQuestion
+                        && ["in_review", "published"].includes(action.status))}
                       key={action.status}
                       title={
                         draft.kind === "video" && !videoComplete
@@ -2427,6 +2347,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
                   )}
 
                   <TypeEditor
+                    focusRequest={quizFocus}
                     draft={draft}
                     linkedGuide={videoLinkedGuide}
                     onChange={setDraft}
@@ -2435,8 +2356,7 @@ export function ContentStudio({ initialWorkspace }: Props) {
                   />
                 </fieldset>
 
-                {editable && hasUnsavedChanges &&
-                  (isNew || !actions.some((action) => action.status === "in_review")) && (
+                {editable && hasUnsavedChanges && (isNew || draft.kind === "quiz" || !actions.some(action => action.status === "in_review")) && (
                   <footer className="studio-save">
                     <button
                       className="studio-button studio-button-primary"

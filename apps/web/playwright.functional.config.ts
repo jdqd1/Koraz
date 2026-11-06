@@ -3,7 +3,7 @@ import activities from "./playwright.activities.config";
 
 export default defineConfig({
   ...activities,
-  testMatch: ["guided-review-regressions.spec.ts", "practice-library.spec.ts"],
+  testMatch: ["guided-review-regressions.spec.ts", "practice-library.spec.ts", "content-authoring.spec.ts"],
   outputDir: "../../output/implementacion-aprendizaje-2026-11-04/browser",
   reporter: [["list"], ["json", { outputFile: "../../output/implementacion-aprendizaje-2026-11-04/browser.json" }]],
   use: { ...activities.use, baseURL: "http://127.0.0.1:31044" },

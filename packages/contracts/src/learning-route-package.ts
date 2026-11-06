@@ -65,6 +65,7 @@ export const RouteUnitSchema = z.strictObject({
 });
 
 const BaseActivity = z.strictObject({
+  displayTitle: z.string().trim().min(1).max(240).optional(),
   key: RouteKeySchema,
   objectiveKey: RouteKeySchema,
   relatedObjectiveKeys: Keys,

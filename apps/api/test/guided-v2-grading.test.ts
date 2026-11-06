@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { RouteActivitySchema, type RouteActivity } from "@cediah/contracts";
+import { RouteActivitySchema, RoutePackageSchema, type RouteActivity } from "@cediah/contracts";
 import {
   gradeBasicActivity, gradeConstructedResponse, gradeImageTarget, gradeMatch, gradeSequence,
   gradeShortAnswer, gradeSingleChoice, isValidNormalizedPolygon, normalizeShortAnswer, pointInPolygonInclusive,
@@ -82,12 +82,31 @@ function image(mode: "hotspot" | "labeling", masking: "no_labels" | "partial_lab
 describe("guided v2 basic grading", () => {
   it("H25 replays the observed false negative against the pinned and proposed aliases", () => {
     const patch: { op: string; path: string; value: unknown }[] = JSON.parse(readFileSync(new URL("../../../docs/aprendizaje-guiado/plan-maestro/cava-r1.propuesta.patch.json", import.meta.url), "utf8"));
-    const activity = short();
+    const route = RoutePackageSchema.parse(JSON.parse(readFileSync(new URL(
+      "../../../docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-review/ruta-approved.koraz-route.json", import.meta.url), "utf8")));
+    const updated = structuredClone(route);
+    const activity = updated.activities[13]!;
+    if (activity.kind !== "short_answer") throw new Error("Expected short answer");
+    expect(patch.filter(entry => entry.op === "test")).toEqual([
+      { op: "test", path: "/packageKey", value: route.packageKey },
+      { op: "test", path: "/revision", value: route.revision },
+      { op: "test", path: "/activities/13/key", value: activity.key },
+      { op: "test", path: "/activities/13/payload/acceptedAnswers", value: activity.payload.acceptedAnswers },
+    ]);
+    const replacements = Object.fromEntries(patch.filter(entry => entry.op === "replace").map(entry => [entry.path, entry.value]));
+    const proposed = RoutePackageSchema.parse({ ...updated, revision: replacements["/revision"], activities: updated.activities.map(
+      item => item === activity ? { ...item, payload: { ...activity.payload, acceptedAnswers: replacements["/activities/13/payload/acceptedAnswers"] } } : item) });
+    expect(proposed.revision).toBe(4);
     const observed = "Las venas ilíacas comunes derecha e izquierda";
-    for (const [operation, score01] of [["test", 0], ["replace", 1]] as const) {
-      const aliases = patch.find(entry => entry.op === operation && entry.path.endsWith("/acceptedAnswers"))?.value;
-      const revision = RouteActivitySchema.parse({ ...activity, payload: { ...activity.payload, acceptedAnswers: aliases } });
-      if (revision.kind !== "short_answer") throw new Error("Expected short answer");
+    for (const [definition, score01] of [[route, 0], [proposed, 1]] as const) {
+      const questions = definition.activities.filter(item => item.kind === "short_answer");
+      expect(questions).toHaveLength(9);
+      for (const question of questions) {
+        for (const text of question.payload.acceptedAnswers) {
+          expect(gradeShortAnswer(question, { kind: "short_answer", text })).toMatchObject({ status: "graded", score01: 1 });
+        }
+      }
+      const revision = questions.find(item => item.key === "cava-r1")!;
       const grade = (text: string) => gradeShortAnswer(revision, { kind: "short_answer", text });
       expect(grade(observed)).toMatchObject({ status: "graded", score01 });
       for (const wrong of ["las arterias ilíacas comunes derecha e izquierda", "no son las venas ilíacas comunes", "la vena ilíaca común derecha", "las venas ilíacas externas"]) {

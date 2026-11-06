@@ -160,6 +160,7 @@ export function toV2PublicActivity(activity: RouteActivity, activeStageIndex = 0
 
 /** Curriculum metadata only. Prompts, answers and assessment reserves stay private. */
 const V2CurriculumActivitySchema = z.strictObject({
+  displayTitle: z.string().trim().min(1).max(240).optional(),
   key: RouteKeySchema, objectiveKey: RouteKeySchema,
   kind: z.enum(["study", "single_choice", "short_answer", "constructed_response", "match", "image_target", "sequence", "case"]),
   phase: PublicBase.shape.phase, required: z.boolean(),
@@ -190,6 +191,7 @@ export function toV2PublicUnits(definition: RoutePackage): z.infer<typeof V2Publ
         return objective ? [{ key: objective.key, title: objective.title, criticality: objective.criticality }] : [];
       }),
       activities: entries.map(activity => ({ key: activity.key, objectiveKey: activity.objectiveKey, kind: activity.kind, phase: activity.phase, required: activity.required,
+        ...(activity.displayTitle ? { displayTitle: activity.displayTitle } : {}),
         ...(activity.kind === "study" ? { scaffold: activity.payload.scaffold } : {}) })),
       resources: definition.sources.filter(source => sourceKeys.has(source.key)).map(({ key, title, citation, locator, url }) => ({ key, title, citation, locator, url })),
     };

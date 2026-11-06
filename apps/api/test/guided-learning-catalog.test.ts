@@ -1545,10 +1545,10 @@ describe("guided-learning catalog and versioning", () => {
       .toEqual([]);
   });
 
-  it("H01 holds a pinned option while another use of the same video can still launch", async () => {
-    const draft = routeDraft("opcion-en-revision");
-    const heldId = heldLearningOptionIds[2]!;
-    draft.definition.units[0]!.steps[0]!.options[0]!.id = heldId;
+  it.each(heldLearningOptionIds)("H01 holds pinned option %s while another projection can launch", async heldId => {
+    const draft = routeDraft(`opcion-en-revision-${heldId}`);
+    const isQuiz = heldLearningOptionIds.indexOf(heldId) < 2;
+    draft.definition.units[0]!.steps[isQuiz ? 2 : 0]!.options[0]!.id = heldId;
     const created = await provider.createPath({ actorUserId: creatorId, draft });
     if (created.status !== "success") throw new Error("Expected fixture route");
     const pathId = created.value.id;

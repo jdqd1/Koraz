@@ -19726,9 +19726,21 @@ function date4(params) {
 }
 
 // dist/question-options.js
+function firstDuplicateOptionIndex(options) {
+  const seen = /* @__PURE__ */ new Set();
+  return options.findIndex((text) => {
+    const normalized = text.normalize("NFC").trim().replace(/\s+/gu, " ");
+    if (seen.has(normalized))
+      return true;
+    seen.add(normalized);
+    return false;
+  });
+}
 function hasDuplicateOptionText(options) {
-  const normalized = options.map((text) => text.normalize("NFC").trim().replace(/\s+/gu, " "));
-  return new Set(normalized).size !== normalized.length;
+  return firstDuplicateOptionIndex(options) >= 0;
+}
+function isEditorialPlaceholder(text) {
+  return /^(?:dasdasd|(?:texto|pregunta|enunciado|explicación|respuesta) de prueba)[.!]?$/iu.test(text.normalize("NFC").trim().replace(/\s+/gu, " "));
 }
 
 // dist/time-zone.js
@@ -19787,9 +19799,9 @@ var QuestionIdentityShape = {
 var QuizQuestionSchema = external_exports.object({
   ...QuestionIdentityShape,
   correctOptionIndex: external_exports.number().int().min(0),
-  explanation: external_exports.string().trim().max(4e3).default(""),
+  explanation: external_exports.string().trim().max(4e3).refine((text) => !isEditorialPlaceholder(text), "Revisa la explicaci\xF3n de prueba.").default(""),
   options: external_exports.array(external_exports.string().trim().min(1).max(500)).min(2).max(8),
-  prompt: external_exports.string().trim().min(1).max(2e3)
+  prompt: external_exports.string().trim().min(1).max(2e3).refine((text) => !isEditorialPlaceholder(text), "Revisa el enunciado de prueba.")
 }).superRefine(validateQuestionIdentity).refine((question) => !hasDuplicateOptionText(question.options), {
   message: "Las opciones deben tener textos distintos.",
   path: ["options"]
@@ -20619,6 +20631,7 @@ var RouteUnitSchema = external_exports.strictObject({
   estimatedMinutes: external_exports.number().int().min(1).max(600).nullable()
 });
 var BaseActivity = external_exports.strictObject({
+  displayTitle: external_exports.string().trim().min(1).max(240).optional(),
   key: RouteKeySchema,
   objectiveKey: RouteKeySchema,
   relatedObjectiveKeys: Keys,

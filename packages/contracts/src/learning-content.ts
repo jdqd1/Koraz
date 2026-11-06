@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { hasDuplicateOptionText } from "./question-options.js";
+import { hasDuplicateOptionText, isEditorialPlaceholder } from "./question-options.js";
 
 export const CatalogVisibilitySchema = z.enum(["catalog", "guided_only"]);
 export type CatalogVisibility = z.infer<typeof CatalogVisibilitySchema>;
@@ -66,9 +66,9 @@ export const QuizQuestionSchema = z
   .object({
     ...QuestionIdentityShape,
     correctOptionIndex: z.number().int().min(0),
-    explanation: z.string().trim().max(4_000).default(""),
+    explanation: z.string().trim().max(4_000).refine(text => !isEditorialPlaceholder(text), "Revisa la explicación de prueba.").default(""),
     options: z.array(z.string().trim().min(1).max(500)).min(2).max(8),
-    prompt: z.string().trim().min(1).max(2_000),
+    prompt: z.string().trim().min(1).max(2_000).refine(text => !isEditorialPlaceholder(text), "Revisa el enunciado de prueba."),
   })
   .superRefine(validateQuestionIdentity)
   .refine((question) => !hasDuplicateOptionText(question.options), {

@@ -20,6 +20,19 @@ describe("unit and objective curriculum", () => {
     expect(html.indexOf("Relacionar conceptos")).toBeLessThan(html.indexOf("Elegir la respuesta correcta"));
     expect((html.match(/data-done="true"/g) ?? []).length).toBe(2);
   });
+  it("distinguishes untitled activities using only their public objective and curriculum order", () => {
+    const { path, state } = studentFixture();
+    const unit = path.units[0]!;
+    const choice = unit.activities!.find(activity => activity.kind === "single_choice")!;
+    unit.activities!.push({ ...choice, key: "private-looking-key" }, { ...choice, key: "third", displayTitle: "Territorios vasculares" });
+    const topic = unit.objectives[0]!.title;
+    const html = renderToStaticMarkup(<RouteCurriculum path={path} state={state} unitOnly focusUnit={unit.key} />);
+    for (const ordinal of [1, 2]) expect(html).toContain(`Elegir la respuesta correcta · ${topic} (${ordinal}/2)`);
+    expect(html).toContain("Territorios vasculares");
+    expect(html).not.toContain("private-looking-key");
+    const active = { ...state, nextAction: { ...state.nextAction, kind: "activity" as const, key: choice.key } };
+    expect(recommendationTitle(path, active)?.title).toBe(`Elegir la respuesta correcta · ${topic} (1/2)`);
+  });
   it("shows only the selected unit and its objective's activities without changing progress", () => {
     const fixture = studentFixture();
     const before = JSON.stringify(fixture.state);

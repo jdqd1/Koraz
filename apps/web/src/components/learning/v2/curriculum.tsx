@@ -55,7 +55,7 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       const Icon = activityIcons[activity.kind];
       return <li className={styles.activity} key={activity.key} data-current={next} data-done={done} data-blocked={blocked} aria-current={next ? "step" : undefined}>
         <span className={styles.stepMarker} aria-hidden>{next ? <ArrowRight size={16} /> : done ? <Check size={15} /> : blocked ? <LockSimple size={14} /> : index + 1}</span>
-        <div className={styles.activityBody}><div className={styles.activityHeading}><span className={styles.activityTypeIcon} role="img" aria-label={activityFormats[activity.kind]} title={activityFormats[activity.kind]}><Icon size={19} aria-hidden /></span><strong>{activityTitle(activity)}</strong>{!activity.required ? <span className={styles.optionalBadge}>Opcional</span> : null}{label ? <span className={styles.activityState}>{label}</span> : null}</div>
+        <div className={styles.activityBody}><div className={styles.activityHeading}><span className={styles.activityTypeIcon} role="img" aria-label={activityFormats[activity.kind]} title={activityFormats[activity.kind]}><Icon size={19} aria-hidden /></span><strong>{activityTitle(activity, unit)}</strong>{!activity.required ? <span className={styles.optionalBadge}>Opcional</span> : null}{label ? <span className={styles.activityState}>{label}</span> : null}</div>
           {available && !next ? <RouteAction path={path} state={state} target={target} returnTo={returnTo} label="Abrir actividad" showReason={false} appearance="secondary" /> : null}
         </div>
       </li>;

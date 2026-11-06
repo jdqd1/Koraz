@@ -796,6 +796,18 @@ describe("content API", () => {
     }
   });
 
+  it("retains legacy explanations in drafts and requires editorial correction before release", () => {
+    const question = completeVideoDraft.content.quiz.questions[0]!;
+    for (const explanation of ["dasdasd", "Explicación de prueba.", "La prueba de esfuerzo mide la respuesta al ejercicio."]) {
+      const quiz = { questions: [{ ...question, explanation }] };
+      const item = videoItem({ content: { ...completeVideoDraft.content, quiz } });
+      expect(ContentItemSchema.safeParse(item).success).toBe(true);
+      for (const status of ["in_review", "approved", "published"] as const) {
+        expect(isContentReadyForTransition(item, status)).toBe(explanation.startsWith("La prueba"));
+      }
+    }
+  });
+
   it("accepts rich guide bodies even when no legacy sections are stored", () => {
     const document = RichTextDocumentSchema.parse({
       type: "doc",

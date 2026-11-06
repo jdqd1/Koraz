@@ -28,7 +28,7 @@ export {
   type PublicLearningQuestion,
 } from "./learning-content.js";
 
-export { hasDuplicateOptionText } from "./question-options.js";
+export { firstDuplicateOptionIndex, hasDuplicateOptionText, isEditorialPlaceholder } from "./question-options.js";
 export * from "./guided-learning.js";
 export * from "./learning-editorial-holds.js";
 export * from "./time-zone.js";

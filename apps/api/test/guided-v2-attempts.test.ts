@@ -386,8 +386,10 @@ describe("guided v2 attempt persistence", () => {
     const created = await create(id(12), id(13), { kind: "activity", key: "choice" });
     if (created.status !== "success") throw new Error("create failed");
     const attemptId = created.value.attemptId;
-    const help = await service.help({ userId, attemptId, idempotencyKey: id(14), activityKey: "choice",
-      kind: "hint", expectedVersion: 1 });
+    const request = { userId, attemptId, idempotencyKey: id(14), activityKey: "choice", kind: "hint" as const, expectedVersion: 1 };
+    const help = await service.help(request);
+    expect(await service.help(request)).toEqual(help);
+    expect((await pg.query("select id from learning_events where user_id=$1 and event_type='help_requested'", [userId])).rows).toHaveLength(1);
     expect(help).toMatchObject({ status: "success", value: { help: { kind: "hint", text: "Piensa en la relación." },
       attempt: { rowVersion: 2 } } });
     expect(await service.respond({ userId, attemptId, idempotencyKey: id(15), activityKey: "choice",

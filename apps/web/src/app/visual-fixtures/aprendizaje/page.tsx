@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { heldLearningOptionIds } from "@cediah/contracts";
 import type { ContentItem, RichTextDocument, Subject } from "@cediah/contracts";
 import { AppShell } from "@/components/app-shell";
 import { DashboardScreen } from "@/components/dashboard-screen";
@@ -95,6 +96,7 @@ const readerDocument = {
 } as RichTextDocument;
 
 const supportedModes = new Set([
+  "path-editorial",
   "complete",
   "completion",
   "dashboard",
@@ -166,6 +168,21 @@ export default async function LearningVisualFixturePage({ searchParams }: {
     }} />;
   }
 
+  if (mode === "path-editorial") {
+    const path = structuredClone(learningVisualPathDetail);
+    const unit = path.version.units[0]!;
+    const mixed = unit.steps[0]!, videoOnly = unit.steps[1]!, retired = unit.steps[2]!;
+    const video = mixed.options[0]!;
+    const quiz = retired.options[0]!;
+    mixed.title = "Video y cuestionario";
+    mixed.options = [{ ...video, id: heldLearningOptionIds[2]!, label: "Video en revisión" }, { ...quiz, label: "Resolver preguntas" }];
+    videoOnly.title = "Video esencial";
+    videoOnly.options = [{ ...video, label: "Reproducir video" }];
+    retired.title = "Paso con material retirado";
+    retired.options = [];
+    path.version.units = [unit];
+    return <LearningFixtureShell><LearningPathScreen path={path} progress={null} upgrade={null} /></LearningFixtureShell>;
+  }
   if (mode === "path" || mode === "path-upgrade" || mode === "path-upgrade-blocked") {
     const upgrade = mode === "path-upgrade"
       ? learningVisualUpgrade

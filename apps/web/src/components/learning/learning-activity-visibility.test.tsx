@@ -15,11 +15,14 @@ describe("essential activity visibility (H03)", () => {
     const step = unit.steps[0]!;
     step.title = "Video esencial visible";
     step.options = [{ ...step.options[0]!, projection: "video", label: "Ver video" }];
-    unit.steps = [step, { ...step, id: "a1000000-0000-4000-8000-000000009999", title: "Paso sin material", options: [] }];
+    const mixed = { ...step, id: "a1000000-0000-4000-8000-000000009998", title: "Video o cuestionario",
+      options: [step.options[0]!, { ...step.options[0]!, id: "a1000000-0000-4000-8000-000000009997", projection: "quiz" as const, label: "Resolver cuestionario" }] };
+    unit.steps = [step, mixed, { ...step, id: "a1000000-0000-4000-8000-000000009999", title: "Paso sin material", options: [] }];
     path.version.units = [unit];
     const html = renderToString(<LearningPathScreen path={path} progress={null} upgrade={null} />);
     expect(html).toContain("Video esencial visible");
-    expect(html).toContain("Ver video");
+    expect(html.match(/Ver video/g)).toHaveLength(2);
+    expect(html).toContain("Resolver cuestionario");
     expect(html).toContain("Paso sin material");
     expect(html).toContain("Material no disponible");
   });

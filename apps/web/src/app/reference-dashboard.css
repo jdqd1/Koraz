@@ -312,6 +312,13 @@
   .app-shell .app-topbar-simplified .notification-trigger { color: #0c2fa4; }
   .app-shell .app-topbar-simplified .profile-popover { right: auto; left: 0; transform-origin: top left; }
   .app-shell .profile-popover > a { display: block; padding: 8px 10px; color: #173785; font-size: .8rem; }
+  .app-shell .studio-main {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
+  .studio-save {
+    position: static;
+    scroll-margin-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
   .mobile-primary-nav {
     position: fixed;
     z-index: 160;

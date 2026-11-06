@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
@@ -23,6 +24,7 @@ function fixture() {
     hints: ["PRIVATE_HINT"], use: "learning", prompt: "Pregunta", feedback: { explanation: "PRIVATE_FEEDBACK", commonError: "PRIVATE_ERROR", sourceKeys: ["citation"] },
     misconceptionMappings: [], alternativeActivityKey: null, kind: "single_choice", payload: { correctKey: "yes", options: [{ key: "yes", text: "Sí" }, { key: "no", text: "No" }], distractorFeedback: { no: "Revisa la relación" } } };
   const choices = ["a", "b", "apply", "final-a", "final-b", "seven", "thirty", "diagnostic"].map((key) => ({ ...base, key, equivalenceKey: key,
+    ...(key === "apply" ? { displayTitle: "Aplicación del objetivo" } : key === "diagnostic" ? { displayTitle: "PRIVATE_DIAGNOSTIC_TITLE" } : {}),
     phase: key === "apply" ? "apply" : "retrieve", representation: ["apply", "final-a", "final-b"].includes(key) ? "diagram" : "text",
     use: key.startsWith("final") ? "final" : key === "seven" ? "retention7" : key === "thirty" ? "retention30" : key === "diagnostic" ? "diagnostic" : "learning" }));
   const activities = [{ ...base, key: "learn", equivalenceKey: "learn", phase: "learn", kind: "study", payload: { body: "Explicación", scaffold: "explanation", focusSpans: [], assetKey: null, videoRange: null } }, ...choices];
@@ -61,6 +63,15 @@ describe("diagnostic admission to a selected objective", () => {
       if (key !== "unassessed") for (const sourceKey of ["a", "b", "apply"]) {
         const source = definition.activities.find(item => item.key === sourceKey)!;
         definition.activities.push({ ...source, key: `${key}-${sourceKey}`, objectiveKey: key!, equivalenceKey: `${key}-${sourceKey}` });
+      }
+      if (key === "middle") {
+        const patch: { op: string; path: string; value: unknown }[] = JSON.parse(readFileSync(new URL(
+          "../../../docs/aprendizaje-guiado/plan-maestro/cava-r1.propuesta.patch.json", import.meta.url), "utf8"));
+        const answers = patch.find(entry => entry.op === "replace" && entry.path.endsWith("/acceptedAnswers"))!.value;
+        definition.activities = definition.activities.map(item => item.key !== "middle-b" ? item : contracts.RouteActivitySchema.parse({
+          ...item, kind: "short_answer", prompt: "Sin ayuda: ¿qué venas se unen para formar VCI?",
+          payload: { acceptedAnswers: answers, maxChars: 240, modelAnswer: "Venas ilíacas comunes", normalization: "nfkc-lower-space" },
+        }));
       }
       definition.units.push({ ...definition.units[0]!, key: key!, title: key!, objectiveKeys: [key!],
         activityKeys: definition.activities.filter(item => item.objectiveKey === key).map(item => item.key) });
@@ -113,17 +124,19 @@ describe("diagnostic admission to a selected objective", () => {
     expect(attempt.placement).toMatchObject({ objectiveKey: "last", status: "pending" });
     expect(V2HttpContracts.attemptCreate.response.safeParse(start.json()).success).toBe(true);
     expect((await post(`attempts/${attempt.attemptId}/complete`, { expectedVersion: attempt.rowVersion })).statusCode).toBe(409);
-    let n = 0;
     const answeredKeys: string[] = [];
     while (attempt.activeActivity) {
       answeredKeys.push(attempt.activeActivity.key);
       const answer = await post(`attempts/${attempt.attemptId}/responses`, { activityKey: attempt.activeActivity.key,
-        answer: { kind: "single_choice", optionKey: !correct && n++ === 0 ? "no" : "yes" }, confidence: null, expectedVersion: attempt.rowVersion });
+        answer: attempt.activeActivity.kind === "short_answer"
+          ? { kind: "short_answer", text: correct ? "Las venas ilíacas comunes derecha e izquierda" : "Las arterias ilíacas comunes derecha e izquierda" }
+          : { kind: "single_choice", optionKey: "yes" }, confidence: null, expectedVersion: attempt.rowVersion });
       expect(answer.statusCode, answer.body).toBe(200);
       expect(answer.json().feedback).toMatchObject({ score01: null, explanation: "" });
       expect(answer.json().state.maintenance.blockers.some((item: { objectiveKey: string }) => item.objectiveKey === "last")).toBe(true);
       attempt = answer.json().attempt;
     }
+    expect(answeredKeys).toContain("middle-b");
     expect(answeredKeys).toHaveLength(6);
     expect(new Set(answeredKeys).size).toBe(6);
     const receiptKey = v2Id(serial++), payload = { expectedVersion: attempt.rowVersion };
@@ -131,6 +144,7 @@ describe("diagnostic admission to a selected objective", () => {
     expect(finished.statusCode, finished.body).toBe(200);
     expect(finished.json().attempt.placement.status).toBe(correct ? "passed" : "reinforce");
     const state = finished.json().state;
+    expect(state.motivation.totalXp).toBe(before.motivation.totalXp);
     expect(state.completedActivities).toBe(before.completedActivities);
     expect(state.masteredAt).toBeNull(); expect(state.consolidatedAt).toBeNull();
     expect(state.objectives.every((item: { objectiveScore: number | null }) => item.objectiveScore === null)).toBe(true);
@@ -242,6 +256,11 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(V2HttpContracts.publicPath.response.parse(response.json()).path.pathVersionId).toBe(v2Id(6));
     expect(response.body).not.toContain("correctKey"); expect(response.body).not.toContain("PRIVATE_FEEDBACK");
     expect(response.json().path.units[0].activities.map((item: { key: string }) => item.key)).toEqual(["learn", "a", "b", "apply"]);
+    const activities = response.json().path.units[0].activities;
+    expect(activities[1].kind).toEqual(activities[2].kind);
+    expect(activities[1]).not.toHaveProperty("displayTitle");
+    expect(activities[2]).not.toHaveProperty("displayTitle");
+    expect(activities[3].displayTitle).toBe("Aplicación del objetivo");
     expect(response.json().path.units[0].resources[0].title).toBe("Fuente de la versión fijada");
     expect(response.body).not.toMatch(/PRIVATE|final-a|final-b|seven|thirty|prompt|candidateActivityKeys|payload/);
     const catalog = await get("paths?limit=1"); expect(catalog.statusCode).toBe(200);
