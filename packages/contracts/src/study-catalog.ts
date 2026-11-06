@@ -42,7 +42,22 @@ export const StudyCatalogSubjectSchema = z.object({
 export const SubjectStudyCatalogResponseSchema = z.object({
   items: z.array(StudyCatalogItemSchema),
   subject: StudyCatalogSubjectSchema,
+  practiceCounts: z.object({ quiz: z.int().nonnegative(), flashcards: z.int().nonnegative() }).optional(),
 });
+
+export const PracticeKindSchema = z.enum(["quiz", "flashcards"]);
+export const PracticeLibrarySchema = z.object({
+  subject: StudyCatalogSubjectSchema.pick({ id: true, slug: true, name: true }).nullable(),
+  groups: z.array(z.object({ key: z.string(), name: z.string(), count: z.int().positive() })),
+  items: z.array(StudyCatalogItemSchema.pick({ id: true, slug: true, title: true, topic: true }).extend({
+    kind: PracticeKindSchema, subjectSlug: z.string(),
+  })),
+  total: z.int().nonnegative(),
+  resourceCount: z.int().nonnegative(),
+  limit: z.int().positive(),
+  page: z.int().positive(),
+});
+export type PracticeLibrary = z.infer<typeof PracticeLibrarySchema>;
 
 export type StudyCatalogKind = z.infer<typeof StudyCatalogKindSchema>;
 export type StudyCatalogItem = z.infer<typeof StudyCatalogItemSchema>;

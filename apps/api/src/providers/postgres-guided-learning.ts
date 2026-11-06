@@ -1,6 +1,8 @@
 import { sql, type Selectable, type Transaction } from "kysely";
+import { optionHasVideoSource } from "../guided-learning/video-availability.js";
 import {
   ContentDraftSchema,
+  heldLearningOptionIds,
   LearningCompletionRuleSchema,
   LearningCoverKeySchema,
   LearningEditorResourceCatalogResponseSchema,
@@ -371,9 +373,14 @@ async function readPathDetail(
     .orderBy("position", "asc")
     .execute();
   const optionRows = await database.selectFrom("learning_step_options")
-    .selectAll()
-    .where("path_version_id", "=", version.id)
-    .orderBy("position", "asc")
+    .selectAll("learning_step_options")
+    .$if(Boolean(userId), query => query
+      .innerJoin("learning_resource_revisions as revision", "revision.id", "learning_step_options.resource_revision_id")
+      .innerJoin("learning_resources as resource", "resource.id", "revision.resource_id")
+      .innerJoin("content_items as source", "source.id", "learning_step_options.source_content_id")
+      .where("resource.retired_at", "is", null).where("source.status", "=", "published").where(optionHasVideoSource))
+    .where("learning_step_options.path_version_id", "=", version.id)
+    .orderBy("learning_step_options.position", "asc")
     .execute();
   const enrollment = userId
     ? await database.selectFrom("learning_enrollments")
@@ -1029,6 +1036,7 @@ export function createPostgresGuidedLearningProvider(
         .where("learning_resources.retired_at", "is", null)
         .where("content_items.status", "=", "published")
         .where("learning_step_options.source_content_id", "=", input.sourceContentId)
+        .where("learning_step_options.id", "not in", heldLearningOptionIds)
         .where("learning_step_options.projection", "=", input.projection)
         .whereRef("learning_resource_revisions.source_version", "=", "content_items.version")
         .where(sql<boolean>`not exists (

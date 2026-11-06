@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { hasDuplicateOptionText } from "@cediah/contracts";
 import { ArrowRight, CheckCircle, XCircle } from "@phosphor-icons/react";
 import type { LearningAttempt, LearningAttemptResponseRecord } from "@cediah/contracts";
 import type { ActivityMutation } from "./types";
@@ -50,6 +51,7 @@ export function QuizActivity({
     );
   }
   if (!question) return null;
+  if (hasDuplicateOptionText(question.options.map(option => option.text))) return <p role="status">Pregunta en revisión editorial por opciones repetidas. Puedes volver a la ruta para elegir otra actividad.</p>;
   return (
     <section className="learning-question-card" key={question.itemId}>
       <div className="learning-activity-counter">Pregunta {attempt.resume.currentIndex + 1} de {attempt.manifest.questions.length}</div>

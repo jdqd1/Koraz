@@ -1,8 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import {
   LearningAttemptMutationResponseSchema,
+  learningOptionUnderReview,
   type LearningAttempt,
   type LearningAttemptResponseRecord,
   type LearningEnrollmentProgress,
@@ -88,6 +90,11 @@ export function ActivityShell({
     return parsed.data;
   }, [userId]);
 
+  if (attempt.status === "in_progress" && learningOptionUnderReview(attempt.stepOptionId)) return (
+    <main className="learning-main"><section className="learning-empty"><div><h1>Material en revisión editorial</h1><p>Puedes continuar con otra actividad.</p></div>
+      <Link className="learning-secondary-button" href={attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje/repaso"}>{attempt.pathSlug ? "Volver a la ruta" : "Volver al repaso"}</Link>
+    </section></main>
+  );
   return (
     <main className={`${ui.session} ${ui.immersive}`} aria-label="Sesión de aprendizaje" data-engine-version="guided-v1">
       <ActivityHeader title={attempt.manifest.title} eyebrow={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}

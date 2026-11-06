@@ -32,6 +32,7 @@ import {
   X,
 } from "@phosphor-icons/react";
 import type { ContentItem, LearningLibraryOption } from "@cediah/contracts";
+import { hasDuplicateOptionText } from "@cediah/contracts";
 import { createPortal } from "react-dom";
 import {
   type CSSProperties,
@@ -1375,7 +1376,11 @@ function VideoQuizModal({
           <button aria-label="Cerrar cuestionario" type="button" onClick={onClose}><X aria-hidden="true" size={19} /></button>
         </header>
 
-        {!finished ? (
+        {questions.some((entry) => hasDuplicateOptionText(entry.options)) ? (
+          <div className="video-quiz-question"><p role="status">Este cuestionario está en revisión editorial porque hay opciones repetidas.</p>
+            <button type="button" onClick={onClose}>{returnLabel}</button>
+          </div>
+        ) : !finished ? (
           <>
             <div className="video-study-progress" data-tone={progress.tone}>
               <span>Pregunta {questionIndex + 1} de {questions.length}</span>
@@ -1566,7 +1571,13 @@ function QuizBody({
 }: {
   item: ContentItem & { kind: "quiz" };
 }) {
-  return <QuestionAnswerCards questions={item.content.questions} />;
+  const [practicing, setPracticing] = useState(false);
+  return <section className="published-question-answer">
+    <h3>Práctica libre</h3><p>El resultado solo se guarda durante esta práctica. Las actividades de ruta llevan su propio progreso y XP.</p>
+    <button className="learning-primary-button" disabled={!item.content.questions.length} type="button" onClick={() => setPracticing(true)}>Practicar cuestionario</button>
+    <details><summary>Consultar preguntas y respuestas</summary><QuestionAnswerCards questions={item.content.questions} /></details>
+    {practicing ? <VideoQuizModal questions={item.content.questions} title={item.title} returnLabel="Volver al cuestionario" onClose={() => setPracticing(false)} /> : null}
+  </section>;
 }
 
 function QuestionAnswerCards({

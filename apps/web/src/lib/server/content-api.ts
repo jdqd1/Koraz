@@ -4,6 +4,7 @@ import {
   ContentCatalogResponseSchema,
   ContentItemSchema,
   ContentWorkspaceResponseSchema,
+  PracticeLibrarySchema,
   StudyCatalogResponseSchema,
   SubjectCatalogResponseSchema,
   SubjectDetailResponseSchema,
@@ -194,6 +195,13 @@ export async function getPublishedStudyCatalog(input: {
   return legacy.status === "ready"
     ? { catalog: { items: legacy.catalog.items.map(summarizeContentItem) }, status: "ready" }
     : { status: "unavailable" };
+}
+
+export async function getPracticeLibrary(query: URLSearchParams) {
+  const response = await requestContentApi({ method: "GET", path: `/v1/study/practice?${query}`, cachePublic: true, timeoutMs: 8_000 });
+  if (response.status === 404 && query.has("subject") && response.body && typeof response.body === "object" && "error" in response.body && response.body.error === "not_found") return { status: "not_found" } as const;
+  const parsed = response.status === 200 ? PracticeLibrarySchema.safeParse(response.body) : null;
+  return parsed?.success ? { status: "ready", data: parsed.data } as const : { status: "unavailable" } as const;
 }
 
 export async function getContentTopicOrder(subjectId: string): Promise<ContentTopicOrderResult> {

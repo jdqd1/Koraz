@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { hasDuplicateOptionText } from "@cediah/contracts";
 import { ArrowRight, CheckCircle, XCircle } from "@phosphor-icons/react";
 import type { LearningAttempt, LearningAttemptResponseRecord } from "@cediah/contracts";
 import type { ActivityMutation } from "./types";
+import { MaintenanceDate } from "../v2/maintenance";
 import ui from "./activity-ui.module.css";
 
 const grades = [
@@ -26,14 +29,13 @@ export function ReviewActivity({ attempt, feedback, mutate, onFeedback }: {
   const item = attempt.manifest.items[attempt.resume.currentIndex];
   const [selected, setSelected] = useState("");
   const [busy, setBusy] = useState(false);
-  if (!item) return null;
-  const itemResponses = attempt.responses.filter((response) => response.itemId === item.itemId);
+  const itemResponses = attempt.responses.filter((response) => response.itemId === item?.itemId);
   const previous = itemResponses.at(-1);
   const round = (previous?.grading.sessionRetry ? previous.round + 1 : 1);
   const expectedReviewVersion = previous?.grading.sessionRetry
     ? previous.reviewState?.rowVersion
-    : item.reviewStateVersion;
-  const revealed = attempt.revealedCards.find((entry) => entry.itemId === item.itemId);
+    : item?.reviewStateVersion;
+  const revealed = attempt.revealedCards.find((entry) => entry.itemId === item?.itemId);
 
   async function answerQuiz() {
     if (item?.kind !== "quiz" || !selected || !expectedReviewVersion) return;
@@ -75,29 +77,36 @@ export function ReviewActivity({ attempt, feedback, mutate, onFeedback }: {
   }
 
   if (feedback) {
-    const correct = feedback.grading.correct;
-    const retry = feedback.grading.sessionRetry === true;
+    const correct = feedback.grading.correct ?? (feedback.grading.recallGrade === "again" ? false : undefined);
     return (
       <section className={`learning-feedback ${correct === false ? "is-incorrect" : "is-correct"}`} role="status">
         {correct === false ? <XCircle aria-hidden="true" size={34} weight="fill" /> : <CheckCircle aria-hidden="true" size={34} weight="fill" />}
         <div>
-          <h2>{retry ? "La veremos otra vez" : correct === false ? "Respuesta guardada" : "Repaso guardado"}</h2>
+          <h2>{correct === false ? "Respuesta guardada" : "Repaso guardado"}</h2>
           {feedback.grading.explanation ? <p>{feedback.grading.explanation}</p> : null}
-          {retry ? <p>Volverás a practicar este punto durante el repaso.</p> : null}
+          {feedback.reviewState ? <p>Próximo repaso: <MaintenanceDate value={feedback.reviewState.nextDueAt} />.</p> : null}
           <details className={ui.disclosure}><summary>Detalles del repaso</summary><p>{feedback.scheduleApplied
-            ? retry
-              ? "Volverá a aparecer, como máximo dos veces en esta sesión. Este reintento no cuenta como una comprobación independiente."
-              : "La próxima fecha se calculó desde la hora aceptada por el servidor."
+            ? "Este ítem ya está atendido en esta pasada. Volverá a estar disponible en la fecha indicada."
             : "Otro dispositivo o una práctica reciente ya había actualizado el calendario; esta respuesta no lo movió de nuevo."}</p></details>
         </div>
         <button className="learning-primary-button" onClick={() => { setSelected(""); onFeedback(null); }} type="button">
-          {attempt.status === "completed" ? "Ver resumen" : retry ? "Continuar el repaso" : "Siguiente"}<ArrowRight aria-hidden="true" size={18} />
+          {attempt.status === "completed" ? "Ver resumen" : "Siguiente"}<ArrowRight aria-hidden="true" size={18} />
         </button>
       </section>
     );
   }
 
+  if (!item) return <section role="alert" className="learning-question-card">
+    <h2>No pudimos cargar el siguiente ítem</h2>
+    <p>Tus respuestas guardadas se conservan.</p>
+    <Link className="learning-primary-button" href="/aprendizaje/repaso">Volver al repaso</Link>
+  </section>;
+
   if (item.kind === "quiz") {
+    if (hasDuplicateOptionText(item.options.map(option => option.text))) return <section className="learning-question-card">
+      <h2>Pregunta en revisión editorial</h2><p>Las opciones están repetidas. Puedes iniciar otra pasada con los ítems disponibles.</p>
+      <Link className="learning-primary-button" href="/aprendizaje/repaso">Volver al repaso</Link>
+    </section>;
     return (
       <section className="learning-question-card" key={`${item.itemId}:${round}`}>
         <div className="learning-activity-counter">Ítem {attempt.resume.currentIndex + 1} de {attempt.manifest.items.length}{round > 1 ? ` · reaparición ${round - 1} de 2` : ""}</div>

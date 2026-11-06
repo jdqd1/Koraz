@@ -1,6 +1,8 @@
 import { sql, type Selectable, type Transaction } from "kysely";
+import { optionHasVideoSource } from "../guided-learning/video-availability.js";
 import {
   MapLayoutSchema,
+  learningOptionUnderReview,
   type LearningMapLevelResponse,
   type MapContentRef,
   type MapItem,
@@ -253,6 +255,7 @@ export async function resolveMapReferences(
             "learning_step_options.is_default",
           ])
           .where("learning_step_options.step_id", "in", stepIds)
+          .where(optionHasVideoSource)
           .where("resource.retired_at", "is", null)
           .where("source.status", "=", "published")
           .orderBy("learning_step_options.position")
@@ -463,7 +466,9 @@ export async function readMapLevel(
           }
         : null;
   const selectedLesson = selectedRef ? await refs.lesson(selectedRef) : null;
-  const activities = selectedLesson?.activities ?? [];
+  const activities = (selectedLesson?.activities ?? []).map(activity => ({ ...activity,
+    options: activity.options.filter(option => !learningOptionUnderReview(option.id)),
+  })).filter(activity => activity.options.length > 0);
   const next =
     activities.find((a) => a.options.some((o) => o.existingAttemptId)) ??
     activities.find(

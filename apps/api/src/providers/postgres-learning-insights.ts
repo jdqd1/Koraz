@@ -1,4 +1,5 @@
 import type { Selectable, Transaction } from "kysely";
+import { optionHasVideoSource } from "../guided-learning/video-availability.js";
 import { z } from "zod";
 import {
   LearningEnrollmentProgressSchema,
@@ -7,6 +8,7 @@ import {
   LearningPreferencesSchema,
   LearningTaskOverrideResponseSchema,
   PLATFORM_TIME_ZONE,
+  heldLearningOptionIds,
   localDateInTimeZone,
   type GuidedLearningProvider,
   type LearningEnrollmentProgress,
@@ -186,7 +188,7 @@ export function createPostgresLearningInsightMethods(
             .leftJoin("learning_step_options", (join) => join
               .onRef("learning_step_options.step_id", "=", "learning_path_steps.id")
               .on("learning_step_options.is_default", "=", true)
-              .on("learning_step_options.projection", "!=", "video"))
+              .on("learning_step_options.id", "not in", heldLearningOptionIds).on(optionHasVideoSource))
             .leftJoin("learning_resource_revisions", "learning_resource_revisions.id", "learning_step_options.resource_revision_id")
             .leftJoin("learning_resources", "learning_resources.id", "learning_resource_revisions.resource_id")
             .leftJoin("content_items", "content_items.id", "learning_resources.source_content_id")
@@ -233,7 +235,8 @@ export function createPostgresLearningInsightMethods(
             ])
             .where("learning_attempts.enrollment_id", "in", enrollmentIds)
             .where("learning_attempts.status", "=", "in_progress")
-            .where("learning_step_options.projection", "!=", "video")
+            .where("learning_step_options.id", "not in", heldLearningOptionIds)
+            .where(optionHasVideoSource)
             .where("learning_resources.retired_at", "is", null)
             .where("content_items.status", "=", "published")
             .orderBy("learning_attempts.updated_at", "desc")

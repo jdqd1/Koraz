@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { hasDuplicateOptionText } from "./question-options.js";
 import { RoutePackageSchema, type RouteActivity, type RoutePackage } from "./learning-route-package.js";
 
 export type RouteValidationIssue = {
@@ -66,6 +67,7 @@ export function validateRoutePackage(input: unknown): RouteValidationResult {
       if (item.payload.videoRange && item.payload.videoRange.endSeconds <= item.payload.videoRange.startSeconds) add("SCHEMA_INVALID", `/activities/${i}/payload/videoRange`, "Rango de video inválido.", "El fin debe superar el inicio.");
     }
     if (item.kind === "single_choice") {
+      if (hasDuplicateOptionText(item.payload.options.map((option) => option.text))) add("SCHEMA_INVALID", `/activities/${i}/payload/options`, "Las opciones tienen textos indistinguibles.", "Revisa los distractores y redacta opciones distintas antes de publicar.");
       const optionKeys = item.payload.options.map((option) => option.key);
       if (new Set(optionKeys).size !== optionKeys.length || !optionKeys.includes(item.payload.correctKey)) add("SCHEMA_INVALID", `/activities/${i}/payload/options`, "Opciones duplicadas o respuesta inexistente.", "Usa claves únicas y una respuesta presente.");
       const incorrect = optionKeys.filter((option) => option !== item.payload.correctKey);

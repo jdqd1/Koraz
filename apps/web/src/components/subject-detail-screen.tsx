@@ -82,6 +82,7 @@ function ResourceList({
 
 export function SubjectDetailScreen({
   initialContentOrder,
+  practiceCounts,
   isAdministrator = false,
   items,
   subject,
@@ -93,6 +94,7 @@ export function SubjectDetailScreen({
   isAdministrator?: boolean;
   items: StudyCatalogItem[];
   subject: Subject;
+  practiceCounts?: { quiz: number; flashcards: number };
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -189,6 +191,8 @@ export function SubjectDetailScreen({
   }, [subject.id]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    const targetKind = new URL(href, window.location.origin).searchParams.get("tipo");
+    if (targetKind === "quiz" || targetKind === "flashcards") return;
     if (event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     event.preventDefault();
     setSearch("");
@@ -198,7 +202,7 @@ export function SubjectDetailScreen({
 
   const sections = sectionDefinitions.map((definition) => ({
     ...definition,
-    count: catalogs[definition.kind].length,
+    count: (definition.kind === "quiz" || definition.kind === "flashcards" ? practiceCounts?.[definition.kind] : undefined) ?? catalogs[definition.kind].length,
   }));
   const KindIcon = kind ? sectionDefinitions.find((section) => section.kind === kind)?.icon ?? Compass : Compass;
   const label = kind ? studyContentKindLabels[kind] : "";

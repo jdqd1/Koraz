@@ -49,7 +49,7 @@ import {
 } from "../guided-learning/v2/service.js";
 import { guidedV2AttemptManifest } from "../guided-learning/v2/manifests.js";
 import { convertGuidedV1, readUpgradeEvidence, upgradeEvidenceVersions, acceptsUpgradeFact } from "../guided-learning/v2/upgrade.js";
-import { awardObjectiveV2, awardPracticeV2 } from "../guided-learning/rewards.js";
+import { awardObjectiveV2, awardPracticeV2, lockLearningRewards } from "../guided-learning/rewards.js";
 import { calculateMetricsV2, heartbeatIntervalV2, type MetricLearnerV2, type MetricAssessmentV2, type MetricHeartbeatV2 } from "../guided-learning/v2/metrics.js";
 import { rebuildGuidedV2Evidence, type GuidedV2EvidenceEvent, type GuidedV2EvidenceState } from "../guided-learning/v2/evidence.js";
 import { scheduleReviewV2, type ReviewResponseV2, type ReviewStateV2 } from "../guided-learning/v2/scheduler.js";
@@ -1255,7 +1255,7 @@ async function v2ReplayAvailability(transaction: Tx, userId: string, attemptId: 
 }
 
 function v2HelpText(activity: RouteActivity, kind: "hint" | "source" | "reveal", definition: RoutePackage): string {
-  if (kind === "hint") return activity.hints[0] ?? "Revisa el enunciado y las relaciones clave.";
+  if (kind === "hint") return activity.hints.find((hint) => hint.trim()) ?? "";
   if (kind === "source") {
     const source = definition.sources.find((item) => activity.sourceKeys.includes(item.key));
     return source?.excerpt ?? "La fuente vinculada no tiene un fragmento disponible.";
@@ -1741,6 +1741,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
             const definition = RoutePackageSchema.safeParse(version.definition_v2_json);
             if (!definition.success) return { status: "conflict" };
             const text = v2HelpText(activity, input.kind, definition.data);
+            if (!text.trim()) return { status: "invalid_answer" };
             const nextResume = { ...resume, assistedKeys: [...new Set([...resume.assistedKeys, activity.key])],
               revealedKeys: input.kind === "reveal" ? [...new Set([...resume.revealedKeys, activity.key])] : resume.revealedKeys };
             const updated = await transaction.updateTable("learning_v2_attempts").set({
@@ -1768,6 +1769,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
       const answer = V2AnswerSchema.safeParse(input.answer);
       if (!answer.success) return { status: "invalid_answer" };
       return database.transaction().execute(async (transaction) => {
+        await lockLearningRewards(transaction, input.userId);
         const actor = await v2LockActor(transaction, input.userId);
         if (!actor) return { status: "forbidden" };
         return v2Receipt<GuidedV2ResponseReceipt>(transaction, input.userId, input.idempotencyKey,

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { X, ArrowRight, CaretRight, Check, FileText } from "@phosphor-icons/react";
 import {
   LearningEnrollmentResponseSchema,
+  learningOptionUnderReview,
   type MapLesson,
 } from "@cediah/contracts";
 import { useMapWorkspace } from "./map-provider";
@@ -103,12 +104,9 @@ export function LessonDetailPanel({
     (a) => a.id === level?.nextActivity?.stepId,
   );
   const recommendedOption = recommended?.options.find(
-    (o) => o.id === level?.nextActivity?.optionId && o.projection !== "video",
+    (o) => o.id === level?.nextActivity?.optionId && !learningOptionUnderReview(o.id),
   );
-  const visibleActivities = lesson.activities.map((activity) => ({
-    ...activity,
-    options: activity.options.filter((option) => option.projection !== "video"),
-  })).filter((activity) => activity.options.length > 0);
+  const visibleActivities = lesson.activities;
   return (
     <aside className={styles.panel} aria-label={`Lección ${lesson.title}`}>
       <header className={styles.panelHeader}>
@@ -181,7 +179,7 @@ export function LessonDetailPanel({
                             ? "Esencial"
                             : "Opcional"}
                   </small>
-                  {a.options.map((o) => (
+                  {a.options.map((o) => learningOptionUnderReview(o.id) ? <small key={o.id}>Material en revisión editorial.</small> : (
                     <button
                       key={o.id}
                       disabled={busy || launcher.busy}
@@ -212,7 +210,7 @@ export function LessonDetailPanel({
               el mismo paso académico.
             </p>
             {visibleActivities.flatMap((a) =>
-              a.options.map((o) => (
+              a.options.filter((o) => !learningOptionUnderReview(o.id)).map((o) => (
                 <div className={styles.suggestion} key={o.id}>
                   <div>
                     <strong>{o.label}</strong>
@@ -231,7 +229,7 @@ export function LessonDetailPanel({
                 </div>
               )),
             )}
-            {!visibleActivities.some((a) => a.options.length) ? (
+            {!visibleActivities.some((a) => a.options.some((o) => !learningOptionUnderReview(o.id))) ? (
               <p>No hay recursos disponibles.</p>
             ) : null}
           </>

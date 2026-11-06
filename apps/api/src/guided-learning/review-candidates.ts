@@ -1,6 +1,8 @@
 import { z } from "zod";
 import {
   LearningObjectiveSchema,
+  hasDuplicateOptionText,
+  heldLearningOptionIds,
   LearningOptionConfigSchema,
 } from "@cediah/contracts";
 import type { Transaction } from "kysely";
@@ -105,6 +107,7 @@ export async function loadReviewCandidates(
     .where("learning_resources.retired_at", "is", null)
     .where("content_items.status", "=", "published")
     .where("learning_step_options.projection", "in", ["quiz", "flashcards"])
+    .where("learning_step_options.id", "not in", heldLearningOptionIds)
     .orderBy("learning_path_units.position", "asc")
     .orderBy("learning_path_steps.position", "asc")
     .orderBy("learning_step_options.position", "asc")
@@ -124,7 +127,7 @@ export async function loadReviewCandidates(
     let questions: ExecutableQuestion[] = [];
     let cards: ExecutableCard[] = [];
     try {
-      questions = option.projection === "quiz" ? quizAdapter.parse(snapshot.data.content).questions : [];
+      questions = option.projection === "quiz" ? quizAdapter.parse(snapshot.data.content).questions.filter(question => !hasDuplicateOptionText(question.options)) : [];
       cards = option.projection === "flashcards" ? flashcardAdapter.parse(snapshot.data.content).cards : [];
     } catch {
       continue;

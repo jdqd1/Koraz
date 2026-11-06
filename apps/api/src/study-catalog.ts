@@ -9,6 +9,7 @@ import {
   type StudyCatalogItem,
 } from "@cediah/contracts";
 import type { DatabaseClient, JsonValue } from "./db/database.js";
+import { PracticeLibraryQuerySchema, readPracticeLibrary, subjectPracticeCounts } from "./practice-catalog.js";
 
 const maxStudyCatalogLimit = 2_000;
 const publicStudyCatalogLimit = 1_000;
@@ -25,6 +26,7 @@ const SubjectSlugParamsSchema = z.object({
 
 type StudyCatalogQuery = {
   kind?: z.infer<typeof StudyCatalogKindSchema>;
+  linkedVideoIds?: string[];
   limit?: number;
   sort?: "recent" | "views";
   subjectId?: string;
@@ -108,6 +110,7 @@ export async function loadPublishedStudyCatalog(
     ])
     .where("content_items.status", "=", "published")
     .where("content_items.catalog_visibility", "=", "catalog")
+    .$if(Boolean(input.linkedVideoIds?.length), query => query.where(sql<string>`content_items.content->>'linkedVideoId'`, "in", input.linkedVideoIds!))
     .$if(Boolean(input.kind), (query) =>
       query.where("content_items.kind", "=", input.kind ?? "topic"),
     )
@@ -164,6 +167,19 @@ export function registerPublishedStudyCatalogRoutes(
   app: FastifyInstance,
   database: DatabaseClient | undefined,
 ) {
+  app.get("/v1/study/practice", async (request, reply) => {
+    if (!database) return reply.status(503).header("Cache-Control", "no-store").send({ error: "content_unavailable" });
+    const query = PracticeLibraryQuerySchema.safeParse(request.query);
+    if (!query.success) return reply.status(400).header("Cache-Control", "no-store").send({ error: "invalid_content_query" });
+    try {
+      const page = await readPracticeLibrary(database, query.data);
+      if (!page) return reply.status(404).send({ error: "not_found" });
+      return reply.header("Cache-Control", "public, max-age=60, stale-while-revalidate=300").send(page);
+    } catch (error) {
+      request.log.error({ err: error }, "Practice library request failed");
+      return reply.status(503).header("Cache-Control", "no-store").send({ error: "content_unavailable" });
+    }
+  });
   app.get<{ Querystring: unknown }>("/v1/study/catalog", async (request, reply) => {
     if (!database) {
       return reply.status(503).header("Cache-Control", "no-store").send({ error: "content_unavailable" });
@@ -199,10 +215,10 @@ export function registerPublishedStudyCatalogRoutes(
         return reply.status(404).header("Cache-Control", "no-store").send({ error: "not_found" });
       }
 
-      const subjectItems = await loadPublishedStudyCatalog(database, {
+      const [subjectItems, practiceCounts] = await Promise.all([loadPublishedStudyCatalog(database, {
         limit: maxStudyCatalogLimit,
         subjectId: subject.id,
-      });
+      }), subjectPracticeCounts(database, subject.id)]);
       const videoIds = new Set(
         subjectItems.filter((item) => item.kind === "video").map((item) => item.id),
       );
@@ -210,11 +226,10 @@ export function registerPublishedStudyCatalogRoutes(
       if (videoIds.size > 0) {
         const guides = await loadPublishedStudyCatalog(database, {
           kind: "guide",
+          linkedVideoIds: [...videoIds],
           limit: maxStudyCatalogLimit,
         });
-        linkedGuides = guides.filter(
-          (guide) => guide.linkedVideoId && videoIds.has(guide.linkedVideoId),
-        );
+        linkedGuides = guides;
       }
 
       const itemsById = new Map(subjectItems.map((item) => [item.id, item]));
@@ -223,6 +238,7 @@ export function registerPublishedStudyCatalogRoutes(
       return reply
         .header("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
         .send(SubjectStudyCatalogResponseSchema.parse({
+          practiceCounts,
           items: [...itemsById.values()],
           subject: {
             contentCount: Number(subject.content_count),

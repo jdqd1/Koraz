@@ -16,6 +16,17 @@ const f = playerFixture("single_choice");
 const action: Extract<PlayerAction, { operation: "response" }> = { operation: "response", body: { activityKey: "practice-a", answer: { kind: "single_choice", optionKey: "b" }, confidence: null, expectedVersion: 1 } };
 function responseReceipt() { return V2HttpContracts.attemptResponse.response.parse({ accepted: true, feedback: { explanation: "Explicación autorizada", commonError: "Error común", score01: 0 }, nextStep: null, attempt: { ...f.attempt, rowVersion: 2, activeActivity: null, acceptedResponses: [{ activityKey: "practice-a", answer: action.body.answer, serverAcceptedAt: "2026-10-03T12:00:00Z", score01: 0, feedback: { explanation: "Explicación autorizada", commonError: "Error común" } }] }, state: { ...f.state, rowVersion: 5 } }); }
 describe("T029 transport and confirmed player rendering", () => {
+  it("H30 offers a hint only when the server has not marked it unavailable", () => {
+    const fixture = playerFixture("single_choice");
+    if (!fixture.attempt.activeActivity) throw new Error("Expected activity");
+    fixture.attempt.activeActivity.hasHint = false;
+    const html = renderToString(<V2Player initialAttempt={fixture.attempt} initialState={fixture.state} />);
+    expect(html).not.toContain('aria-label="Necesito ayuda"');
+    expect(html).toContain('aria-label="Consultar fuente con ayuda"');
+    fixture.attempt.activeActivity.hasHint = true;
+    expect(renderToString(<V2Player initialAttempt={fixture.attempt} initialState={fixture.state} />)).toContain('aria-label="Necesito ayuda"');
+  });
+
   it("retains exact body/key across a lost response and page refresh", async () => {
     const store = transportStore(), fetcher = vi.fn().mockRejectedValueOnce(new Error("lost receipt")).mockResolvedValue(Response.json(responseReceipt()));
     const first = createV2PlayerClient(f.attempt.attemptId, fetcher, () => fixtureId(81), () => store);

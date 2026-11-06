@@ -101,6 +101,7 @@ export const V2ErrorResponseSchema = z.strictObject({
 
 const PublicBase = z.strictObject({
   key: RouteKeySchema,
+  hasHint: z.boolean().optional(),
   objectiveKey: RouteKeySchema,
   phase: RouteActivitySchema.options[0].shape.phase,
   representation: RouteActivitySchema.options[0].shape.representation,
@@ -121,6 +122,7 @@ export type V2PublicActivity = z.infer<typeof V2PublicActivitySchema>;
 export function toV2PublicActivity(activity: RouteActivity, activeStageIndex = 0): V2PublicActivity {
   const base = {
     key: activity.key, objectiveKey: activity.objectiveKey, phase: activity.phase,
+    hasHint: activity.hints.some((hint) => hint.trim().length > 0),
     representation: activity.representation, prompt: activity.prompt,
   };
   switch (activity.kind) {

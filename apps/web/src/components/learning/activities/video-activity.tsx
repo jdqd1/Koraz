@@ -125,6 +125,7 @@ export function VideoActivity({ attempt, mutate }: {
           <video
             aria-label={`Reproducir ${attempt.manifest.title}`}
             controls
+            onError={() => setMediaError("No pudimos reproducir este video. Vuelve a abrir la actividad para reintentarlo.")}
             onEnded={(event) => void saveVideo(event.currentTarget.currentTime)}
             onLoadedMetadata={(event) => {
               videoDuration.current = normalizeVideoDurationSeconds(event.currentTarget.duration)
@@ -159,7 +160,7 @@ export function VideoActivity({ attempt, mutate }: {
             <div>
               <strong>¿Ya lo viste o no lo necesitas?</strong>
             </div>
-            <button className="learning-secondary-button" disabled={busy} onClick={() => void completeWithoutWatching()} type="button">
+            <button className="learning-secondary-button" disabled={busy || !mediaUrl || Boolean(mediaError)} onClick={() => void completeWithoutWatching()} type="button">
               <SkipForward size={18} />{busy ? "Completando…" : "Omitir video y completar"}
             </button>
           </aside>

@@ -29,12 +29,12 @@ export default async function ContentPage({ params, searchParams }: ContentPageP
   ]);
 
   if (result.status === "ready") {
-    if (result.item.kind === "video") notFound();
+    const requestedKind = firstSearchValue(query.tipo)?.trim();
+    if (result.item.kind === "video" && requestedKind !== "quiz" && requestedKind !== "flashcards") notFound();
     const requestedSubject = firstSearchValue(query.asignatura)?.trim();
     const subjects = subjectsResult.status === "ready" ? subjectsResult.subjects : [];
     const subject = subjects.find((current) => current.slug === requestedSubject) ??
       subjects.find((current) => result.item.subjectIds.includes(current.id));
-    const requestedKind = firstSearchValue(query.tipo)?.trim();
     const kind = isStudyContentKind(requestedKind)
       ? requestedKind
       : isStudyContentKind(result.item.kind)

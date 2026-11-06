@@ -25,6 +25,11 @@ import type {
 type RewardRow = Selectable<LearningRewardTable>;
 type RewardDatabase = DatabaseClient | Transaction<CediahDatabase>;
 
+/** Acquire before actor, receipt or memory locks in either response engine. */
+export async function lockLearningRewards(transaction: Transaction<CediahDatabase>, userId: string) {
+  await sql`select pg_advisory_xact_lock(hashtextextended(${`learning-rewards:${userId}`}, 0))`.execute(transaction);
+}
+
 const v2Awards = {
   v2_objective_recalled: { xp: 5, title: "Primera recuperación objetiva" },
   v2_objective_mastered: { xp: 10, title: "Primer dominio del objetivo" },
@@ -68,7 +73,7 @@ export async function readLearningRewardsV2(database: RewardDatabase, userId: st
   });
 }
 
-/** Actor lock, server grading and one award per family/day keep retries idempotent. */
+/** Shared response lock, server grading and one award per family/day keep retries idempotent. */
 export async function awardPracticeV2(transaction: Transaction<CediahDatabase>, input: {
   userId: string; pathVersionId: string; objectiveKey: string; equivalenceKey: string;
   responseId: string; eventId: string; acceptedAt: Date;
@@ -309,7 +314,7 @@ export async function awardAppliedReview(
     .where("reward_kind", "=", "review_applied")
     .where("local_date", "=", date)
     .executeTakeFirstOrThrow();
-  const xp = Number(total.xp) >= 20 ? 0 : 2;
+  const xp = Math.min(2, Math.max(0, 20 - Number(total.xp)));
   const awards: LearningReward[] = [];
   const review = await insertReward(transaction, {
     acceptedAt: input.acceptedAt,

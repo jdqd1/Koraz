@@ -1,4 +1,6 @@
 import { readFile } from "node:fs/promises";
+import { randomUUID } from "node:crypto";
+import { heldLearningOptionIds } from "@cediah/contracts";
 import { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { learningEventTime } from "../src/guided-learning/time-zone.js";
@@ -365,6 +367,14 @@ describe("guided-learning catalog and versioning", () => {
   it("allows a native video to be skipped for reduced XP while observed coverage earns full XP", async () => {
     const enrollment = await provider.createEnrollment({ pathId: publishedPathId, userId: videoStudentId });
     expect(enrollment.status).toBe("success");
+    const editorial = await provider.getEditorPath({ actorUserId: creatorId, canEditAll: true, pathId: publishedPathId });
+    if (editorial.status !== "success") throw new Error("Expected editable video metadata");
+    const missing = editorial.value.version.units[0]!.steps[0]!.options.find(option => option.projection === "video")!;
+    expect((await provider.createAttempt({ userId: videoStudentId, idempotencyKey: randomUUID(), request: { clientAttemptId: randomUUID(), stepOptionId: missing.id } })).status).toBe("resource_changed");
+    const before = await provider.getPathBySlug({ slug: "ruta-completa", userId: videoStudentId });
+    expect(before?.version.units[0]?.steps[0]?.options.some(option => option.id === missing.id)).toBe(false);
+    await pg.query(`insert into content_assets(content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at)
+      values($1,$2,'video','test','test/fixture.mp4','fixture.mp4','video/mp4',1024,'ready',now())`, [videoId, creatorId]);
     const detail = await provider.getPathBySlug({ slug: "ruta-completa", userId: videoStudentId });
     const skippedOption = detail?.version.units[0]?.steps[0]?.options
       .find((entry) => entry.projection === "video");
@@ -372,7 +382,7 @@ describe("guided-learning catalog and versioning", () => {
       .find((entry) => entry.projection === "video");
     if (!skippedOption || !observedOption) throw new Error("Expected native video options");
     expect((await provider.getHome({ userId: videoStudentId })).tasks
-      .some((task) => task.href.includes(skippedOption.id) || task.href.includes(observedOption.id))).toBe(false);
+      .some((task) => task.href.includes(skippedOption.id) || task.href.includes(observedOption.id))).toBe(true);
 
     const skippedAttempt = await provider.createAttempt({
       idempotencyKey: "74000000-0000-4000-8000-000000000001",
@@ -404,7 +414,7 @@ describe("guided-learning catalog and versioning", () => {
     });
     if (observedAttempt.status !== "success") throw new Error("Expected observed video attempt");
     expect((await provider.getHome({ userId: videoStudentId })).tasks
-      .some((task) => task.href.includes(observedOption.id))).toBe(false);
+      .some((task) => task.kind === "resume" && task.href.includes(observedOption.id))).toBe(true);
     let current = observedAttempt.value.attempt;
     let finalAwards = observedAttempt.value.awards;
     for (let segment = 0; segment < 9; segment += 1) {
@@ -763,8 +773,9 @@ describe("guided-learning catalog and versioning", () => {
       if (revealed.status !== "success") throw new Error("Expected retry reveal");
       retryAttempt = revealed.value.attempt;
     }
-    let expectedReviewVersion = retryItem.reviewStateVersion;
-    for (const round of [1, 2, 3] as const) {
+    const expectedReviewVersion = retryItem.reviewStateVersion;
+    {
+      const round = 1;
       const response = await provider.recordAttemptResponse({
         attemptId: retryAttempt.id,
         idempotencyKey: `69000000-0000-4000-8005-00000000000${round}`,
@@ -788,14 +799,12 @@ describe("guided-learning catalog and versioning", () => {
       if (response.status !== "success" || !response.value.feedback?.reviewState) {
         throw new Error("Expected persisted relearning round");
       }
-      expect(response.value.feedback.grading.sessionRetry).toBe(round < 3);
+      expect(response.value.feedback.grading.sessionRetry).toBe(false);
       expect(response.value.feedback.scheduleApplied).toBe(true);
-      expectedReviewVersion = response.value.feedback.reviewState.rowVersion;
       retryAttempt = response.value.attempt;
-      if (round === 3) {
-        expect(response.value.feedback.reviewState.nextDueAt)
-          .toBe(new Date(clockNow.getTime() + 86_400_000).toISOString());
-      }
+      expect(response.value.feedback.reviewState.nextDueAt)
+        .toBe(new Date(clockNow.getTime() + 600_000).toISOString());
+      expect(retryAttempt.responses.filter((entry) => entry.itemId === retryItem.itemId)).toHaveLength(1);
     }
     expect(retryAttempt.resume.currentIndex).toBe(2);
     for (let index = 2; index < firstManifest.items.length; index += 1) {
@@ -847,6 +856,47 @@ describe("guided-learning catalog and versioning", () => {
       [retryAttempt.id],
     );
     expect(completedReviews.rows[0]?.count).toBe("1");
+
+    // A new pass cannot bypass the server's due time or reset the short-retry limit.
+    for (const retry of [1, 2]) {
+      clockNow = new Date(clockNow.getTime() + 599_999);
+      const early = await provider.createReviewSession({
+        userId: studentId, idempotencyKey: `69000000-0000-4000-8010-00000000000${retry}`,
+        request: { clientAttemptId: `69000000-0000-4000-8011-00000000000${retry}`, sessionMinutes: 5 },
+      });
+      expect(early.status).toBe("invalid_state");
+      clockNow = new Date(clockNow.getTime() + 1);
+      const started = await provider.createReviewSession({
+        userId: studentId, idempotencyKey: `69000000-0000-4000-8012-00000000000${retry}`,
+        request: { clientAttemptId: `69000000-0000-4000-8013-00000000000${retry}`, sessionMinutes: 5 },
+      });
+      if (started.status !== "success" || started.value.attempt.manifest.projection !== "review") throw new Error("Expected due retry");
+      let attempt = started.value.attempt;
+      const item = started.value.attempt.manifest.items[0]!;
+      expect(started.value.attempt.manifest.items.map((entry) => entry.itemId)).toEqual([retryItem.itemId]);
+      expect(attempt.revealedCards).toEqual([]);
+      if (item.kind === "flashcards") {
+        const revealed = await provider.revealAttemptItem({
+          userId: studentId, attemptId: attempt.id, itemId: item.itemId, expectedVersion: attempt.rowVersion,
+          idempotencyKey: `69000000-0000-4000-8014-00000000000${retry}`,
+        });
+        if (revealed.status !== "success") throw new Error("Expected fresh reveal");
+        attempt = revealed.value.attempt;
+      }
+      const request = {
+        expectedReviewVersion: item.reviewStateVersion, expectedVersion: attempt.rowVersion,
+        itemId: item.itemId, round: 1,
+        ...(item.kind === "quiz" ? { kind: "quiz" as const, optionId: item.options[1]!.id } : { kind: "flashcards" as const, recallGrade: "again" as const }),
+      };
+      const input = { userId: studentId, attemptId: attempt.id, request, idempotencyKey: `69000000-0000-4000-8015-00000000000${retry}` };
+      const saved = await provider.recordAttemptResponse(input);
+      if (saved.status !== "success") throw new Error("Expected accepted retry");
+      expect(saved.value.attempt.status).toBe("completed");
+      expect(saved.value.feedback?.grading.sessionRetry).toBe(false);
+      expect(saved.value.feedback?.reviewState?.nextDueAt).toBe(new Date(clockNow.getTime() + (retry === 1 ? 600_000 : 86_400_000)).toISOString());
+      expect(saved.value.awards).toEqual([]);
+      expect(await provider.recordAttemptResponse(input)).toEqual(saved);
+    }
   });
 
   it("snoozes presentation without changing due dates and filters paused routes", async () => {
@@ -1495,7 +1545,29 @@ describe("guided-learning catalog and versioning", () => {
       .toEqual([]);
   });
 
+  it("H01 holds a pinned option while another use of the same video can still launch", async () => {
+    const draft = routeDraft("opcion-en-revision");
+    const heldId = heldLearningOptionIds[2]!;
+    draft.definition.units[0]!.steps[0]!.options[0]!.id = heldId;
+    const created = await provider.createPath({ actorUserId: creatorId, draft });
+    if (created.status !== "success") throw new Error("Expected fixture route");
+    const pathId = created.value.id;
+    for (const [index, status] of (["in_review", "approved", "published"] as const).entries()) {
+      expect((await provider.transitionPath({ actorUserId: index === 0 ? creatorId : coordinatorId, canPublish: index > 0, canReview: index > 0, expectedVersion: index + 1, pathId, status })).status).toBe("success");
+    }
+    await provider.createEnrollment({ userId: otherStudentId, pathId });
+    const launch = (stepOptionId: string) => provider.createAttempt({ userId: otherStudentId, idempotencyKey: randomUUID(), request: { stepOptionId, clientAttemptId: randomUUID() } });
+    expect((await launch(heldId)).status).toBe("resource_changed");
+    const otherVideo = created.value.version.units[1]!.steps[0]!.options.find(option => option.projection === "video")!;
+    expect((await launch(otherVideo.id)).status).toBe("success");
+    expect((await pg.query("select id from learning_attempts where step_option_id=$1", [heldId])).rows).toEqual([]);
+  });
+
   it("keeps historical attempts readable while retired resources cannot launch again", async () => {
+    const currentPath = await provider.getPathBySlug({ slug: "ruta-completa", userId: studentId });
+    const videoOption = currentPath?.version.units.flatMap((unit) => unit.steps)
+      .flatMap((step) => step.options).find((option) => option.projection === "video");
+    if (!videoOption) throw new Error("Expected current video option");
     const historical = await pg.query<{ id: string }>(
       "select id from learning_attempts where user_id = $1 and projection = 'video' and status = 'completed' order by created_at asc limit 1",
       [studentId],
@@ -1508,10 +1580,8 @@ describe("guided-learning catalog and versioning", () => {
     expect((await provider.getAttempt({ attemptId: historical.rows[0]!.id, userId: studentId })).status)
       .toBe("success");
 
-    const currentPath = await provider.getPathBySlug({ slug: "ruta-completa", userId: studentId });
-    const videoOption = currentPath?.version.units.flatMap((unit) => unit.steps)
-      .flatMap((step) => step.options).find((option) => option.projection === "video");
-    if (!videoOption) throw new Error("Expected current video option");
+    const retired = await provider.getPathBySlug({ slug: "ruta-completa", userId: studentId });
+    expect(retired?.version.units.flatMap(unit => unit.steps).flatMap(step => step.options).some(option => option.id === videoOption.id)).toBe(false);
     expect((await provider.createAttempt({
       idempotencyKey: "72000000-0000-4000-8000-000000000001",
       request: {

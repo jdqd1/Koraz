@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { learningOptionUnderReview } from "@cediah/contracts";
 import {
   ArrowLeft,
   BookOpen,
@@ -31,14 +32,11 @@ const evidenceLabels = {
 } as const;
 
 export function LearningPathScreen({ path, progress, upgrade, focusUnit }: { path: LearningPathDetail; progress: LearningEnrollmentProgress | null; upgrade: LearningEnrollmentUpgradePreviewResponse | null; focusUnit?: string }) {
-  const visibleUnits = path.version.units.map((unit) => ({
-    ...unit,
-    steps: unit.steps.filter((step) => step.options.some((option) => option.projection !== "video")),
-  })).filter((unit) => unit.steps.length > 0);
+  const visibleUnits = path.version.units;
   const progressByStep = new Map(progress?.units.flatMap((unit) => unit.steps).map((step) => [step.stepId, step]) ?? []);
   const progressByUnit = new Map(progress?.units.map((unit) => [unit.id, unit]) ?? []);
   const minutes = visibleUnits.flatMap((unit) => unit.steps).reduce((sum, step) => {
-    const selected = step.options.find((option) => option.isDefault && option.projection !== "video") ?? step.options.find((option) => option.projection !== "video");
+    const selected = step.options.find((option) => option.isDefault) ?? step.options[0];
     return sum + (selected?.estimatedMinutes ?? 0);
   }, 0);
   const currentUnitIndex = Math.max(0, visibleUnits.findIndex((unit) => {
@@ -101,7 +99,9 @@ export function LearningPathScreen({ path, progress, upgrade, focusUnit }: { pat
                   <li data-state={stepProgress?.state ?? "not_started"} key={step.id}>
                     <div className="learning-step-heading"><span>{stepProgress?.state === "completed" ? "Completada" : stepProgress?.state === "in_progress" ? "En progreso" : stepProgress?.state === "skipped" ? "Omitida, no completada" : step.isEssential ? "Esencial" : "Opcional"}</span><h3>{step.title}</h3>{path.enrollment && stepProgress?.state !== "completed" ? <LearningStepPreference enrollmentId={path.enrollment.id} rowVersion={stepProgress?.rowVersion ?? 0} skipped={stepProgress?.state === "skipped"} stepId={step.id} /> : null}</div>
                     <div className="learning-option-list">
-                      {step.options.filter((option) => option.projection !== "video").map((option) => {
+                      {!step.options.length ? <p>Material no disponible.</p> : null}
+                      {step.options.map((option) => {
+                        if (learningOptionUnderReview(option.id)) return <p key={option.id}>Material en revisión editorial.</p>;
                         const Icon = projectionIcons[option.projection];
                         const href = `/aprendizaje/rutas/${path.slug}/actividades/${step.id}?opcion=${option.id}`;
                         return path.enrollment ? (

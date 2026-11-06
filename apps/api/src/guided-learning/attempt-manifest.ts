@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   LearningAttemptManifestSchema,
+  hasDuplicateOptionText,
   LearningAttemptResumeSchema,
   LearningCompletionRuleSchema,
   LearningOptionConfigSchema,
@@ -89,7 +90,9 @@ export function createStoredAttemptManifest(input: {
   if (input.projection === "quiz") {
     const parsed = quizAdapter.parse(input.content);
     const selected = selectedIds(input.config, parsed.questions.map((question) => question.id));
-    content = { questions: parsed.questions.filter((question) => selected.has(question.id)) };
+    const questions = parsed.questions.filter((question) => selected.has(question.id));
+    if (questions.some((question) => hasDuplicateOptionText(question.options))) throw new Error("Cuestionario en revisión editorial");
+    content = { questions };
   } else if (input.projection === "flashcards") {
     const parsed = flashcardAdapter.parse(input.content);
     const selected = selectedIds(input.config, parsed.cards.map((card) => card.id));

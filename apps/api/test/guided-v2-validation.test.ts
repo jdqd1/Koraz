@@ -8,6 +8,18 @@ import { hashRoutePackage, validateBoundRoutePackage, type BoundValidationContex
 
 const uuid = (last: number) => `10000000-0000-4000-8000-${String(last).padStart(12, "0")}`;
 const hash = "a".repeat(64);
+
+it("H02 rejects indistinguishable choice text before publication", () => {
+  const pkg = fixture();
+  const item = pkg.activities.find((activity) => activity.kind === "single_choice")!;
+  if (item.kind !== "single_choice") throw new Error("Expected choice fixture");
+  item.payload.options[0]!.text = "Ilíacas comunes";
+  item.payload.options[1]!.text = " Ili\u0301acas\u00a0 comunes ";
+  const result = validateRoutePackage(pkg);
+  expect(result.valid).toBe(false);
+  expect(result.publishable).toBe(false);
+  expect(result.issues).toContainEqual(expect.objectContaining({ path: `/activities/${pkg.activities.indexOf(item)}/payload/options`, severity: "error" }));
+});
 const rationale = "Umbral editorial inicial de producto para este objetivo sintético.";
 const base = (key: string, phase: RouteActivity["phase"], use: RouteActivity["use"], representation: RouteActivity["representation"] = "text") => ({
   key, objectiveKey: "objective", relatedObjectiveKeys: [], phase, kind: "single_choice" as const,

@@ -4,7 +4,7 @@ import {
   ClipboardText,
   Compass,
   PlayCircle,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import type { ContentKind } from "@cediah/contracts";
 
 const coverIcons: Record<ContentKind, typeof BookOpen> = {

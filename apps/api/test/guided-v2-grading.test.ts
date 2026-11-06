@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { RouteActivitySchema, type RouteActivity } from "@cediah/contracts";
 import {
   gradeBasicActivity, gradeConstructedResponse, gradeImageTarget, gradeMatch, gradeSequence,
@@ -79,6 +80,27 @@ function image(mode: "hotspot" | "labeling", masking: "no_labels" | "partial_lab
 }
 
 describe("guided v2 basic grading", () => {
+  it("H25 replays the observed false negative against the pinned and proposed aliases", () => {
+    const patch: { op: string; path: string; value: unknown }[] = JSON.parse(readFileSync(new URL("../../../docs/aprendizaje-guiado/plan-maestro/cava-r1.propuesta.patch.json", import.meta.url), "utf8"));
+    const activity = short();
+    const observed = "Las venas ilíacas comunes derecha e izquierda";
+    for (const [operation, score01] of [["test", 0], ["replace", 1]] as const) {
+      const aliases = patch.find(entry => entry.op === operation && entry.path.endsWith("/acceptedAnswers"))?.value;
+      const revision = RouteActivitySchema.parse({ ...activity, payload: { ...activity.payload, acceptedAnswers: aliases } });
+      if (revision.kind !== "short_answer") throw new Error("Expected short answer");
+      const grade = (text: string) => gradeShortAnswer(revision, { kind: "short_answer", text });
+      expect(grade(observed)).toMatchObject({ status: "graded", score01 });
+      for (const wrong of ["las arterias ilíacas comunes derecha e izquierda", "no son las venas ilíacas comunes", "la vena ilíaca común derecha", "las venas ilíacas externas"]) {
+        expect(grade(wrong)).toMatchObject({ status: "graded", score01: 0 });
+      }
+    }
+  });
+
+  it("H02 refuses to score previously published choices with identical visible labels", () => {
+    const activity = choice();
+    activity.payload.options[1]!.text = activity.payload.options[0]!.text;
+    expect(gradeSingleChoice(activity, { kind: "single_choice", optionKey: "yes" })).toEqual({ status: "invalid", code: "INVALID_ACTIVITY" });
+  });
   it("P05 applies only NFKC, Spanish lowercase, trim and whitespace collapse", () => {
     expect(normalizeShortAnswer("  １５\u00a0 MG \t ")).toBe("15 mg");
     expect(normalizeShortAnswer("  SÍ  administrar  ")).toBe("sí administrar");

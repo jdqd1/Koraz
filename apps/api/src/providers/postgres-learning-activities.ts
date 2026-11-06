@@ -4,6 +4,7 @@ import {
   LearningAttemptMutationResponseSchema,
   LearningAttemptResumeSchema,
   LearningAttemptSchema,
+  learningOptionUnderReview,
   LearningCompletionRuleSchema,
   LearningEnrollmentProgressSchema,
   LearningObjectiveSchema,
@@ -38,6 +39,7 @@ import {
   type StoredRouteAttemptManifest,
 } from "../guided-learning/attempt-manifest.js";
 import { gradeQuizOption } from "../guided-learning/adapters/quiz.js";
+import { optionHasVideoSource } from "../guided-learning/video-availability.js";
 import { recomputeObjectiveEvidence } from "../guided-learning/learning-evidence.js";
 import { withLearningReceipt } from "../guided-learning/mutation-receipt.js";
 import { learningEventTime } from "../guided-learning/time-zone.js";
@@ -54,6 +56,7 @@ import {
 } from "../guided-learning/review-scheduler.js";
 import {
   awardAppliedReview,
+  lockLearningRewards,
   awardCompletedRoute,
   awardCompletedStep,
   awardCompletedUnit,
@@ -633,9 +636,17 @@ async function lockedAttempt(
   transaction: Transaction<CediahDatabase>,
   attemptId: string,
   userId: string,
-) {
-  return transaction.selectFrom("learning_attempts").selectAll()
+  expectedVersion: number,
+): Promise<GuidedLearningResult<AttemptRow>> {
+  const row = await transaction.selectFrom("learning_attempts").selectAll()
     .where("id", "=", attemptId).where("user_id", "=", userId).forUpdate().executeTakeFirst();
+  if (!row) return { status: "not_found" };
+  if (row.status !== "in_progress") return { status: "invalid_state" };
+  if (learningOptionUnderReview(row.step_option_id)) return { status: "resource_changed" };
+  if (row.row_version !== expectedVersion) return { status: "version_conflict" };
+  if (row.projection === "video" && row.step_option_id && !await transaction.selectFrom("learning_step_options")
+    .select("id").where("id", "=", row.step_option_id).where(optionHasVideoSource).executeTakeFirst()) return { status: "resource_changed" };
+  return { status: "success", value: row };
 }
 
 export function createPostgresLearningActivityMethods(
@@ -759,11 +770,13 @@ export function createPostgresLearningActivityMethods(
             "learning_path_steps.purpose", "learning_enrollments.id as enrollment_id",
             "learning_resource_revisions.payload_hash", "learning_resource_revisions.payload_json",
             "learning_resources.retired_at", "content_items.status as source_status",
+            optionHasVideoSource.as("has_video_source"),
           ]).where("learning_step_options.id", "=", input.request.stepOptionId)
           .where("learning_path_versions.status", "=", LearningPathStatusSchema.enum.published)
           .where("learning_paths.archived_at", "is", null)
           .where("learning_enrollments.status", "=", "active").executeTakeFirst();
         if (!option) return { status: "not_found" };
+        if (!option.has_video_source || learningOptionUnderReview(option.id)) return { status: "resource_changed" };
         if (option.retired_at || option.source_status !== "published") return { status: "resource_changed" };
         if (hashLearningSnapshot(option.payload_json) !== option.payload_hash) return { status: "resource_changed" };
         const snapshot = RevisionSnapshotSchema.safeParse(option.payload_json);
@@ -828,9 +841,10 @@ export function createPostgresLearningActivityMethods(
     },
 
     async getAttemptMedia(input) {
-      const attempt = await database.selectFrom("learning_attempts").select(["manifest_json", "projection"])
+      const attempt = await database.selectFrom("learning_attempts").select(["manifest_json", "projection", "step_option_id"])
         .where("id", "=", input.attemptId).where("user_id", "=", input.userId).executeTakeFirst();
       if (!attempt || attempt.projection !== "video") return { status: "not_found" };
+      if (learningOptionUnderReview(attempt.step_option_id)) return { status: "resource_changed" };
       const manifest = parseStoredAttemptManifest(attempt.manifest_json);
       if (manifest.projection === "review") return { status: "not_found" };
       const publicManifest = toPublicAttemptManifest(manifest);
@@ -876,10 +890,9 @@ export function createPostgresLearningActivityMethods(
         userId: input.userId,
       }, async () => {
         const acceptedAt = clock();
-        const row = await lockedAttempt(transaction, input.attemptId, input.userId);
-        if (!row) return { status: "not_found" };
-        if (row.status !== "in_progress") return { status: "invalid_state" };
-        if (row.row_version !== input.request.expectedVersion) return { status: "version_conflict" };
+        const locked = await lockedAttempt(transaction, input.attemptId, input.userId, input.request.expectedVersion);
+        if (locked.status !== "success") return locked;
+        const row = locked.value;
         const manifest = parseStoredAttemptManifest(row.manifest_json);
         if (manifest.projection === "review") return { status: "invalid_state" };
         const resume = LearningAttemptResumeSchema.parse(row.resume_json);
@@ -933,10 +946,9 @@ export function createPostgresLearningActivityMethods(
         request: { attemptId: input.attemptId, expectedVersion: input.expectedVersion, itemId: input.itemId, operation: "reveal" },
         userId: input.userId,
       }, async () => {
-        const row = await lockedAttempt(transaction, input.attemptId, input.userId);
-        if (!row) return { status: "not_found" };
-        if (row.status !== "in_progress") return { status: "invalid_state" };
-        if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
+        const locked = await lockedAttempt(transaction, input.attemptId, input.userId, input.expectedVersion);
+        if (locked.status !== "success") return locked;
+        const row = locked.value;
         const manifest = parseStoredAttemptManifest(row.manifest_json);
         if (!(await available(transaction, manifest))) return { status: "resource_changed" };
         if (!manifestCard(manifest, input.itemId)) return { status: "not_found" };
@@ -953,16 +965,17 @@ export function createPostgresLearningActivityMethods(
     },
 
     async recordAttemptResponse(input) {
-      return database.transaction().execute((transaction) => withReceipt(transaction, {
+      return database.transaction().execute(async (transaction) => {
+        await lockLearningRewards(transaction, input.userId);
+        return withReceipt(transaction, {
         idempotencyKey: input.idempotencyKey,
         request: { attemptId: input.attemptId, operation: "response", ...input.request },
         userId: input.userId,
       }, async () => {
         const acceptedAt = clock();
-        const row = await lockedAttempt(transaction, input.attemptId, input.userId);
-        if (!row) return { status: "not_found" };
-        if (row.status !== "in_progress") return { status: "invalid_state" };
-        if (row.row_version !== input.request.expectedVersion) return { status: "version_conflict" };
+        const locked = await lockedAttempt(transaction, input.attemptId, input.userId, input.request.expectedVersion);
+        if (locked.status !== "success") return locked;
+        const row = locked.value;
         const manifest = parseStoredAttemptManifest(row.manifest_json);
         const isReview = manifest.projection === "review";
         if ((!isReview && input.request.round !== 1) || (isReview && input.request.round > 3)) {
@@ -994,7 +1007,7 @@ export function createPostgresLearningActivityMethods(
             .executeTakeFirst();
           const previousGrading = previous ? parseRecord(previous.grading_json) : {};
           const previousWasAgain = previousGrading.recallGrade === "again" || previousGrading.correct === false;
-          if (!previous || !previous.schedule_applied || !previousWasAgain) return { status: "invalid_state" };
+          if (!previous || !previous.schedule_applied || !previousWasAgain || previousGrading.sessionRetry !== true) return { status: "invalid_state" };
         }
 
         let answer: Record<string, unknown>;
@@ -1040,15 +1053,31 @@ export function createPostgresLearningActivityMethods(
         const reviewVersionMatches = !isReview ||
           input.request.expectedReviewVersion === currentReviewState.row_version;
         const isDue = new Date(currentReviewState.next_due_at).getTime() <= acceptedAt.getTime();
+        if (isReview && input.request.round > 1 && (!isDue || !reviewVersionMatches)) return { status: "version_conflict" };
         const scheduleApplied = reviewVersionMatches &&
-          (currentReviewState.last_reviewed_at === null || isDue || (isReview && input.request.round > 1));
+          (currentReviewState.last_reviewed_at === null || isDue);
+        const recentFailures = isReview && scheduleApplied
+            ? await transaction.selectFrom("learning_responses as response")
+              .innerJoin("learning_attempts as attempt", "attempt.id", "response.attempt_id")
+              .select("response.answered_at")
+              .where("attempt.user_id", "=", input.userId).where("attempt.projection", "=", "review")
+              .where("response.item_id", "=", input.request.itemId).where("response.memory_version", "=", memoryVersion)
+              .where("response.schedule_applied", "=", true)
+              .where("response.answered_at", ">", new Date(acceptedAt.getTime() - 86_400_000))
+              .where("response.answered_at", "<=", acceptedAt)
+              .where(sql<boolean>`(response.grading_json->>'recallGrade' = 'again' or response.grading_json->>'correct' = 'false')`)
+              .orderBy("response.answered_at", "desc").limit(2).execute()
+            : [];
+        const shortRetry = currentReviewState.last_reviewed_at !== null
+          && new Date(currentReviewState.next_due_at).getTime() - new Date(currentReviewState.last_reviewed_at).getTime() === 600_000
+          && recentFailures.some((response) => new Date(response.answered_at).getTime() === new Date(currentReviewState.last_reviewed_at!).getTime());
         let nextReviewState = currentReviewState;
         if (scheduleApplied) {
           const scheduled = scheduleReview(
             currentReviewState,
             grade,
             acceptedAt,
-            isReview ? input.request.round - 1 : 0,
+            recentFailures.length,
           );
           nextReviewState = {
             ...currentReviewState,
@@ -1060,8 +1089,7 @@ export function createPostgresLearningActivityMethods(
           };
         }
         const reviewState = reviewStateSummary(nextReviewState);
-        const sessionRetry = isReview && scheduleApplied && grade === "again" && input.request.round < 3;
-        grading = { ...grading, reviewState, ...(isReview ? { sessionRetry } : {}) };
+        grading = { ...grading, reviewState, ...(isReview ? { sessionRetry: false } : {}) };
         const inserted = await transaction.insertInto("learning_responses").values({
           answer_json: answer as JsonValue,
           answered_at: acceptedAt,
@@ -1104,7 +1132,7 @@ export function createPostgresLearningActivityMethods(
             semantic_key: `review_applied:${inserted.id}`,
             user_id: input.userId,
           }).returning("id").executeTakeFirstOrThrow();
-          if (input.request.round === 1) awards.push(...await awardAppliedReview(transaction, {
+          if (input.request.round === 1 && !shortRetry) awards.push(...await awardAppliedReview(transaction, {
             acceptedAt,
             eventId: reviewEvent.id,
             itemId: input.request.itemId,
@@ -1125,7 +1153,7 @@ export function createPostgresLearningActivityMethods(
           scheduleApplied: inserted.schedule_applied,
         };
         const collection = input.request.kind === "quiz" ? resume.answeredItemIds : resume.ratedItemIds;
-        if (!sessionRetry && !collection.includes(input.request.itemId)) collection.push(input.request.itemId);
+        if (!collection.includes(input.request.itemId)) collection.push(input.request.itemId);
         const required = manifestItemIds(manifest);
         const finalized = isReview
           ? new Set([...resume.answeredItemIds, ...resume.ratedItemIds])
@@ -1155,7 +1183,8 @@ export function createPostgresLearningActivityMethods(
         }).where("id", "=", row.id).where("row_version", "=", row.row_version)
           .returningAll().executeTakeFirstOrThrow();
         return mutationResponse(transaction, updated, input.userId, feedback, awards);
-      }));
+        });
+      });
     },
 
     async completeAttempt(input) {
@@ -1165,10 +1194,9 @@ export function createPostgresLearningActivityMethods(
         userId: input.userId,
       }, async () => {
         const acceptedAt = clock();
-        const row = await lockedAttempt(transaction, input.attemptId, input.userId);
-        if (!row) return { status: "not_found" };
-        if (row.status !== "in_progress") return { status: "invalid_state" };
-        if (row.row_version !== input.request.expectedVersion) return { status: "version_conflict" };
+        const locked = await lockedAttempt(transaction, input.attemptId, input.userId, input.request.expectedVersion);
+        if (locked.status !== "success") return locked;
+        const row = locked.value;
         const manifest = parseStoredAttemptManifest(row.manifest_json);
         if (manifest.projection === "review") return { status: "invalid_state" };
         if (!(await available(transaction, manifest))) return { status: "resource_changed" };

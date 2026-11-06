@@ -119,7 +119,7 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
   const narrative = promptParts.length > 1 ? promptParts.slice(0, -1).join("\n\n") : null;
   const tools = activity && attempt.purpose !== "assessment" && ["single_choice", "short_answer", "constructed_response", "sequence", "match"].includes(activity.kind) ? <div>
     <div className={ui.tools}>
-      <button type="button" disabled={disabled} aria-label="Necesito ayuda" aria-pressed={help?.kind === "hint" && helpExpanded} onClick={() => requestHelp("hint")}><Lightbulb aria-hidden size={19} />Pista</button>
+      {activity.hasHint !== false ? <button type="button" disabled={disabled} aria-label="Necesito ayuda" aria-pressed={help?.kind === "hint" && helpExpanded} onClick={() => requestHelp("hint")}><Lightbulb aria-hidden size={19} />Pista</button> : null}
       <button type="button" disabled={disabled} aria-label="Consultar fuente con ayuda" aria-pressed={help?.kind === "source" && helpExpanded} onClick={() => requestHelp("source")}><BookOpen aria-hidden size={19} />Fuente</button>
     </div>
     {helpExpanded && help?.activityKey === activity.key && help.kind !== "reveal" ? <aside className={ui.help} role="status">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { learningOptionUnderReview } from "@cediah/contracts";
 import { notFound } from "next/navigation";
 import { ActivityLauncher } from "@/components/learning/activity-launcher";
 import {
@@ -22,7 +23,11 @@ export default async function LearningActivityPage({
   const step = pathResult.path.version.units.flatMap((unit) => unit.steps)
     .find((entry) => entry.id === stepId);
   const option = step?.options.find((entry) => entry.id === query.opcion);
-  if (!step || !option || option.projection === "video") notFound();
+  if (!step || !option) notFound();
+  if (learningOptionUnderReview(option.id)) return <main className="learning-main"><section className="learning-empty">
+    <h1>Material en revisión editorial</h1><p>Esta actividad necesita un material que corresponda a la unidad.</p>
+    <Link className="learning-secondary-button" href={`/aprendizaje/rutas/${slug}`}>Volver a la ruta</Link>
+  </section></main>;
 
   const progressResult = await getLearningProgress(pathResult.path.enrollment.id);
   if (progressResult.status !== "ready") {

@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import type { ContentKind } from "@cediah/contracts";
 import Link from "next/link";
 import type { ReactNode } from "react";

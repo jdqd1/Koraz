@@ -44,7 +44,7 @@ const definition = RoutePackageSchema.parse({
       options: [{ key: "yes", text: "Sí" }, { key: "no", text: "No" }], correctKey: "yes",
       distractorFeedback: { no: "No es esa relación." },
     } },
-    { ...base, key: "short", kind: "short_answer", equivalenceKey: "second-family", payload: {
+    { ...base, key: "short", kind: "short_answer", hints: [], equivalenceKey: "second-family", payload: {
       acceptedAnswers: ["15 mg"], maxChars: 80, modelAnswer: "15 mg", normalization: "nfkc-lower-space",
     } },
     { ...base, key: "constructed", kind: "constructed_response", equivalenceKey: "third-family", payload: {
@@ -318,6 +318,17 @@ describe("guided v2 attempt persistence", () => {
 
   const create = (clientAttemptId: string, idempotencyKey: string, target: { kind: "activity" | "assessment" | "review"; key: string }) =>
     service.create({ userId, enrollmentId, clientAttemptId, idempotencyKey, target, expectedEnrollmentVersion: 1 });
+
+  it("H30 rejects a missing hint without recording assistance or advancing the attempt", async () => {
+    const created = await create(id(201), id(202), { kind: "activity", key: "short" });
+    if (created.status !== "success") throw new Error("create failed");
+    expect(created.value.activeActivity).toMatchObject({ hasHint: false });
+    const result = await service.help({ userId, attemptId: created.value.attemptId, idempotencyKey: id(203),
+      activityKey: "short", kind: "hint", expectedVersion: 1 });
+    expect(result.status).toBe("invalid_answer");
+    expect(await service.read({ userId, attemptId: created.value.attemptId })).toEqual(created);
+    expect((await pg.query("select id from learning_events where event_type='help_requested' and user_id=$1", [userId])).rows).toEqual([]);
+  });
 
   it("fixes a private snapshot and resumes the same stage without exposing future answers", async () => {
     const first = await create(id(1), id(2), { kind: "assessment", key: "check" });

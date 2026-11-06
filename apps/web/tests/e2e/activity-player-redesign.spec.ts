@@ -182,7 +182,11 @@ for (const mode of ["quiz", "flashcards", "guide", "review", "review-card", "vid
       await expect(page.getByText("A precede a B.", { exact: true })).toBeVisible();
       await page.getByRole("button", { name: "La recordé", exact: true }).click();
     } else if (mode === "guide") await page.getByRole("button", { name: "Terminé esta lectura" }).click();
-    else if (mode.includes("video")) await page.getByRole("button", { name: mode === "video" ? "Omitir video y completar" : "Completar video", exact: true }).click();
+    else if (mode === "video") {
+      await expect(page.getByRole("button", { name: "Omitir video y completar", exact: true })).toBeDisabled();
+      await expect(page.getByRole("heading", { name: "Actividad completada" })).toHaveCount(0);
+      return;
+    } else if (mode === "external-video") await page.getByRole("button", { name: "Completar video", exact: true }).click();
     else { await page.getByRole("radio").first().check(); await page.getByRole("button", { name: "Comprobar", exact: true }).click(); }
     await expect(page.getByRole("heading", { name: /Actividad completada|Repaso completado/ })).toBeVisible();
   });

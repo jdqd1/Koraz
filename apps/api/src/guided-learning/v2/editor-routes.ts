@@ -107,10 +107,11 @@ export function createEditorPreviewSimulator(packageInput: unknown, profile: z.i
           version++; result = { attempt: manifest(), state: state() };
         } else if (action.operation === "help") {
           if (current.snapshot.target.kind === "assessment" || action.body.kind === "reveal" && activity.kind === "constructed_response" && !current.resume.submittedTextByActivity[activity.key]) throw new Error("conflict");
+          if (action.body.kind === "hint" && !activity.hints.some((hint) => hint.trim())) throw new Error("invalid_answer");
           if (!current.resume.assistedKeys.includes(activity.key)) current.resume.assistedKeys.push(activity.key);
           if (action.body.kind === "reveal" && !current.resume.revealedKeys.includes(activity.key)) current.resume.revealedKeys.push(activity.key);
           const id = randomUUID(); events.push(action.body.kind === "reveal" ? { id, semanticKey: id, at: now, kind: "reveal", activityKey: activity.key } : { id, semanticKey: id, at: now, kind: "interaction", activityKey: activity.key, assisted: true });
-          const text = action.body.kind === "hint" ? activity.hints[0] ?? "Revisa el enunciado y las relaciones clave." : action.body.kind === "source" ? definition.sources.find(item => activity.sourceKeys.includes(item.key))?.excerpt ?? "La fuente vinculada no tiene un fragmento disponible." : activity.kind === "constructed_response" || activity.kind === "short_answer" ? activity.payload.modelAnswer : activity.feedback.explanation;
+          const text = action.body.kind === "hint" ? activity.hints.find((hint) => hint.trim())! : action.body.kind === "source" ? definition.sources.find(item => activity.sourceKeys.includes(item.key))?.excerpt ?? "La fuente vinculada no tiene un fragmento disponible." : activity.kind === "constructed_response" || activity.kind === "short_answer" ? activity.payload.modelAnswer : activity.feedback.explanation;
           version++; result = { attempt: manifest(), help: { kind: action.body.kind, text } };
         } else {
           const grade = gradeBasicActivity(activity, action.body.answer, { revealed: current.resume.revealedKeys.includes(activity.key), submittedText: current.resume.submittedTextByActivity[activity.key] });

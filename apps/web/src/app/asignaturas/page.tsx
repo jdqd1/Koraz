@@ -1,4 +1,5 @@
 import { SubjectDirectoryScreen } from "@/components/subject-directory-screen";
+import { PracticeLibraryScreen } from "@/components/practice-library-screen";
 import { isStudyContentKind } from "@/lib/content-navigation";
 import { getPublishedStudyCatalog, getSubjects } from "@/lib/server/content-api";
 import { currentUserIsAdministrator } from "@/lib/server/current-user";
@@ -14,6 +15,7 @@ export default async function SubjectsPage({ searchParams }: SubjectsPageProps) 
   const params = await searchParams;
   const requestedKind = Array.isArray(params.tipo) ? params.tipo[0] : params.tipo;
   const kind = isStudyContentKind(requestedKind) && requestedKind !== "video" ? requestedKind : undefined;
+  if (kind === "quiz" || kind === "flashcards") return <PracticeLibraryScreen kind={kind} params={params} isAdministrator={await currentUserIsAdministrator()} />;
   const [result, isAdministrator, contentResult] = await Promise.all([
     getSubjects(),
     currentUserIsAdministrator(),

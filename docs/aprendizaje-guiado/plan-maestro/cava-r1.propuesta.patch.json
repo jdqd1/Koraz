@@ -1,0 +1,44 @@
+[
+  {
+    "op": "test",
+    "path": "/packageKey",
+    "value": "vascularizacion-abdomen"
+  },
+  {
+    "op": "test",
+    "path": "/revision",
+    "value": 3
+  },
+  {
+    "op": "test",
+    "path": "/activities/13/key",
+    "value": "cava-r1"
+  },
+  {
+    "op": "test",
+    "path": "/activities/13/payload/acceptedAnswers",
+    "value": [
+      "venas ilíacas comunes",
+      "venas iliacas comunes",
+      "venas ilíacas comunes derecha e izquierda",
+      "venas iliacas comunes derecha e izquierda"
+    ]
+  },
+  {
+    "op": "replace",
+    "path": "/revision",
+    "value": 4
+  },
+  {
+    "op": "replace",
+    "path": "/activities/13/payload/acceptedAnswers",
+    "value": [
+      "venas ilíacas comunes",
+      "venas iliacas comunes",
+      "venas ilíacas comunes derecha e izquierda",
+      "venas iliacas comunes derecha e izquierda",
+      "las venas ilíacas comunes derecha e izquierda",
+      "las venas iliacas comunes derecha e izquierda"
+    ]
+  }
+]

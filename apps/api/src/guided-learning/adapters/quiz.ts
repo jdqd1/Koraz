@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { GuideQuizQuestionSchema, PublicLearningQuestionSchema } from "@cediah/contracts";
+import { GuideQuizQuestionSchema, hasDuplicateOptionText, PublicLearningQuestionSchema } from "@cediah/contracts";
 import type { ActivityAdapter } from "./types.js";
 
 const ExecutableQuestionSchema = GuideQuizQuestionSchema.superRefine((question, context) => {
@@ -51,6 +51,7 @@ export const quizAdapter: ActivityAdapter<QuizPayload, {
 };
 
 export function gradeQuizOption(question: ExecutableQuestion, optionId: string) {
+  if (hasDuplicateOptionText(question.options)) return null;
   const correctOptionId = question.optionIds[question.correctOptionIndex];
   if (!question.optionIds.includes(optionId) || !correctOptionId) return null;
   return {

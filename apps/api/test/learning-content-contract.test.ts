@@ -1,11 +1,27 @@
 import { describe, expect, it } from "vitest";
 import {
   GuideQuizQuestionSchema,
+  QuizQuestionSchema,
   normalizeContentLearningIdentity,
   reconcileContentLearningIdentity,
 } from "@cediah/contracts";
 
 describe("learning content identity contracts", () => {
+  it.each([
+    ["Parietal y visceral", "Parietal y visceral"],
+    ["Ilíacas comunes", " Ili\u0301acas\u00a0  comunes "],
+  ])("rejects indistinguishable published options while preserving editable legacy drafts: %s", (first, second) => {
+    const question = { correctOptionIndex: 0, options: [first, second], prompt: "Pregunta" };
+    expect(GuideQuizQuestionSchema.safeParse(question).success).toBe(true);
+    expect(QuizQuestionSchema.safeParse(question).success).toBe(false);
+  });
+
+  it.each([["15 mg", "15 mcg"], ["10²", "102"], ["mL", "ML"], ["sí", "si"], ["derecha", "izquierda"]])(
+    "preserves meaningful differences between published options: %s / %s", (first, second) => {
+      expect(QuizQuestionSchema.safeParse({ correctOptionIndex: 0, options: [first, second], prompt: "Pregunta" }).success).toBe(true);
+    },
+  );
+
   it("accepts legacy questions but rejects partial or duplicate option identity", () => {
     const legacy = {
       correctOptionIndex: 1,

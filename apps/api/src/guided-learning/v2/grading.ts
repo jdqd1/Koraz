@@ -1,4 +1,4 @@
-import { RouteActivitySchema, V2AnswerSchema, type RouteActivity } from "@cediah/contracts";
+import { hasDuplicateOptionText, RouteActivitySchema, V2AnswerSchema, type RouteActivity } from "@cediah/contracts";
 import type { z } from "zod";
 
 type Answer = z.infer<typeof V2AnswerSchema>;
@@ -58,7 +58,7 @@ export function gradeSingleChoice(activity: ChoiceActivity, answer: ChoiceAnswer
   const keys = activity.payload.options.map((option) => option.key);
   const incorrect = keys.filter((key) => key !== activity.payload.correctKey);
   const distractors = Object.keys(activity.payload.distractorFeedback);
-  if (new Set(keys).size !== keys.length || !keys.includes(activity.payload.correctKey)
+  if (hasDuplicateOptionText(activity.payload.options.map(option => option.text)) || new Set(keys).size !== keys.length || !keys.includes(activity.payload.correctKey)
     || distractors.length !== incorrect.length
     || incorrect.some((key) => !activity.payload.distractorFeedback[key])) return { status: "invalid", code: "INVALID_ACTIVITY" };
   if (!keys.includes(answer.optionKey)) return { status: "invalid", code: "INVALID_OPTION_KEY" };
