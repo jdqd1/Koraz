@@ -1,6 +1,6 @@
 # Plan maestro de experiencia de aprendizaje Koraz
 
-**Actualizado el 5 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
+**Actualizado el 6 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
 
 **Prioridad vigente:** funcionamiento en móvil y escritorio. El rediseño visual se ejecuta después de superar la aceptación funcional. Tablet queda diferida por decisión del usuario.
 
@@ -14,13 +14,36 @@ Accesos: [hallazgos](#3-hallazgos-trazables) · [fases](#7-fases-de-implementaci
 
 Las secciones de auditoría describen lo observado el 3 y el 4 de noviembre. El estado de implementación posterior se registra por separado.
 
-## 0. Relevo por fases · 5 de noviembre de 2026
+## 0. Relevo por fases · 6 de noviembre de 2026
+
+**Especificaciones del usuario.** Cuando un recorrido necesite material, se puede crear contenido ficticio coherente para la ruta. Identificarlo como simulación, darle un objetivo, instrucciones y una respuesta o criterio de logro verificable, y mantenerlo reproducible en el entorno de pruebas. La aceptación técnica puede avanzar con esos materiales. La publicación de contenido médico para alumnos conserva su revisión editorial y sus fuentes.
+
+**Entrega solicitada.** Al finalizar la implementación, Koraz debe quedar completamente funcional y listo para producción. F10 exige un candidato identificable, los recorridos esenciales de alumno y editor aprobados en móvil y escritorio, compatibilidad de migraciones y reversión comprobada, y evidencia de los casos de aceptación del plan. Un fallo que impida estudiar, recuperar el progreso, calificar o publicar correctamente mantiene abierta la entrega. Registrar por separado la preparación del candidato y la verificación del despliegue efectivo.
 
 **Cómo continuar.** Trabajar una fase por conversación. Al terminarla, actualizar aquí los cambios, las pruebas que pasaron, los bloqueos y el primer paso de la siguiente sesión. Si una fase requiere una decisión editorial o evidencia externa, dejarla abierta con ese requisito explícito. F09 comienza después de la aceptación funcional móvil y de escritorio en F08.
 
-**Próxima sesión — continuar F01 desde la revisión editorial.** El editor ya permite reparar y publicar cuestionarios con opciones distintas. La comprobación T06 del currículo también está implementada. El siguiente paso es identificar qué objetivo cubre cada uno de los cuatro pasos de Peritoneo en revisión y elegir un material, proyección y revisión concretos para cada paso. Los cuatro identificadores y los materiales candidatos están en la [consulta de identidad editorial](../implementacion-aprendizaje-2026-11-04/identidad-editorial-2026-11-05.json).
+**Próximo trabajo técnico.** Continuar con F02 en el entorno aislado. Empezar por la última respuesta de repaso V1 y el diagnóstico V2. Cortar la conexión antes del envío y después de que el servidor lo acepte, recargar y reintentar desde otra pestaña. Comparar el recibo, el progreso y el saldo de XP. La simulación ya permite recorrer Peritoneo de principio a fin. La aceptación editorial de F01 permanece abierta para la liberación.
 
-**Para cerrar F01.** Editorial debe revisar los dos cuestionarios afectados, decidir qué preguntas tendrán distractores y cuáles serán tarjetas de consulta, aprobar o corregir las variantes de `cava-r1` y revisar la utilidad de las pistas y fuentes. Con esas decisiones, preparar revisiones nuevas y recorrerlas con un estudiante de permisos mínimos en el candidato, también desde una matrícula fijada a la revisión anterior. La fase sigue abierta. F02 espera esta aceptación.
+### F01 · candidato verificado el 6 de noviembre
+
+| Recorrido | Resultado |
+|---|---|
+| Peritoneo V1 | La [simulación](../../docs/aprendizaje-guiado/plan-maestro/peritoneo-simulacion.json) reconstruye las seis asociaciones esenciales de la v3 auditada. El candidato conserva las revisiones de guía y tarjetas de la primera unidad. Reemplaza el cuestionario de cuello en U1 por cinco preguntas de peritoneo. En U2, una guía de maqueta, cinco tarjetas y un cuestionario de cinco preguntas sustituyen los tres enlaces incorrectos. La segunda unidad tiene un objetivo nuevo y criterios de logro comprobables. |
+| Publicación y matrícula | Al clonar una edición cambian los ID de opción. La API ahora impide enviar a revisión, aprobar o publicar si el mismo paso conserva el material retirado de una edición anterior. La copia intacta señaló los cuatro pasos. La corregida pasó el flujo de publicación en PostgreSQL desechable. Una matrícula con una guía completada siguió fijada a v3 hasta adoptar v4. El intento histórico siguió disponible y el alumno terminó con 6/6 pasos y 100 %. [Prueba reproducible](../../apps/api/test/peritoneo-candidate-postgres.test.ts). |
+| Cuestionarios libres | La lectura de las dos revisiones identificó cinco preguntas con respuestas repetidas y una sexta con dos descripciones compatibles y sin explicación. La [propuesta para los dos bancos](../../docs/aprendizaje-guiado/plan-maestro/cuestionarios-candidatos.json) relaciona cada pregunta con su ítem histórico y especifica consigna, tres opciones, clave, explicación y fuentes. Sus seis preguntas pasan el contrato de publicación. El calificador acepta exactamente una opción en cada una. |
+| Diagnóstico abdominal V2 | Se recorrió por HTTP la admisión a «retorno portal» con el paquete abdominal 3 y con la copia candidata 4, usando el mismo texto y las mismas respuestas restantes. En la revisión 3, `cava-r1` recibió 0 y el objetivo pidió refuerzo. En la candidata, recibió 1 y el objetivo se habilitó. El recibo incluyó la fuente localizada, conservó el resultado al reintentar y mantuvo el saldo de XP. [Prueba de diagnóstico](../../apps/api/test/guided-v2-routes.test.ts). |
+
+**Verificación local.** Pasaron 90 pruebas en cinco archivos de API que cubren ambas rutas, catálogo, editor y calificación. Se repitieron con éxito seis recorridos de Chromium a 320, 390 y 1440 px con datos de interfaz controlados. Verifican los destinos de los pasos visibles y distinguen pista y fuente. Pasaron los tipos, la compilación y ESLint de la API. La revisión Peritoneo v4 se publicó únicamente dentro de la prueba y se eliminó con su base al terminar. La reconstrucción conserva las asociaciones auditadas y utiliza contenido de estudio simulado. En V2 se usaron los textos del paquete fijado, sus cinco fuentes y una identidad de estudiante de prueba.
+
+**Cómo repetir la prueba de Peritoneo.** Desde la raíz del repositorio, con Node 24 y el servidor local de pruebas iniciado en el puerto 55435, ejecutar en PowerShell:
+
+```powershell
+$env:KORAZ_TEST_DATABASE = 'true'
+$env:KORAZ_GUIDED_V2_TEST_DATABASE_URL = 'postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_control_test'
+pnpm --filter @cediah/api exec vitest run test/peritoneo-candidate-postgres.test.ts
+```
+
+**Aceptación antes de liberar.** Revisar los seis ítems propuestos, los cuatro destinos, las variantes de `cava-r1` y la pertinencia de pistas y fuentes en las ediciones destinadas a alumnos. Llevar esas ediciones al candidato de preproducción y recorrerlas en móvil y escritorio con cuentas de alumno y editor. Estas verificaciones siguen abiertas. Las evidencias anteriores se conservan a continuación como referencia histórica.
 
 ### Continuación de F01 · candidato local del 5 de noviembre
 
@@ -966,6 +989,8 @@ El alcance editorial puede requerir revisión humana especializada. «Necesita r
 - Si la ejecución incluye autorización de despliegue, verificar versión servida/alias y realizar smoke autenticado seguro. Si no la incluye, dejar candidato revisable listo y publicación pendiente, sin declarar producción corregida.
 - Instrumentar errores y duración de recorridos con datos mínimos; definir quién revisa y cómo se detectan regresiones.
 - Documentar reversión de interfaz/despliegue, compatibilidad de datos y límites de rollback. No revertir respuestas válidas ni XP aceptados al volver a una versión de UI.
+
+**Condición de entrega acordada.** La prueba funcional final se hace sobre el mismo candidato que se va a liberar. Los recorridos esenciales deben funcionar con los datos de entrega y con matrículas anteriores. La revisión editorial de los materiales destinados al alumnado se registra por separado de la validación con datos ficticios.
 
 **Criterio de cierre:** T59–T60 y la lista de sección 10 tienen evidencia para cada entorno declarado. Estado final inequívoco: implementado local, CI, preview, aceptado autenticado o verificado en producción. No utilizar «terminado en producción» si falta uno de los requisitos de producción.
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { RouteActivitySchema, RoutePackageSchema, type RouteActivity } from "@cediah/contracts";
+import { abdominalCandidate } from "./helpers/abdominal-candidate.js";
+import { RouteActivitySchema, type RouteActivity } from "@cediah/contracts";
 import {
   gradeBasicActivity, gradeConstructedResponse, gradeImageTarget, gradeMatch, gradeSequence,
   gradeShortAnswer, gradeSingleChoice, isValidNormalizedPolygon, normalizeShortAnswer, pointInPolygonInclusive,
@@ -81,21 +81,7 @@ function image(mode: "hotspot" | "labeling", masking: "no_labels" | "partial_lab
 
 describe("guided v2 basic grading", () => {
   it("H25 replays the observed false negative against the pinned and proposed aliases", () => {
-    const patch: { op: string; path: string; value: unknown }[] = JSON.parse(readFileSync(new URL("../../../docs/aprendizaje-guiado/plan-maestro/cava-r1.propuesta.patch.json", import.meta.url), "utf8"));
-    const route = RoutePackageSchema.parse(JSON.parse(readFileSync(new URL(
-      "../../../docs/aprendizaje-guiado/v2/evidencias/RC01/pilot-review/ruta-approved.koraz-route.json", import.meta.url), "utf8")));
-    const updated = structuredClone(route);
-    const activity = updated.activities[13]!;
-    if (activity.kind !== "short_answer") throw new Error("Expected short answer");
-    expect(patch.filter(entry => entry.op === "test")).toEqual([
-      { op: "test", path: "/packageKey", value: route.packageKey },
-      { op: "test", path: "/revision", value: route.revision },
-      { op: "test", path: "/activities/13/key", value: activity.key },
-      { op: "test", path: "/activities/13/payload/acceptedAnswers", value: activity.payload.acceptedAnswers },
-    ]);
-    const replacements = Object.fromEntries(patch.filter(entry => entry.op === "replace").map(entry => [entry.path, entry.value]));
-    const proposed = RoutePackageSchema.parse({ ...updated, revision: replacements["/revision"], activities: updated.activities.map(
-      item => item === activity ? { ...item, payload: { ...activity.payload, acceptedAnswers: replacements["/activities/13/payload/acceptedAnswers"] } } : item) });
+    const { base: route, candidate: proposed } = abdominalCandidate();
     expect(proposed.revision).toBe(4);
     const observed = "Las venas ilíacas comunes derecha e izquierda";
     for (const [definition, score01] of [[route, 0], [proposed, 1]] as const) {

@@ -502,20 +502,42 @@ async function storedValidation(
   }
 
   const issues = validateLearningPathDefinition(path, resourceItems);
+  // A new edition gets fresh option IDs. Keep the editorial decision attached
+  // to the affected step and source until the author replaces that material.
+  const previousHolds = await database.selectFrom("learning_step_options as held")
+    .innerJoin("learning_path_steps as step", "step.id", "held.step_id")
+    .innerJoin("learning_path_versions as edition", "edition.id", "held.path_version_id")
+    .select(["step.stable_key", "held.source_content_id"])
+    .where("held.id", "in", heldLearningOptionIds)
+    .where("edition.path_id", "=", path.id)
+    .where("edition.version_number", "<", path.version.number)
+    .execute();
   for (const unit of path.version.units) {
     for (const step of unit.steps) {
       for (const option of step.options) {
+        const context = {
+          optionId: option.id,
+          sourceContentId: option.sourceContentId,
+          stepId: step.id,
+          stepStableKey: step.stableKey,
+          unitId: unit.id,
+          unitStableKey: unit.stableKey,
+        };
+        if (previousHolds.some(held =>
+          held.stable_key === step.stableKey && held.source_content_id === option.sourceContentId
+        )) {
+          issues.push({
+            code: "editorial_replacement_required",
+            context,
+            message: "Este paso conserva el material retirado por corresponder a otro tema. Selecciona el material del objetivo.",
+            path: `option.${option.id}.sourceContentId`,
+            severity: "error",
+          });
+        }
         if (resourceItems.has(option.resourceRevisionId)) continue;
         issues.push({
           code: "resource_unavailable",
-          context: {
-            optionId: option.id,
-            sourceContentId: option.sourceContentId,
-            stepId: step.id,
-            stepStableKey: step.stableKey,
-            unitId: unit.id,
-            unitStableKey: unit.stableKey,
-          },
+          context,
           message: "El recurso está retirado, archivado o su snapshot no es válido.",
           path: `resource.${option.resourceRevisionId}`,
           severity: "error",

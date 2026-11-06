@@ -12,6 +12,8 @@ import type { CediahDatabase } from "../src/db/database.js";
 import { buildApp } from "../src/app.js";
 import { createGuidedV2HttpProvider, registerGuidedV2Routes, type GuidedV2Flags } from "../src/guided-learning/v2/routes.js";
 import { createGuidedV2Database, seedGuidedV2Runtime, v2Id } from "./helpers/guided-v2-db.js";
+import { abdominalCandidate } from "./helpers/abdominal-candidate.js";
+import { createLearningContentResolver } from "../src/guided-learning/content-resolver.js";
 import { readEnvironment } from "../src/config.js";
 import { createGuidedV2DefinitionReader, prepareCachedGuidedV2ActivitySnapshot } from "../src/providers/postgres-guided-learning-v2.js";
 import { prepareGuidedV2AttemptSnapshot } from "../src/guided-learning/v2/service.js";
@@ -745,3 +747,99 @@ describe("T038 bounded immutable definition cache", () => {
     expect(await read(v2Id(804))).toBe(other);
   }, 120000);
 });
+it.each([["base", "reinforce"], ["candidate", "passed"]] as const)(
+  "replays the audited abdominal admission on the %s package with its own published revision",
+  async (edition, expectedPlacement) => {
+    const definition = abdominalCandidate()[edition];
+    const pg = await createGuidedV2Database();
+    const database = databaseFor(pg);
+    const app = Fastify();
+    try {
+      await seedGuidedV2Runtime(pg);
+      await pg.query("update content_items set status='published', published_at=now(), published_by=$2 where id=$1", [v2Id(3), v2Id(1)]);
+      await pg.query("update learning_path_versions set definition_v2_json=$1 where id=$2", [JSON.stringify(definition), v2Id(6)]);
+      await pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,topic_content_id) values($1,'topic','topic',$2)", [v2Id(6), v2Id(3)]);
+      const resolver = createLearningContentResolver(database);
+      for (const source of definition.sources.filter(entry => entry.kind === "guide")) {
+        const content = { sections: [{ heading: source.locator.heading ?? source.title, body: source.excerpt }] };
+        const inserted = await pg.query<{ id: string }>(`insert into content_items
+          (kind,slug,title,summary,topic,content,author_user_id,status,published_at,published_by,catalog_visibility)
+          values('guide',$1,$2,$3,'Abdomen',$4,$5,'published',now(),$5,'catalog') returning id`,
+        ["fuente-" + source.key, source.title, source.citation, content, v2Id(1)]);
+        const revision = await resolver.resolvePublishedRevision({ sourceContentId: inserted.rows[0]!.id, projection: "guide", allowGuidedOnly: false });
+        if (revision.status !== "success") throw new Error("Source unavailable: " + source.key);
+        await pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,resource_revision_id,source_content_id,document_sha256) values($1,$2,'source',$3,$4,$5)",
+          [v2Id(6), source.key, revision.value.resourceRevisionId, inserted.rows[0]!.id, source.documentSha256]);
+      }
+      await pg.query("update learning_path_versions set status='published',published_at=now(),published_by=$2 where id=$1", [v2Id(6), v2Id(1)]);
+      await registerGuidedV2Routes(app, {
+        flags: { enabled: true, newEnrollments: true }, identityProvider: identity, provider: createGuidedV2HttpProvider(database),
+      });
+      let serial = 10000;
+      const post = async (path: string, payload: object, key = v2Id(serial++)) => {
+        const response = await app.inject({ method: "POST", url: "/v2/guided-learning/" + path,
+          headers: { authorization: "Bearer learner", "idempotency-key": key }, payload });
+        expect(response.statusCode, response.body).toBe(200);
+        return response.json();
+      };
+      const state = async () => {
+        const response = await app.inject({ url: `/v2/guided-learning/enrollments/${v2Id(8)}/state`, headers: { authorization: "Bearer learner" } });
+        expect(response.statusCode, response.body).toBe(200);
+        return V2HttpContracts.enrollmentState.response.parse(response.json()).state;
+      };
+      const before = await state();
+      const target = { kind: "assessment", key: "diagnostico", objectiveKey: "retorno-portal" };
+      const offer = before.maintenance?.placements?.find(item => item.objectiveKey === target.objectiveKey);
+      expect(offer?.status).toBe("xp_required");
+      const event = await pg.query<{ id: string }>(`insert into learning_events
+        (user_id,enrollment_id,event_type,semantic_key,payload_json,policy_version,occurred_at,local_date,timezone)
+        values($1,$2,'activity_completed','saldo-previo','{}','guided-v2.0',now(),current_date,'UTC') returning id`, [v2Id(1), v2Id(8)]);
+      await pg.query(`insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date)
+        values($1,'saldo-previo','activity_recall',$2,$3,current_date)`, [v2Id(1), offer!.requiredXp, event.rows[0]!.id]);
+      const admitted = await state();
+      let { attempt } = V2HttpContracts.attemptCreate.response.parse(await post("attempts", {
+        enrollmentId: v2Id(8), clientAttemptId: v2Id(serial++), target, expectedEnrollmentVersion: before.rowVersion,
+      }));
+      const answered: string[] = [];
+      while (attempt.activeActivity) {
+        const item = definition.activities.find(activity => activity.key === attempt.activeActivity!.key)!;
+        let answer;
+        if (item.key === "cava-r1") {
+          expect(attempt.activeActivity.hasHint).toBe(false);
+          answer = { kind: "short_answer", text: "Las venas ilíacas comunes derecha e izquierda" };
+        } else if (item.kind === "match") {
+          answer = { kind: "match", pairs: item.payload.correctByPrompt };
+        } else if (item.kind === "sequence") {
+          answer = { kind: "sequence", orderedKeys: item.payload.acceptedOrders[0] };
+        } else {
+          throw new Error("Unexpected diagnostic item " + item.key);
+        }
+        const response = V2HttpContracts.attemptResponse.response.parse(await post(`attempts/${attempt.attemptId}/responses`, {
+          activityKey: item.key, answer, expectedVersion: attempt.rowVersion, confidence: null,
+        }));
+        expect(response.feedback.score01).toBeNull();
+        answered.push(item.key);
+        attempt = response.attempt;
+      }
+      expect(answered.sort()).toEqual(["cava-a1", "cava-r1", "cava-r2"]);
+      const path = `attempts/${attempt.attemptId}/complete`, key = v2Id(serial++), body = { expectedVersion: attempt.rowVersion };
+      const receipt = V2HttpContracts.attemptComplete.response.parse(await post(path, body, key));
+      expect(receipt.attempt.placement?.status).toBe(expectedPlacement);
+      const graded = receipt.attempt.acceptedResponses.find(response => response.activityKey === "cava-r1");
+      const source = definition.sources.find(entry => entry.key === "cava")!;
+      expect(graded?.score01).toBe(edition === "base" ? 0 : 1);
+      expect(graded?.feedback.sources).toContainEqual(expect.objectContaining({ key: source.key, title: source.title, locator: source.locator }));
+      expect((await post(path, body, key)).attempt).toEqual(receipt.attempt);
+      const after = await state();
+      expect(after.maintenance?.blockers.some(b => b.objectiveKey === target.objectiveKey)).toBe(edition === "base");
+      expect(admitted.motivation?.totalXp).toBe(offer!.requiredXp);
+      expect(after.motivation?.totalXp).toBe(admitted.motivation!.totalXp);
+      expect(after.completedActivities).toBe(before.completedActivities);
+      expect(after.masteredAt).toBeNull();
+    } finally {
+      await app.close();
+      await database.destroy();
+      await pg.close();
+    }
+  }, 120000,
+);

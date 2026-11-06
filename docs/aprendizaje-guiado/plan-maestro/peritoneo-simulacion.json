@@ -1,0 +1,39 @@
+{
+  "alcance": "Simulación de aula para verificar la ruta en un entorno aislado. Las marcas de color y las estaciones pertenecen al ejercicio.",
+  "fuente": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-1-overview-of-the-digestive-system",
+  "fundamentos": {
+    "title": "Reconocer las superficies del peritoneo",
+    "sections": [
+      {"heading": "Preparar la estación", "body": "Dibuja el perfil de la pared abdominal y el de un asa intestinal cubierta por peritoneo. Traza en azul la hoja que tapiza la pared y en verde la que recubre el asa. Los colores son una convención de esta estación."},
+      {"heading": "Leer el corte", "body": "La hoja parietal tapiza la pared y la visceral cubre la superficie de la víscera. Entre ambas se encuentra la cavidad peritoneal, un espacio potencial con una película de líquido seroso que facilita el deslizamiento."}
+    ],
+    "questions": [
+      {"prompt":"¿Qué hoja representa el trazo azul de la pared?","options":["Visceral","Parietal","Mucosa intestinal"],"correctOptionIndex":1,"explanation":"La marca azul sigue la pared abdominal, que está tapizada por la hoja parietal."},
+      {"prompt":"La consigna pide marcar la hoja visceral en verde. ¿Dónde debes apoyar el lápiz?","options":["En la superficie peritoneal del asa","Dentro de la luz intestinal","Sobre la cara interna de la pared abdominal"],"correctOptionIndex":0,"explanation":"La hoja visceral recubre la superficie del asa."},
+      {"prompt":"En un corte, un trazo representa la hoja parietal y otro la visceral. ¿Qué representa la separación dibujada entre los dos?","options":["La luz intestinal","El espesor de la pared muscular","La cavidad peritoneal"],"correctOptionIndex":2,"explanation":"El dibujo amplía el espacio potencial entre las dos hojas para hacerlo visible."},
+      {"prompt":"¿Qué elemento del modelo explica el deslizamiento entre las hojas?","options":["El grosor del trazo azul","La película de líquido seroso","La luz del intestino"],"correctOptionIndex":1,"explanation":"El líquido seroso lubrica las superficies enfrentadas."},
+      {"prompt":"Si giras el dibujo, ¿cómo vuelves a identificar la hoja visceral?","options":["Siguiendo el contorno cubierto del asa","Buscando la zona más alta de la página","Siguiendo el borde de la pared abdominal"],"correctOptionIndex":0,"explanation":"La relación con el órgano identifica la hoja, cualquiera que sea la orientación del esquema."}
+    ]
+  },
+  "estacion": {
+    "objective": "Interpretar un esquema peritoneal siguiendo la pared, la superficie de un asa y la continuidad del mesenterio.",
+    "title": "Seguir el mesenterio en una maqueta",
+    "sections": [
+      {"heading":"Construir la maqueta", "body":"En esta estación ficticia, una cartulina vertical representa la pared posterior y un cilindro de papel representa un asa de intestino delgado. Dobla una tira de papel sobre sí misma y lleva sus dos caras desde la pared hasta el asa para representar el mesenterio. Dibuja un vaso entre las caras de la tira."},
+      {"heading":"Comprobar el recorrido", "body":"Señala P en el revestimiento de la pared, M en el pliegue de dos hojas y V donde el revestimiento se continúa sobre el asa. Sigue con el dedo P → M → V. El vaso discurre dentro del pliegue. El interior del cilindro representa la luz intestinal. La separación entre las superficies peritoneales enfrenta hojas lubricadas."}
+    ],
+    "questions": [
+      {"prompt":"En la maqueta, ¿qué marca corresponde al revestimiento de la pared posterior?","options":["M","V","P"],"correctOptionIndex":2,"explanation":"P se colocó en la pared posterior y representa su peritoneo parietal."},
+      {"prompt":"¿Qué parte de la maqueta representa el mesenterio?","options":["La tira doblada que conecta pared y asa","El hueco central del cilindro","El borde externo de la cartulina"],"correctOptionIndex":0,"explanation":"Las dos caras de la tira representan las dos hojas del pliegue mesentérico."},
+      {"prompt":"¿Dónde colocarías un hilo que represente el vaso mesentérico?","options":["Dentro de la luz del cilindro","Entre las caras de la tira doblada","Flotando en el espacio peritoneal"],"correctOptionIndex":1,"explanation":"El mesenterio lleva vasos entre sus hojas hacia el intestino."},
+      {"prompt":"Al pasar de M a V, ¿qué superficie empiezas a seguir?","options":["La mucosa dentro del cilindro","La cara posterior de la cartulina","La cubierta visceral del asa"],"correctOptionIndex":2,"explanation":"La marca V señala la continuidad del pliegue con el peritoneo sobre el asa."},
+      {"prompt":"Un compañero señala el interior del cilindro como cavidad peritoneal. ¿Qué señala en realidad?","options":["La luz intestinal","El espacio entre hojas enfrentadas","El interior del pliegue mesentérico"],"correctOptionIndex":0,"explanation":"El cilindro representa el asa y su hueco representa la luz por la que transita el contenido intestinal."}
+    ]
+  },
+  "replacements": [
+    {"step":"fundamentos-peritoneo-paso-4","material":"fundamentos","projection":"quiz","purpose":"check","title":"Distinguir las hojas en un corte"},
+    {"step":"unidad-2-paso-1","material":"estacion","projection":"guide","purpose":"understand","title":"Construir la maqueta del mesenterio"},
+    {"step":"unidad-2-paso-2","material":"estacion","projection":"flashcards","purpose":"recall","title":"Localizar los elementos de la maqueta"},
+    {"step":"unidad-2-paso-3","material":"estacion","projection":"quiz","purpose":"check","title":"Interpretar el recorrido pared–asa"}
+  ]
+}
