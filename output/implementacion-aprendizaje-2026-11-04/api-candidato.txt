@@ -1,0 +1,73 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-learning-catalog.test.ts (22 tests | 3 failed) 51136ms
+     × requires flashcard reveal and explicit guide/video completion while one alternative counts once 5872ms
+     × keeps a completed route at one hundred percent while later reviews stay separate 7729ms
+     × upgrades versions voluntarily, preserves history and transfers only valid equivalences 6984ms
+ ❯ test/guided-v2-package.test.ts (7 tests | 1 failed) 8929ms
+     × keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages 5732ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > requires flashcard reveal and explicit guide/video completion while one alternative counts once
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-learning-catalog.test.ts:528:3
+    526|   });
+    527|
+    528|   it("requires flashcard reveal and explicit guide/video completion wh…
+       |   ^
+    529|     const detail = await provider.getPathBySlug({ slug: "ruta-completa…
+    530|     const recallOption = detail?.version.units[1]?.steps[1]?.options[0…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > keeps a completed route at one hundred percent while later reviews stay separate
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-learning-catalog.test.ts:996:3
+    994|   });
+    995|
+    996|   it("keeps a completed route at one hundred percent while later revie…
+       |   ^
+    997|     clockNow = new Date("2026-09-07T12:30:00.000Z");
+    998|     const detail = await provider.getPathBySlug({ slug: "ruta-completa…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > upgrades versions voluntarily, preserves history and transfers only valid equivalences
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-learning-catalog.test.ts:1296:3
+    1294|   });
+    1295|
+    1296|   it("upgrades versions voluntarily, preserves history and transfers o…
+       |   ^
+    1297|     clockNow = new Date("2026-09-15T13:00:00.000Z");
+    1298|     const beforePoints = await pg.query<{ xp: string }>(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/guided-v2-package.test.ts > portable guided v2 package > keeps the autonomous publication validator equivalent to the backend on accepted and rejected packages
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/guided-v2-package.test.ts:87:3
+     85|     } finally { rmSync(dir, { recursive: true, force: true }); }
+     86|   });
+     87|   it("keeps the autonomous publication validator equivalent to the bac…
+       |   ^
+     88|     const pilot = JSON.parse(readFileSync(resolve(root, "docs/aprendiz…
+     89|     const cycle = structuredClone(pilot);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  2 failed | 10 passed (12)
+      Tests  4 failed | 122 passed | 12 skipped (138)
+   Start at  16:35:04
+   Duration  172.57s (transform 9.79s, setup 0ms, import 26.77s, tests 136.11s, environment 2ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-learning-catalog.test.ts test/guided-learning-adapters.test.ts test/guided-learning-routes.test.ts test/learning-map-storage.test.ts test/guided-v2-grading.test.ts test/guided-v2-validation.test.ts test/guided-v2-contract.test.ts test/guided-v2-package.test.ts test/guided-v2-attempts.test.ts test/guided-v2-preview.test.ts test/review-scheduler.test.ts test/learning-content-contract.test.ts

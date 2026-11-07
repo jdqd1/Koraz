@@ -1,0 +1,38 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/learning-content-contract.test.ts (11 tests | 2 failed) 26ms
+     × rejects indistinguishable published options while preserving editable legacy drafts: Parietal y visceral 8ms
+     × rejects indistinguishable published options while preserving editable legacy drafts: Ilíacas comunes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/learning-content-contract.test.ts > learning content identity contracts > rejects indistinguishable published options while preserving editable legacy drafts: Parietal y visceral
+ FAIL  test/learning-content-contract.test.ts > learning content identity contracts > rejects indistinguishable published options while preserving editable legacy drafts: Ilíacas comunes
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ test/learning-content-contract.test.ts:16:60
+     14|     const question = { correctOptionIndex: 0, options: [first, second]…
+     15|     expect(GuideQuizQuestionSchema.safeParse(question).success).toBe(t…
+     16|     expect(QuizQuestionSchema.safeParse(question).success).toBe(false);
+       |                                                            ^
+     17|   });
+     18|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  2 failed | 60 passed (62)
+   Start at  21:55:01
+   Duration  20.69s (transform 1.01s, setup 0ms, import 3.75s, tests 15.35s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/learning-content-contract.test.ts test/guided-v2-grading.test.ts test/guided-v2-validation.test.ts test/review-scheduler.test.ts test/guided-learning-catalog.test.ts

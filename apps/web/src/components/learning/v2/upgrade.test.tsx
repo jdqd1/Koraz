@@ -22,13 +22,31 @@ describe("T034 upgrade transport and notice", () => {
   it("recovers a lost receipt after recreation with the exact body and key", async () => {
     const entries = new Map<string, string>();
     const store = { getItem: (key: string) => entries.get(key) ?? null, setItem: (key: string, value: string) => { entries.set(key, value); }, removeItem: (key: string) => { entries.delete(key); } };
-    const state = studentFixture("mastered").state;
+    const state = { ...studentFixture("mastered").state, pathVersionId: body.targetVersionId };
     const fetcher = vi.fn().mockRejectedValueOnce(new Error("Lost receipt")).mockResolvedValueOnce(Response.json({ state }));
     const first = createV2UpgradeClient(fixtureId(3), fetcher, () => fixtureId(9), () => store);
     await expect(first.commit(body)).rejects.toThrow("Lost receipt");
     const next = createV2UpgradeClient(fixtureId(3), fetcher, () => fixtureId(10), () => store);
     expect(next.hasPending()).toBe(true); await next.retry();
     expect(fetcher.mock.calls[1]).toEqual(fetcher.mock.calls[0]); expect(entries.size).toBe(0);
+  });
+  it("keeps the adoption identity through session expiry, throttling and foreign receipts", async () => {
+    const state = { ...studentFixture().state, pathVersionId: body.targetVersionId };
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(new Response(null, { status: 401 }))
+      .mockResolvedValueOnce(new Response(null, { status: 408 }))
+      .mockResolvedValueOnce(new Response(null, { status: 429 }))
+      .mockResolvedValueOnce(Response.json({ state: { ...state, enrollmentId: fixtureId(77) } }))
+      .mockResolvedValueOnce(Response.json({ state: studentFixture().state }))
+      .mockResolvedValueOnce(Response.json({ state }));
+    const client = createV2UpgradeClient(state.enrollmentId, fetcher, () => fixtureId(9), () => null);
+    await expect(client.commit(body)).rejects.toMatchObject({ status: 401 });
+    for (const status of [408, 429]) await expect(client.retry()).rejects.toMatchObject({ status });
+    for (let i = 0; i < 2; i++) await expect(client.retry()).rejects.toThrow("recibo");
+    expect(client.hasPending()).toBe(true);
+    await expect(client.retry()).resolves.toEqual({ state });
+    expect(client.hasPending()).toBe(false);
+    for (const call of fetcher.mock.calls) expect(call).toEqual(fetcher.mock.calls[0]);
   });
   it("definite CAS rejection clears the pending request and never changes client progress", async () => {
     const fetcher = vi.fn(async () => Response.json({ error: "version_conflict" }, { status: 409 }));

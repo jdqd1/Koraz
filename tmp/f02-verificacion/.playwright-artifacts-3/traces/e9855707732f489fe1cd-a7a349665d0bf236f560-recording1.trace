@@ -1,0 +1,29 @@
+{"version":9,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"win32","wallTime":1794015445564,"monotonicTime":302693.406,"sdkLanguage":"javascript","title":"guided-v2-diagnostic-xp.spec.ts:4 › XP enable a diagnostic; passing opens the chosen objective"}
+{"type":"before","callId":"call@97","startTime":311113.401,"class":"APIRequestContext","method":"fetch","params":{"url":"http://127.0.0.1:31035/api/v2/guided-learning/attempts/9352e0b9-acba-49b2-aa0f-4787b6615bac/responses","method":"POST","headers":[{"name":"accept","value":"*/*"},{"name":"accept-language","value":"en-US"},{"name":"content-type","value":"application/json"},{"name":"cookie","value":"t035=xp-success-mobile"},{"name":"idempotency-key","value":"adb30fa0-c26d-4836-abac-eb20b7a506a9"},{"name":"origin","value":"http://127.0.0.1:31035"},{"name":"referer","value":"http://127.0.0.1:31035/aprendizaje/sesiones/9352e0b9-acba-49b2-aa0f-4787b6615bac"},{"name":"user-agent","value":"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1"},{"name":"sec-ch-ua","value":"\"HeadlessChrome\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\""},{"name":"sec-ch-ua-mobile","value":"?1"},{"name":"sec-ch-ua-platform","value":"\"iOS\""}],"postData":"<Buffer>","timeout":60000},"stepId":"pw:api@79"}
+{"type":"log","callId":"call@97","time":311131.217,"message":"→ POST http://127.0.0.1:31035/api/v2/guided-learning/attempts/9352e0b9-acba-49b2-aa0f-4787b6615bac/responses"}
+{"type":"log","callId":"call@97","time":311131.264,"message":"  user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Mobile/15E148 Safari/604.1"}
+{"type":"log","callId":"call@97","time":311131.273,"message":"  accept: */*"}
+{"type":"log","callId":"call@97","time":311131.278,"message":"  accept-encoding: gzip,deflate,br"}
+{"type":"log","callId":"call@97","time":311131.283,"message":"  accept-language: en-US"}
+{"type":"log","callId":"call@97","time":311131.287,"message":"  content-type: application/json"}
+{"type":"log","callId":"call@97","time":311131.291,"message":"  cookie: t035=xp-success-mobile"}
+{"type":"log","callId":"call@97","time":311131.295,"message":"  idempotency-key: adb30fa0-c26d-4836-abac-eb20b7a506a9"}
+{"type":"log","callId":"call@97","time":311131.299,"message":"  origin: http://127.0.0.1:31035"}
+{"type":"log","callId":"call@97","time":311131.303,"message":"  referer: http://127.0.0.1:31035/aprendizaje/sesiones/9352e0b9-acba-49b2-aa0f-4787b6615bac"}
+{"type":"log","callId":"call@97","time":311131.307,"message":"  sec-ch-ua: \"HeadlessChrome\";v=\"153\", \"Not_A Brand\";v=\"8\", \"Chromium\";v=\"153\""}
+{"type":"log","callId":"call@97","time":311131.311,"message":"  sec-ch-ua-mobile: ?1"}
+{"type":"log","callId":"call@97","time":311131.315,"message":"  sec-ch-ua-platform: \"iOS\""}
+{"type":"log","callId":"call@97","time":311131.319,"message":"  content-length: 115"}
+{"type":"log","callId":"call@97","time":311261.404,"message":"← 200 OK"}
+{"type":"log","callId":"call@97","time":311261.436,"message":"  referrer-policy: strict-origin-when-cross-origin"}
+{"type":"log","callId":"call@97","time":311261.446,"message":"  x-content-type-options: nosniff"}
+{"type":"log","callId":"call@97","time":311261.452,"message":"  x-frame-options: DENY"}
+{"type":"log","callId":"call@97","time":311261.458,"message":"  permissions-policy: camera=(), microphone=(), geolocation=(), payment=()"}
+{"type":"log","callId":"call@97","time":311261.463,"message":"  vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"}
+{"type":"log","callId":"call@97","time":311261.468,"message":"  cache-control: private, no-store"}
+{"type":"log","callId":"call@97","time":311261.473,"message":"  content-type: application/json"}
+{"type":"log","callId":"call@97","time":311261.478,"message":"  date: Sat, 07 Nov 2026 01:37:34 GMT"}
+{"type":"log","callId":"call@97","time":311261.483,"message":"  connection: keep-alive"}
+{"type":"log","callId":"call@97","time":311261.488,"message":"  keep-alive: timeout=5"}
+{"type":"log","callId":"call@97","time":311261.493,"message":"  transfer-encoding: chunked"}
+{"type":"after","callId":"call@97","endTime":311261.759,"result":{"response":{"url":"http://127.0.0.1:31035/api/v2/guided-learning/attempts/9352e0b9-acba-49b2-aa0f-4787b6615bac/responses","status":200,"statusText":"OK","headers":[{"name":"Referrer-Policy","value":"strict-origin-when-cross-origin"},{"name":"X-Content-Type-Options","value":"nosniff"},{"name":"X-Frame-Options","value":"DENY"},{"name":"Permissions-Policy","value":"camera=(), microphone=(), geolocation=(), payment=()"},{"name":"vary","value":"rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"},{"name":"cache-control","value":"private, no-store"},{"name":"content-type","value":"application/json"},{"name":"Date","value":"Sat, 07 Nov 2026 01:37:34 GMT"},{"name":"Connection","value":"keep-alive"},{"name":"Keep-Alive","value":"timeout=5"},{"name":"Transfer-Encoding","value":"chunked"}],"serverAddr":{"ipAddress":"127.0.0.1","port":31035},"timing":{"startTime":1794015453992,"domainLookupStart":-1,"domainLookupEnd":-1,"connectStart":0,"secureConnectionStart":-1,"connectEnd":13.134000000020023,"requestStart":13.134000000020023,"responseStart":132.15299999999115},"responseEndTiming":133.08799999998882,"fetchUid":"2812ac10962e4d46de38d7071d37b952"}}}

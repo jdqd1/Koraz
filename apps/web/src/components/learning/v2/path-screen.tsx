@@ -53,7 +53,7 @@ export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Pat
     {confirmed ? <>
       {confirmed.availability !== "maintenance" ? <details className={styles.versions}><summary><h2>Repaso y comprobaciones</h2><CaretDown size={18} aria-hidden /></summary><div className={styles.versionBody}><RouteMaintenance path={path} state={confirmed} /></div></details> : null}
       <details className={styles.versions}><summary><h2>Versiones e historial</h2><CaretDown size={18} aria-hidden /></summary><div className={styles.versionBody}>
-        <V2Upgrade key={`${confirmed.enrollmentId}:${confirmed.rowVersion}`} enrollmentId={confirmed.enrollmentId} expectedVersion={confirmed.rowVersion} disabled={path.availability === "maintenance" || confirmed.availability === "maintenance"} />
+        <V2Upgrade key={confirmed.enrollmentId} enrollmentId={confirmed.enrollmentId} expectedVersion={confirmed.rowVersion} disabled={path.availability === "maintenance" || confirmed.availability === "maintenance"} />
         {confirmed.versionHistory?.length ? <section className={styles.history} aria-label="Historial de versiones"><h3>Tu historial</h3><ul>{confirmed.versionHistory.map(item => <li key={item.versionNumber}>Versión {item.versionNumber}{item.completedAt ? " · Finalización conservada" : ""}{item.consumedActivities.length ? <details><summary>Lecturas previas</summary><ul aria-label="Lecturas previas">{item.consumedActivities.map((title, index) => <li key={index}>{title} · Consumo previo</li>)}</ul></details> : null}</li>)}</ul></section> : null}
       </div></details>
     </> : path.availability === "maintenance" ? <p role="status">Ruta en mantenimiento. Tu historial se conserva.</p> : null}

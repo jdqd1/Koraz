@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { isRetryableLearningStatus, learningMutationQueueKey } from "./learning-mutation-queue";
 
 describe("guided-learning mutation retry policy", () => {
-  it.each([401, 429, 500, 503])("keeps retryable status %s queued", (status) => {
+  it.each([401, 408, 429, 500, 503])("keeps retryable status %s queued", (status) => {
     expect(isRetryableLearningStatus(status)).toBe(true);
   });
 

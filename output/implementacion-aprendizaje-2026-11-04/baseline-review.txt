@@ -1,0 +1,56 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/activities/review-activity.test.tsx (4 tests | 3 failed) 108ms
+     × keeps the last quiz receipt visible beyond the manifest 43ms
+     × keeps the last flashcards receipt visible beyond the manifest 7ms
+     × offers an actionable recovery when an unfinished manifest has no current item 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/activities/review-activity.test.tsx > review final feedback (H24) > keeps the last quiz receipt visible beyond the manifest
+ FAIL  src/components/learning/activities/review-activity.test.tsx > review final feedback (H24) > keeps the last flashcards receipt visible beyond the manifest
+AssertionError: expected '' to contain 'Resultado confirmado'
+
+- Expected
++ Received
+
+- Resultado confirmado
+
+ ❯ src/components/learning/activities/review-activity.test.tsx:24:20
+     22|       };
+     23|       const html = renderToString(<ReviewActivity attempt={attempt} fe…
+     24|       expect(html).toContain("Resultado confirmado");
+       |                    ^
+     25|       expect(html).toContain("Ver resumen");
+     26|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/components/learning/activities/review-activity.test.tsx > review final feedback (H24) > offers an actionable recovery when an unfinished manifest has no current item
+AssertionError: expected '' to contain 'Volver al repaso'
+
+- Expected
++ Received
+
+- Volver al repaso
+
+ ❯ src/components/learning/activities/review-activity.test.tsx:35:18
+     33|   it("offers an actionable recovery when an unfinished manifest has no…
+     34|     const html = renderToString(<ReviewActivity attempt={{ ...attempt,…
+     35|     expect(html).toContain("Volver al repaso");
+       |                  ^
+     36|   });
+     37| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  21:54:24
+   Duration  37.86s (transform 2.40s, setup 0ms, import 36.71s, tests 108ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/activities/review-activity.test.tsx

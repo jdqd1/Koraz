@@ -1,6 +1,6 @@
 # Plan maestro de experiencia de aprendizaje Koraz
 
-**Actualizado el 6 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
+**Actualizado el 7 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
 
 **Prioridad vigente:** funcionamiento en móvil y escritorio. El rediseño visual se ejecuta después de superar la aceptación funcional. Tablet queda diferida por decisión del usuario.
 
@@ -14,7 +14,7 @@ Accesos: [hallazgos](#3-hallazgos-trazables) · [fases](#7-fases-de-implementaci
 
 Las secciones de auditoría describen lo observado el 3 y el 4 de noviembre. El estado de implementación posterior se registra por separado.
 
-## 0. Relevo por fases · 6 de noviembre de 2026
+## 0. Relevo por fases · 7 de noviembre de 2026
 
 **Especificaciones del usuario.** Cuando un recorrido necesite material, se puede crear contenido ficticio coherente para la ruta. Identificarlo como simulación, darle un objetivo, instrucciones y una respuesta o criterio de logro verificable, y mantenerlo reproducible en el entorno de pruebas. La aceptación técnica puede avanzar con esos materiales. La publicación de contenido médico para alumnos conserva su revisión editorial y sus fuentes.
 
@@ -22,7 +22,37 @@ Las secciones de auditoría describen lo observado el 3 y el 4 de noviembre. El 
 
 **Cómo continuar.** Trabajar una fase por conversación. Al terminarla, actualizar aquí los cambios, las pruebas que pasaron, los bloqueos y el primer paso de la siguiente sesión. Si una fase requiere una decisión editorial o evidencia externa, dejarla abierta con ese requisito explícito. F09 comienza después de la aceptación funcional móvil y de escritorio en F08.
 
-**Próximo trabajo técnico.** Continuar con F02 en el entorno aislado. Empezar por la última respuesta de repaso V1 y el diagnóstico V2. Cortar la conexión antes del envío y después de que el servidor lo acepte, recargar y reintentar desde otra pestaña. Comparar el recibo, el progreso y el saldo de XP. La simulación ya permite recorrer Peritoneo de principio a fin. La aceptación editorial de F01 permanece abierta para la liberación.
+### F02 · Recuperación del intento y de la matrícula
+
+Esta continuación parte de `26bcad6` en `main` local. Para identificar las transiciones, comparar la pantalla con el recibo del servidor y la fila persistida del intento.
+
+| Estado | Transición del alumno | Qué permite continuar |
+|---|---|---|
+| Intento abierto | Responder, revelar, registrar lectura o finalizar prepara la solicitud con su versión esperada. | El reproductor bloquea un segundo envío durante la operación. |
+| Confirmación pendiente | Un corte puede ocurrir antes de llegar al servidor o después de guardar. Al reabrir, se recuperan la clave y el cuerpo originales. | V1 guarda en IndexedDB por alumno e intento y reintenta al abrir o recuperar la red. V2 guarda la solicitud por intento en el navegador y ofrece reintento explícito. Una cola antigua de V2 en la pestaña de origen sigue siendo legible. Si el almacenamiento del navegador falla, la recuperación tras cerrar la pestaña depende de la disponibilidad del recibo en el servidor. |
+| Respuesta confirmada | Se aplica el recibo correspondiente al intento. En el repaso V1, la última pregunta o tarjeta ofrece «Ver resumen». En el diagnóstico V2, el resultado por pregunta se consulta después de finalizar. | La respuesta, la calificación, la fecha y los XP proceden del servidor. «Guardar lectura» y «Finalizar sesión» corresponden a dos comandos distintos. |
+| Conflicto o acceso interrumpido | Un conflicto de versión requiere recuperar el estado actual. Para un 401 durante el envío, volver a acceder con la misma cuenta. Para un 429, esperar y reintentar con la misma clave. | Una avería del servicio de identidad, un tiempo de espera agotado o un cuerpo de identidad inválido permiten reintentar la página. Los detalles incluyen una referencia de diagnóstico. |
+| Cambio de versión | «Revisar actualización» consulta el destino y el impacto. La adopción requiere una confirmación explícita y que el intento anterior esté cerrado. | Si se pierde la respuesta, «Recuperar actualización pendiente» reenvía la adopción en la misma pestaña. Solo se confirma al recibir el estado de la matrícula y versión solicitadas. |
+
+Las regresiones de [diagnóstico, repaso y adopción](../../apps/web/tests/e2e/guided-v2-diagnostic-xp.spec.ts) usan la API local y PostgreSQL desechable. Los [casos de último ítem y consulta de versión](../../apps/web/tests/e2e/guided-review-regressions.spec.ts) usan respuestas controladas y cubren también tarjetas y el ancho de 320 px.
+
+**Recorridos integrados aprobados el 7 de noviembre.** Pasaron los diez casos de [navegador con PostgreSQL](../implementacion-aprendizaje-2026-11-04/f02-navegador-final.txt) en 390 y 1440 px. El diagnóstico conserva exactamente la clave, el cuerpo y el recibo al recuperar la tercera respuesta desde dos pestañas que siguen abiertas. Una pestaña que recupera su recibo antiguo deja de reinsertarlo en la cola compartida. El repaso V1 recupera la última respuesta antes y después de la aceptación del servidor, conserva una sola fila de respuesta y una sola actualización del calendario, concilia los XP y llega al resumen. La adopción recupera el recibo después de recargar y conserva el historial de matrícula. Se probaron fallos de identidad 503, datos inválidos, tiempo de espera agotado y sesión vencida antes de recuperar el envío con la misma cuenta.
+
+**Límites de esta evidencia.** Son cuentas sintéticas y tamaños de pantalla emulados. La causa del incidente de acceso H31 observado en producción sigue sin verificar y requiere correlacionar las trazas del servicio en F07. F01 conserva su aceptación editorial pendiente y F08 exige la aceptación por rol y dispositivo sobre el candidato desplegado.
+
+**Regresión de interfaz y transporte.** Pasaron los [21 recorridos con respuestas controladas](../implementacion-aprendizaje-2026-11-04/f02-regresion-navegador.txt) en 320, 390 y 1440 px. Cubren el último ítem correcto e incorrecto de preguntas y tarjetas, el acceso por teclado al resumen, la consulta de versiones y los destinos y ayudas de F01. Pasaron [64 pruebas web](../implementacion-aprendizaje-2026-11-04/f02-web.txt) y [12 de la cola](../implementacion-aprendizaje-2026-11-04/f02-cola.txt). La [compilación web](../implementacion-aprendizaje-2026-11-04/f02-compilacion.txt) terminó con el control de tipos. El control de tipos de la API también terminó correctamente.
+
+**Cierre técnico de este tramo.** Pasaron las [82 pruebas de API](../implementacion-aprendizaje-2026-11-04/f02-api.txt), incluidas las restricciones de permiso, versión e intento abierto al adoptar, los recibos repetidos y la conciliación de recompensas. ESLint terminó con cero advertencias en los archivos TypeScript modificados de API y web y en la prueba nueva de identidad. La primera ejecución de navegador detectó la reinserción del recibo V2 en la cola compartida. La corrección está cubierta por una prueba de transporte y por los recorridos integrados finales. Las suites de API se ejecutaron de forma serial con un límite de 30 segundos por caso, después de una primera corrida que agotó el límite temporal de varios casos mientras se compilaba la web.
+
+**Próximo trabajo técnico.** Continuar con F03 en el entorno aislado. Empezar por T18–T21 con reloj controlado, comparar un repaso con dos ítems y otro con un único ítem fallado, y verificar el vencimiento al recargar y al cambiar de sesión. Después coordinar el centro común de repaso V1/V2 y comprobar zona horaria, cambio de día y retención de 7/30 días. La aceptación transversal de navegación, permisos y dispositivo continúa en F05–F08.
+
+Para repetir la integración, usar Node 24, el PostgreSQL de pruebas en `127.0.0.1:55435` y las variables de prueba del ejemplo de F01. Compilar la web antes del primer comando. Ese ejecutor crea su base PostgreSQL desechable y la elimina al terminar. El segundo usa respuestas controladas y el tercero emplea las bases aisladas de sus suites.
+
+```powershell
+pnpm --filter @cediah/web exec playwright test --config playwright.learning-xp.config.ts --output ../../tmp/f02-verificacion-final --reporter=list
+pnpm --filter @cediah/web exec playwright test --config playwright.functional.config.ts guided-review-regressions.spec.ts --output ../../tmp/f02-regresion-final --reporter=list
+pnpm --filter @cediah/api exec vitest run --testTimeout=30000 test/guided-v2-upgrade.test.ts test/guided-learning-catalog.test.ts test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts
+```
 
 ### F01 · candidato verificado el 6 de noviembre
 
@@ -63,7 +93,7 @@ Base de esta continuación: `1d9e2b8`. El commit local que contiene esta secció
 |---|---|---|
 | F00 · Línea base | Se identificaron las seis actividades esenciales de Peritoneo v3, sus revisiones y el diagnóstico abdominal V2. Se verificó el despliegue web de referencia y se prepararon pruebas reproducibles con datos sintéticos y una base PostgreSQL aislada. | Completar los perfiles de prueba restantes y correlacionar el incidente H31 con trazas del servicio. La revisión de la API que atendió el incidente sigue sin verificar. |
 | F01 · Contenido | H01/H03. El candidato conserva los pasos esenciales y bloquea únicamente cuatro opciones mal vinculadas. Los videos válidos pueden abrirse. H02. La validación y la calificación detectan opciones con texto repetido en los flujos afectados. H25. Se reprodujo el rechazo de la respuesta de ilíacas y se probó una propuesta de dos variantes explícitas. H30. Una pista ausente deja de ofrecerse y la API evita registrar ayuda por ella. | Hacen falta materiales y objetivos revisados, preguntas resolubles y aprobación clínica de las variantes. T06 y el enfoque del editor se verificaron en la continuación de F01. Falta probar la nueva revisión con un estudiante cuando exista. F01 queda abierta. |
-| F02 · Intentos | H24. El último ítem de repaso V1 conserva su resultado y ofrece «Ver resumen». H18. Consultar una actualización V2 solo lee la vista previa. Recuperar una adopción pendiente exige una acción separada. | Completar el recorrido de recarga, desconexión antes y después de guardar, doble pestaña, adopción real en pruebas y resultados de diagnóstico. |
+| F02 · Intentos | Verificación local del 7 de noviembre. Recuperación V1/V2 antes y después de guardar, doble pestaña V2, resumen del último ítem, diagnóstico con resultado por pregunta y adopción real con recibo recuperado. Pasaron 158 pruebas y 31 recorridos de navegador. | Repetir la aceptación transversal en el candidato desplegado en F08. Correlacionar el incidente real H31 en F07. |
 | F03 · Repaso | H05. El fallo V1 termina su turno en la pasada. El servidor controla el vencimiento y las reapariciones cortas entre sesiones. | Centro común de repaso, calendario tras recarga y casos de ausencia, zona horaria y retención de 7/30 días. |
 | F04 · XP | H06. Ambos motores comparten el bloqueo por alumno. V1 concede solo el saldo diario restante. Probadas las bases 0, 18, 19 y 20 y las carreras de las funciones de recompensa en ambos órdenes con conexiones independientes. | Repetir la carrera desde las dos entradas completas de respuesta y conciliar los saldos de usuario, ruta y sesión. |
 | F05 · Catálogo | H26/H27. Bibliotecas general y por materia comparten la selección publicada de cuestionarios y flashcards, incluidos los de guías y videos. Se deduplican antes de paginar. El cuestionario libre ofrece práctica y consulta separadas. | Validar los datos publicados con el candidato y una cuenta de estudiante, completar contadores comunes V1/V2, caché, búsqueda y modos de acceso restantes. |

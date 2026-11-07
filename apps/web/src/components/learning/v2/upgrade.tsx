@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { V2HttpContracts } from "@cediah/contracts";
 import type { z } from "zod";
@@ -11,7 +11,7 @@ export function V2Upgrade({ enrollmentId, expectedVersion, disabled = false }: {
   const [transport] = useState(() => createV2UpgradeClient(enrollmentId));
   const [preview, setPreview] = useState<z.infer<typeof V2HttpContracts.upgradePreview.response> | null>(null);
   const [acknowledged, setAcknowledged] = useState(false), [busy, setBusy] = useState(false), [message, setMessage] = useState("");
-  const [pending, setPending] = useState(false);
+  const pending = useSyncExternalStore(transport.subscribe, transport.hasPending, () => false);
   const inFlight = useRef(false);
   async function execute(action: "preview" | "adopt" | "retry") {
     if (inFlight.current || disabled) return;
@@ -23,12 +23,14 @@ export function V2Upgrade({ enrollmentId, expectedVersion, disabled = false }: {
         if (!preview || !acknowledged || preview.openAttempt || preview.availability === "maintenance" || transport.hasPending()) return;
         await transport.commit({ targetVersionId: preview.targetVersionId, expectedVersion: preview.expectedVersion ?? expectedVersion, acknowledgedReset: true });
       }
-      setPreview(null); setAcknowledged(false); router.refresh();
+      setPreview(null); setAcknowledged(false); setMessage("Actualización confirmada. Ya estás en la versión elegida."); router.refresh();
     } catch (error) {
       setMessage(action === "preview" ? error instanceof V2RequestError && (error.status === 403 || error.status === 404) ? error.message : "No pudimos consultar las versiones disponibles. Vuelve a intentarlo."
         : error instanceof V2RequestError && error.status === 409 ? "No se pudo adoptar otra versión. Actualiza la ruta y revisa si hay una sesión abierta o cambios en tu matrícula."
+        : error instanceof V2RequestError && error.status === 401 ? "Vuelve a iniciar sesión con la misma cuenta para recuperar la actualización pendiente."
+        : error instanceof V2RequestError && error.status === 429 ? "Espera un momento antes de recuperar la actualización pendiente."
         : error instanceof V2RequestError ? error.message : "No pudimos confirmar la actualización. Reintenta para recuperar el resultado con la misma solicitud.");
-    } finally { setPending(transport.hasPending()); inFlight.current = false; setBusy(false); }
+    } finally { inFlight.current = false; setBusy(false); }
   }
   if (disabled) return <aside className="learning-upgrade-card" role="status"><p>Ruta en mantenimiento. Tu versión y tu historial se conservan; la práctica y las actualizaciones están pausadas.</p></aside>;
   return <aside className="learning-upgrade-card" aria-label="Actualización de la ruta"><div>
@@ -41,6 +43,6 @@ export function V2Upgrade({ enrollmentId, expectedVersion, disabled = false }: {
       <div className="learning-upgrade-actions"><button className="learning-primary-button" type="button" disabled={busy || pending || !acknowledged || preview.openAttempt || preview.availability === "maintenance"} onClick={() => void execute("adopt")}>{busy ? "Confirmando…" : "Adoptar versión"}</button><button className="learning-secondary-button" type="button" disabled={busy} onClick={() => { setPreview(null); setAcknowledged(false); }}>Guardar para después</button></div>
     </div> : <button className="learning-secondary-button" type="button" disabled={busy} onClick={() => void execute("preview")}>{busy ? "Revisando…" : "Revisar actualización"}</button>}
     {pending && <button className="learning-secondary-button" type="button" disabled={busy} onClick={() => void execute("retry")}>Recuperar actualización pendiente</button>}
-    {message ? <div role="alert"><p>{message}</p><button type="button" className="learning-secondary-button" onClick={() => router.refresh()}>Actualizar ruta</button></div> : null}
+    {message.startsWith("Actualización confirmada") ? <p role="status">{message}</p> : message ? <div role="alert"><p>{message}</p><button type="button" className="learning-secondary-button" onClick={() => router.refresh()}>Actualizar ruta</button></div> : null}
   </div></aside>;
 }

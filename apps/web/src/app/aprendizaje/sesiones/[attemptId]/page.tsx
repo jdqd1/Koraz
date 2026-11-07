@@ -26,5 +26,5 @@ export default async function LearningSessionPage({ params, searchParams }: { pa
   if (enrollmentId && progressResult?.status !== "ready") {
     return <main className="learning-main"><section className="learning-empty" role="alert"><div><h1>No pudimos cargar el progreso</h1><p>La sesión está guardada, pero necesitamos el resumen del servidor antes de continuar.</p></div><Link className="learning-secondary-button" href={`/aprendizaje/sesiones/${attemptId}${returnHref ? `?${new URLSearchParams({returnTo:returnHref})}` : ""}`}>Reintentar</Link></section></main>;
   }
-  return <ActivityShell initialAttempt={attemptResult.attempt} initialProgress={progressResult?.status === "ready" ? progressResult.progress : null} userId={current.user.id} returnHref={returnHref} />;
+  return <ActivityShell key={attemptId} initialAttempt={attemptResult.attempt} initialProgress={progressResult?.status === "ready" ? progressResult.progress : null} userId={current.user.id} returnHref={returnHref} />;
 }

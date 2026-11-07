@@ -8,6 +8,8 @@ import { guidedV2Fixture, guidedV2FixtureId as id, guidedV2FixtureBindings, guid
 import { createPostgresGuidedLearningV2Provider } from "../../src/providers/postgres-guided-learning-v2.js";
 import { createGuidedV2HttpProvider } from "../../src/guided-learning/v2/routes.js";
 import { createPostgresLearningMapProvider } from "../../src/providers/postgres-learning-map.js";
+import { createStoredReviewAttemptManifest, initialAttemptResume } from "../../src/guided-learning/attempt-manifest.js";
+import { hashLearningSnapshot } from "../../src/guided-learning/snapshot-hash.js";
 import { buildApp } from "../../src/app.js";
 import { readEnvironment } from "../../src/config.js";
 
@@ -44,9 +46,14 @@ export async function createGuidedV2Server() {
   await db.pool.query("insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,1,1,1,1,$3,$4)",[id(123),id(122),guidedV2GuidePayload,guidedV2GuideHash]);
   await db.pool.query("insert into content_assets(id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at) values($1,$2,$3,'image','test-assets','fixture.png','fixture.png','image/png',$4,'ready',now())",[id(124),id(120),id(1),guidedV2Image.length]);
   const editor=createPostgresGuidedLearningV2Provider(db.database,{now,assetStorage});
+  const learner = createGuidedV2HttpProvider(db.database, { now, assetStorage });
   const fixtures:Record<string,{pathId:string;slug:string;versionId:string;objectives:number;activities:number}>={};
-  for(const [key,count,publish] of [["small",1,true],["large",200,true],["editorial",1,false],["editorial-mobile",1,false],["admission",2,true]] as const){
+  for(const [key,count,publish] of [["small",1,true],["large",200,true],["editorial",1,false],["editorial-mobile",1,false],["admission",2,true],["upgrade",1,true]] as const){
     const pkg=guidedV2Fixture(count); if(key.startsWith("editorial")){pkg.packageKey=`t035-${key}`;pkg.route.slug=`t035-${key}`;pkg.route.title="Ruta editorial T035";}
+    if (key === "upgrade") {
+      pkg.packageKey = pkg.route.slug = "f02-versiones";
+      pkg.route.title = "Simulación de actualización";
+    }
     if(key === "admission") {
       pkg.packageKey="xp-admission"; pkg.route.slug="xp-admission"; pkg.route.title="Diagnóstico y XP";
       pkg.objectives[1]!.prerequisiteKeys=["objective-1"];
@@ -59,23 +66,82 @@ export async function createGuidedV2Server() {
     }
     const created=await editor.createDraft({actorUserId:id(1),canCreate:true,canEditAll:true,enforceAccess:true,package:pkg,bindings});
     if(created.status!=="success") throw new Error(JSON.stringify(created));
-    let route=created.value;
-    if(publish) for(const status of ["in_review","approved","published"] as const){
-      const result=await editor.transitionPath({actorUserId:id(1),canEdit:true,canEditAll:true,canReview:true,canPublish:true,pathId:route.pathId,expectedVersion:route.editVersion,status,reviewNote:"Revisión sintética para comprobar el software"});
-      if(result.status!=="success") throw new Error(JSON.stringify(result)); route=result.value;
+    let route: { pathId: string; pathVersionId: string; editVersion: number } = created.value;
+    async function publishVersion() {
+      for(const status of ["in_review","approved","published"] as const){
+        const result = await editor.transitionPath({ actorUserId: id(1), canEdit: true, canEditAll: true, canReview: true, canPublish: true,
+          pathId: route.pathId, expectedVersion: route.editVersion, status, reviewNote: "Revisión sintética para comprobar el software" });
+        if (result.status !== "success") throw new Error(JSON.stringify(result));
+        route = result.value;
+      }
+    }
+    if (publish) await publishVersion();
+    if (key === "upgrade") {
+      for (const userId of [id(39), id(40)]) {
+        const enrolled = await learner.invoke("enrollmentCreate", userId, {}, { pathId: route.pathId }, randomUUID());
+        if (enrolled.status !== "success") throw new Error(JSON.stringify(enrolled));
+      }
+      const draft = await editor.createVersion({ actorUserId: id(1), canEdit: true, canEditAll: true,
+        pathId: route.pathId, expectedVersion: route.editVersion, releaseNotes: "Segunda versión simulada" });
+      if (draft.status !== "success") throw new Error(JSON.stringify(draft));
+      route = draft.value;
+      await publishVersion();
     }
     fixtures[key]={pathId:route.pathId,slug:pkg.route.slug,versionId:route.pathVersionId,objectives:pkg.objectives.length,activities:pkg.activities.length};
+  }
+  // A frozen final V1 question exercises the real response, scheduler and reward transactions.
+  const question = { id: randomUUID(), optionIds: [randomUUID(), randomUUID()], prompt: "¿Qué letra precede a B?",
+    options: ["Letra A", "Letra C"], correctOptionIndex: 0, explanation: "A precede a B en el alfabeto." };
+  const contentId = randomUUID(), resourceId = randomUUID(), revisionId = randomUUID();
+  const quiz = { questions: [question] }, payloadHash = hashLearningSnapshot(quiz);
+  await db.pool.query(`insert into content_items(id,kind,slug,title,summary,topic,content,author_user_id,status,catalog_visibility,published_at,published_by)
+    values($1,'quiz','repaso-f02','Repaso simulado','Recuperar el orden','Simulación',$2,$3,'published','guided_only',now(),$3)`, [contentId, quiz, id(1)]);
+  await db.pool.query("insert into learning_items(id,source_content_id,item_kind) values($1,$2,'question')", [question.id, contentId]);
+  await db.pool.query("insert into learning_resources(id,source_content_id,projection,adapter_key) values($1,$2,'quiz','quiz-adapter')", [resourceId, contentId]);
+  await db.pool.query(`insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash)
+    values($1,$2,1,1,1,1,$3,$4)`, [revisionId, resourceId, quiz, payloadHash]);
+  const manifest = createStoredReviewAttemptManifest([{ kind: "quiz", content: question, payloadHash, reviewStateVersion: 1,
+    resourceRevisionId: revisionId, sourceContentId: contentId, objectiveIds: [], evidenceEnrollmentIds: [] }]);
+  const reviews: Record<string, string> = {};
+  for (const token of ["xp-success", "xp-failure", "xp-success-mobile", "xp-failure-mobile"]) {
+    const userId = actors.get(token)!.id;
+    reviews[token] = randomUUID();
+    await db.pool.query("insert into learning_review_states(user_id,item_id,memory_version,next_due_at) values($1,$2,1,$3)", [userId, question.id, clock]);
+    await db.pool.query(`insert into learning_attempts(id,user_id,client_attempt_id,purpose,projection,manifest_json,resume_json)
+      values($1,$2,$3,'recall','review',$4,$5)`, [reviews[token], userId, randomUUID(), manifest, initialAttemptResume()]);
   }
   const map=createPostgresLearningMapProvider(db.database,{clock:now});
   const app=await buildApp(readEnvironment({NODE_ENV:"test",HOST:"127.0.0.1",PORT:"41035",DATABASE_URL:db.url,DATABASE_MIGRATIONS_ENABLED:"false",GUIDED_LEARNING_ENABLED:"true",GUIDED_LEARNING_MAP_ENABLED:"true",GUIDED_LEARNING_V2_ENABLED:"true",GUIDED_LEARNING_V2_NEW_ENROLLMENTS:"true",WEB_ORIGINS:"http://127.0.0.1:31035"}),{
     identityProvider:{getUser:async r=>actors.get(/(?:^|;\s*)t035=([^;]+)/.exec(r.cookie??"")?.[1]??"")??null,revokeSessions:async()=>{}},
-    guidedLearningV2Provider:createGuidedV2HttpProvider(db.database,{now,assetStorage}),guidedLearningV2EditorProvider:editor,learningMapProvider:map,
+    guidedLearningV2Provider:learner,guidedLearningV2EditorProvider:editor,learningMapProvider:map,
   });
   application=app;
+  app.addHook("onSend", async (request, reply, payload) => {
+    if (request.url !== "/v1/auth/me") return payload;
+    const fault = /(?:^|;\s*)f02_access=(service|invalid|timeout)(?:;|$)/.exec(request.headers.cookie ?? "")?.[1];
+    if (fault === "service") {
+      reply.code(503);
+      return JSON.stringify({ error: "fixture_unavailable" });
+    }
+    if (fault === "invalid") return JSON.stringify({ fixture: "invalid_identity" });
+    if (fault === "timeout") await new Promise(resolve => setTimeout(resolve, 7_000));
+    return payload;
+  });
   const tables=(await db.pool.query<{tablename:string}>("select tablename from pg_tables where schemaname='public' and (tablename like 'learning_%' or tablename like '%reward%') and tablename <> 'learning_mutation_receipts' order by tablename")).rows.map(r=>r.tablename);
   const counts=async()=>Object.fromEntries(await Promise.all(tables.map(async t=>[t,(await db.pool.query(`select count(*)::int n from public.${t}`)).rows[0].n])));
   app.get("/__test/ready",async()=>({testOnly:true,database:db.name,fixtures,imageSha256:guidedV2ImageHash,now:clock.toISOString()}));
   app.get("/__test/counts",counts);
+  app.get("/__test/review/:actor", async request => {
+    const token = (request.params as { actor: string }).actor;
+    const actor = actors.get(token), attemptId = reviews[token];
+    if (!actor || !attemptId) throw new Error("Unknown review fixture");
+    const result = await db.pool.query(`select
+      (select count(*)::int from learning_responses where attempt_id=$1) as responses,
+      (select sum(xp)::int from learning_rewards where user_id=$2) as xp,
+      (select row_version from learning_review_states where user_id=$2 and item_id=$3) as version`,
+    [attemptId, actor.id, question.id]);
+    return { attemptId, ...result.rows[0] };
+  });
   app.get("/__test/responses/:id",async request=>({rows:(await db.pool.query("select activity_key,assisted from learning_v2_responses where attempt_id=$1",[(request.params as {id:string}).id])).rows}));
   app.get("/__test/fixture.png",async(_request,reply)=>reply.type("image/png").send(guidedV2Image));
   app.post("/__test/clock",async request=>{

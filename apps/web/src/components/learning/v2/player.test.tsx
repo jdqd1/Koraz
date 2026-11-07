@@ -42,11 +42,26 @@ describe("T029 transport and confirmed player rendering", () => {
     await expect(client.execute({ ...action, body: { ...action.body, answer: { kind: "single_choice", optionKey: "a" } } })).rejects.toThrow("pendiente");
     expect(fetcher).toHaveBeenCalledTimes(1);
   });
-  it.each([401, 403, 404, 409, 422, 429])("keeps server rejection %s separate from acceptance", async status => {
+  it("does not requeue an old ticket when a second live tab already confirmed it", async () => {
+    const store = transportStore();
+    const save = vi.spyOn(store, "setItem");
+    const fetcher = vi.fn().mockRejectedValueOnce(new Error("lost receipt"))
+      .mockImplementation(async () => Response.json(responseReceipt()));
+    const first = createV2PlayerClient(f.attempt.attemptId, fetcher, () => fixtureId(81), () => store);
+    await expect(first.execute(action)).rejects.toThrow("lost receipt");
+    const second = createV2PlayerClient(f.attempt.attemptId, fetcher, () => fixtureId(82), () => store);
+    await second.retry();
+    await first.retry();
+    expect(save).toHaveBeenCalledTimes(1);
+    expect(second.pending()).toBeNull();
+    expect(first.pending()).toBeNull();
+    for (const call of fetcher.mock.calls) expect(call).toEqual(fetcher.mock.calls[0]);
+  });
+  it.each([403, 404, 409, 422])("keeps server rejection %s separate from acceptance", async status => {
     const client = createV2PlayerClient(f.attempt.attemptId, vi.fn().mockResolvedValue(Response.json({ error: "rejected" }, { status })), () => fixtureId(81), () => null);
     await expect(client.execute(action)).rejects.toThrow(); expect(client.pending()).toBeNull();
   });
-  it.each([500, 502, 503])("keeps %s uncertain with stable retry identity", async status => {
+  it.each([401, 408, 429, 500, 502, 503])("keeps %s uncertain with stable retry identity", async status => {
     const client = createV2PlayerClient(f.attempt.attemptId, vi.fn().mockResolvedValue(Response.json({ error: "uncertain" }, { status })), () => fixtureId(81), () => null);
     await expect(client.execute(action)).rejects.toThrow(); expect(client.pending()).toEqual(action);
   });

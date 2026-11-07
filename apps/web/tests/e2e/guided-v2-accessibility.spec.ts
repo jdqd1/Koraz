@@ -81,7 +81,7 @@ async function answerPreview(p: Locator, key: string) {
   const choice = async () => { const radio = p.getByRole("radio", { name: "Respuesta A", exact: true });
     await radio.focus(); await radio.press("Space"); await keyboard(p.getByRole("button", { name: "Comprobar respuesta", exact: true })); };
   const feedback = async () => keyboard(p.getByRole("button", { name: /^(Continuar|Ver cierre de sesión)$/ }).last());
-  if (key === "study") { await keyboard(p.getByRole("button", { name: "Continuar a la práctica", exact: true })); return; }
+  if (key === "study") { await keyboard(p.getByRole("button", { name: "Guardar lectura", exact: true })); return; }
   if (key === "choice" || key === "apply") await choice();
   if (key === "short") { await p.getByLabel("Tu respuesta", { exact: true }).pressSequentially("respuesta");
     await keyboard(p.getByRole("button", { name: "Comprobar respuesta", exact: true })); }
@@ -165,7 +165,7 @@ test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", as
   await writeFile(info.outputPath("zoom-reflow.json"), JSON.stringify(reflow, null, 2));
   await capture(page, info, "learner-zoom200");
   await page.evaluate(() => { document.documentElement.style.zoom = ""; });
-  await keyboard(page.getByRole("button", { name: "Continuar a la práctica", exact: true }));
+  await keyboard(page.getByRole("button", { name: "Guardar lectura", exact: true }));
   await keyboard(page.getByRole("button", { name: "Finalizar sesión", exact: true }));
   await expect(page.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
   await launch(page, enrollmentId, "constructed-1");

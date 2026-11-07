@@ -11,6 +11,6 @@ export function StudyRenderer({ activity, disabled, onSubmit }: { activity: Extr
     {focusSpans.length ? <label className={ui.eyebrow}><input type="checkbox" checked={focus} onChange={event => setFocus(event.target.checked)} /> Resaltar ideas clave</label> : null}
     <article><p>{boundaries.slice(0, -1).map((start, index) => { const end = boundaries[index + 1]!; const text = body.slice(start, end); return focus && focusSpans.some(span => span.start <= start && span.end >= end) ? <mark key={start}>{text}</mark> : <span key={start}>{text}</span>; })}</p></article>
     {activity.payload.assetKey ? <p className={ui.eyebrow}>El recurso visual de esta lectura no está disponible en este visor.</p> : null}
-    <div className={ui.action}><button type="button" className="learning-primary-button" disabled={disabled} onClick={onSubmit}>Continuar a la práctica</button></div>
+    <div className={ui.action}><button type="button" className="learning-primary-button" disabled={disabled} onClick={onSubmit}>Guardar lectura</button></div>
   </section>;
 }

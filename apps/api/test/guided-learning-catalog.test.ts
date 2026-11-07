@@ -820,7 +820,7 @@ describe("guided-learning catalog and versioning", () => {
         if (revealed.status !== "success") throw new Error("Expected remaining reveal");
         retryAttempt = revealed.value.attempt;
       }
-      const response = await provider.recordAttemptResponse({
+      const submission = {
         attemptId: retryAttempt.id,
         idempotencyKey: `69000000-0000-4000-8007-00000000000${index}`,
         request: remaining.kind === "flashcards" ? {
@@ -839,12 +839,17 @@ describe("guided-learning catalog and versioning", () => {
           round: 1,
         },
         userId: studentId,
-      });
+      };
+      const response = await provider.recordAttemptResponse(submission);
       if (response.status !== "success") throw new Error("Expected remaining response");
       retryAttempt = response.value.attempt;
       if (index === firstManifest.items.length - 1) {
         expect(response.value.progress).toBeNull();
         expect(response.value.attempt.status).toBe("completed");
+        const balance = () => pg.query("select sum(xp)::int as total from learning_rewards where user_id=$1", [studentId]);
+        const before = await balance();
+        expect(await provider.recordAttemptResponse(submission)).toEqual(response);
+        expect((await balance()).rows).toEqual(before.rows);
       }
     }
     const refreshedProgress = await provider.getEnrollmentProgress({ enrollmentId, userId: studentId });

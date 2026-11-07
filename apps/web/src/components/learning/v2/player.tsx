@@ -64,7 +64,10 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
 
   function apply(result: PlayerResult) {
     if (result.value.attempt.enrollmentId !== initialAttempt.enrollmentId || result.value.attempt.pathVersionId !== initialAttempt.pathVersionId) throw new Error("La sesión recibida no corresponde a esta ruta.");
-    if (result.value.attempt.rowVersion < attempt.rowVersion) throw new Error("Recarga el estado más reciente de la sesión.");
+    if (result.value.attempt.rowVersion < attempt.rowVersion) {
+      setMessage("Solicitud recuperada. Se conserva el estado más reciente de la sesión.");
+      return;
+    }
     setAttempt(result.value.attempt);
     if (result.operation === "help") {
       setHelp({ activityKey: result.body.activityKey, ...result.value.help });
@@ -76,7 +79,7 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
       setState(result.value.state);
       if (result.operation === "response") {
         if (result.value.accepted) {
-          setSubmittedActivity(activity);
+          setSubmittedActivity(activity?.key === result.body.activityKey ? activity : null);
           setHelp(null);
           if (result.body.answer.kind === "study") { setFeedback(null); }
           else if (result.value.attempt.placement) setFeedback(null);
@@ -94,7 +97,9 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
     try { apply(action ? await client.execute(action) : await client.retry()); }
     catch (error) {
       const uncertain = Boolean(client.pending());
-      setMessage(uncertain ? "No pudimos confirmar la solicitud. Puede haberse guardado; reintenta con la misma solicitud. No hay acierto ni avance confirmado."
+      setMessage(error instanceof V2RequestError && error.status === 401 ? "Vuelve a iniciar sesión con la misma cuenta para confirmar el envío pendiente."
+        : error instanceof V2RequestError && error.status === 429 ? "Espera un momento antes de reintentar el envío pendiente."
+        : uncertain ? "No pudimos confirmar la solicitud. Puede haberse guardado; reintenta con la misma solicitud. No hay acierto ni avance confirmado."
         : error instanceof V2RequestError && error.status === 409 ? "La sesión cambió en otra pestaña. Recarga para continuar con el estado del servidor."
           : error instanceof V2RequestError && [401, 403, 404].includes(error.status) ? "La sesión o el material no están disponibles para tu cuenta. Tu historial se conserva."
             : "El servidor rechazó la solicitud. Recarga para revisar el estado confirmado.");
@@ -134,11 +139,13 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
       {state?.motivation ? <p>{state.motivation.totalXp} XP acumulados · +{attempt.earnedXp ?? 0} XP en esta sesión</p> : null}
     </>} />
     <p className="sr-only" role="status" aria-live="polite">{message}</p>
-    {hasError ? <div className={ui.notice} role="alert"><p>{pending ? "Pendiente de confirmar. Reintenta para recuperar el resultado antes de continuar." : message}</p>
+    {hasError ? <div className={ui.notice} role="alert"><p>{pending && (message.startsWith("Vuelve a iniciar") || message.startsWith("Espera un momento")) ? message : pending ? "Pendiente de confirmar. Reintenta para recuperar el resultado antes de continuar." : message}</p>
+      {pending && message.startsWith("Vuelve a iniciar") ? <Link className="learning-secondary-button"
+        href={`/acceder?${new URLSearchParams({ next: window.location.pathname + window.location.search })}`}>Iniciar sesión</Link> : null}
       {pending ? <button type="button" className="learning-primary-button" disabled={busy} onClick={() => void run()}>Reintentar solicitud pendiente</button>
         : <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button>}
     </div> : null}
-    {feedback ? <section key={view} className={ui.content}>
+    {pending && !busy ? null : feedback ? <section key={view} className={ui.content}>
       <h2 className={ui.prompt}>{prompt}</h2>
       <AnswerRecap attempt={attempt} activityKey={feedback.activityKey} activity={submittedActivity} />
       <div className={ui.feedback} data-tone={feedback.score01 === 0 ? "incorrect" : feedback.score01 === null ? "neutral" : "correct"} role="status" aria-live="polite">
@@ -154,12 +161,13 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
       <CheckCircle aria-hidden size={52} weight="duotone" /><h2 ref={heading} tabIndex={-1}>{attempt.placement ? attempt.placement.status === "passed" ? "Puedes avanzar a tu objetivo" : "Refuerza los conocimientos previos" : "Sesión completada"}</h2><p>{attempt.placement ? attempt.placement.status === "passed" ? "Comprobaste los conocimientos previos. Ahora puedes empezar el objetivo elegido. Las actividades, el dominio y los repasos se mantienen por separado." : "El diagnóstico te muestra qué temas conviene practicar antes de avanzar. Tu progreso se conserva." : "Tu progreso está guardado. Continúa a tu ritmo."}</p>
       {state?.motivation ? <p>Ganaste {attempt.earnedXp ?? 0} XP · Total: {state.motivation.totalXp} XP</p> : null}
       {preview ? <button type="button" className="learning-primary-button" onClick={onExit}>Cerrar vista previa</button> : <ContinueSession state={state} returnTo={returnTo} preferredObjectiveKey={attempt.placement?.status === "passed" ? attempt.placement.objectiveKey : attempt.placement?.failedObjectiveKeys[0]} />}
-      <details className={ui.disclosure}><summary>Respuestas confirmadas</summary><div>{attempt.acceptedResponses.map(response => <article key={response.activityKey}><h3>{response.answer.kind === "study" ? "Lectura registrada" : "Respuesta guardada"}</h3><p>{response.feedback.explanation}</p><p>{response.feedback.commonError}</p><PartialFeedback value={response.feedback.partialScore01} /><FeedbackSources sources={response.feedback.sources ?? []} /></article>)}</div></details>
+      <details className={ui.disclosure}><summary>Respuestas confirmadas</summary><div>{attempt.acceptedResponses.map((response, index) => <article key={response.activityKey}><h3>{attempt.placement ? `Pregunta ${index + 1} · ${response.score01 === null ? "Guardada" : response.score01 === 1 ? "Correcta" : "Por reforzar"}` : response.answer.kind === "study" ? "Lectura registrada" : "Respuesta guardada"}</h3>{attempt.placement && response.answer.kind === "short_answer" ? <p>Tu respuesta: {response.answer.text}</p> : null}<p>{response.feedback.explanation}</p><p>{response.feedback.commonError}</p><PartialFeedback value={response.feedback.partialScore01} /><FeedbackSources sources={response.feedback.sources ?? []} /></article>)}</div></details>
       {state && !pending ? <details className={ui.disclosure}><summary>Progreso y próximos repasos</summary><div><MaintenanceSessionSummary state={state} objectiveKeys={state.maintenance?.agenda.map(item => item.objectiveKey) ?? []} /></div></details> : null}
       {!preview && state && state.availability !== "maintenance" && state.nextAction.kind !== "none" && state.nextAction.key ? <Link href={returnHref}><MapTrifold aria-hidden size={18} />Volver a mi mapa</Link> : null}
     </section> : attempt.status !== "open" ? <section className={ui.completion}><h2 ref={heading} tabIndex={-1}>{attempt.status === "paused" ? "Sesión pausada" : "Sesión cerrada"}</h2><p>Tu historial se conserva.</p><Link href={returnHref} className="learning-primary-button">Volver a mi mapa</Link></section>
       : activity ? <section key={activity.key} className={ui.content} aria-busy={busy}>
         {narrative ? <p className={ui.context}>{narrative}</p> : null}
+        {attempt.placement ? <p>Pregunta {attempt.acceptedResponses.length + 1} del diagnóstico</p> : null}
         <h2 ref={heading} tabIndex={-1} className={ui.prompt}>{prompt}</h2>
         {attempt.accessiblePractice ? <p className={ui.notice} role="status">Práctica de texto o tabla. Después volverás a la imagen pendiente.</p> : null}
         <ActivityComposition key={activity.key} activity={activity} attemptId={attempt.attemptId} rowVersion={attempt.rowVersion} disabled={disabled} comparison={comparison} readImage={readImage} tools={tools} onSubmit={respond} onReveal={() => requestHelp("reveal")} onAlternative={() => { if (!disabled) void run({ operation: "alternative", body: { activityKey: activity.key, expectedVersion: attempt.rowVersion } }); }} />

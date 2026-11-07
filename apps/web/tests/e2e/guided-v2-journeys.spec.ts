@@ -44,7 +44,7 @@ async function clickCentered(locator:Locator){await locator.evaluate(element=>el
 async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith("__reactProps") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick==="function"))).toBe(true);}
 async function finish(page:Page|Locator){const completed=page.getByRole("heading",{name:"Sesión completada",exact:true});if(!await completed.isVisible())await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(completed).toBeVisible();}
 async function answer(page:Page|Locator,kind:string,wrong=false){
-  if(kind==="study"){await page.getByRole("button",{name:"Continuar a la práctica"}).click();return;}
+  if(kind==="study"){await page.getByRole("button",{name:"Guardar lectura"}).click();return;}
   if(kind==="single_choice"){await page.getByRole("radio",{name:wrong?"Respuesta B":"Respuesta A",exact:true}).check();await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
   if(kind==="short_answer"){await page.getByLabel("Tu respuesta",{exact:true}).fill("respuesta");await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
   if(kind==="constructed_response"){await page.getByLabel("Explica con tus palabras").fill("Una relación sintética.");await page.getByRole("button",{name:"Guardar mi respuesta"}).click();await page.getByRole("button",{name:"Comparar con el modelo"}).click();await expect(page.getByRole("heading",{name:"Respuesta modelo",exact:true})).toBeVisible();await page.getByRole("button",{name:"Lo recuperé",exact:true}).click();}
@@ -149,7 +149,7 @@ test("E05 disconnect before/after commit, reload and two tabs preserve one answe
     const pattern="**/api/v2/guided-learning/attempts/*/responses";let resolve!:()=>void;const intercepted=new Promise<void>(r=>resolve=r);
     let original:{body:string|null;key:string|undefined}|undefined;
     await page.route(pattern,async r=>{original={body:r.request().postData(),key:r.request().headers()["idempotency-key"]};if(afterCommit){const response=await r.fetch();expect(response.status()).toBe(200);}await r.abort("failed");resolve();});
-    await page.getByRole("button",{name:"Continuar a la práctica"}).click();await intercepted;
+    await page.getByRole("button",{name:"Guardar lectura"}).click();await intercepted;
     await expect(page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true})).toBeVisible();expect((await server(page,`/__test/responses/${attemptId}`)).rows).toHaveLength(afterCommit?1:0);
     await page.unroute(pattern);await page.reload();
     const retry=page.getByRole("button",{name:"Reintentar solicitud pendiente",exact:true});await expect(retry).toBeVisible();await hydrated(retry);const confirmed=page.waitForResponse(r=>r.request().method()==="POST" && r.url().includes(`/api/v2/guided-learning/attempts/${attemptId}/responses`));await retry.click();const receipt=await confirmed;expect(receipt.status()).toBe(200);expect({body:receipt.request().postData(),key:receipt.request().headers()["idempotency-key"]}).toEqual(original);
@@ -157,9 +157,9 @@ test("E05 disconnect before/after commit, reload and two tabs preserve one answe
   }
   await actor(page,student(6,info.project.name==="mobile"));await enroll(page);const attemptId=await launch(page);
   const other=await context.newPage();await other.clock.setFixedTime(new Date("2026-10-04T12:00:00Z"));await other.goto(page.url());
-  await hydrated(page.getByRole("button",{name:"Continuar a la práctica"}));await hydrated(other.getByRole("button",{name:"Continuar a la práctica"}));
+  await hydrated(page.getByRole("button",{name:"Guardar lectura"}));await hydrated(other.getByRole("button",{name:"Guardar lectura"}));
   const confirmations=[page,other].map(p=>p.waitForResponse(r=>r.request().method()==="POST" && r.url().includes(`/api/v2/guided-learning/attempts/${attemptId}/responses`)));
-  await Promise.all([page,other].map(p=>p.getByRole("button",{name:"Continuar a la práctica"}).click()));
+  await Promise.all([page,other].map(p=>p.getByRole("button",{name:"Guardar lectura"}).click()));
   for(const response of await Promise.all(confirmations))expect([200,409]).toContain(response.status());
   await expect.poll(async()=>(await server(page,`/__test/responses/${attemptId}`)).rows.length).toBe(1);
   await Promise.all([page.reload(),other.reload()]);for(const p of [page,other])await expect(p.getByRole("button",{name:"Finalizar sesión",exact:true})).toBeVisible();await other.close();

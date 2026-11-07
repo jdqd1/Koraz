@@ -36,6 +36,8 @@ type ContentApiRequest = {
 type ContentApiResponse = {
   body: unknown;
   status: number;
+  requestId?: string;
+  transportError?: "timeout" | "connection";
 };
 
 export type PublishedContentResult =
@@ -126,9 +128,14 @@ export async function requestContentApi(
     const body: unknown = await response
       .json()
       .catch(() => ({ error: "content_unavailable" }));
-    return { body, status: response.status };
+    const requestId = response.headers.get("x-request-id");
+    return { body, status: response.status,
+      ...(requestId && /^[a-zA-Z0-9_-]{1,64}$/.test(requestId) ? { requestId } : {}),
+      ...(controller.signal.aborted ? { transportError: "timeout" as const } : {}),
+    };
   } catch {
-    return { body: { error: "content_unavailable" }, status: 503 };
+    return { body: { error: "content_unavailable" }, status: 503,
+      transportError: controller.signal.aborted ? "timeout" : "connection" };
   } finally {
     clearTimeout(timeout);
   }

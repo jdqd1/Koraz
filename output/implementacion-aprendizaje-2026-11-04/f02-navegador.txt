@@ -1,0 +1,51 @@
+[WebServer] (node:22224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:29908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:30620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:11332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 10 tests using 1 worker
+
+(node:30340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   1 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (1.5m)
+(node:4332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   2 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (1.3m)
+(node:3092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  3 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:119:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (8.2s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-3l', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-3m', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-3n', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-3q', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-3r', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-3t', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-3w', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-3x', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'e146783d-dedb-4571-8e82-a4415c0c193f',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'd1baa448-d4ea-4f2b-899b-37c5aa4899a7',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '1e5e00eb-a5ed-4739-a9e0-c2a97ddb2652',
+[WebServer]   status: 503
+[WebServer] }
+  ok  4 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:168:46 › final V1 review recovers before commit in a second tab (24.3s)
+  ok  5 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:168:46 › final V1 review recovers after commit in a second tab (6.1s)
+(node:11892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

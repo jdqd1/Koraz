@@ -1,0 +1,29 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/learning-activity-visibility.test.tsx (2 tests | 1 failed) 137ms
+     × keeps the same activity set in the map panel 33ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/learning-activity-visibility.test.tsx > essential activity visibility (H03) > keeps the same activity set in the map panel
+AssertionError: expected null not to be null
+ ❯ src/components/learning/learning-activity-visibility.test.tsx:30:24
+     28|     const level = mapVisualLevel({ nodeId: mapFixtureId(2), entryId: m…
+     29|     const lesson = level.selectedLesson!;
+     30|     expect(lesson).not.toBeNull();
+       |                        ^
+     31|     lesson.activities[0]!.title = "Video esencial visible";
+     32|     lesson.activities[0]!.options[0]!.projection = "video";
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 5 passed (6)
+   Start at  21:59:09
+   Duration  148.87s (transform 6.72s, setup 0ms, import 292.99s, tests 212ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/components/learning/activities/review-activity.test.tsx src/components/learning/learning-activity-visibility.test.tsx

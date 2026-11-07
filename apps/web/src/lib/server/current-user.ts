@@ -16,7 +16,7 @@ export type CurrentUserResult =
       user: CurrentUser;
     }
   | { status: "anonymous" }
-  | { status: "unavailable" };
+  | { status: "unavailable"; reason: "timeout" | "connection" | "service" | "invalid_response"; reference: string };
 
 async function resolveCurrentUser(): Promise<CurrentUserResult> {
   const credentials = await getApiRequestCookie();
@@ -28,17 +28,19 @@ async function resolveCurrentUser(): Promise<CurrentUserResult> {
     path: "/v1/auth/me",
   });
   if (response.status === 401) return { status: "anonymous" };
-  if (response.status !== 200) return { status: "unavailable" };
-
   const parsed = CurrentUserResponseSchema.safeParse(response.body);
-  return parsed.success
-    ? {
-        features: parsed.data.features,
-        roles: parsed.data.roles,
-        status: "authenticated",
-        user: parsed.data.user,
-      }
-    : { status: "unavailable" };
+  if (response.status === 200 && parsed.success && !response.transportError) {
+    return {
+      features: parsed.data.features,
+      roles: parsed.data.roles,
+      status: "authenticated",
+      user: parsed.data.user,
+    };
+  }
+  const reason = response.transportError ?? (response.status === 200 ? "invalid_response" : "service");
+  const reference = response.requestId ?? crypto.randomUUID();
+  console.warn("auth/me unavailable", { reason, reference, status: response.status });
+  return { status: "unavailable", reason, reference };
 }
 
 export const getCurrentUser = cache(resolveCurrentUser);

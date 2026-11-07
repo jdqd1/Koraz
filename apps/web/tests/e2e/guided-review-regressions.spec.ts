@@ -30,9 +30,20 @@ for (const mode of ["review", "review-card"]) for (const correct of [true, false
     const item = attempt.manifest.projection === "review" ? attempt.manifest.items[0]! : null;
     if (!item) throw new Error("Expected review fixture");
     let responses = 0;
-    await page.route("**/api/guided-learning/attempts/**", async route => {
+    let connected = mode === "review-card";
+    let original: { key: string; body: string | null } | undefined;
+    let saved: ReturnType<typeof LearningAttemptMutationResponseSchema.parse> | undefined;
+    await page.context().route("**/api/guided-learning/attempts/**", async route => {
       const request = route.request();
       const reveal = request.url().endsWith("/reveal");
+      if (!reveal) {
+        const identity = { key: request.headers()["idempotency-key"]!, body: request.postData() };
+        expect(identity.key).toBeTruthy();
+        original ??= identity;
+        expect(identity).toEqual(original);
+        if (!connected && !correct) return route.abort();
+        if (saved) return connected ? route.fulfill({ json: saved }) : route.abort();
+      }
       let feedback: LearningAttemptResponseRecord | null = null;
       if (reveal) {
         attempt = { ...attempt, rowVersion: attempt.rowVersion + 1, revealedCards: [{ itemId: item.itemId, back: "A precede a B." }] };
@@ -49,7 +60,9 @@ for (const mode of ["review", "review-card"]) for (const correct of [true, false
           responses: [feedback], resume: { ...attempt.resume, currentIndex: 1,
             ...(mode === "review" ? { answeredItemIds: [item.itemId] } : { ratedItemIds: [item.itemId] }) } };
       }
-      return route.fulfill({ json: LearningAttemptMutationResponseSchema.parse({ attempt, feedback, awards: [], progress: null, saved: true }) });
+      const receipt = LearningAttemptMutationResponseSchema.parse({ attempt, feedback, awards: [], progress: null, saved: true });
+      if (!reveal) saved = receipt;
+      return connected ? route.fulfill({ json: receipt }) : route.abort();
     });
     await page.goto(`/visual-fixtures/aprendizaje-v2?surface=legacy-player&estado=${mode}`);
     if (mode === "review-card") {
@@ -58,6 +71,19 @@ for (const mode of ["review", "review-card"]) for (const correct of [true, false
     } else {
       await page.getByRole("radio").nth(correct ? 0 : 1).check();
       await page.getByRole("button", { name: "Comprobar", exact: true }).click();
+      const retry = { name: "Reintentar envío pendiente", exact: true };
+      await expect(page.getByRole("button", retry)).toBeVisible();
+      await expect(page.getByRole("radio")).toHaveCount(0);
+      await page.reload();
+      await expect(page.getByRole("button", retry)).toBeVisible();
+      expect(responses).toBe(correct ? 1 : 0);
+      const other = await page.context().newPage();
+      await other.goto(page.url());
+      await expect(other.getByRole("button", retry)).toBeVisible();
+      await page.close();
+      page = other;
+      connected = true;
+      await page.getByRole("button", retry).click();
     }
     await expect(page.getByText("Respuesta confirmada de esta pasada.", { exact: true })).toBeVisible();
     await expect(page.getByText(/Próximo repaso:/)).toBeVisible();

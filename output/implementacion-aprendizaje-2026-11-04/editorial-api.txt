@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-learning-catalog.test.ts (22 tests | 1 failed) 5051ms
+     × allows a native video to be skipped for reduced XP while observed coverage earns full XP 92ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > allows a native video to be skipped for reduced XP while observed coverage earns full XP
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ test/guided-learning-catalog.test.ts:377:103
+    375|     if (!skippedOption || !observedOption) throw new Error("Expected n…
+    376|     expect((await provider.getHome({ userId: videoStudentId })).tasks
+    377|       .some((task) => task.href.includes(skippedOption.id) || task.hre…
+       |                                                                                                       ^
+    378|
+    379|     const skippedAttempt = await provider.createAttempt({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 50 passed (51)
+   Start at  07:58:44
+   Duration  23.43s (transform 1.64s, setup 0ms, import 11.49s, tests 9.32s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-learning-catalog.test.ts test/guided-learning-adapters.test.ts test/guided-v2-grading.test.ts test/learning-map-storage.test.ts

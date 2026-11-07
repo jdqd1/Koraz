@@ -1,16 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   LearningAttemptMutationResponseSchema,
+  type LearningAttemptMutationResponse,
   learningOptionUnderReview,
   type LearningAttempt,
   type LearningAttemptResponseRecord,
   type LearningEnrollmentProgress,
   type LearningReward,
 } from "@cediah/contracts";
-import { flushQueuedLearningMutations, sendQueuedLearningMutation } from "@/lib/learning-mutation-queue";
+import { recoverLearningMutations, sendQueuedLearningMutation } from "@/lib/learning-mutation-queue";
 import { FlashcardActivity } from "./flashcard-activity";
 import { GuideActivity } from "./guide-activity";
 import { LearningCompletionPanel } from "./learning-completion-panel";
@@ -20,6 +21,12 @@ import type { ActivityMutation } from "./types";
 import { VideoActivity } from "./video-activity";
 import { ActivityHeader } from "./activity-header";
 import ui from "./activity-ui.module.css";
+
+function pendingMessage(status?: number) {
+  if (status === 401) return "Vuelve a iniciar sesión con la misma cuenta para confirmar el envío pendiente.";
+  if (status === 429) return "Espera un momento antes de reintentar el envío pendiente.";
+  return "Envío pendiente de confirmar. Reintenta con conexión.";
+}
 
 export function ActivityShell({
   initialAttempt,
@@ -39,56 +46,98 @@ export function ActivityShell({
   const [saveState, setSaveState] = useState<"confirmed" | "failed" | "pending" | "saving">("confirmed");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const flush = () => {
-      void flushQueuedLearningMutations(userId).then((confirmed) => {
-        if (confirmed > 0) window.location.reload();
-      });
-    };
-    flush();
-    window.addEventListener("online", flush);
-    return () => window.removeEventListener("online", flush);
-  }, [userId]);
+  const lock = useRef(false);
+  const pending = useRef(false);
+  const lastVersion = useRef(initialAttempt.rowVersion);
+  const [checking, setChecking] = useState(true);
 
-  const mutate = useCallback<ActivityMutation>(async (path, method, body) => {
-    setSaveState("saving");
-    setMessage("");
-    const delivered = await sendQueuedLearningMutation({ body, method, url: path, userId });
-    if (delivered.state === "pending") {
-      setSaveState("pending");
-      setMessage("Cambio pendiente de guardar. No avanzaremos hasta recibir confirmación del servidor.");
-      return null;
-    }
-    if (delivered.state === "failed") {
-      setSaveState("failed");
-      setMessage("No pudimos enviar ni guardar este cambio en el dispositivo. Mantén esta pantalla abierta y vuelve a intentarlo con conexión.");
-      return null;
-    }
-    const parsed = LearningAttemptMutationResponseSchema.safeParse(delivered.body);
-    if (!delivered.response.ok || !parsed.success) {
-      setSaveState("confirmed");
-      const error = delivered.body && typeof delivered.body === "object" && "error" in delivered.body
-        ? String(delivered.body.error) : "learning_unavailable";
-      setMessage(error === "version_conflict"
-        ? "La actividad cambió en otro dispositivo. Recarga para continuar desde el estado confirmado."
-        : error === "resource_changed"
-          ? "Este material fue retirado o actualizado. Tu historial se conserva; vuelve a la ruta para elegir una alternativa."
-          : "No pudimos guardar este cambio. El avance visible no se modificó.");
-      return null;
-    }
-    setAttempt(parsed.data.attempt);
-    if (parsed.data.progress) setProgress(parsed.data.progress);
-    if (parsed.data.awards.length > 0) {
+  const applyReceipt = useCallback((receipt: LearningAttemptMutationResponse) => {
+    if (receipt.attempt.rowVersion < lastVersion.current) return false;
+    lastVersion.current = receipt.attempt.rowVersion;
+    setAttempt(receipt.attempt);
+    if (receipt.progress) setProgress(receipt.progress);
+    if (receipt.awards.length > 0) {
       setAwards((current) => {
         const next = new Map(current.map((award) => [award.awardKey, award]));
-        for (const award of parsed.data.awards) next.set(award.awardKey, award);
+        for (const award of receipt.awards) next.set(award.awardKey, award);
         return [...next.values()];
       });
     }
     setSaveState("confirmed");
     setMessage("Progreso guardado.");
-    return parsed.data;
-  }, [userId]);
+    return true;
+  }, []);
+
+  const rejectChange = useCallback((body: unknown) => {
+    setSaveState("failed");
+    const reason = body && typeof body === "object" && "error" in body ? body.error : null;
+    setMessage(reason === "version_conflict" ? "La actividad cambió en otra pestaña. Recarga el estado confirmado."
+      : reason === "resource_changed" ? "Este material fue retirado o actualizado. Vuelve a la ruta para elegir otra actividad."
+        : "No pudimos guardar este cambio. Revisa el estado confirmado.");
+  }, []);
+
+  const recover = useCallback(async () => {
+    if (lock.current) return;
+    lock.current = true;
+    try {
+      const result = await recoverLearningMutations(userId, initialAttempt.id);
+      for (const { response, body } of result.receipts) {
+        if (!response.ok) { rejectChange(body); continue; }
+        const receipt = LearningAttemptMutationResponseSchema.parse(body);
+        if (applyReceipt(receipt)) setFeedback(receipt.feedback);
+      }
+      if (pending.current && !result.pending && !result.receipts.length) {
+        // Another tab consumed our queue entry. Read its confirmed state from the server.
+        window.location.reload();
+        return;
+      }
+      pending.current = result.pending;
+      if (result.pending) {
+        setSaveState("pending");
+        setMessage(pendingMessage(result.status));
+      }
+    } catch {
+      if (pending.current) setMessage("No pudimos leer el envío pendiente. Reintenta desde este navegador.");
+    } finally {
+      setChecking(false);
+      lock.current = false;
+    }
+  }, [applyReceipt, initialAttempt.id, rejectChange, userId]);
+
+  useEffect(() => {
+    const initialCheck = window.setTimeout(recover, 0);
+    window.addEventListener("online", recover);
+    return () => {
+      window.clearTimeout(initialCheck);
+      window.removeEventListener("online", recover);
+    };
+  }, [recover]);
+
+  const mutate = useCallback<ActivityMutation>(async (path, method, body) => {
+    if (lock.current || pending.current || checking) return null;
+    lock.current = true;
+    try {
+      setSaveState("saving");
+      setMessage("");
+      const delivered = await sendQueuedLearningMutation({ body, method, url: path, userId });
+      if (delivered.state === "pending") {
+        pending.current = true;
+        setSaveState("pending");
+        setMessage(pendingMessage(delivered.status));
+        return null;
+      }
+      if (delivered.state === "failed") {
+        setSaveState("failed");
+        setMessage("No pudimos confirmar ni conservar el envío en el dispositivo. Revisa el estado antes de volver a responder.");
+        return null;
+      }
+      if (!delivered.response.ok) { rejectChange(delivered.body); return null; }
+      const receipt = LearningAttemptMutationResponseSchema.parse(delivered.body);
+      return applyReceipt(receipt) ? receipt : null;
+    } finally {
+      lock.current = false;
+    }
+  }, [applyReceipt, checking, rejectChange, userId]);
 
   if (attempt.status === "in_progress" && learningOptionUnderReview(attempt.stepOptionId)) return (
     <main className="learning-main"><section className="learning-empty"><div><h1>Material en revisión editorial</h1><p>Puedes continuar con otra actividad.</p></div>
@@ -102,8 +151,13 @@ export function ActivityShell({
         returnLabel={!returnHref && attempt.pathSlug ? "Volver a mi ruta" : "Volver a mi mapa"}
         completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p>} />
       <p aria-live="polite" className={message && message !== "Progreso guardado." ? ui.notice : "sr-only"}>{message}</p>
-      {attempt.status === "completed" && !feedback ? <LearningCompletionPanel attempt={attempt} awards={awards} progress={progress} returnHref={returnHref} /> : null}
-      {attempt.status !== "completed" || feedback ? (
+      {saveState === "pending" && message === pendingMessage(401) ? <Link className="learning-secondary-button"
+        href={`/acceder?${new URLSearchParams({ next: window.location.pathname + window.location.search })}`}>Iniciar sesión</Link> : null}
+      {checking && attempt.status === "in_progress" ? <p role="status">Comprobando los envíos pendientes…</p> : null}
+      {saveState === "pending" ? <button type="button" className="learning-primary-button" onClick={() => void recover()}>Reintentar envío pendiente</button> : null}
+      {saveState === "failed" ? <button type="button" className="learning-secondary-button" onClick={() => window.location.reload()}>Recargar estado confirmado</button> : null}
+      {saveState !== "pending" && attempt.status === "completed" && !feedback ? <LearningCompletionPanel attempt={attempt} awards={awards} progress={progress} returnHref={returnHref} /> : null}
+      {!checking && saveState !== "pending" && (attempt.status !== "completed" || feedback) ? (
         attempt.manifest.projection === "quiz" ? <QuizActivity attempt={attempt as LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "quiz" }> }} feedback={feedback} mutate={mutate} onFeedback={setFeedback} />
           : attempt.manifest.projection === "flashcards" ? <FlashcardActivity attempt={attempt as LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "flashcards" }> }} mutate={mutate} />
             : attempt.manifest.projection === "guide" ? <GuideActivity attempt={attempt as LearningAttempt & { manifest: Extract<LearningAttempt["manifest"], { projection: "guide" }> }} mutate={mutate} />

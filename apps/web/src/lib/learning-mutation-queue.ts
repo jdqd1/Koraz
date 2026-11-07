@@ -1,5 +1,7 @@
 "use client";
 
+import { LearningAttemptMutationResponseSchema } from "@cediah/contracts";
+
 type QueuedLearningMutation = {
   body: unknown;
   createdAt: number;
@@ -36,15 +38,29 @@ function canPersistQueue() {
   return typeof indexedDB !== "undefined";
 }
 
-async function writeMutation(value: QueuedLearningMutation) {
+function attemptPrefix(url: string) {
+  return url.match(/^\/api\/guided-learning\/attempts\/[^/]+\//)?.[0];
+}
+
+async function reserveMutation(value: QueuedLearningMutation) {
   const database = await openQueue();
+  let reserved = value;
   await new Promise<void>((resolve, reject) => {
     const transaction = database.transaction(storeName, "readwrite");
-    transaction.objectStore(storeName).put(value);
+    const store = transaction.objectStore(storeName);
+    const lookup = store.index("userId").getAll(value.userId);
+    lookup.onsuccess = () => {
+      const prefix = attemptPrefix(value.url);
+      const existing = (lookup.result as QueuedLearningMutation[]).find(item => prefix && item.url.startsWith(prefix));
+      if (existing) reserved = existing;
+      else store.put(value);
+    };
+    transaction.onabort = () => reject(transaction.error);
     transaction.oncomplete = () => resolve();
     transaction.onerror = () => reject(transaction.error);
   });
   database.close();
+  return reserved;
 }
 
 async function deleteMutation(queueKey: string) {
@@ -67,11 +83,11 @@ async function queuedForUser(userId: string) {
     request.onerror = () => reject(request.error);
   });
   database.close();
-  return values.sort((left, right) => left.createdAt - right.createdAt).slice(0, 100);
+  return values.sort((left, right) => left.createdAt - right.createdAt);
 }
 
 export function isRetryableLearningStatus(status: number) {
-  return status === 401 || status === 429 || status >= 500;
+  return status === 401 || status === 408 || status === 429 || status >= 500;
 }
 
 async function deliver(mutation: QueuedLearningMutation) {
@@ -84,6 +100,12 @@ async function deliver(mutation: QueuedLearningMutation) {
     method: mutation.method,
   });
   const body: unknown = await response.json().catch(() => ({ error: "learning_unavailable" }));
+  if (response.ok) {
+    const receipt = LearningAttemptMutationResponseSchema.parse(body);
+    if (attemptPrefix(mutation.url) !== `/api/guided-learning/attempts/${receipt.attempt.id}/`) {
+      throw new Error("El recibo corresponde a otro intento.");
+    }
+  }
   let removedFromQueue = false;
   if (!isRetryableLearningStatus(response.status) && canPersistQueue()) {
     try {
@@ -110,7 +132,10 @@ export async function sendQueuedLearningMutation(input: Omit<QueuedLearningMutat
   let persisted = false;
   if (canPersistQueue()) {
     try {
-      await writeMutation(mutation);
+      const reserved = await reserveMutation(mutation);
+      if (reserved.queueKey !== mutation.queueKey) {
+        return { idempotencyKey: reserved.idempotencyKey, state: "pending" as const };
+      }
       persisted = true;
     } catch {
       // Private browsing and storage quotas can disable IndexedDB. We still
@@ -121,7 +146,7 @@ export async function sendQueuedLearningMutation(input: Omit<QueuedLearningMutat
     const delivered = await deliver(mutation);
     if (isRetryableLearningStatus(delivered.response.status)) {
       return persisted
-        ? { idempotencyKey: mutation.idempotencyKey, state: "pending" as const }
+        ? { idempotencyKey: mutation.idempotencyKey, state: "pending" as const, status: delivered.response.status }
         : { ...delivered, idempotencyKey: mutation.idempotencyKey, state: "failed" as const };
     }
     return { ...delivered, idempotencyKey: mutation.idempotencyKey, state: "confirmed" as const };
@@ -132,23 +157,31 @@ export async function sendQueuedLearningMutation(input: Omit<QueuedLearningMutat
   }
 }
 
-export async function flushQueuedLearningMutations(userId: string) {
-  if (!canPersistQueue() || !navigator.onLine) return 0;
-  let confirmed = 0;
-  let mutations: QueuedLearningMutation[];
-  try {
-    mutations = await queuedForUser(userId);
-  } catch {
-    return 0;
-  }
-  for (const mutation of mutations) {
+/** Replay the user's queue in order, exposing only this attempt's receipts to its player. */
+export async function recoverLearningMutations(userId: string, attemptId: string) {
+  const receipts: Awaited<ReturnType<typeof deliver>>[] = [];
+  const prefix = `/api/guided-learning/attempts/${attemptId}/`;
+  const all = canPersistQueue() ? await queuedForUser(userId) : [];
+  const currentAttempt = all.filter(item => item.url.startsWith(prefix));
+  const queued = [...currentAttempt, ...all.filter(item => !item.url.startsWith(prefix))];
+  let remaining = currentAttempt.length;
+  let status: number | undefined;
+  for (const mutation of queued) {
+    if (!navigator.onLine) break;
+    const current = mutation.url.startsWith(prefix);
     try {
-      const { removedFromQueue, response } = await deliver(mutation);
-      if (isRetryableLearningStatus(response.status)) break;
-      if (removedFromQueue) confirmed += 1;
+      const result = await deliver(mutation);
+      if (isRetryableLearningStatus(result.response.status)) {
+        if (current) status = result.response.status;
+        break;
+      }
+      if (current) {
+        receipts.push(result);
+        remaining--;
+      }
     } catch {
       break;
     }
   }
-  return confirmed;
+  return { receipts, pending: remaining > 0, status };
 }

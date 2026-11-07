@@ -457,6 +457,7 @@ export async function buildApp(
   });
 
   app.get("/v1/auth/me", async (request, reply) => {
+    reply.header("X-Request-Id", request.id);
     const resolution = await resolveRequestUser(toIdentityRequest(request.headers), identityProvider);
     if (resolution.kind !== "authenticated") return sendUserResolutionError(resolution, reply);
 

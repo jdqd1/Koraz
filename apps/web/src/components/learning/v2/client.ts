@@ -58,36 +58,72 @@ function sameJson(left: unknown, right: unknown): boolean {
   return keys.length === Object.keys(b).length && keys.every(key => Object.hasOwn(b, key) && sameJson(a[key], b[key]));
 }
 
-/** sessionStorage stores only the outgoing request, never progress, scores or solutions.
- * A refresh must read the server manifest; uncertain writes retry the exact body/key. */
+/** Only the outgoing request is shared. The server owns answers, scores and progression. */
 export function createV2PlayerClient(attemptId: string, fetcher: Fetcher = fetch,
-  uuid = () => crypto.randomUUID(), getStore: () => PlayerTransportStore | null = () => {
-    try { return typeof window === "undefined" ? null : window.sessionStorage; } catch { return null; }
-  }) {
+  uuid = () => crypto.randomUUID(), getStore?: () => PlayerTransportStore | null) {
   const storageKey = `koraz:v2:pending:${attemptId}`;
+  const store = () => getStore ? getStore() : typeof window === "undefined" ? null : window.localStorage;
   let pending: PendingPlayer | null = null;
-  let loaded = false;
   const listeners = new Set<() => void>();
+  function notify() { for (const listener of listeners) listener(); }
+  function stored(raw: string | null) {
+    if (!raw) return null;
+    const parsed = PendingPlayerSchema.safeParse(JSON.parse(raw));
+    return parsed.success ? parsed.data : null;
+  }
   function readPending() {
-    if (!loaded) {
-      loaded = true;
-      try { const raw = getStore()?.getItem(storageKey); const parsed = raw ? PendingPlayerSchema.safeParse(JSON.parse(raw)) : null; if (parsed?.success) pending = parsed.data; } catch { /* In-memory retry remains available. */ }
+    if (!pending) {
+      try {
+        pending = stored(store()?.getItem(storageKey) ?? null);
+        if (!pending && !getStore && typeof window !== "undefined") {
+          pending = stored(window.sessionStorage.getItem(storageKey));
+        }
+      } catch { /* Retry in memory if browser storage is unavailable. */ }
     }
     return pending?.action ?? null;
   }
-  function save() { try { if (pending) getStore()?.setItem(storageKey, JSON.stringify(pending)); else getStore()?.removeItem(storageKey); } catch { /* Never claim offline persistence. */ } for (const listener of listeners) listener(); }
-  async function execute(action: PlayerAction): Promise<PlayerResult> {
+  function withLock<T>(work: () => T): Promise<T> {
+    return !getStore && typeof navigator !== "undefined" && navigator.locks
+      ? navigator.locks.request(storageKey, work)
+      : Promise.resolve(work());
+  }
+  function reserve(action: PlayerAction) {
     readPending();
+    if (pending && !sameJson(pending.action, action)) {
+      notify();
+      throw new Error("Confirma primero la solicitud pendiente.");
+    }
+    if (!pending) {
+      pending = { key: uuid(), action };
+      try { store()?.setItem(storageKey, JSON.stringify(pending)); }
+      catch { /* Keep the in-memory request. */ }
+    }
+    notify();
+    return pending;
+  }
+  async function clear(ticket: PendingPlayer) {
+    await withLock(() => {
+      try {
+        const target = store();
+        if (stored(target?.getItem(storageKey) ?? null)?.key === ticket.key) target?.removeItem(storageKey);
+        if (!getStore && typeof window !== "undefined" && stored(window.sessionStorage.getItem(storageKey))?.key === ticket.key) {
+          window.sessionStorage.removeItem(storageKey);
+        }
+      } catch { /* A retained entry can be replayed with the original key. */ }
+      if (pending?.key === ticket.key) pending = null;
+      notify();
+    });
+  }
+  async function execute(action: PlayerAction): Promise<PlayerResult> {
     const parsed = PlayerActionSchema.parse(action);
-    if (pending && JSON.stringify(pending.action) !== JSON.stringify(parsed)) throw new Error("Confirma primero la solicitud pendiente.");
-    if (!pending) { pending = { key: uuid(), action: parsed }; save(); }
+    const ticket = await withLock(() => reserve(parsed));
     const suffix = parsed.operation === "response" ? "responses" : parsed.operation;
     const response = await fetcher(`/api/v2/guided-learning/attempts/${encodeURIComponent(attemptId)}/${suffix}`, {
-      method: "POST", headers: { "Content-Type": "application/json", "Idempotency-Key": pending.key }, body: JSON.stringify(parsed.body),
+      method: "POST", headers: { "Content-Type": "application/json", "Idempotency-Key": ticket.key }, body: JSON.stringify(parsed.body),
     });
     if (!response.ok) {
       // Definite 4xx rejections permit a fresh server read; 5xx/transport failures remain uncertain.
-      if (response.status >= 400 && response.status < 500) { pending = null; save(); }
+      if (response.status >= 400 && response.status < 500 && ![401, 408, 429].includes(response.status)) await clear(ticket);
       throw new V2RequestError(response.status);
     }
     const raw: unknown = await response.json();
@@ -113,10 +149,16 @@ export function createV2PlayerClient(attemptId: string, fetcher: Fetcher = fetch
       || !result.value.attempt.activeActivity || !["text", "table"].includes(result.value.attempt.activeActivity.representation))) throw new Error("La variante accesible no está confirmada.");
     if (result.operation !== "help" && (result.value.state.enrollmentId !== result.value.attempt.enrollmentId
       || result.value.state.pathVersionId !== result.value.attempt.pathVersionId)) throw new Error("El progreso recibido no corresponde a esta sesión.");
-    pending = null; save();
+    await clear(ticket);
     return result;
   }
-  return { execute, pending: readPending, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; }, async retry() { const action = readPending(); if (!action) throw new Error("No hay una solicitud pendiente."); return execute(action); } };
+  return { execute, pending: readPending, subscribe(listener: () => void) { listeners.add(listener);
+    const changed = (event: StorageEvent) => { if (event.key === storageKey) listener(); };
+    if (!getStore) window.addEventListener("storage", changed);
+    return () => {
+      listeners.delete(listener);
+      if (!getStore) window.removeEventListener("storage", changed);
+    }; }, async retry() { const action = readPending(); if (!action) throw new Error("No hay una solicitud pendiente."); return execute(action); } };
 }
 
 export async function readV2AttemptImage(attemptId: string, activityKey: string, assetKey: string, expectedVersion: number, signal?: AbortSignal, fetcher: Fetcher = fetch) {

@@ -99,7 +99,7 @@ for (const mode of ["study", "worked-example", "partial-example", "single_choice
     if (mode === "image_target" || mode === "labeling") await expect(page.getByRole("img", { name: "Figura sintética de origen y ramas" })).toBeVisible();
     await capture(page, info, mode);
     if (mode === "case-wrapper") { await expect(page.getByText(/Recarga para continuar/)).toBeVisible(); return; }
-    if (mode.includes("example") || mode === "study") await page.getByRole("button", { name: "Continuar a la práctica" }).click();
+    if (mode.includes("example") || mode === "study") await page.getByRole("button", { name: "Guardar lectura" }).click();
     else {
       if (mode === "single_choice" || mode === "case") await page.getByRole("radio").first().check();
       if (mode === "short_answer") await page.getByLabel("Tu respuesta", { exact: true }).fill("A");

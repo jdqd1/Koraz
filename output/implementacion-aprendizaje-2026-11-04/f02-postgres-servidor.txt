@@ -1,0 +1,17 @@
+2026-11-07 12:07:27.531 -04 [32640] LOG:  starting PostgreSQL 17.11 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit
+2026-11-07 12:07:27.532 -04 [32640] LOG:  listening on IPv4 address "127.0.0.1", port 55435
+2026-11-07 12:07:27.583 -04 [6172] LOG:  database system was shut down at 2026-11-07 12:07:27 -04
+2026-11-07 12:07:27.613 -04 [32640] LOG:  database system is ready to accept connections
+2026-11-07 12:12:27.575 -04 [24060] LOG:  checkpoint starting: time
+2026-11-07 12:12:27.590 -04 [24060] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.001 s, total=0.017 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/E9FC8D0, redo lsn=0/E9FC878
+2026-11-07 12:14:14.733 -04 [24060] LOG:  checkpoint starting: immediate force wait
+2026-11-07 12:14:14.758 -04 [24060] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.003 s, sync=0.003 s, total=0.025 s; sync files=8, longest=0.001 s, average=0.001 s; distance=8452 kB, estimate=8452 kB; lsn=0/F23DAE8, redo lsn=0/F23DA90
+2026-11-07 12:19:14.759 -04 [24060] LOG:  checkpoint starting: time
+2026-11-07 12:19:15.951 -04 [24060] LOG:  checkpoint complete: wrote 12 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.180 s, sync=0.005 s, total=1.192 s; sync files=9, longest=0.001 s, average=0.001 s; distance=46 kB, estimate=7611 kB; lsn=0/F249338, redo lsn=0/F2492E0
+2026-11-07 12:19:25.201 -04 [32640] LOG:  received fast shutdown request
+2026-11-07 12:19:25.203 -04 [32640] LOG:  aborting any active transactions
+2026-11-07 12:19:25.218 -04 [32640] LOG:  background worker "logical replication launcher" (PID 23032) exited with exit code 1
+2026-11-07 12:19:25.219 -04 [24060] LOG:  shutting down
+2026-11-07 12:19:25.220 -04 [24060] LOG:  checkpoint starting: shutdown immediate
+2026-11-07 12:19:25.230 -04 [24060] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.011 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=6850 kB; lsn=0/F2493E8, redo lsn=0/F2493E8
+2026-11-07 12:19:25.242 -04 [32640] LOG:  database system is shut down

@@ -1,0 +1,86 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-learning-catalog.test.ts (21 tests | 3 failed) 11628ms
+     × builds deterministic review sessions and keeps stale devices from advancing memory twice 362ms
+     × keeps a completed route at one hundred percent while later reviews stay separate 993ms
+     × applies timezone changes immediately while deferring only the weekly goal, with optimistic idempotency 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > builds deterministic review sessions and keeps stale devices from advancing memory twice
+AssertionError: expected [] to deeply equal [ 'review_applied', …(1) ]
+
+- Expected
++ Received
+
+- [
+-   "review_applied",
+-   "milestone_first_review",
+- ]
++ []
+
+ ❯ test/guided-learning-catalog.test.ts:734:62
+    732|     expect(accepted.value.feedback?.scheduleApplied).toBe(true);
+    733|     expect(stale.value.feedback?.scheduleApplied).toBe(false);
+    734|     expect(accepted.value.awards.map((award) => award.kind)).toEqual([
+       |                                                              ^
+    735|       "review_applied",
+    736|       "milestone_first_review",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > keeps a completed route at one hundred percent while later reviews stay separate
+AssertionError: expected 160 to be 170 // Object.is equality
+
+- Expected
++ Received
+
+- 170
++ 160
+
+ ❯ test/guided-learning-catalog.test.ts:1097:25
+    1095|     expect(home.counts.dueReviews).toBeGreaterThan(0);
+    1096|     expect(home.tasks.some((task) => task.kind === "review")).toBe(tru…
+    1097|     expect(home.points).toBe(170);
+       |                         ^
+    1098|     expect(home.milestones.map((milestone) => milestone.kind)).toEqual…
+    1099|       "milestone_first_activity",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/guided-learning-catalog.test.ts > guided-learning catalog and versioning > applies timezone changes immediately while deferring only the weekly goal, with optimistic idempotency
+AssertionError: expected { examDate: null, …(6) } to match object { pendingConstancy: null, …(4) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "pendingConstancy": null,
+-   "rowVersion": 1,
++   "rowVersion": 0,
+    "sessionMinutes": 10,
+    "timezone": "America/Caracas",
+    "weeklyGoalDays": null,
+  }
+
+ ❯ test/guided-learning-catalog.test.ts:1128:22
+    1126|     clockNow = new Date("2026-09-06T12:11:00.000Z");
+    1127|     const defaults = await provider.getPreferences({ userId: studentId…
+    1128|     expect(defaults).toMatchObject({ pendingConstancy: null, rowVersio…
+       |                      ^
+    1129|     const request = {
+    1130|       expectedVersion: 1,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  3 failed | 75 passed | 12 skipped (90)
+   Start at  22:01:27
+   Duration  36.28s (transform 2.37s, setup 0ms, import 14.55s, tests 19.87s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/learning-content-contract.test.ts test/guided-v2-grading.test.ts test/guided-v2-validation.test.ts test/review-scheduler.test.ts test/guided-learning-catalog.test.ts test/guided-v2-contract.test.ts test/guided-v2-attempts.test.ts
