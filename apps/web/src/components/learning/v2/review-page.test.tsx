@@ -3,24 +3,27 @@ import { renderToString } from "react-dom/server";
 import { studentFixture } from "./fixtures";
 
 const api = vi.hoisted(() => ({ getLearningV2Home: vi.fn(), getLearningV2Path: vi.fn(), getLearningV2State: vi.fn() }));
+const center = vi.hoisted(() => ({ getLearningReviewCenter: vi.fn() }));
+vi.mock("@/lib/server/learning-review-center", () => center);
 vi.mock("@/lib/server/guided-learning-api", () => api);
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 vi.mock("../review-launcher", () => ({ ReviewLauncher: ({ minutes }: { minutes: number }) => <main data-engine="guided-v1">Repaso v1: {minutes}</main> }));
 import LearningReviewPage from "@/app/aprendizaje/repaso/page";
 
-beforeEach(() => { vi.resetAllMocks(); api.getLearningV2Home.mockResolvedValue({ status: "not_found" }); });
+beforeEach(() => { vi.resetAllMocks(); center.getLearningReviewCenter.mockResolvedValue({ home: null, routes: [], unavailable: false }); });
 describe("T032 review page dispatch", () => {
-  it("preserves the original v1 launcher and duration", async () => {
+  it("loads the common center with the requested duration", async () => {
     const html = renderToString(await LearningReviewPage({ searchParams: Promise.resolve({ minutos: "5" }) }));
-    expect(html).toContain("guided-v1"); expect(html).toContain("5");
+    expect(html).toContain("Repasos pendientes");
+    expect(center.getLearningReviewCenter).toHaveBeenCalledWith(5);
     expect(api.getLearningV2Path).not.toHaveBeenCalled();
   });
   it("links the active v2 route explicitly without replacing v1", async () => {
     const fixture = studentFixture("review");
-    api.getLearningV2Home.mockResolvedValue({ status: "ready", value: fixture.home });
+    center.getLearningReviewCenter.mockResolvedValue({ home: null, routes: [fixture], unavailable: false });
     const html = renderToString(await LearningReviewPage({ searchParams: Promise.resolve({}) }));
     expect(html).toContain("motor=guided-v2&amp;ruta=practica-por-objetivos");
-    expect(html).toContain("guided-v1");
+    expect(html).toContain("Preguntas y tarjetas");
   });
   it("loads the pinned v2 state and mounts maintenance", async () => {
     const fixture = studentFixture("review");

@@ -15,7 +15,6 @@ export function LearningDashboardReview({
   if (!enabled) return null;
 
   const dueReviews = available && home ? home.counts.dueReviews : null;
-  const reviewTask = home?.tasks.find((task) => task.kind === "review") ?? null;
   const reviewTone = dueReviews === null ? "calm" : dueReviews === 0
     ? "complete"
     : dueReviews <= 5 ? "calm" : dueReviews <= 12 ? "active" : dueReviews <= 20 ? "attention" : "urgent";
@@ -35,12 +34,12 @@ export function LearningDashboardReview({
         <header className="dashboard-review-heading">
           <span className="dashboard-review-icon"><ClockCounterClockwise aria-hidden="true" size={24} /></span>
           <span className="dashboard-review-copy">
-            <strong>{dueReviews === 0 ? "Repaso al día" : "Repasar flashcards"}</strong>
+            <strong>Preguntas y tarjetas</strong>
             <span>{dueReviews === null
-              ? "Puedes iniciar un repaso aunque tu progreso no haya cargado."
+              ? "Consulta el centro de repaso para confirmar tus pendientes."
               : dueReviews === 0
-                ? "No tienes conceptos pendientes por ahora."
-                : `${dueReviews} ${dueReviews === 1 ? "concepto pendiente" : "conceptos pendientes"}`}</span>
+                ? "Sin ítems pendientes aquí. Consulta también tus rutas por objetivos."
+                : `${dueReviews} ${dueReviews === 1 ? "ítem pendiente" : "ítems pendientes"}`}</span>
           </span>
           {dueReviews !== null && (
             <div
@@ -55,15 +54,9 @@ export function LearningDashboardReview({
             </div>
           )}
         </header>
-        {dueReviews === 0 ? (
-          <Link className="dashboard-review-clear-link" href="/aprendizaje">
-            Ver mi aprendizaje <ArrowRight aria-hidden="true" size={18} />
-          </Link>
-        ) : (
-          <Link className="dashboard-review-button" href={reviewTask?.href ?? "/aprendizaje/repaso"}>
-            Iniciar repaso <ArrowRight aria-hidden="true" size={19} />
-          </Link>
-        )}
+        <Link className="dashboard-review-button" href="/aprendizaje/repaso">
+          Ver repasos pendientes <ArrowRight aria-hidden="true" size={19} />
+        </Link>
       </article>
     </section>
   );

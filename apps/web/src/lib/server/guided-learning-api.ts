@@ -69,7 +69,11 @@ async function readGuidedV2<T>(path: string, schema: { safeParse(value: unknown)
   const parsed = schema.safeParse(response.body);
   return parsed.success ? { status: "ready" as const, value: parsed.data } : { status: "unavailable" as const };
 }
-export function getLearningV2Paths() { return readGuidedV2("/v2/guided-learning/paths?limit=20", V2CatalogResponseSchema); }
+export function getLearningV2Paths(cursor?: string) {
+  const query = new URLSearchParams({ limit: "20" });
+  if (cursor) query.set("cursor", cursor);
+  return readGuidedV2(`/v2/guided-learning/paths?${query}`, V2CatalogResponseSchema);
+}
 export function getLearningV2Home() { return readGuidedV2("/v2/guided-learning/home", V2HomeSnapshotSchema); }
 export function getLearningV2Path(slug: string) {
   return readGuidedV2(`/v2/guided-learning/paths/${encodeURIComponent(slug)}`, V2HttpContracts.publicPath.response);

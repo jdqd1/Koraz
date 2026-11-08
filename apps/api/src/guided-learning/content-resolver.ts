@@ -116,7 +116,7 @@ function adapterContent(row: ContentRow, projection: LearningProjection): unknow
         front: question.prompt,
         id: question.id,
         itemKind: "question" as const,
-        memoryVersion: question.memoryVersion,
+        memoryVersion: question.memoryVersion ?? 1,
       })),
     };
   }

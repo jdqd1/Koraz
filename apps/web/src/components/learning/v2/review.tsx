@@ -13,7 +13,7 @@ import { ArrowLeft, ArrowsClockwise, CaretDown, SquaresFour } from "@phosphor-ic
 export function V2ReviewScreen({ path, state }: { path: V2Path; state: V2State | null }) {
   const confirmed = stateMatches(path, state) && path.access === "enrolled" ? state : null;
   return <main className={`learning-main ${routeStyles.screen} ${styles.screen}`} data-engine-version="guided-v2">
-    <Link className={routeStyles.back} href="/aprendizaje?tab=hoy"><ArrowLeft size={18} aria-hidden />Volver a mi aprendizaje</Link>
+    <Link className={routeStyles.back} href="/aprendizaje/repaso"><ArrowLeft size={18} aria-hidden />Todos mis repasos</Link>
     <header className={styles.reviewHeader}><h1>Repaso y práctica</h1><span>{path.title}</span></header>
     {confirmed ? <>
       <section className={routeStyles.nextStep} aria-label="Práctica recomendada">

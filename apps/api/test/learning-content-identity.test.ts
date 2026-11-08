@@ -13,6 +13,7 @@ import {
 import type { CediahDatabase } from "../src/db/database.js";
 import { createLearningContentResolver } from "../src/guided-learning/content-resolver.js";
 import { createPostgresContentProvider } from "../src/providers/postgres-content.js";
+import { hashLearningSnapshot } from "../src/guided-learning/snapshot-hash.js";
 
 const pg = new PGlite();
 const authorId = "10000000-0000-4000-8000-000000000099";
@@ -115,6 +116,19 @@ afterAll(async () => {
 });
 
 describe("learning content identity migration", () => {
+  it("keeps a legacy question's flashcard checksum valid after JSONB persistence", async () => {
+    const sourceContentId = "10000000-0000-4000-8000-000000000070";
+    await pg.query(`insert into content_items(id,kind,slug,title,summary,topic,content,author_user_id,status,published_by,published_at)
+      values($1,'quiz','legacy-memory-fixture','Simulación','Prueba de compatibilidad','Simulación',$2,$3,'published',$3,now())`,
+    [sourceContentId, { questions: [{ id: "10000000-0000-4000-8000-000000000071", optionIds: ["10000000-0000-4000-8000-000000000072", "10000000-0000-4000-8000-000000000073"],
+      prompt: "Primera letra", options: ["A", "B"], correctOptionIndex: 0, explanation: "A es la primera letra." }] }, authorId]);
+    const first = await resolver.resolvePublishedRevision({ sourceContentId, projection: "flashcards", allowGuidedOnly: true });
+    if (first.status !== "success") throw new Error(first.status);
+    const stored = (await pg.query<{ payload_json: unknown; payload_hash: string }>(
+      "select payload_json,payload_hash from learning_resource_revisions where id=$1", [first.value.resourceRevisionId])).rows[0]!;
+    expect(hashLearningSnapshot(stored.payload_json)).toBe(stored.payload_hash);
+    expect(await resolver.resolvePublishedRevision({ sourceContentId, projection: "flashcards", allowGuidedOnly: true })).toEqual(first);
+  });
   it("adds stable item and option identities without changing authored material", async () => {
     const result = await pg.query<{
       content: {

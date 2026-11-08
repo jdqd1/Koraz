@@ -38,6 +38,7 @@ import {
 import { readLearningRewardSummary } from "../guided-learning/rewards.js";
 import { learningEventTime } from "../guided-learning/time-zone.js";
 import { readLearningEnrollmentProgress } from "./postgres-learning-activities.js";
+import { parseStoredAttemptManifest } from "../guided-learning/attempt-manifest.js";
 
 type QueryDatabase = DatabaseClient | Transaction<CediahDatabase>;
 type PreferenceRow = Selectable<LearningPreferenceTable>;
@@ -181,7 +182,7 @@ export function createPostgresLearningInsightMethods(
         .execute();
       const enrollmentIds = enrollments.map((enrollment) => enrollment.id);
       const versionIds = [...new Set(enrollments.map((enrollment) => enrollment.path_version_id))];
-      const [steps, progressRows, attempts, overrideRows, rawReviews, eventRows, rewardSummary] = await Promise.all([
+      const [steps, progressRows, attempts, overrideRows, rawReviews, eventRows, rewardSummary, openReviews] = await Promise.all([
         versionIds.length > 0
           ? database.selectFrom("learning_path_steps")
             .innerJoin("learning_path_units", "learning_path_units.id", "learning_path_steps.unit_id")
@@ -251,6 +252,9 @@ export function createPostgresLearningInsightMethods(
           .where("event_type", "in", ["step_completed", "review_applied"])
           .execute(),
         readLearningRewardSummary(database, input.userId),
+        database.selectFrom("learning_attempts").select(["id", "manifest_json"])
+          .where("user_id", "=", input.userId).where("projection", "=", "review")
+          .where("status", "=", "in_progress").orderBy("created_at", "asc").limit(20).execute(),
       ]);
       const reviews = await filterReviewCandidateOverrides(database, {
         candidates: rawReviews,
@@ -263,6 +267,18 @@ export function createPostgresLearningInsightMethods(
       const tasks: RankedTask[] = [];
       const currentLocalDate = localDate(now, preferences.timezone);
       const examDays = daysUntil(preferences.examDate, currentLocalDate);
+
+      for (const attempt of openReviews) {
+        const manifest = parseStoredAttemptManifest(attempt.manifest_json);
+        if (manifest.projection !== "review" || manifest.items.some(item =>
+          item.evidenceEnrollmentIds.some(id => !enrollmentIds.includes(id)))) continue;
+        const key = `review-session:${attempt.id}`;
+        tasks.push({ band: 0, dueAt: null, dueAtMs: null, editorialPosition: 0,
+          enrollmentId: null, estimatedMinutes: null, examDays: null,
+          href: `/aprendizaje/sesiones/${attempt.id}`, importance: 3, itemCount: 0,
+          key, kind: "resume", pinnedPath: false, reason: "Continúa el repaso que dejaste abierto",
+          taskKeys: [key], title: "Retomar repaso" });
+      }
 
       if (reviews.length > 0) {
         const sessionLimit = sessionMinutes === 5 ? 5 : 10;

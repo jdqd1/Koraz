@@ -1,7 +1,8 @@
-import { ReviewLauncher } from "@/components/learning/review-launcher";
+import { ReviewCenter } from "@/components/learning/review-center";
+import { getLearningReviewCenter } from "@/lib/server/learning-review-center";
 import Link from "next/link";
 import { V2ReviewScreen } from "@/components/learning/v2/review";
-import { getLearningV2Home, getLearningV2Path, getLearningV2State } from "@/lib/server/guided-learning-api";
+import { getLearningV2Path, getLearningV2State } from "@/lib/server/guided-learning-api";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,5 @@ export default async function LearningReviewPage({ searchParams }: {
     const current = path.enrollmentId ? await getLearningV2State(path.enrollmentId) : null;
     return <V2ReviewScreen path={path} state={current?.status === "ready" ? current.value.state : null} />;
   }
-  const home = await getLearningV2Home();
-  const active = home.status === "ready" ? home.value.activePath : null;
-  return <>{active ? <aside className="learning-main" aria-label="Repaso por objetivos"><Link href={`/aprendizaje/repaso?${new URLSearchParams({ motor: "guided-v2", ruta: active.slug })}`}>Práctica y mantenimiento · {active.title}</Link></aside> : null}<ReviewLauncher minutes={minutes} /></>;
+  return <ReviewCenter {...await getLearningReviewCenter(minutes)} minutes={minutes} />;
 }

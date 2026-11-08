@@ -5,13 +5,15 @@ import { readFile } from "node:fs/promises";
 import { createServer } from "node:https";
 import { createGuidedV2Postgres } from "./guided-v2-postgres.js";
 import { guidedV2Fixture, guidedV2FixtureId as id, guidedV2FixtureBindings, guidedV2GuidePayload, guidedV2GuideHash, guidedV2Image, guidedV2ImageHash } from "./guided-v2-fixtures.js";
-import { createPostgresGuidedLearningV2Provider } from "../../src/providers/postgres-guided-learning-v2.js";
+import { createPostgresGuidedLearningV2Provider, createPostgresGuidedV2AttemptService } from "../../src/providers/postgres-guided-learning-v2.js";
 import { createGuidedV2HttpProvider } from "../../src/guided-learning/v2/routes.js";
 import { createPostgresLearningMapProvider } from "../../src/providers/postgres-learning-map.js";
 import { createStoredReviewAttemptManifest, initialAttemptResume } from "../../src/guided-learning/attempt-manifest.js";
 import { hashLearningSnapshot } from "../../src/guided-learning/snapshot-hash.js";
 import { buildApp } from "../../src/app.js";
 import { readEnvironment } from "../../src/config.js";
+import { createPostgresGuidedLearningProvider } from "../../src/providers/postgres-guided-learning.js";
+import { seedReviewCenter } from "./review-center-fixture.js";
 
 export async function createGuidedV2Server() {
   if(process.env.NODE_ENV!=="test" || process.env.KORAZ_GUIDED_V2_TEST_SERVER!=="true") throw new Error("Explicit T035 test server required");
@@ -111,8 +113,31 @@ export async function createGuidedV2Server() {
       values($1,$2,$3,'recall','review',$4,$5)`, [reviews[token], userId, randomUUID(), manifest, initialAttemptResume()]);
   }
   const map=createPostgresLearningMapProvider(db.database,{clock:now});
+  for (const [index, token] of ["f03-desktop", "f03-mobile"].entries()) {
+    const actor = { id: id(110 + index), name: "Alumno de repaso", email: `${token}@example.test` };
+    actors.set(token, actor);
+    await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)", [actor.id, actor.name, actor.email]);
+  }
+  await seedReviewCenter(db, id(1), [id(110), id(111)], now);
+  const pastPractice = createPostgresGuidedV2AttemptService(db.database, { now: () => new Date(clock.getTime() - 8 * 86_400_000) });
+  for (const userId of [id(110), id(111)]) {
+    const enrollment = await learner.invoke("enrollmentCreate", userId, {}, { pathId: fixtures.upgrade!.pathId }, randomUUID());
+    if (enrollment.status !== "success" || !("value" in enrollment)) throw new Error(JSON.stringify(enrollment));
+    const { state } = enrollment.value as { state: { enrollmentId: string; rowVersion: number } };
+    for (const key of ["choice-1", "short-1", "apply-1"]) {
+      const created = await pastPractice.create({ userId, enrollmentId: state.enrollmentId, expectedEnrollmentVersion: state.rowVersion,
+        clientAttemptId: randomUUID(), idempotencyKey: randomUUID(), target: { kind: "activity", key } });
+      if (created.status !== "success") throw new Error(JSON.stringify(created));
+      const response = await pastPractice.respond({ userId, attemptId: created.value.attemptId, activityKey: key, expectedVersion: 1,
+        idempotencyKey: randomUUID(), confidence: null, answer: key === "short-1" ? { kind: "short_answer", text: "respuesta" } : { kind: "single_choice", optionKey: "yes" } });
+      if (response.status !== "success") throw new Error(JSON.stringify(response));
+      const closed = await pastPractice.complete({ userId, attemptId: created.value.attemptId, expectedVersion: response.value.attempt.rowVersion, idempotencyKey: randomUUID() });
+      if (closed.status !== "success") throw new Error(JSON.stringify(closed));
+    }
+  }
   const app=await buildApp(readEnvironment({NODE_ENV:"test",HOST:"127.0.0.1",PORT:"41035",DATABASE_URL:db.url,DATABASE_MIGRATIONS_ENABLED:"false",GUIDED_LEARNING_ENABLED:"true",GUIDED_LEARNING_MAP_ENABLED:"true",GUIDED_LEARNING_V2_ENABLED:"true",GUIDED_LEARNING_V2_NEW_ENROLLMENTS:"true",WEB_ORIGINS:"http://127.0.0.1:31035"}),{
     identityProvider:{getUser:async r=>actors.get(/(?:^|;\s*)t035=([^;]+)/.exec(r.cookie??"")?.[1]??"")??null,revokeSessions:async()=>{}},
+    guidedLearningProvider: createPostgresGuidedLearningProvider(db.database, { clock: now }),
     guidedLearningV2Provider:learner,guidedLearningV2EditorProvider:editor,learningMapProvider:map,
   });
   application=app;
@@ -145,7 +170,11 @@ export async function createGuidedV2Server() {
   app.get("/__test/responses/:id",async request=>({rows:(await db.pool.query("select activity_key,assisted from learning_v2_responses where attempt_id=$1",[(request.params as {id:string}).id])).rows}));
   app.get("/__test/fixture.png",async(_request,reply)=>reply.type("image/png").send(guidedV2Image));
   app.post("/__test/clock",async request=>{
-    const days=(request.body as {days?:number}).days;
+    const { days, milliseconds } = request.body as { days?: number; milliseconds?: number };
+    if (milliseconds !== undefined) {
+      if (!Number.isInteger(milliseconds) || milliseconds < 1 || milliseconds > 86_400_000) throw new Error("Test clock requires 1..86400000 milliseconds");
+      clock = new Date(clock.getTime() + milliseconds); return { now: clock.toISOString() };
+    }
     if(!Number.isInteger(days) || !days || days<1 || days>40) throw new Error("Test clock requires 1..40 days");
     clock=new Date(clock.getTime()+days*86400000);return {now:clock.toISOString()};
   });

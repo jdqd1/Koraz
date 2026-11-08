@@ -569,7 +569,7 @@ describe("T021 application registration and same-origin transport", () => {
       const source = await readFile(new URL(file, import.meta.url), "utf8");
       const module = { exports: {} };
       runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText,
-        { module, exports: module.exports, URL, Response, Request, require: (name: string) => {
+        { module, exports: module.exports, URL, URLSearchParams, Response, Request, require: (name: string) => {
           if (!(name in imports)) throw new Error(`Unexpected BFF dependency ${name}`); return imports[name];
         } });
       return module.exports;

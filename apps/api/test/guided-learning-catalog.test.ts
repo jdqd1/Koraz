@@ -676,6 +676,12 @@ describe("guided-learning catalog and versioning", () => {
       throw new Error("Expected two frozen review sessions");
     }
     const firstManifest = firstSession.value.attempt.manifest;
+    const reviewHome = await provider.getHome({ userId: studentId });
+    expect(reviewHome.tasks).toEqual(expect.arrayContaining([expect.objectContaining({
+      kind: "resume", key: `review-session:${firstSession.value.attempt.id}`,
+      href: `/aprendizaje/sesiones/${firstSession.value.attempt.id}`,
+    })]));
+    expect((await provider.getHome({ userId: otherStudentId })).tasks.some(task => task.key.startsWith("review-session:"))).toBe(false);
     expect(firstManifest.items).toHaveLength(5);
     expect(new Set(firstManifest.items.map((item) => item.itemId)).size).toBe(5);
     expect(new Set(firstManifest.items.map((item) => item.kind)).size).toBe(2);

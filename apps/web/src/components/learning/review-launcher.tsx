@@ -2,20 +2,23 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowLeft, ClockCounterClockwise } from "@phosphor-icons/react";
 import { LearningAttemptMutationResponseSchema } from "@cediah/contracts";
 
-export function ReviewLauncher({ minutes }: { minutes: 5 | 10 | 20 }) {
+export function ReviewLauncher({ minutes, embedded = false, dueCount }: { minutes: 5 | 10 | 20; embedded?: boolean; dueCount?: number }) {
   const router = useRouter();
   const [identity] = useState(() => ({
     clientAttemptId: crypto.randomUUID(),
     idempotencyKey: crypto.randomUUID(),
   }));
   const [busy, setBusy] = useState(false);
+  const lock = useRef(false);
   const [message, setMessage] = useState("");
 
   async function start() {
+    if (lock.current) return;
+    lock.current = true;
     setBusy(true);
     setMessage("");
     try {
@@ -36,20 +39,26 @@ export function ReviewLauncher({ minutes }: { minutes: 5 | 10 | 20 }) {
     } catch {
       setMessage("Necesitas conexión para congelar una sesión nueva. Ningún repaso se marcó como realizado.");
     } finally {
+      lock.current = false;
       setBusy(false);
     }
   }
 
+  const Surface = embedded ? "div" : "main";
+  const Heading = embedded ? "h3" : "h1";
+  const limit = minutes === 5 ? 5 : 10;
+  const batch = dueCount === undefined ? limit : Math.min(dueCount, limit);
   return (
-    <main className="learning-main learning-activity-launcher">
-      <Link className="learning-back-link" href="/aprendizaje"><ArrowLeft aria-hidden="true" size={18} />Volver a Inicio</Link>
+    <Surface className={embedded ? undefined : "learning-main learning-activity-launcher"}>
+      {!embedded ? <Link className="learning-back-link" href="/aprendizaje"><ArrowLeft aria-hidden="true" size={18} />Volver a Inicio</Link> : null}
       <section>
         <span>Repaso recomendado</span>
         <ClockCounterClockwise aria-hidden="true" className="learning-launcher-icon" size={38} />
-        <h1>Una sesión breve y acotada</h1>
-        <p>Prepararemos hasta {minutes === 5 ? 5 : 10} ítems vencidos. La lista quedará congelada y podrás elegir otra actividad en cualquier momento.</p>
+        <Heading>Una sesión breve y acotada</Heading>
+        <p>Prepararemos hasta {batch} ítems vencidos. Incluye preguntas y tarjetas; la selección se confirma al comenzar.</p>
+        {dueCount !== undefined && dueCount > batch ? <p>Quedarán al menos {dueCount - batch} ítems para otro bloque. Puedes parar después de esta sesión.</p> : null}
         <fieldset className="learning-session-length">
-          <legend>Duración de esta sesión</legend>
+          <legend>Tiempo disponible aproximado</legend>
           <div>
             {([5, 10, 20] as const).map((option) => (
               <Link
@@ -63,10 +72,11 @@ export function ReviewLauncher({ minutes }: { minutes: 5 | 10 | 20 }) {
           </div>
         </fieldset>
         <button className="learning-primary-button" disabled={busy} onClick={() => void start()} type="button">
-          {busy ? "Preparando…" : `Comenzar · ${minutes} min`}
+          {busy ? "Preparando…" : `Comenzar · unos ${minutes} min`}
         </button>
+        <p>El tiempo es una estimación, no un temporizador. Los bloques de 10 y 20 minutos incluyen como máximo diez ítems.</p>
         <p aria-live="polite" className="learning-activity-message">{message}</p>
       </section>
-    </main>
+    </Surface>
   );
 }

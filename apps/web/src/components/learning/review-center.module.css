@@ -1,0 +1,7 @@
+.screen { display: grid; gap: 1.5rem; padding-bottom: 6rem; }
+.screen h1 { font-size: 1.75rem; }
+.block { display: grid; gap: 1rem; padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid var(--border, #d9e0e5); border-radius: 1rem; min-width: 0; }
+.counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
+.counts dt { font-weight: 600; }
+.counts dd { margin: .25rem 0 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
