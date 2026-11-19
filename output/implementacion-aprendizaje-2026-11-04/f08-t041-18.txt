@@ -1,0 +1,36 @@
+PASS nonempty-v1-v2-history-responses-agenda-and-sources
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    '0035_guided_v2_media_access.sql',
++   '0036_topic_order_runtime_access.sql',
++   '0037_auth_session_persistence.sql',
++   '0038_study_catalog_runtime_read.sql',
++   '0039_semantic_content_search.sql'
+  ]
+
+    at <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery-f08.local.mts:178:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    '0035_guided_v2_media_access.sql',
+    '0036_topic_order_runtime_access.sql',
+    '0037_auth_session_persistence.sql',
+    '0038_study_catalog_runtime_read.sql',
+    '0039_semantic_content_search.sql'
+  ],
+  expected: [ '0035_guided_v2_media_access.sql' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.0
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx "D:\Jose (Datos)\Medicina\CEDIAH\Web\work\test\t041\recovery-f08.local.mts"

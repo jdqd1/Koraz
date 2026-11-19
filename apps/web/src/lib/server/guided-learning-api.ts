@@ -1,10 +1,12 @@
 import "server-only";
+import { cache } from "react";
 import {
   V2HttpContracts,
   V2CatalogResponseSchema,
   V2EditorWorkspaceResponseSchema,
   V2HomeSnapshotSchema,
   LearningAttemptSchema,
+  LearningResourceReaderSchema,
   LearningEditorPathListResponseSchema,
   LearningEditorResourceCatalogResponseSchema,
   LearningEnrollmentProgressSchema,
@@ -53,15 +55,18 @@ export type LearningHomeResult =
   | { home: LearningHome; status: "ready" }
   | { status: "unauthorized" | "unavailable" };
 
-async function sessionRequest(path: string) {
+const sessionRequest = cache(async (path: string) => {
   const session = await getApiRequestCookie();
   if (session.status === "anonymous") return { body: null, status: 401 };
   return requestContentApi({ cookie: session.cookie, method: "GET", path });
-}
+});
 
 /** Explicit v2 transport. Existing strict v1 callers retain their original DTO. */
 async function readGuidedV2<T>(path: string, schema: { safeParse(value: unknown): { success: true; data: T } | { success: false } }) {
   const response = await sessionRequest(path);
+  return parseGuidedV2(response, schema);
+}
+function parseGuidedV2<T>(response: { status: number; body: unknown }, schema: { safeParse(value: unknown): { success: true; data: T } | { success: false } }) {
   if (response.status === 401) return { status: "unauthorized" as const };
   if (response.status === 403) return { status: "forbidden" as const };
   if (response.status === 404) return { status: "not_found" as const };
@@ -69,10 +74,20 @@ async function readGuidedV2<T>(path: string, schema: { safeParse(value: unknown)
   const parsed = schema.safeParse(response.body);
   return parsed.success ? { status: "ready" as const, value: parsed.data } : { status: "unavailable" as const };
 }
-export function getLearningV2Paths(cursor?: string) {
+export async function getLearningV2Paths(cursor?: string, includeState = false) {
   const query = new URLSearchParams({ limit: "20" });
   if (cursor) query.set("cursor", cursor);
+  if (includeState) {
+    query.set("includeState", "true");
+    const response = await sessionRequest(`/v2/guided-learning/paths?${query}`);
+    // Older APIs reject the new query; retain their authorized, paginated reads.
+    if (response.status !== 400) return parseGuidedV2(response, V2CatalogResponseSchema);
+    query.delete("includeState");
+  }
   return readGuidedV2(`/v2/guided-learning/paths?${query}`, V2CatalogResponseSchema);
+}
+export function getLearningResource(slug: string, key: string) {
+  return readGuidedV2(`/v1/guided-learning/paths/${encodeURIComponent(slug)}/resources/${encodeURIComponent(key)}`, LearningResourceReaderSchema);
 }
 export function getLearningV2Home() { return readGuidedV2("/v2/guided-learning/home", V2HomeSnapshotSchema); }
 export function getLearningV2Path(slug: string) {
@@ -111,8 +126,10 @@ export async function getLearningHomeByEngine(minutes?: 5 | 10 | 20) {
     v2: v2.status === "ready" ? { engineVersion: "guided-v2" as const, home: v2.value } : null };
 }
 
-export async function getLearningPaths(): Promise<LearningCatalogResult> {
-  const response = await sessionRequest("/v1/guided-learning/paths?limit=20");
+export async function getLearningPaths(cursor?: string): Promise<LearningCatalogResult> {
+  const query = new URLSearchParams({ limit: "20" });
+  if (cursor) query.set("cursor", cursor);
+  const response = await sessionRequest(`/v1/guided-learning/paths?${query}`);
   if (response.status === 401) return { status: "unauthorized" };
   if (response.status !== 200) return { status: "unavailable" };
   const parsed = LearningPathCatalogResponseSchema.safeParse(response.body);
@@ -150,8 +167,8 @@ export async function getLearningAttempt(attemptId: string): Promise<LearningAtt
   return parsed.success ? { attempt: parsed.data, status: "ready" } : { status: "unavailable" };
 }
 
-export async function getLearningProgress(enrollmentId: string): Promise<LearningProgressResult> {
-  const response = await sessionRequest(`/v1/guided-learning/enrollments/${encodeURIComponent(enrollmentId)}/progress`);
+export async function getLearningProgress(enrollmentId: string, includeOpenAttempts = false): Promise<LearningProgressResult> {
+  const response = await sessionRequest(`/v1/guided-learning/enrollments/${encodeURIComponent(enrollmentId)}/progress${includeOpenAttempts ? "?includeOpenAttempts=true" : ""}`);
   if (response.status === 401) return { status: "unauthorized" };
   if (response.status === 404) return { status: "not_found" };
   if (response.status !== 200) return { status: "unavailable" };

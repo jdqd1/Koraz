@@ -18,13 +18,29 @@ describe("T030 authorized active images and accessible detours",()=>{
   async function launch(key="hotspot") {
     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),target:{kind:"activity",key},expectedEnrollmentVersion:1};
     const requestKey=v2Id(serial++),response=await post("attempts",body,requestKey);
-    expect(response.statusCode).toBe(200);return V2HttpContracts.attemptCreate.response.parse(response.json()).attempt;
+    expect(response.statusCode, response.body).toBe(200);return V2HttpContracts.attemptCreate.response.parse(response.json()).attempt;
   }
   it("projects target identities without geometric solutions or alternative answers",async()=>{
     const attempt=await launch(),serialized=JSON.stringify(attempt);
     expect(serialized).not.toMatch(/polygon|correctLabelByTarget|PRIVATE_SPATIAL_SOLUTION|correctKey/);
     expect(attempt.activeActivity).toMatchObject({kind:"image_target",payload:{targets:[{key:"zone",prompt:h.definition.activities[0]!.prompt,marker:null}],accessibleAlternativeKey:"alternative"}});
     expect(serialized).not.toContain("Relación A");
+  });
+  it("resolves an active study image through the same authorized version and refuses foreign access", async () => {
+    const study = await createImageHarness({ now: () => clock, studyImage: true });
+    try {
+      const created = await study.service.create({ userId: v2Id(1), enrollmentId: v2Id(8), clientAttemptId: v2Id(serial++), idempotencyKey: v2Id(serial++), target: { kind: "activity", key: "study-image" }, expectedEnrollmentVersion: 1 });
+      expect(created.status).toBe("success"); if (created.status !== "success") return;
+      const path = `/v2/guided-learning/attempts/${created.value.attemptId}/image?activityKey=study-image&expectedVersion=1`;
+      const read = (url = path, actor = "learner") => study.app.inject({ url, headers: { cookie: `t030=${actor}` } });
+      const response = await read(); expect(response.statusCode).toBe(200);
+      expect(V2ImageResourceSchema.parse(response.json()).image.assetKey).toBe("figure");
+      expect(response.body).not.toMatch(/storage_path|storage_bucket|polygon/);
+      expect((await read(path, "other")).statusCode).toBe(404);
+      expect((await read(path.replace("expectedVersion=1", "expectedVersion=9"))).statusCode).toBe(409);
+      await study.pg.query("update content_assets set status='pending',finalized_at=null where id=$1", [v2Id(10)]);
+      expect((await read()).statusCode).toBe(403);
+    } finally { await study.close(); }
   });
   it("issues only pinned private media with a short expiry and strict request binding",async()=>{
     const attempt=await launch();

@@ -1,0 +1,168 @@
+[WebServer] (node:19768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:2012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 14 tests using 1 worker
+
+(node:10228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   1 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (10.1s)
+(node:28224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (8.0s)
+  ok  3 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (3.5s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4e', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4h', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4i', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4k', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4n', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4o', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '78566db9-434c-4377-a594-4a4ce62d8034',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'cfc74f8e-e0cf-47b5-a07e-ac6d039568ba',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'a0b81c2c-9b08-441d-bd83-5b062137af30',
+[WebServer]   status: 503
+[WebServer] }
+  ok  4 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (14.4s)
+  ok  5 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (4.5s)
+  x   6 [desktop] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries (3.0s)
+(node:20704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [desktop] › tests\e2e\guided-v2-overview.spec.ts:32:5 › F05 only-V2 enrollment appears on Inicio with a real route destination (2.6s)
+(node:22772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  8 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (10.9s)
+  ok  9 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (11.0s)
+  ok 10 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (4.9s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-bf', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-bi', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-bj', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-bl', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-bo', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-bp', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '0a2a73c9-dcf6-4d43-b4d9-fb426e7674d0',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'e5a1dfd0-bae5-4255-b018-b9411b6108c3',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '58fdd008-c768-4f9f-a3f4-df0573a6c466',
+[WebServer]   status: 503
+[WebServer] }
+  ok 11 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (13.1s)
+  ok 12 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (3.7s)
+  x  13 [mobile] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries (3.2s)
+(node:29452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 14 [mobile] › tests\e2e\guided-v2-overview.spec.ts:32:5 › F05 only-V2 enrollment appears on Inicio with a real route destination (2.0s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Ganaste 0 XP · Total: 50 XP', { exact: true })
+    Expected: visible
+    Error: strict mode violation: getByText('Ganaste 0 XP · Total: 50 XP', { exact: true }) resolved to 2 elements:
+        1) <p>Ganaste 0 XP · Total: 50 XP</p> aka getByRole('region', { name: 'Sesión de aprendizaje' }).getByText('Ganaste 0 XP · Total: 50 XP')
+        2) <p>…</p> aka getByText('Ganaste 0 XP · Total: 50 XP').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" getByText('Ganaste 0 XP · Total: 50 XP', { exact: true }) with timeout 60000ms
+      - waiting for getByText('Ganaste 0 XP · Total: 50 XP', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-diagnostic-xp.spec.ts:107:84)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-diagnostic-xp-XP-6710b--opens-the-chosen-objective-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f05\overview-browser\guided-v2-diagnostic-xp-XP-6710b--opens-the-chosen-objective-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-diagnostic-xp-XP-6710b--opens-the-chosen-objective-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f05\overview-browser\guided-v2-diagnostic-xp-XP-6710b--opens-the-chosen-objective-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries 
+
+    TypeError: Cannot read properties of null (reading 'title')
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-overview.spec.ts:13:45)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries 
+
+    TypeError: Cannot read properties of null (reading 'title')
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-overview.spec.ts:13:45)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f05\overview-browser\guided-v2-overview-F05-mix-c26d3-nges-do-not-reuse-summaries-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective 
+    [desktop] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries 
+    [mobile] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries 
+  11 passed (1.9m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-discovery.config.ts "--reporter=list"

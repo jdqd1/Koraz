@@ -36,11 +36,12 @@ export function LearningTodayPanel({ home, paths, v2Home = null, v2States = [] }
   v2Home?: V2Home | null;
   v2States?: V2State[];
 }) {
-  return <>{v2Home ? <V2TodayPanel home={v2Home} states={v2States} /> : null}{home ? <V1TodayPanel home={home} paths={paths} /> : null}</>;
+  return <>{v2Home?.activePath || v2Home?.dueReviews ? <V2TodayPanel home={v2Home} states={v2States} /> : null}{home ? <V1TodayPanel home={home} paths={paths} hasOtherRoutes={!!v2Home?.activePath || v2States.length > 0} /> : null}</>;
 }
-function V1TodayPanel({ home, paths }: {
+function V1TodayPanel({ home, paths, hasOtherRoutes }: {
   home: LearningHome;
   paths: LearningPathCard[];
+  hasOtherRoutes: boolean;
 }) {
   const [showAllTasks, setShowAllTasks] = useState(false);
   const visibleTasks = showAllTasks ? home.tasks : home.tasks.slice(0, 3);
@@ -68,13 +69,13 @@ function V1TodayPanel({ home, paths }: {
             </div>
             <Link className="learning-primary-button" href={home.activePath.continueHref}>Continuar mi ruta <ArrowRight aria-hidden="true" size={18} /></Link>
           </article>
-        ) : (
+        ) : !hasOtherRoutes ? (
           <section className="learning-empty">
             <span className="learning-empty-icon"><Compass aria-hidden="true" size={30} /></span>
             <div><h2>Empieza con una ruta</h2><p>Explora los temas y elige libremente cuál comenzar.</p></div>
             <Link className="learning-primary-button" href="/aprendizaje?tab=rutas">Elegir una ruta</Link>
           </section>
-        )}
+        ) : null}
 
         {home.tasks.length > 0 ? (
           <section aria-labelledby="learning-task-list-title" className="learning-task-list-wrap">

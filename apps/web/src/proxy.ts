@@ -38,6 +38,13 @@ export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
+  requestHeaders.delete("x-koraz-learning-path");
+  const { pathname, searchParams } = request.nextUrl;
+  if (pathname === "/aprendizaje" || pathname.startsWith("/aprendizaje/")) {
+    const query = new URLSearchParams(searchParams);
+    query.delete("_rsc");
+    requestHeaders.set("x-koraz-learning-path", pathname + (query.size ? `?${query}` : ""));
+  }
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
 

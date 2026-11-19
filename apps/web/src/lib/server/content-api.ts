@@ -170,14 +170,32 @@ export async function getPublishedContent(input: {
     : { status: "unavailable" };
 }
 
+/** Full metadata union for capability projection; errors never become truncated success. */
+export async function getAllPublishedStudyCatalog(): Promise<PublishedStudyCatalogResult> {
+  const items = new Map<string, StudyCatalogResponse["items"][number]>();
+  let offset = 0;
+  while (true) {
+    const result = await getPublishedStudyCatalog({ limit: 1_000, offset });
+    if (result.status !== "ready") return result;
+    for (const item of result.catalog.items) items.set(item.id, item);
+    const next = result.catalog.nextOffset;
+    if (next === null) return { status: "ready", catalog: { items: [...items.values()], nextOffset: null } };
+    // Older API cannot certify that the union is complete.
+    if (next === undefined || next <= offset) return { status: "unavailable" };
+    offset = next;
+  }
+}
+
 export async function getPublishedStudyCatalog(input: {
   kind?: StudyCatalogKind;
   limit?: number;
+  offset?: number;
   sort?: "recent" | "views";
   timeoutMs?: number;
 } = {}): Promise<PublishedStudyCatalogResult> {
   const query = new URLSearchParams();
   if (input.kind) query.set("kind", input.kind);
+  if (input.offset !== undefined) query.set("offset", String(input.offset));
   if (input.sort) query.set("sort", input.sort);
   query.set("limit", String(input.limit ?? 500));
   const response = await requestContentApi({
@@ -191,6 +209,7 @@ export async function getPublishedStudyCatalog(input: {
     if (catalog.success) return { catalog: catalog.data, status: "ready" };
   }
 
+  if (input.offset !== undefined) return { status: "unavailable" };
   // Keep the site usable while Render and Vercel roll out independently.
   // The legacy path is intentionally only a fallback because it carries full documents.
   const legacy = await getPublishedContent({

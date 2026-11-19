@@ -1,0 +1,6683 @@
+{
+  "samples": [
+    {
+      "mode": "cold",
+      "usableMs": 2495.6121,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 81.07400000000052,
+          "bytes": 165,
+          "reference": "87e95c06-08e4-4d85-81e1-1c636fd046b7",
+          "requestId": "a44aa582-9dda-41ab-8af8-0419d640b18c"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 14.120599999994738,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 587.7568000000028,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.9140999999945052,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 3.705500000003667,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 3.6362000000008265,
+          "bytes": 165,
+          "reference": "214bedb1-eb79-4417-a624-75f0af1d38fb",
+          "requestId": "d1d4e726-71bc-46a8-84b4-5b0e47d0b8c6"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 111.07589999999618,
+          "bytes": 165,
+          "reference": "e8c4534a-06bb-4af0-8f77-ac048a6e6f25",
+          "requestId": "4a9d140f-ed5a-4ce9-b1e3-5784829d88c5"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 19.367899999999963,
+          "endMs": 1681.0047999999997
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 469.6981999999998,
+          "endMs": 557.7411999999999
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 469.8118999999997,
+          "endMs": 559.3908999999999
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 469.85779999999977,
+          "endMs": 557.8584000000001
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 469.8887,
+          "endMs": 555.8193000000001
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 469.91949999999997,
+          "endMs": 559.4858999999997
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 469.96000000000004,
+          "endMs": 510.2811999999999
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 469.99479999999994,
+          "endMs": 510.4623999999999
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 471.9483,
+          "endMs": 510.3146999999999
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 472.0315999999998,
+          "endMs": 510.4461000000001
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 472.0790999999999,
+          "endMs": 510.5893000000001
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 472.1055000000001,
+          "endMs": 510.5796999999998
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 472.1298999999999,
+          "endMs": 692.8019999999997
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 472.19349999999986,
+          "endMs": 758.0965999999999
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 472.23059999999987,
+          "endMs": 2089.1540999999997
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 472.25099999999975,
+          "endMs": 842.4703
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 472.2711999999997,
+          "endMs": 747.3071999999997
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 472.29089999999997,
+          "endMs": 842.5569
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 472.3209999999999,
+          "endMs": 1607.3141999999998
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 472.34259999999995,
+          "endMs": 1686.3934999999997
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 472.3622999999998,
+          "endMs": 1608.6165
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 472.38189999999986,
+          "endMs": 1608.7478999999998
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 472.4110999999998,
+          "endMs": 2080.9609
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 472.4364999999998,
+          "endMs": 510.6329999999998
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 472.46259999999984,
+          "endMs": 1686.2572
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 472.49119999999994,
+          "endMs": 2080.6641
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 472.5310999999997,
+          "endMs": 2161.4707
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 1655.1037999999999,
+          "endMs": 2281.5914
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 2310.9573,
+          "endMs": 2364.3177
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 2348.6461,
+          "endMs": 2480.7459999999996
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 2348.7257999999997,
+          "endMs": 2480.7599999999998
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 2437.6129,
+          "endMs": 2480.7268
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 2475.5466,
+          "endMs": 2557.9761000000003
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 2475.6243
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2480.6407999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2480.6982000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 2554.7301
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 2555.5440999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2557.9494
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2583.0102999999995
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2584.1447000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 2585.8511000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2609.0179999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2609.975
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 2610.8522
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 639.2131000000008,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5325000000011642,
+          "bytes": 165,
+          "reference": "e90804c8-765f-4c31-a032-e5cda8dcc2fd",
+          "requestId": "e4e8272e-3582-473c-ae49-79a8194368a7"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 10.216699999997218,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 1.4360999999989872,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.542799999995623,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 3.051999999996042,
+          "bytes": 165,
+          "reference": "8154ab2e-84c6-4fa8-b91a-05ab5aecd8ac",
+          "requestId": "1242eb96-80e5-4554-8aeb-8c1423363ef3"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.2595000000001164,
+          "bytes": 165,
+          "reference": "19559aa5-d793-4d8c-b5e7-bdd72f81f4ac",
+          "requestId": "53719063-7081-41ed-95b9-ba3749c0ea4b"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 453.75569999999425,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 20.26050000000032,
+          "endMs": 534.0471000000007
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 60.63770000000022,
+          "endMs": 62.606800000000476
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 62.66810000000078,
+          "endMs": 62.733799999999974
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 62.77220000000034,
+          "endMs": 66.46760000000086
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 66.53130000000056,
+          "endMs": 66.59650000000056
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 66.63360000000011,
+          "endMs": 66.7507000000005
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 66.79150000000027,
+          "endMs": 66.84890000000087
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 66.87980000000061,
+          "endMs": 66.9389000000001
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 66.97370000000046,
+          "endMs": 67.02890000000025
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 67.0582000000004,
+          "endMs": 67.11530000000039
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 67.14670000000024,
+          "endMs": 67.20600000000013
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 74.09510000000046,
+          "endMs": 74.17280000000028
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 74.22470000000067,
+          "endMs": 74.28050000000076
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 74.3102000000008,
+          "endMs": 74.36130000000048
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 74.39080000000013,
+          "endMs": 74.4403000000002
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 74.48880000000008,
+          "endMs": 74.55439999999999
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 74.58450000000084,
+          "endMs": 74.63320000000022
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 74.79490000000078,
+          "endMs": 74.84750000000076
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 74.8751000000002,
+          "endMs": 74.92190000000028
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 74.94770000000062,
+          "endMs": 74.9939000000004
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 75.01950000000033,
+          "endMs": 75.06410000000051
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 75.08840000000055,
+          "endMs": 75.13220000000001
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 75.15650000000005,
+          "endMs": 75.23230000000058
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 75.31870000000072,
+          "endMs": 75.39340000000084
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 75.42950000000019,
+          "endMs": 75.48680000000058
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 75.51790000000074,
+          "endMs": 75.57100000000082
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 75.59820000000036,
+          "endMs": 75.71020000000044
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 331.40630000000056,
+          "endMs": 358.1904000000004
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 377.6203000000005
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 377.9314000000004
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 397.1784000000007,
+          "endMs": 409.9801000000007
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 405.41080000000056
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 409.8878000000004
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 409.96010000000024
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 523.2724000000007,
+          "endMs": 523.3624
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 551.0498000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 551.0910000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 551.1138000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 551.1433000000006,
+          "endMs": 610.0383000000002
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 590.7659000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 591.7024000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 593.6894000000002
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 595.9834000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 675.0368000000008
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 675.8853000000008
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 677.3580000000002
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 678.6419000000005
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 533.2978000000003,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5235000000029686,
+          "bytes": 165,
+          "reference": "38b35897-d758-4625-be47-7a3f9912ddad",
+          "requestId": "baec1fd0-66e8-411f-9618-795a889265d2"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.499500000005355,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.5622000000003027,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 259.54939999999624,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.2145000000018626,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.835800000000745,
+          "bytes": 165,
+          "reference": "bef9a030-7a1b-4e9e-a695-a3888b26a257",
+          "requestId": "c3913a73-3a33-48d9-8425-7cb6fb8b87d0"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5704999999943539,
+          "bytes": 165,
+          "reference": "66733195-5826-4ad5-af6d-3bd5459d40e5",
+          "requestId": "58623930-a455-43ee-99fe-3d297a137833"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 9.238500000000386,
+          "endMs": 373.03800000000047
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 66.8732,
+          "endMs": 66.95899999999983
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 66.9979000000003,
+          "endMs": 67.05460000000039
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 67.97249999999985,
+          "endMs": 68.03549999999996
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 68.06890000000021,
+          "endMs": 68.89429999999993
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 68.96420000000035,
+          "endMs": 69.03220000000056
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 73.80789999999979,
+          "endMs": 73.90549999999985
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 73.94530000000032,
+          "endMs": 87.91620000000057
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 88.4996000000001,
+          "endMs": 91.47649999999976
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 91.53819999999996,
+          "endMs": 91.58539999999994
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 91.60559999999987,
+          "endMs": 91.63659999999982
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 91.65290000000005,
+          "endMs": 91.6797000000006
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 91.69549999999981,
+          "endMs": 91.72140000000036
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 91.73580000000038,
+          "endMs": 91.76209999999992
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 91.77459999999974,
+          "endMs": 91.80029999999988
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 91.8132999999998,
+          "endMs": 91.84040000000005
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 91.85450000000037,
+          "endMs": 91.90560000000005
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 91.91930000000048,
+          "endMs": 112.73620000000028
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 113.7439000000004,
+          "endMs": 125.88730000000032
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 130.33870000000024,
+          "endMs": 130.46510000000035
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 130.51180000000022,
+          "endMs": 130.5664999999999
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 130.59889999999996,
+          "endMs": 130.65000000000055
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 130.6810000000005,
+          "endMs": 130.72789999999986
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 130.7579999999998,
+          "endMs": 130.8056000000006
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 145.5030000000006,
+          "endMs": 145.6805000000004
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 145.73970000000008,
+          "endMs": 145.8024000000005
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 145.83489999999983,
+          "endMs": 175.29719999999998
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 280.83910000000014,
+          "endMs": 300.6783999999998
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 315.20350000000053,
+          "endMs": 350.1086000000005
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 315.2547000000004,
+          "endMs": 351.39320000000043
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 337.41430000000037,
+          "endMs": 366.41690000000017
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 343.1239999999998
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 344.8575000000001
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 348.95730000000003,
+          "endMs": 350.08190000000013
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 367.72850000000017,
+          "endMs": 396.72080000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 395.7602999999999
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 395.8060000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 395.84470000000056
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 396.6840000000002
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 427.3716000000004,
+          "endMs": 509.64370000000054
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 427.54269999999997,
+          "endMs": 509.66610000000037
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 427.59290000000055,
+          "endMs": 509.6810000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 430.77320000000054,
+          "endMs": 509.6945000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 494.9912000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 496.7552000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 497.08269999999993
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 499.1715000000004
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 657.8809999999994,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.0125000000043656,
+          "bytes": 165,
+          "reference": "0a5064df-b18a-4f02-b96c-730b5350edbc",
+          "requestId": "ed5ef1b5-efd2-457e-8857-0d1a0b985568"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.275999999998021,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 231.9323000000004,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.4844999999986612,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.0728000000017346,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8171999999976833,
+          "bytes": 165,
+          "reference": "39dff389-1a1d-4f7b-85b2-0ac873088336",
+          "requestId": "939fc434-4307-4057-9519-a6faefd29b01"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5441000000064378,
+          "bytes": 165,
+          "reference": "75a8e949-3d7a-4607-9d6c-840c33104c9f",
+          "requestId": "57b18927-7eb5-4762-ab67-a6d51ac67a24"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 8.201999999999316,
+          "endMs": 410.04280000000017
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 398.7978999999996,
+          "endMs": 398.8746000000001
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 398.91259999999966,
+          "endMs": 402.65790000000015
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 402.7401,
+          "endMs": 402.8144999999995
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 402.84940000000006,
+          "endMs": 402.90970000000016
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 402.9407999999994,
+          "endMs": 402.9904999999999
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 403.0187999999998,
+          "endMs": 403.0652
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 403.09270000000015,
+          "endMs": 403.1392999999998
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 403.16579999999976,
+          "endMs": 403.2716999999993
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 403.33140000000003,
+          "endMs": 403.39879999999994
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 403.4355999999998,
+          "endMs": 403.4903999999997
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 403.5189999999993,
+          "endMs": 403.5680999999995
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 407.5100999999995,
+          "endMs": 407.6107999999995
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 407.65200000000004,
+          "endMs": 407.7608999999993
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 407.7986000000001,
+          "endMs": 407.8766999999998
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 407.89620000000014,
+          "endMs": 407.9555999999993
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 407.98070000000007,
+          "endMs": 408.125
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 408.1805999999997,
+          "endMs": 408.2605999999996
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 408.3197999999993,
+          "endMs": 408.39899999999943
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 408.4305999999997,
+          "endMs": 408.47760000000017
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 408.5038999999997,
+          "endMs": 408.5495999999994
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 408.5765000000001,
+          "endMs": 408.71259999999984
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 408.7487999999994,
+          "endMs": 408.7968000000001
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 408.8251999999993,
+          "endMs": 408.8876
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 408.91289999999935,
+          "endMs": 408.95600000000013
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 408.98129999999946,
+          "endMs": 409.02279999999973
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 409.04569999999967,
+          "endMs": 409.08839999999964
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 409.116,
+          "endMs": 409.16150000000016
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 631.5815999999995,
+          "endMs": 651.9413999999997
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 657.1435999999994,
+          "endMs": 704.4931999999999
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 657.1804999999995,
+          "endMs": 704.5145999999995
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 692.1876000000002,
+          "endMs": 704.9377999999997
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 695.7986000000001
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 699.7615999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 704.5936000000002
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 704.6381999999994
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 736.2668999999996
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 736.6767
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 738.0389999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 747.9728999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 764.5522000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 765.7649000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 767.6238999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 768.2806
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 793.2200999999995
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 476.7651999999998,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.479299999999057,
+          "bytes": 165,
+          "reference": "36476240-3a27-46e0-a8d1-3c2993ff021c",
+          "requestId": "87dbe9a9-96f3-448b-84e5-71214fb23619"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.4901000000027125,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.4989999999961583,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.657500000001164,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 308.60029999999824,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7528999999994994,
+          "bytes": 165,
+          "reference": "560adf40-70b4-498a-943b-f584787e4299",
+          "requestId": "13cff7ea-6370-4888-956c-36be08850bf8"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.0866000000023632,
+          "bytes": 165,
+          "reference": "eed9806e-e7a3-4010-88f0-0ee04669a046",
+          "requestId": "8e316510-29a2-4625-b42e-1527de9f9431"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 14.05450000000019,
+          "endMs": 397.1283999999996
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 58.11039999999957,
+          "endMs": 58.185199999999895
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 58.22199999999975,
+          "endMs": 58.27609999999913
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 58.30619999999908,
+          "endMs": 58.35540000000037
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 58.405399999999645,
+          "endMs": 58.45679999999993
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 58.48439999999937,
+          "endMs": 58.53050000000076
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 58.556399999999485,
+          "endMs": 58.60009999999966
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 58.624799999999595,
+          "endMs": 58.66599999999926
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 58.69130000000041,
+          "endMs": 58.73409999999967
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 58.75790000000052,
+          "endMs": 58.80030000000079
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 58.82599999999911,
+          "endMs": 58.869300000000294
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 58.895699999999124,
+          "endMs": 58.941499999998996
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 58.96719999999914,
+          "endMs": 59.013600000000224
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 59.03900000000067,
+          "endMs": 59.082800000000134
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 59.10570000000007,
+          "endMs": 59.14749999999913
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 59.17319999999927,
+          "endMs": 59.21479999999974
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 59.23919999999998,
+          "endMs": 59.28299999999945
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 59.30630000000019,
+          "endMs": 64.8724000000002
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 64.90589999999975,
+          "endMs": 64.98469999999907
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 65.00950000000012,
+          "endMs": 65.03960000000006
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 68.11559999999918,
+          "endMs": 69.33460000000014
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 70.66749999999956,
+          "endMs": 72.34909999999945
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 73.1293999999998,
+          "endMs": 75.32799999999952
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 75.38040000000001,
+          "endMs": 75.43349999999919
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 75.46420000000035,
+          "endMs": 75.51349999999911
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 75.54110000000037,
+          "endMs": 75.58909999999923
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 75.61419999999998,
+          "endMs": 75.65689999999995
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 261.7651999999998,
+          "endMs": 317.46060000000034
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 317.0841999999993,
+          "endMs": 334.4419999999991
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 333.6286
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 334.01800000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 334.03720000000067
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 370.5452000000005
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 372.3690000000006
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 379.9887999999992,
+          "endMs": 380.3786999999993
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 425.9287000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 425.97979999999916
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 426.634399999999,
+          "endMs": 465.58580000000075
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 426.6777000000002,
+          "endMs": 465.60100000000057
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 456.83439999999973
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 457.9858000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 460.02260000000024
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 462.8865000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 492.15419999999904
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 493.2580999999991
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 494.3757000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 495.3924999999999
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 920.3513999999996,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.726199999997334,
+          "bytes": 165,
+          "reference": "e70ffb0d-7cc5-4f07-840d-22ca62220d37",
+          "requestId": "ff6142a8-d537-43fc-bd9d-fa3c433e277a"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.683799999998882,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 2.5232000000032713,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 23.920799999999872,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 4.949199999995471,
+          "bytes": 165,
+          "reference": "6fb8f7c5-35a0-4150-89ec-32faeaa9abcf",
+          "requestId": "18ea8690-c588-4edc-9a61-df547595f946"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 8.324400000004971,
+          "bytes": 165,
+          "reference": "b25238d2-403b-473c-8d1c-65442ff7172a",
+          "requestId": "234a4317-525a-4739-87c5-9cfa0b6e0f74"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 721.1460000000006,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 16.144800000000032,
+          "endMs": 800.9097000000002
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 96.52089999999953,
+          "endMs": 105.29119999999966
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 105.40959999999905,
+          "endMs": 105.5056999999997
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 105.55450000000019,
+          "endMs": 105.65040000000045
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 105.69369999999981,
+          "endMs": 105.75300000000061
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 105.78819999999905,
+          "endMs": 105.86559999999918
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 105.90239999999903,
+          "endMs": 105.95919999999933
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 105.99279999999999,
+          "endMs": 106.11919999999918
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 106.17129999999997,
+          "endMs": 106.2528000000002
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 106.29219999999987,
+          "endMs": 106.39730000000054
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 106.43299999999908,
+          "endMs": 106.49059999999918
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 106.52800000000025,
+          "endMs": 106.58499999999913
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 106.64580000000024,
+          "endMs": 106.70340000000033
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 106.73500000000058,
+          "endMs": 106.78490000000056
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 106.83400000000074,
+          "endMs": 106.88659999999982
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 106.92150000000038,
+          "endMs": 107.01679999999942
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 107.06940000000031,
+          "endMs": 107.21010000000024
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 107.25840000000062,
+          "endMs": 107.4307000000008
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 107.47819999999956,
+          "endMs": 107.5661999999993
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 107.59850000000006,
+          "endMs": 107.69679999999971
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 107.76139999999941,
+          "endMs": 107.83309999999983
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 107.86319999999978,
+          "endMs": 107.91109999999935
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 107.9400999999998,
+          "endMs": 111.03319999999985
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 111.12720000000081,
+          "endMs": 111.19520000000011
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 111.24380000000019,
+          "endMs": 111.31810000000041
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 111.35510000000068,
+          "endMs": 111.42200000000048
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 111.47340000000077,
+          "endMs": 111.52520000000004
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 371.58389999999963,
+          "endMs": 571.6365999999998
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 500.5787,
+          "endMs": 571.7281000000003
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 540.4886000000006
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 540.9377999999997,
+          "endMs": 543.8475999999991
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 543.5164000000004,
+          "endMs": 571.7466999999997
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 543.6913999999997
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 543.7857999999997
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 825.1224000000002,
+          "endMs": 830.6080000000002
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 831.9289000000008
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 831.9791000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 832.0192999999999
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 832.0545000000002
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 878.6726999999992
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 902.6229999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 902.6769000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 902.9421999999995
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 1122.8263000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 1122.9130999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 1131.6715000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 1132.6391999999996
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 664.6204000000016,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5624000000025262,
+          "bytes": 165,
+          "reference": "5094c223-0725-49a3-b2ce-9ac5f7522c33",
+          "requestId": "b65acbef-5f6a-4149-8f7d-07a8e000dd98"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.997600000002421,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.5760000000009313,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 3.1715000000040163,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8070999999981723,
+          "bytes": 165,
+          "reference": "81c3355a-ee2c-427a-802c-88a8b8bd57c2",
+          "requestId": "528241ab-ce0b-419d-ab76-dcf732c625d7"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 449.9262000000017,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7718999999997322,
+          "bytes": 165,
+          "reference": "da03f6cd-15f6-44a7-979e-a8d9f7690561",
+          "requestId": "91cc4ac5-a9fc-4dc3-88a2-a90b72a374d3"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 16.24120000000039,
+          "endMs": 561.4202000000005
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 68.09030000000166,
+          "endMs": 68.14530000000013
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 68.3125,
+          "endMs": 68.41690000000017
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 68.46750000000065,
+          "endMs": 73.41440000000148
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 78.69750000000022,
+          "endMs": 78.8630000000012
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 78.91220000000067,
+          "endMs": 78.97740000000158
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 79.01640000000043,
+          "endMs": 79.07290000000103
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 79.10560000000078,
+          "endMs": 79.16080000000147
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 79.19400000000132,
+          "endMs": 79.25110000000132
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 79.28230000000076,
+          "endMs": 79.33359999999993
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 79.36440000000039,
+          "endMs": 79.41530000000057
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 79.44400000000132,
+          "endMs": 79.4944000000014
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 79.52900000000045,
+          "endMs": 79.58060000000114
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 79.60940000000119,
+          "endMs": 86.56700000000092
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 86.64820000000145,
+          "endMs": 86.7411000000011
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 86.78330000000096,
+          "endMs": 86.90940000000046
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 86.97190000000046,
+          "endMs": 87.04320000000007
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 87.07900000000154,
+          "endMs": 87.13480000000163
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 87.16580000000067,
+          "endMs": 87.25240000000122
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 87.28390000000036,
+          "endMs": 87.33430000000044
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 87.36310000000049,
+          "endMs": 87.41409999999996
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 87.44710000000123,
+          "endMs": 87.4992000000002
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 87.52870000000075,
+          "endMs": 87.58179999999993
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 87.61170000000129,
+          "endMs": 87.66190000000097
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 87.6903000000002,
+          "endMs": 87.7390000000014
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 87.76480000000083,
+          "endMs": 87.81020000000171
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 87.83820000000014,
+          "endMs": 87.89350000000013
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 370.45810000000165,
+          "endMs": 398.8171000000002
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 395.3546000000006,
+          "endMs": 454.01720000000023
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 395.3883000000005,
+          "endMs": 454.0379000000012
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 433.58850000000166,
+          "endMs": 454.02860000000146
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 448.7574000000004,
+          "endMs": 652.437100000001
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 452.9485000000004,
+          "endMs": 652.4472000000005
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 453.9958000000006,
+          "endMs": 707.2653000000009
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 561.2928000000011,
+          "endMs": 561.4010000000017
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 592.2413000000015,
+          "endMs": 709.5655000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 651.5867000000017
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 652.4185000000016
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 707.2340000000004
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 709.5330000000013
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 734.8749000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 736.5263000000014
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 737.4522000000015
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 739.3945000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 770.5081000000009
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 773.4482000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 773.5220000000008
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 804.1506000000008,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8655999999973574,
+          "bytes": 165,
+          "reference": "4f4dcad2-ac56-4357-9d3c-0f68eb76c573",
+          "requestId": "286f973a-8645-47dc-b837-d088c3637d5a"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.516299999995681,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.4926999999952386,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 22.928200000002107,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 22.312400000002526,
+          "bytes": 165,
+          "reference": "92d76cbb-fb54-4ceb-bf37-8479e75d835c",
+          "requestId": "fe153655-c2e5-4eee-8d97-970cb912e115"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 13.387099999999919,
+          "bytes": 165,
+          "reference": "cd6e51d8-dbde-4c1a-98cd-7b5c9fe8388e",
+          "requestId": "bea4b396-56e1-4734-8fca-3eda5c30dadd"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 620.2123999999967,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 15.899999999999636,
+          "endMs": 667.2396000000008
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 96.19670000000042,
+          "endMs": 96.26760000000104
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 96.30580000000009,
+          "endMs": 120.77679999999964
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 120.86150000000089,
+          "endMs": 120.94460000000072
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 120.98290000000088,
+          "endMs": 121.04050000000097
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 121.07250000000022,
+          "endMs": 121.1244000000006
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 121.15530000000035,
+          "endMs": 121.20850000000064
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 121.2507999999998,
+          "endMs": 121.3064000000013
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 121.33550000000105,
+          "endMs": 121.38780000000042
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 121.43450000000121,
+          "endMs": 121.4903000000013
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 121.52090000000135,
+          "endMs": 121.56970000000001
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 121.60270000000128,
+          "endMs": 121.65350000000035
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 121.6809000000012,
+          "endMs": 121.73010000000068
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 122.96860000000015,
+          "endMs": 126.21550000000025
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 126.30370000000039,
+          "endMs": 126.38609999999971
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 126.42339999999967,
+          "endMs": 126.48500000000058
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 126.51730000000134,
+          "endMs": 126.57409999999982
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 126.63110000000052,
+          "endMs": 126.6877000000004
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 126.71650000000045,
+          "endMs": 126.76940000000104
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 126.80030000000079,
+          "endMs": 126.85369999999966
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 126.88550000000032,
+          "endMs": 126.9380000000001
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 126.97030000000086,
+          "endMs": 127.02220000000125
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 127.053100000001,
+          "endMs": 127.10599999999977
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 127.13810000000012,
+          "endMs": 131.6851000000006
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 131.8091999999997,
+          "endMs": 131.91730000000098
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 131.9423999999999,
+          "endMs": 131.97550000000047
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 131.9894000000004,
+          "endMs": 132.02009999999973
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 359.9800000000014,
+          "endMs": 582.2826999999997
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 399.1862000000001,
+          "endMs": 468.28600000000006
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 400.03120000000126,
+          "endMs": 469.15179999999964
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 436.14639999999963,
+          "endMs": 621.6360999999997
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 437.5529999999999
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 468.2605000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 469.1237000000001
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 674.4619000000002,
+          "endMs": 675.6954999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 719.4531999999999,
+          "endMs": 774.9575999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 719.5409,
+          "endMs": 776.0652000000009
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 720.6005999999998,
+          "endMs": 785.576500000001
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 720.6605,
+          "endMs": 785.5981000000011
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 756.4110000000001,
+          "endMs": 790.5074999999997
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 770.4085000000014
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 773.1944999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 774.1154000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 790.4561000000012
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 813.7741999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 815.0985000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 816.2448999999997
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 708.603000000001,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.1366999999954714,
+          "bytes": 165,
+          "reference": "ecb8a402-0ca6-4a1b-a412-af16d1e8aee2",
+          "requestId": "53003b3d-cf96-4f42-8b36-ab27057bc048"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 7.633699999998498,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.7273999999961234,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.2603999999992084,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8593000000037136,
+          "bytes": 165,
+          "reference": "5275e12f-a826-42dc-a903-90ba710cb33b",
+          "requestId": "76609dc9-dca1-4614-96d1-b338b433192a"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.4694999999992433,
+          "bytes": 165,
+          "reference": "00146a77-e6fb-4313-89ff-2cdde9ad0cb5",
+          "requestId": "e0a6b85c-0ed0-4005-be68-3bbc8ac679f0"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 479.2011999999959,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 8.58390000000145,
+          "endMs": 548.3176000000003
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 100.9887000000017,
+          "endMs": 101.10720000000038
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 101.15330000000176,
+          "endMs": 101.25040000000081
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 101.29740000000129,
+          "endMs": 101.38410000000113
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 101.4247000000014,
+          "endMs": 101.50750000000153
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 101.53680000000168,
+          "endMs": 101.58450000000084
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 101.6114000000016,
+          "endMs": 144.02630000000136
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 144.10770000000048,
+          "endMs": 144.2331000000013
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 144.28580000000147,
+          "endMs": 144.3655000000017
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 144.40400000000045,
+          "endMs": 144.4862000000012
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 144.51820000000043,
+          "endMs": 150.34040000000095
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 150.4287000000004,
+          "endMs": 150.57890000000043
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 150.6218000000008,
+          "endMs": 150.6828000000005
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 150.71590000000106,
+          "endMs": 150.79390000000058
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 150.82780000000093,
+          "endMs": 150.88320000000022
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 150.91310000000158,
+          "endMs": 150.9844000000012
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 151.02340000000004,
+          "endMs": 151.09470000000147
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 151.1288000000004,
+          "endMs": 151.21150000000125
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 151.2493000000013,
+          "endMs": 151.32930000000124
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 151.3677000000007,
+          "endMs": 151.5041000000001
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 151.54260000000068,
+          "endMs": 151.60420000000158
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 151.63840000000164,
+          "endMs": 151.73710000000028
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 151.78720000000067,
+          "endMs": 151.83630000000085
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 151.8646000000008,
+          "endMs": 160.41710000000057
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 162.35660000000098,
+          "endMs": 163.28120000000126
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 163.65920000000006,
+          "endMs": 165.85240000000158
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 165.90530000000035,
+          "endMs": 165.96200000000135
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 371.19760000000133,
+          "endMs": 372.53230000000076
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 463.2042000000001,
+          "endMs": 496.6892000000007
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 463.2445000000007,
+          "endMs": 496.7019
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 492.60070000000087,
+          "endMs": 496.6741000000002
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 496.6014000000014
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 496.64860000000044
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 496.7436000000016,
+          "endMs": 496.90850000000137
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 548.4512000000013,
+          "endMs": 612.2124000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 612.3496000000014
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 612.4146000000001
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 612.4732000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 612.631800000001
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 641.3596000000016
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 641.4174000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 641.4729000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 641.5187000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 659.5380000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 659.6100000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 661.1383000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 676.7674000000006,
+          "endMs": 705.5240000000013
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 898.6861000000008,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.0853000000061,
+          "bytes": 165,
+          "reference": "8dfc6fd2-8cdf-4b12-bbd0-fb377b6997eb",
+          "requestId": "63be55b7-7334-4844-950b-4a652cc52d56"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.973599999997532,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.5754999999917345,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 71.34270000000834,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 10.46830000000773,
+          "bytes": 165,
+          "reference": "6871ae6f-acae-4d58-9867-fae20a79d87b",
+          "requestId": "f7fc147e-fcbf-45c0-a9a7-de45f2637720"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.022899999996298,
+          "bytes": 165,
+          "reference": "d6024e5c-f0da-48e2-8f90-2cc2f72a98d8",
+          "requestId": "96ad8352-b3f4-480c-9716-e427976750e4"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 544.9043999999994,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 9.474299999999857,
+          "endMs": 617.2447000000011
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 48.049699999999575,
+          "endMs": 49.55739999999969
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 53.527099999999336,
+          "endMs": 53.6200000000008
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 53.662899999999354,
+          "endMs": 53.74879999999939
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 53.78620000000046,
+          "endMs": 53.84280000000035
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 53.8744999999999,
+          "endMs": 53.94909999999982
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 53.98520000000099,
+          "endMs": 54.056399999999485
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 54.08940000000075,
+          "endMs": 64.88770000000113
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 64.9421999999995,
+          "endMs": 65.00270000000091
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 65.03620000000046,
+          "endMs": 65.10950000000048
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 65.14199999999983,
+          "endMs": 65.1926999999996
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 65.22099999999955,
+          "endMs": 65.29410000000098
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 65.32929999999942,
+          "endMs": 65.49330000000009
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 65.5593000000008,
+          "endMs": 65.64940000000024
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 65.69650000000001,
+          "endMs": 65.78089999999975
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 65.82700000000114,
+          "endMs": 65.95709999999963
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 65.9919000000009,
+          "endMs": 66.04919999999947
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 66.08100000000013,
+          "endMs": 66.15099999999984
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 66.1820000000007,
+          "endMs": 66.23300000000017
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 66.26189999999951,
+          "endMs": 66.3101999999999
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 66.35649999999987,
+          "endMs": 66.40509999999995
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 66.43449999999939,
+          "endMs": 66.48340000000098
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 66.51499999999942,
+          "endMs": 66.58439999999973
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 66.79759999999987,
+          "endMs": 66.90259999999944
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 66.94900000000052,
+          "endMs": 67.19480000000112
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 67.247800000001,
+          "endMs": 67.3114000000005
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 67.34499999999935,
+          "endMs": 67.42389999999978
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 335.7357000000011,
+          "endMs": 403.6743000000006
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 359.6290000000008,
+          "endMs": 402.9863000000005
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 359.8718000000008,
+          "endMs": 403.65999999999985
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 391.70800000000054,
+          "endMs": 470.1388999999999
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 396.4974999999995
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 402.9359999999997
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 416.34410000000025
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 622.5954000000002,
+          "endMs": 625.0115000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 704.842200000001
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 704.8751000000011
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 704.8973000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 704.9225000000006,
+          "endMs": 730.3549000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 730.170900000001
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 730.2368999999999
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 730.2718999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 730.3423000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 764.3641000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 764.4331999999995
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 764.4861999999994
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 764.5625
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 696.1303000000007,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6221999999979744,
+          "bytes": 165,
+          "reference": "0f86b9bc-3def-4d57-b59e-e157105edb65",
+          "requestId": "0c2f6195-4bf7-4940-8f90-d415370e9e08"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 7.674200000008568,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.9998000000050524,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 8.63300000000163,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 8.601999999998952,
+          "bytes": 165,
+          "reference": "e189a72e-baab-4172-8174-2b2921da0406",
+          "requestId": "3d9fc709-00f6-4b60-ab58-c10b9897c23f"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 56.541199999992386,
+          "bytes": 165,
+          "reference": "1528dee9-4fbe-4db4-9c4f-5b1a8d091c4a",
+          "requestId": "f3791b90-5650-42dc-b239-b2956ba35e51"
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 517.6062999999995,
+          "bytes": 120692
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 12.259600000001228,
+          "endMs": 592.4736999999986
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 78.15980000000127,
+          "endMs": 78.2448000000004
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 78.28429999999935,
+          "endMs": 78.34059999999954
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 78.37259999999878,
+          "endMs": 78.42320000000109
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 78.45739999999932,
+          "endMs": 78.51169999999911
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 78.54249999999956,
+          "endMs": 78.59279999999853
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 78.70599999999831,
+          "endMs": 78.76290000000154
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 78.8025000000016,
+          "endMs": 78.85310000000027
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 78.8814999999995,
+          "endMs": 78.95000000000073
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 78.98359999999957,
+          "endMs": 79.03640000000087
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 79.06550000000061,
+          "endMs": 79.1130000000012
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 79.14020000000164,
+          "endMs": 79.18709999999919
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 79.21610000000146,
+          "endMs": 79.26529999999912
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 79.29290000000037,
+          "endMs": 79.33819999999832
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 79.3627000000015,
+          "endMs": 79.40810000000056
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 79.43419999999969,
+          "endMs": 79.47759999999835
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 79.50370000000112,
+          "endMs": 79.54939999999988
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 79.57779999999912,
+          "endMs": 79.6234000000004
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 79.65599999999904,
+          "endMs": 79.70319999999992
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 79.73240000000078,
+          "endMs": 79.77720000000045
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 79.8086000000003,
+          "endMs": 79.85450000000128
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 79.88060000000041,
+          "endMs": 79.92559999999867
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 79.95270000000164,
+          "endMs": 79.9976999999999
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 80.02579999999944,
+          "endMs": 80.06940000000031
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 80.09749999999985,
+          "endMs": 80.14250000000175
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 80.16960000000108,
+          "endMs": 80.21340000000055
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 80.2403000000013,
+          "endMs": 80.28629999999976
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 326.0493999999999,
+          "endMs": 441.6310999999987
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 360.5044999999991,
+          "endMs": 401.02160000000003
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 360.5622000000003,
+          "endMs": 401.0594999999994
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 379.27830000000176,
+          "endMs": 450.4252000000015
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 392.9272000000019
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 400.883600000001
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 401.14870000000155
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 592.3503000000019,
+          "endMs": 592.4559999999983
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 622.3696000000018
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 623.1162000000004,
+          "endMs": 670.2298999999985
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 623.167300000001,
+          "endMs": 670.2524000000012
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 623.2065000000002,
+          "endMs": 670.2677000000003
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 653.0318000000007
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 654.4753999999994
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 656.2278000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 658.2790999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 688.5989999999983
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 690.2919000000002
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 691.438900000001
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 692.9000000000015
+        }
+      ]
+    },
+    {
+      "mode": "cold",
+      "usableMs": 1033.6124999999993,
+      "bytes": 122017,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.83540000001085,
+          "bytes": 165,
+          "reference": "2872558d-b823-408a-baf3-6a70c0fd8b2e",
+          "requestId": "95e64f0e-5e4d-438d-a136-abf62188847d"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.570499999987078,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session",
+          "status": 404,
+          "durationMs": 0.5054999999993015,
+          "bytes": 21
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 290.82219999999506,
+          "bytes": 120692
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/preferences",
+          "status": 200,
+          "durationMs": 2.3228999999992084,
+          "bytes": 153
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.564200000007986,
+          "bytes": 165,
+          "reference": "3ace0fa8-8903-4cef-a935-253dcc0f25d3",
+          "requestId": "fdcdf9ad-7baf-49da-a7d0-dad619593c9a"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.9015999999974156,
+          "bytes": 165,
+          "reference": "69158302-81e3-438f-a35d-da8c146ce7c2",
+          "requestId": "37fd122a-1a84-44dc-a821-5b7c9196c319"
+        }
+      ],
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "document",
+          "startMs": 518.8014999999978,
+          "endMs": 858.8634999999995
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Bold-s.p.0qh07m8uxwayo.ttf",
+          "type": "font",
+          "startMs": 558.7258000000002,
+          "endMs": 560.2212
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Light-s.p.1qojojde3pzz6.ttf",
+          "type": "font",
+          "startMs": 560.2573999999986,
+          "endMs": 560.4667999999983
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Medium-s.p.1abqmtzg87-a7.ttf",
+          "type": "font",
+          "startMs": 560.501400000001,
+          "endMs": 560.536799999998
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_Regular-s.p.2mu4inwzd5isg.ttf",
+          "type": "font",
+          "startMs": 560.5534000000007,
+          "endMs": 567.511599999998
+        },
+        {
+          "path": "/_next/static/media/PlusJakartaSans_SemiBold-s.p.1_l8zrawsskbb.ttf",
+          "type": "font",
+          "startMs": 567.5796000000009,
+          "endMs": 567.6552999999985
+        },
+        {
+          "path": "/_next/static/chunks/3rz6prt6c_-qr.css",
+          "type": "stylesheet",
+          "startMs": 567.6866999999984,
+          "endMs": 567.7381999999998
+        },
+        {
+          "path": "/_next/static/chunks/2o7e4xripb37p.css",
+          "type": "stylesheet",
+          "startMs": 567.7659999999996,
+          "endMs": 567.8133999999991
+        },
+        {
+          "path": "/_next/static/chunks/38y12-0af6xng.css",
+          "type": "stylesheet",
+          "startMs": 567.8394999999982,
+          "endMs": 567.8872999999985
+        },
+        {
+          "path": "/_next/static/chunks/2qw1hfitzj89t.css",
+          "type": "stylesheet",
+          "startMs": 567.9148999999998,
+          "endMs": 567.9608000000007
+        },
+        {
+          "path": "/_next/static/chunks/0c6chfm618bug.css",
+          "type": "stylesheet",
+          "startMs": 567.9857999999986,
+          "endMs": 568.035100000001
+        },
+        {
+          "path": "/_next/static/chunks/1rj8-cvjtsa6p.css",
+          "type": "stylesheet",
+          "startMs": 568.0606999999982,
+          "endMs": 568.1049999999996
+        },
+        {
+          "path": "/_next/static/chunks/3ine7f93ig2_v.js",
+          "type": "script",
+          "startMs": 568.1301999999996,
+          "endMs": 568.1742000000013
+        },
+        {
+          "path": "/_next/static/chunks/39ybpdv8x4o_e.js",
+          "type": "script",
+          "startMs": 568.1994999999988,
+          "endMs": 568.2429000000011
+        },
+        {
+          "path": "/_next/static/chunks/1kpw7dmdy_srf.js",
+          "type": "script",
+          "startMs": 568.265800000001,
+          "endMs": 568.3077999999987
+        },
+        {
+          "path": "/_next/static/chunks/3_sop7id2ls-y.js",
+          "type": "script",
+          "startMs": 568.3320999999996,
+          "endMs": 574.1065999999992
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+          "type": "script",
+          "startMs": 574.1562999999987,
+          "endMs": 574.2196000000004
+        },
+        {
+          "path": "/_next/static/chunks/338pb427u526b.js",
+          "type": "script",
+          "startMs": 574.2514999999985,
+          "endMs": 574.3047999999981
+        },
+        {
+          "path": "/_next/static/chunks/0or1nlq5ta6qu.js",
+          "type": "script",
+          "startMs": 574.3333999999995,
+          "endMs": 574.3823000000011
+        },
+        {
+          "path": "/_next/static/chunks/0sgh4yvmtx30p.js",
+          "type": "script",
+          "startMs": 574.409599999999,
+          "endMs": 574.4562000000005
+        },
+        {
+          "path": "/_next/static/chunks/11myrorzg3a6-.js",
+          "type": "script",
+          "startMs": 574.4828999999991,
+          "endMs": 574.5349999999999
+        },
+        {
+          "path": "/_next/static/chunks/2cgq-436qu2n3.js",
+          "type": "script",
+          "startMs": 574.5616999999984,
+          "endMs": 574.6065999999992
+        },
+        {
+          "path": "/_next/static/chunks/27ke3u3wxw0mw.js",
+          "type": "script",
+          "startMs": 574.6310999999987,
+          "endMs": 576.4867999999988
+        },
+        {
+          "path": "/_next/static/chunks/3sr7hmj551w5i.css",
+          "type": "stylesheet",
+          "startMs": 576.5443999999989,
+          "endMs": 576.606499999998
+        },
+        {
+          "path": "/_next/static/chunks/2w_w_40sair2a.js",
+          "type": "script",
+          "startMs": 576.6342000000004,
+          "endMs": 576.6807999999983
+        },
+        {
+          "path": "/_next/static/chunks/0440lqysea9f2.js",
+          "type": "script",
+          "startMs": 576.7057999999997,
+          "endMs": 576.7524999999987
+        },
+        {
+          "path": "/_next/static/chunks/0i76e2j8askxo.js",
+          "type": "script",
+          "startMs": 576.7770999999993,
+          "endMs": 576.8214000000007
+        },
+        {
+          "path": "/api/auth/get-session",
+          "type": "fetch",
+          "startMs": 813.1408999999985,
+          "endMs": 827.6114999999991
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 847.1095999999998,
+          "endMs": 919.1212999999989
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 847.160899999999,
+          "endMs": 934.9241000000002
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 866.0570000000007,
+          "endMs": 867.3191999999981
+        },
+        {
+          "path": "/api/guided-learning/preferences",
+          "type": "fetch",
+          "startMs": 892.2684999999983,
+          "endMs": 919.4442999999992
+        },
+        {
+          "path": "/dashboard",
+          "type": "fetch",
+          "startMs": 904.0835000000006,
+          "endMs": 994.7340999999979
+        },
+        {
+          "path": "/asignaturas",
+          "type": "fetch",
+          "startMs": 919.0355999999992
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 919.0959999999977,
+          "endMs": 994.7975000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 1009.2628000000004
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 1009.3227000000006
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 1009.8902999999991
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 1009.9303
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 1037.1906999999992
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 1041.0766000000003
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 1043.2651000000005
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 1044.7475000000013
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 1155.4147999999986
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 1156.640199999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 1191.3521
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 1191.8558000000012
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 1987.1238999999987,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.1200000000098953,
+          "bytes": 165,
+          "reference": "5456abb3-397f-4e30-ae94-ecbd775b3db3",
+          "requestId": "73282949-0d38-404a-835b-645df8ec6e1a"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 10.677999999999884,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 321.8411999999953,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 388,
+        "eventToFrameMs": 393,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 713.7174999999988
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 65.27630000000136
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 65.40120000000024,
+          "endMs": 106.40339999999924
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 65.5067999999992,
+          "endMs": 106.42369999999937
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 65.54449999999997,
+          "endMs": 106.4377999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 106.25249999999869
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 106.35399999999936
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 1348.631300000001,
+          "endMs": 1688.6589000000022
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 1687.8493000000017,
+          "endMs": 1688.636300000002
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 1720.8021000000008
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 1721.5231000000022
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 1721.5505000000012
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 1721.5722999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 1746.572500000002,
+          "endMs": 1757.9629999999997
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 615.8672000000006,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6781000000046333,
+          "bytes": 165,
+          "reference": "27ac4538-cbf0-406c-ad30-ac6ff0c82f1f",
+          "requestId": "90d886d0-dc31-43ca-bdf5-fb97cde0e76d"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 11.037000000011176,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 293.36019999999553,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 355,
+        "eventToFrameMs": 368,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 500.0097999999998
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 4.815399999999499,
+          "endMs": 47.9442999999992
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 4.869999999998981,
+          "endMs": 48.30649999999878
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 4.909500000001572,
+          "endMs": 48.318999999999505
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 4.94970000000103,
+          "endMs": 51.972499999999854
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 34.483000000000175
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 35.27479999999923
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 133.57920000000013,
+          "endMs": 460.1310999999987
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 459.7933000000012,
+          "endMs": 459.8826000000008
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 502.03470000000016
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 502.35129999999845
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 502.5443000000014
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 502.7102999999988
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 533.6150000000016
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 2465.0545999999995,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5694000000075903,
+          "bytes": 165,
+          "reference": "d1bd945d-3c85-47d5-b1fa-2a8912617937",
+          "requestId": "dda2c186-5af6-4b8a-aa60-5673ce8a9abf"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 9.634000000005472,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 258.5538000000088,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2099,
+        "eventToFrameMs": 2121,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 2365.2418
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 119.5034999999989,
+          "endMs": 2189.0054999999993
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2185.1080999999976,
+          "endMs": 2186.9655999999995
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2234.306499999999
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2234.368199999997
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2234.4148999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2234.456699999999
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2265.8935999999994
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 611.112799999999,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.9917999999888707,
+          "bytes": 165,
+          "reference": "b1daa548-4e5e-49c1-b040-842a986ac62d",
+          "requestId": "a454340b-6fb0-4ab3-87bb-185e2a9358b3"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.294599999993807,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 277.98240000000806,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 345,
+        "eventToFrameMs": 350,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 483.4966000000022
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 4.0560999999979686
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 4.1005999999979394
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 4.124599999999191,
+          "endMs": 55.05289999999877
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 4.146999999997206,
+          "endMs": 61.57499999999709
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 37.31239999999889
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 39.553399999997055
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 141.4510999999984,
+          "endMs": 457.3999999999978
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 457.03679999999804,
+          "endMs": 457.1327999999994
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 495.41609999999855
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 495.86759999999776
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 496.77649999999994
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 496.80219999999827
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 525.0102999999981
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 689.2105999999985,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.711699999999837,
+          "bytes": 165,
+          "reference": "77c76949-79d1-4aa5-bc11-bb777ff4c811",
+          "requestId": "61f4f2c6-cf89-47b9-be1b-79cc5ba5f8cc"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.47379999999248,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 295.8643000000011,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 358,
+        "eventToFrameMs": 367,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 544.8559999999998
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 20.131099999998696
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 20.18739999999889
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 118.02999999999884
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 451.4416999999994,
+          "endMs": 451.5684999999976
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 486.10469999999987
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 487.34890000000087
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 487.9586999999992
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 488.0157999999974
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 533.5733999999975
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 743.2969999999987,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.774299999990035,
+          "bytes": 165,
+          "reference": "d51f80f0-f9a3-4050-9c68-14a54de9d1bb",
+          "requestId": "45d4d4b9-ad1d-4e32-b8c5-bd7452de5cdc"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.3307999999960884,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 327.00190000000293,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 401,
+        "eventToFrameMs": 410,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 626.0050000000047
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 46.4375
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 47.12290000000212
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 146.9704999999958
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 595.5702999999994,
+          "endMs": 595.6342999999979
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 684.4582999999984
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 684.5302999999985
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 684.5789999999979
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 684.6301999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 687.9026000000013
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 627.7022999999972,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5206000000034692,
+          "bytes": 165,
+          "reference": "9480de9a-cf8c-4c55-9180-579a01a68f5b",
+          "requestId": "26a0111a-713c-416d-b127-3a8a98f88cc1"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.233899999991991,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 304.42230000000563,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 368,
+        "eventToFrameMs": 384,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 519.8342000000048
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 129.74909999999363
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 469.35899999999674,
+          "endMs": 469.69549999999435
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 534.8567999999941
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 534.9117999999944
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 534.9526999999944
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 534.9898999999932
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 538.1159999999945,
+          "endMs": 538.1984999999986
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 3652.4879,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.879000000000815,
+          "bytes": 165,
+          "reference": "2924cb56-7417-433f-b702-d943547cc351",
+          "requestId": "a8c72789-8abb-40c0-bc49-d7b5bb652ae0"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.499700000000303,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 269.5308999999979,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 323,
+        "eventToFrameMs": 333,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 568.7378000000026
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 3115.109199999999,
+          "endMs": 3410.2981
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 3410.1394999999975,
+          "endMs": 3410.2863999999972
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 3438.9820000000036
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 3440.4233999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 3440.4795999999988
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 3440.728600000002
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 3517.865899999997
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 913.8361999999979,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6744999999937136,
+          "bytes": 165,
+          "reference": "5e24a122-30c4-4f80-93bf-4b31bdc6d3d7",
+          "requestId": "80337656-d114-4ac7-84f0-d0d11a816a18"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.253199999991921,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 277.70990000000165,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 338,
+        "eventToFrameMs": 349,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 762.0926000000036
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 233.03929999999673,
+          "endMs": 514.1630999999979
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 512.7873999999938,
+          "endMs": 514.1513999999952
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 557.9167999999991
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 557.9663
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 557.9911999999968
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 558.013199999994
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 607.6493999999948
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 615.2620999999999,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6748000000079628,
+          "bytes": 165,
+          "reference": "757d8b6b-ec90-45e6-9a2e-ba941962ec29",
+          "requestId": "e505e8bf-57aa-4be8-b2c1-521579a1ed6c"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.887199999997392,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 250.07039999999688,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 307,
+        "eventToFrameMs": 315,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 496.9320000000007
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 129.66479999999865
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 409.81789999999455,
+          "endMs": 410.178899999999
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 444.5650999999998
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 445.68309999999474
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 445.73999999999796
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 445.7981
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 472.29499999999825
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 776.8686000000016,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.016799999997602,
+          "bytes": 165,
+          "reference": "546c7627-b84e-45fd-abb9-37481f4fa6e4",
+          "requestId": "46f32e58-d6c0-4dc1-8513-cbf8bea4d2cf"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.254799999995157,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 406.9426999999996,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 473,
+        "eventToFrameMs": 492,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 611.8631999999998
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 30.62619999999879
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 31.198000000003958
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 31.2445000000007
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 31.28280000000086,
+          "endMs": 74.58520000000135
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 66.21710000000166
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 71.1362999999983
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 192.61040000000503,
+          "endMs": 670.6180999999997
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 669.8991000000024,
+          "endMs": 671.9501999999993
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 672.0629000000044
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 672.1143999999986
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 672.1526999999987
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 672.1880999999994
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 703.0751999999993
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 736.7047999999995,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.538300000000163,
+          "bytes": 165,
+          "reference": "4bc6b743-0488-4a9b-a566-2344c83461c2",
+          "requestId": "2bea9710-3cdd-475f-b508-621ff322d9f5"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 11.872600000002421,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 292.61040000000503,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 365,
+        "eventToFrameMs": 375,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 615.4847999999984
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 20.57589999999618,
+          "endMs": 45.24079999999958
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 25.20509999999922,
+          "endMs": 45.26659999999538
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 162.00630000000092
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 498.80509999999776,
+          "endMs": 498.8972999999969
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 533.9471999999951
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 533.9772000000012
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 533.9963999999964
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 534.0153999999966
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 561.0211999999956
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 4159.559799999995,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.9309999999968568,
+          "bytes": 165,
+          "reference": "db8d7fdd-7cc0-4742-8c23-83508bf20ec3",
+          "requestId": "4ddeb10f-08bb-4835-8d41-58e12a823028"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.635999999998603,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 305.06269999999495,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 3338,
+        "eventToFrameMs": 3343,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 4024.3782999999967
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 34.06629999999859
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 35.43319999999949
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 127.85339999999997
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 3448.4865999999965,
+          "endMs": 3448.594099999995
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 3481.196999999993
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 3481.2504999999946
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 3481.289399999994
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 3481.3215999999957
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 3545.2527999999947
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 3156.0345000000016,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6257000000041444,
+          "bytes": 165,
+          "reference": "eec80754-5068-4434-aa3c-ed562c77060e",
+          "requestId": "74c1b468-c132-49c6-91f3-956801f62ae1"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.960599999991246,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 320.9363000000012,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2649,
+        "eventToFrameMs": 2676,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 3049.5954000000056
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 4.350400000002992
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 5.5693000000028405,
+          "endMs": 47.19470000000001
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 149.08150000000023
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2757.5743,
+          "endMs": 2758.6350999999995
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2851.9725000000035
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2852.0053000000044
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2852.0265
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2852.0476000000053
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2866.0462000000043
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 1209.6484999999957,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 2.09780000000319,
+          "bytes": 165,
+          "reference": "a6a5426d-24d1-42f8-b632-dc58752ee8d0",
+          "requestId": "6287481e-800e-42f5-ac79-73354146761c"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.238500000006752,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 610.0535000000091,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 675,
+        "eventToFrameMs": 683,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 1083.125
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 15.280500000000757,
+          "endMs": 38.956099999995786
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 16.23960000000079,
+          "endMs": 50.17540000000008
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 129.24929999999586
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 787.0819999999949,
+          "endMs": 787.2990999999965
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 832.9167999999991
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 832.9565999999977
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 834.1380999999965
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 834.196100000001
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 868.7825999999986
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 3959.7882000000027,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.857899999988149,
+          "bytes": 165,
+          "reference": "6b1d8eab-100c-4734-8309-befa4665340f",
+          "requestId": "66b3e89c-98cb-41ed-8726-3295d6dea78f"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 7.813899999993737,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 305.93589999999676,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 376,
+        "eventToFrameMs": 393,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 624.5935999999929
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 9.348900000004505
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 9.399900000003981,
+          "endMs": 3231.7769000000044
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 3400.6344000000026
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 3707.4295000000056,
+          "endMs": 3708.4074000000037
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 3739.808100000002
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 3740.537199999999
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 3740.5650000000096
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 3740.5950999999986
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 3779.327299999997
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 639.8058000000019,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.755300000004354,
+          "bytes": 165,
+          "reference": "79a20c9f-7af8-48c6-a70b-4fd95b2b297b",
+          "requestId": "4ac91dfa-09aa-4cf3-9ab3-4ba17c1a04a9"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 9.310500000006869,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 322.96699999998964,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 396,
+        "eventToFrameMs": 411,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 532.4964999999938
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 130.02039999999397,
+          "endMs": 493.25999999999476
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 492.75650000000314,
+          "endMs": 493.2476000000024
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 570.4982000000018
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 570.6168999999936
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 570.7048000000068
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 570.7853000000032
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 587.5699000000022,
+          "endMs": 587.6928999999946
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 724.5529999999999,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7274999999935972,
+          "bytes": 165,
+          "reference": "be27742f-ee92-47b7-92e9-e2535faaf53d",
+          "requestId": "465494a7-9829-46df-ae5e-e531f39ba12b"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.111699999994016,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 330.7612999999983,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 399,
+        "eventToFrameMs": 407,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 594.2492000000057
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 5.1362999999983
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 5.200699999986682
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 143.58189999999013
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 509.48489999999583,
+          "endMs": 510.50599999999395
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 542.9545999999973
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 543.0641999999934
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 543.1328999999969
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 543.5252999999939
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 644.5969999999943,
+          "endMs": 647.2241999999969
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 931.0537999999942,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7868999999918742,
+          "bytes": 165,
+          "reference": "b034e0ee-523f-48a2-8410-3a3561fb07cb",
+          "requestId": "706410de-e99c-48a1-89da-4ff4f4ff9321"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.444699999992736,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 290.2137000000075,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 360,
+        "eventToFrameMs": 368,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 714.3966000000073
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 224.51549999999406,
+          "endMs": 545.9790999999968
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 545.0363999999972,
+          "endMs": 545.9585999999981
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 579.8027999999904
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 579.8488999999972
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 579.8752999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 579.8978999999963,
+          "endMs": 613.8312999999907
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 610.0378999999957
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 1790.7638000000006,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7268000000040047,
+          "bytes": 165,
+          "reference": "d094a0fb-0104-498b-8c14-e14f1ef2b71a",
+          "requestId": "a62839e4-ead6-4026-93f8-cf475ddf7cc7"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.892600000006496,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 284.3043000000034,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 1062,
+        "eventToFrameMs": 1071,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 1637.5304999999935
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 15.946200000005774,
+          "endMs": 45.781199999997625
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 15.986799999998766
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 16.012400000006892
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 16.049400000003516,
+          "endMs": 45.799500000008265
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 45.67269999999553
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 45.76279999999679
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 160.08290000000852,
+          "endMs": 1185.1923000000097
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 1192.2269000000088,
+          "endMs": 1192.343200000003
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 1248.0244000000093
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 1248.0620999999956
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 1248.0858000000007
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 1248.1039000000019
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 1258.160400000008
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 630.1831999999995,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8554000000003725,
+          "bytes": 165,
+          "reference": "00c55c86-a6c7-40d0-9daa-68ef9db29e85",
+          "requestId": "e2566968-804a-4d1a-8f0d-9e0fd353c366"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.4020999999920605,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 347.0691999999981,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 414,
+        "eventToFrameMs": 419,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 523.6070999999938
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 12.181100000001607,
+          "endMs": 44.57710000000952
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 13.700599999996484,
+          "endMs": 44.626600000003236
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 122.47920000000158,
+          "endMs": 505.11440000000584
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 504.38150000000314,
+          "endMs": 505.1015000000043
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 560.0271000000066
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 560.0868000000046
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 560.1288000000059
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 560.1690999999992
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 582.5063000000082,
+          "endMs": 583.0181000000011
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 771.3317000000097,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6614000000117812,
+          "bytes": 165,
+          "reference": "5591dc3b-04da-4e81-81e3-587004639fd3",
+          "requestId": "3c1b519f-15f6-44f5-b826-fc95036c9fe2"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.567800000004354,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 301.8512999999948,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 360,
+        "eventToFrameMs": 372,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 580.5290999999997
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 15.346900000004098
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 15.406400000007125
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 15.770199999999022,
+          "endMs": 67.13509999999951
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 15.820900000006077,
+          "endMs": 67.5164999999979
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 63.45820000000822
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 64.42240000001038,
+          "endMs": 96.10560000000987
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 149.74580000000424
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 481.87940000000526,
+          "endMs": 482.33110000001034
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 521.7861000000121
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 522.2191000000021
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 522.2462000000087
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 522.2668000000122
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 552.8115000000107,
+          "endMs": 552.9416000000056
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 597.1643999999942,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.860899999999674,
+          "bytes": 165,
+          "reference": "a4ff148d-c1d4-49cc-aff3-ec1c3c819a23",
+          "requestId": "1080666e-364e-4a48-8650-ca3cf39a3866"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.928299999999581,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 306.7602000000188,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 365,
+        "eventToFrameMs": 376,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 481.43829999999434
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 9.927599999995437,
+          "endMs": 51.234700000000885
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 10.576900000000023,
+          "endMs": 51.46899999999732
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 134.46420000000217,
+          "endMs": 473.37059999999474
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 472.67660000000615,
+          "endMs": 473.3558000000048
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 507.4575000000041
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 507.4907999999996
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 507.5112999999983
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 507.78660000000673
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 543.7639000000054
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 3187.5527,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.7109000000054948,
+          "bytes": 165,
+          "reference": "5f393286-bef5-4441-9b7d-d2de89a5f2c9",
+          "requestId": "ef2a1bcd-d199-4e2f-a844-e4109e8a0400"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 6.4179000000003725,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 330.46369999999297,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2441,
+        "eventToFrameMs": 2452,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 3053.2169999999896
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 8.412700000000768
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 9.017800000001444,
+          "endMs": 72.57300000000396
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 9.095799999995506,
+          "endMs": 73.89579999999842
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 9.140100000004168,
+          "endMs": 74.83840000000782
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 53.99959999999555
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 55.94550000000163
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 176.69079999999667
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2604.5792000000074,
+          "endMs": 2606.9254999999976
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2620.8185999999987
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2620.892300000007
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2620.9235999999946
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2620.958500000008
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2646.237300000008
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 622.0381999999954,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.5482999999949243,
+          "bytes": 165,
+          "reference": "ee14c196-7ece-4693-90a1-d10fd0d0bb7d",
+          "requestId": "7447326d-05e9-4eaf-8d76-814c55767d84"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.027899999986403,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 295.5596000000078,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 349,
+        "eventToFrameMs": 360,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 496.0301000000036
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 37.7780999999959
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 39.18409999999858
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 142.6536999999953
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 466.83090000000084,
+          "endMs": 467.51789999999164
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 489.45079999999143
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 489.5146999999997
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 489.57540000000154
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 489.6027000000031
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 521.4823000000033
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 633.7750999999989,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6136000000115018,
+          "bytes": 165,
+          "reference": "6f59c274-f7e9-48ff-932c-0055f13eb76f",
+          "requestId": "6dc0ee81-5899-49ae-bf4e-cb8d38cac788"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.529199999989942,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 271.7258000000147,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 367,
+        "eventToFrameMs": 385,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 500.2213999999949
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 40.63529999999446
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 42.707399999999325
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 139.17380000000412,
+          "endMs": 473.35439999999653
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 472.585699999996,
+          "endMs": 473.3399999999965
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 508.84530000000086
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 508.9140999999945
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 508.9630000000034
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 509.00500000000466
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 570.9747999999963
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 3095.4561000000103,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.630299999989802,
+          "bytes": 165,
+          "reference": "f38a055c-c7d0-4a61-90f3-9dc5ae184883",
+          "requestId": "de035fcd-efff-448d-9560-d59e55979c4e"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.5446999999985565,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 267.6564000000071,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2614,
+        "eventToFrameMs": 2627,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 2924.4493999999977
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 81.43790000000445,
+          "endMs": 81.93349999999919
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 81.52580000000307,
+          "endMs": 81.9487999999983
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 201.59130000000005
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2784.569499999998,
+          "endMs": 2786.083400000003
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2818.7041000000027
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2819.1010000000097
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2819.3655
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2819.3868999999977
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2843.0177000000112
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 2416.7216000000044,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.8416000000142958,
+          "bytes": 165,
+          "reference": "bf79ae7c-a312-43c2-8686-93fb5aea9b46",
+          "requestId": "645cbccf-cd46-4e1c-badb-cb45629b9182"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 4.640700000018114,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 262.2533000000112,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 1904,
+        "eventToFrameMs": 1917,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 2240.079500000007
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 18.348199999993085,
+          "endMs": 48.65720000000147
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 19.014500000004773,
+          "endMs": 48.67740000000049
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 134.17919999999867
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2025.7298999999912,
+          "endMs": 2025.854800000001
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2056.239600000001
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2056.2976999999955
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2056.348299999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2056.386599999998
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2088.5840000000026
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 2864.194399999993,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6735000000044238,
+          "bytes": 165,
+          "reference": "0c562d60-94ce-4f41-a7b3-60c01879ffcb",
+          "requestId": "5cdc7834-8d99-4a6b-8c2b-61f43825c707"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 7.271999999997206,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 270.10659999999916,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2177,
+        "eventToFrameMs": 2190,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 2747.4128999999957
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 3.8007000000070548
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 3.85120000000461
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 3.87949999999546
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 3.9030000000057044
+        },
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 49.718900000007125
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 55.56630000000587,
+          "endMs": 82.1478000000061
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 138.46409999999742
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2286.0593999999983,
+          "endMs": 2286.216499999995
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2314.6233999999968
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2314.6790000000037
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2314.7179999999935
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2314.753700000001
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2348.8640000000014
+        }
+      ]
+    },
+    {
+      "mode": "warm",
+      "usableMs": 2945.816000000006,
+      "bytes": 121513,
+      "trace": [
+        {
+          "method": "GET",
+          "path": "/v1/auth/me",
+          "status": 200,
+          "durationMs": 1.6803000000072643,
+          "bytes": 165,
+          "reference": "48d9ac81-d627-4bfb-b85a-eb4fce8f10fc",
+          "requestId": "a43248b1-3254-44be-ab0f-0314a5c34a0c"
+        },
+        {
+          "method": "GET",
+          "path": "/v1/guided-learning/paths?limit=20",
+          "status": 200,
+          "durationMs": 5.041400000016438,
+          "bytes": 656
+        },
+        {
+          "method": "GET",
+          "path": "/v2/guided-learning/paths?limit=20&includeState=true",
+          "status": 200,
+          "durationMs": 284.0198000000091,
+          "bytes": 120692
+        }
+      ],
+      "timing": {
+        "eventToReadyMs": 2210,
+        "eventToFrameMs": 2229,
+        "busyFrameMs": null,
+        "documentChanged": false,
+        "driverMs": 2833.162599999996
+      },
+      "browserRequests": [
+        {
+          "path": "/aprendizaje/rutas/xp-admission",
+          "type": "fetch",
+          "startMs": 39.92459999999846
+        },
+        {
+          "path": "/aprendizaje/repaso",
+          "type": "fetch",
+          "startMs": 40.529999999998836
+        },
+        {
+          "path": "/aprendizaje",
+          "type": "fetch",
+          "startMs": 142.80890000000363
+        },
+        {
+          "path": "/_next/image",
+          "type": "image",
+          "startMs": 2372.227500000008,
+          "endMs": 2374.486300000004
+        },
+        {
+          "path": "/aprendizaje/rutas/repaso-f03",
+          "type": "fetch",
+          "startMs": 2375.9315999999963
+        },
+        {
+          "path": "/aprendizaje/rutas/simulacion-f06",
+          "type": "fetch",
+          "startMs": 2375.9842999999964
+        },
+        {
+          "path": "/aprendizaje/rutas/f02-versiones",
+          "type": "fetch",
+          "startMs": 2376.0242
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-small",
+          "type": "fetch",
+          "startMs": 2376.0617000000057
+        },
+        {
+          "path": "/aprendizaje/rutas/t035-large",
+          "type": "fetch",
+          "startMs": 2434.4113999999972
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "mode": "cold",
+      "p75": 898.6861000000008,
+      "p95": 2495.6121
+    },
+    {
+      "mode": "warm",
+      "p75": 2864.194399999993,
+      "p95": 3959.7882000000027
+    }
+  ]
+}

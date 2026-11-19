@@ -1,0 +1,17 @@
+$ next build
+▲ Next.js 16.4.1 (Turbopack)
+✓ Running next.config.ts took 55ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 32.2s
+  Running TypeScript ...
+src/components/learning/v2/curriculum.test.tsx(30,67): error TS2345: Argument of type '{ enrollmentId: string; purpose: "activity"; activeActivity: { key: string; objectiveKey: string; phase: "apply" | "activate" | "learn" | "retrieve" | "elaborate" | "remediate"; representation: "video" | ... 4 more ... | "diagram"; prompt: string; kind: "study"; payload: { ...; }; hasHint?: boolean | undefined; } | ...' is not assignable to parameter of type '{ engineVersion: "guided-v2"; attemptId: string & $brand<"V2AttemptId">; enrollmentId: string & $brand<"V2EnrollmentId">; pathVersionId: string & $brand<"V2PathVersionId">; ... 9 more ...; earnedXp?: number | undefined; }'.
+  Type '{ enrollmentId: string; purpose: "activity"; activeActivity: { key: string; objectiveKey: string; phase: "apply" | "activate" | "learn" | "retrieve" | "elaborate" | "remediate"; representation: "video" | ... 4 more ... | "diagram"; prompt: string; kind: "study"; payload: { ...; }; hasHint?: boolean | undefined; } | ...' is not assignable to type '{ engineVersion: "guided-v2"; attemptId: string & $brand<"V2AttemptId">; enrollmentId: string & $brand<"V2EnrollmentId">; pathVersionId: string & $brand<"V2PathVersionId">; ... 9 more ...; earnedXp?: number | undefined; }'.
+    Types of property 'enrollmentId' are incompatible.
+      Type 'string' is not assignable to type 'string & $brand<"V2EnrollmentId">'.
+        Type 'string' is not assignable to type '$brand<"V2EnrollmentId">'.
+Failed to type check.
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 build: `next build`
+Exit status 1

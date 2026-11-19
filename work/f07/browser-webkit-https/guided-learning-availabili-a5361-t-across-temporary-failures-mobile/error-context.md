@@ -1,0 +1,222 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: guided-learning-availability.spec.ts >> F07 preserves resource section, attempt and catalog context across temporary failures
+- Location: tests\e2e\guided-learning-availability.spec.ts:100:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('button', { name: 'Siguiente', exact: true })
+Expected: visible
+Timeout: 12000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" getByRole('button', { name: 'Siguiente', exact: true }) with timeout 12000ms
+  - waiting for getByRole('button', { name: 'Siguiente', exact: true })
+
+```
+
+```yaml
+- banner:
+  - search "Buscar guías":
+    - combobox "Buscar guías"
+  - heading "Aprendizaje guiado" [level=1]
+  - button "Notificaciones"
+  - button "Abrir menú de perfil de f06-mobile@example.test": F0
+- article:
+  - link "Todas las rutas":
+    - /url: /aprendizaje?tab=rutas
+  - heading "Simulación de navegación F06" [level=1]
+  - text: Simulación F06 30 unidades
+  - group: Acerca de esta ruta
+  - region "Acción recomendada":
+    - heading "Continúa tu ruta" [level=2]
+    - paragraph: Elige una actividad de las unidades. El orden es una recomendación.
+    - paragraph: 3 min orientativos
+    - button "Pausar ruta"
+    - paragraph
+  - region "Tu progreso":
+    - heading "Tu progreso" [level=2]
+    - strong: 0%
+    - paragraph: 0 de 3 pasos esenciales
+    - progressbar "Actividades esenciales completadas"
+  - region "Unidades de la ruta":
+    - heading "Unidades de la ruta" [level=2]
+    - text: "30"
+    - tablist "Contenido de la ruta":
+      - tab "Actividades" [selected]
+      - tab "Recursos"
+    - tabpanel "Actividades":
+      - group:
+        - text: "1"
+        - strong: Lectura y comprobación
+        - text: 0/3 esenciales
+        - strong: Al terminar podrás
+        - list:
+          - listitem: Reconocer la primera letra Por comprobar · evidencia limitada por el banco disponible
+        - list:
+          - listitem:
+            - text: Esencial
+            - heading "Leer la tabla" [level=3]
+            - button "Omitir por ahora"
+            - text: No bloquea el acceso a otros pasos.
+            - button "Lectura con seguimiento Guía · 1 min · Recomendada Comenzar actividad":
+              - strong: Lectura con seguimiento
+              - text: Guía · 1 min · Recomendada
+              - emphasis: Comenzar actividad
+            - status
+          - listitem:
+            - text: Esencial
+            - heading "Comprobar el orden" [level=3]
+            - button "Omitir por ahora"
+            - text: No bloquea el acceso a otros pasos.
+            - button "Cuestionario con seguimiento Cuestionario · 1 min · Recomendada Comenzar actividad":
+              - strong: Cuestionario con seguimiento
+              - text: Cuestionario · 1 min · Recomendada
+              - emphasis: Comenzar actividad
+            - status
+          - listitem:
+            - text: Esencial
+            - heading "Recordar las letras" [level=3]
+            - button "Omitir por ahora"
+            - text: No bloquea el acceso a otros pasos.
+            - button "Tarjetas con seguimiento Tarjetas · 1 min · Recomendada Comenzar actividad":
+              - strong: Tarjetas con seguimiento
+              - text: Tarjetas · 1 min · Recomendada
+              - emphasis: Comenzar actividad
+            - status
+      - group:
+        - text: "2"
+        - strong: Otra unidad
+        - text: 0/0 esenciales
+      - group:
+        - text: "3"
+        - strong: Contenido 1
+        - text: 0/0 esenciales
+      - group:
+        - text: "4"
+        - strong: Contenido 2
+        - text: 0/0 esenciales
+      - group:
+        - text: "5"
+        - strong: Contenido 3
+        - text: 0/0 esenciales
+      - group:
+        - text: "6"
+        - strong: Contenido 4
+        - text: 0/0 esenciales
+      - group:
+        - text: "7"
+        - strong: Contenido 5
+        - text: 0/0 esenciales
+      - group:
+        - text: "8"
+        - strong: Contenido 6
+        - text: 0/0 esenciales
+      - group:
+        - text: "9"
+        - strong: Contenido 7
+        - text: 0/0 esenciales
+      - group:
+        - text: "10"
+        - strong: Contenido 8
+        - text: 0/0 esenciales
+      - group:
+        - text: "11"
+        - strong: Contenido 9
+        - text: 0/0 esenciales
+      - group:
+        - text: "12"
+        - strong: Contenido 10
+        - text: 0/0 esenciales
+      - group:
+        - text: "13"
+        - strong: Contenido 11
+        - text: 0/0 esenciales
+      - group:
+        - text: "14"
+        - strong: Contenido 12
+        - text: 0/0 esenciales
+      - group:
+        - text: "15"
+        - strong: Contenido 13
+        - text: 0/0 esenciales
+      - group:
+        - text: "16"
+        - strong: Contenido 14
+        - text: 0/0 esenciales
+      - group:
+        - text: "17"
+        - strong: Contenido 15
+        - text: 0/0 esenciales
+      - group:
+        - text: "18"
+        - strong: Contenido 16
+        - text: 0/0 esenciales
+      - group:
+        - text: "19"
+        - strong: Contenido 17
+        - text: 0/0 esenciales
+      - group:
+        - text: "20"
+        - strong: Contenido 18
+        - text: 0/0 esenciales
+      - group:
+        - text: "21"
+        - strong: Contenido 19
+        - text: 0/0 esenciales
+      - group:
+        - text: "22"
+        - strong: Contenido 20
+        - text: 0/0 esenciales
+      - group:
+        - text: "23"
+        - strong: Contenido 21
+        - text: 0/0 esenciales
+      - group:
+        - text: "24"
+        - strong: Contenido 22
+        - text: 0/0 esenciales
+      - group:
+        - text: "25"
+        - strong: Contenido 23
+        - text: 0/0 esenciales
+      - group:
+        - text: "26"
+        - strong: Contenido 24
+        - text: 0/0 esenciales
+      - group:
+        - text: "27"
+        - strong: Contenido 25
+        - text: 0/0 esenciales
+      - group:
+        - text: "28"
+        - strong: Contenido 26
+        - text: 0/0 esenciales
+      - group:
+        - text: "29"
+        - strong: Contenido 27
+        - text: 0/0 esenciales
+      - group:
+        - text: "30"
+        - strong: Contenido 28
+        - text: 0/0 esenciales
+- navigation "Navegación móvil":
+  - link "Inicio":
+    - /url: /dashboard
+  - link "Guías":
+    - /url: /guias
+  - button "Materiales"
+  - link "Rutas de aprendizaje":
+    - /url: /aprendizaje
+- alert
+```

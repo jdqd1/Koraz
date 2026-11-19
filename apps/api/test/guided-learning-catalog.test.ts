@@ -1115,6 +1115,8 @@ describe("guided-learning catalog and versioning", () => {
     expect(home.counts.pendingEssentialSteps).toBe(0);
     expect(home.counts.dueReviews).toBeGreaterThan(0);
     expect(home.tasks.some((task) => task.kind === "review")).toBe(true);
+    expect(home.activePath?.continueHref.startsWith(home.activePath.pathHref!)).toBe(true);
+    expect(home.activePath?.steps?.every(step => step.state === "completed")).toBe(true);
     expect(home.points).toBe(170);
     expect(home.milestones.map((milestone) => milestone.kind)).toEqual(expect.arrayContaining([
       "milestone_first_activity",

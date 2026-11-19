@@ -1,4 +1,4 @@
-import { createHmac } from "node:crypto";
+import { createHmac, randomUUID } from "node:crypto";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import Fastify, {
@@ -68,6 +68,7 @@ import { createS3ObjectStorage } from "./providers/s3-object-storage.js";
 import { createS3VideoProvider } from "./providers/s3-video.js";
 import { registerGuidedLearningEditorRoutes } from "./guided-learning/editor-routes.js";
 import { registerGuidedLearningRoutes } from "./guided-learning/routes.js";
+import { registerLearningResourceRoutes } from "./guided-learning/resource-reader.js";
 import { registerGuidedV2Routes, createGuidedV2HttpProvider, type GuidedV2HttpProvider } from "./guided-learning/v2/routes.js";
 import { registerGuidedV2MetricsRoutes } from "./guided-learning/v2/metrics.js";
 import { registerGuidedV2EditorImportRoutes, type GuidedV2EditorProvider } from "./guided-learning/v2/editor-routes.js";
@@ -372,6 +373,7 @@ export async function buildApp(
             ],
           },
     requestIdHeader: false,
+    genReqId: () => randomUUID(),
     trustProxy: false,
   });
 
@@ -457,9 +459,20 @@ export async function buildApp(
   });
 
   app.get("/v1/auth/me", async (request, reply) => {
+    const started = performance.now();
+    const incoming = request.headers["x-correlation-id"];
+    const reference = typeof incoming === "string" && /^[a-f0-9-]{36}$/i.test(incoming) ? incoming : request.id;
+    const observe = (stage: "identity" | "roles" | "validation", status: number) => request.log.info({
+      identity: { reference, requestId: request.id, stage, status, durationMs: Math.round(performance.now() - started) },
+    }, "Identity read completed");
     reply.header("X-Request-Id", request.id);
+    reply.header("X-Correlation-Id", reference);
+    reply.header("Cache-Control", "private, no-store");
     const resolution = await resolveRequestUser(toIdentityRequest(request.headers), identityProvider);
-    if (resolution.kind !== "authenticated") return sendUserResolutionError(resolution, reply);
+    if (resolution.kind !== "authenticated") {
+      observe("identity", resolution.kind === "unauthorized" ? 401 : 503);
+      return sendUserResolutionError(resolution, reply);
+    }
 
     let roles: Awaited<ReturnType<ContentProvider["getRoles"]>> = [];
     const roleReader = contentProvider ?? roleManagementProvider;
@@ -467,16 +480,19 @@ export async function buildApp(
       try {
         roles = await roleReader.getRoles(resolution.user.id);
       } catch {
-        request.log.error("Current-user role lookup failed");
+        observe("roles", 503);
+        return reply.status(503).send({ error: "identity_unavailable" });
       }
     }
 
-    const response = CurrentUserResponseSchema.parse({
+    const response = CurrentUserResponseSchema.safeParse({
       features: { guidedLearning: environment.guidedLearningEnabled === true, guidedLearningMap: environment.guidedLearningEnabled === true && environment.guidedLearningMapEnabled === true },
       roles,
       user: resolution.user,
     });
-    return reply.header("Cache-Control", "no-store").send(response);
+    observe("validation", response.success ? 200 : 503);
+    if (!response.success) return reply.status(503).send({ error: "identity_unavailable" });
+    return reply.send(response.data);
   });
 
   app.addHook("onRequest", async (request, reply) => {
@@ -486,6 +502,7 @@ export async function buildApp(
     }
   });
   if (environment.guidedLearningEnabled) {
+    await registerLearningResourceRoutes(app, { database, identityProvider, v2Allowlist: environment.guidedLearningV2Allowlist });
     await registerGuidedV2Routes(app, { identityProvider,
       provider: dependencies.guidedLearningV2Provider ?? (database ? createGuidedV2HttpProvider(database, { assetStorage: contentAssetStorage }) : undefined),
       flags: { enabled: environment.guidedLearningV2Enabled === true, newEnrollments: environment.guidedLearningV2NewEnrollments === true,

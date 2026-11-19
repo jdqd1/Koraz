@@ -53,7 +53,7 @@ export async function registerGuidedV2Routes(app: FastifyInstance, dependencies:
   });
   const endpoints: HttpEndpoint[] = [...learnerNames.map((name) => ({ name, ...V2HttpContracts[name] })),
     { name: "catalog", method: "GET" as const, path: "/v2/guided-learning/paths", params: empty,
-      query: z.strictObject({ limit: z.coerce.number().int().min(1).max(100).default(20), cursor: z.string().uuid().optional() }),
+      query: z.strictObject({ limit: z.coerce.number().int().min(1).max(100).default(20), cursor: z.string().uuid().optional(), includeState: z.literal("true").optional() }),
       body: empty, headers: empty, response: V2CatalogResponseSchema },
     { name: "home", method: "GET" as const, path: "/v2/guided-learning/home", params: empty,
       query: empty, body: empty, headers: empty, response: V2HomeSnapshotSchema }];
@@ -418,15 +418,24 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
       }));
     }
     if (name === "catalog" || name === "home") {
-      const rows = await database.selectFrom("learning_paths").select(["id", "slug"]).where("archived_at", "is", null).orderBy("id").execute();
+      const rows = await database.selectFrom("learning_paths as path")
+        .leftJoin("learning_enrollments as enrollment", join => join.onRef("enrollment.path_id", "=", "path.id").on("enrollment.user_id", "=", userId))
+        .innerJoin("learning_path_versions as version", join => join.on("version.id", "=", sql<string>`coalesce(enrollment.path_version_id, path.published_version_id)`))
+        .select(["path.id", "path.slug"]).where("path.archived_at", "is", null).where("version.policy_version", "=", "guided-v2.0")
+        .where("path.id", ">", String(params.cursor ?? "00000000-0000-0000-0000-000000000000")).orderBy("path.id").execute();
       const cards = [];
       const states = new Map<string, z.infer<typeof V2RouteStateSchema>>();
       let dueReviews = 0;
+      const limit = Number(params.limit ?? 20);
       for (const row of rows) {
         if (params.cursor && row.id <= String(params.cursor)) continue;
         const result = await path(userId, row.slug, maintenance);
         if (result.status !== "success" || !("value" in result) || !result.value) continue;
         const publicPath = V2PublicPathSchema.parse(result.value.path);
+        // One lookahead card establishes the next page without calculating its state.
+        if (name === "catalog" && cards.length === limit) return { status: "success", value: {
+          items: cards, nextCursor: cards.at(-1)!.id, ...(params.includeState === "true" ? { states: [...states.values()] } : {}),
+        } };
         const enrolled = publicPath.enrollmentId ? await state(userId, publicPath.enrollmentId, maintenance) : null;
         const routeState = enrolled && "value" in enrolled && enrolled.value ? V2RouteStateSchema.parse(enrolled.value.state) : null;
         if (routeState && publicPath.enrollmentId) { states.set(publicPath.enrollmentId, routeState); dueReviews += routeState.dueReviews; }
@@ -436,8 +445,7 @@ export function createGuidedV2HttpProvider(database: DatabaseClient, options: { 
           mastered: routeState?.masteredAt !== null && !!routeState, consolidated: routeState?.consolidatedAt !== null && !!routeState }));
       }
       if (name === "catalog") {
-        const limit = Number(params.limit ?? 20);
-        return { status: "success", value: { items: cards.slice(0, limit), nextCursor: cards.length > limit ? cards[limit - 1]!.id : null } };
+        return { status: "success", value: { items: cards, nextCursor: null, ...(params.includeState === "true" ? { states: [...states.values()] } : {}) } };
       }
       const activePath = cards.find((item) => item.enrollmentId) ?? null;
       const routeState = activePath?.enrollmentId ? states.get(activePath.enrollmentId) : null;

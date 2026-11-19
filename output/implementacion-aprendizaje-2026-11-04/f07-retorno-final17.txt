@@ -1,0 +1,27 @@
+[WebServer] (node:2752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:27252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:22600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-learning-availability.spec.ts:107:5 › F07 preserves resource section, attempt and catalog context across temporary failures (10.3s)
+  ok 2 [desktop] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission (2.2m)
+  ok 3 [desktop] › tests\e2e\guided-learning-detail-performance.spec.ts:5:5 › F07 measures the usable route detail from the browser click (50.2s)
+(node:26280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\guided-learning-availability.spec.ts:107:5 › F07 preserves resource section, attempt and catalog context across temporary failures (9.8s)
+  ok 5 [mobile] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission (2.1m)
+  ok 6 [mobile] › tests\e2e\guided-learning-detail-performance.spec.ts:5:5 › F07 measures the usable route detail from the browser click (47.4s)
+
+  6 passed (6.6m)

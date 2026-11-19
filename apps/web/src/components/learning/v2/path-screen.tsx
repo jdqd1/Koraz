@@ -1,8 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowLeft, ArrowsClockwise, CaretDown, Clock, Play } from "@phosphor-icons/react/dist/ssr";
-import { covers, stateMatches, type V2Path, type V2State } from "./model";
-import { safeMapReturnHref } from "../map/map-route";
+import { ArrowsClockwise, CaretDown, Clock, Play } from "@phosphor-icons/react/dist/ssr";
+import { stateMatches, type V2Path, type V2State } from "./model";
+import { safeLearningOrigin, type LearningRouteContext } from "@/lib/learning-navigation";
+import { RouteDetailLayout } from "../route-detail-layout";
 import { RouteSignals } from "./signals";
 import { RouteAction } from "./route-action";
 import { RouteMaintenance } from "./review";
@@ -31,24 +30,17 @@ export function RouteNextStep({ path, state, returnTo }: { path: V2Path; state: 
   </section>;
 }
 
-export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Path; state: V2State | null; focusUnit?: string; returnTo?: string | null }) {
+export function V2PathScreen({ path, state, focusUnit, returnTo, context, notice }: { path: V2Path; state: V2State | null; focusUnit?: string; returnTo?: string | null; context?: LearningRouteContext; notice?: string | null }) {
   const confirmed = stateMatches(path, state) ? state : null;
-  const safe = safeMapReturnHref(returnTo);
-  return <article className={`learning-main learning-path-detail ${styles.screen}`} data-engine-version="guided-v2">
-    <Link className={styles.back} href={safe ?? "/aprendizaje?tab=rutas"}><ArrowLeft aria-hidden size={18} />{safe ? "Volver al mapa" : "Todas las rutas"}</Link>
-    <header className={styles.header}>
-      <div className={styles.heading}><h1>{path.title}</h1><div className={styles.metadata}><span>{path.topicLabel}</span><span>{path.units.length} unidades</span></div>
-        <details className={styles.about}><summary>Acerca de esta ruta <CaretDown size={14} aria-hidden /></summary><p>{path.summary}</p></details>
-      </div>
-      <div className={styles.cover}><Image alt="" fill priority sizes="(max-width: 600px) 88px, 144px" src={covers[path.coverKey]} /></div>
-    </header>
-    <div className={styles.overview}>
+  const safe = safeLearningOrigin(returnTo);
+  return <RouteDetailLayout title={path.title} summary={path.summary} topic={path.topicLabel} coverKey={path.coverKey} unitCount={path.units.length} origin={safe} engine="guided-v2" overview={<>
       <RouteNextStep path={path} state={confirmed} returnTo={safe} />
       {confirmed ? <section className={styles.progress} aria-label="Tu progreso"><h2>Tu progreso</h2><RouteSignals state={confirmed} appearance="overview" /><LearningPoints path={path} state={confirmed} returnTo={safe} /></section> : null}
-    </div>
+    </>}>
+    {notice ? <p role="status">{notice}</p> : null}
     {confirmed?.maintenance?.diagnostic.assessmentKey && confirmed.maintenance.diagnostic.status !== "completed" ? <DiagnosticPanel path={path} state={confirmed} /> : null}
     <section className={styles.units} aria-labelledby="v2-units-title"><div className={styles.sectionHeading}><h2 id="v2-units-title">Unidades de la ruta</h2><span>{path.units.length}</span></div>
-      <RouteContent path={path} state={confirmed} focusUnit={focusUnit} returnTo={safe} />
+      <RouteContent path={path} state={confirmed} focusUnit={focusUnit} returnTo={safe} context={context} />
     </section>
     {confirmed ? <>
       {confirmed.availability !== "maintenance" ? <details className={styles.versions}><summary><h2>Repaso y comprobaciones</h2><CaretDown size={18} aria-hidden /></summary><div className={styles.versionBody}><RouteMaintenance path={path} state={confirmed} /></div></details> : null}
@@ -57,5 +49,5 @@ export function V2PathScreen({ path, state, focusUnit, returnTo }: { path: V2Pat
         {confirmed.versionHistory?.length ? <section className={styles.history} aria-label="Historial de versiones"><h3>Tu historial</h3><ul>{confirmed.versionHistory.map(item => <li key={item.versionNumber}>Versión {item.versionNumber}{item.completedAt ? " · Finalización conservada" : ""}{item.consumedActivities.length ? <details><summary>Lecturas previas</summary><ul aria-label="Lecturas previas">{item.consumedActivities.map((title, index) => <li key={index}>{title} · Consumo previo</li>)}</ul></details> : null}</li>)}</ul></section> : null}
       </div></details>
     </> : path.availability === "maintenance" ? <p role="status">Ruta en mantenimiento. Tu historial se conserva.</p> : null}
-  </article>;
+  </RouteDetailLayout>;
 }

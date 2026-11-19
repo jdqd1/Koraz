@@ -101,8 +101,11 @@ async function answerPreview(p: Locator, key: string) {
   await feedback();
 }
 async function finishPreview(p: Locator) {
-  if (!await p.getByRole("heading", { name: "Sesión completada", exact: true }).isVisible()) await keyboard(p.getByRole("button", { name: "Finalizar sesión", exact: true }));
-  await expect(p.getByRole("heading", { name: "Sesión completada", exact: true })).toBeFocused();
+  const completed = p.getByRole("heading", { name: "Sesión completada", exact: true });
+  const finish = p.getByRole("button", { name: "Finalizar sesión", exact: true });
+  await expect(completed.or(finish).first()).toBeVisible();
+  if (await finish.isVisible()) await keyboard(finish);
+  await expect(completed).toBeFocused();
 }
 
 test("T037 V01/V03/V04 admin and learner viewport gallery, 200 percent zoom", async ({ page }, info) => {
@@ -248,7 +251,7 @@ test("T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative",
   const presentation = page.getByLabel("Presentación de relaciones", { exact: true });
   await presentation.focus(); await presentation.press("Home"); await presentation.press("ArrowDown"); await presentation.press("Tab");
   await expect(presentation).toHaveValue("comparison_table");
-  await keyboard(matchSummary.locator("..").locator("summary").filter({ hasText: "Respuesta y explicación" }));
+  await expect(page.getByRole("region", { name: "Respuesta y explicación", exact: true })).toBeVisible();
   await capture(page, info, "editor-relations-table");
   // The shared fixture links image to a case representation. Configure a valid
   // text alternative through the editor before auditing the accessible detour.
@@ -324,7 +327,8 @@ test("T037 V02 tab order, field reachability and modal focus restoration", async
   await actor(page, "editor"); await page.goto("/panel/rutas/nueva?mode=v2");
   const title = page.getByLabel("Título", { exact: true }); await expect(title).toBeVisible();
   // Start at the first editor link and reach the field using only sequential Tab.
-  await page.getByRole("link", { name: "Volver a rutas", exact: true }).focus();
+  const back = page.getByRole("link", { name: "Volver a rutas de aprendizaje", exact: true });
+  await back.focus();
   const visited: string[] = [];
   for (let i = 0; i < 25 && !(await title.evaluate(e => e === document.activeElement)); i++) {
     await page.keyboard.press("Tab");
@@ -339,7 +343,7 @@ test("T037 V02 tab order, field reachability and modal focus restoration", async
   await page.keyboard.press("Tab");
   expect(await page.evaluate(() => document.activeElement?.tagName)).not.toBe("BODY");
   await capture(page, info, "keyboard-objectives");
-  const back = page.getByRole("link", { name: "Volver a rutas", exact: true }); await keyboard(back);
+  await keyboard(back);
   const dialog = page.getByRole("alertdialog"); await expect(dialog).toBeVisible();
   for (let i = 0; i < 8; i++) {
     await page.keyboard.press("Tab"); expect(await dialog.evaluate(e => e.contains(document.activeElement))).toBe(true);

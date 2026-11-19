@@ -8,7 +8,11 @@ import { LearningPathCard } from "../learning-path-card";
 import { LearningHomeScreen } from "../learning-home-screen";
 import { V2SessionEntry } from "./session-entry";
 import { learningVisualPaths } from "../learning-visual-fixtures";
-vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
+  usePathname: () => "/aprendizaje/rutas/practica-por-objetivos",
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 describe("T028 shared learner state", () => {
   it("keeps consumption, mastery, consolidation and due review independent on every surface", () => {
@@ -53,7 +57,7 @@ describe("T028 shared learner state", () => {
     expect(actionTarget({ kind: "retention", key: "retention7", reason: "Due" })).toEqual({ kind: "assessment", key: "retention7" });
     expect(actionTarget(studentFixture("resume").state.nextAction)).toBeNull();
     expect(actionLabel(studentFixture("review").state.nextAction)).toBe("Repasar");
-    expect(routeHref("a/b", "unit", "https://evil.test")).toBe("/aprendizaje/rutas/a%2Fb?leccion=unit");
+    expect(routeHref("a/b", "unit", "https://evil.test")).toBe("/aprendizaje/rutas/a%2Fb?leccion=unit#leccion-unit");
     expect(routeHref("route", undefined, "/aprendizaje/mapa")).toContain("returnTo=%2Faprendizaje%2Fmapa");
   });
 });

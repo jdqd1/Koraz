@@ -1,0 +1,34 @@
+[WebServer] (node:20476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 18 tests using 1 worker
+
+(node:6828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [mobile] › tests\e2e\practice-library.spec.ts:6:5 › H26 and H27 open and finish the free quiz through its subject (17.8s)
+  ok  2 [mobile] › tests\e2e\practice-library.spec.ts:23:5 › F05 embedded video guides open from the global library and match subject discovery (19.4s)
+  ok  3 [mobile] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (14.8s)
+  ok  4 [mobile] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (31.4s)
+  ok  5 [mobile] › tests\e2e\practice-library.spec.ts:84:5 › H26 searches flashcards in video companions and differentiates an empty search (22.8s)
+  ok  6 [mobile] › tests\e2e\practice-library.spec.ts:96:5 › H02 keeps a previously published ambiguous quiz out of grading (9.9s)
+(node:22212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [compact] › tests\e2e\practice-library.spec.ts:6:5 › H26 and H27 open and finish the free quiz through its subject (22.6s)
+  ok  8 [compact] › tests\e2e\practice-library.spec.ts:23:5 › F05 embedded video guides open from the global library and match subject discovery (17.4s)
+  ok  9 [compact] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (16.8s)
+  ok 10 [compact] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (17.6s)
+  ok 11 [compact] › tests\e2e\practice-library.spec.ts:84:5 › H26 searches flashcards in video companions and differentiates an empty search (9.6s)
+  ok 12 [compact] › tests\e2e\practice-library.spec.ts:96:5 › H02 keeps a previously published ambiguous quiz out of grading (3.5s)
+(node:17052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 13 [desktop] › tests\e2e\practice-library.spec.ts:6:5 › H26 and H27 open and finish the free quiz through its subject (10.6s)
+  ok 14 [desktop] › tests\e2e\practice-library.spec.ts:23:5 › F05 embedded video guides open from the global library and match subject discovery (5.1s)
+  ok 15 [desktop] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (6.1s)
+  ok 16 [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (7.0s)
+  ok 17 [desktop] › tests\e2e\practice-library.spec.ts:84:5 › H26 searches flashcards in video companions and differentiates an empty search (5.5s)
+  ok 18 [desktop] › tests\e2e\practice-library.spec.ts:96:5 › H02 keeps a previously published ambiguous quiz out of grading (3.0s)
+
+  18 passed (5.0m)

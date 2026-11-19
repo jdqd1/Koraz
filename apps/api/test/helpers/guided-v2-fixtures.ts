@@ -3,7 +3,12 @@ import { hashLearningSnapshot } from "../../src/guided-learning/snapshot-hash.js
 import { createHash } from "node:crypto";
 
 export const guidedV2FixtureId = (n: number) => `77000000-0000-4000-8000-${String(n).padStart(12,"0")}`;
-export const guidedV2GuidePayload = { projection:"guide",content:{sections:[{heading:"Fixture",body:"Contenido sintético para comprobar el software."}]} };
+export const guidedV2GuidePayload = {
+  projection: "guide",
+  title: "Guía T035",
+  sourceContentId: guidedV2FixtureId(121),
+  content: { sections: [{ heading: "Fixture", body: "Contenido sintético para comprobar el software." }] },
+};
 export const guidedV2GuideHash = hashLearningSnapshot(guidedV2GuidePayload);
 export const guidedV2Image = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aWQAAAABJRU5ErkJggg==","base64");
 export const guidedV2ImageHash = createHash("sha256").update(guidedV2Image).digest("hex");

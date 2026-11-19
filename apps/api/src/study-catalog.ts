@@ -17,6 +17,7 @@ const publicStudyCatalogLimit = 1_000;
 const StudyCatalogQuerySchema = z.object({
   kind: StudyCatalogKindSchema.optional(),
   limit: z.coerce.number().int().min(1).max(publicStudyCatalogLimit).default(500),
+  offset: z.coerce.number().int().min(0).max(1_000_000).default(0),
   sort: z.enum(["recent", "views"]).optional(),
 });
 
@@ -28,6 +29,7 @@ type StudyCatalogQuery = {
   kind?: z.infer<typeof StudyCatalogKindSchema>;
   linkedVideoIds?: string[];
   limit?: number;
+  offset?: number;
   sort?: "recent" | "views";
   subjectId?: string;
 };
@@ -80,22 +82,22 @@ export async function loadPublishedStudyCatalog(
       end`.as("linked_video_id"),
       sql<boolean>`case
         when content_items.kind = 'video' then
-          coalesce(jsonb_array_length(content_items.content->'guide'->'sections'), 0) > 0
-          or coalesce(jsonb_array_length(content_items.content->'guide'->'document'->'content'), 0) > 0
+          coalesce(jsonb_typeof(content_items.content->'guide'->'sections'->0) = 'object', false)
+          or coalesce(jsonb_typeof(content_items.content->'guide'->'document'->'content'->0) = 'object', false)
         else false
       end`.as("has_embedded_guide"),
       sql<boolean>`case
         when content_items.kind in ('video', 'guide') then
-          coalesce(jsonb_array_length(content_items.content->'quiz'->'questions'), 0) > 0
+          coalesce(jsonb_typeof(content_items.content->'quiz'->'questions'->0) = 'object', false)
         when content_items.kind = 'quiz' then
-          coalesce(jsonb_array_length(content_items.content->'questions'), 0) > 0
+          coalesce(jsonb_typeof(content_items.content->'questions'->0) = 'object', false)
         else false
       end`.as("has_quiz"),
       sql<boolean>`case
         when content_items.kind in ('video', 'guide') then
-          coalesce(jsonb_array_length(content_items.content->'quiz'->'questions'), 0) > 0
+          coalesce(jsonb_typeof(content_items.content->'quiz'->'questions'->0) = 'object', false)
         when content_items.kind = 'flashcards' then
-          coalesce(jsonb_array_length(content_items.content->'cards'), 0) > 0
+          coalesce(jsonb_typeof(content_items.content->'cards'->0) = 'object', false)
         else false
       end`.as("has_flashcards"),
       sql<string[]>`coalesce(
@@ -120,6 +122,7 @@ export async function loadPublishedStudyCatalog(
     .orderBy("content_items.published_at", "desc")
     .orderBy("content_items.id", "asc")
     .limit(limit)
+    .offset(input.offset ?? 0)
     .execute();
 
   return rows.map((row) => StudyCatalogItemSchema.parse({
@@ -141,6 +144,17 @@ export async function loadPublishedStudyCatalog(
     updatedAt: toIsoString(row.updated_at),
     viewCount: Number(row.view_count),
   }));
+}
+
+async function loadAllPublishedStudyCatalog(database: DatabaseClient, input: StudyCatalogQuery) {
+  const items: StudyCatalogItem[] = [];
+  let offset = 0;
+  while (true) {
+    const page = await loadPublishedStudyCatalog(database, { ...input, limit: 1_000, offset });
+    items.push(...page);
+    if (page.length < 1_000) return items;
+    offset += page.length;
+  }
 }
 
 async function loadSubject(database: DatabaseClient, slug: string) {
@@ -190,10 +204,12 @@ export function registerPublishedStudyCatalogRoutes(
     }
 
     try {
-      const items = await loadPublishedStudyCatalog(database, query.data);
+      const rows = await loadPublishedStudyCatalog(database, { ...query.data, limit: query.data.limit + 1 });
+      const items = rows.slice(0, query.data.limit);
       return reply
         .header("Cache-Control", "public, max-age=60, stale-while-revalidate=300")
-        .send(StudyCatalogResponseSchema.parse({ items }));
+        .send(StudyCatalogResponseSchema.parse({ items,
+          nextOffset: rows.length > query.data.limit ? query.data.offset + query.data.limit : null }));
     } catch (error) {
       request.log.error({ err: error }, "Published study-catalog request failed");
       return reply.status(503).header("Cache-Control", "no-store").send({ error: "content_unavailable" });
@@ -215,7 +231,7 @@ export function registerPublishedStudyCatalogRoutes(
         return reply.status(404).header("Cache-Control", "no-store").send({ error: "not_found" });
       }
 
-      const [subjectItems, practiceCounts] = await Promise.all([loadPublishedStudyCatalog(database, {
+      const [subjectItems, practiceCounts] = await Promise.all([loadAllPublishedStudyCatalog(database, {
         limit: maxStudyCatalogLimit,
         subjectId: subject.id,
       }), subjectPracticeCounts(database, subject.id)]);
@@ -224,7 +240,7 @@ export function registerPublishedStudyCatalogRoutes(
       );
       let linkedGuides: StudyCatalogItem[] = [];
       if (videoIds.size > 0) {
-        const guides = await loadPublishedStudyCatalog(database, {
+        const guides = await loadAllPublishedStudyCatalog(database, {
           kind: "guide",
           linkedVideoIds: [...videoIds],
           limit: maxStudyCatalogLimit,

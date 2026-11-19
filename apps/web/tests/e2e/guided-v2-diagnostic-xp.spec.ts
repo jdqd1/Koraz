@@ -93,7 +93,8 @@ for (const passed of [true, false]) test(`XP enable a diagnostic; ${passed ? "pa
     expect(answered).toBe(3);
     await page.getByRole("button", { name: "Finalizar sesión", exact: true }).click();
     await expect(page.getByRole("heading", { name: passed ? "Puedes avanzar a tu objetivo" : "Refuerza los conocimientos previos", exact: true })).toBeVisible();
-    await expect(page.getByText("Ganaste 0 XP · Total: 50 XP", { exact: true })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Sesión de aprendizaje" }).getByText("Ganaste 0 XP · Total: 50 XP", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("El diagnóstico habilita el acceso; no concede XP ni dominio del objetivo.", { exact: true })).toBeVisible();
     await page.getByText("Respuestas confirmadas", { exact: true }).click();
     await expect(page.getByRole("heading", { name: `Pregunta 1 · ${passed ? "Correcta" : "Por reforzar"}` })).toBeVisible();
     if (passed) {
@@ -101,6 +102,9 @@ for (const passed of [true, false]) test(`XP enable a diagnostic; ${passed ? "pa
       await expect(page.getByRole("heading", { name: "study-2: actividad sintética", exact: true })).toBeVisible();
       await page.getByRole("button", { name: "Guardar lectura", exact: true }).click();
       await page.getByRole("button", { name: "Finalizar sesión", exact: true }).click();
+      await expect(page.getByText("La lectura quedó registrada. Los XP de esta ruta se obtienen al recuperar y aplicar lo aprendido.", { exact: true })).toBeVisible();
+      await page.reload();
+      await expect(page.getByRole("region", { name: "Sesión de aprendizaje" }).getByText("Ganaste 0 XP · Total: 50 XP", { exact: true }).first()).toBeVisible();
     }
     await page.goto("/aprendizaje/rutas/xp-admission");
   }
@@ -246,5 +250,7 @@ for (const afterCommit of [false, true]) test(`final V1 review recovers ${afterC
   if (afterCommit) expect(final).toEqual(interrupted);
   await other.reload();
   await expect(other.getByRole("heading", { name: "Repaso completado" })).toBeVisible();
+  const earned = receipt.awards.reduce((sum: number, award: { xp: number }) => sum + award.xp, 0);
+  await expect(other.getByRole("main", { name: "Sesión de aprendizaje" }).getByText(`+${earned} XP`, { exact: true })).toBeVisible();
   expect(await ledger()).toEqual(final);
 });

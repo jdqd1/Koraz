@@ -1,0 +1,33 @@
+[WebServer] (node:22972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:26584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 3 tests using 1 worker
+
+(node:24084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [mobile] › tests\e2e\guided-learning-availability.spec.ts:20:5 › F07 keeps the answer, feedback and exit operable across priority sizes (32.8s)
+  ok 2 [mobile] › tests\e2e\guided-learning-availability.spec.ts:106:5 › F07 preserves resource section, attempt and catalog context across temporary failures (21.7s)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'f89f64f3-c936-435e-ba08-45ff170a0fbc',
+[WebServer]   requestId: '7d6cad52-941a-4249-8a70-ed0b0f62401a',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 10,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+  ok 3 [mobile] › tests\e2e\guided-learning-availability.spec.ts:163:5 › F07 correlates the retry and preserves the deep link on expired identity (11.2s)
+
+  3 passed (1.4m)

@@ -165,6 +165,7 @@ export function GlobalContentSearch() {
 
   function updateQuery(nextQuery: string) {
     const normalizedQuery = nextQuery.trim();
+    if (normalizedQuery) setFocused(true);
     setQuery(nextQuery);
     setError(false);
     setLoading(Boolean(normalizedQuery));
@@ -186,7 +187,20 @@ export function GlobalContentSearch() {
   }
 
   return (
-    <div className="global-content-search" ref={containerRef}>
+    <div className="global-content-search" ref={containerRef} onKeyDown={event => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        inputRef.current?.focus();
+        setFocused(false);
+      } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        const links = Array.from(containerRef.current?.querySelectorAll<HTMLAnchorElement>(".global-search-result") ?? []);
+        if (!links.length) return;
+        event.preventDefault();
+        const index = links.indexOf(document.activeElement as HTMLAnchorElement);
+        const next = event.key === "ArrowDown" ? (index + 1) % links.length : (index < 0 ? links.length - 1 : (index - 1 + links.length) % links.length);
+        links[next]?.focus();
+      }
+    }}>
       <form
         aria-label="Buscar guías"
         className="global-content-search-form"
@@ -199,17 +213,9 @@ export function GlobalContentSearch() {
           aria-expanded={panelOpen}
           aria-haspopup="dialog"
           aria-label="Buscar guías"
-          aria-autocomplete="list"
           autoComplete="off"
           onChange={(event) => updateQuery(event.target.value)}
           onFocus={() => setFocused(true)}
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              event.preventDefault();
-              setFocused(false);
-              inputRef.current?.blur();
-            }
-          }}
           placeholder="Buscar guías"
           ref={inputRef}
           role="combobox"

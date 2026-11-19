@@ -6,6 +6,8 @@ import { UnitObjectiveStatus } from "./signals";
 import { MaintenanceDate } from "./maintenance";
 import { ObjectivePlacement } from "./diagnostic";
 import styles from "./curriculum.module.css";
+import Link from "next/link";
+import { learningRouteHref } from "@/lib/learning-navigation";
 
 const activityIcons = { study: BookOpen, single_choice: ListChecks, short_answer: ChatText, constructed_response: PencilSimple, match: LinkSimple, image_target: ImageSquare, sequence: SortAscending, case: ClipboardText };
 
@@ -20,7 +22,7 @@ export function RouteCurriculum({ path, state, focusUnit, unitOnly = false, retu
       const recommendedKey = unitOnly ? unitRecommendation(path, confirmed, unit)?.key : confirmed?.nextAction.key;
       const content = <UnitActivities path={path} unit={unit} state={confirmed} returnTo={returnTo} recommendedKey={recommendedKey} />;
       if (unitOnly) return <div key={unit.key}>{content}</div>;
-      return <details key={unit.key} id={`leccion-${unit.key}`} className={styles.unit} open={unit.key === (focusUnit ?? recommendedUnit ?? units[0]?.key)}>
+      return <details key={unit.key} data-unit-key={unit.key} id={`leccion-${unit.key}`} className={styles.unit} open={unit.key === (focusUnit ?? recommendedUnit ?? units[0]?.key)}>
         <summary><span className={styles.unitNumber} data-done={!!progress?.total && progress.completed + progress.covered === progress.total}>{progress?.total && progress.completed + progress.covered === progress.total ? <Check size={18} aria-hidden /> : index + 1}</span>
           <span className={styles.unitCopy}><strong>{unit.title}</strong><span className={styles.unitMeta}>{unit.activities ? <span>{unit.activities.length} actividades</span> : <span>{unit.objectives.length} objetivos</span>}<UnitObjectiveStatus objectives={unit.objectives} state={confirmed} /></span></span><CaretDown className={styles.caret} size={18} aria-hidden /></summary>
         <div className={styles.unitBody}>{progress?.total ? <div className={styles.unitProgress}><span>{progress.completed} de {progress.total} actividades completadas{progress.covered ? ` · ${progress.covered} ya cubiertas` : ""}</span><progress aria-label={`Actividades completadas de ${unit.title}`} value={progress.completed} max={progress.total} /></div> : null}{content}</div>
@@ -53,14 +55,15 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
       const blocked = !done && !!blocker?.blockedBy.length;
       const label = next ? null : consumed === "completed" ? "Completada" : consumed === "dispensed" ? "Ya cubierta" : paused ? "Pausada" : available ? "Disponible" : blocked ? admission ? admission.status === "xp_required" ? `${admission.remainingXp} XP + diagnóstico` : "Diagnóstico o conocimientos previos" : "Más adelante" : (!state && path.enrollmentId) || (state && !state.activityProgress) ? "Estado por cargar" : null;
       const Icon = activityIcons[activity.kind];
-      return <li className={styles.activity} key={activity.key} data-current={next} data-done={done} data-blocked={blocked} aria-current={next ? "step" : undefined}>
+      return <li className={styles.activity} id={`actividad-${activity.key}`} tabIndex={-1} key={activity.key} data-current={next} data-done={done} data-blocked={blocked} aria-current={next ? "step" : undefined}>
         <span className={styles.stepMarker} aria-hidden>{next ? <ArrowRight size={16} /> : done ? <Check size={15} /> : blocked ? <LockSimple size={14} /> : index + 1}</span>
         <div className={styles.activityBody}><div className={styles.activityHeading}><span className={styles.activityTypeIcon} role="img" aria-label={activityFormats[activity.kind]} title={activityFormats[activity.kind]}><Icon size={19} aria-hidden /></span><strong>{activityTitle(activity, unit)}</strong>{!activity.required ? <span className={styles.optionalBadge}>Opcional</span> : null}{label ? <span className={styles.activityState}>{label}</span> : null}</div>
-          {available && !next ? <RouteAction path={path} state={state} target={target} returnTo={returnTo} label="Abrir actividad" showReason={false} appearance="secondary" /> : null}
+          {available ? <RouteAction path={path} state={state} target={target} returnTo={returnTo} label={done ? "Practicar de nuevo" : "Abrir actividad"} showReason={false} appearance="secondary" /> : null}
+          {done ? <p className={styles.note}>Puedes consultar las lecturas en Recursos. Practicar de nuevo requiere una actividad disponible.</p> : state?.nextAction.kind === "resume" ? <p className={styles.note}>Retoma y finaliza la sesión abierta antes de cambiar de actividad.</p> : null}
         </div>
       </li>;
     }
-    return <section className={styles.objective} key={objective.key} aria-label={`Objetivo: ${objective.title}`}>
+    return <section className={styles.objective} id={`objetivo-${objective.key}`} tabIndex={-1} key={objective.key} aria-label={`Objetivo: ${objective.title}`}>
       <div className={styles.objectiveHeading} data-objective-heading><h3><span className={styles.objectiveLabel}>Objetivo:</span> {objective.title}</h3><span className={styles.objectiveBadge} data-label={status?.label}>{status ? objectiveLabels[status.label] : state ? "Por comprobar" : path.enrollmentId ? "Estado por cargar" : "Por aprender"}</span></div>
       {status?.criticalErrorOpen ? <p className={styles.notice}>Hay un concepto esencial por reforzar antes de continuar con las actividades que dependen de él.</p> : null}
       {status?.firstMasteredAt && status.label !== "mastered" ? <p className={styles.note}>Tu aprendizaje anterior se conserva. Ahora toca reforzarlo.</p> : null}
@@ -79,12 +82,12 @@ function UnitActivities({ path, unit, state, returnTo, recommendedKey }: { path:
   </div>;
 }
 
-export function CurriculumResources({ path, focusUnit, unitOnly = false }: { path: V2Path; focusUnit?: string; unitOnly?: boolean }) {
+export function CurriculumResources({ path, focusUnit, unitOnly = false, returnTo }: { path: V2Path; focusUnit?: string; unitOnly?: boolean; returnTo?: string | null }) {
   const units = unitOnly ? path.units.filter(unit => unit.key === focusUnit) : path.units;
   return <div className={styles.resources}>{units.map(unit => <section key={unit.key} aria-label={`Recursos de ${unit.title}`}>
     {!unitOnly ? <h3>{unit.title}</h3> : null}
     {unit.resources?.length ? <ul>{unit.resources.map(resource => <li key={resource.key}><span className={styles.resourceIcon}>{resource.url ? <LinkSimple size={20} aria-hidden /> : <BookOpen size={20} aria-hidden />}</span><div>
-      {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer">{resource.title}<ArrowRight size={14} aria-hidden /><span className={styles.srOnly}> (se abre en otra pestaña)</span></a> : <strong>{resource.title}</strong>}
+      {resource.kind === "guide" && path.enrollmentId ? <Link href={`/aprendizaje/rutas/${encodeURIComponent(path.slug)}/recursos/${encodeURIComponent(resource.key)}?${new URLSearchParams({ returnTo: learningRouteHref(path.slug, { unit: unit.key, tab: "resources", origin: returnTo }) })}`}>{resource.title}<ArrowRight size={14} aria-hidden /></Link> : resource.url ? <a href={resource.url} target="_blank" rel="noreferrer">{resource.title}<ArrowRight size={14} aria-hidden /><span className={styles.srOnly}> (se abre en otra pestaña)</span></a> : <><strong>{resource.title}</strong><p className={styles.note}>Referencia bibliográfica. No hay una lectura disponible aquí.</p></>}
       {resource.locator.heading || resource.locator.sectionPath.length || resource.locator.page ? <div className={styles.locator}><FileText size={15} aria-hidden /><div><ol className={styles.locatorPath} aria-label="Secciones de lectura">{[...new Set([...resource.locator.sectionPath, ...resource.locator.heading.split("/").map(part => part.trim())].filter(Boolean))].map((heading, index) => <li key={heading}>{index ? <CaretRight size={11} aria-hidden /> : null}<span>{heading}</span></li>)}</ol>{resource.locator.page ? <span className={styles.pageLabel}>Página {resource.locator.page}</span> : null}</div></div> : null}
       {resource.citation ? <details className={styles.sourceNote}><summary>Sobre esta fuente<CaretDown size={13} aria-hidden /></summary><p>{resource.citation}</p></details> : null}
     </div></li>)}</ul> : <p className={styles.empty}>{unit.resources ? "Esta unidad no tiene recursos de referencia asociados." : "Actualiza la ruta para consultar sus recursos."}</p>}

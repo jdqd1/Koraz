@@ -21,6 +21,7 @@ import type { ActivityMutation } from "./types";
 import { VideoActivity } from "./video-activity";
 import { ActivityHeader } from "./activity-header";
 import ui from "./activity-ui.module.css";
+import { learningReturnLabel } from "@/lib/learning-navigation";
 
 function pendingMessage(status?: number) {
   if (status === 401) return "Vuelve a iniciar sesión con la misma cuenta para confirmar el envío pendiente.";
@@ -42,7 +43,7 @@ export function ActivityShell({
   const [attempt, setAttempt] = useState(initialAttempt);
   const [progress, setProgress] = useState(initialProgress);
   const [feedback, setFeedback] = useState<LearningAttemptResponseRecord | null>(null);
-  const [awards, setAwards] = useState<LearningReward[]>([]);
+  const [awards, setAwards] = useState<LearningReward[]>(initialAttempt.awards ?? []);
   const [saveState, setSaveState] = useState<"confirmed" | "failed" | "pending" | "saving">("confirmed");
   const [message, setMessage] = useState("");
 
@@ -56,7 +57,9 @@ export function ActivityShell({
     lastVersion.current = receipt.attempt.rowVersion;
     setAttempt(receipt.attempt);
     if (receipt.progress) setProgress(receipt.progress);
-    if (receipt.awards.length > 0) {
+    if (receipt.attempt.awards !== undefined) {
+      setAwards(receipt.attempt.awards);
+    } else if (receipt.awards.length > 0) {
       setAwards((current) => {
         const next = new Map(current.map((award) => [award.awardKey, award]));
         for (const award of receipt.awards) next.set(award.awardKey, award);
@@ -148,8 +151,8 @@ export function ActivityShell({
     <main className={`${ui.session} ${ui.immersive}`} aria-label="Sesión de aprendizaje" data-engine-version="guided-v1">
       <ActivityHeader title={attempt.manifest.title} eyebrow={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}
         returnHref={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje/mapa")}
-        returnLabel={!returnHref && attempt.pathSlug ? "Volver a mi ruta" : "Volver a mi mapa"}
-        completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p>} />
+        returnLabel={returnHref ? learningReturnLabel(returnHref) : attempt.pathSlug ? "Volver a mi ruta" : "Volver al mapa"}
+        completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<><p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p><p>Salir conserva la sesión abierta y las respuestas guardadas. Comprueba tu respuesta antes de volver.</p></>} />
       <p aria-live="polite" className={message && message !== "Progreso guardado." ? ui.notice : "sr-only"}>{message}</p>
       {saveState === "pending" && message === pendingMessage(401) ? <Link className="learning-secondary-button"
         href={`/acceder?${new URLSearchParams({ next: window.location.pathname + window.location.search })}`}>Iniciar sesión</Link> : null}

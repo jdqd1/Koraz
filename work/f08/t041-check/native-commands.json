@@ -1,0 +1,30 @@
+[
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_49e1a6de29bd42d1ad00a72b0f3a37cd",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-check\\schema-1.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 366.739599999999,
+    "evidence": "schema-dump-1.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_49e1a6de29bd42d1ad00a72b0f3a37cd",
+      "--format=custom",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-check\\v1-v2-backup.dump"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 400.71860000000015,
+    "evidence": "backup.txt"
+  }
+]

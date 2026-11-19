@@ -1,6 +1,6 @@
 import type { z } from "zod";
 import type { LearningPathCard, V2PublicPathSchema, V2PathCardSchema, V2RouteStateSchema, V2HomeSnapshotSchema, V2AttemptManifestSchema } from "@cediah/contracts";
-import { safeMapReturnHref } from "../map/map-route";
+import { learningRouteHref } from "@/lib/learning-navigation";
 
 export type V2Path = z.infer<typeof V2PublicPathSchema>;
 export type V2Card = z.infer<typeof V2PathCardSchema>;
@@ -25,11 +25,7 @@ export function mergeCards(v1: LearningPathCard[], v2: V2Card[]): RouteCard[] {
   return cards;
 }
 export function routeHref(slug: string, unit?: string, returnTo?: string | null) {
-  const query = new URLSearchParams();
-  if (unit) query.set("leccion", unit);
-  const safe = safeMapReturnHref(returnTo);
-  if (safe) query.set("returnTo", safe);
-  return `/aprendizaje/rutas/${encodeURIComponent(slug)}${query.size ? `?${query}` : ""}`;
+  return learningRouteHref(slug, { unit, origin: returnTo });
 }
 export function stateMatches(path: Pick<V2Path, "enrollmentId" | "pathVersionId">, state: V2State | null): state is V2State {
   return !!state && state.enrollmentId === path.enrollmentId && state.pathVersionId === path.pathVersionId;

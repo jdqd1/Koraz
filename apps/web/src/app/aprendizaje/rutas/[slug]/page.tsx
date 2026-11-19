@@ -5,30 +5,30 @@ import { getLearningProgress, getLearningUpgradePreview, getLearningV2State } fr
 import { getPathForEngine } from "@/components/learning/v2/server";
 import { V2PathScreen } from "@/components/learning/v2/path-screen";
 import { V2Upgrade } from "@/components/learning/v2/upgrade";
-import { safeMapReturnHref } from "@/components/learning/map/map-route";
+import { resolveLearningContext, type LearningRouteQuery } from "@/lib/learning-navigation";
 
 export const dynamic = "force-dynamic";
 
-export default async function LearningPathPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ leccion?: string; returnTo?: string }> }) {
+export default async function LearningPathPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<LearningRouteQuery> }) {
   const { slug } = await params;
+  const query = await searchParams;
   const result = await getPathForEngine(slug);
   if (result.status === "not_found") notFound();
   if (result.status !== "ready") {
-    return <main className="learning-main"><section className="learning-empty" role="alert"><div><h1>No pudimos abrir esta ruta</h1><p>Tu progreso no cambió. Intenta de nuevo cuando la conexión esté disponible.</p></div><Link className="learning-secondary-button" href={`/aprendizaje/rutas/${slug}`}>Reintentar</Link></section></main>;
+    return <main className="learning-main"><section className="learning-empty" role="alert"><div><h1>No pudimos abrir esta ruta</h1><p>{result.status === "forbidden" ? "Tu cuenta no tiene acceso a esta ruta." : result.status === "unauthorized" ? "Vuelve a iniciar sesión con la misma cuenta." : "Tu progreso se conserva. Reintenta para continuar en el mismo lugar."}</p></div>{result.status === "forbidden" ? <Link className="learning-secondary-button" href="/aprendizaje?tab=rutas">Volver a las rutas</Link> : <a className="learning-secondary-button" href="">Reintentar</a>}</section></main>;
   }
-  const query = await searchParams;
   if (result.engineVersion === "guided-v2") {
     const state = result.path.enrollmentId ? await getLearningV2State(result.path.enrollmentId) : null;
-    return <V2PathScreen path={result.path} state={state?.status === "ready" ? state.value.state : null} focusUnit={result.path.units.find(unit => unit.key === query.leccion)?.key} returnTo={safeMapReturnHref(query.returnTo)} />;
+    const { context, notice } = resolveLearningContext(query, result.path.units.map(unit => ({ key: unit.key, objectives: unit.objectives.map(objective => objective.key), activities: unit.activities?.map(activity => ({ key: activity.key, objective: activity.objectiveKey })) ?? [] })));
+    return <V2PathScreen path={result.path} state={state?.status === "ready" ? state.value.state : null} focusUnit={context.unit} returnTo={context.origin} context={context} notice={notice} />;
   }
   const [progress, upgrade] = result.path.enrollment
     ? await Promise.all([
-      getLearningProgress(result.path.enrollment.id),
+      getLearningProgress(result.path.enrollment.id, true),
       getLearningUpgradePreview(result.path.enrollment.id),
     ])
     : [null, null];
-  const requestedUnit = query.leccion;
-  const focusUnit = result.path.version.units.find(unit => unit.stableKey === requestedUnit)?.stableKey;
-  return <><LearningPathScreen path={result.path} progress={progress?.status === "ready" ? progress.progress : null} upgrade={upgrade?.status === "ready" ? upgrade : null} focusUnit={focusUnit} />
+  const { context, notice } = resolveLearningContext(query, result.path.version.units.map(unit => ({ key: unit.stableKey, objectives: unit.objectives.map(objective => objective.id), activities: unit.steps.map(step => ({ key: step.id, objective: step.objectiveIds[0] })) })));
+  return <><LearningPathScreen path={result.path} progress={progress?.status === "ready" ? progress.progress : null} upgrade={upgrade?.status === "ready" ? upgrade : null} focusUnit={context.unit} context={context} notice={notice} />
     {result.path.enrollment && upgrade?.status === "unavailable" ? <div className="learning-main"><V2Upgrade enrollmentId={result.path.enrollment.id} expectedVersion={result.path.enrollment.rowVersion} /></div> : null}</>;
 }

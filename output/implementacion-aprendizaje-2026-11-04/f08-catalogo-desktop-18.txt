@@ -1,0 +1,45 @@
+[WebServer] (node:20056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 1 test using 1 worker
+
+(node:11852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (1.5m)
+
+
+  1) [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.getAttribute: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByRole('navigation', { name: 'Rutas que incluyen esta actividad' }).getByRole('link')
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\practice-library.spec.ts:70:31)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f08\catalogo-desktop\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f08\catalogo-desktop\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f08\catalogo-desktop\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f08\catalogo-desktop\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx test/helpers/learning-discovery-server.ts --project desktop --grep "consultation and free practice" "--reporter=list" --output ../../work/f08/catalogo-desktop

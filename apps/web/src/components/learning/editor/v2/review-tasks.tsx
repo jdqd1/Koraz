@@ -19,7 +19,7 @@ export function ReviewTasksV2({ issues, pkg, onLocate }: { issues: Issue[]; pkg:
     {groups.map((group, groupIndex) => <details key={group} className={local.reviewTaskGroup} open={groupIndex === 0}><summary><strong>{group}</strong><span>{tasks.filter(task => task.group === group).length}</span></summary><ul>
       {tasks.filter(task => task.group === group).map((task, index) => <li key={`${task.issue.code}:${task.issue.path}:${index}`} className={local.reviewTask} data-review-task={task.issue.code} data-severity={task.issue.severity}>
         {task.issue.severity === "error" ? <WarningCircle size={20} aria-hidden /> : <Info size={20} aria-hidden />}
-        <div><h5>{task.title}{task.issue.severity === "warning" ? <small>Sugerencia</small> : null}</h5>{task.context ? <p className={local.reviewTaskContext}>{task.context}</p> : null}<p className={local.reviewTaskDetail}>{task.detail}</p><button className={styles.textButton} type="button" onClick={() => onLocate(task.path)}>{task.action}<ArrowRight size={15} aria-hidden /></button></div>
+        <div><h4>{task.title}{task.issue.severity === "warning" ? <small>Sugerencia</small> : null}</h4>{task.context ? <p className={local.reviewTaskContext}>{task.context}</p> : null}<p className={local.reviewTaskDetail}>{task.detail}</p><button className={styles.textButton} type="button" onClick={() => onLocate(task.path)}>{task.action}<ArrowRight size={15} aria-hidden /></button></div>
       </li>)}
     </ul></details>)}
   </section>;

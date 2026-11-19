@@ -77,10 +77,11 @@ export function safeMapReturnHref(
       return null;
     if (
       [...u.searchParams.keys()].some(
-        (k) => !["node", "item", "unit", "detail"].includes(k),
+        (k) => !["node", "item", "unit", "detail"].includes(k) || u.searchParams.getAll(k).length !== 1,
       )
     )
       return null;
+    if (u.searchParams.has("detail") && u.searchParams.get("detail") !== "1") return null;
     const route = parseMapRoute(u.searchParams);
     return route
       ? buildMapHref(route, u.searchParams.get("detail") === "1")

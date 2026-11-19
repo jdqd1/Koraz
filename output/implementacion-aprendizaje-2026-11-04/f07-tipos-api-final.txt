@@ -1,0 +1,6 @@
+$ tsc --noEmit
+test/identity-availability.test.ts(12,47): error TS2741: Property 'revokeSessions' is missing in type '{ getUser: () => Promise<{ id: string; email: string; }>; }' but required in type 'IdentityProvider'.
+test/identity-availability.test.ts(29,7): error TS2741: Property 'revokeSessions' is missing in type '{ getUser: () => Promise<{ id: string; email: string; }>; }' but required in type 'IdentityProvider'.
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/api@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2

@@ -924,7 +924,7 @@ export function createPostgresGuidedLearningV2Provider(database: DatabaseClient,
         const issues = await validateImportCatalog(transaction, prepared.value.definition, prepared.value.bindings, input.actorUserId, input.canEditAll, options.assetStorage);
         if (issues.length) return { status: "invalid", issues };
         const activity = prepared.value.definition.activities.find(item => item.key === input.activityKey);
-        if (activity?.kind !== "image_target") return { status: "not_found" };
+        if (activity?.kind !== "image_target" && !(activity?.kind === "study" && activity.payload.assetKey)) return { status: "not_found" };
         const assetId = prepared.value.bindings.assets.find(item => item.key === activity.payload.assetKey)?.assetId;
         if (!assetId) return { status: "not_found" };
         const asset = await transaction.selectFrom("content_assets").selectAll().where("id", "=", assetId).forShare().executeTakeFirst();
@@ -1579,7 +1579,7 @@ export function createPostgresGuidedV2AttemptService(database: DatabaseClient, o
         if (row.status !== "in_progress" || activeGuidedV2ActivityKey(snapshot, resume) !== input.activityKey) return { status: "conflict" };
         if (row.row_version !== input.expectedVersion) return { status: "version_conflict" };
         const activity = snapshot.activities.find(item => item.key === input.activityKey);
-        if (activity?.kind !== "image_target") return { status: "conflict" };
+        if (activity?.kind !== "image_target" && !(activity?.kind === "study" && activity.payload.assetKey)) return { status: "conflict" };
         const version = await transaction.selectFrom("learning_path_versions").select("definition_v2_json").where("id", "=", row.path_version_id).executeTakeFirstOrThrow();
         const assetInfo = RoutePackageSchema.parse(version.definition_v2_json).assets.find(item => item.key === activity.payload.assetKey);
         const binding = await transaction.selectFrom("learning_v2_bindings").select("asset_id")

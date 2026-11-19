@@ -176,9 +176,9 @@ export function createPostgresLearningInsightMethods(
         .where("learning_enrollments.status", "=", "active")
         .where("learning_paths.archived_at", "is", null)
         .where("learning_path_versions.status", "=", "published")
+        .where("learning_path_versions.policy_version", "!=", "guided-v2.0")
         .orderBy("learning_enrollments.last_activity_at", "desc")
         .orderBy("learning_enrollments.id", "asc")
-        .limit(50)
         .execute();
       const enrollmentIds = enrollments.map((enrollment) => enrollment.id);
       const versionIds = [...new Set(enrollments.map((enrollment) => enrollment.path_version_id))];
@@ -467,7 +467,7 @@ export function createPostgresLearningInsightMethods(
         ?? null;
       const activeProgress = activeEnrollment ? progressSummaries.get(activeEnrollment.id) ?? null : null;
       const continueTask = activeEnrollment
-        ? ordered.find((task) => task.enrollmentId === activeEnrollment.id)
+        ? ordered.find((task) => task.enrollmentId === activeEnrollment.id && task.kind !== "review")
         : null;
       const today = new Date(`${currentLocalDate}T00:00:00.000Z`);
       const day = today.getUTCDay();
@@ -477,6 +477,9 @@ export function createPostgresLearningInsightMethods(
         .filter((date) => date >= weekStart && date <= currentLocalDate));
       return LearningHomeSchema.parse({
         activePath: activeEnrollment && activeProgress && activeProgress.totalEssentialSteps > 0 ? {
+          pathHref: `/aprendizaje/rutas/${activeEnrollment.slug}`,
+          steps: activeProgress.units.flatMap(unit => unit.steps.filter(step => step.isEssential)
+            .map(step => ({ id: step.stepId, title: step.title, state: step.state }))),
           completedSteps: activeProgress.completedEssentialSteps,
           continueHref: continueTask?.href ?? `/aprendizaje/rutas/${activeEnrollment.slug}`,
           enrollmentId: activeEnrollment.id,

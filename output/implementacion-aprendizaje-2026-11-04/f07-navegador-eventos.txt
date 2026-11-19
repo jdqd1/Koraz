@@ -1,0 +1,70 @@
+[WebServer] (node:14844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:19604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:27260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:16900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:15820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets (2.8m)
+  ok 2 [desktop] › tests\e2e\guided-learning-availability.spec.ts:269:5 › F07 measures map panel with fresh and cached data (37.9s)
+(node:25036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [mobile] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets (1.3m)
+(node:26020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\guided-learning-availability.spec.ts:269:5 › F07 measures map panel with fresh and cached data (38.1s)
+
+
+  1) [mobile] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#leccion-unit')
+    Expected: ""
+    Error: strict mode violation: locator('#leccion-unit') resolved to 2 elements:
+        1) <details open="" id="leccion-unit" class="PslgnG_unit" data-unit-key="unit">…</details> aka getByRole('tabpanel', { name: 'Actividades' }).getByText('1Unidad T03510 actividadesPor aprender0 de 9 actividades completadasObjetivo:')
+        2) <details open="" id="leccion-unit" class="PslgnG_unit" data-unit-key="unit">…</details> aka getByText('1Unidad T03510 actividadesPor aprender0 de 9 actividades completadasObjetivo:').nth(1)
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#leccion-unit') with timeout 12000ms
+      - waiting for locator('#leccion-unit')
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-availability.spec.ts:260:53)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: catalog-measurements.json (application/json) ────────────────────────────────────
+    ..\..\work\f07\browser-eventos\guided-learning-availabili-92afc-request-and-payload-budgets-mobile\attachments\catalog-measurements-json-f536c096e2db192919fd1d21253fd044e88eb75b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-eventos\guided-learning-availabili-92afc-request-and-payload-budgets-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-eventos\guided-learning-availabili-92afc-request-and-payload-budgets-mobile\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-eventos\guided-learning-availabili-92afc-request-and-payload-budgets-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-eventos\guided-learning-availabili-92afc-request-and-payload-budgets-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets 
+  3 passed (6.6m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep "measures map panel|payload budgets" --output ../../work/f07/browser-eventos

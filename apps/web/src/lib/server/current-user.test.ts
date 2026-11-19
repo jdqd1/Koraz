@@ -24,7 +24,8 @@ describe("F02 identity recovery", () => {
       expect(await getCurrentUser()).toMatchObject({
         status: "unavailable", reason, reference: expect.stringMatching(/^[\w-]+$/),
       });
-      expect(log).toHaveBeenCalledOnce();
+      expect(log).toHaveBeenCalledTimes(reason === "invalid_response" ? 1 : 2);
+      expect(mocks.request).toHaveBeenCalledTimes(reason === "invalid_response" ? 1 : 2);
       expect(JSON.stringify(log.mock.calls)).not.toContain("private-test");
     } finally {
       log.mockRestore();
@@ -34,5 +35,21 @@ describe("F02 identity recovery", () => {
   it("treats a definite expired session as anonymous", async () => {
     mocks.request.mockResolvedValue({ status: 401, body: { error: "unauthorized" } });
     expect(await getCurrentUser()).toEqual({ status: "anonymous" });
+    expect(mocks.request).toHaveBeenCalledOnce();
+  });
+
+  it("keeps a denied identity distinct and never retries permissions", async () => {
+    mocks.request.mockResolvedValue({ status: 403, body: { error: "forbidden" } });
+    expect(await getCurrentUser()).toMatchObject({ status: "unavailable", reason: "forbidden" });
+    expect(mocks.request).toHaveBeenCalledOnce();
+  });
+
+  it("recovers one temporary read with the same correlation and a bounded timeout", async () => {
+    const body = { user: { id: "71000000-0000-4000-8000-000000000001", email: "student@example.test" }, roles: [], features: { guidedLearning: true } };
+    mocks.request.mockResolvedValueOnce({ status: 503, body: {} }).mockResolvedValueOnce({ status: 200, body });
+    expect(await getCurrentUser()).toMatchObject({ status: "authenticated", user: body.user });
+    expect(mocks.request).toHaveBeenCalledTimes(2);
+    expect(mocks.request.mock.calls[0]).toEqual(mocks.request.mock.calls[1]);
+    expect(mocks.request.mock.calls[0]![0]).toMatchObject({ timeoutMs: 2500, headers: { "x-correlation-id": expect.any(String) } });
   });
 });

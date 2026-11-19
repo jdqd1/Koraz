@@ -1,0 +1,42 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 0 daily XP 1506ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 18 daily XP 825ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 19 daily XP 852ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 20 daily XP 917ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > serializes independent HTTP transactions, v1 queued first at 19 XP 811ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > serializes independent HTTP transactions, v2 queued first at 19 XP 749ms
+ × test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > awards the unit and route once when the last two readings finish concurrently, and survives repeats 335ms
+   → expected [] to have a length of 1 but got +0
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > awards the unit and route once when the last two readings finish concurrently, and survives repeats
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ test/learning-xp-responses-postgres.test.ts:180:88
+    178|       await guard.query("commit");
+    179|       const receipts = await Promise.all(pending);
+    180|       expect(receipts.flatMap(r => r.awards).filter(a => a.kind === "u…
+       |                                                                                        ^
+    181|       expect(receipts.flatMap(r => r.awards).filter(a => a.kind === "r…
+    182|       const progress = await provider.getEnrollmentProgress({ enrollme…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  23:33:32
+   Duration  15.79s (transform 1.44s, setup 0ms, import 3.54s, tests 11.72s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/learning-xp-responses-postgres.test.ts "--reporter=verbose"

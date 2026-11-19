@@ -1,0 +1,27 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from +0 daily XP (previously correct=true) 3834ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from +0 daily XP (previously correct=false) 2060ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 18 daily XP (previously correct=true) 3204ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 18 daily XP (previously correct=false) 2661ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 19 daily XP (previously correct=true) 1895ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 19 daily XP (previously correct=false) 2094ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 20 daily XP (previously correct=true) 4203ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > reconciles full responses and replays from 20 daily XP (previously correct=false) 3917ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > serializes independent HTTP transactions, v1 queued first at 19 XP 1053ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > serializes independent HTTP transactions, v2 queued first at 19 XP 1212ms
+ ✓ test/learning-xp-responses-postgres.test.ts > F04 response accounting in PostgreSQL > awards the unit and route once when the last two readings finish concurrently, and survives repeats 1002ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > V1 uses only the residual daily budget from 0 XP 512ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > V1 uses only the residual daily budget from 18 XP 42ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > V1 uses only the residual daily budget from 19 XP 50ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > V1 uses only the residual daily budget from 20 XP 185ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > serializes simultaneous engines with v1 starting first 369ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > serializes simultaneous engines with v2 starting first 194ms
+ ✓ test/learning-rewards-postgres.test.ts > shared V1/V2 review rewards in isolated PostgreSQL (H06) > deduplicates concurrent objective milestones without consuming the review budget 272ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  23:40:51
+   Duration  84.76s (transform 16.91s, setup 0ms, import 34.05s, tests 49.46s, environment 0ms)
+

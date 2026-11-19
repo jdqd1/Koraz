@@ -1,0 +1,87 @@
+$ vitest run "--maxWorkers=2"
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+ ❯ src/components/learning/v2/model.test.tsx (8 tests | 7 failed) 489ms
+     × keeps consumption, mastery, consolidation and due review independent on every surface 187ms
+     × retains previous achievement while displaying current critical reinforcement and blocker 95ms
+     × due reviews offer Repasar without inventing a due date or rewarding a view 11ms
+     × rejects state belonging to a different enrollment or adopted version 40ms
+     × keeps v1 card markup and distinguishes missing/revoked state from zeros 12ms
+     × renders empty units and does not make a none action launchable 11ms
+     × maps server-selected action kinds and encodes only safe map return URLs 49ms
+ ❯ src/components/learning/map/v2-adapter.test.tsx (6 tests | 1 failed) 140ms
+     × retains topic navigation and reads the same confirmed state at root, block and unit 65ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/map/v2-adapter.test.tsx > T028 map projection > retains topic navigation and reads the same confirmed state at root, block and unit
+AssertionError: expected '<aside class="_panel_6a4f3e _panel_5e…' to contain 'Hay un concepto esencial por reforzar'
+
+Expected: "Hay un concepto esencial por reforzar"
+Received: "<aside class="_panel_6a4f3e _panel_5e4e43" aria-label="Detalle de práctica por objetivos" data-engine-version="guided-v2"><header class="_panelHeader_6a4f3e _header_5e4e43"><div class="_identity_5e4e43"><h2>Comprender y recuperar</h2><div class="_meta_5e4e43"><span>3<!-- --> actividades</span><span class="_metaDivider_5e4e43" aria-hidden="true"></span><a class="_routeLink_5e4e43" href="/aprendizaje/rutas/practica-por-objetivos?leccion=unit-a&amp;returnTo=%2Faprendizaje%2Fmapa%3Fnode%3Db2800000-0000-4000-8000-000000000008%26item%3Db2800000-0000-4000-8000-000000000001%26unit%3Dunit-a%26detail%3D1#leccion-unit-a">Detalle de la ruta <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></a></div></div><button type="button" class="_iconButton_6a4f3e" aria-label="Cerrar detalle"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg></button></header><div class="_panelScroll_6a4f3e _scroll_5e4e43" data-panel-scroll="true"><div class="_progress_5e4e43"><span>3<!-- --> de <!-- -->3<!-- --> completadas</span><progress aria-label="Actividades completadas de esta unidad" value="3" max="3"></progress></div><p class="_notice_5e4e43">Abre la ruta para consultar los objetivos, todas las actividades y sus recursos.</p></div><footer class="_footer_5e4e43"><a class="learning-primary-button" href="/aprendizaje/rutas/practica-por-objetivos?leccion=unit-a&amp;returnTo=%2Faprendizaje%2Fmapa%3Fnode%3Db2800000-0000-4000-8000-000000000008%26item%3Db2800000-0000-4000-8000-000000000001%26unit%3Dunit-a%26detail%3D1#leccion-unit-a">Abrir ruta <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg></a><div class="_next_5e4e43"><strong>Reforzar este objetivo</strong></div><div class="_actionRow_5e4e43" data-navigation="false"><div class="_action_716bad"><button type="button" class="learning-secondary-button">Reforzar</button></div></div></footer></aside>"
+
+ ❯ src/components/learning/map/v2-adapter.test.tsx:34:123
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > keeps consumption, mastery, consolidation and due review independent on every surface
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > retains previous achievement while displaying current critical reinforcement and blocker
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > due reviews offer Repasar without inventing a due date or rewarding a view
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > rejects state belonging to a different enrollment or adopted version
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > keeps v1 card markup and distinguishes missing/revoked state from zeros
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > renders empty units and does not make a none action launchable
+Error: [vitest] No "useSearchParams" export is defined on the "next/navigation" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next/navigation"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ RouteDetailContent src/components/learning/route-detail-content.tsx:10:18
+      8| /** Both curricula use the same URL-backed tabs, disclosure and focus …
+      9| export function RouteDetailContent({ slug, context = {}, activities, r…
+     10|   const params = useSearchParams(), pathname = usePathname();
+       |                  ^
+     11|   const id = useId(), root = useRef<HTMLDivElement>(null);
+     12|   const tab = params.get("pestana") === "resources" ? "resources" : "a…
+ ❯ Object.react_stack_bottom_frame ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:9808:18
+ ❯ renderWithHooks ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5062:19
+ ❯ renderElement ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5497:23
+ ❯ retryNode ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6428:21
+ ❯ renderNodeDestructive ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:6367:11
+ ❯ finishFunctionComponent ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5106:13
+ ❯ renderElement ../../node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-server-legacy.node.development.js:5552:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  src/components/learning/v2/model.test.tsx > T028 shared learner state > maps server-selected action kinds and encodes only safe map return URLs
+AssertionError: expected '/aprendizaje/rutas/a%2Fb?leccion=unit…' to be '/aprendizaje/rutas/a%2Fb?leccion=unit' // Object.is equality
+
+Expected: "/aprendizaje/rutas/a%2Fb?leccion=unit"
+Received: "/aprendizaje/rutas/a%2Fb?leccion=unit#leccion-unit"
+
+ ❯ src/components/learning/v2/model.test.tsx:56:59
+     54|     expect(actionTarget(studentFixture("resume").state.nextAction)).to…
+     55|     expect(actionLabel(studentFixture("review").state.nextAction)).toB…
+     56|     expect(routeHref("a/b", "unit", "https://evil.test")).toBe("/apren…
+       |                                                           ^
+     57|     expect(routeHref("route", undefined, "/aprendizaje/mapa")).toConta…
+     58|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+
+ Test Files  2 failed | 79 passed (81)
+      Tests  8 failed | 614 passed (622)
+   Start at  20:22:20
+   Duration  387.49s (transform 12.96s, setup 0ms, import 655.08s, tests 12.79s, environment 23ms)
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 test: `vitest run "--maxWorkers=2"`
+Exit status 1

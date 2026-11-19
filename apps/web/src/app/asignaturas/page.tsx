@@ -1,7 +1,7 @@
 import { SubjectDirectoryScreen } from "@/components/subject-directory-screen";
 import { PracticeLibraryScreen } from "@/components/practice-library-screen";
 import { isStudyContentKind } from "@/lib/content-navigation";
-import { getPublishedStudyCatalog, getSubjects } from "@/lib/server/content-api";
+import { getAllPublishedStudyCatalog, getSubjects } from "@/lib/server/content-api";
 import { currentUserIsAdministrator } from "@/lib/server/current-user";
 import { getStudySummaryCatalog } from "@/lib/study-catalog";
 
@@ -20,17 +20,17 @@ export default async function SubjectsPage({ searchParams }: SubjectsPageProps) 
     getSubjects(),
     currentUserIsAdministrator(),
     kind
-      ? getPublishedStudyCatalog({ kind, limit: 1_000 })
+      ? getAllPublishedStudyCatalog()
       : Promise.resolve(null),
   ]);
 
   return (
     <SubjectDirectoryScreen
-      available={result.status === "ready"}
+      available={result.status === "ready" && (!kind || contentResult?.status === "ready")}
       initialKind={kind}
       isAdministrator={isAdministrator}
       items={contentResult?.status === "ready" && kind
-        ? getStudySummaryCatalog(contentResult.catalog.items.filter((item) => item.kind !== "video"), kind)
+        ? getStudySummaryCatalog(contentResult.catalog.items, kind)
         : []}
       subjects={result.status === "ready" ? result.subjects : []}
     />

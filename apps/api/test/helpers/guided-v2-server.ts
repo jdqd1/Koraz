@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { pathToFileURL } from "node:url";
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:https";
+import { request as forwardHttp } from "node:http";
 import { createGuidedV2Postgres } from "./guided-v2-postgres.js";
 import { guidedV2Fixture, guidedV2FixtureId as id, guidedV2FixtureBindings, guidedV2GuidePayload, guidedV2GuideHash, guidedV2Image, guidedV2ImageHash } from "./guided-v2-fixtures.js";
 import { createPostgresGuidedLearningV2Provider, createPostgresGuidedV2AttemptService } from "../../src/providers/postgres-guided-learning-v2.js";
@@ -14,6 +15,7 @@ import { buildApp } from "../../src/app.js";
 import { readEnvironment } from "../../src/config.js";
 import { createPostgresGuidedLearningProvider } from "../../src/providers/postgres-guided-learning.js";
 import { seedReviewCenter } from "./review-center-fixture.js";
+import { seedLearningNavigation } from "./learning-navigation-fixture.js";
 
 export async function createGuidedV2Server() {
   if(process.env.NODE_ENV!=="test" || process.env.KORAZ_GUIDED_V2_TEST_SERVER!=="true") throw new Error("Explicit T035 test server required");
@@ -37,6 +39,14 @@ export async function createGuidedV2Server() {
     const event = await db.pool.query("insert into learning_events(user_id,event_type,semantic_key,payload_json,policy_version,occurred_at,local_date,timezone) values($1,'activity_completed','xp-fixture','{}','guided-v2.0',$2,'2026-10-04','UTC') returning id", [actor.id, clock]);
     await db.pool.query("insert into learning_rewards(user_id,award_key,reward_kind,xp,event_id,local_date) values($1,'xp-fixture','activity_recall',50,$2,'2026-10-04')", [actor.id, event.rows[0].id]);
   }
+  if (process.env.F07_PERFORMANCE === "true") {
+    for (const profile of ["desktop", "mobile"]) for (let n = 0; n < 40; n++) {
+      const token = `f07-performance-${profile}-${n}`;
+      const actor = { id: id(2000 + (profile === "mobile" ? 40 : 0) + n), name: "Medición sintética F07", email: `${token}@example.test` };
+      actors.set(token, actor);
+      await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)", [actor.id, actor.name, actor.email]);
+    }
+  }
   // Catalog identifiers deliberately stay outside the actor range.
   const bindings=structuredClone(guidedV2FixtureBindings);
   bindings.topicContentId=id(120);bindings.sources[0]!.sourceContentId=id(121);bindings.sources[0]!.resourceRevisionId=id(123);bindings.assets[0]!.assetId=id(124);
@@ -52,6 +62,10 @@ export async function createGuidedV2Server() {
   const fixtures:Record<string,{pathId:string;slug:string;versionId:string;objectives:number;activities:number}>={};
   for(const [key,count,publish] of [["small",1,true],["large",200,true],["editorial",1,false],["editorial-mobile",1,false],["admission",2,true],["upgrade",1,true]] as const){
     const pkg=guidedV2Fixture(count); if(key.startsWith("editorial")){pkg.packageKey=`t035-${key}`;pkg.route.slug=`t035-${key}`;pkg.route.title="Ruta editorial T035";}
+    if (process.env.KORAZ_LEARNING_NAVIGATION_TESTS === "true" && key === "small") {
+      const study = pkg.activities.find(activity => activity.key === "study-1");
+      if (study?.kind === "study") study.payload.assetKey = "image";
+    }
     if (key === "upgrade") {
       pkg.packageKey = pkg.route.slug = "f02-versiones";
       pkg.route.title = "Simulación de actualización";
@@ -113,6 +127,16 @@ export async function createGuidedV2Server() {
       values($1,$2,$3,'recall','review',$4,$5)`, [reviews[token], userId, randomUUID(), manifest, initialAttemptResume()]);
   }
   const map=createPostgresLearningMapProvider(db.database,{clock:now});
+  if (process.env.KORAZ_LEARNING_NAVIGATION_TESTS === "true") {
+    const users: string[] = [];
+    for (const [index, token] of ["f06-desktop", "f06-mobile"].entries()) {
+      const actor = { id: id(150 + index), name: "Alumno de navegación", email: `${token}@example.test` };
+      actors.set(token, actor); users.push(actor.id);
+      await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)", [actor.id, actor.name, actor.email]);
+    }
+    const seeded = await seedLearningNavigation(db, id(1), users, now);
+    fixtures.navigation = { pathId: seeded.path.id, slug: seeded.path.slug, versionId: seeded.path.version.id, objectives: 30, activities: 3 };
+  }
   for (const [index, token] of ["f03-desktop", "f03-mobile"].entries()) {
     const actor = { id: id(110 + index), name: "Alumno de repaso", email: `${token}@example.test` };
     actors.set(token, actor);
@@ -141,6 +165,44 @@ export async function createGuidedV2Server() {
     guidedLearningV2Provider:learner,guidedLearningV2EditorProvider:editor,learningMapProvider:map,
   });
   application=app;
+  const traces = new Map<string, { method: string; path: string; status: number; durationMs: number; bytes: number; reference?: string; requestId?: string }[]>();
+  const actorFrom = (cookie?: string) => /(?:^|;\s*)t035=([^;]+)/.exec(cookie ?? "")?.[1];
+  const injected = new Set<string>();
+  app.addHook("onSend", async (request, reply, payload) => {
+    if (request.method !== "GET") return payload;
+    const actor = actorFrom(request.headers.cookie);
+    const fault = /(?:^|;\s*)f07_fault=([a-z-]+)(?:;|$)/.exec(request.headers.cookie ?? "")?.[1];
+    if (!actor || !actors.has(actor) || !fault) return payload;
+    const path = request.url.split("?")[0]!;
+    if (fault === "identity-once" && path === "/v1/auth/me" && !injected.has(actor)
+      || fault === "catalog" && path === "/v2/guided-learning/paths"
+      || fault === "resource" && /^\/v1\/guided-learning\/paths\/[^/]+\/resources\//.test(path)
+      || fault === "attempt" && /^\/v1\/guided-learning\/attempts\/[^/]+$/.test(path)
+      || fault === "progress" && /^\/v1\/guided-learning\/enrollments\/[^/]+\/progress$/.test(path)
+      || fault === "state" && /^\/v2\/guided-learning\/enrollments\/[^/]+\/state$/.test(path)) {
+      if (fault === "identity-once") injected.add(actor);
+      reply.code(503);
+      return JSON.stringify({ error: "fixture_unavailable" });
+    }
+    return payload;
+  });
+  const bytes = new WeakMap<object, number>();
+  app.addHook("onSend", async (request, _reply, payload) => {
+    bytes.set(request, typeof payload === "string" ? Buffer.byteLength(payload) : Buffer.isBuffer(payload) ? payload.length : 0);
+    return payload;
+  });
+  app.addHook("onResponse", async (request, reply) => {
+    if (request.url.startsWith("/__test/")) return;
+    const actor = actorFrom(request.headers.cookie);
+    if (!actor || !actors.has(actor)) return;
+    const entries = traces.get(actor) ?? [];
+    const reference = reply.getHeader("x-correlation-id");
+    entries.push({ method: request.method, path: request.url, status: reply.statusCode, durationMs: reply.elapsedTime, bytes: bytes.get(request) ?? 0,
+      ...(typeof reference === "string" ? { reference, requestId: request.id } : {}) });
+    traces.set(actor, entries.slice(-2000));
+  });
+  app.get("/__test/trace/:actor", async request => traces.get((request.params as { actor: string }).actor) ?? []);
+  app.post("/__test/trace/:actor", async request => { traces.delete((request.params as { actor: string }).actor); return { cleared: true }; });
   app.addHook("onSend", async (request, reply, payload) => {
     if (request.url !== "/v1/auth/me") return payload;
     const fault = /(?:^|;\s*)f02_access=(service|invalid|timeout)(?:;|$)/.exec(request.headers.cookie ?? "")?.[1];
@@ -192,8 +254,21 @@ if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
   const harness=await createGuidedV2Server();
   // Public synthetic key/certificate are fixture data, never deployment credentials.
   const media=createServer({key:await readFile(new URL("guided-v2-tls-key.pem",import.meta.url)),cert:await readFile(new URL("guided-v2-tls-cert.pem",import.meta.url))},(request,response)=>{
-    if(request.url!=="/fixture.png"){response.writeHead(404);response.end();return;}
-    response.writeHead(200,{"Content-Type":"image/png","Cache-Control":"no-store"});response.end(guidedV2Image);
+    if (request.url === "/fixture.png") {
+      response.writeHead(200, { "Content-Type": "image/png", "Cache-Control": "no-store" });
+      response.end(guidedV2Image);
+      return;
+    }
+    if (process.env.F07_WEBKIT !== "true") { response.writeHead(404).end(); return; }
+    // WebKit applies the production CSP upgrade to HTTP loopback assets too.
+    const upstream = forwardHttp({ hostname: "127.0.0.1", port: 31035, method: request.method, path: request.url,
+      headers: { ...request.headers, "x-forwarded-host": "127.0.0.1:41036", "x-forwarded-proto": "https" },
+    }, incoming => {
+      response.writeHead(incoming.statusCode ?? 502, incoming.headers);
+      incoming.pipe(response);
+    });
+    upstream.on("error", () => { if (!response.headersSent) response.writeHead(502); response.end(); });
+    request.pipe(upstream);
   });
   await new Promise<void>((resolve,reject)=>{media.once("error",reject);media.listen(41036,"127.0.0.1",resolve);});
   const stop=async()=>{await new Promise<void>(resolve=>media.close(()=>resolve()));await harness.close();};

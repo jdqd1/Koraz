@@ -1,0 +1,73 @@
+[WebServer] (node:32364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:33388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26216) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 10 tests using 1 worker
+
+(node:1724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (32.9s)
+  ok  2 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (20.0s)
+  ok  3 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (7.1s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4o', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4r', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4s', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4u', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4x', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4y', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'c7b784b0-d8e2-4beb-a8c0-3088330328da',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'da7c87da-f505-4a09-8ac8-417cbb8e618c',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '82b98528-a441-44a8-921c-4d32afa7f966',
+[WebServer]   status: 503
+[WebServer] }
+  ok  4 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (28.8s)
+  ok  5 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (10.6s)
+(node:13600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  6 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (35.7s)
+  ok  7 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (22.3s)
+  ok  8 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (9.8s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-ao', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-ar', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-as', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-au', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-ax', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-ay', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'c7a87c89-40c1-48fb-880f-1d6038734e9a',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'd6f7ec72-2637-45a9-9b43-ba66ce059945',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'c52e8da3-8db3-4f76-aae0-d948b2ce35c1',
+[WebServer]   status: 503
+[WebServer] }
+  ok  9 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (22.8s)
+  ok 10 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (8.2s)
+
+  10 passed (4.2m)

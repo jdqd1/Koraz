@@ -267,6 +267,23 @@ function headingSlug(label: string): string {
   );
 }
 
+/** Preserve the rich nodes at the same section boundaries used by the legacy text projection. */
+export function guideDocumentPages(document: RichTextDocument): RichTextDocument[] {
+  const pages: RichTextDocument[] = [];
+  let content: RichTextDocument["content"] = [];
+  const hasLevelOne = document.content.some(node => node.type === "heading" && headingLevel(node) === 1);
+  const flush = () => {
+    if (content.some(node => node.type !== "heading" && blockNodeText(node).trim())) pages.push({ type: "doc", content });
+    content = [];
+  };
+  for (const node of document.content) {
+    if (node.type === "heading" && (headingLevel(node) === 1 || !hasLevelOne && headingLevel(node) === 2)) flush();
+    content.push(node);
+  }
+  flush();
+  return pages.length ? pages : [document];
+}
+
 /** Creates the deterministic base ID used by guide headings. */
 export function createStableHeadingId(label: string, occurrence = 1): string {
   const base = headingSlug(label);

@@ -1,0 +1,77 @@
+[WebServer] (node:11292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:14608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 14 tests using 1 worker
+
+(node:24224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (1.3m)
+  ok  2 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (38.2s)
+  ok  3 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (11.7s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4o', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4r', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-4s', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4u', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4x', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-4y', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'd774150c-3d63-4431-a8ea-3b4f3926cf24',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'f8dc6967-0c46-492c-b298-2c85fa7cfda2',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '0f5a2836-4931-4d55-85ae-a82e8b6cc153',
+[WebServer]   status: 503
+[WebServer] }
+  ok  4 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (1.0m)
+  ok  5 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (18.0s)
+  ok  6 [desktop] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries (18.6s)
+  ok  7 [desktop] › tests\e2e\guided-v2-overview.spec.ts:34:5 › F05 only-V2 enrollment appears on Inicio with a real route destination (6.4s)
+(node:15148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  8 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; passing opens the chosen objective (14.8s)
+  ok  9 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:4:41 › XP enable a diagnostic; failing preserves prerequisites (10.8s)
+  ok 10 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:123:5 › version adoption recovers a committed receipt after reload and preserves the enrollment history (6.3s)
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-cl', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-co', status: 503 }
+[WebServer] auth/me unavailable { reason: 'service', reference: 'req-cp', status: 503 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-cr', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-cu', status: 200 }
+[WebServer] auth/me unavailable { reason: 'invalid_response', reference: 'req-cv', status: 200 }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '1abb9a4f-a23d-4d43-8a5f-8ac0ab7ff360',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: 'ec7d923a-3904-43cb-a40c-1013abe8ca39',
+[WebServer]   status: 503
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reason: 'timeout',
+[WebServer]   reference: '598bff9f-7910-4556-81d4-0d49562dad8e',
+[WebServer]   status: 503
+[WebServer] }
+  ok 11 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (17.6s)
+  ok 12 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (5.6s)
+  ok 13 [mobile] › tests\e2e\guided-v2-overview.spec.ts:3:5 › F05 mixed routes reconcile Inicio, Hoy and Progreso; account changes do not reuse summaries (12.8s)
+  ok 14 [mobile] › tests\e2e\guided-v2-overview.spec.ts:34:5 › F05 only-V2 enrollment appears on Inicio with a real route destination (3.1s)
+
+  14 passed (6.6m)

@@ -113,7 +113,7 @@ export function SubjectDetailScreen({
   const topic = searchParams.get("tema")?.trim() ?? "";
   const searching = Boolean(search.trim());
   const catalogs = useMemo(() => Object.fromEntries(
-    sectionDefinitions.map(({ kind }) => [kind, getSubjectStudySummaryCatalog(items.filter((item) => item.kind !== "video"), kind, subject.id)]),
+    sectionDefinitions.map(({ kind }) => [kind, getSubjectStudySummaryCatalog(items, kind, subject.id)]),
   ) as Record<StudyContentKind, StudyCatalogItem[]>, [items, subject.id]);
   const kindItems = useMemo(
     () => kind ? catalogs[kind] : [],

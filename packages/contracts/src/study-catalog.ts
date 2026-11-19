@@ -30,6 +30,7 @@ export const StudyCatalogItemSchema = z.object({
 
 export const StudyCatalogResponseSchema = z.object({
   items: z.array(StudyCatalogItemSchema),
+  nextOffset: z.number().int().nonnegative().nullable().optional(),
 });
 
 export const StudyCatalogSubjectSchema = z.object({

@@ -1,0 +1,148 @@
+[WebServer] (node:24484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:18812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:1428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:1428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 4 tests using 1 worker
+
+(node:21636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/82d1e181-7856-45c2-ae99-544e02d54912
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  x  1 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard (4.1s)
+(node:29860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/82d1e181-7856-45c2-ae99-544e02d54912
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 2 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:134:5 › E03 beginner help and CORE error are confirmed by the server (10.3s)
+(node:9952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/82d1e181-7856-45c2-ae99-544e02d54912
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  x  3 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard (4.7s)
+(node:32164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/82d1e181-7856-45c2-ae99-544e02d54912
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 4 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:134:5 › E03 beginner help and CORE error are confirmed by the server (10.5s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard 
+
+    Error: locator.focus: Error: strict mode violation: getByLabel('Objetivo de aprendizaje') resolved to 2 elements:
+        1) <button type="button" data-state="closed" class="_sd3xq_helpButton" aria-label="Ayuda sobre objetivo de aprendizaje">…</button> aka getByRole('button', { name: 'Ayuda sobre objetivo de' })
+        2) <input value="" id="_r_g_" required="" maxlength="240" aria-invalid="false" aria-describedby="_r_g_-help" data-field-path="package.objectives.0.title" placeholder="Ej. Identificar las ramas de la aorta abdominal"/> aka getByRole('textbox', { name: 'Objetivo de aprendizaje' })
+
+    Call log:
+      - waiting for getByLabel('Objetivo de aprendizaje')
+
+
+      60 |   await expect(page.locator('[data-engine-version="guided-v2"]')).toBeVisible();
+      61 |   const press=async(l:Locator)=>{await l.focus();await l.press("Enter");};
+    > 62 |   const type=async(l:Locator,value:string)=>{await l.focus();await l.pressSequentially(value);};
+         |                                                      ^
+      63 |   await type(page.getByLabel("Título",{exact:true}),`Creación UI T035 ${info.project.name}`);
+      64 |   const topic = page.getByLabel("Tema del catálogo", { exact: true });
+      65 |   await topic.selectOption({ label: "Tema T035" });
+        at type (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:62:54)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:75:294)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard 
+
+    Error: locator.focus: Error: strict mode violation: getByLabel('Objetivo de aprendizaje') resolved to 2 elements:
+        1) <button type="button" data-state="closed" class="_sd3xq_helpButton" aria-label="Ayuda sobre objetivo de aprendizaje">…</button> aka getByRole('button', { name: 'Ayuda sobre objetivo de' })
+        2) <input value="" id="_r_g_" required="" maxlength="240" aria-invalid="false" aria-describedby="_r_g_-help" data-field-path="package.objectives.0.title" placeholder="Ej. Identificar las ramas de la aorta abdominal"/> aka getByRole('textbox', { name: 'Objetivo de aprendizaje' })
+
+    Call log:
+      - waiting for getByLabel('Objetivo de aprendizaje')
+
+
+      60 |   await expect(page.locator('[data-engine-version="guided-v2"]')).toBeVisible();
+      61 |   const press=async(l:Locator)=>{await l.focus();await l.press("Enter");};
+    > 62 |   const type=async(l:Locator,value:string)=>{await l.focus();await l.pressSequentially(value);};
+         |                                                      ^
+      63 |   await type(page.getByLabel("Título",{exact:true}),`Creación UI T035 ${info.project.name}`);
+      64 |   const topic = page.getByLabel("Tema del catálogo", { exact: true });
+      65 |   await topic.selectOption({ label: "Tema T035" });
+        at type (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:62:54)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:75:294)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f08\v2-final\guided-v2-journeys-E01-cre-95a5e-draft-using-UI-and-keyboard-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard 
+    [mobile] › tests\e2e\guided-v2-journeys.spec.ts:58:5 › E01 creates a new persisted v2 draft using UI and keyboard 
+  2 passed (1.2m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.guided-v2.config.ts guided-v2-journeys.spec.ts --grep "E0[13]" "--reporter=list" --output ../../work/f08/v2-final

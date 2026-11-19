@@ -1,0 +1,65 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/web
+
+stdout | src/lib/server/current-user.test.ts > F02 identity recovery > recovers one temporary read with the same correlation and a bounded timeout
+auth/me resolved {
+  reference: '0262bca5-f375-404c-a530-2957cf262266',
+  requestId: undefined,
+  attempt: 2,
+  status: 200,
+  durationMs: 2,
+  stage: 'validation',
+  reason: 'authenticated'
+}
+
+stderr | src/lib/server/current-user.test.ts > F02 identity recovery > recovers one temporary read with the same correlation and a bounded timeout
+auth/me unavailable {
+  reference: '0262bca5-f375-404c-a530-2957cf262266',
+  requestId: undefined,
+  attempt: 1,
+  status: 503,
+  durationMs: 0,
+  stage: 'http',
+  reason: 'service'
+}
+
+ ❯ src/lib/server/current-user.test.ts (7 tests | 1 failed) 696ms
+     × recovers one temporary read with the same correlation and a bounded timeout 189ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/server/current-user.test.ts > F02 identity recovery > recovers one temporary read with the same correlation and a bounded timeout
+AssertionError: expected { features: { …(2) }, roles: [], …(2) } to match object { status: 'authenticated', …(1) }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "status": "authenticated",
+    "user": {
+      "email": "student@example.test",
+      "id": "71000000-0000-4000-8000-000000000001",
+-     "name": "Alumno",
+    },
+  }
+
+ ❯ src/lib/server/current-user.test.ts:50:36
+     48|     const body = { user: { id: "71000000-0000-4000-8000-000000000001",…
+     49|     mocks.request.mockResolvedValueOnce({ status: 503, body: {} }).moc…
+     50|     expect(await getCurrentUser()).toMatchObject({ status: "authentica…
+       |                                    ^
+     51|     expect(mocks.request).toHaveBeenCalledTimes(2);
+     52|     expect(mocks.request.mock.calls[0]).toEqual(mocks.request.mock.cal…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  18:04:14
+   Duration  2.38s (transform 445ms, setup 0ms, import 940ms, tests 696ms, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run src/lib/server/current-user.test.ts

@@ -298,7 +298,7 @@ export async function registerGuidedLearningRoutes(
     },
   );
 
-  app.get<{ Params: { enrollmentId: string } }>(
+  app.get<{ Params: { enrollmentId: string }; Querystring: { includeOpenAttempts?: string } }>(
     "/v1/guided-learning/enrollments/:enrollmentId/progress",
     async (request, reply) => {
       const user = await resolveGuidedUser(request, dependencies.identityProvider);
@@ -309,6 +309,7 @@ export async function registerGuidedLearningRoutes(
       try {
         const result = await dependencies.provider.getEnrollmentProgress({
           enrollmentId: params.data.enrollmentId,
+          ...(request.query.includeOpenAttempts === "true" ? { includeOpenAttempts: true } : {}),
           userId: user.user.id,
         });
         if (result.status !== "success") return sendFailure(result.status, reply);

@@ -693,6 +693,12 @@ export const RichTextDocumentSchema = z
 
 export type RichTextDocument = z.infer<typeof RichTextDocumentSchema>;
 
+export const LearningResourceReaderSchema = z.strictObject({
+  title: z.string(), resourceRevisionId: z.uuid(), document: RichTextDocumentSchema.nullable(),
+  sections: z.array(z.strictObject({ heading: z.string(), body: z.string() })),
+  locator: z.strictObject({ heading: z.string(), sectionPath: z.array(z.string()), page: z.number().int().positive().nullable() }),
+});
+
 const ContentDraftBaseSchema = z.object({
   catalogVisibility: CatalogVisibilitySchema.optional(),
   estimatedMinutes: z.number().int().min(0).max(100_000).nullable().default(null),
@@ -1204,3 +1210,4 @@ export interface ContentProvider {
   }): Promise<ContentMutationResult<ContentItem>>;
 }
 export * from "./learning-map.js";
+export * from "./content-search-text.js";

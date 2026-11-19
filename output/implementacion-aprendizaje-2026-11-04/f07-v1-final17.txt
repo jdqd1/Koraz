@@ -1,0 +1,118 @@
+[WebServer] (node:31332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:24260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:15292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'f019ba87-c355-4d7c-934d-66f86b3eed80',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2989,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'b13443cb-c7f0-4fed-aa3e-278140553962',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2964,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+  ok 1 [desktop] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets (3.7m)
+  ok 2 [desktop] › tests\e2e\guided-learning-availability.spec.ts:278:5 › F07 measures map panel with fresh and cached data (55.8s)
+  x  3 [desktop] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission (27.8s)
+(node:19540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › tests\e2e\guided-learning-availability.spec.ts:203:5 › F07 measures cold and warm catalog navigation with request and payload budgets (2.1m)
+  ok 5 [mobile] › tests\e2e\guided-learning-availability.spec.ts:278:5 › F07 measures map panel with fresh and cached data (39.2s)
+  x  6 [mobile] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission (21.2s)
+
+
+  1) [desktop] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected: "http://127.0.0.1:31035/aprendizaje/sesiones/61f55c3d-0bb4-45e5-a8c0-00b14107d1c6?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+    Received: "http://127.0.0.1:31035/aprendizaje/sesiones/45265097-dead-454d-b5c3-690d33932fdb?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+    Timeout:  12000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 12000ms
+        27 × locator resolved to <html lang="es" class="fnwInq_variable" data-scroll-behavior="smooth">…</html>
+           - unexpected value "http://127.0.0.1:31035/aprendizaje/sesiones/45265097-dead-454d-b5c3-690d33932fdb?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-availability.spec.ts:332:26)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected: "http://127.0.0.1:31035/aprendizaje/sesiones/55bad94b-fef5-4ebf-9992-120bdc3926c1?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+    Received: "http://127.0.0.1:31035/aprendizaje/sesiones/24603f65-7df3-45dd-9e07-aef8c76d1dfb?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+    Timeout:  12000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 12000ms
+        27 × locator resolved to <html lang="es" class="fnwInq_variable" data-scroll-behavior="smooth">…</html>
+           - unexpected value "http://127.0.0.1:31035/aprendizaje/sesiones/24603f65-7df3-45dd-9e07-aef8c76d1dfb?returnTo=%2Faprendizaje%2Frutas%2Fsimulacion-f06%3Fleccion%3Dlectura%26objetivo%3D2993485d-e0e4-4a23-90c9-d4396b71cfaa%26actividad%3D3b6485cf-e6ae-451b-be64-28b178a13755%23actividad-3b6485cf-e6ae-451b-be64-28b178a13755"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-availability.spec.ts:332:26)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-v1-final17\guided-learning-availabili-1ed96-ch-and-confirmed-submission-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: [desktop] › tests\e2e\guided-learning-availability.spec.ts (5.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  2 failed
+    [desktop] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission 
+    [mobile] › tests\e2e\guided-learning-availability.spec.ts:306:5 › F07 measures V1 activity launch and confirmed submission 
+  4 passed (8.8m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep "measures V1 activity|payload budgets|measures map panel" --output ../../work/f07/browser-v1-final17

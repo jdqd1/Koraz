@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
+import { V2EnrollmentIdSchema, V2PathVersionIdSchema } from "@cediah/contracts";
 import { studentFixture, fixtureId } from "./fixtures";
 import { maintenanceFixture } from "./maintenance-fixtures";
 import { RouteCurriculum, CurriculumResources } from "./curriculum";
-import { actionLocation, recommendationTitle, unitActivityProgress, unitRecommendation } from "./curriculum-model";
+import { actionLocation, resumedActivityLocation, recommendationTitle, unitActivityProgress, unitRecommendation } from "./curriculum-model";
 import { V2MapPanel } from "./map-panel";
 import { RouteReason } from "./route-reason";
 import { ROOT_MAP_ROUTE } from "../map/map-route";
@@ -11,6 +12,26 @@ import { ROOT_MAP_ROUTE } from "../map/map-route";
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 describe("unit and objective curriculum", () => {
+  it("restores the confirmed activity when resuming, including an answer awaiting closure", () => {
+    const fixture = studentFixture("resume");
+    const activity = { key: "practice-b", objectiveKey: "objective-b", phase: "retrieve", representation: "text",
+      prompt: "Explica la relación.", kind: "short_answer", payload: { maxChars: 200 } } as const;
+    const attempt = { ...fixture.attempt, purpose: "activity" as const, activeActivity: activity };
+    expect(resumedActivityLocation(fixture.path, fixture.state, attempt)).toMatchObject({
+      unit: { key: "unit-b" }, activity: { key: "practice-b" }, objective: { key: "objective-b" },
+    });
+    const accepted = { activityKey: "practice-b", answer: { kind: "short_answer" as const, text: "Una relación sintética." },
+      serverAcceptedAt: "2026-10-04T12:00:00Z", score01: 1, feedback: { explanation: "Correcto", commonError: "" } };
+    expect(resumedActivityLocation(fixture.path, fixture.state, { ...attempt, activeActivity: null, acceptedResponses: [accepted] }).activity?.key).toBe("practice-b");
+    const pathWithImage = { ...fixture.path, units: fixture.path.units.map(unit => unit.key !== "unit-b" ? unit : {
+      ...unit, activities: [...unit.activities!, { key: "visual-b", objectiveKey: "objective-b", kind: "image_target" as const, phase: "apply" as const, required: true }],
+    }) };
+    expect(resumedActivityLocation(pathWithImage, fixture.state, { ...attempt, accessiblePractice: { sourceActivityKey: "visual-b" } }).activity?.key).toBe("visual-b");
+    for (const other of [{ ...attempt, enrollmentId: V2EnrollmentIdSchema.parse(fixtureId(99)) }, { ...attempt, pathVersionId: V2PathVersionIdSchema.parse(fixtureId(99)) },
+      { ...attempt, purpose: "assessment" as const }, { ...attempt, activeActivity: { ...activity, key: "retired-child" } }]) {
+      expect(resumedActivityLocation(fixture.path, fixture.state, other)).toEqual(actionLocation(fixture.path, fixture.state));
+    }
+  });
   it("keeps every activity in its original order, with visible completed rows and a named objective", () => {
     const fixture = studentFixture();
     const html = renderToStaticMarkup(<RouteCurriculum path={fixture.path} state={fixture.state} focusUnit="unit-a" unitOnly />);
@@ -29,7 +50,8 @@ describe("unit and objective curriculum", () => {
     const html = renderToStaticMarkup(<RouteCurriculum path={path} state={state} unitOnly focusUnit={unit.key} />);
     for (const ordinal of [1, 2]) expect(html).toContain(`Elegir la respuesta correcta · ${topic} (${ordinal}/2)`);
     expect(html).toContain("Territorios vasculares");
-    expect(html).not.toContain("private-looking-key");
+    expect(html).toContain('id="actividad-private-looking-key"');
+    expect(html).not.toContain(">private-looking-key<");
     const active = { ...state, nextAction: { ...state.nextAction, kind: "activity" as const, key: choice.key } };
     expect(recommendationTitle(path, active)?.title).toBe(`Elegir la respuesta correcta · ${topic} (1/2)`);
   });
@@ -91,7 +113,8 @@ describe("unit and objective curriculum", () => {
       maintenance: { ...fixture.state.maintenance, reviewBatch: [{ key: "review-b", objectiveKey: "objective-b", dueAt: "2026-10-03T02:30:00.000Z" }] } };
     expect(unitRecommendation(fixture.path, state, unit)).toMatchObject({ kind: "activity", target: { kind: "activity", key: "practice-b" } });
     const html = renderToStaticMarkup(<V2MapPanel meta={{ ...fixture, state, unitKey: unit.key }} route={ROOT_MAP_ROUTE} onClose={() => {}} onSelectUnit={() => {}} />);
-    expect(html.slice(0, html.indexOf("<footer"))).toContain("Repasar</button>");
+    expect(html.slice(0, html.indexOf("<footer"))).not.toContain("Repasar</button>");
+    expect(html).not.toContain('role="tablist"');
     expect(html.slice(html.indexOf("<footer"))).toContain("Continuar actividad");
     expect(unitRecommendation(fixture.path, { ...state, nextAction: { ...state.nextAction, kind: "remediate" } }, unit)).toMatchObject({ kind: "remediate", target: undefined });
     expect(unitRecommendation(fixture.path, { ...state, maintenance: undefined }, unit)).toMatchObject({ kind: "review", target: undefined });
@@ -134,10 +157,9 @@ describe("unit and objective curriculum", () => {
     expect(html).toContain("0 de 3 completadas");
     expect(html).not.toContain("2 actividades completadas de 6");
     expect(html).not.toContain("Progreso de la ruta");
-    expect(html).toContain("Otra unidad");
-    expect(html).toContain("Contenido de la unidad");
-    expect(html.indexOf("Ver ruta completa")).toBeLessThan(html.indexOf("</header>"));
-    expect(html.slice(html.indexOf("<footer"))).not.toContain("Ver ruta completa");
+    expect(html).not.toContain("Otra unidad");
+    expect(html).not.toContain('role="tablist"');
+    expect(html.slice(html.indexOf("<footer"))).toContain("Abrir ruta");
   });
   it("formats UTC reasons for people and retains the exact instant", () => {
     const instant = "2026-10-14T05:00:14.480Z";

@@ -1,0 +1,83 @@
+[WebServer] (node:33108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:19396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [mobile] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (2.5s)
+  ok 2 [mobile] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (3.7s)
+(node:24180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 [compact] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (1.9s)
+  x  4 [compact] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (1.6m)
+(node:33052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 [desktop] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (8.1s)
+  x  6 [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (1.5m)
+
+
+  1) [compact] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.click: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Comenzar actividad', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\practice-library.spec.ts:74:79)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-compact\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-compact\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-compact\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-compact\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.click: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Comenzar actividad', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\practice-library.spec.ts:74:79)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\search\practice-library-F05-consu-7c22b-guided-destination-saves-it-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [compact] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+    [desktop] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it 
+  4 passed (3.5m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: tsx test/helpers/learning-discovery-server.ts --grep "search keyboard|consultation and free practice" --output ../../work/f07/search

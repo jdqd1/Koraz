@@ -1,0 +1,121 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-images.test.ts (10 tests | 5 failed) 11073ms
+     × projects target identities without geometric solutions or alternative answers 528ms
+     × issues only pinned private media with a short expiry and strict request binding 109ms
+     × denies foreign, expired, revoked and completed media before signing 84ms
+     × persists an idempotent accessible transition, resume, modality and original spatial requirement 125ms
+     × rejects stale transition and alternative after revocation without effects 142ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > projects target identities without geometric solutions or alternative answers
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:48
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode, response.body).toBe(200);return V2Http…
+       |                                                ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:24:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > issues only pinned private media with a short expiry and strict request binding
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:48
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode, response.body).toBe(200);return V2Http…
+       |                                                ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:40:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > denies foreign, expired, revoked and completed media before signing
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:48
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode, response.body).toBe(200);return V2Http…
+       |                                                ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:52:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > persists an idempotent accessible transition, resume, modality and original spatial requirement
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:48
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode, response.body).toBe(200);return V2Http…
+       |                                                ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:62:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > rejects stale transition and alternative after revocation without effects
+AssertionError: {"error":"conflict"}: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:48
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode, response.body).toBe(200);return V2Http…
+       |                                                ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:86:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 5 passed (10)
+   Start at  16:25:45
+   Duration  17.73s (transform 3.28s, setup 0ms, import 5.63s, tests 11.07s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-images.test.ts "--hookTimeout=120000" "--testTimeout=30000"

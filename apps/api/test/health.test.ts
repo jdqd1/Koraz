@@ -55,7 +55,7 @@ describe("GET /health", () => {
     const denied = await app.inject({ method: "GET", url: "/v1/auth/me" });
 
     expect(allowed.statusCode).toBe(200);
-    expect(allowed.headers["cache-control"]).toBe("no-store");
+    expect(allowed.headers["cache-control"]).toBe("private, no-store");
     expect(allowed.json()).toEqual({
       features: { guidedLearning: false, guidedLearningMap: false },
       roles: [],

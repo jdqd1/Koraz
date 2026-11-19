@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-images.test.ts (10 tests | 1 failed) 22399ms
+     × resolves an active study image through the same authorized version and refuses foreign access 202ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-images.test.ts > T030 authorized active images and accessible detours > resolves an active study image through the same authorized version and refuses foreign access
+AssertionError: expected 409 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 409
+
+ ❯ launch test/guided-v2-images.test.ts:21:33
+     19|     const body={clientAttemptId:v2Id(serial++),enrollmentId:v2Id(8),ta…
+     20|     const requestKey=v2Id(serial++),response=await post("attempts",bod…
+     21|     expect(response.statusCode).toBe(200);return V2HttpContracts.attem…
+       |                                 ^
+     22|   }
+     23|   it("projects target identities without geometric solutions or altern…
+ ❯ test/guided-v2-images.test.ts:30:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 59 passed (60)
+   Start at  16:22:39
+   Duration  145.54s (transform 15.08s, setup 0ms, import 70.91s, tests 70.96s, environment 1ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/learning-resource-reader-postgres.test.ts test/guided-v2-images.test.ts test/guided-v2-routes.test.ts test/guided-learning-routes.test.ts "--hookTimeout=120000" "--testTimeout=30000"

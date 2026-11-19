@@ -53,6 +53,7 @@ beforeAll(async () => {
     "0009_learning_content_identity.sql",
     "0019_content_search.sql",
     "0020_content_search_function_hardening.sql",
+    "0039_semantic_content_search.sql",
   ]) {
     await pg.exec(
       `begin;\n${await readFile(new URL(`../../../database/migrations/${file}`, import.meta.url), "utf8")}\ncommit;`,
@@ -81,6 +82,7 @@ beforeAll(async () => {
             type: "paragraph",
             content: [{
               type: "text",
+              marks: [{ type: "bold", attrs: { internalId: "reservedmetadata" } }],
               text: "El triángulo carotídeo contiene un paquete neurovascular profundo.",
             }],
           }],
@@ -128,6 +130,14 @@ afterAll(async () => {
 });
 
 describe("PostgreSQL published-content search", () => {
+  it("excludes editor tokens from snippets and the index", async () => {
+    for (const query of ["paragraph", "bold", "reservedmetadata"]) {
+      expect((await searchPublishedContent(database, { query })).guides).toEqual([]);
+    }
+    const result = await searchPublishedContent(database, { query: "triangulo carotideo" });
+    expect(result.guides[0]?.excerpt).toContain("triángulo carotídeo");
+    expect(result.guides[0]?.excerpt).not.toMatch(/paragraph|bold|reservedmetadata|doc text/);
+  });
   it("matches prefixes and preserves accented source excerpts", async () => {
     const response = await searchPublishedContent(database, { query: "triang carot" });
 

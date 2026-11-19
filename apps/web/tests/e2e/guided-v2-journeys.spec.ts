@@ -28,9 +28,8 @@ async function launch(page:Page,key?:string){
   // SSR exposes the button before React attaches its event handler.
   await interactive(page);
   if(key){const current=await state(page);const branchIndex=current.maintenance.activities.findIndex((activity:{key:string})=>activity.key===key);expect(branchIndex).toBeGreaterThanOrEqual(0);
-    const branches=page.locator('details[aria-label="Otras ramas disponibles"]');
-    await branches.locator(':scope > summary').click();
-    await branches.getByRole("button",{name:"Practicar este objetivo",exact:true}).nth(branchIndex).click();
+    const row = page.locator(`[id="actividad-${key}"]`);
+    await row.getByRole("button", { name: "Abrir actividad", exact: true }).click();
   }else await page.getByRole("button",{name:"Continuar",exact:true}).first().click();
   await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
   await expect(page.getByRole("heading",{name:"Tu sesión de aprendizaje",exact:true})).toBeVisible();
@@ -42,7 +41,7 @@ async function feedback(page:Page|Locator){
 }
 async function clickCentered(locator:Locator){await locator.evaluate(element=>element.scrollIntoView({block:"center",inline:"nearest"}));await locator.click();}
 async function hydrated(locator:Locator){await expect.poll(async()=>locator.evaluate(element=>Object.keys(element).some(key=>key.startsWith("__reactProps") && typeof (element as unknown as Record<string,{onClick?:unknown}>)[key]?.onClick==="function"))).toBe(true);}
-async function finish(page:Page|Locator){const completed=page.getByRole("heading",{name:"Sesión completada",exact:true});if(!await completed.isVisible())await page.getByRole("button",{name:"Finalizar sesión",exact:true}).click();await expect(completed).toBeVisible();}
+async function finish(page:Page|Locator){const completed=page.getByRole("heading",{name:"Sesión completada",exact:true}),close=page.getByRole("button",{name:"Finalizar sesión",exact:true}).and(page.locator("button:enabled"));await expect(completed.or(close).first()).toBeVisible();if(!await completed.isVisible())await close.click();await expect(completed).toBeVisible();}
 async function answer(page:Page|Locator,kind:string,wrong=false){
   if(kind==="study"){await page.getByRole("button",{name:"Guardar lectura"}).click();return;}
   if(kind==="single_choice"){await page.getByRole("radio",{name:wrong?"Respuesta B":"Respuesta A",exact:true}).check();await page.getByRole("button",{name:"Comprobar respuesta",exact:true}).click();}
@@ -62,28 +61,42 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
   const press=async(l:Locator)=>{await l.focus();await l.press("Enter");};
   const type=async(l:Locator,value:string)=>{await l.focus();await l.pressSequentially(value);};
   await type(page.getByLabel("Título",{exact:true}),`Creación UI T035 ${info.project.name}`);
-  await expect(page.getByLabel("Tema del catálogo").locator("option")).toHaveCount(2);
-  await page.getByLabel("Tema del catálogo").focus();await page.getByLabel("Tema del catálogo").press("End");await page.getByLabel("Tema del catálogo").press("Tab");
-  await expect(page.getByLabel("Tema del catálogo")).not.toHaveValue("");
+  const topic = page.getByLabel("Tema del catálogo", { exact: true });
+  await topic.selectOption({ label: "Tema T035" });
   await type(page.getByLabel("Descripción",{exact:true}),"Borrador creado desde cero con fuentes sintéticas.");
   await press(page.getByRole("button",{name:"Añadir fuente",exact:true}));
-  await expect(page.getByLabel("Guía y revisión").locator("option")).toHaveCount(2);
-  await page.getByLabel("Guía y revisión").focus();await page.getByLabel("Guía y revisión").press("End");await page.getByLabel("Guía y revisión").press("Tab");
-  await expect(page.getByLabel("Guía y revisión")).not.toHaveValue("");
-  await type(page.getByLabel("Cita bibliográfica"),"Fuente sintética T035 (2026)");
-  await type(page.getByLabel("Sección o encabezado"),"Fixture");await type(page.getByLabel("Fragmento de la fuente"),"Contenido sintético para comprobar el software.");
-  await press(page.getByRole("tab",{name:"Objetivos",exact:true}));await type(page.getByLabel("Nombre de nueva unidad"),"Unidad desde cero");await press(page.getByRole("button",{name:"Añadir unidad",exact:true}));await press(page.getByRole("button",{name:"Añadir objetivo",exact:true}));await type(page.getByLabel("Objetivo de aprendizaje"),"Aplicar una relación sintética");
+  const guide = page.getByLabel("Guía del catálogo", { exact: true });
+  await guide.selectOption({ label: "Guía T035 · versión 1" });
+  await press(page.getByRole("button", { name: "Elegir sección de la guía", exact: true }));
+  const sections = page.getByRole("dialog", { name: "Secciones de la guía", exact: true });
+  await press(sections.getByRole("button", { name: "Fixture", exact: true }));
+  await expect(sections.getByLabel("Vista previa de la sección")).toHaveValue("Contenido sintético para comprobar el software.");
+  await press(sections.getByRole("button", { name: "Usar esta sección", exact: true }));
+  await press(page.getByRole("tab", { name: "Objetivos", exact: true }));
+  await type(page.getByLabel("Nombre de nueva unidad", { exact: true }), "Unidad desde cero");
+  await press(page.getByRole("button", { name: "Añadir unidad", exact: true }));
+  await press(page.getByRole("button", { name: "Añadir objetivo", exact: true }));
+  await type(page.getByRole("textbox", { name: "Objetivo de aprendizaje", exact: true }), "Aplicar una relación sintética");
   await page.getByRole("group",{name:"Fuentes del objetivo"}).getByRole("checkbox").focus();await page.keyboard.press("Space");
   await press(page.getByRole("tab",{name:"Recorrido",exact:true}));await press(page.getByRole("button",{name:"Añadir actividad",exact:true}));
-  await type(page.getByLabel("Consigna",{exact:true}),"Lee el ejemplo sintético.");await type(page.getByLabel("Contenido de estudio"),"Contenido sintético para comprobar el software.");
-  await expect(page.getByRole("group",{name:"Fuentes de la actividad",exact:true}).getByRole("checkbox")).toBeChecked();
-  await press(page.getByText("Respuesta y explicación",{exact:true}));await type(page.getByLabel("Explicación de la respuesta"),"La lectura está registrada; el dominio se comprobará con práctica.");
-  await expect(page.getByRole("group",{name:"Fuentes de la explicación",exact:true}).getByRole("checkbox")).toBeChecked();
+  await press(page.getByRole("button", { name: "Estudio", exact: true }));
+  await press(page.getByRole("button", { name: "Crear actividad", exact: true }));
+  await type(page.getByLabel("Consigna", { exact: true }), "Lee el ejemplo sintético.");
+  await type(page.getByRole("textbox", { name: "Contenido de estudio", exact: true }), "Contenido sintético para comprobar el software.");
+  await type(page.getByRole("textbox", { name: "Explicación de la respuesta", exact: true }), "La lectura está registrada; el dominio se comprobará con práctica.");
   const saved=page.waitForResponse(r=>r.request().method()==="POST" && r.url().endsWith("/api/v2/editor/learning-paths"));
   await press(page.getByRole("button",{name:"Guardar borrador",exact:true}));
   const response=await saved;expect(response.status(),await response.text()).toBe(200);
   const body=await response.json();expect(body.status).toBe("draft");
   const persisted=await server(page,`/v2/editor/learning-paths/${body.pathId}`);expect(persisted.route.definition.objectives).toHaveLength(1);expect(persisted.route.definition.activities).toHaveLength(1);
+  const { sources, activities } = persisted.route.definition;
+  expect(sources).toHaveLength(1);
+  expect(sources[0]).toMatchObject({
+    locator: { heading: "Fixture" },
+    excerpt: "Contenido sintético para comprobar el software.",
+  });
+  expect(activities[0].sourceKeys).toEqual([sources[0].key]);
+  expect(activities[0].feedback.sourceKeys).toEqual([sources[0].key]);
   await expect(page).toHaveURL(new RegExp(`/panel/rutas/${body.pathId}`));await page.reload();await expect(page.getByRole("heading",{name:`Creación UI T035 ${info.project.name}`,exact:true})).toBeVisible();
 });
 
@@ -118,7 +131,9 @@ test("E02 editorial preview has no learner effects, then publishes with current 
   await preview.getByRole("button",{name:"Cerrar vista previa",exact:true}).first().click();
   expect(await server(page,"/__test/counts")).toEqual(before);expect(learnerRequests).toEqual([]);
   await page.getByRole("button",{name:"Enviar a revisión",exact:true}).click();await expect(page.getByRole("button",{name:"Aprobar revisión",exact:true})).toBeVisible();await page.getByRole("button",{name:"Aprobar revisión",exact:true}).click();await expect(page.getByRole("button",{name:"Publicar ruta",exact:true})).toBeVisible();await page.getByRole("button",{name:"Publicar ruta",exact:true}).click();await page.getByRole("button",{name:"Confirmar publicación",exact:true}).click();
-  await expect(page.getByText("Publicada",{exact:true})).toBeVisible();const published=await server(page,`/v2/guided-learning/paths/${f.slug}`);expect(published.path.pathVersionId).toBe(f.versionId);
+  await expect(page.getByRole("button", { name: "Crear nueva versión", exact: true })).toBeEnabled();
+  const published = await server(page, `/v2/guided-learning/paths/${f.slug}`);
+  expect(published.path.pathVersionId).toBe(f.versionId);
 });
 
 test("E03 beginner help and CORE error are confirmed by the server",async({page},info)=>{
@@ -127,7 +142,10 @@ test("E03 beginner help and CORE error are confirmed by the server",async({page}
   const attemptId=await launch(page);await expect(page.getByText("Explicación sintética confirmada.",{exact:true})).toHaveCount(0);
   await page.getByRole("button",{name:"Necesito ayuda",exact:true}).click();await expect(page.getByRole("heading",{name:"Pista",exact:true})).toBeVisible();await answer(page,"single_choice",true);await finish(page);
   expect((await server(page,`/__test/responses/${attemptId}`)).rows).toEqual([{activity_key:"choice-1",assisted:true}]);
-  const confirmed=await state(page);expect(confirmed.objectives[0].criticalErrorOpen).toBe(true);expect(confirmed.nextAction.kind).toBe("remediate");await page.goto(route);await expect(page.locator('details[aria-label="Refuerzo dirigido"]').getByText("Confusión CORE sintética",{exact:true})).toBeVisible();
+  const confirmed=await state(page);expect(confirmed.objectives[0].criticalErrorOpen).toBe(true);expect(confirmed.nextAction.kind).toBe("remediate");await page.goto(route);
+  await page.getByRole("heading", { name: "Repaso y comprobaciones", exact: true }).click();
+  const reinforcement = page.getByRole("group", { name: "Refuerzo dirigido", exact: true });
+  await expect(reinforcement.getByText("Confusión CORE sintética", { exact: true })).toBeVisible();
 });
 
 test("E04 all eight kinds persist through the learner UI on desktop and mobile",async({page},info)=>{
@@ -139,7 +157,7 @@ test("E04 all eight kinds persist through the learner UI on desktop and mobile",
     const rows=(await server(page,`/__test/responses/${attemptId}`)).rows;expect(rows).toHaveLength(kind==="case"?2:1);
     const width=await page.evaluate(()=>({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));expect(width.scroll).toBeLessThanOrEqual(width.client+1);
   }
-  const large=await fixture(page,"large");expect(large.objectives).toBe(200);await page.goto("/aprendizaje/rutas/t035-large");await expect(page.getByText("Aplicar el ejemplo 200",{exact:true})).toBeVisible();
+  const large=await fixture(page,"large");expect(large.objectives).toBe(200);await page.goto("/aprendizaje/rutas/t035-large");await expect(page.getByRole("region",{name:"Objetivo: Aplicar el ejemplo 200",exact:true})).toBeVisible();
 });
 
 test("E05 disconnect before/after commit, reload and two tabs preserve one answer",async({page,context},info)=>{
@@ -175,7 +193,7 @@ test("E06 home, real map, route, session and review keep the pinned server state
   await page.request.post(api+"/__test/clock",{data:{days:1}});
   await page.goto("/aprendizaje/repaso?motor=guided-v2&ruta=t035-small");await expect(page.getByRole("heading",{name:"Repaso y práctica",exact:true})).toBeVisible();
   const current=await state(page);expect(current.pathVersionId).toBe(confirmed.pathVersionId);expect(current.objectives[0].reviewDue).toBe(true);
-  await expect(page.getByText(`${current.completedActivities} actividades completadas de ${current.plannedRequiredActivities}`,{exact:true})).toBeVisible();
+  await expect(page.getByText(`${current.completedActivities} de ${current.plannedRequiredActivities} actividades obligatorias completadas`, { exact: true })).toBeVisible();
   await page.getByRole("group",{name:"Grupo de repaso",exact:true}).getByRole("button",{name:"Repasar",exact:true}).first().click();await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);
   const attemptId=page.url().split("/sesiones/")[1]!.split("?")[0]!;
   const manifest=(await server(page,`/v2/guided-learning/attempts/${attemptId}`)).attempt;expect(manifest.purpose).toBe("review");
@@ -194,9 +212,9 @@ test("E07 corrected and published route completes diagnosis, final and delayed r
   };
   await page.goto(href);await interactive(page);await page.getByRole("button",{name:"Comenzar",exact:true}).click();
   await expect(page.getByRole("button",{name:"Continuar",exact:true}).first()).toBeVisible();
-  const diagnostic=page.locator('details[aria-label="Diagnóstico inicial"]');
+  const diagnostic=page.locator('details[aria-label="Diagnóstico inicial"]:visible');
   if(!await diagnostic.evaluate(element=>element.hasAttribute("open")))await diagnostic.locator(':scope > summary').click();
-  await page.getByRole("button",{name:"Comenzar diagnóstico",exact:true}).click();
+  await diagnostic.getByRole("button",{name:"Comenzar diagnóstico",exact:true}).click();
   const sessions:{attemptId:string;purpose:string;status:string;acceptedKeys:string[]}[]=[];
   async function consume(){
     await expect(page).toHaveURL(/\/aprendizaje\/sesiones\//);

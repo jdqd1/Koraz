@@ -267,6 +267,15 @@ describe("T021 actual learner HTTP and persisted services", () => {
     expect(response.body).not.toMatch(/PRIVATE|final-a|final-b|seven|thirty|prompt|candidateActivityKeys|payload/);
     const catalog = await get("paths?limit=1"); expect(catalog.statusCode).toBe(200);
     expect(V2CatalogResponseSchema.parse(catalog.json()).items[0]!.engineVersion).toBe("guided-v2");
+    expect(catalog.json()).not.toHaveProperty("states");
+    const withState = await get("paths?limit=1&includeState=true");
+    expect(withState.statusCode).toBe(200);
+    const page = V2CatalogResponseSchema.parse(withState.json());
+    const direct = V2HttpContracts.enrollmentState.response.parse((await get(`enrollments/${v2Id(8)}/state`)).json());
+    expect(page.items).toEqual(catalog.json().items);
+    expect(page.states).toEqual([direct.state]);
+    expect(withState.headers["cache-control"]).toBe("private, no-store");
+    expect(withState.body).not.toContain(v2Id(9));
     const home = await get("home"); expect(home.statusCode).toBe(200); V2HomeSnapshotSchema.parse(home.json());
   });
   it("enrollment is pinned, idempotent and has a request receipt", async () => {
@@ -596,7 +605,7 @@ describe("T021 application registration and same-origin transport", () => {
     const malformed = await route.GET!(new Request(url), { params: Promise.resolve({ path: ["attempts", "invalid"] }) });
     expect(malformed.status).toBe(404); expect(calls).toHaveLength(1);
     const card = { id: v2Id(4), slug: "http-route", title: "Fixture", summary: "", coverKey: "heart", unitCount: 1 };
-    const transport = await load("../../web/src/lib/server/guided-learning-api.ts", { "server-only": {}, "@cediah/contracts": contracts,
+    const transport = await load("../../web/src/lib/server/guided-learning-api.ts", { "server-only": {}, "@cediah/contracts": contracts, react: { cache: (fn: unknown) => fn },
       "./api-session": { getApiRequestCookie: async () => ({ status: "authenticated", cookie: "session=fixture" }) },
       "./content-api": { requestContentApi: async ({ path }: { path: string }) => ({ status: 200, body: { items: [path.startsWith("/v1/")
         ? { ...card, enrollment: null, estimatedMinutes: 5, topic: { id: v2Id(3), title: "Tema" } }

@@ -136,7 +136,7 @@ describe("guided v2 contracts", () => {
     definition.units[0]!.activityKeys = ["study", "case", "child", "child-two", "practice", "reserved"];
     const units = toV2PublicUnits(definition);
     expect(units[0]!.activities!.map(item => item.key)).toEqual(["study", "case", "practice"]);
-    expect(units[0]!.resources).toEqual([{ key: "source", title: "Guía pública", citation: "Referencia", locator: { heading: "Sección", sectionPath: [], page: 2 }, url: null }]);
+    expect(units[0]!.resources).toEqual([{ key: "source", kind: "guide", title: "Guía pública", citation: "Referencia", locator: { heading: "Sección", sectionPath: [], page: 2 }, url: null }]);
     expect(JSON.stringify(units)).not.toMatch(/reserved|PRIVATE|prompt|payload|correctKey|documentSha256|excerpt|child/);
     expect(V2PublicPathSchema.safeParse({ ...publicPath, units: [{ ...units[0], activities: [{ ...units[0]!.activities![0], payload: { body: secret } }] }] }).success).toBe(false);
   });

@@ -1375,6 +1375,7 @@ function VideoQuizModal({
           </div>
           <button aria-label="Cerrar cuestionario" type="button" onClick={onClose}><X aria-hidden="true" size={19} /></button>
         </header>
+        <p>Práctica libre: el resultado dura hasta cerrar esta práctica. No suma XP ni programa repasos de tu ruta.</p>
 
         {questions.some((entry) => hasDuplicateOptionText(entry.options)) ? (
           <div className="video-quiz-question"><p role="status">Este cuestionario está en revisión editorial porque hay opciones repetidas.</p>
@@ -1514,6 +1515,7 @@ function VideoFlashcardModal({
           </div>
           <button aria-label="Cerrar flashcards" type="button" onClick={onClose}><X aria-hidden="true" size={19} /></button>
         </header>
+        <p>Práctica libre: las respuestas duran hasta cerrar esta práctica. No suma XP ni programa repasos de tu ruta.</p>
 
         {!finished ? (
           <>
@@ -1573,10 +1575,10 @@ function QuizBody({
 }) {
   const [practicing, setPracticing] = useState(false);
   return <section className="published-question-answer">
-    <h3>Práctica libre</h3><p>El resultado solo se guarda durante esta práctica. Las actividades de ruta llevan su propio progreso y XP.</p>
+    <h3>Práctica libre</h3><p>El resultado dura hasta cerrar esta práctica. No suma XP ni programa repasos. Para guardar el avance de una ruta, abre su actividad guiada.</p>
     <button className="learning-primary-button" disabled={!item.content.questions.length} type="button" onClick={() => setPracticing(true)}>Practicar cuestionario</button>
     <details><summary>Consultar preguntas y respuestas</summary><QuestionAnswerCards questions={item.content.questions} /></details>
-    {practicing ? <VideoQuizModal questions={item.content.questions} title={item.title} returnLabel="Volver al cuestionario" onClose={() => setPracticing(false)} /> : null}
+    {practicing ? createPortal(<VideoQuizModal questions={item.content.questions} title={item.title} returnLabel="Volver al cuestionario" onClose={() => setPracticing(false)} />, document.body) : null}
   </section>;
 }
 
@@ -1681,8 +1683,9 @@ function FlashcardsBody({
       <div className="published-tool-heading">
         <CardsThree size={34} />
         <div>
-          <h3>Repaso activo</h3>
+          <h3>Práctica libre de tarjetas</h3>
           <p>Tarjeta {index + 1} de {item.content.cards.length}</p>
+          <p>Esta consulta no guarda respuestas, suma XP ni programa repasos. El seguimiento se realiza desde tu ruta.</p>
         </div>
       </div>
       <button

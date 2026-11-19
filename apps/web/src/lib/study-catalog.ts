@@ -74,7 +74,8 @@ export function findStudyLinkedGuide(
   let latest: StudyCatalogItem | undefined;
   for (const item of items) {
     if (item.kind !== "guide" || item.linkedVideoId !== videoId) continue;
-    if (!latest || new Date(item.updatedAt).getTime() > new Date(latest.updatedAt).getTime()) {
+    if (!latest || new Date(item.updatedAt).getTime() > new Date(latest.updatedAt).getTime()
+      || (item.updatedAt === latest.updatedAt && item.id < latest.id)) {
       latest = item;
     }
   }
@@ -101,13 +102,20 @@ export function getStudySummaryCatalog(
   if (kind === "video") return items.filter((item) => item.kind === "video");
 
   if (kind === "guide") {
-    const guides = items.filter((item) => item.kind === "guide");
+    const guides = items.filter((item) => item.kind === "guide"
+      && (!item.linkedVideoId || findStudyLinkedGuide(items, item.linkedVideoId)?.id === item.id));
     const linkedVideoIds = new Set(
       guides.map((guide) => guide.linkedVideoId).filter((id): id is string => Boolean(id)),
     );
     const resources = new Map(guides.map((guide) => [guide.id, guide]));
     for (const item of items) {
-      if (item.kind !== "video" || linkedVideoIds.has(item.id) || !item.hasEmbeddedGuide) continue;
+      if (item.kind !== "video") continue;
+      if (linkedVideoIds.has(item.id)) {
+        const guide = findStudyLinkedGuide(items, item.id)!;
+        mergeResource(resources, { ...guide, subjectIds: [...new Set([...guide.subjectIds, ...item.subjectIds])] });
+        continue;
+      }
+      if (!item.hasEmbeddedGuide) continue;
       resources.set(item.id, { ...item, kind: "guide" });
     }
     return [...resources.values()];

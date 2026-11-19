@@ -1,0 +1,32 @@
+
+ RUN  v4.1.11 D:/Jose (Datos)/Medicina/CEDIAH/Web/apps/api
+
+ ❯ test/guided-v2-routes.test.ts (34 tests | 1 failed) 46865ms
+     × executes the new BFF and existing forwarder with real origin checks and cookie/header propagation 187ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/guided-v2-routes.test.ts > T021 application registration and same-origin transport > executes the new BFF and existing forwarder with real origin checks and cookie/header propagation
+Error: Unexpected BFF dependency react
+ ❯ require test/guided-v2-routes.test.ts:573:41
+    571|       runInNewContext(ts.transpileModule(source, { compilerOptions: { …
+    572|         { module, exports: module.exports, URL, URLSearchParams, Respo…
+    573|           if (!(name in imports)) throw new Error(`Unexpected BFF depe…
+       |                                         ^
+    574|         } });
+    575|       return module.exports;
+ ❯ evalmachine.<anonymous>:24:17
+ ❯ load test/guided-v2-routes.test.ts:571:7
+ ❯ test/guided-v2-routes.test.ts:599:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 80 passed (81)
+   Start at  18:06:31
+   Duration  58.05s (transform 2.41s, setup 0ms, import 9.52s, tests 47.36s, environment 0ms)
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/guided-v2-routes.test.ts test/content.test.ts "--hookTimeout=120000"

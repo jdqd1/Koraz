@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { X, ArrowRight, CaretRight, Check, FileText } from "@phosphor-icons/react";
+import { X, ArrowRight } from "@phosphor-icons/react";
 import {
   LearningEnrollmentResponseSchema,
   learningOptionUnderReview,
@@ -9,15 +9,10 @@ import {
 } from "@cediah/contracts";
 import { useMapWorkspace } from "./map-provider";
 import { buildMapHref } from "./map-route";
+import { learningRouteHref } from "@/lib/learning-navigation";
 import { useLearningActivityLauncher } from "../use-learning-activity-launcher";
 import { MedicalMapIcon } from "./medical-map-icon";
 import styles from "./learning-map.module.css";
-const formats = {
-  video: "Video",
-  guide: "Guía",
-  quiz: "Cuestionario",
-  flashcards: "Flashcards",
-};
 export function LessonDetailPanel({
   lesson,
   onClose,
@@ -26,8 +21,7 @@ export function LessonDetailPanel({
   onClose: () => void;
 }) {
   const { client, level } = useMapWorkspace();
-  const [tab, setTab] = useState("activities"),
-    [busy, setBusy] = useState(false),
+  const [busy, setBusy] = useState(false),
     [message, setMessage] = useState("");
   const lock = useRef(false),
     enrollmentKey = useRef<string | null>(null),
@@ -89,7 +83,7 @@ export function LessonDetailPanel({
       await launcher.launch(
         option.id,
         option.existingAttemptId,
-        buildMapHref(level.route),
+        learningRouteHref(lesson.pathSlug, { unit: lesson.unitStableKey, activity: step?.id, origin: buildMapHref(level.route, true) }),
       );
     } catch (e) {
       setMessage(
@@ -106,172 +100,14 @@ export function LessonDetailPanel({
   const recommendedOption = recommended?.options.find(
     (o) => o.id === level?.nextActivity?.optionId && !learningOptionUnderReview(o.id),
   );
-  const visibleActivities = lesson.activities;
-  return (
-    <aside className={styles.panel} aria-label={`Lección ${lesson.title}`}>
-      <header className={styles.panelHeader}>
-        <span className={styles.sheetHandle} aria-hidden="true" />
-        <div className={styles.panelTitle}>
-          <div className={styles.panelIdentity}>
-            <span className={styles.iconWell}>
-              <MedicalMapIcon iconKey="folder" />
-            </span>
-            <div className={styles.panelIdentityText}>
-              <h2>{lesson.title}</h2>
-              <span className={styles.percentage}>
-                {lesson.progress.percentage ?? "—"} % ·{" "}
-                {lesson.progress.completedEssentialSteps ?? "—"}/
-                {lesson.progress.totalEssentialSteps ?? "—"} esenciales
-              </span>
-              <span className={styles.progressTrack} aria-hidden="true">
-                <span data-status={lesson.progress.status} style={{ width: `${lesson.progress.percentage ?? 0}%` }} />
-              </span>
-            </div>
-          </div>
-          {lesson.description ? <p>{lesson.description}</p> : null}
-        </div>
-        <button
-          className={styles.iconButton}
-          aria-label="Cerrar lección"
-          onClick={onClose}
-        >
-          <X size={18} />
-        </button>
-      </header>
-      <div
-        className={styles.tabs}
-        role="tablist"
-        aria-label="Detalle de lección"
-      >
-        <button
-          role="tab"
-          aria-selected={tab === "activities"}
-          onClick={() => setTab("activities")}
-        >
-          Actividades
-        </button>
-        <button
-          role="tab"
-          aria-selected={tab === "resources"}
-          onClick={() => setTab("resources")}
-        >
-          Recursos
-        </button>
-      </div>
-      <div className={styles.panelScroll} role="tabpanel">
-        {tab === "activities" ? (
-          <ol className={styles.roadmap}>
-            {visibleActivities.map((a, i) => (
-              <li key={a.id}>
-                <span className={styles.stepNumber} data-status={a.state}>
-                  {a.state === "completed" ? <Check size={14} weight="bold" /> : i + 1}
-                </span>
-                <div className={styles.stepBody}>
-                  <strong>{a.title}</strong>
-                  <small className={styles.stepStatus} data-status={a.state}>
-                    {a.state === "completed"
-                      ? "Completada"
-                      : a.state === "skipped"
-                        ? "Omitida; pendiente de completar"
-                        : a.state === "in_progress"
-                          ? "En progreso"
-                          : a.isEssential
-                            ? "Esencial"
-                            : "Opcional"}
-                  </small>
-                  {a.options.map((o) => learningOptionUnderReview(o.id) ? <small key={o.id}>Material en revisión editorial.</small> : (
-                    <button
-                      key={o.id}
-                      disabled={busy || launcher.busy}
-                      className={`${styles.button} ${styles.activityOption}`}
-                      onClick={() => void start(a.id, o.id)}
-                    >
-                      <FileText size={17} aria-hidden="true" />
-                      <span>{o.label} · {formats[o.projection]}
-                        {o.estimatedMinutes !== null ? ` · ${o.estimatedMinutes} min` : ""}
-                      </span>
-                      <CaretRight size={15} aria-hidden="true" />
-                    </button>
-                  ))}
-                  {!a.options.length ? (
-                    <small>
-                      Material no disponible. Actualiza para comprobar sus
-                      alternativas.
-                    </small>
-                  ) : null}
-                </div>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <>
-            <p>
-              Formatos disponibles para esta lección. Cada alternativa conserva
-              el mismo paso académico.
-            </p>
-            {visibleActivities.flatMap((a) =>
-              a.options.filter((o) => !learningOptionUnderReview(o.id)).map((o) => (
-                <div className={styles.suggestion} key={o.id}>
-                  <div>
-                    <strong>{o.label}</strong>
-                    <small>
-                      {formats[o.projection]} · {a.title}
-                    </small>
-                  </div>
-                  <button
-                    className={styles.iconButton}
-                    aria-label={`Abrir ${o.label}`}
-                    disabled={busy || launcher.busy}
-                    onClick={() => void start(a.id, o.id)}
-                  >
-                    <ArrowRight size={18} />
-                  </button>
-                </div>
-              )),
-            )}
-            {!visibleActivities.some((a) => a.options.some((o) => !learningOptionUnderReview(o.id))) ? (
-              <p>No hay recursos disponibles.</p>
-            ) : null}
-          </>
-        )}
-      </div>
-      <footer className={styles.panelFooter}>
-        {recommended && recommendedOption ? (
-          <>
-            <p>{level?.nextActivity?.reason}</p>
-            <strong>{recommended.title}</strong>
-            <button
-              className={styles.primary}
-              disabled={busy || launcher.busy}
-              onClick={() => void start(recommended.id, recommendedOption.id)}
-            >
-              {busy || launcher.busy
-                ? "Preparando…"
-                : lesson.enrollmentState === "paused" ||
-                    lesson.enrollmentState === "archived"
-                  ? "Reanudar ruta y comenzar"
-                  : lesson.enrollmentState === "none"
-                    ? "Comenzar lección"
-                    : recommendedOption.existingAttemptId
-                      ? "Continuar actividad"
-                      : "Comenzar actividad"}
-              <ArrowRight size={18} />
-            </button>
-          </>
-        ) : (
-          <p>
-            {lesson.progress.status === "completed"
-              ? "Lección completada. Puedes volver al mapa o elegir otra actividad."
-              : "No hay una actividad disponible para recomendar."}
-          </p>
-        )}
-        <p role="status">{message || launcher.message}</p>
-        <Link
-          href={`/aprendizaje/rutas/${lesson.pathSlug}?${new URLSearchParams({ leccion: lesson.unitStableKey })}`}
-        >
-          Ver en la ruta
-        </Link>
-      </footer>
-    </aside>
-  );
+  const origin = level ? buildMapHref(level.route, true) : null;
+  return <aside className={styles.panel} aria-label={`Lección ${lesson.title}`}>
+    <header className={styles.panelHeader}><div className={styles.panelTitle}><div className={styles.panelIdentity}><span className={styles.iconWell}><MedicalMapIcon iconKey="folder" /></span><div className={styles.panelIdentityText}><h2>{lesson.title}</h2><span className={styles.percentage}>{lesson.progress.percentage ?? "—"}% · {lesson.progress.completedEssentialSteps ?? "—"}/{lesson.progress.totalEssentialSteps ?? "—"} esenciales</span></div></div></div><button type="button" className={styles.iconButton} aria-label="Cerrar lección" onClick={onClose}><X size={18} aria-hidden /></button></header>
+    <div className={styles.panelScroll}>{lesson.description ? <p>{lesson.description}</p> : null}<p>{lesson.progress.status === "completed" ? "Unidad completada. Puedes consultar tus actividades en la ruta." : "Abre la ruta para ver sus objetivos, actividades y recursos."}</p></div>
+    <footer className={styles.panelFooter}>
+      <Link className={styles.primary} href={learningRouteHref(lesson.pathSlug, { unit: lesson.unitStableKey, origin })}>Abrir ruta <ArrowRight size={18} aria-hidden /></Link>
+      {recommended && recommendedOption ? <><p>Siguiente actividad de esta unidad: {recommended.title}</p><button type="button" className={styles.button} disabled={busy || launcher.busy} onClick={() => void start(recommended.id, recommendedOption.id)}>{busy || launcher.busy ? "Preparando…" : recommendedOption.existingAttemptId ? "Retomar actividad" : "Comenzar actividad"}<ArrowRight size={18} aria-hidden /></button></> : null}
+      <p role="status">{message || launcher.message}</p>
+    </footer>
+  </aside>;
 }

@@ -1,0 +1,544 @@
+[WebServer] (node:21932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:14296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 16 tests using 1 worker
+
+(node:18984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-learning-availability.spec.ts:100:5 › F07 preserves resource section, attempt and catalog context across temporary failures (9.8s)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '274d8f14-8b75-499f-ac6f-bfe3cd6130bf',
+[WebServer]   requestId: '19f0b754-e8cf-4919-b1da-4e95cca5d163',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 10,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+  ok  2 [desktop] › tests\e2e\guided-learning-availability.spec.ts:155:5 › F07 correlates the retry and preserves the deep link on expired identity (6.2s)
+  ok  3 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:131:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (5.5s)
+  x   4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent (27.0s)
+(node:25108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   5 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (15.2s)
+(node:2304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   6 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (16.9s)
+(node:5684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'bced1068-977c-42e5-95fc-bfb9df452762',
+[WebServer]   requestId: 'fa231389-223f-4a86-b988-7ae5bdfa855b',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'bced1068-977c-42e5-95fc-bfb9df452762',
+[WebServer]   requestId: 'f15e0476-69bb-4d83-88c6-b6b490fdad94',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'a4affdc4-6fcf-4e06-8a7a-2852e0ebd1b2',
+[WebServer]   requestId: 'f22903af-55b4-40f4-9a56-702a49b9eb32',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 7,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'd607b436-1242-4e1e-b192-be950ec4c200',
+[WebServer]   requestId: '22dfec19-adf5-4e7a-b81b-52d75b035813',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'a6b55438-46f9-4b75-a976-acfc0f34ef8a',
+[WebServer]   requestId: '7a3a08f7-3fd6-4a4d-9dbf-f035941a75bb',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 12,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'a4affdc4-6fcf-4e06-8a7a-2852e0ebd1b2',
+[WebServer]   requestId: '28076a3e-7a01-4c8f-adc6-7149297441e6',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 6,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'd607b436-1242-4e1e-b192-be950ec4c200',
+[WebServer]   requestId: '0c910438-fac8-48f5-8dfc-fd2a54d734f5',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4152ffa1-0986-452e-8835-e5c88aba592b',
+[WebServer]   requestId: '0da1e400-ad98-4e87-9730-7d5e6c36d754',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 9,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '44a45247-5109-410c-a284-2f38b60fa9a2',
+[WebServer]   requestId: '53874dc0-20ad-4333-a23f-d01ff23d8421',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 6,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '28a82d5e-8a81-4b2f-bd0e-ca316fef4cb0',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2618,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '30658e25-4440-4ddc-a298-c71dd394a39f',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2507,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '6faf1a0f-6365-46af-872f-81d46b45aa4e',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2512,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '28a82d5e-8a81-4b2f-bd0e-ca316fef4cb0',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2504,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '30658e25-4440-4ddc-a298-c71dd394a39f',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2521,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '6faf1a0f-6365-46af-872f-81d46b45aa4e',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2510,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+  ok  7 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (12.4s)
+  ok  8 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (4.0s)
+(node:16868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 [mobile] › tests\e2e\guided-learning-availability.spec.ts:100:5 › F07 preserves resource section, attempt and catalog context across temporary failures (12.5s)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '1107f3ec-0308-49ef-a7b5-f70ea3d1303d',
+[WebServer]   requestId: '7e99ab99-0848-4aa0-994e-7c4425594588',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 10,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+  ok 10 [mobile] › tests\e2e\guided-learning-availability.spec.ts:155:5 › F07 correlates the retry and preserves the deep link on expired identity (6.1s)
+  ok 11 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:131:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (6.7s)
+  -  12 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent
+  x  13 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (14.7s)
+(node:25876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  14 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (18.4s)
+(node:19332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e2c5d920-5b07-4a22-84f4-4e273800bde7',
+[WebServer]   requestId: '832b2808-2f5d-46d8-8a56-f8344346d409',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e2c5d920-5b07-4a22-84f4-4e273800bde7',
+[WebServer]   requestId: '77c6b648-f92d-4383-860a-6567abedf882',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'ea989df7-7d5c-4f1e-a7e3-513f5b239686',
+[WebServer]   requestId: 'db9b2723-5f39-44df-b475-18ddd689c9de',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 9,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '28a1e6ba-e48f-4ea1-9f01-523181de177f',
+[WebServer]   requestId: 'ed5f58e0-74bd-43fd-a6ed-cd41e4409de9',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '3401821a-45ec-4693-86e1-73618fb9aae4',
+[WebServer]   requestId: '000396fb-c63e-449a-951d-b726a75d610c',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'ea989df7-7d5c-4f1e-a7e3-513f5b239686',
+[WebServer]   requestId: '92bc0d81-96f3-4a87-ac3b-c77584a3d720',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 5,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '28a1e6ba-e48f-4ea1-9f01-523181de177f',
+[WebServer]   requestId: '05dd80ad-903b-4405-bb37-ea680eb40864',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 7,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '806e212f-677c-45cb-acbc-f2f86ec8f972',
+[WebServer]   requestId: '5683066c-15fb-4939-acd0-ae8563fa1d68',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 12,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'c4a51fb8-b002-4051-8f96-7059968401b4',
+[WebServer]   requestId: '6b77d7e1-0bae-47b4-8882-6bab143e9805',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 7,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '8fdb8f07-e660-45d4-b3a4-a1afbb3401b6',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2512,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'b9d3afa2-5693-4868-a780-5ad477ebc47b',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2508,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '29a69c01-a623-4019-83c6-6e15b1cfe5ae',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2506,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '8fdb8f07-e660-45d4-b3a4-a1afbb3401b6',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2502,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'b9d3afa2-5693-4868-a780-5ad477ebc47b',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2519,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '29a69c01-a623-4019-83c6-6e15b1cfe5ae',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2519,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+  x  15 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (12.1s)
+(node:23596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 16 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (3.9s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 12000ms exceeded while waiting on the predicate
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:226:120)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-309df-browser-zoom-at-200-percent-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' })
+    Expected: enabled
+    Timeout: 12000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' }) with timeout 12000ms
+      - waiting for locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' })
+
+
+      28 |   return a;
+      29 | }
+    > 30 | async function keyboard(locator: Locator) { await expect(locator).toBeEnabled(); await locator.focus(); await locator.press("Enter"); }
+         |                                                                   ^
+      31 | async function hydrated(locator: Locator) {
+      32 |   await expect.poll(() => locator.evaluate(element => Object.keys(element).some(k => k.startsWith("__reactProps")
+      33 |     && Object.entries((element as unknown as Record<string, Record<string, unknown>>)[k] ?? {})
+        at keyboard (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:30:67)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:251:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+
+    TimeoutError: locator.focus: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Volver a rutas', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:327:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' })
+    Expected: enabled
+    Timeout: 12000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' }) with timeout 12000ms
+      - waiting for locator('summary').filter({ hasText: 'match-1: actividad sintética' }).locator('..').locator('summary').filter({ hasText: 'Respuesta y explicación' })
+
+
+      28 |   return a;
+      29 | }
+    > 30 | async function keyboard(locator: Locator) { await expect(locator).toBeEnabled(); await locator.focus(); await locator.press("Enter"); }
+         |                                                                   ^
+      31 | async function hydrated(locator: Locator) {
+      32 |   await expect.poll(() => locator.evaluate(element => Object.keys(element).some(k => k.startsWith("__reactProps")
+      33 |     && Object.entries((element as unknown as Record<string, Record<string, unknown>>)[k] ?? {})
+        at keyboard (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:30:67)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:251:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+
+    TimeoutError: locator.focus: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Volver a rutas', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:327:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('+2 XP', { exact: true })
+    Expected: visible
+    Error: strict mode violation: getByText('+2 XP', { exact: true }) resolved to 2 elements:
+        1) <strong>+2 XP</strong> aka getByRole('main', { name: 'Sesión de aprendizaje' }).getByText('+2 XP')
+        2) <strong>…</strong> aka getByText('+2 XP').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" getByText('+2 XP', { exact: true }) with timeout 12000ms
+      - waiting for getByText('+2 XP', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-diagnostic-xp.spec.ts:254:67)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-diagnostic-xp-fi-8f325-fore-commit-in-a-second-tab-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion\guided-v2-diagnostic-xp-fi-8f325-fore-commit-in-a-second-tab-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion\guided-v2-diagnostic-xp-fi-8f325-fore-commit-in-a-second-tab-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion\guided-v2-diagnostic-xp-fi-8f325-fore-commit-in-a-second-tab-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent 
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+    [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+    [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+    [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab 
+  1 skipped
+  9 passed (3.6m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep "preserves resource|correlates the retry|final V1 review|H19 records|V02/V05|V02 tab order|native browser zoom" --output ../../work/f07/browser-regresion

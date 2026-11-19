@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, Check } from "@phosphor-icons/react";
 import { RichTextDocumentSchema, type LearningAttempt } from "@cediah/contracts";
-import { RichTextRenderer } from "@/components/rich-text-renderer";
+import { StructuredGuideContent } from "../structured-guide-content";
 import type { ActivityMutation } from "./types";
 import ui from "./activity-ui.module.css";
 
@@ -40,8 +40,7 @@ export function GuideActivity({ attempt, mutate }: {
 
   return (
     <section className="learning-guide-activity">
-      {section ? <article><span>Sección {sectionIndex + 1} de {attempt.manifest.sections.length}</span><h2>{section.heading}</h2><p>{section.body}</p></article>
-        : document.success ? <article><RichTextRenderer document={document.data} /></article>
+      {section || document.success ? <article><span>Sección {sectionIndex + 1} de {Math.max(1, attempt.manifest.sections.length)}</span><StructuredGuideContent document={document.success ? document.data : null} sections={attempt.manifest.sections} sectionIndex={sectionIndex} selectedIndexes={attempt.manifest.selectedSectionIndexes} /></article>
           : <article role="alert"><h2>Material no disponible</h2><p>Esta revisión no contiene una guía legible. No se registrará como completada; vuelve a la ruta y elige otra actividad.</p></article>}
       {attempt.manifest.sections.length > 1 ? <nav aria-label="Navegar secciones de la guía">
         <button disabled={busy || sectionIndex === 0} onClick={() => void savePosition(sectionIndex - 1)} type="button"><ArrowLeft size={18} />Anterior</button>

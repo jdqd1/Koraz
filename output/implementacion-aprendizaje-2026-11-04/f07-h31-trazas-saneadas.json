@@ -1,0 +1,117 @@
+{
+  "source": "Render Connector; authorized read of Koraz web/API",
+  "date": "2026-11-10",
+  "screenshotTimesAreFileMetadata": true,
+  "captureWriteTimesUtc": {
+    "E34": "2026-11-04T15:03:21Z",
+    "E74": "2026-11-04T20:33:10Z"
+  },
+  "apiNear": [
+    {
+      "e": "E34",
+      "start": "2026-11-04T15:02:00Z",
+      "end": "2026-11-04T15:04:30Z",
+      "count": 81,
+      "hasMore": false,
+      "auth": [
+        {
+          "timestamp": "2026-11-04T15:03:22.447327244Z",
+          "status": 200,
+          "durationMs": 196
+        },
+        {
+          "timestamp": "2026-11-04T15:03:23.699844305Z",
+          "status": 200,
+          "durationMs": 295
+        },
+        {
+          "timestamp": "2026-11-04T15:03:23.89647862Z",
+          "status": 200,
+          "durationMs": 1198
+        },
+        {
+          "timestamp": "2026-11-04T15:03:51.16459647Z",
+          "status": 200,
+          "durationMs": 77
+        }
+      ],
+      "non2xx": {}
+    },
+    {
+      "e": "E74",
+      "start": "2026-11-04T20:32:00Z",
+      "end": "2026-11-04T20:34:30Z",
+      "count": 54,
+      "hasMore": false,
+      "auth": [
+        {
+          "timestamp": "2026-11-04T20:33:42.493824675Z",
+          "status": 200,
+          "durationMs": 74
+        },
+        {
+          "timestamp": "2026-11-04T20:33:54.865033602Z",
+          "status": 200,
+          "durationMs": 65
+        }
+      ],
+      "non2xx": {}
+    }
+  ],
+  "webWindows": [
+    {
+      "e": "E34",
+      "surface": "web",
+      "start": "2026-11-04T14:59:00Z",
+      "end": "2026-11-04T15:08:00Z",
+      "count": 0,
+      "hasMore": false,
+      "auth": [],
+      "non2xx": {},
+      "levels": {}
+    },
+    {
+      "e": "E74",
+      "surface": "web",
+      "start": "2026-11-04T20:29:00Z",
+      "end": "2026-11-04T20:38:00Z",
+      "count": 0,
+      "hasMore": false,
+      "auth": [],
+      "non2xx": {},
+      "levels": {}
+    }
+  ],
+  "apiRequestLogs": {
+    "count": 0,
+    "hasMore": false,
+    "statuses": {}
+  },
+  "deployHistory": {
+    "api": [
+      {
+        "date": "2026-11-07T16:29:52.714569Z",
+        "status": "live",
+        "sha": "6d3a3983c346a4de8f7053f1e6921fd7b98f8ef4"
+      },
+      {
+        "date": "2026-10-30T01:46:14.915103Z",
+        "status": "deactivated",
+        "sha": "85236119f603d04053498356eb66ecf08b5dcc04"
+      }
+    ],
+    "web": [
+      {
+        "date": "2026-11-07T16:26:39.595877Z",
+        "status": "live",
+        "sha": "6d3a3983c346a4de8f7053f1e6921fd7b98f8ef4"
+      },
+      {
+        "date": "2026-10-30T01:42:38.382681Z",
+        "status": "deactivated",
+        "sha": "85236119f603d04053498356eb66ecf08b5dcc04"
+      }
+    ]
+  },
+  "conclusion": "No exact correlation with the failed browser requests. The API completed nearby identity reads with HTTP 200. H31 remains unverified."
+}

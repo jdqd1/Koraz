@@ -1,0 +1,244 @@
+[WebServer] (node:17424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:6068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 8 tests using 1 worker
+
+(node:15072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work (1.3m)
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:86:5 › F06 map summary opens V2 detail and retains context through study and authorized resources (12.4s)
+  x  3 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (1.1m)
+(node:12500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/e9e85d5e-80c0-454a-90e1-a7b4458c22db
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  x  4 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (1.6m)
+(node:32960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work (13.6s)
+(node:6152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:86:5 › F06 map summary opens V2 detail and retains context through study and authorized resources (9.8s)
+  x  7 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (1.1m)
+(node:4676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/e9e85d5e-80c0-454a-90e1-a7b4458c22db
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  x  8 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (1.5m)
+
+
+  1) [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+
+    TimeoutError: locator.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Ver resumen', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-navigation.spec.ts:71:72)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true })
+    Expected: visible
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true }) with timeout 60000ms
+      - waiting for getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-navigation.spec.ts:139:99)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Aplicar el ejemplo 200', { exact: true })
+    Expected: visible
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Aplicar el ejemplo 200', { exact: true }) with timeout 60000ms
+      - waiting for getByText('Aplicar el ejemplo 200', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:141:195)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-navigation.spec.ts:64:32)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-learning-navigation-6240e-ab-without-duplicating-work-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true })
+    Expected: visible
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true }) with timeout 60000ms
+      - waiting for getByRole('button', { name: 'Abrir Lectura y comprobación', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-navigation.spec.ts:139:99)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-learning-navigation-ce052-ut-disabling-virtualization-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Aplicar el ejemplo 200', { exact: true })
+    Expected: visible
+    Timeout: 60000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Aplicar el ejemplo 200', { exact: true }) with timeout 60000ms
+      - waiting for getByText('Aplicar el ejemplo 200', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-journeys.spec.ts:141:195)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-final\guided-v2-journeys-E04-all-bf9c7-er-UI-on-desktop-and-mobile-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+    [desktop] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization 
+    [desktop] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+    [mobile] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+    [mobile] › tests\e2e\guided-learning-navigation.spec.ts:127:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization 
+    [mobile] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile 
+  2 passed (7.9m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-navigation.config.ts --output ../../work/f06/browser-final

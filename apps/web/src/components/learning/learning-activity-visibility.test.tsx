@@ -5,7 +5,7 @@ import { learningVisualPathDetail } from "./learning-visual-fixtures";
 import { LessonDetailPanel } from "./map/lesson-detail-panel";
 import { mapVisualLevel, mapFixtureId } from "./map/map-visual-fixtures";
 
-vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }), useSearchParams: () => new URLSearchParams(), usePathname: () => "/aprendizaje/rutas/fixture" }));
 vi.mock("./map/map-provider", () => ({ useMapWorkspace: () => ({ client: {}, level: null }) }));
 
 describe("essential activity visibility (H03)", () => {
@@ -27,7 +27,7 @@ describe("essential activity visibility (H03)", () => {
     expect(html).toContain("Material no disponible");
   });
 
-  it("keeps the same activity set in the map panel", () => {
+  it("keeps the map as a summary and links to the unit containing the complete activity set", () => {
     const level = mapVisualLevel({ nodeId: mapFixtureId(2), entryId: mapFixtureId(200), unitStableKey: "leccion-0" });
     const lesson = level.selectedLesson!;
     expect(lesson).not.toBeNull();
@@ -36,8 +36,8 @@ describe("essential activity visibility (H03)", () => {
     lesson.activities[1]!.title = "Paso sin material";
     lesson.activities[1]!.options = [];
     const html = renderToString(<LessonDetailPanel lesson={lesson} onClose={vi.fn()} />);
-    expect(html).toContain("Video esencial visible");
-    expect(html).toContain("Paso sin material");
-    expect(html).toContain("Material no disponible");
+    expect(html).toContain("Abrir ruta");
+    expect(html).toContain(`leccion=${lesson.unitStableKey}`);
+    expect(html).not.toContain('role="tablist"');
   });
 });

@@ -2,6 +2,7 @@ import { DashboardScreen } from "@/components/dashboard-screen";
 import { getLastReadGuide, getPublishedContent, getSubjects } from "@/lib/server/content-api";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getLearningHome } from "@/lib/server/guided-learning-api";
+import { getLearningOverview } from "@/lib/server/learning-overview";
 
 export const dynamic = "force-dynamic";
 
@@ -15,11 +16,14 @@ export default async function DashboardPage() {
   const learningPromise = current.status === "authenticated" && current.features.guidedLearning
     ? getLearningHome()
     : Promise.resolve(null);
-  const [recent, lastRead, learning, subjects] = await Promise.all([
+  const overviewPromise = current.status === "authenticated" && current.features.guidedLearning
+    ? getLearningOverview() : Promise.resolve(null);
+  const [recent, lastRead, learning, subjects, overview] = await Promise.all([
     recentPromise,
     lastReadPromise,
     learningPromise,
     subjectsPromise,
+    overviewPromise,
   ]);
   let isAdministrator = false;
   if (current.status === "authenticated") {
@@ -37,6 +41,7 @@ export default async function DashboardPage() {
       isAdministrator={isAdministrator}
       learningHome={learning?.status === "ready" ? learning.home : null}
       learningHomeAvailable={learning?.status === "ready"}
+      learningOverview={overview}
       viewer={current.status === "authenticated" ? { email: current.user.email } : undefined}
     />
   );

@@ -1,0 +1,142 @@
+[
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_a50f19a7a2ae4064a39364b180e04b53",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-1.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 282.64860000000044,
+    "evidence": "schema-dump-1.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_a50f19a7a2ae4064a39364b180e04b53",
+      "--format=custom",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\v1-v2-backup.dump"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 300.02510000000075,
+    "evidence": "backup.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_a50f19a7a2ae4064a39364b180e04b53",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-2.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 255.76359999999931,
+    "evidence": "schema-dump-2.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_a50f19a7a2ae4064a39364b180e04b53",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-3.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 255.5635999999995,
+    "evidence": "schema-dump-3.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_a50f19a7a2ae4064a39364b180e04b53",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-4.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 244.07809999999972,
+    "evidence": "schema-dump-4.txt"
+  },
+  {
+    "binary": "pg_restore",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_eb01fd426ce94fc5bb965668dadde6e2",
+      "--exit-on-error",
+      "--single-transaction",
+      "--no-owner",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\v1-v2-backup.dump"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 923.9256000000005,
+    "evidence": "restore.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_eb01fd426ce94fc5bb965668dadde6e2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-5.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 283.52950000000055,
+    "evidence": "schema-dump-5.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_eb01fd426ce94fc5bb965668dadde6e2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-6.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 312.08790000000045,
+    "evidence": "schema-dump-6.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_eb01fd426ce94fc5bb965668dadde6e2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-7.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 402.1234999999997,
+    "evidence": "schema-dump-7.txt"
+  },
+  {
+    "binary": "pg_dump",
+    "args": [
+      "--dbname",
+      "postgresql://koraz_test@127.0.0.1:55435/koraz_guided_v2_test_eb01fd426ce94fc5bb965668dadde6e2",
+      "--schema-only",
+      "--no-owner",
+      "--file",
+      "D:\\Jose (Datos)\\Medicina\\CEDIAH\\Web\\work\\f08\\t041-historico\\schema-8.sql"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 413.92739999999867,
+    "evidence": "schema-dump-8.txt"
+  }
+]

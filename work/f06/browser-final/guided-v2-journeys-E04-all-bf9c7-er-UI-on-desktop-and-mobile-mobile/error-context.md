@@ -1,0 +1,4477 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: guided-v2-journeys.spec.ts >> E04 all eight kinds persist through the learner UI on desktop and mobile
+- Location: tests\e2e\guided-v2-journeys.spec.ts:132:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Aplicar el ejemplo 200', { exact: true })
+Expected: visible
+Timeout: 60000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" getByText('Aplicar el ejemplo 200', { exact: true }) with timeout 60000ms
+  - waiting for getByText('Aplicar el ejemplo 200', { exact: true })
+
+```
+
+```yaml
+- banner:
+  - search "Buscar guías":
+    - combobox "Buscar guías"
+  - heading "Aprendizaje guiado" [level=1]
+  - button "Notificaciones"
+  - button "Abrir menú de perfil de t035-13@example.test": T0
+- article:
+  - link "Todas las rutas":
+    - /url: /aprendizaje?tab=rutas
+  - heading "Ruta T035 de 200 objetivos" [level=1]
+  - text: Tema T035 1 unidades
+  - group: Acerca de esta ruta
+  - region "Acción recomendada":
+    - heading "Comienza tu ruta" [level=2]
+    - button "Comenzar"
+  - region "Unidades de la ruta":
+    - heading "Unidades de la ruta" [level=2]
+    - text: "1"
+    - tablist "Contenido de la ruta":
+      - tab "Actividades" [selected]
+      - tab "Recursos"
+    - tabpanel "Actividades":
+      - group:
+        - text: "1"
+        - strong: Unidad T035
+        - text: 1204 actividades
+        - 'region "Objetivo: Aplicar el ejemplo 1"':
+          - 'heading "Objetivo: Aplicar el ejemplo 1" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 1":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 1 (1/2)
+            - listitem:
+              - img "Explicación escrita"
+              - strong: Explicar con tus palabras · Aplicar el ejemplo 1
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 1 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 1
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 1 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 1
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 1
+            - listitem:
+              - img "Práctica visual"
+              - strong: Identificar en la imagen · Aplicar el ejemplo 1
+            - listitem:
+              - img "Caso práctico"
+              - strong: Resolver un caso · Aplicar el ejemplo 1
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 1 (2/2)
+              - text: Opcional
+        - 'region "Objetivo: Aplicar el ejemplo 2"':
+          - 'heading "Objetivo: Aplicar el ejemplo 2" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 2":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 2
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 2 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 2
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 2 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 2
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 2
+        - 'region "Objetivo: Aplicar el ejemplo 3"':
+          - 'heading "Objetivo: Aplicar el ejemplo 3" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 3":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 3
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 3 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 3
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 3 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 3
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 3
+        - 'region "Objetivo: Aplicar el ejemplo 4"':
+          - 'heading "Objetivo: Aplicar el ejemplo 4" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 4":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 4
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 4 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 4
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 4 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 4
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 4
+        - 'region "Objetivo: Aplicar el ejemplo 5"':
+          - 'heading "Objetivo: Aplicar el ejemplo 5" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 5":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 5
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 5 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 5
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 5 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 5
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 5
+        - 'region "Objetivo: Aplicar el ejemplo 6"':
+          - 'heading "Objetivo: Aplicar el ejemplo 6" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 6":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 6
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 6 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 6
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 6 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 6
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 6
+        - 'region "Objetivo: Aplicar el ejemplo 7"':
+          - 'heading "Objetivo: Aplicar el ejemplo 7" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 7":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 7
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 7 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 7
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 7 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 7
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 7
+        - 'region "Objetivo: Aplicar el ejemplo 8"':
+          - 'heading "Objetivo: Aplicar el ejemplo 8" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 8":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 8
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 8 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 8
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 8 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 8
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 8
+        - 'region "Objetivo: Aplicar el ejemplo 9"':
+          - 'heading "Objetivo: Aplicar el ejemplo 9" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 9":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 9
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 9 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 9
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 9 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 9
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 9
+        - 'region "Objetivo: Aplicar el ejemplo 10"':
+          - 'heading "Objetivo: Aplicar el ejemplo 10" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 10":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 10
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 10 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 10
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 10 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 10
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 10
+        - 'region "Objetivo: Aplicar el ejemplo 11"':
+          - 'heading "Objetivo: Aplicar el ejemplo 11" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 11":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 11
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 11 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 11
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 11 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 11
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 11
+        - 'region "Objetivo: Aplicar el ejemplo 12"':
+          - 'heading "Objetivo: Aplicar el ejemplo 12" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 12":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 12
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 12 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 12
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 12 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 12
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 12
+        - 'region "Objetivo: Aplicar el ejemplo 13"':
+          - 'heading "Objetivo: Aplicar el ejemplo 13" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 13":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 13
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 13 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 13
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 13 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 13
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 13
+        - 'region "Objetivo: Aplicar el ejemplo 14"':
+          - 'heading "Objetivo: Aplicar el ejemplo 14" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 14":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 14
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 14 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 14
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 14 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 14
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 14
+        - 'region "Objetivo: Aplicar el ejemplo 15"':
+          - 'heading "Objetivo: Aplicar el ejemplo 15" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 15":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 15
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 15 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 15
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 15 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 15
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 15
+        - 'region "Objetivo: Aplicar el ejemplo 16"':
+          - 'heading "Objetivo: Aplicar el ejemplo 16" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 16":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 16
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 16 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 16
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 16 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 16
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 16
+        - 'region "Objetivo: Aplicar el ejemplo 17"':
+          - 'heading "Objetivo: Aplicar el ejemplo 17" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 17":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 17
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 17 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 17
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 17 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 17
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 17
+        - 'region "Objetivo: Aplicar el ejemplo 18"':
+          - 'heading "Objetivo: Aplicar el ejemplo 18" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 18":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 18
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 18 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 18
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 18 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 18
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 18
+        - 'region "Objetivo: Aplicar el ejemplo 19"':
+          - 'heading "Objetivo: Aplicar el ejemplo 19" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 19":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 19
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 19 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 19
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 19 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 19
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 19
+        - 'region "Objetivo: Aplicar el ejemplo 20"':
+          - 'heading "Objetivo: Aplicar el ejemplo 20" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 20":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 20
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 20 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 20
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 20 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 20
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 20
+        - 'region "Objetivo: Aplicar el ejemplo 21"':
+          - 'heading "Objetivo: Aplicar el ejemplo 21" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 21":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 21
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 21 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 21
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 21 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 21
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 21
+        - 'region "Objetivo: Aplicar el ejemplo 22"':
+          - 'heading "Objetivo: Aplicar el ejemplo 22" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 22":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 22
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 22 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 22
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 22 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 22
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 22
+        - 'region "Objetivo: Aplicar el ejemplo 23"':
+          - 'heading "Objetivo: Aplicar el ejemplo 23" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 23":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 23
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 23 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 23
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 23 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 23
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 23
+        - 'region "Objetivo: Aplicar el ejemplo 24"':
+          - 'heading "Objetivo: Aplicar el ejemplo 24" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 24":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 24
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 24 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 24
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 24 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 24
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 24
+        - 'region "Objetivo: Aplicar el ejemplo 25"':
+          - 'heading "Objetivo: Aplicar el ejemplo 25" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 25":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 25
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 25 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 25
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 25 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 25
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 25
+        - 'region "Objetivo: Aplicar el ejemplo 26"':
+          - 'heading "Objetivo: Aplicar el ejemplo 26" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 26":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 26
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 26 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 26
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 26 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 26
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 26
+        - 'region "Objetivo: Aplicar el ejemplo 27"':
+          - 'heading "Objetivo: Aplicar el ejemplo 27" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 27":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 27
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 27 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 27
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 27 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 27
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 27
+        - 'region "Objetivo: Aplicar el ejemplo 28"':
+          - 'heading "Objetivo: Aplicar el ejemplo 28" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 28":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 28
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 28 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 28
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 28 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 28
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 28
+        - 'region "Objetivo: Aplicar el ejemplo 29"':
+          - 'heading "Objetivo: Aplicar el ejemplo 29" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 29":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 29
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 29 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 29
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 29 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 29
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 29
+        - 'region "Objetivo: Aplicar el ejemplo 30"':
+          - 'heading "Objetivo: Aplicar el ejemplo 30" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 30":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 30
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 30 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 30
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 30 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 30
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 30
+        - 'region "Objetivo: Aplicar el ejemplo 31"':
+          - 'heading "Objetivo: Aplicar el ejemplo 31" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 31":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 31
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 31 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 31
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 31 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 31
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 31
+        - 'region "Objetivo: Aplicar el ejemplo 32"':
+          - 'heading "Objetivo: Aplicar el ejemplo 32" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 32":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 32
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 32 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 32
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 32 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 32
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 32
+        - 'region "Objetivo: Aplicar el ejemplo 33"':
+          - 'heading "Objetivo: Aplicar el ejemplo 33" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 33":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 33
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 33 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 33
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 33 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 33
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 33
+        - 'region "Objetivo: Aplicar el ejemplo 34"':
+          - 'heading "Objetivo: Aplicar el ejemplo 34" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 34":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 34
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 34 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 34
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 34 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 34
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 34
+        - 'region "Objetivo: Aplicar el ejemplo 35"':
+          - 'heading "Objetivo: Aplicar el ejemplo 35" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 35":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 35
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 35 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 35
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 35 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 35
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 35
+        - 'region "Objetivo: Aplicar el ejemplo 36"':
+          - 'heading "Objetivo: Aplicar el ejemplo 36" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 36":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 36
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 36 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 36
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 36 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 36
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 36
+        - 'region "Objetivo: Aplicar el ejemplo 37"':
+          - 'heading "Objetivo: Aplicar el ejemplo 37" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 37":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 37
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 37 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 37
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 37 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 37
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 37
+        - 'region "Objetivo: Aplicar el ejemplo 38"':
+          - 'heading "Objetivo: Aplicar el ejemplo 38" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 38":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 38
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 38 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 38
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 38 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 38
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 38
+        - 'region "Objetivo: Aplicar el ejemplo 39"':
+          - 'heading "Objetivo: Aplicar el ejemplo 39" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 39":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 39
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 39 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 39
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 39 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 39
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 39
+        - 'region "Objetivo: Aplicar el ejemplo 40"':
+          - 'heading "Objetivo: Aplicar el ejemplo 40" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 40":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 40
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 40 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 40
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 40 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 40
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 40
+        - 'region "Objetivo: Aplicar el ejemplo 41"':
+          - 'heading "Objetivo: Aplicar el ejemplo 41" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 41":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 41
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 41 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 41
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 41 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 41
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 41
+        - 'region "Objetivo: Aplicar el ejemplo 42"':
+          - 'heading "Objetivo: Aplicar el ejemplo 42" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 42":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 42
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 42 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 42
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 42 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 42
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 42
+        - 'region "Objetivo: Aplicar el ejemplo 43"':
+          - 'heading "Objetivo: Aplicar el ejemplo 43" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 43":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 43
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 43 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 43
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 43 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 43
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 43
+        - 'region "Objetivo: Aplicar el ejemplo 44"':
+          - 'heading "Objetivo: Aplicar el ejemplo 44" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 44":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 44
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 44 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 44
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 44 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 44
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 44
+        - 'region "Objetivo: Aplicar el ejemplo 45"':
+          - 'heading "Objetivo: Aplicar el ejemplo 45" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 45":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 45
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 45 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 45
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 45 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 45
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 45
+        - 'region "Objetivo: Aplicar el ejemplo 46"':
+          - 'heading "Objetivo: Aplicar el ejemplo 46" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 46":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 46
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 46 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 46
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 46 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 46
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 46
+        - 'region "Objetivo: Aplicar el ejemplo 47"':
+          - 'heading "Objetivo: Aplicar el ejemplo 47" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 47":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 47
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 47 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 47
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 47 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 47
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 47
+        - 'region "Objetivo: Aplicar el ejemplo 48"':
+          - 'heading "Objetivo: Aplicar el ejemplo 48" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 48":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 48
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 48 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 48
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 48 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 48
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 48
+        - 'region "Objetivo: Aplicar el ejemplo 49"':
+          - 'heading "Objetivo: Aplicar el ejemplo 49" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 49":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 49
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 49 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 49
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 49 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 49
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 49
+        - 'region "Objetivo: Aplicar el ejemplo 50"':
+          - 'heading "Objetivo: Aplicar el ejemplo 50" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 50":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 50
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 50 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 50
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 50 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 50
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 50
+        - 'region "Objetivo: Aplicar el ejemplo 51"':
+          - 'heading "Objetivo: Aplicar el ejemplo 51" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 51":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 51
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 51 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 51
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 51 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 51
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 51
+        - 'region "Objetivo: Aplicar el ejemplo 52"':
+          - 'heading "Objetivo: Aplicar el ejemplo 52" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 52":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 52
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 52 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 52
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 52 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 52
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 52
+        - 'region "Objetivo: Aplicar el ejemplo 53"':
+          - 'heading "Objetivo: Aplicar el ejemplo 53" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 53":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 53
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 53 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 53
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 53 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 53
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 53
+        - 'region "Objetivo: Aplicar el ejemplo 54"':
+          - 'heading "Objetivo: Aplicar el ejemplo 54" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 54":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 54
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 54 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 54
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 54 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 54
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 54
+        - 'region "Objetivo: Aplicar el ejemplo 55"':
+          - 'heading "Objetivo: Aplicar el ejemplo 55" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 55":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 55
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 55 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 55
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 55 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 55
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 55
+        - 'region "Objetivo: Aplicar el ejemplo 56"':
+          - 'heading "Objetivo: Aplicar el ejemplo 56" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 56":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 56
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 56 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 56
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 56 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 56
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 56
+        - 'region "Objetivo: Aplicar el ejemplo 57"':
+          - 'heading "Objetivo: Aplicar el ejemplo 57" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 57":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 57
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 57 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 57
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 57 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 57
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 57
+        - 'region "Objetivo: Aplicar el ejemplo 58"':
+          - 'heading "Objetivo: Aplicar el ejemplo 58" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 58":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 58
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 58 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 58
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 58 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 58
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 58
+        - 'region "Objetivo: Aplicar el ejemplo 59"':
+          - 'heading "Objetivo: Aplicar el ejemplo 59" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 59":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 59
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 59 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 59
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 59 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 59
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 59
+        - 'region "Objetivo: Aplicar el ejemplo 60"':
+          - 'heading "Objetivo: Aplicar el ejemplo 60" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 60":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 60
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 60 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 60
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 60 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 60
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 60
+        - 'region "Objetivo: Aplicar el ejemplo 61"':
+          - 'heading "Objetivo: Aplicar el ejemplo 61" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 61":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 61
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 61 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 61
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 61 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 61
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 61
+        - 'region "Objetivo: Aplicar el ejemplo 62"':
+          - 'heading "Objetivo: Aplicar el ejemplo 62" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 62":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 62
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 62 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 62
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 62 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 62
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 62
+        - 'region "Objetivo: Aplicar el ejemplo 63"':
+          - 'heading "Objetivo: Aplicar el ejemplo 63" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 63":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 63
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 63 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 63
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 63 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 63
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 63
+        - 'region "Objetivo: Aplicar el ejemplo 64"':
+          - 'heading "Objetivo: Aplicar el ejemplo 64" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 64":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 64
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 64 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 64
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 64 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 64
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 64
+        - 'region "Objetivo: Aplicar el ejemplo 65"':
+          - 'heading "Objetivo: Aplicar el ejemplo 65" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 65":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 65
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 65 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 65
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 65 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 65
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 65
+        - 'region "Objetivo: Aplicar el ejemplo 66"':
+          - 'heading "Objetivo: Aplicar el ejemplo 66" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 66":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 66
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 66 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 66
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 66 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 66
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 66
+        - 'region "Objetivo: Aplicar el ejemplo 67"':
+          - 'heading "Objetivo: Aplicar el ejemplo 67" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 67":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 67
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 67 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 67
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 67 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 67
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 67
+        - 'region "Objetivo: Aplicar el ejemplo 68"':
+          - 'heading "Objetivo: Aplicar el ejemplo 68" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 68":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 68
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 68 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 68
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 68 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 68
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 68
+        - 'region "Objetivo: Aplicar el ejemplo 69"':
+          - 'heading "Objetivo: Aplicar el ejemplo 69" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 69":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 69
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 69 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 69
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 69 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 69
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 69
+        - 'region "Objetivo: Aplicar el ejemplo 70"':
+          - 'heading "Objetivo: Aplicar el ejemplo 70" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 70":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 70
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 70 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 70
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 70 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 70
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 70
+        - 'region "Objetivo: Aplicar el ejemplo 71"':
+          - 'heading "Objetivo: Aplicar el ejemplo 71" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 71":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 71
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 71 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 71
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 71 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 71
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 71
+        - 'region "Objetivo: Aplicar el ejemplo 72"':
+          - 'heading "Objetivo: Aplicar el ejemplo 72" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 72":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 72
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 72 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 72
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 72 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 72
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 72
+        - 'region "Objetivo: Aplicar el ejemplo 73"':
+          - 'heading "Objetivo: Aplicar el ejemplo 73" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 73":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 73
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 73 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 73
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 73 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 73
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 73
+        - 'region "Objetivo: Aplicar el ejemplo 74"':
+          - 'heading "Objetivo: Aplicar el ejemplo 74" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 74":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 74
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 74 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 74
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 74 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 74
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 74
+        - 'region "Objetivo: Aplicar el ejemplo 75"':
+          - 'heading "Objetivo: Aplicar el ejemplo 75" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 75":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 75
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 75 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 75
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 75 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 75
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 75
+        - 'region "Objetivo: Aplicar el ejemplo 76"':
+          - 'heading "Objetivo: Aplicar el ejemplo 76" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 76":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 76
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 76 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 76
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 76 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 76
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 76
+        - 'region "Objetivo: Aplicar el ejemplo 77"':
+          - 'heading "Objetivo: Aplicar el ejemplo 77" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 77":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 77
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 77 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 77
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 77 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 77
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 77
+        - 'region "Objetivo: Aplicar el ejemplo 78"':
+          - 'heading "Objetivo: Aplicar el ejemplo 78" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 78":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 78
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 78 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 78
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 78 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 78
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 78
+        - 'region "Objetivo: Aplicar el ejemplo 79"':
+          - 'heading "Objetivo: Aplicar el ejemplo 79" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 79":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 79
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 79 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 79
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 79 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 79
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 79
+        - 'region "Objetivo: Aplicar el ejemplo 80"':
+          - 'heading "Objetivo: Aplicar el ejemplo 80" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 80":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 80
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 80 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 80
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 80 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 80
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 80
+        - 'region "Objetivo: Aplicar el ejemplo 81"':
+          - 'heading "Objetivo: Aplicar el ejemplo 81" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 81":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 81
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 81 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 81
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 81 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 81
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 81
+        - 'region "Objetivo: Aplicar el ejemplo 82"':
+          - 'heading "Objetivo: Aplicar el ejemplo 82" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 82":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 82
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 82 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 82
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 82 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 82
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 82
+        - 'region "Objetivo: Aplicar el ejemplo 83"':
+          - 'heading "Objetivo: Aplicar el ejemplo 83" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 83":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 83
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 83 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 83
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 83 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 83
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 83
+        - 'region "Objetivo: Aplicar el ejemplo 84"':
+          - 'heading "Objetivo: Aplicar el ejemplo 84" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 84":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 84
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 84 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 84
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 84 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 84
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 84
+        - 'region "Objetivo: Aplicar el ejemplo 85"':
+          - 'heading "Objetivo: Aplicar el ejemplo 85" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 85":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 85
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 85 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 85
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 85 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 85
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 85
+        - 'region "Objetivo: Aplicar el ejemplo 86"':
+          - 'heading "Objetivo: Aplicar el ejemplo 86" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 86":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 86
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 86 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 86
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 86 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 86
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 86
+        - 'region "Objetivo: Aplicar el ejemplo 87"':
+          - 'heading "Objetivo: Aplicar el ejemplo 87" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 87":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 87
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 87 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 87
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 87 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 87
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 87
+        - 'region "Objetivo: Aplicar el ejemplo 88"':
+          - 'heading "Objetivo: Aplicar el ejemplo 88" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 88":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 88
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 88 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 88
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 88 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 88
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 88
+        - 'region "Objetivo: Aplicar el ejemplo 89"':
+          - 'heading "Objetivo: Aplicar el ejemplo 89" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 89":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 89
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 89 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 89
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 89 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 89
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 89
+        - 'region "Objetivo: Aplicar el ejemplo 90"':
+          - 'heading "Objetivo: Aplicar el ejemplo 90" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 90":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 90
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 90 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 90
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 90 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 90
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 90
+        - 'region "Objetivo: Aplicar el ejemplo 91"':
+          - 'heading "Objetivo: Aplicar el ejemplo 91" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 91":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 91
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 91 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 91
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 91 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 91
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 91
+        - 'region "Objetivo: Aplicar el ejemplo 92"':
+          - 'heading "Objetivo: Aplicar el ejemplo 92" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 92":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 92
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 92 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 92
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 92 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 92
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 92
+        - 'region "Objetivo: Aplicar el ejemplo 93"':
+          - 'heading "Objetivo: Aplicar el ejemplo 93" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 93":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 93
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 93 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 93
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 93 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 93
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 93
+        - 'region "Objetivo: Aplicar el ejemplo 94"':
+          - 'heading "Objetivo: Aplicar el ejemplo 94" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 94":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 94
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 94 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 94
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 94 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 94
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 94
+        - 'region "Objetivo: Aplicar el ejemplo 95"':
+          - 'heading "Objetivo: Aplicar el ejemplo 95" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 95":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 95
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 95 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 95
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 95 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 95
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 95
+        - 'region "Objetivo: Aplicar el ejemplo 96"':
+          - 'heading "Objetivo: Aplicar el ejemplo 96" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 96":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 96
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 96 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 96
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 96 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 96
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 96
+        - 'region "Objetivo: Aplicar el ejemplo 97"':
+          - 'heading "Objetivo: Aplicar el ejemplo 97" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 97":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 97
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 97 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 97
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 97 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 97
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 97
+        - 'region "Objetivo: Aplicar el ejemplo 98"':
+          - 'heading "Objetivo: Aplicar el ejemplo 98" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 98":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 98
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 98 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 98
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 98 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 98
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 98
+        - 'region "Objetivo: Aplicar el ejemplo 99"':
+          - 'heading "Objetivo: Aplicar el ejemplo 99" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 99":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 99
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 99 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 99
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 99 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 99
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 99
+        - 'region "Objetivo: Aplicar el ejemplo 100"':
+          - 'heading "Objetivo: Aplicar el ejemplo 100" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 100":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 100
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 100 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 100
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 100 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 100
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 100
+        - 'region "Objetivo: Aplicar el ejemplo 101"':
+          - 'heading "Objetivo: Aplicar el ejemplo 101" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 101":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 101
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 101 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 101
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 101 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 101
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 101
+        - 'region "Objetivo: Aplicar el ejemplo 102"':
+          - 'heading "Objetivo: Aplicar el ejemplo 102" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 102":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 102
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 102 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 102
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 102 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 102
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 102
+        - 'region "Objetivo: Aplicar el ejemplo 103"':
+          - 'heading "Objetivo: Aplicar el ejemplo 103" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 103":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 103
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 103 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 103
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 103 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 103
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 103
+        - 'region "Objetivo: Aplicar el ejemplo 104"':
+          - 'heading "Objetivo: Aplicar el ejemplo 104" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 104":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 104
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 104 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 104
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 104 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 104
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 104
+        - 'region "Objetivo: Aplicar el ejemplo 105"':
+          - 'heading "Objetivo: Aplicar el ejemplo 105" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 105":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 105
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 105 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 105
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 105 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 105
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 105
+        - 'region "Objetivo: Aplicar el ejemplo 106"':
+          - 'heading "Objetivo: Aplicar el ejemplo 106" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 106":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 106
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 106 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 106
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 106 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 106
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 106
+        - 'region "Objetivo: Aplicar el ejemplo 107"':
+          - 'heading "Objetivo: Aplicar el ejemplo 107" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 107":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 107
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 107 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 107
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 107 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 107
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 107
+        - 'region "Objetivo: Aplicar el ejemplo 108"':
+          - 'heading "Objetivo: Aplicar el ejemplo 108" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 108":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 108
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 108 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 108
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 108 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 108
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 108
+        - 'region "Objetivo: Aplicar el ejemplo 109"':
+          - 'heading "Objetivo: Aplicar el ejemplo 109" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 109":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 109
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 109 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 109
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 109 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 109
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 109
+        - 'region "Objetivo: Aplicar el ejemplo 110"':
+          - 'heading "Objetivo: Aplicar el ejemplo 110" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 110":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 110
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 110 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 110
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 110 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 110
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 110
+        - 'region "Objetivo: Aplicar el ejemplo 111"':
+          - 'heading "Objetivo: Aplicar el ejemplo 111" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 111":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 111
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 111 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 111
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 111 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 111
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 111
+        - 'region "Objetivo: Aplicar el ejemplo 112"':
+          - 'heading "Objetivo: Aplicar el ejemplo 112" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 112":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 112
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 112 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 112
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 112 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 112
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 112
+        - 'region "Objetivo: Aplicar el ejemplo 113"':
+          - 'heading "Objetivo: Aplicar el ejemplo 113" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 113":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 113
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 113 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 113
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 113 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 113
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 113
+        - 'region "Objetivo: Aplicar el ejemplo 114"':
+          - 'heading "Objetivo: Aplicar el ejemplo 114" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 114":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 114
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 114 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 114
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 114 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 114
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 114
+        - 'region "Objetivo: Aplicar el ejemplo 115"':
+          - 'heading "Objetivo: Aplicar el ejemplo 115" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 115":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 115
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 115 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 115
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 115 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 115
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 115
+        - 'region "Objetivo: Aplicar el ejemplo 116"':
+          - 'heading "Objetivo: Aplicar el ejemplo 116" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 116":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 116
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 116 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 116
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 116 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 116
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 116
+        - 'region "Objetivo: Aplicar el ejemplo 117"':
+          - 'heading "Objetivo: Aplicar el ejemplo 117" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 117":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 117
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 117 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 117
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 117 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 117
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 117
+        - 'region "Objetivo: Aplicar el ejemplo 118"':
+          - 'heading "Objetivo: Aplicar el ejemplo 118" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 118":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 118
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 118 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 118
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 118 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 118
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 118
+        - 'region "Objetivo: Aplicar el ejemplo 119"':
+          - 'heading "Objetivo: Aplicar el ejemplo 119" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 119":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 119
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 119 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 119
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 119 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 119
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 119
+        - 'region "Objetivo: Aplicar el ejemplo 120"':
+          - 'heading "Objetivo: Aplicar el ejemplo 120" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 120":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 120
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 120 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 120
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 120 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 120
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 120
+        - 'region "Objetivo: Aplicar el ejemplo 121"':
+          - 'heading "Objetivo: Aplicar el ejemplo 121" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 121":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 121
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 121 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 121
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 121 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 121
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 121
+        - 'region "Objetivo: Aplicar el ejemplo 122"':
+          - 'heading "Objetivo: Aplicar el ejemplo 122" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 122":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 122
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 122 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 122
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 122 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 122
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 122
+        - 'region "Objetivo: Aplicar el ejemplo 123"':
+          - 'heading "Objetivo: Aplicar el ejemplo 123" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 123":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 123
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 123 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 123
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 123 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 123
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 123
+        - 'region "Objetivo: Aplicar el ejemplo 124"':
+          - 'heading "Objetivo: Aplicar el ejemplo 124" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 124":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 124
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 124 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 124
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 124 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 124
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 124
+        - 'region "Objetivo: Aplicar el ejemplo 125"':
+          - 'heading "Objetivo: Aplicar el ejemplo 125" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 125":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 125
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 125 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 125
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 125 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 125
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 125
+        - 'region "Objetivo: Aplicar el ejemplo 126"':
+          - 'heading "Objetivo: Aplicar el ejemplo 126" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 126":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 126
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 126 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 126
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 126 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 126
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 126
+        - 'region "Objetivo: Aplicar el ejemplo 127"':
+          - 'heading "Objetivo: Aplicar el ejemplo 127" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 127":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 127
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 127 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 127
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 127 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 127
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 127
+        - 'region "Objetivo: Aplicar el ejemplo 128"':
+          - 'heading "Objetivo: Aplicar el ejemplo 128" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 128":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 128
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 128 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 128
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 128 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 128
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 128
+        - 'region "Objetivo: Aplicar el ejemplo 129"':
+          - 'heading "Objetivo: Aplicar el ejemplo 129" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 129":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 129
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 129 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 129
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 129 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 129
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 129
+        - 'region "Objetivo: Aplicar el ejemplo 130"':
+          - 'heading "Objetivo: Aplicar el ejemplo 130" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 130":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 130
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 130 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 130
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 130 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 130
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 130
+        - 'region "Objetivo: Aplicar el ejemplo 131"':
+          - 'heading "Objetivo: Aplicar el ejemplo 131" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 131":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 131
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 131 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 131
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 131 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 131
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 131
+        - 'region "Objetivo: Aplicar el ejemplo 132"':
+          - 'heading "Objetivo: Aplicar el ejemplo 132" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 132":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 132
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 132 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 132
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 132 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 132
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 132
+        - 'region "Objetivo: Aplicar el ejemplo 133"':
+          - 'heading "Objetivo: Aplicar el ejemplo 133" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 133":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 133
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 133 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 133
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 133 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 133
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 133
+        - 'region "Objetivo: Aplicar el ejemplo 134"':
+          - 'heading "Objetivo: Aplicar el ejemplo 134" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 134":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 134
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 134 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 134
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 134 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 134
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 134
+        - 'region "Objetivo: Aplicar el ejemplo 135"':
+          - 'heading "Objetivo: Aplicar el ejemplo 135" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 135":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 135
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 135 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 135
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 135 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 135
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 135
+        - 'region "Objetivo: Aplicar el ejemplo 136"':
+          - 'heading "Objetivo: Aplicar el ejemplo 136" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 136":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 136
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 136 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 136
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 136 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 136
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 136
+        - 'region "Objetivo: Aplicar el ejemplo 137"':
+          - 'heading "Objetivo: Aplicar el ejemplo 137" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 137":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 137
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 137 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 137
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 137 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 137
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 137
+        - 'region "Objetivo: Aplicar el ejemplo 138"':
+          - 'heading "Objetivo: Aplicar el ejemplo 138" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 138":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 138
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 138 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 138
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 138 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 138
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 138
+        - 'region "Objetivo: Aplicar el ejemplo 139"':
+          - 'heading "Objetivo: Aplicar el ejemplo 139" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 139":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 139
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 139 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 139
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 139 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 139
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 139
+        - 'region "Objetivo: Aplicar el ejemplo 140"':
+          - 'heading "Objetivo: Aplicar el ejemplo 140" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 140":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 140
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 140 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 140
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 140 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 140
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 140
+        - 'region "Objetivo: Aplicar el ejemplo 141"':
+          - 'heading "Objetivo: Aplicar el ejemplo 141" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 141":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 141
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 141 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 141
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 141 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 141
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 141
+        - 'region "Objetivo: Aplicar el ejemplo 142"':
+          - 'heading "Objetivo: Aplicar el ejemplo 142" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 142":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 142
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 142 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 142
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 142 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 142
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 142
+        - 'region "Objetivo: Aplicar el ejemplo 143"':
+          - 'heading "Objetivo: Aplicar el ejemplo 143" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 143":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 143
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 143 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 143
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 143 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 143
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 143
+        - 'region "Objetivo: Aplicar el ejemplo 144"':
+          - 'heading "Objetivo: Aplicar el ejemplo 144" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 144":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 144
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 144 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 144
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 144 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 144
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 144
+        - 'region "Objetivo: Aplicar el ejemplo 145"':
+          - 'heading "Objetivo: Aplicar el ejemplo 145" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 145":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 145
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 145 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 145
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 145 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 145
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 145
+        - 'region "Objetivo: Aplicar el ejemplo 146"':
+          - 'heading "Objetivo: Aplicar el ejemplo 146" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 146":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 146
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 146 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 146
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 146 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 146
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 146
+        - 'region "Objetivo: Aplicar el ejemplo 147"':
+          - 'heading "Objetivo: Aplicar el ejemplo 147" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 147":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 147
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 147 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 147
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 147 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 147
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 147
+        - 'region "Objetivo: Aplicar el ejemplo 148"':
+          - 'heading "Objetivo: Aplicar el ejemplo 148" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 148":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 148
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 148 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 148
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 148 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 148
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 148
+        - 'region "Objetivo: Aplicar el ejemplo 149"':
+          - 'heading "Objetivo: Aplicar el ejemplo 149" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 149":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 149
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 149 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 149
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 149 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 149
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 149
+        - 'region "Objetivo: Aplicar el ejemplo 150"':
+          - 'heading "Objetivo: Aplicar el ejemplo 150" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 150":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 150
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 150 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 150
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 150 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 150
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 150
+        - 'region "Objetivo: Aplicar el ejemplo 151"':
+          - 'heading "Objetivo: Aplicar el ejemplo 151" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 151":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 151
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 151 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 151
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 151 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 151
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 151
+        - 'region "Objetivo: Aplicar el ejemplo 152"':
+          - 'heading "Objetivo: Aplicar el ejemplo 152" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 152":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 152
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 152 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 152
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 152 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 152
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 152
+        - 'region "Objetivo: Aplicar el ejemplo 153"':
+          - 'heading "Objetivo: Aplicar el ejemplo 153" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 153":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 153
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 153 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 153
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 153 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 153
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 153
+        - 'region "Objetivo: Aplicar el ejemplo 154"':
+          - 'heading "Objetivo: Aplicar el ejemplo 154" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 154":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 154
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 154 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 154
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 154 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 154
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 154
+        - 'region "Objetivo: Aplicar el ejemplo 155"':
+          - 'heading "Objetivo: Aplicar el ejemplo 155" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 155":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 155
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 155 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 155
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 155 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 155
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 155
+        - 'region "Objetivo: Aplicar el ejemplo 156"':
+          - 'heading "Objetivo: Aplicar el ejemplo 156" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 156":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 156
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 156 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 156
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 156 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 156
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 156
+        - 'region "Objetivo: Aplicar el ejemplo 157"':
+          - 'heading "Objetivo: Aplicar el ejemplo 157" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 157":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 157
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 157 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 157
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 157 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 157
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 157
+        - 'region "Objetivo: Aplicar el ejemplo 158"':
+          - 'heading "Objetivo: Aplicar el ejemplo 158" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 158":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 158
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 158 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 158
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 158 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 158
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 158
+        - 'region "Objetivo: Aplicar el ejemplo 159"':
+          - 'heading "Objetivo: Aplicar el ejemplo 159" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 159":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 159
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 159 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 159
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 159 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 159
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 159
+        - 'region "Objetivo: Aplicar el ejemplo 160"':
+          - 'heading "Objetivo: Aplicar el ejemplo 160" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 160":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 160
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 160 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 160
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 160 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 160
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 160
+        - 'region "Objetivo: Aplicar el ejemplo 161"':
+          - 'heading "Objetivo: Aplicar el ejemplo 161" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 161":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 161
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 161 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 161
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 161 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 161
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 161
+        - 'region "Objetivo: Aplicar el ejemplo 162"':
+          - 'heading "Objetivo: Aplicar el ejemplo 162" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 162":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 162
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 162 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 162
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 162 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 162
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 162
+        - 'region "Objetivo: Aplicar el ejemplo 163"':
+          - 'heading "Objetivo: Aplicar el ejemplo 163" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 163":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 163
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 163 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 163
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 163 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 163
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 163
+        - 'region "Objetivo: Aplicar el ejemplo 164"':
+          - 'heading "Objetivo: Aplicar el ejemplo 164" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 164":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 164
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 164 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 164
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 164 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 164
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 164
+        - 'region "Objetivo: Aplicar el ejemplo 165"':
+          - 'heading "Objetivo: Aplicar el ejemplo 165" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 165":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 165
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 165 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 165
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 165 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 165
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 165
+        - 'region "Objetivo: Aplicar el ejemplo 166"':
+          - 'heading "Objetivo: Aplicar el ejemplo 166" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 166":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 166
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 166 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 166
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 166 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 166
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 166
+        - 'region "Objetivo: Aplicar el ejemplo 167"':
+          - 'heading "Objetivo: Aplicar el ejemplo 167" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 167":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 167
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 167 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 167
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 167 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 167
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 167
+        - 'region "Objetivo: Aplicar el ejemplo 168"':
+          - 'heading "Objetivo: Aplicar el ejemplo 168" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 168":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 168
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 168 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 168
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 168 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 168
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 168
+        - 'region "Objetivo: Aplicar el ejemplo 169"':
+          - 'heading "Objetivo: Aplicar el ejemplo 169" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 169":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 169
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 169 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 169
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 169 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 169
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 169
+        - 'region "Objetivo: Aplicar el ejemplo 170"':
+          - 'heading "Objetivo: Aplicar el ejemplo 170" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 170":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 170
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 170 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 170
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 170 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 170
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 170
+        - 'region "Objetivo: Aplicar el ejemplo 171"':
+          - 'heading "Objetivo: Aplicar el ejemplo 171" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 171":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 171
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 171 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 171
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 171 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 171
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 171
+        - 'region "Objetivo: Aplicar el ejemplo 172"':
+          - 'heading "Objetivo: Aplicar el ejemplo 172" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 172":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 172
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 172 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 172
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 172 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 172
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 172
+        - 'region "Objetivo: Aplicar el ejemplo 173"':
+          - 'heading "Objetivo: Aplicar el ejemplo 173" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 173":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 173
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 173 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 173
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 173 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 173
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 173
+        - 'region "Objetivo: Aplicar el ejemplo 174"':
+          - 'heading "Objetivo: Aplicar el ejemplo 174" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 174":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 174
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 174 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 174
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 174 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 174
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 174
+        - 'region "Objetivo: Aplicar el ejemplo 175"':
+          - 'heading "Objetivo: Aplicar el ejemplo 175" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 175":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 175
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 175 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 175
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 175 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 175
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 175
+        - 'region "Objetivo: Aplicar el ejemplo 176"':
+          - 'heading "Objetivo: Aplicar el ejemplo 176" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 176":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 176
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 176 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 176
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 176 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 176
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 176
+        - 'region "Objetivo: Aplicar el ejemplo 177"':
+          - 'heading "Objetivo: Aplicar el ejemplo 177" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 177":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 177
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 177 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 177
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 177 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 177
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 177
+        - 'region "Objetivo: Aplicar el ejemplo 178"':
+          - 'heading "Objetivo: Aplicar el ejemplo 178" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 178":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 178
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 178 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 178
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 178 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 178
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 178
+        - 'region "Objetivo: Aplicar el ejemplo 179"':
+          - 'heading "Objetivo: Aplicar el ejemplo 179" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 179":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 179
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 179 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 179
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 179 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 179
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 179
+        - 'region "Objetivo: Aplicar el ejemplo 180"':
+          - 'heading "Objetivo: Aplicar el ejemplo 180" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 180":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 180
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 180 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 180
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 180 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 180
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 180
+        - 'region "Objetivo: Aplicar el ejemplo 181"':
+          - 'heading "Objetivo: Aplicar el ejemplo 181" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 181":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 181
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 181 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 181
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 181 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 181
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 181
+        - 'region "Objetivo: Aplicar el ejemplo 182"':
+          - 'heading "Objetivo: Aplicar el ejemplo 182" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 182":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 182
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 182 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 182
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 182 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 182
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 182
+        - 'region "Objetivo: Aplicar el ejemplo 183"':
+          - 'heading "Objetivo: Aplicar el ejemplo 183" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 183":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 183
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 183 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 183
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 183 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 183
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 183
+        - 'region "Objetivo: Aplicar el ejemplo 184"':
+          - 'heading "Objetivo: Aplicar el ejemplo 184" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 184":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 184
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 184 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 184
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 184 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 184
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 184
+        - 'region "Objetivo: Aplicar el ejemplo 185"':
+          - 'heading "Objetivo: Aplicar el ejemplo 185" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 185":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 185
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 185 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 185
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 185 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 185
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 185
+        - 'region "Objetivo: Aplicar el ejemplo 186"':
+          - 'heading "Objetivo: Aplicar el ejemplo 186" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 186":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 186
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 186 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 186
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 186 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 186
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 186
+        - 'region "Objetivo: Aplicar el ejemplo 187"':
+          - 'heading "Objetivo: Aplicar el ejemplo 187" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 187":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 187
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 187 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 187
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 187 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 187
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 187
+        - 'region "Objetivo: Aplicar el ejemplo 188"':
+          - 'heading "Objetivo: Aplicar el ejemplo 188" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 188":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 188
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 188 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 188
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 188 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 188
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 188
+        - 'region "Objetivo: Aplicar el ejemplo 189"':
+          - 'heading "Objetivo: Aplicar el ejemplo 189" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 189":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 189
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 189 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 189
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 189 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 189
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 189
+        - 'region "Objetivo: Aplicar el ejemplo 190"':
+          - 'heading "Objetivo: Aplicar el ejemplo 190" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 190":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 190
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 190 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 190
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 190 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 190
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 190
+        - 'region "Objetivo: Aplicar el ejemplo 191"':
+          - 'heading "Objetivo: Aplicar el ejemplo 191" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 191":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 191
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 191 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 191
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 191 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 191
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 191
+        - 'region "Objetivo: Aplicar el ejemplo 192"':
+          - 'heading "Objetivo: Aplicar el ejemplo 192" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 192":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 192
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 192 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 192
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 192 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 192
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 192
+        - 'region "Objetivo: Aplicar el ejemplo 193"':
+          - 'heading "Objetivo: Aplicar el ejemplo 193" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 193":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 193
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 193 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 193
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 193 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 193
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 193
+        - 'region "Objetivo: Aplicar el ejemplo 194"':
+          - 'heading "Objetivo: Aplicar el ejemplo 194" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 194":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 194
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 194 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 194
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 194 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 194
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 194
+        - 'region "Objetivo: Aplicar el ejemplo 195"':
+          - 'heading "Objetivo: Aplicar el ejemplo 195" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 195":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 195
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 195 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 195
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 195 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 195
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 195
+        - 'region "Objetivo: Aplicar el ejemplo 196"':
+          - 'heading "Objetivo: Aplicar el ejemplo 196" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 196":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 196
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 196 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 196
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 196 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 196
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 196
+        - 'region "Objetivo: Aplicar el ejemplo 197"':
+          - 'heading "Objetivo: Aplicar el ejemplo 197" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 197":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 197
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 197 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 197
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 197 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 197
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 197
+        - 'region "Objetivo: Aplicar el ejemplo 198"':
+          - 'heading "Objetivo: Aplicar el ejemplo 198" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 198":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 198
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 198 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 198
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 198 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 198
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 198
+        - 'region "Objetivo: Aplicar el ejemplo 199"':
+          - 'heading "Objetivo: Aplicar el ejemplo 199" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 199":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 199
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 199 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 199
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 199 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 199
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 199
+        - 'region "Objetivo: Aplicar el ejemplo 200"':
+          - 'heading "Objetivo: Aplicar el ejemplo 200" [level=3]'
+          - text: Por aprender
+          - list "Actividades de Aplicar el ejemplo 200":
+            - listitem:
+              - img "Lectura"
+              - strong: Leer y comprender · Aplicar el ejemplo 200
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 200 (1/2)
+            - listitem:
+              - img "Respuesta breve"
+              - strong: Recordar sin mirar · Aplicar el ejemplo 200
+            - listitem:
+              - img "Pregunta de opción múltiple"
+              - strong: Elegir la respuesta correcta · Aplicar el ejemplo 200 (2/2)
+            - listitem:
+              - img "Relaciones"
+              - strong: Relacionar conceptos · Aplicar el ejemplo 200
+            - listitem:
+              - img "Ordenar elementos"
+              - strong: Ordenar la secuencia · Aplicar el ejemplo 200
+- navigation "Navegación móvil":
+  - link "Inicio":
+    - /url: /dashboard
+  - link "Guías":
+    - /url: /guias
+  - button "Materiales"
+  - link "Rutas de aprendizaje":
+    - /url: /aprendizaje
+- alert
+```

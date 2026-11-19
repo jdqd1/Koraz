@@ -166,7 +166,7 @@ const V2CurriculumActivitySchema = z.strictObject({
   phase: PublicBase.shape.phase, required: z.boolean(),
   scaffold: PublicStudy.shape.payload.shape.scaffold.optional(),
 });
-const V2CurriculumResourceSchema = RouteSourceSchema.pick({ key: true, title: true, citation: true, locator: true, url: true }).strict();
+const V2CurriculumResourceSchema = RouteSourceSchema.pick({ key: true, title: true, citation: true, locator: true, url: true }).extend({ kind: RouteSourceSchema.shape.kind.optional() }).strict();
 const V2PublicUnitSchema = z.strictObject({
   key: RouteKeySchema, title: z.string(),
   objectives: z.array(z.strictObject({ key: RouteKeySchema, title: z.string(), criticality: RoutePackageSchema.shape.objectives.element.shape.criticality })),
@@ -193,7 +193,7 @@ export function toV2PublicUnits(definition: RoutePackage): z.infer<typeof V2Publ
       activities: entries.map(activity => ({ key: activity.key, objectiveKey: activity.objectiveKey, kind: activity.kind, phase: activity.phase, required: activity.required,
         ...(activity.displayTitle ? { displayTitle: activity.displayTitle } : {}),
         ...(activity.kind === "study" ? { scaffold: activity.payload.scaffold } : {}) })),
-      resources: definition.sources.filter(source => sourceKeys.has(source.key)).map(({ key, title, citation, locator, url }) => ({ key, title, citation, locator, url })),
+      resources: definition.sources.filter(source => sourceKeys.has(source.key)).map(({ key, title, citation, locator, url, kind }) => ({ key, title, citation, locator, url, kind })),
     };
   });
 }
@@ -357,7 +357,7 @@ export const V2PathCardSchema = z.strictObject({
   coverKey: RoutePackageSchema.shape.route.shape.coverKey, topicLabel: z.string(), unitCount: z.number().int().positive(),
   completed: z.boolean(), mastered: z.boolean(), consolidated: z.boolean(),
 });
-export const V2CatalogResponseSchema = z.strictObject({ items: z.array(V2PathCardSchema), nextCursor: Id.nullable() });
+export const V2CatalogResponseSchema = z.strictObject({ items: z.array(V2PathCardSchema), nextCursor: Id.nullable(), states: z.array(V2RouteStateSchema).optional() });
 export const V2HomeSnapshotSchema = z.strictObject({
   engineVersion: V2EngineVersionSchema, generatedAt: Timestamp,
   activePath: V2PathCardSchema.nullable(), dueReviews: z.number().int().nonnegative(),

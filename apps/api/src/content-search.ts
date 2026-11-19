@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { sql } from "kysely";
 import { z } from "zod";
+import { publishedContentSearchText } from "@cediah/contracts";
 import type { DatabaseClient, JsonValue } from "./db/database.js";
 
 export type PublishedContentSearchResult = {
@@ -62,30 +63,6 @@ function queryTokens(query: string) {
         .filter(Boolean),
     ),
   ).slice(0, maxSearchTokens);
-}
-
-function collectStrings(value: unknown, output: string[]) {
-  if (typeof value === "string") {
-    if (value.trim()) output.push(value);
-    return;
-  }
-  if (Array.isArray(value)) {
-    for (const item of value) collectStrings(item, output);
-    return;
-  }
-  if (!value || typeof value !== "object") return;
-  for (const nested of Object.values(value)) collectStrings(nested, output);
-}
-
-function contentSearchText(kind: "guide" | "video", content: JsonValue) {
-  if (!content || typeof content !== "object" || Array.isArray(content)) return "";
-  const record = content as Record<string, unknown>;
-  const searchable = kind === "video"
-    ? [record.description, record.keyPoints, record.guide, record.quiz, record.regions]
-    : [record.document, record.keyPoints, record.quiz, record.regions, record.sections];
-  const strings: string[] = [];
-  for (const value of searchable) collectStrings(value, strings);
-  return strings.join("\n");
 }
 
 type TextMap = {
@@ -159,7 +136,7 @@ function searchExcerpt(value: string, query: string) {
 function toSearchResult(row: SearchRow, query: string): RankedSearchResult | null {
   if (row.kind !== "guide" && row.kind !== "video") return null;
   const tokens = queryTokens(query);
-  const contentText = contentSearchText(row.kind, row.content);
+  const contentText = publishedContentSearchText(row.kind, row.content);
   const normalizedContent = normalizedSearchValue(contentText);
   const contentMatch = tokens.length > 0 && tokens.every((token) => normalizedContent.includes(token));
   return {

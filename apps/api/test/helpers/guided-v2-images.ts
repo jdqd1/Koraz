@@ -13,10 +13,15 @@ export function imageDefinition() {
   const activities = [image("hotspot"), image("labeling","labeling"), { ...base, key:"alternative",equivalenceKey:"alternative",kind:"single_choice",representation:"text",required:false,prompt:"Practica la relación en texto",payload:{options:[{key:"yes",text:"Relación A"},{key:"no",text:"Relación B"}],correctKey:"yes",distractorFeedback:{no:"Revisa la relación textual."}} }, { ...base, key:"match",equivalenceKey:"match",kind:"match",representation:"table",prompt:"Relaciona los cuatro elementos sintéticos",payload:{presentation:"comparison_table",prompts:[1,2,3,4].map(n=>({key:`p${n}`,text:`Elemento ${n}`})),choices:[1,2,3,4].map(n=>({key:`c${n}`,text:`Relación ${n}`})),correctByPrompt:{p1:'c1',p2:'c2',p3:'c3',p4:'c4'},allowReuse:true,edges:[]} }];
   return RoutePackageSchema.parse({schemaVersion:"2.0",packageKey:"t030",revision:1,locale:"es",policyVersion:"guided-v2.0",route:{slug:"t030-images",title:"Práctica visual sintética",summary:"Prueba aislada",topicLabel:"Geometría",audience:"Alumno",discipline:"general",coverKey:"heart"},sources:[],assets:[{key:"figure",mediaType:"image",originalFileName:"synthetic.png",sha256:null,alt:"Figura sintética sin etiquetas ni soluciones",caption:"",sourceKeys:[],rightsStatus:"owned",credit:"Fixture de prueba",width:800,height:400}],objectives:[{key:"objective-a",title:"Identificar una posición",unitKey:"unit",verb:"identify",criticality:"core",required:true,prerequisiteKeys:[],sourceKeys:[],comparisonGroup:null,misconceptions:[]}],units:[{key:"unit",title:"Práctica visual",objectiveKeys:["objective-a"],activityKeys:["hotspot","labeling","alternative","match"],support:"full",estimatedMinutes:5}],activities,assessments:[],reviewPlan:{objectiveKeys:[]},editorial:{notes:"Fixture sintético; no acredita revisión editorial.",unresolvedIssues:[]}});
 }
-export async function createImageHarness(options: { now?: () => Date } = {}) {
+export async function createImageHarness(options: { now?: () => Date; studyImage?: boolean } = {}) {
   const pg=await createGuidedV2Database();await seedGuidedV2Runtime(pg);
   await pg.query("update content_items set status='published',catalog_visibility='catalog',published_at=now(),published_by=$2 where id=$1",[v2Id(3),v2Id(1)]);
   const definition=imageDefinition();
+  if (options.studyImage) {
+    definition.activities.push({ ...definition.activities[0]!, key: "study-image", equivalenceKey: "study-image", kind: "study", phase: "learn", representation: "text", required: true,
+      payload: { body: "Lectura sintética con figura", focusSpans: [], assetKey: "figure", scaffold: "explanation", videoRange: null } });
+    definition.units[0]!.activityKeys.push("study-image");
+  }
   await pg.query("update learning_path_versions set definition_v2_json=$1 where id=$2",[JSON.stringify(definition),v2Id(6)]);
   await pg.query("insert into content_assets(id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at) values($1,$2,$3,'image','test-assets','t030/pinned-image','synthetic.png','image/png',100,'ready',now())",[v2Id(10),v2Id(3),v2Id(1)]);
   await pg.query("insert into learning_v2_bindings(path_version_id,local_key,kind,topic_content_id) values($1,'topic','topic',$2)",[v2Id(6),v2Id(3)]);

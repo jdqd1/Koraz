@@ -135,6 +135,12 @@
 .orderList li > span { display: block; padding-inline: 14px; }
 .editor h3, .editor li, .editor legend { overflow-wrap: anywhere; }
 .editor [data-field-path]:focus-visible { outline: 3px solid var(--koraz-blue); outline-offset: 3px; }
+
+@media (max-width: 960px) {
+  .editor :is(input, select, textarea, button, a, summary) {
+    scroll-margin-block-end: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
 .editor input[type='file'] { overflow: hidden; }
 .activityCard > div { margin-top: 20px; }
 .activitySummary { cursor: pointer; font-weight: 700; overflow-wrap: anywhere; }
@@ -203,7 +209,7 @@
 .stepList { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: static; align-items: center; gap: 0; padding: 0; margin-bottom: 26px; width: 100%; min-width: 0; box-sizing: border-box; border-bottom: 1px solid var(--koraz-line); background: transparent; }
 .step { position: relative; display: flex; align-items: center; justify-content: center; min-height: 46px; min-width: 0; padding: 12px 10px; gap: 7px; border: 0; border-radius: 8px 8px 0 0; white-space: nowrap; text-align: center; font: inherit; color: var(--koraz-slate); background: transparent; cursor: pointer; transition: background .15s, color .15s; }
 .step strong { font-size: 13px; font-weight: 550; }
-.step small { font-size: 11px; font-weight: 400; color: #7c7c85; }
+.step small { font-size: 11px; font-weight: 400; color: #5c5e6b; }
 .step[data-state='active'] { color: var(--koraz-blue); }
 .step[data-state='active']::after { content: ''; position: absolute; height: 2px; bottom: -1px; left: 12px; right: 12px; border-radius: 2px; background: var(--koraz-blue); }
 .step[data-state='active'] small { color: var(--koraz-blue); }
@@ -567,8 +573,8 @@
 .reviewTask > svg { margin-top: 2px; color: #ac771e; }
 .reviewTask[data-severity='warning'] > svg { color: #657a97; }
 .reviewTask > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; row-gap: 5px; min-width: 0; }
-.reviewTask h5 { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.5; grid-column: 1; }
-.reviewTask h5 small { display: inline-block; margin-left: 8px; color: #657a97; font-size: 10px; font-weight: 500; }
+.reviewTask h4 { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.5; grid-column: 1; }
+.reviewTask h4 small { display: inline-block; margin-left: 8px; color: #526884; font-size: 10px; font-weight: 500; }
 .reviewTaskContext { margin: 0; color: var(--koraz-slate); font-size: 12px; grid-column: 1; overflow-wrap: anywhere; }
 .reviewTaskDetail { margin: 2px 0 0; max-width: 78ch; color: #515158; font-size: 13px; line-height: 1.7; grid-column: 1; }
 .reviewTask button { grid-column: 2; grid-row: 1 / span 3; align-self: center; min-height: 36px; padding-inline: 8px; font-size: 12px; font-weight: 550; white-space: nowrap; }

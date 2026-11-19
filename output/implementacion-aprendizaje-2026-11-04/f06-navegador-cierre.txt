@@ -1,0 +1,88 @@
+[WebServer] (node:30820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:10320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:28532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 8 tests using 1 worker
+
+(node:15052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work (17.5s)
+(node:17760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:90:5 › F06 map summary opens V2 detail and retains context through study and authorized resources (11.7s)
+  ok 3 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:131:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (6.6s)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/02c00349-ecd4-41e1-9d8d-8f4a1193cf0d
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 4 [desktop] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (26.2s)
+(node:25524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work (21.5s)
+  ok 6 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:90:5 › F06 map summary opens V2 detail and retains context through study and authorized resources (10.4s)
+  ok 7 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:131:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (6.9s)
+Preparing local route /panel/rutas/nueva?mode=v2
+Preparing local route /panel/rutas/02c00349-ecd4-41e1-9d8d-8f4a1193cf0d
+Preparing local route /api/v2/editor/learning-paths/source-catalog?limit=24&q=
+Preparing local route /aprendizaje/rutas/t035-small
+Preparing local route /api/v2/guided-learning/paths/t035-small
+Preparing local route /aprendizaje/sesiones/77000000-0000-4000-8000-000000009999
+Preparing local route /aprendizaje?tab=hoy
+Preparing local route /aprendizaje/mapa
+Preparing local route /aprendizaje/repaso?motor=guided-v2&ruta=t035-small
+  ok 8 [mobile] › tests\e2e\guided-v2-journeys.spec.ts:132:5 › E04 all eight kinds persist through the learner UI on desktop and mobile (30.6s)
+
+
+  1) [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('La letra B sigue a A.', { exact: true })
+    Expected: visible
+    Error: strict mode violation: getByText('La letra B sigue a A.', { exact: true }) resolved to 2 elements:
+        1) <span data-guide-term-path="1.0">La letra B sigue a A.</span> aka getByRole('region', { name: 'Lectura de consulta' }).getByText('La letra B sigue a A.')
+        2) <span data-guide-term-path="1.0">La letra B sigue a A.</span> aka getByText('La letra B sigue a A.').nth(1)
+
+    Call log:
+      - Expect "toBeVisible" getByText('La letra B sigue a A.', { exact: true }) with timeout 60000ms
+      - waiting for getByText('La letra B sigue a A.', { exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-navigation.spec.ts:51:74)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-cierre\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f06\browser-cierre\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f06\browser-cierre\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f06\browser-cierre\guided-learning-navigation-6240e-ab-without-duplicating-work-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests\e2e\guided-learning-navigation.spec.ts:7:5 › F06 V1 retains unit, activity, guide section and resource tab without duplicating work 
+  7 passed (3.5m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-navigation.config.ts --output ../../work/f06/browser-cierre

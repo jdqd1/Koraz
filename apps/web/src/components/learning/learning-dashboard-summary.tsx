@@ -6,11 +6,11 @@ import {
   Check,
   ClockCounterClockwise,
   Compass,
-  FlagCheckered,
   Path,
 } from "@phosphor-icons/react/dist/ssr";
 import type { LearningHome, LearningHomeTask } from "@cediah/contracts";
 import { LearningDashboardActivityDetails } from "./learning-dashboard-activity-details";
+import { requiredActivityLabel, v1RouteSummary } from "./route-summary";
 
 function TaskIcon({ task }: { task: LearningHomeTask }) {
   return task.kind === "review"
@@ -38,10 +38,12 @@ export function LearningDashboardSummary({
   available,
   enabled,
   home,
+  hasOtherRoutes = false,
 }: {
   available: boolean;
   enabled: boolean;
   home: LearningHome | null;
+  hasOtherRoutes?: boolean;
 }) {
   if (!enabled) return null;
 
@@ -59,6 +61,7 @@ export function LearningDashboardSummary({
   }
 
   if (!home.activePath) {
+    if (hasOtherRoutes) return null;
     return (
       <section aria-labelledby="dashboard-learning-title" className="dashboard-learning-state">
         <div className="section-heading-row"><h2 id="dashboard-learning-title">Rutas de aprendizaje</h2></div>
@@ -72,12 +75,10 @@ export function LearningDashboardSummary({
   }
 
   const activePath = home.activePath;
-  const primaryTask = home.tasks.find((task) => task.kind !== "review") ?? null;
-  const stepProgress = activePath.totalSteps === 1
-    ? activePath.completedSteps > 0 ? 100 : 0
-    : Math.min(activePath.completedSteps, activePath.totalSteps - 1) / (activePath.totalSteps - 1) * 100;
+  const summary = v1RouteSummary(activePath);
+  const primaryTask = home.tasks.find((task) => task.kind !== "review" && task.enrollmentId === activePath.enrollmentId) ?? null;
   const stepperStyle = {
-    "--dashboard-route-progress": `${stepProgress}%`,
+    "--dashboard-route-progress": "0%",
     "--dashboard-step-edge": `${50 / activePath.totalSteps}%`,
     "--dashboard-step-count": activePath.totalSteps,
   } as CSSProperties;
@@ -98,12 +99,12 @@ export function LearningDashboardSummary({
             <div className="dashboard-learning-route-copy">
               <div className="dashboard-learning-route-status">
                 <span><Path aria-hidden="true" size={17} /> En curso</span>
-                <Link className="dashboard-learning-route-link" href={activePathHref(activePath.continueHref)}>
+                <Link className="dashboard-learning-route-link" href={activePath.pathHref ?? activePathHref(activePath.continueHref)}>
                   Ver ruta <ArrowRight aria-hidden="true" size={16} />
                 </Link>
               </div>
               <h3>{activePath.title}</h3>
-              <p>{activePath.completedSteps} de {activePath.totalSteps} actividades completadas</p>
+              <p>{requiredActivityLabel(summary)}</p>
             </div>
             <div className="dashboard-learning-progress-visual">
               <progress
@@ -118,14 +119,14 @@ export function LearningDashboardSummary({
             </div>
           </header>
 
-          <div className="dashboard-learning-stepper-scroll">
+          {summary.steps ? <div className="dashboard-learning-stepper-scroll">
             <div className="dashboard-learning-stepper" style={stepperStyle}>
               <span aria-hidden="true" className="dashboard-learning-stepper-track"><span /></span>
               <ol aria-label="Progreso por actividades">
-                {Array.from({ length: activePath.totalSteps }, (_, index) => {
-                  const state = index < activePath.completedSteps
+                {summary.steps.map((step, index) => {
+                  const state = step.state === "completed"
                     ? "completed"
-                    : index === activePath.completedSteps
+                    : primaryTask?.href.includes(`/actividades/${step.id}`)
                       ? "current"
                       : "upcoming";
                   const stateLabel = state === "completed"
@@ -133,31 +134,27 @@ export function LearningDashboardSummary({
                     : state === "current"
                       ? "actividad actual"
                       : "pendiente";
-                  const isGoal = index === activePath.totalSteps - 1;
 
                   return (
                     <li
                       aria-current={state === "current" ? "step" : undefined}
-                      data-goal={isGoal ? "true" : undefined}
                       data-state={state}
-                      key={index}
+                      key={step.id}
                     >
                       <span aria-hidden="true" className="dashboard-learning-step-node">
-                        {isGoal
-                          ? <FlagCheckered size={17} weight="fill" />
-                          : state === "completed"
+                        {state === "completed"
                             ? <Check size={17} weight="bold" />
                             : null}
                       </span>
                       <small aria-hidden="true">{index + 1}</small>
-                      <em aria-hidden="true">{isGoal ? "Meta" : state === "current" ? "Ahora" : `Act. ${index + 1}`}</em>
-                      <span className="sr-only">Actividad {index + 1}{isGoal ? ", meta de la ruta" : ""}: {stateLabel}</span>
+                      <em aria-hidden="true">{state === "current" ? "Ahora" : `Act. ${index + 1}`}</em>
+                      <span className="sr-only">{step.title}: {stateLabel}</span>
                     </li>
                   );
                 })}
               </ol>
             </div>
-          </div>
+          </div> : null}
 
           <section aria-labelledby="dashboard-learning-today-title" className="dashboard-learning-today">
             <header className="dashboard-learning-today-heading">
@@ -192,9 +189,9 @@ export function LearningDashboardSummary({
               <div className="dashboard-learning-today-clear">
                 <div>
                   <CalendarCheck aria-hidden="true" size={23} />
-                  <p><strong>Ruta completada.</strong><span>Puedes volver a cualquier actividad cuando quieras.</span></p>
+                  <p><strong>{summary.completed === summary.required ? "Ruta completada." : "No hay una tarea recomendada ahora."}</strong><span>Puedes abrir la ruta para consultar tus actividades.</span></p>
                 </div>
-                <Link className="dashboard-learning-activity-button" href={activePathHref(activePath.continueHref)}>
+                <Link className="dashboard-learning-activity-button" href={activePath.pathHref ?? activePathHref(activePath.continueHref)}>
                   Ver la ruta <ArrowRight aria-hidden="true" size={19} />
                 </Link>
               </div>

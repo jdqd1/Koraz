@@ -1,0 +1,847 @@
+[WebServer] (node:15404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:25576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 12 tests using 1 worker
+
+(node:2376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › tests\e2e\guided-learning-navigation.spec.ts:132:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (5.9s)
+  ok  2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent (13.4s)
+  x   3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (23.4s)
+(node:25548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   4 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (16.1s)
+(node:24740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4758db77-712a-42d0-a7d9-2fa7f9a53d1f',
+[WebServer]   requestId: 'f8c2cce7-483b-45f5-bd5b-9da46fff49f3',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4758db77-712a-42d0-a7d9-2fa7f9a53d1f',
+[WebServer]   requestId: '943b4474-0802-490c-b77b-36f6bd1be28f',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '403e8600-e4b8-4224-a5b7-28bb3576767f',
+[WebServer]   requestId: '7823e15e-c10c-4554-89df-51437d3cb906',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 9,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4120d4ff-ecc3-4fd1-b69b-144e792ac580',
+[WebServer]   requestId: '2751bb94-437a-4303-9a94-d427f9d54c8c',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 7,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'ca656711-39be-4075-b143-36effcd56b5f',
+[WebServer]   requestId: 'fb4207dc-ba1c-4624-ba54-84360cefb39f',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '403e8600-e4b8-4224-a5b7-28bb3576767f',
+[WebServer]   requestId: 'c871bdd1-a79a-43e9-b701-35fafb81a794',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4120d4ff-ecc3-4fd1-b69b-144e792ac580',
+[WebServer]   requestId: '98a6b9b6-cb66-4d0c-a1dd-2c25a247705d',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 4,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '848fdd66-5e43-414c-91bd-e5923f133560',
+[WebServer]   requestId: '1d31dc23-4e8a-41ed-97ce-0ed18a52cc86',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 7,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e935b09c-ac85-463e-a52b-b005bf068e67',
+[WebServer]   requestId: '8d1c5580-7507-46f6-8a61-9aa3978e8f32',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 5,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '25fd4d25-18c8-452d-bbc9-ea9b92375b30',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2518,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'f30565d2-d2b0-4e7c-b930-f6330cfb84dd',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2501,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'ff336b32-24c4-4a6f-9348-3739358ef993',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2511,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '25fd4d25-18c8-452d-bbc9-ea9b92375b30',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2504,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'f30565d2-d2b0-4e7c-b930-f6330cfb84dd',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2503,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'ff336b32-24c4-4a6f-9348-3739358ef993',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2500,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+  ok  5 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (10.3s)
+  ok  6 [desktop] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (3.5s)
+(node:14880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [mobile] › tests\e2e\guided-learning-navigation.spec.ts:132:5 › F06 H19 records map nodes through list, reload and resizing without disabling virtualization (5.9s)
+  -   8 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:198:5 › T037 V03 native browser zoom at 200 percent
+  x   9 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (27.4s)
+(node:26360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  10 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration (16.2s)
+(node:27404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '5fa90dbb-9488-4678-81df-66464341f085',
+[WebServer]   requestId: '0d51094b-e368-40b7-b081-38dab8436db5',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '5fa90dbb-9488-4678-81df-66464341f085',
+[WebServer]   requestId: '71f4862f-5a26-4d0e-b155-fff219a427ba',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 3,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4078f345-9fd2-4805-bd81-33e68a2a590d',
+[WebServer]   requestId: 'b1aa7fa9-3e3f-4201-a2ab-757db1d3a643',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 9,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4169e86b-6532-4f23-a92c-24bdf1f6cb16',
+[WebServer]   requestId: 'ffaa04df-d8ec-440c-bf13-3be5ce429fd0',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 5,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'b3e249ff-0bfe-4581-958d-60bf0d031ac7',
+[WebServer]   requestId: '30454767-bc06-433a-acbb-42a4923b9980',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4078f345-9fd2-4805-bd81-33e68a2a590d',
+[WebServer]   requestId: '1525df88-a8e4-49bc-abd1-5cfacdab4352',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 9,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '4169e86b-6532-4f23-a92c-24bdf1f6cb16',
+[WebServer]   requestId: '96e67c55-b5ab-42ca-98c0-e4bb49f53663',
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 87,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e45c3725-cf7d-4695-917b-199101e0210a',
+[WebServer]   requestId: 'efd502fe-e932-4ba8-9ec1-8542ccebd0b6',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 8,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'abfd7bb4-6778-4f68-a2b2-6fbef32692db',
+[WebServer]   requestId: 'fd59f45d-23b5-4d0b-89c4-94808680d04c',
+[WebServer]   attempt: 1,
+[WebServer]   status: 200,
+[WebServer]   durationMs: 5,
+[WebServer]   stage: 'validation',
+[WebServer]   reason: 'invalid_response'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e15fe248-5bcc-4e45-9d8b-cc6365826775',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2501,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '2a0d35cd-5775-4531-bfc5-05f812ee7c57',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2510,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '3caf068b-3785-4c4c-8a63-446a7ce8a621',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2507,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: 'e15fe248-5bcc-4e45-9d8b-cc6365826775',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2502,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '2a0d35cd-5775-4531-bfc5-05f812ee7c57',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2503,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '3caf068b-3785-4c4c-8a63-446a7ce8a621',
+[WebServer]   requestId: undefined,
+[WebServer]   attempt: 2,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 2507,
+[WebServer]   stage: 'transport',
+[WebServer]   reason: 'timeout'
+[WebServer] }
+  ok 11 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers before commit in a second tab (10.6s)
+  ok 12 [mobile] › tests\e2e\guided-v2-diagnostic-xp.spec.ts:172:46 › final V1 review recovers after commit in a second tab (3.4s)
+
+
+  1) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+
+    Error: image-zoom-reduced-motion: axe
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 93
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#edf0f7",
+    +               "contrastRatio": 3.62,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#7c7c85",
+    +               "fontSize": "8.3pt (11px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 3.62 (foreground color: #7c7c85, background color: #edf0f7, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<div class=\"app-shell   sidebar-collapsed\">",
+    +                 "target": Array [
+    +                   ".app-shell",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.62 (foreground color: #7c7c85, background color: #edf0f7, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>16</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "#radix-_R_3lfiv5u9fnb_-trigger-journey > small",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.38,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#657a97",
+    +               "fontSize": "7.5pt (10px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"Uwf6nG_card undefined\">",
+    +                 "target": Array [
+    +                   ".undefined.Uwf6nG_card",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>Sugerencia</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h5 > small",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+      66 |         return { name: e.getAttribute("aria-label") ?? e.textContent?.slice(0, 90), width: b.width, height: b.height }; }) }));
+      67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));
+    > 68 |   expect.soft(axe.violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")), `${name}: axe`).toEqual([]);
+         |                                                                                                             ^
+      69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);
+      70 | }
+      71 | async function previewPoint(page: Page, key: string) {
+        at capture (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:68:109)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:292:3)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error: image-alternative: axe
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 93
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#edf0f7",
+    +               "contrastRatio": 3.62,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#7c7c85",
+    +               "fontSize": "8.3pt (11px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 3.62 (foreground color: #7c7c85, background color: #edf0f7, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<div class=\"app-shell   sidebar-collapsed\">",
+    +                 "target": Array [
+    +                   ".app-shell",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.62 (foreground color: #7c7c85, background color: #edf0f7, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>16</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "#radix-_R_3lfiv5u9fnb_-trigger-journey > small",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.38,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#657a97",
+    +               "fontSize": "7.5pt (10px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"Uwf6nG_card undefined\">",
+    +                 "target": Array [
+    +                   ".undefined.Uwf6nG_card",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>Sugerencia</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h5 > small",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+      66 |         return { name: e.getAttribute("aria-label") ?? e.textContent?.slice(0, 90), width: b.width, height: b.height }; }) }));
+      67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));
+    > 68 |   expect.soft(axe.violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")), `${name}: axe`).toEqual([]);
+         |                                                                                                             ^
+      69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);
+      70 | }
+      71 | async function previewPoint(page: Page, key: string) {
+        at capture (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:68:109)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:297:3)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true })
+    Expected: enabled
+    Timeout: 12000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true }) with timeout 12000ms
+      - waiting for locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true })
+
+
+      28 |   return a;
+      29 | }
+    > 30 | async function keyboard(locator: Locator) { await expect(locator).toBeEnabled(); await locator.focus(); await locator.press("Enter"); }
+         |                                                                   ^
+      31 | async function hydrated(locator: Locator) {
+      32 |   await expect.poll(() => locator.evaluate(element => Object.keys(element).some(k => k.startsWith("__reactProps")
+      33 |     && Object.entries((element as unknown as Record<string, Record<string, unknown>>)[k] ?? {})
+        at keyboard (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:30:67)
+        at finishPreview (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:104:100)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:300:36)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+
+    TimeoutError: locator.focus: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Volver a rutas', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:327:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+
+    Error: image-zoom-reduced-motion: axe
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 58
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.38,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#657a97",
+    +               "fontSize": "7.5pt (10px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"Uwf6nG_card undefined\">",
+    +                 "target": Array [
+    +                   ".undefined.Uwf6nG_card",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>Sugerencia</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h5 > small",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+      66 |         return { name: e.getAttribute("aria-label") ?? e.textContent?.slice(0, 90), width: b.width, height: b.height }; }) }));
+      67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));
+    > 68 |   expect.soft(axe.violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")), `${name}: axe`).toEqual([]);
+         |                                                                                                             ^
+      69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);
+      70 | }
+      71 | async function previewPoint(page: Page, key: string) {
+        at capture (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:68:109)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:292:3)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error: image-alternative: axe
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 58
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.38,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#657a97",
+    +               "fontSize": "7.5pt (10px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"Uwf6nG_card undefined\">",
+    +                 "target": Array [
+    +                   ".undefined.Uwf6nG_card",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.38 (foreground color: #657a97, background color: #ffffff, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<small>Sugerencia</small>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h5 > small",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+      66 |         return { name: e.getAttribute("aria-label") ?? e.textContent?.slice(0, 90), width: b.width, height: b.height }; }) }));
+      67 |   await writeFile(info.outputPath(`${name}-geometry.json`), JSON.stringify(geometry, null, 2));
+    > 68 |   expect.soft(axe.violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")), `${name}: axe`).toEqual([]);
+         |                                                                                                             ^
+      69 |   expect.soft(geometry.pageWidth, `${name}: page overflow`).toBeLessThanOrEqual(geometry.viewport.width + 1);
+      70 | }
+      71 | async function previewPoint(page: Page, key: string) {
+        at capture (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:68:109)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:297:3)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true })
+    Expected: enabled
+    Timeout: 12000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true }) with timeout 12000ms
+      - waiting for locator('[data-editor-preview]').getByRole('button', { name: 'Finalizar sesión', exact: true })
+
+
+      28 |   return a;
+      29 | }
+    > 30 | async function keyboard(locator: Locator) { await expect(locator).toBeEnabled(); await locator.focus(); await locator.press("Enter"); }
+         |                                                                   ^
+      31 | async function hydrated(locator: Locator) {
+      32 |   await expect.poll(() => locator.evaluate(element => Object.keys(element).some(k => k.startsWith("__reactProps")
+      33 |     && Object.entries((element as unknown as Record<string, Record<string, unknown>>)[k] ?? {})
+        at keyboard (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:30:67)
+        at finishPreview (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:104:100)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:300:36)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-bd38d--and-accessible-alternative-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+
+    TimeoutError: locator.focus: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Volver a rutas', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-v2-accessibility.spec.ts:327:73)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-regresion-cierre\guided-v2-accessibility-T0-1a719-and-modal-focus-restoration-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+    [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+    [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:242:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative 
+    [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:323:5 › T037 V02 tab order, field reachability and modal focus restoration 
+  1 skipped
+  7 passed (2.7m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep "final V1 review|H19 records|V02/V05|V02 tab order|native browser zoom" --output ../../work/f07/browser-regresion-cierre

@@ -6,6 +6,8 @@ import { newestContentFirst } from "@/lib/content-order";
 import { AppShell } from "./app-shell";
 import { LearningDashboardReview } from "./learning/learning-dashboard-review";
 import { LearningDashboardSummary } from "./learning/learning-dashboard-summary";
+import { LearningDashboardRoutes } from "./learning/learning-dashboard-routes";
+import type { LearningOverview } from "@/lib/server/learning-overview";
 
 type Guide = Extract<ContentItem, { kind: "guide" }>;
 
@@ -37,6 +39,7 @@ export function DashboardScreen({
   guidedLearningEnabled = false,
   learningHome = null,
   learningHomeAvailable = false,
+  learningOverview = null,
   viewer,
 }: {
   available: boolean;
@@ -48,6 +51,7 @@ export function DashboardScreen({
   guidedLearningEnabled?: boolean;
   learningHome?: LearningHome | null;
   learningHomeAvailable?: boolean;
+  learningOverview?: LearningOverview | null;
   viewer?: { email: string };
 }) {
   const recentGuides = recentItems
@@ -86,7 +90,10 @@ export function DashboardScreen({
             </Link>
           )}
         </section>
-        <LearningDashboardSummary available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
+        {guidedLearningEnabled ? <div className="dashboard-route-summaries">
+          <LearningDashboardSummary available={learningHomeAvailable} enabled home={learningHome} hasOtherRoutes={!!learningOverview?.v2Routes.length || !!learningOverview?.v2Unavailable} />
+          {learningOverview ? <LearningDashboardRoutes routes={learningOverview.v2Routes} unavailable={learningOverview.v2Unavailable} /> : null}
+        </div> : null}
         <LearningDashboardReview available={learningHomeAvailable} enabled={guidedLearningEnabled} home={learningHome} />
         <section className="dashboard-section dashboard-recent" aria-labelledby="recent-title">
         <div className="section-heading-row">

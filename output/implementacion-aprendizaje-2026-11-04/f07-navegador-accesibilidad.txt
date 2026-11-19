@@ -1,0 +1,30 @@
+[WebServer] (node:8368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:25520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:21820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:4032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:12140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:201:5 › T037 V03 native browser zoom at 200 percent (14.6s)
+  ok 2 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:245:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (16.5s)
+  ok 3 [desktop] › tests\e2e\guided-v2-accessibility.spec.ts:326:5 › T037 V02 tab order, field reachability and modal focus restoration (6.0s)
+(node:9816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  4 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:201:5 › T037 V03 native browser zoom at 200 percent
+  ok 5 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:245:5 › T037 V02/V05 keyboard, touch, letterbox, zoom and accessible alternative (21.9s)
+  ok 6 [mobile] › tests\e2e\guided-v2-accessibility.spec.ts:326:5 › T037 V02 tab order, field reachability and modal focus restoration (6.8s)
+
+  1 skipped
+  5 passed (1.4m)

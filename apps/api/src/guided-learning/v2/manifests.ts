@@ -74,7 +74,7 @@ export function guidedV2AttemptManifest(input: {
     engineVersion: "guided-v2", attemptId: input.attemptId, enrollmentId: input.enrollmentId,
     pathVersionId: input.pathVersionId, policyVersion: "guided-v2.0", purpose: input.purpose,
     rowVersion: input.rowVersion,
-    ...(input.earnedXp ? { earnedXp: input.earnedXp } : {}),
+    ...(input.earnedXp === undefined ? {} : { earnedXp: input.earnedXp }),
     status: input.status === "in_progress" ? "open" : input.status,
     ...(input.snapshot.placement ? { placement: input.status === "completed"
       ? placementResult(input.snapshot, input.responses.map(item => ({ ...item, gradingSource: item.gradingSource ?? "none", assisted: item.assisted ?? true })))

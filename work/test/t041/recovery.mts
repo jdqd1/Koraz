@@ -8,7 +8,8 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createGuidedV2Postgres } from '../../../apps/api/test/helpers/guided-v2-postgres.js';
-import { guidedV2Fixture, guidedV2FixtureId as id, guidedV2FixtureBindings, guidedV2GuidePayload, guidedV2GuideHash, guidedV2Image } from '../../../apps/api/test/helpers/guided-v2-fixtures.js';
+import { guidedV2Fixture, guidedV2FixtureId as id, guidedV2FixtureBindings, guidedV2GuidePayload, guidedV2Image } from '../../../apps/api/test/helpers/guided-v2-fixtures.js';
+import { hashLearningSnapshot } from '../../../apps/api/src/guided-learning/snapshot-hash.js';
 import { createPostgresGuidedLearningV2Provider } from '../../../apps/api/src/providers/postgres-guided-learning-v2.js';
 import { createGuidedV2HttpProvider } from '../../../apps/api/src/guided-learning/v2/routes.js';
 import { createPostgresGuidedLearningProvider } from '../../../apps/api/src/providers/postgres-guided-learning.js';
@@ -111,10 +112,13 @@ try {
   await source.pool.query('update content_items set content=$2 where id=$1', [id(21), { document: null, sections: guidedV2GuidePayload.content.sections, keyPoints: [], linkedVideoId: null,
     quiz: { questions: Array.from({ length: 5 }, (_, i) => ({ id: id(200 + i), memoryVersion: 1, optionIds: [id(300 + 2 * i), id(301 + 2 * i)], prompt: `Pregunta T041 ${i + 1}`, options: ['Correcta', 'Otra'], correctOptionIndex: 0, explanation: 'Explicación sintética' })) }, regions: ['Tema'] }]);
   await source.pool.query("insert into learning_resources(id,source_content_id,projection,adapter_key) values($1,$2,'guide','guide-adapter')", [id(22), id(21)]);
-  await source.pool.query('insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,1,1,1,1,$3,$4)', [id(23), id(22), guidedV2GuidePayload, guidedV2GuideHash]);
+  const guideSnapshot = { ...guidedV2GuidePayload, title: 'Guía T041', sourceContentId: id(21) };
+  const guideHash = hashLearningSnapshot(guideSnapshot);
+  await source.pool.query('insert into learning_resource_revisions(id,resource_id,revision_number,source_version,adapter_version,schema_version,payload_json,payload_hash) values($1,$2,1,1,1,1,$3,$4)', [id(23), id(22), guideSnapshot, guideHash]);
   await source.pool.query("insert into content_assets(id,content_item_id,owner_user_id,kind,storage_bucket,storage_path,original_file_name,mime_type,size_bytes,status,finalized_at) values($1,$2,$3,'image','test-assets','fixture.png','fixture.png','image/png',$4,'ready',now())", [id(24), id(20), id(1), guidedV2Image.length]);
   const editor = createPostgresGuidedLearningV2Provider(source.database, { now, assetStorage: assets });
   const pkg = guidedV2Fixture(); pkg.packageKey = 't041-v2'; pkg.route.slug = 't041-v2'; pkg.route.title = 'Ruta v2 T041';
+  pkg.sources[0]!.documentSha256 = guideHash;
   let created = await editor.createDraft({ actorUserId: id(1), canCreate: true, canEditAll: true, enforceAccess: true, package: pkg, bindings: guidedV2FixtureBindings });
   assert.equal(created.status, 'success'); let route = (created as any).value;
   for (const status of ['in_review', 'approved', 'published'] as const) {

@@ -1,0 +1,201 @@
+{
+  "snapshots": [
+    {
+      "requested": {
+        "node": "fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+        "item": "fd2ff10c-0944-4da4-bd75-3ebbc149b070"
+      },
+      "unitCount": 30,
+      "width": 390,
+      "first": [
+        "level-origin",
+        "lesson:lectura",
+        "lesson:otra",
+        "lesson:contenido-1",
+        "lesson:contenido-2",
+        "lesson:contenido-3",
+        "lesson:contenido-4"
+      ],
+      "last": [
+        "level-origin",
+        "lesson:contenido-24",
+        "lesson:contenido-25",
+        "lesson:contenido-26",
+        "lesson:contenido-27",
+        "lesson:contenido-28"
+      ],
+      "measures": {
+        "width": 390,
+        "height": 533,
+        "scrollTop": 4339,
+        "scrollHeight": 4872
+      }
+    },
+    {
+      "requested": {
+        "node": "fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+        "item": "fd2ff10c-0944-4da4-bd75-3ebbc149b070"
+      },
+      "unitCount": 30,
+      "width": 1440,
+      "first": [
+        "level-origin",
+        "lesson:lectura",
+        "lesson:otra",
+        "lesson:contenido-1",
+        "lesson:contenido-2",
+        "lesson:contenido-3",
+        "lesson:contenido-4"
+      ],
+      "last": [
+        "level-origin",
+        "lesson:contenido-23",
+        "lesson:contenido-24",
+        "lesson:contenido-25",
+        "lesson:contenido-26",
+        "lesson:contenido-27",
+        "lesson:contenido-28"
+      ],
+      "measures": {
+        "width": 1358,
+        "height": 621,
+        "scrollTop": 4539,
+        "scrollHeight": 5160
+      }
+    },
+    {
+      "requested": {
+        "node": "fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+        "item": "fd2ff10c-0944-4da4-bd75-3ebbc149b070"
+      },
+      "unitCount": 30,
+      "width": 320,
+      "first": [
+        "level-origin",
+        "lesson:lectura",
+        "lesson:otra",
+        "lesson:contenido-1",
+        "lesson:contenido-2",
+        "lesson:contenido-3",
+        "lesson:contenido-4"
+      ],
+      "last": [
+        "level-origin",
+        "lesson:contenido-24",
+        "lesson:contenido-25",
+        "lesson:contenido-26",
+        "lesson:contenido-27",
+        "lesson:contenido-28"
+      ],
+      "measures": {
+        "width": 320,
+        "height": 537,
+        "scrollTop": 4335,
+        "scrollHeight": 4872
+      }
+    },
+    {
+      "requested": {
+        "node": "fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+        "item": "fd2ff10c-0944-4da4-bd75-3ebbc149b070"
+      },
+      "unitCount": 30,
+      "width": 430,
+      "first": [
+        "level-origin",
+        "lesson:lectura",
+        "lesson:otra",
+        "lesson:contenido-1",
+        "lesson:contenido-2",
+        "lesson:contenido-3",
+        "lesson:contenido-4"
+      ],
+      "last": [
+        "level-origin",
+        "lesson:contenido-24",
+        "lesson:contenido-25",
+        "lesson:contenido-26",
+        "lesson:contenido-27",
+        "lesson:contenido-28"
+      ],
+      "measures": {
+        "width": 430,
+        "height": 539,
+        "scrollTop": 4333,
+        "scrollHeight": 4872
+      }
+    }
+  ],
+  "trace": [
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map",
+      "status": 200,
+      "durationMs": 25.228000000002794,
+      "bytes": 1510
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=fd2ff10c-0944-4da4-bd75-3ebbc149b070&item=fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+      "status": 200,
+      "durationMs": 23.625599999999395,
+      "bytes": 21996
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level",
+      "status": 200,
+      "durationMs": 15.301399999996647,
+      "bytes": 2226
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=a73eefb6-3a54-42ab-975b-ba9917bc4efc",
+      "status": 200,
+      "durationMs": 17.538700000000972,
+      "bytes": 1661
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=40909e2f-dae5-44c3-b198-30c9a31ebf9e",
+      "status": 200,
+      "durationMs": 106.76730000000316,
+      "bytes": 1676
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=77000000-0000-4000-8000-000000000120",
+      "status": 200,
+      "durationMs": 101.95869999999923,
+      "bytes": 3196
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=fd2ff10c-0944-4da4-bd75-3ebbc149b070&item=fd2ff10c-0944-4da4-bd75-3ebbc149b070&unit=lectura",
+      "status": 200,
+      "durationMs": 26.08680000000095,
+      "bytes": 23581
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=fd2ff10c-0944-4da4-bd75-3ebbc149b070&item=fd2ff10c-0944-4da4-bd75-3ebbc149b070&unit=otra",
+      "status": 200,
+      "durationMs": 16.769599999999627,
+      "bytes": 22470
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map",
+      "status": 200,
+      "durationMs": 13.407999999999447,
+      "bytes": 1510
+    },
+    {
+      "method": "GET",
+      "path": "/v1/guided-learning/map/level?node=fd2ff10c-0944-4da4-bd75-3ebbc149b070&item=fd2ff10c-0944-4da4-bd75-3ebbc149b070",
+      "status": 200,
+      "durationMs": 13.183899999999994,
+      "bytes": 21996
+    }
+  ]
+}

@@ -9,8 +9,8 @@ export function LearningPoints({ path, state, unitKey, returnTo }: { path: V2Pat
   if (!motivation) return null;
   const unit = path.units.find(item => item.key === unitKey);
   const placements = state.maintenance?.placements;
-  const destination = placements?.find(item => item.status !== "passed" && unit?.objectives.some(objective => objective.key === item.objectiveKey))
-    ?? placements?.find(item => item.status === "xp_required" || item.status === "available");
+  const destination = placements?.find(item => (item.status === "xp_required" || item.status === "available")
+    && (!unitKey || unit?.objectives.some(objective => objective.key === item.objectiveKey)));
   const target = path.units.flatMap(item => item.objectives).find(item => item.key === destination?.objectiveKey);
   const repeats = motivation.practiceOffers.filter(item => !unit || unit.objectives.some(objective => objective.key === item.objectiveKey));
   const rules = motivation.rules;

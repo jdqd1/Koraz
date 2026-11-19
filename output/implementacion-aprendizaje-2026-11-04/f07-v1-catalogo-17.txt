@@ -1,0 +1,43 @@
+[WebServer] (node:8856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:10576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:14084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg-pool@3.14.0_pg@8.23.0\node_modules\pg-pool\index.js:45
+[WebServer]     Error.captureStackTrace(err)
+[WebServer]           ^
+[WebServer] 
+[WebServer] error: could not open file "global/2964": No such file or directory
+[WebServer]     at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\pg-pool@3.14.0_pg@8.23.0\node_modules\pg-pool\index.js:45:11
+[WebServer]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[WebServer]     at async createGuidedV2Postgres (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-postgres.ts:20:3)
+[WebServer]     at async createGuidedV2Server (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-server.ts:22:12)
+[WebServer]     at async <anonymous> (D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\api\test\helpers\guided-v2-server.ts:254:17) {
+[WebServer]   length: 244,
+[WebServer]   severity: 'ERROR',
+[WebServer]   code: '58P01',
+[WebServer]   detail: undefined,
+[WebServer]   hint: undefined,
+[WebServer]   position: undefined,
+[WebServer]   internalPosition: undefined,
+[WebServer]   internalQuery: undefined,
+[WebServer]   where: `SQL expression "not exists(select 1 from pg_roles where rolname='cediah_runtime')"\n` +
+[WebServer]     'PL/pgSQL function inline_code_block line 2 at IF',
+[WebServer]   schema: undefined,
+[WebServer]   table: undefined,
+[WebServer]   column: undefined,
+[WebServer]   dataType: undefined,
+[WebServer]   constraint: undefined,
+[WebServer]   file: 'md.c',
+[WebServer]   line: '672',
+[WebServer]   routine: 'mdopenfork'
+[WebServer] }
+[WebServer] 
+[WebServer] Node.js v24.22.1
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep "measures V1 activity|payload budgets|measures map panel" --output ../../work/f07/browser-v1-catalogo-17

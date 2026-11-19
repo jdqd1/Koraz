@@ -1,0 +1,196 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: guided-v2-journeys.spec.ts >> E03 beginner help and CORE error are confirmed by the server
+- Location: tests\e2e\guided-v2-journeys.spec.ts:134:5
+
+# Error details
+
+```
+TimeoutError: locator.getAttribute: Timeout 60000ms exceeded.
+Call log:
+  - waiting for locator('details[aria-label="Refuerzo dirigido"]:visible')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - complementary "Navegación principal" [ref=f4e3]:
+      - navigation [ref=f4e4]:
+        - generic [ref=f4e5]:
+          - link "Inicio" [ref=f4e6] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [aria-hidden]: Inicio
+          - link "Aprendizaje guiado" [ref=f4e9] [cursor=pointer]:
+            - /url: /aprendizaje
+            - generic [aria-hidden]: Aprendizaje guiado
+          - link "Materias" [ref=f4e12] [cursor=pointer]:
+            - /url: /asignaturas
+            - generic [aria-hidden]: Materias
+          - button "Material de estudio" [ref=f4e17] [cursor=pointer]:
+            - generic [aria-hidden]: Material de estudio
+    - generic [ref=f4e20]:
+      - banner [ref=f4e21]:
+        - button "Expandir menú principal" [ref=f4e23] [cursor=pointer]
+        - search "Buscar guías" [ref=f4e27]:
+          - combobox "Buscar guías" [ref=f4e30]
+        - heading "Aprendizaje guiado" [level=1] [ref=f4e32]
+        - generic [ref=f4e33]:
+          - button "Notificaciones" [ref=f4e35] [cursor=pointer]
+          - button "Abrir menú de perfil de t035-2@example.test" [ref=f4e39] [cursor=pointer]:
+            - generic [ref=f4e40]: T0
+      - article [ref=f4e41]:
+        - link "Todas las rutas" [ref=f4e42] [cursor=pointer]:
+          - /url: /aprendizaje?tab=rutas
+        - generic [ref=f4e46]:
+          - heading "Ruta T035 pequeña" [level=1] [ref=f4e47]
+          - generic [ref=f4e48]:
+            - generic [ref=f4e49]: Tema T035
+            - generic [ref=f4e50]: 1 unidades
+          - group [ref=f4e51]:
+            - generic "Acerca de esta ruta" [ref=f4e52] [cursor=pointer]
+        - generic [ref=f4e56]:
+          - region "Acción recomendada" [ref=f4e57]:
+            - heading "Refuerza lo aprendido" [level=2] [ref=f4e62]
+            - paragraph [ref=f4e63]: Unidad T035
+            - button "Reforzar" [ref=f4e65] [cursor=pointer]
+            - group [ref=f4e66]:
+              - generic "Ver recomendación" [ref=f4e67] [cursor=pointer]
+          - region "Tu progreso" [ref=f4e70]:
+            - heading "Tu progreso" [level=2] [ref=f4e71]
+            - generic "Estado confirmado de la ruta" [ref=f4e72]:
+              - generic [ref=f4e73]:
+                - generic [ref=f4e74]: 3 de 9 actividades obligatorias completadas
+                - progressbar "Actividades completadas" [ref=f4e75]
+              - list [ref=f4e76]:
+                - listitem "Actividades en curso" [ref=f4e77]:
+                  - strong [ref=f4e81]: Actividades
+                  - generic [ref=f4e82]: En curso
+                - listitem "Aprendizaje por comprobar" [ref=f4e85]:
+                  - strong [ref=f4e89]: Lo aprendido
+                  - generic [ref=f4e90]: Por comprobar
+                - listitem "Repaso a largo plazo pendiente" [ref=f4e93]:
+                  - strong [ref=f4e97]: Repaso con el tiempo
+                  - generic [ref=f4e98]: Pendiente
+              - generic [ref=f4e101]: 1 objetivo por reforzar
+              - group [ref=f4e103]:
+                - generic "Qué significa mi progreso" [ref=f4e104] [cursor=pointer]
+            - region "Puntos de aprendizaje" [ref=f4e105]:
+              - generic [ref=f4e106]:
+                - strong [ref=f4e109]: 0 XP
+                - generic [ref=f4e110]: 0 en esta ruta
+              - group [ref=f4e111]:
+                - generic "Cómo ganar más XP" [ref=f4e112] [cursor=pointer]
+        - group "Diagnóstico inicial" [ref=f4e113]:
+          - generic "Diagnóstico inicial Opcional" [ref=f4e114] [cursor=pointer]:
+            - heading "Diagnóstico inicial" [level=2] [ref=f4e117]
+            - generic [ref=f4e118]: Opcional
+        - region [ref=f4e121]:
+          - generic [ref=f4e122]:
+            - heading "Unidades de la ruta" [level=2] [ref=f4e123]
+            - generic [ref=f4e124]: "1"
+          - generic [ref=f4e125]:
+            - tablist "Contenido de la ruta" [ref=f4e126]:
+              - tab "Actividades" [selected] [ref=f4e127] [cursor=pointer]
+              - tab "Recursos" [ref=f4e128] [cursor=pointer]
+            - tabpanel "Actividades" [ref=f4e129]:
+              - group [ref=f4e131]:
+                - generic "1 Unidad T035 10 actividades Por reforzar" [ref=f4e132] [cursor=pointer]:
+                  - generic [ref=f4e133]: "1"
+                  - generic [ref=f4e134]:
+                    - strong [ref=f4e135]: Unidad T035
+                    - generic [ref=f4e136]:
+                      - generic [ref=f4e137]: 10 actividades
+                      - generic [ref=f4e138]: Por reforzar
+                - generic [ref=f4e141]:
+                  - generic [ref=f4e142]:
+                    - generic [ref=f4e143]: 3 de 9 actividades completadas
+                    - progressbar "Actividades completadas de Unidad T035" [ref=f4e144]
+                  - generic [ref=f4e145]:
+                    - 'region "Objetivo: Aplicar el ejemplo 1" [ref=f4e146]':
+                      - generic [ref=f4e147]:
+                        - 'heading "Objetivo: Aplicar el ejemplo 1" [level=3] [ref=f4e148]'
+                        - generic [ref=f4e149]: Por reforzar
+                      - paragraph [ref=f4e150]: Hay un concepto esencial por reforzar antes de continuar con las actividades que dependen de él.
+                      - paragraph [ref=f4e151]:
+                        - generic [ref=f4e154]: 3 actividades completadas
+                      - list "Actividades de Aplicar el ejemplo 1" [ref=f4e155]:
+                        - listitem [ref=f4e156]:
+                          - generic [ref=f4e160]:
+                            - generic [ref=f4e161]:
+                              - img "Lectura" [ref=f4e162]
+                              - strong [ref=f4e165]: Leer y comprender · Aplicar el ejemplo 1 (1/2)
+                              - generic [ref=f4e166]: Completada
+                            - paragraph [ref=f4e167]: Puedes consultar las lecturas en Recursos. Practicar de nuevo requiere una actividad disponible.
+                        - listitem [ref=f4e168]:
+                          - generic [ref=f4e172]:
+                            - generic [ref=f4e173]:
+                              - img "Explicación escrita" [ref=f4e174]
+                              - strong [ref=f4e177]: Explicar con tus palabras · Aplicar el ejemplo 1
+                              - generic [ref=f4e178]: Completada
+                            - paragraph [ref=f4e179]: Puedes consultar las lecturas en Recursos. Practicar de nuevo requiere una actividad disponible.
+                        - listitem [ref=f4e180]:
+                          - generic [ref=f4e184]:
+                            - generic [ref=f4e185]:
+                              - img "Pregunta de opción múltiple" [ref=f4e186]
+                              - strong [ref=f4e189]: Elegir la respuesta correcta · Aplicar el ejemplo 1 (1/2)
+                              - generic [ref=f4e190]: Completada
+                            - paragraph [ref=f4e191]: Puedes consultar las lecturas en Recursos. Practicar de nuevo requiere una actividad disponible.
+                        - listitem [ref=f4e192]:
+                          - generic [aria-hidden] [ref=f4e193]: "4"
+                          - generic [ref=f4e195]:
+                            - img "Respuesta breve" [ref=f4e196]
+                            - strong [ref=f4e199]: Recordar sin mirar · Aplicar el ejemplo 1
+                        - listitem [ref=f4e200]:
+                          - generic [aria-hidden] [ref=f4e201]: "5"
+                          - generic [ref=f4e203]:
+                            - img "Pregunta de opción múltiple" [ref=f4e204]
+                            - strong [ref=f4e207]: Elegir la respuesta correcta · Aplicar el ejemplo 1 (2/2)
+                        - listitem [ref=f4e208]:
+                          - generic [aria-hidden] [ref=f4e209]: "6"
+                          - generic [ref=f4e211]:
+                            - img "Relaciones" [ref=f4e212]
+                            - strong [ref=f4e215]: Relacionar conceptos · Aplicar el ejemplo 1
+                        - listitem [ref=f4e216]:
+                          - generic [aria-hidden] [ref=f4e217]: "7"
+                          - generic [ref=f4e219]:
+                            - img "Ordenar elementos" [ref=f4e220]
+                            - strong [ref=f4e223]: Ordenar la secuencia · Aplicar el ejemplo 1
+                        - listitem [ref=f4e224]:
+                          - generic [aria-hidden] [ref=f4e225]: "8"
+                          - generic [ref=f4e227]:
+                            - img "Práctica visual" [ref=f4e228]
+                            - strong [ref=f4e231]: Identificar en la imagen · Aplicar el ejemplo 1
+                        - listitem [ref=f4e232]:
+                          - generic [aria-hidden] [ref=f4e233]: "9"
+                          - generic [ref=f4e235]:
+                            - img "Caso práctico" [ref=f4e236]
+                            - strong [ref=f4e239]: Resolver un caso · Aplicar el ejemplo 1
+                        - listitem [ref=f4e240]:
+                          - generic [ref=f4e244]:
+                            - generic [ref=f4e245]:
+                              - img "Lectura" [ref=f4e246]
+                              - strong [ref=f4e249]: Leer y comprender · Aplicar el ejemplo 1 (2/2)
+                              - generic [ref=f4e250]: Opcional
+                            - button "Abrir actividad" [ref=f4e252] [cursor=pointer]
+                      - paragraph [ref=f4e253]:
+                        - text: Vuelve a repasar
+                        - time [ref=f4e256]: mañana a las 8:00 a. m.
+                        - text: para recordar lo aprendido.
+                    - generic [ref=f4e260]:
+                      - strong [ref=f4e261]: Pon a prueba lo que aprendiste
+                      - generic [ref=f4e262]: Al terminar las actividades, responde unas preguntas para ver qué recuerdas y qué conviene repasar.
+        - group [ref=f4e263]:
+          - heading "Repaso y comprobaciones" [level=2] [ref=f4e265] [cursor=pointer]
+        - group [ref=f4e268]:
+          - heading "Versiones e historial" [level=2] [ref=f4e270] [cursor=pointer]
+  - alert [ref=f4e273]
+```

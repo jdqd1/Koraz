@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { sql } from "kysely";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { awardAppliedReview, awardPracticeV2, lockLearningRewards } from "../src/guided-learning/rewards.js";
+import { awardAppliedReview, awardObjectiveV2, awardPracticeV2, lockLearningRewards } from "../src/guided-learning/rewards.js";
 import { createGuidedV2Postgres } from "./helpers/guided-v2-postgres.js";
 
 describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("shared V1/V2 review rewards in isolated PostgreSQL (H06)", () => {
@@ -32,7 +32,7 @@ describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("shared V1/V2 review
       await seed.query("rollback");
       throw error;
     } finally { seed.release(); }
-    return { userId: userId!, pathVersionId: pathVersionId!, itemId: itemId! };
+    return { userId: userId!, pathVersionId: pathVersionId!, enrollmentId: enrollmentId!, itemId: itemId! };
   }
 
   async function award(actor: Awaited<ReturnType<typeof fixture>>, engine: "v1" | "v2", hold = false) {
@@ -70,4 +70,17 @@ describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("shared V1/V2 review
     expect(results.reduce((sum, result) => sum + result.xp, 0)).toBe(1);
     expect(await balance(actor.userId)).toBe(20);
   }, 20_000);
+
+  it("deduplicates concurrent objective milestones without consuming the review budget", async () => {
+    const actor = await fixture(19);
+    for (const [kind, xp] of [["v2_objective_recalled", 5], ["v2_objective_mastered", 10], ["v2_objective_consolidated", 15]] as const) {
+      const give = () => db.database.transaction().execute(tx => awardObjectiveV2(tx, { ...actor, objectiveKey: "objective", kind, acceptedAt }));
+      const results = await Promise.all([give(), give()]);
+      expect(results.filter(Boolean)).toHaveLength(1);
+      expect(results.reduce((sum, reward) => sum + (reward?.xp ?? 0), 0)).toBe(xp);
+      expect(await give()).toBeNull();
+    }
+    expect(await balance(actor.userId)).toBe(19);
+    expect((await db.pool.query("select sum(xp)::int xp from learning_rewards where user_id=$1", [actor.userId])).rows).toEqual([{ xp: 49 }]);
+  });
 });

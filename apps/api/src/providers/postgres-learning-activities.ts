@@ -60,6 +60,7 @@ import {
   awardCompletedRoute,
   awardCompletedStep,
   awardCompletedUnit,
+  toLearningReward,
 } from "../guided-learning/rewards.js";
 import {
   createContentAssetDownloadUrl,
@@ -143,7 +144,7 @@ async function readAttempt(
 ): Promise<LearningAttempt> {
   const manifest = parseStoredAttemptManifest(row.manifest_json);
   const resume = LearningAttemptResumeSchema.parse(row.resume_json);
-  const [responseRows, path] = await Promise.all([
+  const [responseRows, path, rewardRows] = await Promise.all([
     database.selectFrom("learning_responses")
       .selectAll().where("attempt_id", "=", row.id)
       .orderBy("answered_at", "asc").orderBy("id", "asc").execute(),
@@ -151,6 +152,11 @@ async function readAttempt(
       .innerJoin("learning_paths", "learning_paths.id", "learning_enrollments.path_id")
       .select("learning_paths.slug")
       .where("learning_enrollments.id", "=", row.enrollment_id).executeTakeFirst() : Promise.resolve(undefined),
+    database.selectFrom("learning_rewards as reward")
+      .innerJoin("learning_events as event", "event.id", "reward.event_id")
+      .selectAll("reward").where("reward.user_id", "=", row.user_id)
+      .where("event.attempt_id", "=", row.id)
+      .orderBy("reward.created_at").orderBy("reward.id").execute(),
   ]);
   const responses = responseRows.map((response) => {
     const grading = parseRecord(response.grading_json);
@@ -169,6 +175,7 @@ async function readAttempt(
     return card ? [{ back: card.back, itemId }] : [];
   });
   return LearningAttemptSchema.parse({
+    awards: rewardRows.map(toLearningReward),
     clientAttemptId: row.client_attempt_id,
     enrollmentId: row.enrollment_id,
     id: row.id,
@@ -192,6 +199,7 @@ export async function readLearningEnrollmentProgress(
   database: QueryDatabase,
   enrollmentId: string,
   userId: string,
+  includeOpenAttempts = false,
 ): Promise<LearningEnrollmentProgress | null> {
   const enrollment = await database.selectFrom("learning_enrollments")
     .select(["id", "path_version_id"])
@@ -205,10 +213,10 @@ export async function readLearningEnrollmentProgress(
     database.selectFrom("learning_step_progress").selectAll()
       .where("enrollment_id", "=", enrollment.id)
       .where("path_version_id", "=", enrollment.path_version_id).execute(),
-    database.selectFrom("learning_attempts").select(["id", "step_id", "updated_at"])
+    database.selectFrom("learning_attempts").select(["id", "step_id", "step_option_id", "updated_at"])
       .where("enrollment_id", "=", enrollment.id)
       .where("path_version_id", "=", enrollment.path_version_id)
-      .where("status", "=", "in_progress").orderBy("updated_at", "desc").execute(),
+      .where("status", "=", "in_progress").orderBy("updated_at", "desc").orderBy("id", "desc").execute(),
     database.selectFrom("learning_objective_progress").selectAll()
       .where("enrollment_id", "=", enrollment.id)
       .where("path_version_id", "=", enrollment.path_version_id)
@@ -216,8 +224,14 @@ export async function readLearningEnrollmentProgress(
   ]);
   const progressByStep = new Map(progressRows.map((entry) => [entry.step_id, entry]));
   const attemptByStep = new Map<string, string>();
+  const openByStep = new Map<string, Map<string, string>>();
   for (const attempt of attemptRows) {
     if (attempt.step_id && !attemptByStep.has(attempt.step_id)) attemptByStep.set(attempt.step_id, attempt.id);
+    if (includeOpenAttempts && attempt.step_id && attempt.step_option_id) {
+      const options = openByStep.get(attempt.step_id) ?? new Map<string, string>();
+      if (!options.has(attempt.step_option_id)) options.set(attempt.step_option_id, attempt.id);
+      openByStep.set(attempt.step_id, options);
+    }
   }
   const objectiveProgress = new Map(objectiveRows.map((entry) => [entry.objective_id, entry]));
   let totalEssentialSteps = 0;
@@ -231,7 +245,8 @@ export async function readLearningEnrollmentProgress(
         if (state === "completed") completedEssentialSteps += 1;
       }
       return {
-        attemptId: attemptByStep.get(step.id) ?? null,
+        attemptId: state === "completed" ? progress?.evidence_attempt_id ?? null : attemptByStep.get(step.id) ?? null,
+        ...(includeOpenAttempts ? { openAttempts: Array.from(openByStep.get(step.id) ?? [], ([optionId, attemptId]) => ({ optionId, attemptId })) } : {}),
         completedAt: progress?.completed_at ? toIso(progress.completed_at) : null,
         completionMethod: progress?.completion_method ?? null,
         isEssential: step.is_essential,
@@ -879,12 +894,15 @@ export function createPostgresLearningActivityMethods(
     },
 
     async getEnrollmentProgress(input) {
-      const progress = await readLearningEnrollmentProgress(database, input.enrollmentId, input.userId);
+      const progress = await readLearningEnrollmentProgress(database, input.enrollmentId, input.userId, input.includeOpenAttempts);
       return progress ? { status: "success", value: progress } : { status: "not_found" };
     },
 
     async updateAttemptResume(input) {
-      return database.transaction().execute((transaction) => withReceipt(transaction, {
+      return database.transaction().execute(async (transaction) => {
+        // A video heartbeat can complete the step, unit and route.
+        if (input.request.kind === "video") await lockLearningRewards(transaction, input.userId);
+        return withReceipt(transaction, {
         idempotencyKey: input.idempotencyKey,
         request: { attemptId: input.attemptId, operation: "resume", ...input.request },
         userId: input.userId,
@@ -937,7 +955,8 @@ export function createPostgresLearningActivityMethods(
         }).where("id", "=", row.id).where("row_version", "=", row.row_version)
           .returningAll().executeTakeFirst();
         return updated ? mutationResponse(transaction, updated, input.userId) : { status: "version_conflict" };
-      }));
+        });
+      });
     },
 
     async revealAttemptItem(input) {
@@ -1188,7 +1207,10 @@ export function createPostgresLearningActivityMethods(
     },
 
     async completeAttempt(input) {
-      return database.transaction().execute((transaction) => withReceipt(transaction, {
+      return database.transaction().execute(async (transaction) => {
+        // Serialize completion counts before any attempt or progress row is locked.
+        await lockLearningRewards(transaction, input.userId);
+        return withReceipt(transaction, {
         idempotencyKey: input.idempotencyKey,
         request: { attemptId: input.attemptId, operation: "complete", ...input.request },
         userId: input.userId,
@@ -1230,7 +1252,8 @@ export function createPostgresLearningActivityMethods(
         }
         const completed = await finishAttempt(transaction, row, manifest, resume, method, acceptedAt);
         return mutationResponse(transaction, completed.row, input.userId, null, completed.awards);
-      }));
+        });
+      });
     },
   };
 }

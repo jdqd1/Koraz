@@ -1,0 +1,10 @@
+PASS nonempty-v1-v2-history-responses-agenda-and-sources
+PASS pending-real-migrations-preserve-v1-v2-data
+PASS failed-migration-rolls-back-DDL-data-and-ledger
+PASS committed-fixture-incident-detected-by-hashes
+PASS different-database-full-restore-matches-all-table-hashes-schema-and-sequences
+PASS restored-database-migration-replay-and-checksums
+PASS v2-disabled-maintenance-private-reads-no-writes-and-mutations-blocked
+PASS restored-v1-sessions-and-route-readable-with-v2-off
+PASS freeze-new-v2-enrollments-preserves-existing-enrollment-access
+PASS v2-allowlist-keeps-v1-available

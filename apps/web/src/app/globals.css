@@ -14459,7 +14459,7 @@ a.icon-back-link:hover,
 
 .video-study-modal-backdrop {
   position: fixed;
-  z-index: 100;
+  z-index: 300;
   inset: 0;
   display: grid;
   place-items: center;
@@ -15372,3 +15372,18 @@ a.icon-back-link:hover,
     transition: none;
   }
 }
+
+.learning-path-detail [id^="leccion-"],
+.learning-path-detail [id^="objetivo-"],
+.learning-path-detail [id^="actividad-"] {
+  scroll-margin-top: 6rem;
+  scroll-margin-bottom: calc(var(--app-mobile-nav-height, 5rem) + 1rem);
+}
+.learning-option-list button.learning-option { width: 100%; text-align: left; }
+.learning-guide-activity,
+.learning-guide-activity > article,
+.learning-guide-activity .rich-guide-document {
+  min-width: 0;
+  max-width: 100%;
+}
+.learning-guide-activity .rich-guide-table-wrap { max-width: 100%; }

@@ -22,8 +22,12 @@ describe("T028 page dispatch", () => {
     const f = studentFixture(); mocks.request.mockResolvedValueOnce({ status: 404, body: {} }).mockResolvedValueOnce({ status: 200, body: { attempt: f.attempt } });
     expect(await getAttemptForEngine(f.attempt.attemptId)).toEqual({ status: "ready", engineVersion: "guided-v2", attempt: f.attempt });
   });
-  it.each([401, 403, 503, 409])("does not mask a legacy error %s as authority to try another engine", async status => {
-    mocks.request.mockResolvedValue({ status, body: { error: "unavailable" } }); expect((await getPathForEngine("route")).status).not.toBe("ready"); expect(mocks.request).toHaveBeenCalledTimes(1);
+  it.each([[401, "unauthorized"], [403, "forbidden"], [503, "unavailable"], [409, "unavailable"]] as const)("does not mask a legacy error %s as authority to try another engine", async (status, classification) => {
+    const fixtureAttemptId = learningVisualAttempt.id;
+    mocks.request.mockResolvedValue({ status, body: { error: "unavailable" } });
+    expect((await getPathForEngine("route")).status).toBe(classification);
+    expect((await getAttemptForEngine(fixtureAttemptId)).status).toBe(classification);
+    expect(mocks.request.mock.calls.map(([input]) => input.path)).toEqual(["/v1/guided-learning/paths/route", `/v1/guided-learning/attempts/${fixtureAttemptId}`]);
   });
   it("rejects malformed/private v2 DTOs and retains denied state", async () => {
     const f = studentFixture(); mocks.request.mockResolvedValueOnce({ status: 404, body: {} }).mockResolvedValueOnce({ status: 200, body: { path: { ...f.path, solutions: [] } } }); expect((await getPathForEngine(f.path.slug)).status).toBe("unavailable");

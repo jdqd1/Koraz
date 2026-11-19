@@ -1,0 +1,14 @@
+[WebServer] (node:13112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 2 tests using 1 worker
+
+(node:24648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [mobile] › tests\e2e\practice-library.spec.ts:35:5 › F05 search keyboard opens semantic results and Escape restores input focus (14.7s)
+  ok 2 [mobile] › tests\e2e\practice-library.spec.ts:57:5 › F05 consultation and free practice preserve guided progress; the guided destination saves it (5.1s)
+
+  2 passed (45.2s)

@@ -38,7 +38,7 @@ const evidenceLabels = {
   unassessed: "Por comprobar",
 } as const;
 
-export function LearningHomeScreen({ available, home, homeAvailable, paths, progress, tab, v2Home = null, v2States = [], v2Unavailable = false }: {
+export function LearningHomeScreen({ available, home, homeAvailable, paths, progress, tab, v2Home = null, v2States = [], v2Unavailable = false, v1Unavailable = false }: {
   available: boolean;
   home: LearningHome | null;
   homeAvailable: boolean;
@@ -48,6 +48,7 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
   v2Home?: V2Home | null;
   v2States?: V2State[];
   v2Unavailable?: boolean;
+  v1Unavailable?: boolean;
 }) {
   const enrolled = paths.filter((path): path is LearningPathCardData => !isV2Card(path) && !!path.enrollment && path.enrollment.status !== "archived");
   const enrolledV2 = paths.filter((path): path is V2Card => isV2Card(path) && !!path.enrollmentId);
@@ -69,7 +70,8 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
           </Link>
         ))}
       </nav>
-      {v2Unavailable ? <p role="alert">No pudimos cargar tus rutas de práctica por objetivos. <Link href={`/aprendizaje?tab=${tab}`}>Reintentar</Link></p> : null}
+      {v2Unavailable ? <p role="alert">No pudimos cargar tus rutas de práctica por objetivos. <a href="">Reintentar</a></p> : null}
+      {v1Unavailable ? <p role="alert">No pudimos cargar todas tus rutas por actividades. <a href="">Reintentar</a></p> : null}
 
       {tab === "rutas" ? (
         <section aria-labelledby="learning-routes-title" className="learning-section">
@@ -86,7 +88,7 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
             const state = v2States.find(item => item.enrollmentId === path.enrollmentId && item.pathVersionId === path.pathVersionId);
             return <article className="learning-status-card" data-engine-version="guided-v2" key={path.id}><Link href={`/aprendizaje/rutas/${encodeURIComponent(path.slug)}`}>{path.title}</Link>{state ? <RouteSignals state={state} /> : <p role="status">No pudimos cargar el estado confirmado de esta ruta.</p>}</article>;
           })}
-          {enrolled.length > 0 ? (
+          {enrolled.length > 0 || enrolledV2.length > 0 ? (
             <div className="learning-progress-layout">
               <div className="learning-status-list">
                 {enrolled.map((path) => {
@@ -116,7 +118,7 @@ export function LearningHomeScreen({ available, home, homeAvailable, paths, prog
                 </> : <p role="status">No pudimos cargar puntos y constancia. El avance de tus rutas se mantiene arriba.</p>}
               </aside>
             </div>
-          ) : enrolledV2.length === 0 ? (
+          ) : !v1Unavailable && !v2Unavailable ? (
             <section className="learning-empty"><span className="learning-empty-icon"><ChartLineUp aria-hidden="true" size={30} /></span><div><h2>Todavía no hay avance que mostrar</h2><p>El progreso aparecerá después de completar actividades guardadas; abrir una pantalla no suma.</p></div><Link className="learning-primary-button" href="/aprendizaje?tab=rutas">Elegir una ruta</Link></section>
           ) : null}
         </section>

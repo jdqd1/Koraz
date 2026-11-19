@@ -1,7 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { safeMapReturnHref } from "../map/map-route";
+import { contextFromQuery, learningRouteHref, learningSessionHref, safeLearningOrigin } from "@/lib/learning-navigation";
+import { actionLocation, resumedActivityLocation } from "./curriculum-model";
 import { actionLabel, actionTarget, stateMatches, type V2Path, type V2State } from "./model";
 import { createV2Launcher, V2RequestError } from "./client";
 import styles from "./styles.module.css";
@@ -45,8 +46,13 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
         : target ? await transport.start(confirmed, target) : null;
       if (!result) return;
       if (result.attempt.enrollmentId !== confirmed.enrollmentId || result.attempt.pathVersionId !== confirmed.pathVersionId) throw new Error("La sesión corresponde a otra versión. Actualiza la ruta.");
-      const safe = safeMapReturnHref(returnTo);
-      router.push(`/aprendizaje/sesiones/${result.attempt.attemptId}${safe ? `?${new URLSearchParams({ returnTo: safe })}` : ""}`);
+      const location = !offeredTarget && confirmed.nextAction.kind === "resume"
+        ? resumedActivityLocation(path, confirmed, result.attempt)
+        : actionLocation(path, confirmed, target?.key ?? confirmed.nextAction.key);
+      const current = window.location.pathname === `/aprendizaje/rutas/${path.slug}` ? contextFromQuery(Object.fromEntries(new URLSearchParams(window.location.search))) : {};
+      const back = learningRouteHref(path.slug, { ...current, unit: location.unit?.key, objective: location.objective?.key,
+        activity: location.activity?.key, origin: current.origin ?? safeLearningOrigin(returnTo) });
+      router.push(learningSessionHref(result.attempt.attemptId, back));
     } catch (error) { setMessage(error instanceof V2RequestError ? error.message : "No pudimos confirmar la apertura de la actividad. Reintenta con conexión."); }
     finally { inFlight.current = false; setBusy(false); }
   }
@@ -54,7 +60,7 @@ export function RouteAction({ path, state, returnTo, target: offeredTarget, labe
   const canContinue = !maintenance && path.access === "enrolled" && confirmed && (offeredTarget ? authorizedMaintenanceTarget(confirmed, offeredTarget) : confirmed.nextAction.kind !== "none" && !!confirmed.nextAction.key);
   return <div className={styles.action}>
     {confirmed && showReason ? <p><RouteReason reason={confirmed.nextAction.reason} timeZone={confirmed.maintenance?.timeZone} /></p> : null}
-    {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className={appearance === "secondary" ? "learning-secondary-button" : "learning-primary-button"}>{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <p role="alert">No pudimos cargar el estado confirmado. Actualiza la ruta para continuar.</p> : null}
+    {path.access === "revoked" ? <p role="alert">El acceso a esta ruta no está disponible. Tu historial se conserva.</p> : canStart || canContinue ? <button type="button" disabled={busy} onClick={() => void open()} className={appearance === "secondary" ? "learning-secondary-button" : "learning-primary-button"}>{busy ? "Preparando…" : label ?? (canStart ? "Comenzar" : actionLabel(confirmed?.nextAction ?? null))}</button> : path.enrollmentId && !confirmed ? <div role="alert"><p>No pudimos cargar el estado confirmado.</p><a className="learning-secondary-button" href="">Reintentar estado</a></div> : null}
     {message ? <div role="alert"><p>{message}</p><button type="button" className="learning-secondary-button" onClick={() => router.refresh()}>Actualizar ruta</button></div> : null}
   </div>;
 }

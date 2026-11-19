@@ -10,6 +10,7 @@ const SlugSchema = z.string().trim().min(1).max(200).regex(/^[a-z0-9]+(?:-[a-z0-
 const StableKeySchema = z.string().trim().min(1).max(120).regex(/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/);
 const InternalHrefSchema = z.string().regex(/^\/(?!\/)[^\s]*$/);
 
+
 export const LearningPathStatusSchema = z.enum([
   "draft",
   "in_review",
@@ -541,6 +542,8 @@ export const LearningAttemptScoreSchema = z.strictObject({
 });
 
 export const LearningAttemptSchema = z.strictObject({
+  // Optional while older API deployments and saved receipts are still readable.
+  awards: z.array(LearningRewardSchema).optional(),
   clientAttemptId: z.string().uuid(),
   enrollmentId: z.string().uuid().nullable(),
   id: z.string().uuid(),
@@ -560,6 +563,7 @@ export const LearningAttemptSchema = z.strictObject({
 });
 
 export const LearningStepProgressSchema = z.strictObject({
+  openAttempts: z.array(z.strictObject({ optionId: z.string().uuid(), attemptId: z.string().uuid() })).optional(),
   attemptId: z.string().uuid().nullable(),
   completedAt: z.string().datetime({ offset: true }).nullable(),
   completionMethod: z.enum(["graded", "observed", "rated", "self_reported"]).nullable(),
@@ -780,6 +784,12 @@ export const LearningHomeTaskSchema = z.strictObject({
 });
 export const LearningHomeSchema = z.strictObject({
   activePath: z.strictObject({
+    pathHref: InternalHrefSchema.optional(),
+    steps: z.array(z.strictObject({
+      id: z.string().uuid(),
+      title: z.string(),
+      state: LearningStepProgressStateSchema,
+    })).optional(),
     completedSteps: z.number().int().nonnegative(),
     continueHref: InternalHrefSchema,
     enrollmentId: z.string().uuid(),
@@ -928,6 +938,7 @@ export interface GuidedLearningProvider {
   }): Promise<GuidedLearningResult<LearningAttemptMediaResponse>>;
   getEnrollmentProgress(input: {
     enrollmentId: string;
+    includeOpenAttempts?: boolean;
     userId: string;
   }): Promise<GuidedLearningResult<LearningEnrollmentProgress>>;
   getEnrollmentUpgradePreview(input: {

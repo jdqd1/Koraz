@@ -16,31 +16,39 @@ export type CurrentUserResult =
       user: CurrentUser;
     }
   | { status: "anonymous" }
-  | { status: "unavailable"; reason: "timeout" | "connection" | "service" | "invalid_response"; reference: string };
+  | { status: "unavailable"; reason: "timeout" | "connection" | "service" | "invalid_response" | "forbidden"; reference: string };
 
 async function resolveCurrentUser(): Promise<CurrentUserResult> {
   const credentials = await getApiRequestCookie();
   if (credentials.status === "anonymous") return credentials;
 
-  const response = await requestContentApi({
-    cookie: credentials.cookie,
-    method: "GET",
-    path: "/v1/auth/me",
-  });
-  if (response.status === 401) return { status: "anonymous" };
-  const parsed = CurrentUserResponseSchema.safeParse(response.body);
-  if (response.status === 200 && parsed.success && !response.transportError) {
-    return {
-      features: parsed.data.features,
-      roles: parsed.data.roles,
-      status: "authenticated",
-      user: parsed.data.user,
+  const reference = crypto.randomUUID();
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const started = performance.now();
+    const response = await requestContentApi({
+      cookie: credentials.cookie, method: "GET", path: "/v1/auth/me", timeoutMs: 2_500,
+      headers: { "x-correlation-id": reference },
+    });
+    const parsed = CurrentUserResponseSchema.safeParse(response.body);
+    const reason = response.transportError ?? (response.status === 200 ? "invalid_response" : response.status === 403 ? "forbidden" : "service");
+    const authenticated = response.status === 200 && parsed.success && !response.transportError;
+    const anonymous = response.status === 401 && !response.transportError;
+    const observation = { reference, requestId: response.requestId, attempt, status: response.status,
+      durationMs: Math.round(performance.now() - started), stage: response.transportError ? "transport" : response.status === 200 ? "validation" : "http",
+      reason: authenticated ? "authenticated" : anonymous ? "anonymous" : reason };
+    if (!authenticated && !anonymous) console.warn("auth/me unavailable", observation);
+    else if (attempt > 1) console.info("auth/me resolved", observation);
+    if (anonymous) return { status: "anonymous" };
+    if (authenticated && parsed.success) return {
+      features: parsed.data.features, roles: parsed.data.roles, status: "authenticated", user: parsed.data.user,
     };
+    if (attempt === 1 && (response.transportError || [502, 503, 504].includes(response.status))) {
+      await new Promise(resolve => setTimeout(resolve, 150));
+      continue;
+    }
+    return { status: "unavailable", reason, reference };
   }
-  const reason = response.transportError ?? (response.status === 200 ? "invalid_response" : "service");
-  const reference = response.requestId ?? crypto.randomUUID();
-  console.warn("auth/me unavailable", { reason, reference, status: response.status });
-  return { status: "unavailable", reason, reference };
+  return { status: "unavailable", reason: "service", reference };
 }
 
 export const getCurrentUser = cache(resolveCurrentUser);

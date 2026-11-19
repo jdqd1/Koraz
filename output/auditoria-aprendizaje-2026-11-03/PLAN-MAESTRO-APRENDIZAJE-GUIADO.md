@@ -1,6 +1,6 @@
 # Plan maestro de experiencia de aprendizaje Koraz
 
-**Actualizado el 7 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
+**Actualizado el 19 de noviembre de 2026. Hay cambios implementados en el código local de `main`. La aceptación funcional y la entrega a producción siguen pendientes.** Para continuar en otra conversación, empezar por el relevo que sigue.
 
 **Prioridad vigente:** funcionamiento en móvil y escritorio. El rediseño visual se ejecuta después de superar la aceptación funcional. Tablet queda diferida por decisión del usuario.
 
@@ -14,13 +14,61 @@ Accesos: [hallazgos](#3-hallazgos-trazables) · [fases](#7-fases-de-implementaci
 
 Las secciones de auditoría describen lo observado el 3 y el 4 de noviembre. El estado de implementación posterior se registra por separado.
 
-## 0. Relevo por fases · 7 de noviembre de 2026
+## 0. Relevo por fases · 19 de noviembre de 2026
 
 **Especificaciones del usuario.** Cuando un recorrido necesite material, se puede crear contenido ficticio coherente para la ruta. Identificarlo como simulación, darle un objetivo, instrucciones y una respuesta o criterio de logro verificable, y mantenerlo reproducible en el entorno de pruebas. La aceptación técnica puede avanzar con esos materiales. La publicación de contenido médico para alumnos conserva su revisión editorial y sus fuentes.
 
 **Entrega solicitada.** Al finalizar la implementación, Koraz debe quedar completamente funcional y listo para producción. F10 exige un candidato identificable, los recorridos esenciales de alumno y editor aprobados en móvil y escritorio, compatibilidad de migraciones y reversión comprobada, y evidencia de los casos de aceptación del plan. Un fallo que impida estudiar, recuperar el progreso, calificar o publicar correctamente mantiene abierta la entrega. Registrar por separado la preparación del candidato y la verificación del despliegue efectivo.
 
 **Cómo continuar.** Trabajar una fase por conversación. Al terminarla, actualizar aquí los cambios, las pruebas que pasaron, los bloqueos y el primer paso de la siguiente sesión. Si una fase requiere una decisión editorial o evidencia externa, dejarla abierta con ese requisito explícito. F09 comienza después de la aceptación funcional móvil y de escritorio en F08.
+
+### F08 · Aceptación funcional local
+
+**18 de noviembre.** Se verificaron 36 recorridos de navegador con cuentas de alumno y editor de simulación y PostgreSQL desechable. Pasaron la creación y publicación de borradores V2, el recorrido hasta retención diferida, los envíos interrumpidos, la navegación V1/V2 y el catálogo. Las repeticiones de API y web pasaron 33 y 14 pruebas, respectivamente. La aceptación continúa con Peritoneo V1, Vascularización V2 y los demás casos aplicables en el candidato autenticado. [Resultados de F08](../../docs/aprendizaje-guiado/plan-maestro/f08-aceptacion-local.md).
+
+### F07 · Disponibilidad, rapidez y acceso operativo
+
+**19 de noviembre · T56 aprobado por supuesto.** El usuario dio por aprobadas las pruebas físicas con Safari en iPhone y Chrome en Android. El funcionamiento con el Narrador de Windows se había asumido el 18 de noviembre. Estas decisiones cubren el requisito T56 para avanzar en F07 y F08. [Registro de T56](../../docs/aprendizaje-guiado/plan-maestro/f07-dispositivos.md).
+
+El [relevo de F07](../../docs/aprendizaje-guiado/plan-maestro/f07-disponibilidad.md) registra los cambios locales sobre `434de5b` con F04–F06. La verificación de identidad reintenta una lectura temporal dentro de un límite y comparte una referencia entre pantalla, web y API. La sesión vencida conserva el enlace de aprendizaje. Los reintentos mantienen la pestaña de catálogo, la sección de la guía o el intento original. La pestaña Rutas recibe los estados V2 en el catálogo y evita consultas de resúmenes que no usa.
+
+**Verificación local.** Pasaron 106 pruebas de API, 91 web y la compilación. El catálogo hizo dos lecturas de aprendizaje por navegación, frente a siete en la línea base. El p95 de navegación interna al detalle fue de 1.250 ms en escritorio y 1.140 ms en móvil emulado. La respuesta breve mantuvo su acción de comprobar visible y alcanzable en los diez tamaños. Pasaron cinco recorridos de accesibilidad del editor, incluido el foco del campo de título con zoom al 200 %. WebKit emulado aprobó tres recorridos de respuesta y recuperación.
+
+**H31 conserva su estado NO VERIFICADO.** Render confirmó el intervalo de despliegue de referencia y registró respuestas de identidad HTTP 200 en las ventanas cercanas a E34/E74. Falta una referencia que vincule el fallo del navegador con una solicitud del servicio. La evidencia local de recuperación y la investigación histórica se registran en el relevo.
+
+**18 de noviembre.** Al abrir el detalle sin grabar trazas, el p95 fue de 383 ms en escritorio y 439 ms en móvil emulado (30 aperturas por perfil, con un objetivo de 1.500 ms). Con trazas se superó ese objetivo en ambos perfiles. [Comparación y evidencia](../../docs/aprendizaje-guiado/plan-maestro/f07-disponibilidad.md).
+
+**Continuación del 17 de noviembre.** Se corrigieron el retorno a la actividad de V2 y la recuperación de una práctica V1 abierta después de haber completado el paso. El alumno puede consultar su primer resultado y retomar la práctica por separado. Se verificaron 80 recorridos por motor, la compatibilidad de la lectura de progreso V1 y la compilación local con Next.js 16.4.6. Las mediciones desde el clic del navegador y las condiciones de cada serie se detallan en el [relevo de F07](../../docs/aprendizaje-guiado/plan-maestro/f07-disponibilidad.md).
+
+### F06 · Navegación, contexto y recursos
+
+**Continuación local del 10 de noviembre sobre `434de5b`, conservando F04/F05.** El [relevo de F06](../../docs/aprendizaje-guiado/plan-maestro/f06-navegacion.md) detalla el contrato, compatibilidad, pruebas y límites. V1/V2 comparten estructura funcional y pestañas del detalle. El mapa presenta resumen, «Abrir ruta» y una acción rápida del ámbito seleccionado. El reproductor vuelve al detalle con unidad, objetivo, actividad, pestaña y origen; historial, recarga, foco y claves retiradas tienen tratamiento explícito. No se admiten retornos externos ni cadenas recursivas.
+
+**Consulta y formatos.** Los enlaces no crean intentos por lectura o precarga; los botones abren o retoman. V1 conserva el intento de evidencia completado y distingue «Consultar resultado» de «Practicar de nuevo». El lector de recursos resuelve una guía de la revisión adoptada con acceso, vínculo y hash comprobados; consultar no crea respuestas, premios ni intentos. La guía guiada conserva tablas/listas/imágenes y posición. La lectura V2 con imagen utiliza acceso autorizado y espera la carga del recurso antes de permitir el guardado. Se corrigió un desbordamiento móvil que impedía pulsar «Siguiente» en una guía con tabla.
+
+**Verificación local.** Pasaron 86 pruebas de API, 88 web y ocho recorridos de navegador con PostgreSQL desechable en 390/1440 px, con controles adicionales en 320/360/430 px. La suite de cuatro lecturas con PostgreSQL se repitió después del último ajuste de hash y pasó. Se recorrieron los ocho formatos V2; V1 guía, cuestionario y tarjetas, más sus guardas y cobertura de video. Pasaron compilación, tipos y ESLint. Los registros definitivos se enlazan desde el relevo de F06. Son cuentas, contenido y pantallas emuladas; no se ha desplegado ni publicado material para alumnos.
+
+**H19 y próximo trabajo técnico: F07.** El mapa de 30 unidades registró IDs y medidas tras lista/mapa, recarga y cambios de tamaño, sin reproducir la desaparición de nodos. No se atribuye una causa ni se afirma reparación del incidente de producción. F07 continúa con recuperación ante fallos, accesibilidad operativa y presupuestos medidos; empezar por correlacionar H31 y ejercitar identidad, catálogo, recursos e intentos sin perder contexto. Conservar H19 como incidencia por reproducir. F01 mantiene revisión editorial, F08 la aceptación transversal del candidato y F10 la entrega comprobada.
+
+### F05 · Catálogo, contadores y resumen
+
+**Continuación local del 8 de noviembre sobre `434de5b`, conservando F04.** El [relevo de F05](../../docs/aprendizaje-guiado/plan-maestro/f05-catalogo-resumen.md) detalla conjuntos, correcciones, evidencia y compatibilidad. Inicio representa los pasos V1 por ID, incluye las matrículas V2 y mantiene sus recomendaciones dentro del ámbito anunciado. Las exenciones y las actividades completadas conservan significados separados; los errores no se presentan como ausencia de matrícula.
+
+**Descubrimiento y modalidades.** El catálogo pagina todos sus metadatos y reconcilia guías nativas, vinculadas y embebidas con las materias. La búsqueda y sus fragmentos extraen texto visible, sin tokens del editor; teclado, Enter y Escape tienen comportamiento verificable. Consulta y práctica libre explican su alcance y no guardan respuestas de ruta; la actividad guiada sí las guarda. Se corrigieron dos fallos encontrados en navegador: superposición de resúmenes V1/V2 en escritorio y navegación móvil que tapaba el botón de resultado de un cuestionario.
+
+**Verificación y límites.** La evidencia local y los comandos reproducibles están en el relevo de F05 y en `output/implementacion-aprendizaje-2026-11-04/f05-*.txt`. Se usan usuarios y contenidos sintéticos, PostgreSQL desechable y pantallas emuladas. No se ha desplegado ni publicado material para alumnos. La migración nueva `0039_semantic_content_search.sql` recalcula el índice: medir su coste y verificar orden de publicación/reversión en F10.
+
+**Relevo histórico de F05.** La continuidad mapa → detalle → actividad → regreso y los lectores de recursos se realizaron en F06, descrita arriba. F01 conserva la revisión editorial; F08 exige aceptación transversal por rol/dispositivo sobre el candidato y F10 la entrega comprobada.
+
+### F04 · Recompensas, concurrencia y conciliación
+
+**Continuación local del 7–8 de noviembre sobre `434de5b`.** El [relevo de F04](../../docs/aprendizaje-guiado/plan-maestro/f04-xp.md) contiene la matriz de reglas, cambios, evidencia y compatibilidad. Se verificaron T27–T29 y el alcance de recompensas de T30/T53 con PostgreSQL real: residual 0/18/19/20, mantenimiento y corrección, cuatro envíos concurrentes V1/V2 (incluidos duplicados), unicidad de logros, saldo total/ruta/sesión y avance por IDs fuera de orden.
+
+**Fallos corregidos.** Dos últimas lecturas V1 simultáneas podían omitir el premio de unidad/ruta; la prueba lo reprodujo y ahora pasa con el bloqueo común antes del cierre, incluido el cierre automático de video. Los premios V1 se recuperan desde los eventos del intento al recargar. V2 conserva el valor explícito de cero XP y explica el caso de lectura y diagnóstico. No se modificaron premios históricos.
+
+**Verificación final.** Pasaron 107 pruebas de API, incluidas 18 de PostgreSQL repetidas sobre los archivos finales, 35 web y 10 recorridos de navegador con PostgreSQL en 390/1440 px. No hubo pruebas de concurrencia omitidas. Compilación web, tipos de API y ESLint de los archivos modificados terminaron correctamente. Las pruebas se hicieron con contenido sintético y pantallas emuladas; el clúster desechable se detiene al cerrar este trabajo. No se desplegó ni se publicó contenido para alumnos.
+
+**Relevo histórico de F04.** La conciliación de catálogo, contadores y resúmenes de F05 se realizó en la continuación descrita arriba. F01 sigue pendiente de revisión editorial, F08 de recorridos por rol/dispositivo sobre el candidato desplegado y F10 de entrega a producción. No se necesita migración para F04; publicar primero la web que admite el campo opcional de premios y después la API que lo emite.
 
 ### F03 · Centro común de repaso y calendario
 
@@ -32,7 +80,7 @@ Las secciones de auditoría describen lo observado el 3 y el 4 de noviembre. El 
 
 **Verificación.** Pasaron 106 pruebas de API/selección, 32 de identidad/catálogo (25 de ellas repetidas tras el arreglo), 36 del calendario —incluidas ocho con PostgreSQL real—, 39 web, cuatro recorridos integrados en 390/1440 px y 21 regresiones del reproductor en 320/390/1440 px. Las variantes de concurrencia omitidas en PGlite sí se ejecutaron con PostgreSQL. Pasaron la compilación web, los tipos de API y ESLint sin advertencias. Los registros están enlazados en el relevo de F03.
 
-**Próximo trabajo técnico: F04.** Inventariar reglas de XP y comprobar T27–T30/T53, en particular el residual 19→20 y las carreras V1/V2 con conexiones independientes. La aceptación integral sigue abierta: T24 corresponde a consulta/práctica/retorno de F05; F08 exige los recorridos por rol y dispositivo sobre el candidato desplegado; F01 conserva la revisión editorial y F10 la entrega a producción. Este tramo acredita repaso local con reloj controlado, no observación longitudinal ni despliegue.
+**Relevo histórico de F03.** El trabajo de F04 indicado al cerrar este tramo se realizó en la continuación descrita arriba. La aceptación integral sigue abierta: T24 corresponde a consulta/práctica/retorno de F05; F08 exige los recorridos por rol y dispositivo sobre el candidato desplegado; F01 conserva la revisión editorial y F10 la entrega a producción. Este tramo acredita repaso local con reloj controlado, no observación longitudinal ni despliegue.
 
 ### F02 · Recuperación del intento y de la matrícula
 
@@ -103,13 +151,15 @@ Base de esta continuación: `1d9e2b8`. El commit local que contiene esta secció
 
 | Fase | Avance de este chat | Trabajo abierto |
 |---|---|---|
-| F00 · Línea base | Se identificaron las seis actividades esenciales de Peritoneo v3, sus revisiones y el diagnóstico abdominal V2. Se verificó el despliegue web de referencia y se prepararon pruebas reproducibles con datos sintéticos y una base PostgreSQL aislada. | Completar los perfiles de prueba restantes y correlacionar el incidente H31 con trazas del servicio. La revisión de la API que atendió el incidente sigue sin verificar. |
+| F00 · Línea base | Se identificaron las seis actividades esenciales de Peritoneo v3, sus revisiones y el diagnóstico abdominal V2. Se prepararon pruebas reproducibles con datos sintéticos y una base PostgreSQL aislada. El historial de Render sitúa web y API en `85236119` para la fecha de la auditoría. | Completar los perfiles de prueba restantes. La solicitud específica que originó H31 sigue sin identificar. |
 | F01 · Contenido | H01/H03. El candidato conserva los pasos esenciales y bloquea únicamente cuatro opciones mal vinculadas. Los videos válidos pueden abrirse. H02. La validación y la calificación detectan opciones con texto repetido en los flujos afectados. H25. Se reprodujo el rechazo de la respuesta de ilíacas y se probó una propuesta de dos variantes explícitas. H30. Una pista ausente deja de ofrecerse y la API evita registrar ayuda por ella. | Hacen falta materiales y objetivos revisados, preguntas resolubles y aprobación clínica de las variantes. T06 y el enfoque del editor se verificaron en la continuación de F01. Falta probar la nueva revisión con un estudiante cuando exista. F01 queda abierta. |
 | F02 · Intentos | Verificación local del 7 de noviembre. Recuperación V1/V2 antes y después de guardar, doble pestaña V2, resumen del último ítem, diagnóstico con resultado por pregunta y adopción real con recibo recuperado. Pasaron 158 pruebas y 31 recorridos de navegador. | Repetir la aceptación transversal en el candidato desplegado en F08. Correlacionar el incidente real H31 en F07. |
 | F03 · Repaso | Centro común V1/V2, recuperación del intento abierto, fechas tras recarga y verificación de límites de reaparición, ausencia, zona horaria y retención con reloj controlado. Cuatro recorridos integrados móvil/escritorio y calendario con PostgreSQL real. | Aceptación transversal del candidato en F08; T24 de consulta/práctica/retorno en F05. Revisión histórica de snapshots antiguos fuera de este tramo. |
-| F04 · XP | H06. Ambos motores comparten el bloqueo por alumno. V1 concede solo el saldo diario restante. Probadas las bases 0, 18, 19 y 20 y las carreras de las funciones de recompensa en ambos órdenes con conexiones independientes. | Repetir la carrera desde las dos entradas completas de respuesta y conciliar los saldos de usuario, ruta y sesión. |
-| F05 · Catálogo | H26/H27. Bibliotecas general y por materia comparten la selección publicada de cuestionarios y flashcards, incluidos los de guías y videos. Se deduplican antes de paginar. El cuestionario libre ofrece práctica y consulta separadas. | Validar los datos publicados con el candidato y una cuenta de estudiante, completar contadores comunes V1/V2, caché, búsqueda y modos de acceso restantes. |
-| F06–F08 · Navegación y aceptación | Hay pruebas locales de recorridos concretos en móvil y escritorio. | F06 navegación completa y conservación del contexto. F07 recuperación de fallos, accesibilidad y rendimiento. F08 aceptación funcional por rol y dispositivo. |
+| F04 · XP | Verificado localmente: respuestas completas V1/V2, bases 0/18/19/20, duplicados concurrentes, premios de unidad/ruta y conciliación total/ruta/sesión. Corregidos cierre concurrente de lecturas y recuperación de premios al recargar. | F05 conserva la aceptación transversal de T30; F08/F10 la aceptación y entrega sobre el candidato desplegado. |
+| F05 · Catálogo | Resúmenes V1/V2 por identidades y ámbito; catálogo completo de capacidades global/materia; guías embebidas y vinculadas; búsqueda semántica y teclado; consulta/práctica/actividad guiada con efectos distintos comprobados localmente. | F06 conserva el contexto completo de navegación. F08/F10 validan datos publicados, roles y dispositivos del candidato; aplicar y medir migración 0039 y verificar compatibilidad/reversión. |
+| F06 · Navegación | Detalle funcional común, paneles de resumen, contexto validado, apertura explícita, retorno/foco, consulta de resultados y guías fijadas. 86 pruebas API, 88 web y ocho recorridos integrados locales aprobados. | H19 queda por reproducir en F07. La aceptación del candidato continúa en F08 y F10. |
+| F07 · Disponibilidad, rapidez y acceso operativo | Recuperación local verificada, catálogo de siete a dos lecturas, presupuestos de detalle y envío V1 cumplidos en laboratorio y respuesta operable en diez tamaños. T56 aprobado por supuesto. | Panel en caché dentro del objetivo en ambos perfiles. Apertura, recuperación y confirmación V1/V2 verificadas en laboratorio. Quedan métricas de campo y seguimiento de la variación del p95 de detalle. H31 sigue sin causa confirmada y H19 queda por reproducir. |
+| F08 · Aceptación funcional | 36 recorridos de navegador verificados en el candidato local con alumno y editor de simulación. | Completar los casos aplicables de la matriz en el candidato autenticado, incluidas las revisiones de Peritoneo y Vascularización. |
 | F09–F10 · Diseño y entrega | Pendientes. | Tras F08, unificar el diseño. Validar el candidato desplegado, documentar reversión y comprobar producción como capa independiente. |
 
 ### Decisiones y materiales que debe conservar el próximo chat
@@ -129,7 +179,7 @@ Base de esta continuación: `1d9e2b8`. El commit local que contiene esta secció
 | [Navegador](../implementacion-aprendizaje-2026-11-04/browser-integracion.txt) | 24 pasaron | Ocho casos en cada ancho de Chromium (320, 390 y 1440 px). Biblioteca → materia → tema → cuestionario → resultado → regreso, búsqueda y apertura de flashcards, bloqueo de una pregunta ambigua, último ítem de repaso y consulta de actualización. |
 | [Compilación](../implementacion-aprendizaje-2026-11-04/compilacion-cierre.txt) y [análisis de código](../implementacion-aprendizaje-2026-11-04/lint-cierre.txt) | Correctos | Compilaron los contratos, la API y la web. La validación de tipos y las reglas de código terminaron correctamente. |
 
-Las pruebas de biblioteca usaron las páginas reales, la API local, un estudiante sintético y PostgreSQL. Las pruebas de último ítem y actualización usaron respuestas controladas. En el navegador se emuló el tamaño de pantalla. Quedan por verificar un dispositivo físico, un estudiante real en un despliegue candidato y las comprobaciones de F08.
+Las pruebas de biblioteca usaron las páginas reales, la API local, un estudiante sintético y PostgreSQL. Las pruebas de último ítem y actualización usaron respuestas controladas. En el navegador se emuló el tamaño de pantalla. Queda la aceptación de F08 en el candidato autenticado. [Decisión de alcance de T56](../../docs/aprendizaje-guiado/plan-maestro/f07-dispositivos.md).
 
 Se pueden repetir los recorridos con el [ejecutor local de biblioteca](../../work/test/plan-maestro/bibliotecas.mts) y la [configuración de navegador](../../apps/web/playwright.functional.config.ts). El ejecutor exige la base desechable indicada por la protección de pruebas. La propuesta editorial, la aplicación de la migración en producción y cualquier publicación de rutas son decisiones separadas.
 
@@ -988,7 +1038,7 @@ El alcance editorial puede requerir revisión humana especializada. «Necesita r
 
 **Entregables:** informe antes/después, trazas saneadas, pruebas de error/recuperación, auditoría operativa de accesibilidad y resultados en dispositivo.
 
-**Criterio para pasar a F08:** T13–T15, T37–T40, T45, T50 y T56 pasan con presupuestos acordados en sección 9. Ningún CTA esencial queda tapado o inalcanzable en móvil/escritorio. No cerrar H31 como corregido sin demostrar la causa o una resolución verificable del fallo. Un dispositivo no disponible queda NO VERIFICADO.
+**Criterio para pasar a F08.** T13–T15, T37–T40, T45 y T50 pasan dentro del alcance acordado y con los presupuestos de la sección 9. Las acciones esenciales quedan visibles y alcanzables en móvil y escritorio. T56 queda aprobado por supuesto por decisión del usuario. Esa decisión cubre los subcasos vinculados que requieren iPhone o Android físicos o el Narrador de Windows. H31 se cierra como corregido cuando se demuestra su causa o una resolución verificable. [Alcance de T56](../../docs/aprendizaje-guiado/plan-maestro/f07-dispositivos.md).
 
 ### F08 — Aceptar el funcionamiento en móvil y escritorio
 
@@ -996,7 +1046,7 @@ El alcance editorial puede requerir revisión humana especializada. «Necesita r
 
 **Trabajo y entregables**
 
-- Ejecutar T01–T56 funcionales aplicables (T07 visual se reserva a F09) en una cuenta estudiante y una cuenta administradora, separando lo que corresponde a cada rol.
+- Ejecutar los casos funcionales aplicables de T01–T55 con una cuenta de estudiante y una de administración según corresponda. T07 se reserva a F09 y T56 queda aprobado por supuesto.
 - Recorrer Peritoneo V1 y Vascularización V2, además de una revisión histórica y fixtures de los tipos que las rutas no permitan alcanzar.
 - Hacer sesiones completas con aciertos, fallos, ayuda, repasos, salida/retorno, recarga y reintento. Conciliar respuestas, progreso, acceso, agenda y XP.
 - Revisar los problemas de producción observados: contenido incorrecto, vacío de repaso, falso negativo, catálogo, indisponibilidad y navegación.
@@ -1136,7 +1186,7 @@ Abreviaturas de capa: U = unidad/política; C = componente/contrato; I = integra
 | T53 | Repetir actividad ya premiada y leer de nuevo | Progreso y saldo no se duplican; premios por unidad/ruta/hito se conceden una vez según motor, incluyendo concurrentes. | I PostgreSQL+E / F04 |
 | T54 | Usuario A y B, antigua/nueva revisión y caché caliente | Estado de A jamás se muestra a B; revisión e invalidación correctas después de respuesta/adopción. | I+E / F05 |
 | T55 | Todos los formatos soportados, incluidas imágenes y video | Ejercitar selección, breve, relaciones, secuencia, caso, estudio, construida y objetivo de imagen; V1 video/quiz/cards/guía. En construida: escribir→revelar→autocalificar→verificación; video/imagen no se completan ficticiamente si falta recurso. | U+C+I+E / F06 |
-| T56 | Móvil físico y escritorio en navegadores objetivo | Teclado virtual, orientación, foco, controles táctiles y reconexión reales. Documentar modelo/OS/browser; emulación se informa separada. | M / F07 |
+| T56 | Móvil físico y escritorio en navegadores objetivo | Teclado virtual, orientación, foco, controles táctiles y reconexión reales. | M / F07 · [Aprobado por supuesto](../../docs/aprendizaje-guiado/plan-maestro/f07-dispositivos.md) |
 | T57 | Mismo estado V1/V2 y datos largos/vacíos/error | Comparar composición, títulos, etiquetas y jerarquía; V1 adopta la base moderna V2, preservando capacidades reales. | E+M / F09 |
 | T58 | Nueva ruta compatible y versión anterior sin displayTitle | Render común sin nueva pantalla por motor; fallback consistente; marca original conservada. | C+E+M / F09 |
 | T59 | SHA candidato final | Pruebas pertinentes, typecheck/lint/build y CI del mismo SHA; preview accesible y aceptación autenticada documentada. | CI+E / F10 |
@@ -1154,7 +1204,7 @@ Cada escenario se ejecuta en móvil y escritorio; se adjunta recibo/saldo antes 
 6. **Práctica libre:** buscar materia → encontrar quiz/cards → practicar → volver al material → entrar a la ruta correspondiente si está autorizada. Distinguir estado local de guardado guiado.
 7. **Usuario mixto:** completados no lineales en V1/V2 → Inicio/Hoy/Progreso/mapa/detalle/revisión. Mismas identidades, cifras y próxima acción pertinentes.
 8. **Contenido retirado o incompleto:** actividad sigue visible con motivo; no bloquea sin salida ni finge completado. Arreglo editorial versionado y aceptación de la transición.
-9. **Dispositivo y entrada:** móvil con teclado abierto y orientación cambiada; escritorio con teclado; retorno de modal y pestañas con foco correcto.
+9. **Dispositivo y entrada.** Móvil emulado con alto reducido y cambio de orientación. Escritorio con teclado. Retorno de modal y pestañas con foco correcto. Los subcasos físicos de iPhone y Android y el de Narrador quedan cubiertos por T56.
 10. **Final y recuperación:** último ítem correcto/incorrecto → feedback visible → resumen; reabrir sesión terminada y volver sin crear otro premio.
 
 La condición de cierre no es «hice clic en todo». Debe coincidir el comportamiento mostrado con el estado confirmado y poder repetirse con datos controlados.
@@ -1186,7 +1236,7 @@ Método mínimo:
 
 - Separar frío/caliente, primera carga/navegación interna y fallo/reintento. Mantener el mismo estado inicial y tamaño de datos para comparar.
 - En laboratorio, al menos 10 ejecuciones frías y 30 calientes por recorrido crítico en un perfil estable. Guardar muestras, mediana y percentiles descriptivos; no presentarlos como p75 de usuarios reales.
-- Perfiles propuestos: escritorio de referencia sin throttling y móvil con red/CPU limitadas documentadas; añadir móvil físico. Un ejemplo controlado es RTT 150 ms, 10 Mbps y CPU 4×, sin afirmar que represente todos los teléfonos.
+- Usar un escritorio de referencia sin throttling y un perfil móvil emulado con límites documentados de red y CPU. Un ejemplo controlado es RTT 150 ms, 10 Mbps y CPU 4×.
 - Medir el catálogo y mapa con volumen real máximo conocido y una fixture mayor (por ejemplo 3×), documentando tamaño y paginación. No atribuir ese volumen sintético al producto real.
 - Separar tiempos de autenticación, servidor web, API, DB y render. Primero localizar el cuello de botella; luego comparar tras el cambio.
 - No almacenar respuestas ni identificadores personales en métricas. No añadir trackers externos para esta tarea sin necesidad.
@@ -1197,10 +1247,10 @@ Método mínimo:
 |---|---|---|
 | Móvil estrecho | 320 × 740 y 360 × 800 | Obligatoria funcional |
 | Móvil habitual | 390 × 844 y 430 × 932 | Obligatoria funcional y luego visual |
-| Móvil en horizontal | Alto reducido y teclado virtual en los flujos de respuesta | Obligatoria funcional |
+| Móvil en horizontal | Alto reducido en los flujos de respuesta | Obligatoria funcional |
 | Escritorio compacto | 1024 × 768 y 1280 × 800, ratón/teclado | Obligatoria funcional |
 | Escritorio habitual | 1440 × 900 y 1920 × 1080 | Obligatoria funcional y luego visual |
-| Navegadores | Chromium de escritorio, Safari iOS y Chrome Android según dispositivos de prueba | Registrar versión y evidencia separada |
+| Navegadores | Chromium de escritorio y perfiles móviles emulados | Registrar la versión y la evidencia de las ejecuciones. Safari en iPhone y Chrome en Android físicos quedan cubiertos por T56. |
 | Tablet | 768 × 1024, 820 y otras variantes específicas | **Diferida**, no puerta actual |
 
 No ocultar un fallo móvil porque su anchura se acerque a un breakpoint usado por tablet. Lo diferido es la aceptación de tablet como dispositivo, no la obligación de que un móvil en horizontal o escritorio compacto pueda operar.

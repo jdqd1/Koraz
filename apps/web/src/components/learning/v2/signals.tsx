@@ -1,11 +1,13 @@
 import { objectiveLabels, routeSignals, type V2Path, type V2State } from "./model";
 import styles from "./styles.module.css";
+import { requiredActivityLabel, v2RouteSummary } from "../route-summary";
 import { CheckCircle, Circle, ArrowsClockwise, BookOpen, ShieldCheck, Clock } from "@phosphor-icons/react/dist/ssr";
 
 export function RouteSignals({ state, appearance }: { state: V2State; appearance?: "overview" }) {
   const signals = routeSignals(state);
+  const activityLabel = requiredActivityLabel(v2RouteSummary(state));
   if (appearance === "overview") return <div className={styles.progressOverview} aria-label="Estado confirmado de la ruta">
-    <div className={styles.activityProgress}><span>{state.completedActivities} actividades completadas de {state.plannedRequiredActivities}</span>
+    <div className={styles.activityProgress}><span>{activityLabel}</span>
       {state.plannedRequiredActivities > 0 ? <progress aria-label="Actividades completadas" value={state.completedActivities} max={state.plannedRequiredActivities} /> : null}
     </div>
     <ul className={styles.milestones}>{[
@@ -18,13 +20,13 @@ export function RouteSignals({ state, appearance }: { state: V2State; appearance
       {signals.reinforcement > 0 ? <span className={styles.reinforceBadge}>{signals.reinforcement} {signals.reinforcement === 1 ? "objetivo" : "objetivos"} por reforzar</span> : null}
       {state.dispensedActivities > 0 ? <span>{state.dispensedActivities} actividades ya cubiertas por tu aprendizaje previo</span> : null}
     </div> : null}
-    <details className={styles.progressHelp}><summary>Qué significa mi progreso</summary><p>Completar actividades indica que recorriste el contenido. Comprobar lo aprendido requiere responder las evaluaciones. Los repasos posteriores comprueban qué recuerdas con el tiempo.</p></details>
+    <details className={styles.progressHelp}><summary>Qué significa mi progreso</summary><p>El total cuenta las actividades obligatorias iniciales. Las opcionales, los refuerzos y los repasos se muestran aparte. Las actividades cubiertas por un diagnóstico pertenecen al total, pero no cuentan como realizadas. Comprobar lo aprendido requiere responder las evaluaciones; los repasos posteriores comprueban qué recuerdas con el tiempo.</p></details>
   </div>;
   return <div className={styles.signals} aria-label="Estado confirmado de la ruta">
     <span className={styles.signalBadge} data-reached={!!state.completedAt}><BookOpen size={14} aria-hidden />{signals.completion}</span><span className={styles.signalBadge} data-reached={!!state.masteredAt}><ShieldCheck size={14} aria-hidden />{signals.mastery}</span><span className={styles.signalBadge} data-reached={!!state.consolidatedAt}><Clock size={14} aria-hidden />{signals.consolidation}</span>
     {signals.review > 0 ? <span className={styles.reviewBadge}><ArrowsClockwise size={14} aria-hidden />{signals.review} {signals.review === 1 ? "repaso pendiente" : "repasos pendientes"}</span> : null}
     {signals.reinforcement > 0 ? <span>{signals.reinforcement} {signals.reinforcement === 1 ? "objetivo" : "objetivos"} por reforzar</span> : null}
-    <span>{state.completedActivities} actividades completadas de {state.plannedRequiredActivities}</span>
+    <span>{activityLabel}</span>
     {state.dispensedActivities > 0 ? <span>{state.dispensedActivities} actividades ya cubiertas por tu aprendizaje previo</span> : null}
   </div>;
 }

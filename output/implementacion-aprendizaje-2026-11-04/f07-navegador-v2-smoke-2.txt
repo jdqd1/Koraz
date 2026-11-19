@@ -1,0 +1,57 @@
+[WebServer] (node:20928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:21432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6316) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:23048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 1 test using 1 worker
+
+(node:14608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-learning-performance.spec.ts:49:5 › F07 measures V2 create, resume and confirmed answer without duplicate progress (17.5s)
+
+
+  1) [desktop] › tests\e2e\guided-learning-performance.spec.ts:49:5 › F07 measures V2 create, resume and confirmed answer without duplicate progress 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected: "http://127.0.0.1:31035/aprendizaje/sesiones/fce5bafb-6cb0-4954-9df8-2f706f84cbcd?returnTo=%2Faprendizaje%2Frutas%2Ft035-small%3Fleccion%3Dunit%26objetivo%3Dobjective-1%26actividad%3Dchoice-1%23actividad-choice-1"
+    Received: "http://127.0.0.1:31035/aprendizaje/sesiones/fce5bafb-6cb0-4954-9df8-2f706f84cbcd?returnTo=%2Faprendizaje%2Frutas%2Ft035-small%3Fleccion%3Dunit%26objetivo%3Dobjective-1%23objetivo-objective-1"
+    Timeout:  12000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 12000ms
+        27 × locator resolved to <html lang="es" class="fnwInq_variable" data-scroll-behavior="smooth">…</html>
+           - unexpected value "http://127.0.0.1:31035/aprendizaje/sesiones/fce5bafb-6cb0-4954-9df8-2f706f84cbcd?returnTo=%2Faprendizaje%2Frutas%2Ft035-small%3Fleccion%3Dunit%26objetivo%3Dobjective-1%23objetivo-objective-1"
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-performance.spec.ts:72:24)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v2-smoke-2\guided-learning-performanc-87e85--without-duplicate-progress-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-v2-smoke-2\guided-learning-performanc-87e85--without-duplicate-progress-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-v2-smoke-2\guided-learning-performanc-87e85--without-duplicate-progress-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-v2-smoke-2\guided-learning-performanc-87e85--without-duplicate-progress-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests\e2e\guided-learning-performance.spec.ts:49:5 › F07 measures V2 create, resume and confirmed answer without duplicate progress 
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --project desktop --output ../../work/f07/browser-v2-smoke-2

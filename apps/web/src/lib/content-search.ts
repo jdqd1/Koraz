@@ -1,6 +1,5 @@
-import type { ContentItem, RichTextDocument } from "@cediah/contracts";
+import { publishedContentSearchText, type ContentItem } from "@cediah/contracts";
 import { publishedContentHref } from "./content-navigation";
-import { richTextDocumentToPlainText } from "./guide-document";
 
 export const contentSearchResultLimit = 4;
 
@@ -77,56 +76,8 @@ function occurrences(value: string, needle: string) {
   return count;
 }
 
-function guideSectionsText(sections: Array<{ body: string; heading: string }>) {
-  return sections.map((section) => `${section.heading}. ${section.body}`).join("\n\n");
-}
-
-function guideDocumentText(
-  document: RichTextDocument | null,
-  sections: Array<{ body: string; heading: string }>,
-) {
-  const richText = document ? richTextDocumentToPlainText(document) : "";
-  return richText || guideSectionsText(sections);
-}
-
-function questionsText(questions: Array<{ explanation?: string; options: string[]; prompt: string }>) {
-  return questions
-    .map((question) =>
-      [question.prompt, ...question.options, question.explanation].filter(Boolean).join(" "),
-    )
-    .join("\n");
-}
-
 export function contentItemSearchText(item: ContentItem) {
-  if (item.kind === "guide") {
-    return [
-      guideDocumentText(item.content.document, item.content.sections),
-      item.content.keyPoints.join("\n"),
-      questionsText(item.content.quiz.questions),
-    ]
-      .filter(Boolean)
-      .join("\n\n");
-  }
-
-  if (item.kind === "video") {
-    return [
-      item.content.description,
-      item.content.keyPoints.join("\n"),
-      guideDocumentText(item.content.guide.document, item.content.guide.sections),
-      questionsText(item.content.quiz.questions),
-    ]
-      .filter(Boolean)
-      .join("\n\n");
-  }
-
-  if (item.kind === "quiz") return questionsText(item.content.questions);
-  if (item.kind === "flashcards") {
-    return item.content.cards.map((card) => `${card.front}. ${card.back}`).join("\n\n");
-  }
-
-  return [item.content.introduction, item.content.objectives.join("\n")]
-    .filter(Boolean)
-    .join("\n\n");
+  return publishedContentSearchText(item.kind, item.content);
 }
 
 function itemSearchFields(item: SearchableContentItem): SearchField[] {

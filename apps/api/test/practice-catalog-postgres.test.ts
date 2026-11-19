@@ -1,8 +1,10 @@
 import { randomUUID } from "node:crypto";
+import Fastify from "fastify";
 import { sql } from "kysely";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { PracticeLibraryQuerySchema, readPracticeLibrary, subjectPracticeCounts } from "../src/practice-catalog.js";
 import { createGuidedV2Postgres } from "./helpers/guided-v2-postgres.js";
+import { registerPublishedStudyCatalogRoutes } from "../src/study-catalog.js";
 
 describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("H26 practice libraries in isolated PostgreSQL", () => {
   let db: Awaited<ReturnType<typeof createGuidedV2Postgres>>;
@@ -64,5 +66,30 @@ describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("H26 practice librar
       return readPracticeLibrary(tx,args("quiz",{subject:"anatomia",topic:"Abdomen",limit:1}));
     });
     expect(result?.items.map(item => item.id)).toEqual([quiz]);
+  });
+
+  it("paginates the complete public metadata union without leaking content or losing native/embedded capabilities", async () => {
+    const app = Fastify();
+    registerPublishedStudyCatalogRoutes(app, db.database);
+    try {
+      const first = await app.inject({ url: "/v1/study/catalog?limit=1000&offset=0" });
+      expect(first.statusCode, first.body).toBe(200);
+      const a = first.json();
+      expect(a.items).toHaveLength(1000);
+      expect(a.nextOffset).toBe(1000);
+      const second = await app.inject({ url: `/v1/study/catalog?limit=1000&offset=${a.nextOffset}` });
+      expect(second.statusCode, second.body).toBe(200);
+      const b = second.json();
+      expect(b.nextOffset).toBeNull();
+      const all = [...a.items, ...b.items];
+      expect(new Set(all.map(item => item.id)).size).toBe(all.length);
+      expect(all.find(item => item.id === guide)).toMatchObject({ hasQuiz: true, hasFlashcards: true, linkedVideoId: linkedVideo });
+      expect(all.find(item => item.id === loneVideo)).toMatchObject({ hasQuiz: true, hasFlashcards: true });
+      expect(all.length).toBe(1016);
+      expect(all.every(item => !("content" in item) && !("questions" in item))).toBe(true);
+      const subject = await app.inject({ url: "/v1/study/subjects/cirugia" });
+      expect(subject.statusCode, subject.body).toBe(200);
+      expect(subject.json().items.map((item: { id: string }) => item.id)).toContain(guide);
+    } finally { await app.close(); }
   });
 });

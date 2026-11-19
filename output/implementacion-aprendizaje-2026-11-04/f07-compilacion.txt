@@ -1,0 +1,15 @@
+$ next build
+▲ Next.js 16.4.1 (Turbopack)
+✓ Running next.config.ts took 225ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 13.9s
+  Running TypeScript ...
+tests/e2e/guided-learning-availability.spec.ts(100,9): error TS7034: Variable 'samples' implicitly has type 'any[]' in some locations where its type cannot be determined.
+tests/e2e/guided-learning-availability.spec.ts(118,21): error TS7005: Variable 'samples' implicitly has an 'any[]' type.
+tests/e2e/guided-learning-availability.spec.ts(119,21): error TS7005: Variable 'samples' implicitly has an 'any[]' type.
+Failed to type check.
+
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @cediah/web@0.1.0 build: `next build`
+Exit status 1

@@ -65,6 +65,13 @@
 .dashboard-reference-grid .dashboard-learning-state { grid-area: route; }
 .dashboard-reference-grid .dashboard-review-section { grid-area: review; }
 .dashboard-reference-grid .dashboard-recent { grid-area: recent; }
+.dashboard-reference-grid > .dashboard-route-summaries {
+  grid-area: route;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 20px;
+}
 .dashboard-reference-grid .section-heading-row { min-height: 28px; margin: 0 0 9px; }
 .dashboard-reference-grid .section-heading-row a {
   min-height: 28px;
@@ -233,6 +240,7 @@
     box-shadow: none;
   }
   .dashboard-reference-grid .dashboard-resume-section { grid-column: 9 / span 4; grid-row: 1; }
+  .dashboard-reference-grid > .dashboard-route-summaries { grid-column: 1 / span 8; grid-row: 1; }
   .dashboard-reference-grid .dashboard-learning,
   .dashboard-reference-grid .dashboard-learning-state { grid-column: 1 / span 8; grid-row: 1; }
   .dashboard-reference-grid .dashboard-review-section { grid-column: 1 / span 4; grid-row: 2; }

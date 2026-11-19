@@ -1,4 +1,5 @@
 import { type V2Path, type V2State } from "./model";
+import type { V2AttemptManifest } from "@cediah/contracts";
 
 export type V2Unit = V2Path["units"][number];
 export type CurriculumActivity = NonNullable<V2Unit["activities"]>[number];
@@ -30,6 +31,16 @@ export function actionLocation(path: V2Path, state: V2State, key = state.nextAct
   const unit = path.units.find(unit => unit.key === context?.unitKey) ?? activityUnit
     ?? path.units.find(unit => unit.objectives.some(objective => objective.key === objectiveKey));
   return { unit, activity, objective: unit?.objectives.find(objective => objective.key === objectiveKey) };
+}
+
+/** Resume keys identify attempts; recover a displayed activity only from its confirmed manifest. */
+export function resumedActivityLocation(path: V2Path, state: V2State, attempt: V2AttemptManifest) {
+  if (attempt.enrollmentId !== state.enrollmentId || attempt.pathVersionId !== state.pathVersionId
+    || path.enrollmentId !== state.enrollmentId || path.pathVersionId !== state.pathVersionId) return actionLocation(path, state);
+  const key = attempt.purpose === "activity" ? attempt.accessiblePractice?.sourceActivityKey
+    ?? attempt.activeActivity?.key ?? attempt.acceptedResponses.at(-1)?.activityKey : undefined;
+  const location = key ? actionLocation(path, state, key) : null;
+  return location?.activity ? location : actionLocation(path, state);
 }
 export function unitActivityProgress(unit: V2Unit, state: V2State | null) {
   if (!unit.activities || !state?.activityProgress) return null;

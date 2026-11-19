@@ -6,6 +6,7 @@ import { subjectContentHref } from "@/lib/content-navigation";
 import { getPublishedContentItem, getSubjects } from "@/lib/server/content-api";
 import { currentUserIsAdministrator } from "@/lib/server/current-user";
 import { getPublishedGuideTermManifest } from "@/lib/server/guide-terms-api";
+import { getLearningLibraryOptions } from "@/lib/server/guided-learning-api";
 
 export const dynamic = "force-dynamic";
 
@@ -27,12 +28,21 @@ export default async function GuidePage({ params, searchParams }: GuidePageProps
   ]);
 
   if (result.status === "ready") {
+    if (result.item.kind === "video") {
+      const guide = result.item.content.guide;
+      if (!guide.sections.some(section => section.body.trim()) && !guide.document?.content.length) notFound();
+      const guided = await getLearningLibraryOptions(result.item.id, "guide");
+      return <ContentDetailScreen item={result.item} guideMode trackView={false} isAdministrator={isAdministrator}
+        guidedActivities={guided.status === "ready" ? guided.items : []} returnHref="/guias" returnLabel="Volver a guías" />;
+    }
     if (result.item.kind !== "guide") notFound();
 
     if (result.item.kind === "guide") {
       const compareSlug = firstSearchValue(query.compare)?.trim();
       const compareAnchor = firstSearchValue(query.compareAnchor)?.trim();
-      const primaryManifestResult = await getPublishedGuideTermManifest(result.item.slug);
+      const [primaryManifestResult, guided] = await Promise.all([
+        getPublishedGuideTermManifest(result.item.slug), getLearningLibraryOptions(result.item.id, "guide"),
+      ]);
       const primaryManifest = primaryManifestResult.status === "ready"
         ? primaryManifestResult.manifest
         : null;
@@ -74,6 +84,7 @@ export default async function GuidePage({ params, searchParams }: GuidePageProps
         <GuideTermProvider manifest={primaryManifest}>
           <ContentDetailScreen
             item={result.item}
+            guidedActivities={guided.status === "ready" ? guided.items : []}
             isAdministrator={isAdministrator}
             returnHref={returnHref}
             returnLabel={origin === "asignatura" && topic ? `Volver a ${topic}` : "Volver a guías"}

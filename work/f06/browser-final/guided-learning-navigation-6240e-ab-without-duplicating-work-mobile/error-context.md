@@ -1,0 +1,303 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: guided-learning-navigation.spec.ts >> F06 V1 retains unit, activity, guide section and resource tab without duplicating work
+- Location: tests\e2e\guided-learning-navigation.spec.ts:7:5
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - search "Buscar guías" [ref=f3e6]:
+        - combobox "Buscar guías" [ref=f3e9]
+      - heading "Aprendizaje guiado" [level=1] [ref=f3e11]
+      - generic [ref=f3e12]:
+        - button "Notificaciones" [ref=f3e14] [cursor=pointer]
+        - button "Abrir menú de perfil de f06-mobile@example.test" [ref=f3e18] [cursor=pointer]:
+          - generic [ref=f3e19]: F0
+    - article [ref=f3e20]:
+      - link "Volver al mapa" [ref=f3e21] [cursor=pointer]:
+        - /url: /aprendizaje/mapa
+      - generic [ref=f3e25]:
+        - heading "Simulación de navegación F06" [level=1] [ref=f3e26]
+        - generic [ref=f3e27]:
+          - generic [ref=f3e28]: Simulación F06
+          - generic [ref=f3e29]: 30 unidades
+        - group [ref=f3e30]:
+          - generic "Acerca de esta ruta" [ref=f3e31] [cursor=pointer]
+      - generic [ref=f3e35]:
+        - region "Acción recomendada" [ref=f3e36]:
+          - heading "Continúa tu ruta" [level=2] [ref=f3e37]
+          - paragraph [ref=f3e38]: Elige una actividad de las unidades. El orden es una recomendación.
+          - generic [ref=f3e39]:
+            - button "Pausar ruta" [ref=f3e40] [cursor=pointer]
+            - paragraph [ref=f3e43]
+        - region "Tu progreso" [ref=f3e44]:
+          - heading "Tu progreso" [level=2] [ref=f3e45]
+          - strong [ref=f3e46]: 33%
+          - paragraph [ref=f3e47]: 1 de 3 pasos esenciales
+          - progressbar "Actividades esenciales completadas" [ref=f3e48]
+      - region [ref=f3e49]:
+        - generic [ref=f3e50]:
+          - heading "Unidades de la ruta" [level=2] [ref=f3e51]
+          - generic [ref=f3e52]: "30"
+        - generic [ref=f3e53]:
+          - tablist "Contenido de la ruta" [ref=f3e54]:
+            - tab "Actividades" [active] [selected] [ref=f3e55] [cursor=pointer]
+            - tab "Recursos" [ref=f3e56] [cursor=pointer]
+          - tabpanel "Actividades" [ref=f3e57]:
+            - generic [ref=f3e58]:
+              - group [ref=f3e59]:
+                - generic "1 Lectura y comprobación 1/3 esenciales" [ref=f3e60] [cursor=pointer]:
+                  - generic [ref=f3e61]: "1"
+                  - generic [ref=f3e62]:
+                    - strong [ref=f3e63]: Lectura y comprobación
+                    - generic [ref=f3e64]: 1/3 esenciales
+                - generic [ref=f3e67]:
+                  - generic [ref=f3e68]:
+                    - strong [ref=f3e69]: Al terminar podrás
+                    - list [ref=f3e70]:
+                      - listitem [ref=f3e71]:
+                        - generic [ref=f3e72]: Reconocer la primera letra
+                        - generic [ref=f3e73]: Por comprobar · evidencia limitada por el banco disponible
+                  - list [ref=f3e74]:
+                    - listitem [ref=f3e75]:
+                      - generic [ref=f3e76]:
+                        - text: Completada
+                        - heading "Leer la tabla" [level=3] [ref=f3e77]
+                      - generic [ref=f3e79]:
+                        - button "Lectura con seguimiento Guía · 1 min · Recomendada Comenzar actividad" [ref=f3e80] [cursor=pointer]:
+                          - generic [ref=f3e84]:
+                            - strong [ref=f3e85]: Lectura con seguimiento
+                            - generic [ref=f3e86]: Guía · 1 min · Recomendada
+                          - emphasis [ref=f3e87]: Comenzar actividad
+                        - status
+                    - listitem [ref=f3e88]:
+                      - generic [ref=f3e89]:
+                        - text: Esencial
+                        - heading "Comprobar el orden" [level=3] [ref=f3e90]
+                        - generic [ref=f3e91]:
+                          - button "Omitir por ahora" [ref=f3e92] [cursor=pointer]
+                          - generic [ref=f3e93]: No bloquea el acceso a otros pasos.
+                      - generic [ref=f3e95]:
+                        - button "Cuestionario con seguimiento Cuestionario · 1 min · Recomendada Comenzar actividad" [ref=f3e96] [cursor=pointer]:
+                          - generic [ref=f3e100]:
+                            - strong [ref=f3e101]: Cuestionario con seguimiento
+                            - generic [ref=f3e102]: Cuestionario · 1 min · Recomendada
+                          - emphasis [ref=f3e103]: Comenzar actividad
+                        - status
+                    - listitem [ref=f3e104]:
+                      - generic [ref=f3e105]:
+                        - text: Esencial
+                        - heading "Recordar las letras" [level=3] [ref=f3e106]
+                        - generic [ref=f3e107]:
+                          - button "Omitir por ahora" [ref=f3e108] [cursor=pointer]
+                          - generic [ref=f3e109]: No bloquea el acceso a otros pasos.
+                      - generic [ref=f3e111]:
+                        - button "Tarjetas con seguimiento Tarjetas · 1 min · Recomendada Comenzar actividad" [ref=f3e112] [cursor=pointer]:
+                          - generic [ref=f3e116]:
+                            - strong [ref=f3e117]: Tarjetas con seguimiento
+                            - generic [ref=f3e118]: Tarjetas · 1 min · Recomendada
+                          - emphasis [ref=f3e119]: Comenzar actividad
+                        - status
+              - group [ref=f3e120]:
+                - generic "2 Otra unidad 0/0 esenciales" [ref=f3e121] [cursor=pointer]:
+                  - generic [ref=f3e122]: "2"
+                  - generic [ref=f3e123]:
+                    - strong [ref=f3e124]: Otra unidad
+                    - generic [ref=f3e125]: 0/0 esenciales
+              - group [ref=f3e128]:
+                - generic "3 Contenido 1 0/0 esenciales" [ref=f3e129] [cursor=pointer]:
+                  - generic [ref=f3e130]: "3"
+                  - generic [ref=f3e131]:
+                    - strong [ref=f3e132]: Contenido 1
+                    - generic [ref=f3e133]: 0/0 esenciales
+              - group [ref=f3e136]:
+                - generic "4 Contenido 2 0/0 esenciales" [ref=f3e137] [cursor=pointer]:
+                  - generic [ref=f3e138]: "4"
+                  - generic [ref=f3e139]:
+                    - strong [ref=f3e140]: Contenido 2
+                    - generic [ref=f3e141]: 0/0 esenciales
+              - group [ref=f3e144]:
+                - generic "5 Contenido 3 0/0 esenciales" [ref=f3e145] [cursor=pointer]:
+                  - generic [ref=f3e146]: "5"
+                  - generic [ref=f3e147]:
+                    - strong [ref=f3e148]: Contenido 3
+                    - generic [ref=f3e149]: 0/0 esenciales
+              - group [ref=f3e152]:
+                - generic "6 Contenido 4 0/0 esenciales" [ref=f3e153] [cursor=pointer]:
+                  - generic [ref=f3e154]: "6"
+                  - generic [ref=f3e155]:
+                    - strong [ref=f3e156]: Contenido 4
+                    - generic [ref=f3e157]: 0/0 esenciales
+              - group [ref=f3e160]:
+                - generic "7 Contenido 5 0/0 esenciales" [ref=f3e161] [cursor=pointer]:
+                  - generic [ref=f3e162]: "7"
+                  - generic [ref=f3e163]:
+                    - strong [ref=f3e164]: Contenido 5
+                    - generic [ref=f3e165]: 0/0 esenciales
+              - group [ref=f3e168]:
+                - generic "8 Contenido 6 0/0 esenciales" [ref=f3e169] [cursor=pointer]:
+                  - generic [ref=f3e170]: "8"
+                  - generic [ref=f3e171]:
+                    - strong [ref=f3e172]: Contenido 6
+                    - generic [ref=f3e173]: 0/0 esenciales
+              - group [ref=f3e176]:
+                - generic "9 Contenido 7 0/0 esenciales" [ref=f3e177] [cursor=pointer]:
+                  - generic [ref=f3e178]: "9"
+                  - generic [ref=f3e179]:
+                    - strong [ref=f3e180]: Contenido 7
+                    - generic [ref=f3e181]: 0/0 esenciales
+              - group [ref=f3e184]:
+                - generic "10 Contenido 8 0/0 esenciales" [ref=f3e185] [cursor=pointer]:
+                  - generic [ref=f3e186]: "10"
+                  - generic [ref=f3e187]:
+                    - strong [ref=f3e188]: Contenido 8
+                    - generic [ref=f3e189]: 0/0 esenciales
+              - group [ref=f3e192]:
+                - generic "11 Contenido 9 0/0 esenciales" [ref=f3e193] [cursor=pointer]:
+                  - generic [ref=f3e194]: "11"
+                  - generic [ref=f3e195]:
+                    - strong [ref=f3e196]: Contenido 9
+                    - generic [ref=f3e197]: 0/0 esenciales
+              - group [ref=f3e200]:
+                - generic "12 Contenido 10 0/0 esenciales" [ref=f3e201] [cursor=pointer]:
+                  - generic [ref=f3e202]: "12"
+                  - generic [ref=f3e203]:
+                    - strong [ref=f3e204]: Contenido 10
+                    - generic [ref=f3e205]: 0/0 esenciales
+              - group [ref=f3e208]:
+                - generic "13 Contenido 11 0/0 esenciales" [ref=f3e209] [cursor=pointer]:
+                  - generic [ref=f3e210]: "13"
+                  - generic [ref=f3e211]:
+                    - strong [ref=f3e212]: Contenido 11
+                    - generic [ref=f3e213]: 0/0 esenciales
+              - group [ref=f3e216]:
+                - generic "14 Contenido 12 0/0 esenciales" [ref=f3e217] [cursor=pointer]:
+                  - generic [ref=f3e218]: "14"
+                  - generic [ref=f3e219]:
+                    - strong [ref=f3e220]: Contenido 12
+                    - generic [ref=f3e221]: 0/0 esenciales
+              - group [ref=f3e224]:
+                - generic "15 Contenido 13 0/0 esenciales" [ref=f3e225] [cursor=pointer]:
+                  - generic [ref=f3e226]: "15"
+                  - generic [ref=f3e227]:
+                    - strong [ref=f3e228]: Contenido 13
+                    - generic [ref=f3e229]: 0/0 esenciales
+              - group [ref=f3e232]:
+                - generic "16 Contenido 14 0/0 esenciales" [ref=f3e233] [cursor=pointer]:
+                  - generic [ref=f3e234]: "16"
+                  - generic [ref=f3e235]:
+                    - strong [ref=f3e236]: Contenido 14
+                    - generic [ref=f3e237]: 0/0 esenciales
+              - group [ref=f3e240]:
+                - generic "17 Contenido 15 0/0 esenciales" [ref=f3e241] [cursor=pointer]:
+                  - generic [ref=f3e242]: "17"
+                  - generic [ref=f3e243]:
+                    - strong [ref=f3e244]: Contenido 15
+                    - generic [ref=f3e245]: 0/0 esenciales
+              - group [ref=f3e248]:
+                - generic "18 Contenido 16 0/0 esenciales" [ref=f3e249] [cursor=pointer]:
+                  - generic [ref=f3e250]: "18"
+                  - generic [ref=f3e251]:
+                    - strong [ref=f3e252]: Contenido 16
+                    - generic [ref=f3e253]: 0/0 esenciales
+              - group [ref=f3e256]:
+                - generic "19 Contenido 17 0/0 esenciales" [ref=f3e257] [cursor=pointer]:
+                  - generic [ref=f3e258]: "19"
+                  - generic [ref=f3e259]:
+                    - strong [ref=f3e260]: Contenido 17
+                    - generic [ref=f3e261]: 0/0 esenciales
+              - group [ref=f3e264]:
+                - generic "20 Contenido 18 0/0 esenciales" [ref=f3e265] [cursor=pointer]:
+                  - generic [ref=f3e266]: "20"
+                  - generic [ref=f3e267]:
+                    - strong [ref=f3e268]: Contenido 18
+                    - generic [ref=f3e269]: 0/0 esenciales
+              - group [ref=f3e272]:
+                - generic "21 Contenido 19 0/0 esenciales" [ref=f3e273] [cursor=pointer]:
+                  - generic [ref=f3e274]: "21"
+                  - generic [ref=f3e275]:
+                    - strong [ref=f3e276]: Contenido 19
+                    - generic [ref=f3e277]: 0/0 esenciales
+              - group [ref=f3e280]:
+                - generic "22 Contenido 20 0/0 esenciales" [ref=f3e281] [cursor=pointer]:
+                  - generic [ref=f3e282]: "22"
+                  - generic [ref=f3e283]:
+                    - strong [ref=f3e284]: Contenido 20
+                    - generic [ref=f3e285]: 0/0 esenciales
+              - group [ref=f3e288]:
+                - generic "23 Contenido 21 0/0 esenciales" [ref=f3e289] [cursor=pointer]:
+                  - generic [ref=f3e290]: "23"
+                  - generic [ref=f3e291]:
+                    - strong [ref=f3e292]: Contenido 21
+                    - generic [ref=f3e293]: 0/0 esenciales
+              - group [ref=f3e296]:
+                - generic "24 Contenido 22 0/0 esenciales" [ref=f3e297] [cursor=pointer]:
+                  - generic [ref=f3e298]: "24"
+                  - generic [ref=f3e299]:
+                    - strong [ref=f3e300]: Contenido 22
+                    - generic [ref=f3e301]: 0/0 esenciales
+              - group [ref=f3e304]:
+                - generic "25 Contenido 23 0/0 esenciales" [ref=f3e305] [cursor=pointer]:
+                  - generic [ref=f3e306]: "25"
+                  - generic [ref=f3e307]:
+                    - strong [ref=f3e308]: Contenido 23
+                    - generic [ref=f3e309]: 0/0 esenciales
+              - group [ref=f3e312]:
+                - generic "26 Contenido 24 0/0 esenciales" [ref=f3e313] [cursor=pointer]:
+                  - generic [ref=f3e314]: "26"
+                  - generic [ref=f3e315]:
+                    - strong [ref=f3e316]: Contenido 24
+                    - generic [ref=f3e317]: 0/0 esenciales
+              - group [ref=f3e320]:
+                - generic "27 Contenido 25 0/0 esenciales" [ref=f3e321] [cursor=pointer]:
+                  - generic [ref=f3e322]: "27"
+                  - generic [ref=f3e323]:
+                    - strong [ref=f3e324]: Contenido 25
+                    - generic [ref=f3e325]: 0/0 esenciales
+              - group [ref=f3e328]:
+                - generic "28 Contenido 26 0/0 esenciales" [ref=f3e329] [cursor=pointer]:
+                  - generic [ref=f3e330]: "28"
+                  - generic [ref=f3e331]:
+                    - strong [ref=f3e332]: Contenido 26
+                    - generic [ref=f3e333]: 0/0 esenciales
+              - group [ref=f3e336]:
+                - generic "29 Contenido 27 0/0 esenciales" [ref=f3e337] [cursor=pointer]:
+                  - generic [ref=f3e338]: "29"
+                  - generic [ref=f3e339]:
+                    - strong [ref=f3e340]: Contenido 27
+                    - generic [ref=f3e341]: 0/0 esenciales
+              - group [ref=f3e344]:
+                - generic "30 Contenido 28 0/0 esenciales" [ref=f3e345] [cursor=pointer]:
+                  - generic [ref=f3e346]: "30"
+                  - generic [ref=f3e347]:
+                    - strong [ref=f3e348]: Contenido 28
+                    - generic [ref=f3e349]: 0/0 esenciales
+    - navigation "Navegación móvil" [ref=f3e352]:
+      - link "Inicio" [ref=f3e353] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Guías" [ref=f3e357] [cursor=pointer]:
+        - /url: /guias
+      - button "Materiales" [ref=f3e362] [cursor=pointer]
+      - link [ref=f3e366] [cursor=pointer]:
+        - /url: /aprendizaje
+        - generic [ref=f3e369]: Rutas deaprendizaje
+  - alert [ref=f3e370]
+```

@@ -1,0 +1,108 @@
+[WebServer] (node:24544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ tsx test/helpers/guided-v2-server.ts
+[WebServer] (node:22788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:22576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+
+Running 6 tests using 1 worker
+
+(node:20588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes (32.3s)
+(node:12836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\e2e\guided-learning-availability.spec.ts:95:5 › F07 preserves resource section, attempt and catalog context across temporary failures (20.8s)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '7390bd53-b243-4287-821d-84271ea6fdda',
+[WebServer]   requestId: '78b7832d-b301-4f53-a6ee-1a0af29ae9f7',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 13,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+  ok 3 [desktop] › tests\e2e\guided-learning-availability.spec.ts:150:5 › F07 correlates the retry and preserves the deep link on expired identity (7.1s)
+(node:26200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 [mobile] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes (24.8s)
+(node:26504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 [mobile] › tests\e2e\guided-learning-availability.spec.ts:95:5 › F07 preserves resource section, attempt and catalog context across temporary failures (11.9s)
+[WebServer] auth/me unavailable {
+[WebServer]   reference: '80677348-d732-4942-8385-e64825d03034',
+[WebServer]   requestId: '0d705609-7245-4ff6-a448-2d5f4339d539',
+[WebServer]   attempt: 1,
+[WebServer]   status: 503,
+[WebServer]   durationMs: 11,
+[WebServer]   stage: 'http',
+[WebServer]   reason: 'service'
+[WebServer] }
+  ok 6 [mobile] › tests\e2e\guided-learning-availability.spec.ts:150:5 › F07 correlates the retry and preserves the deep link on expired identity (7.1s)
+
+
+  1) [desktop] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Finalizar sesión', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-availability.spec.ts:47:79)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Finalizar sesión', exact: true })
+
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web\tests\e2e\guided-learning-availability.spec.ts:47:79)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1655:9)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1135:11)
+        at D:\Jose (Datos)\Medicina\CEDIAH\Web\node_modules\.pnpm\playwright@1.63.0\node_modules\playwright\lib\worker\workerProcessEntry.js:1653:7)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-mobile\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ..\..\work\f07\browser-operativa-final\guided-learning-availabili-eea8d-rable-across-priority-sizes-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes 
+    [mobile] › tests\e2e\guided-learning-availability.spec.ts:15:5 › F07 keeps the answer, feedback and exit operable across priority sizes 
+  4 passed (3.6m)
+undefined
+D:\Jose (Datos)\Medicina\CEDIAH\Web\apps\web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test --config playwright.learning-availability.config.ts --grep-invert "payload budgets" --output ../../work/f07/browser-operativa-final

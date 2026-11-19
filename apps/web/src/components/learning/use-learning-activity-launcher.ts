@@ -1,8 +1,8 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LearningAttemptMutationResponseSchema } from "@cediah/contracts";
-import { safeMapReturnHref } from "./map/map-route";
+import { LearningAttemptMutationResponseSchema, LearningAttemptSchema } from "@cediah/contracts";
+import { learningSessionHref } from "@/lib/learning-navigation";
 export function useLearningActivityLauncher() {
   const router = useRouter(),
     inFlight = useRef(false);
@@ -24,6 +24,12 @@ export function useLearningActivityLauncher() {
     setMessage("");
     try {
       let attemptId = existingAttemptId;
+      if (attemptId) {
+        const response = await fetch(`/api/guided-learning/attempts/${attemptId}`, { cache: "no-store" });
+        const parsed = LearningAttemptSchema.safeParse(await response.json());
+        if (!response.ok || !parsed.success) throw new Error("No pudimos recuperar la actividad. Reintenta con conexión.");
+        if (parsed.data.stepOptionId !== optionId) attemptId = null;
+      }
       if (!attemptId) {
         if (identity.current?.optionId !== optionId)
           identity.current = {
@@ -53,10 +59,7 @@ export function useLearningActivityLauncher() {
           );
         attemptId = parsed.data.attempt.id;
       }
-      const origin = safeMapReturnHref(returnHref);
-      router.push(
-        `/aprendizaje/sesiones/${attemptId}${origin ? `?${new URLSearchParams({ returnTo: origin })}` : ""}`,
-      );
+      router.push(learningSessionHref(attemptId, returnHref));
     } catch (e) {
       setMessage(
         e instanceof Error ? e.message : "No pudimos iniciar la actividad.",

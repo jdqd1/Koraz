@@ -41,6 +41,15 @@ describe("review final feedback (H24)", () => {
     expect(renderToString(<ActivityShell initialAttempt={attempt} initialProgress={null} userId="learner" />)).toContain("Repaso completado");
   });
 
+  it("restores persisted session XP and distinguishes confirmed zero from an older receipt", () => {
+    const current = { ...attempt, awards: [{ awardKey: "review:fixture", awardedAt: "2026-11-07T12:00:00Z",
+      kind: "review_applied" as const, title: "Repaso aplicado", xp: 1 }] };
+    const render = (value: LearningAttempt) => renderToString(<ActivityShell initialAttempt={value} initialProgress={null} userId="learner" />).replaceAll("<!-- -->", "");
+    expect(render(current)).toContain("+1 XP");
+    expect(render({ ...current, awards: [] })).toContain("0 XP nuevos");
+    expect(render(attempt)).not.toContain("0 XP nuevos");
+  });
+
   it("offers an actionable recovery when an unfinished manifest has no current item", () => {
     const html = renderToString(<ReviewActivity attempt={{ ...attempt, status: "in_progress" }} feedback={null} mutate={vi.fn()} onFeedback={vi.fn()} />);
     expect(html).toContain("Volver al repaso");
