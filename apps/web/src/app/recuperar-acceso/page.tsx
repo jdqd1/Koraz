@@ -6,12 +6,12 @@ export const dynamic = "force-dynamic";
 
 export default function RecoverAccessPage() {
   return (
-    <main className="auth-page">
+    <main className="auth-page auth-page-paper auth-page-recover">
       <header className="auth-header">
         <Link className="brand" href="/" aria-label="Koras, inicio">
-          <CediahLogo variant="dark" />
+          <CediahLogo variant="dark" priority />
         </Link>
-        <Link href="/acceder">Volver a acceder</Link>
+        <Link className="auth-mode-link" href="/acceder">Volver a acceder</Link>
       </header>
       <div className="auth-content">
         <AuthForm mode="recover" />

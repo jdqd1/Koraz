@@ -6,24 +6,24 @@ import styles from "./landing-orbit.module.css";
 
 const subjectGroups = [
   [
-    { name: "Anatomía", icon: Heartbeat, color: "#ff8e95", ink: "#76212f" },
-    { name: "Fisiología", icon: Pulse, color: "#80b5ff", ink: "#154fa9" },
-    { name: "Histología", icon: Microscope, color: "#ffa2cd", ink: "#792e57" },
-    { name: "Biología celular", icon: Atom, color: "#71dba4", ink: "#1b6944" },
-    { name: "Bioquímica", icon: Dna, color: "#ffd36b", ink: "#775700" },
-    { name: "Embriología", icon: Dna, color: "#ffb3a0", ink: "#8c4330" },
+    { name: "Anatomía", icon: Heartbeat, color: "#f43f5e", ink: "#881337" },
+    { name: "Fisiología", icon: Pulse, color: "#3b82f6", ink: "#1e3a8a" },
+    { name: "Histología", icon: Microscope, color: "#ec4899", ink: "#831843" },
+    { name: "Biología celular", icon: Atom, color: "#10b981", ink: "#064e3b" },
+    { name: "Bioquímica", icon: Dna, color: "#f59e0b", ink: "#78350f" },
+    { name: "Embriología", icon: Dna, color: "#f97316", ink: "#7c2d12" },
   ],
   [
-    { name: "Farmacología", icon: Pill, color: "#ffab72", ink: "#8b3b13" },
-    { name: "Microbiología", icon: Virus, color: "#5edbdc", ink: "#086768" },
-    { name: "Inmunología", icon: ShieldCheck, color: "#b99aff", ink: "#542c96" },
-    { name: "Genética", icon: Dna, color: "#a8b1ff", ink: "#444c91" },
+    { name: "Farmacología", icon: Pill, color: "#06b6d4", ink: "#164e63" },
+    { name: "Microbiología", icon: Virus, color: "#14b8a6", ink: "#134e4a" },
+    { name: "Inmunología", icon: ShieldCheck, color: "#8b5cf6", ink: "#4c1d95" },
+    { name: "Genética", icon: Dna, color: "#6366f1", ink: "#312e81" },
   ],
   [
-    { name: "Semiología", icon: Stethoscope, color: "#80b5ff", ink: "#154fa9" },
-    { name: "Patología", icon: Microscope, color: "#98c8ff", ink: "#244e85" },
-    { name: "Neuroanatomía", icon: Brain, color: "#b99aff", ink: "#542c96" },
-    { name: "Parasitología", icon: Virus, color: "#9edbac", ink: "#356541" },
+    { name: "Semiología", icon: Stethoscope, color: "#2563eb", ink: "#1e3a8a" },
+    { name: "Patología", icon: Microscope, color: "#d946ef", ink: "#701a75" },
+    { name: "Neuroanatomía", icon: Brain, color: "#7c3aed", ink: "#4c1d95" },
+    { name: "Parasitología", icon: Virus, color: "#059669", ink: "#064e3b" },
   ],
 ] as const;
 
@@ -122,7 +122,7 @@ function SubjectCard({ subject, ring, index, phase, onHover }: { subject: Subjec
             onPointerMove={tilt}
             onPointerLeave={(event) => leave(event.currentTarget)}
             onPointerCancel={(event) => leave(event.currentTarget)}>
-            <span className={styles.subjectIcon}><Icon size={26} weight="regular" aria-hidden="true" /></span>
+            <span className={styles.subjectIcon}><Icon size={22} weight="fill" aria-hidden="true" /></span>
             <span className={styles.subjectLabel}>{subject.name}</span>
           </div>
         </div>
