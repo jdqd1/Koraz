@@ -243,7 +243,7 @@ export function AuthForm({
         setEmail(event.target.value);
         clearError("email");
       }}
-      placeholder={variant === "landing" ? "Correo electrónico" : "ejemplo@medicina.edu"}
+      placeholder={variant === "landing" ? "Correo electrónico" : undefined}
       required
       spellCheck={false}
       type="email"
@@ -265,7 +265,7 @@ export function AuthForm({
         setPassword(event.target.value);
         clearError("password");
       }}
-      placeholder={variant === "landing" ? "Contraseña" : "••••••••••••"}
+      placeholder={variant === "landing" ? "Contraseña" : undefined}
       required
       type={showPassword ? "text" : "password"}
       value={password}
@@ -370,7 +370,6 @@ export function AuthForm({
               maxLength={AUTH_PASSWORD_MAX_LENGTH}
               minLength={AUTH_PASSWORD_MIN_LENGTH}
               name="confirmPassword"
-              placeholder="••••••••••••"
               onChange={(event) => {
                 setConfirmPassword(event.target.value);
                 clearError("confirmPassword");
