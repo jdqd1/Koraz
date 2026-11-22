@@ -135,10 +135,18 @@ it.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("repairs four inherited Pe
     expect(pinned?.version.id).toBe(previous.version.id);
     expect(next.version.units[0]!.steps.slice(0, 2).map(s => s.options[0]!.resourceRevisionId))
       .toEqual(previous.version.units[0]!.steps.slice(0, 2).map(s => s.options[0]!.resourceRevisionId));
+    const heldAttemptId = randomUUID();
+    const heldOption = audit.peritoneo.find(step => step.step === "unidad-2-paso-1")!;
+    await db.pool.query(`insert into learning_attempts(id,user_id,client_attempt_id,enrollment_id,path_version_id,step_id,step_option_id,purpose,projection,manifest_json)
+      values ($1,$2,$3,$4,$5,$6,$7,'check','quiz','{}')`,
+    [heldAttemptId, userId, randomUUID(), enrollment.id, previous.version.id, heldOption.step_id, heldOption.option_id]);
+    const preview = success(await provider.getEnrollmentUpgradePreview({ userId, enrollmentId: enrollment.id }));
+    expect(preview.upgrade?.activeAttempt).toBeNull();
     const upgraded = success(await provider.upgradeEnrollment({ userId, enrollmentId: enrollment.id, idempotencyKey: randomUUID(),
       request: { expectedVersion: pinned!.enrollment!.rowVersion, targetPathVersionId: next.version.id } }));
     expect(upgraded.progress.completedEssentialSteps).toBe(1);
     expect(success(await provider.getAttempt({ userId, attemptId: oldGuide.id })).status).toBe("completed");
+    expect((await db.pool.query("select status from learning_attempts where id=$1", [heldAttemptId])).rows).toEqual([{ status: "in_progress" }]);
     const current = await provider.getPathBySlug({ slug: draft.slug, userId });
     expect(current?.version.id).toBe(next.version.id);
     const steps = current!.version.units.flatMap(unit => unit.steps);

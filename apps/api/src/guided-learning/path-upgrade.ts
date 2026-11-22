@@ -4,6 +4,7 @@ import {
   LearningEnrollmentUpgradePreviewSchema,
   LearningEnrollmentVersionHistorySchema,
   LearningObjectiveSchema,
+  heldLearningOptionIds,
   type LearningEnrollmentUpgradePreview,
   type LearningEnrollmentVersionHistory,
 } from "@cediah/contracts";
@@ -248,6 +249,10 @@ export async function planLearningEnrollmentUpgrade(
       .where("learning_attempts.enrollment_id", "=", enrollment.id)
       .where("learning_attempts.path_version_id", "=", enrollment.path_version_id)
       .where("learning_attempts.status", "=", "in_progress")
+      .where(eb => eb.or([
+        eb("learning_attempts.step_option_id", "is", null),
+        eb("learning_attempts.step_option_id", "not in", [...heldLearningOptionIds]),
+      ]))
       .orderBy("learning_attempts.updated_at", "desc")
       .executeTakeFirst(),
   ]);
