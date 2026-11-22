@@ -10,7 +10,7 @@ import { createGuidedV2HttpProvider } from "../src/guided-learning/v2/routes.js"
 import { guidedV2Fixture } from "./helpers/guided-v2-fixtures.js";
 import { createPostgresGuidedLearningProvider } from "../src/providers/postgres-guided-learning.js";
 
-describe("pinned study-resource reader with PostgreSQL", () => {
+describe.skipIf(process.env.KORAZ_TEST_DATABASE !== "true")("pinned study-resource reader with PostgreSQL", () => {
   let db: Awaited<ReturnType<typeof createGuidedV2Postgres>>, seeded: Awaited<ReturnType<typeof seedLearningNavigation>>;
   const owner = randomUUID(), learner = randomUUID(), stranger = randomUUID(), app = Fastify();
   const read = (slug: string, key: string, user = learner) => app.inject({ method: "GET", url: `/v1/guided-learning/paths/${slug}/resources/${key}`, headers: { cookie: `actor=${user}` } });

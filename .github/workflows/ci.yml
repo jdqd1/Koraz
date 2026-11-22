@@ -36,7 +36,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm --filter @cediah/api exec vitest run test/auth-security.test.ts
+      - name: Run PostgreSQL integration tests
+        run: pnpm --filter @cediah/api exec vitest run test/auth-security.test.ts test/learning-resource-reader-postgres.test.ts test/peritoneo-candidate-postgres.test.ts
         env:
           NODE_ENV: test
           KORAZ_TEST_DATABASE: "true"
