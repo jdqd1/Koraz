@@ -12,6 +12,7 @@ import { planLearningEnrollmentUpgrade } from "../src/guided-learning/path-upgra
 import { guidedV2PolicySnapshot } from "../src/guided-learning/v2/service.js";
 import { registerGuidedV2EditorImportRoutes } from "../src/guided-learning/v2/editor-routes.js";
 import { hashLearningSnapshot } from "../src/guided-learning/snapshot-hash.js";
+import { abdominalCandidate } from "./helpers/abdominal-candidate.js";
 
 function fixture(): RoutePackage {
   const choices = ["recall-a", "recall-b", "apply"].map((key, index) => ({ key, objectiveKey: "core", relatedObjectiveKeys: [],
@@ -36,6 +37,13 @@ function databaseFor(pg: PGlite) {
       rollbackTransaction: async () => { await pg.exec("rollback"); }, destroy: async () => {}, init: async () => {}, releaseConnection: async () => {} }) } });
 }
 describe("T034 objective equivalence", () => {
+  it("preserves abdominal evidence when accepted aliases expand and resets it if an accepted answer is removed", () => {
+    const { base, candidate } = abdominalCandidate();
+    const allKeys = base.objectives.map(objective => objective.key).sort();
+    expect(transferableObjectiveKeys(base, candidate, {}, {})).toEqual(allKeys);
+    expect(transferableObjectiveKeys(candidate, base, {}, {})).not.toContain("retorno-sistemico");
+    expect(transferableObjectiveKeys(candidate, base, {}, {})).not.toEqual(allKeys);
+  });
   it("requires content, assessment, policy and modality equality", () => {
     const original = fixture();
     expect(transferableObjectiveKeys(null, original, {}, {})).toEqual([]);

@@ -3,6 +3,7 @@ import { sql, type Selectable, type Transaction } from "kysely";
 import { LearningObjectiveSchema, RoutePackageSchema, type RoutePackage, type RouteActivity } from "@cediah/contracts";
 import type { CediahDatabase, JsonValue, LearningPathTable, LearningPathVersionTable } from "../../db/database.js";
 import { hashLearningSnapshot } from "../snapshot-hash.js";
+import { normalizeShortAnswer } from "./grading.js";
 import { guidedV2PolicySnapshot } from "./service.js";
 
 type Tx = Transaction<CediahDatabase>;
@@ -41,8 +42,19 @@ export function objectiveUpgradeHash(definition: RoutePackage, key: string, poli
 
 export function transferableObjectiveKeys(current: RoutePackage | null, target: RoutePackage, currentPolicy: unknown, targetPolicy: unknown) {
   if (!current || hashLearningSnapshot(currentPolicy) !== hashLearningSnapshot(targetPolicy)) return [];
+  const previousActivities = new Map(current.activities.map(activity => [activity.key, activity]));
+  const comparisonTarget = { ...target, activities: target.activities.map(activity => {
+    const previous = previousActivities.get(activity.key);
+    if (activity.kind !== "short_answer" || previous?.kind !== "short_answer") return activity;
+    const validAliases = activity.payload.acceptedAnswers.filter(answer => answer.length <= activity.payload.maxChars).map(normalizeShortAnswer);
+    const accepted = new Set(validAliases);
+    // Adding valid aliases preserves the validity of all previously accepted responses.
+    if (validAliases.length !== activity.payload.acceptedAnswers.length || accepted.has("")
+      || !previous.payload.acceptedAnswers.every(answer => accepted.has(normalizeShortAnswer(answer)))) return activity;
+    return { ...activity, payload: { ...activity.payload, acceptedAnswers: previous.payload.acceptedAnswers } };
+  }) };
   const equivalent = new Set(target.objectives.filter(item => objectiveUpgradeHash(current, item.key, currentPolicy)
-    === objectiveUpgradeHash(target, item.key, targetPolicy)).map(item => item.key));
+    === objectiveUpgradeHash(comparisonTarget, item.key, targetPolicy)).map(item => item.key));
   // A changed prerequisite also invalidates dependent evidence, including transitive changes.
   let removed = true;
   while (removed) {
