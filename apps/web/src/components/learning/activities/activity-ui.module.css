@@ -15,9 +15,9 @@
 .header { position: relative; margin-bottom: 32px; }
 .immersive { isolation: isolate; }
 .headerRow { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 10px; }
-.headerTitle { min-width: 0; }
-.headerTitle > span { display: block; margin-bottom: 3px; color: var(--activity-muted); font-size: 12px; line-height: 1.4; }
-.headerTitle h1 { margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; letter-spacing: -.015em; }
+.headerTitle { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; min-width: 0; }
+.headerTitle h1 { min-width: 0; margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600; letter-spacing: -.015em; }
+.sessionLabel { padding: 2px 7px; border-radius: 6px; background: var(--activity-soft); color: var(--activity-muted); font-size: 12px; line-height: 1.4; }
 .iconButton { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 14px; background: transparent; color: var(--activity-accent); cursor: pointer; list-style: none; }
 .iconButton::-webkit-details-marker { display: none; }
 .iconButton:hover { background: #edf2ff; }

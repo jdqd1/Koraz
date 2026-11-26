@@ -103,10 +103,11 @@ test("E01 creates a new persisted v2 draft using UI and keyboard",async({page},i
 test("E02 editorial preview has no learner effects, then publishes with current approval",async({page},info)=>{
   await actor(page,"editor");const f=await fixture(page,info.project.name==="mobile"?"editorial-mobile":"editorial");
   await page.goto(`/panel/rutas/${f.pathId}`);
-  await page.getByLabel("Título",{exact:true}).fill(`Ruta corregida T042 ${info.project.name}`);
+  const title = page.getByRole("textbox", { name: "Título", exact: true });
+  await title.fill(`Ruta corregida T042 ${info.project.name}`);
   await page.getByRole("button",{name:"Guardar borrador",exact:true}).click();
   await expect.poll(async()=>(await server(page,`/v2/editor/learning-paths/${f.pathId}`)).route.definition.route.title).toBe(`Ruta corregida T042 ${info.project.name}`);
-  await page.reload();await expect(page.getByLabel("Título",{exact:true})).toHaveValue(`Ruta corregida T042 ${info.project.name}`);
+  await page.reload();await expect(title).toHaveValue(`Ruta corregida T042 ${info.project.name}`);
   await page.getByRole("tab",{name:"Revisión",exact:true}).click();
   const before=await server(page,"/__test/counts");const learnerRequests:string[]=[];
   page.on("request",r=>{if(r.url().includes("/api/v2/guided-learning/"))learnerRequests.push(r.url());});

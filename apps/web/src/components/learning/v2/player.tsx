@@ -133,7 +133,7 @@ export function V2Player({ initialAttempt, initialState, returnTo, preview = fal
     </aside> : null}
   </div> : null;
   return <Surface className={`${ui.session} ${preview ? "" : ui.immersive}`}><section aria-label="Sesión de aprendizaje" data-engine-version="guided-v2">
-    <ActivityHeader title={attempt.placement ? "Diagnóstico para avanzar" : "Tu sesión de aprendizaje"} eyebrow={preview ? "Vista previa · sin guardar progreso" : attempt.purpose === "review" ? "Repaso" : attempt.purpose === "assessment" ? "Evaluación" : "Práctica"} returnHref={returnHref} returnLabel={learningReturnLabel(returnHref)} onExit={preview ? onExit : undefined} completed={state?.completedActivities} total={state?.plannedRequiredActivities} details={<>
+    <ActivityHeader title={attempt.placement ? "Diagnóstico para avanzar" : "Tu sesión de aprendizaje"} sessionLabel={preview ? "Vista previa · sin guardar progreso" : attempt.purpose === "review" ? "Repaso" : attempt.purpose === "assessment" ? "Evaluación" : "Práctica"} returnHref={returnHref} returnLabel={learningReturnLabel(returnHref)} onExit={preview ? onExit : undefined} completed={state?.completedActivities} total={state?.plannedRequiredActivities} details={<>
       <p>{pending ? "Pendiente de confirmar" : busy ? "Guardando…" : preview ? "Estado simulado" : "Progreso guardado"}</p>
       <p>Salir conserva la sesión abierta y las respuestas guardadas. Comprueba tu respuesta antes de volver.</p>
       {state ? <><RouteSignals state={state} /><p>{state.nextAction.reason}</p></> : <p>No pudimos cargar el resumen de progreso confirmado.</p>}

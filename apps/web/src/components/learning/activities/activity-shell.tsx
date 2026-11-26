@@ -149,7 +149,7 @@ export function ActivityShell({
   );
   return (
     <main className={`${ui.session} ${ui.immersive}`} aria-label="Sesión de aprendizaje" data-engine-version="guided-v1">
-      <ActivityHeader title={attempt.manifest.title} eyebrow={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}
+      <ActivityHeader title={attempt.manifest.title} sessionLabel={attempt.manifest.projection === "quiz" ? "Cuestionario" : attempt.manifest.projection === "flashcards" ? "Tarjetas" : attempt.manifest.projection === "guide" ? "Lectura" : attempt.manifest.projection === "review" ? "Repaso" : "Video"}
         returnHref={returnHref ?? (attempt.pathSlug ? `/aprendizaje/rutas/${attempt.pathSlug}` : "/aprendizaje/mapa")}
         returnLabel={returnHref ? learningReturnLabel(returnHref) : attempt.pathSlug ? "Volver a mi ruta" : "Volver al mapa"}
         completed={progress?.completedEssentialSteps} total={progress?.totalEssentialSteps} details={<><p>{saveState === "saving" ? "Guardando…" : saveState === "pending" ? "Pendiente de guardar" : saveState === "failed" ? "Sin guardar" : "Progreso guardado"}</p><p>Salir conserva la sesión abierta y las respuestas guardadas. Comprueba tu respuesta antes de volver.</p></>} />

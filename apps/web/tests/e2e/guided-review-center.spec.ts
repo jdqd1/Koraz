@@ -86,7 +86,10 @@ test("F03: multiple objective routes preserve the open-session priority", async 
   await expect(page.getByRole("region", { name: "Repasos de Simulación de actualización", exact: true })).toBeVisible();
   await expect(block.getByRole("button", { name: "Continuar", exact: true })).toBeVisible();
   await block.getByRole("button", { name: "Continuar", exact: true }).click();
-  await expect(page).toHaveURL(new RegExp(`/aprendizaje/sesiones/${started.attempt.attemptId}$`));
+  await expect(page).toHaveURL(url =>
+    url.pathname === `/aprendizaje/sesiones/${started.attempt.attemptId}` &&
+    url.searchParams.get("returnTo") === "/aprendizaje/rutas/t035-small?leccion=unit&objetivo=objective-1&actividad=study-1#actividad-study-1",
+  );
   await page.getByRole("button", { name: "Guardar lectura", exact: true }).click();
   await page.getByRole("button", { name: "Finalizar sesión", exact: true }).click();
   await page.getByRole("link", { name: "Ver repasos pendientes", exact: true }).click();

@@ -14,7 +14,7 @@ function internalLink(target: EventTarget | null) {
 }
 
 /** Intent-based prefetch avoids downloading every reader/document in a list. */
-export function useNavigationIntent() {
+export function useNavigationIntent(prefetchEnabled: boolean) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -39,6 +39,7 @@ export function useNavigationIntent() {
     let timer: number | undefined;
     let candidate = "";
     function prefetch(href: string) {
+      if (!prefetchEnabled) return;
       const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
       if (connection?.saveData || href.startsWith("/api/") || href.startsWith("/panel/") || href.startsWith("/acceder")) return;
       if (Date.now() - (warmed.get(href) ?? 0) < 30_000) return;
@@ -80,7 +81,7 @@ export function useNavigationIntent() {
       document.removeEventListener("click", onClick, true);
       window.removeEventListener("popstate", onPopState, true);
     };
-  }, [router]);
+  }, [prefetchEnabled, router]);
 }
 
 export function RouteMain({ children, className }: { children: ReactNode; className: string }) {

@@ -122,10 +122,12 @@ function NavigationItem({
   item,
   activeKey,
   onNavigate,
+  prefetch,
 }: {
   item: NavItem;
   activeKey: string;
   onNavigate: () => void;
+  prefetch?: false;
 }) {
   const Icon = item.icon;
   const active = item.key === activeKey;
@@ -133,6 +135,7 @@ function NavigationItem({
     <Link
       className={`sidebar-link ${active ? "is-active" : ""}`.trim()}
       href={item.href}
+      prefetch={prefetch}
       aria-label={item.label}
       aria-current={active ? "page" : undefined}
       onClick={onNavigate}
@@ -153,6 +156,7 @@ function NavigationGroup({
   onToggle,
   open,
   groupKey,
+  prefetch,
 }: {
   activeKey: string;
   childItems: NavItem[];
@@ -162,6 +166,7 @@ function NavigationGroup({
   onToggle: () => void;
   open: boolean;
   groupKey: string;
+  prefetch?: false;
 }) {
   const active = activeKey === groupKey || childItems.some((item) => item.key === activeKey);
   const groupClassName = "sidebar-nav-group-item" + (active ? " is-active" : "");
@@ -191,7 +196,7 @@ function NavigationGroup({
         inert={!open}
       >
         {childItems.map((item) => (
-          <NavigationItem key={item.key} item={item} activeKey={activeKey} onNavigate={onNavigate} />
+          <NavigationItem key={item.key} item={item} activeKey={activeKey} onNavigate={onNavigate} prefetch={prefetch} />
         ))}
       </div>
     </section>
@@ -236,7 +241,8 @@ function ShellChrome({
   const sidebarRef = useRef<HTMLElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMaterialsRef = useRef<HTMLDivElement>(null);
-  useNavigationIntent();
+  useNavigationIntent(!profilePending);
+  const prefetch = profilePending ? false : undefined;
   const lastSessionCheck = useRef(0);
   useEffect(() => {
     if (lastSessionCheck.current === 0) { lastSessionCheck.current = Date.now(); return; }
@@ -414,6 +420,7 @@ function ShellChrome({
           <Link
             className="sidebar-brand"
             href="/dashboard"
+            prefetch={prefetch}
             aria-label="Koras, inicio"
             onClick={closeSidebar}
             title="Ir al inicio"
@@ -438,7 +445,7 @@ function ShellChrome({
         <nav className="sidebar-nav">
           <div className="sidebar-nav-group">
             {getMainNavigation(guidedLearningEnabled).map((item) => (
-              <NavigationItem key={item.key} item={item} activeKey={activeKey} onNavigate={closeSidebar} />
+              <NavigationItem key={item.key} item={item} activeKey={activeKey} onNavigate={closeSidebar} prefetch={prefetch} />
             ))}
             <NavigationGroup
               activeKey={activeKey}
@@ -449,6 +456,7 @@ function ShellChrome({
               onNavigate={closeSidebar}
               onToggle={() => toggleNavigationGroup(setStudyMenuOpen)}
               open={studyMenuOpen}
+              prefetch={prefetch}
             />
 
 
@@ -462,6 +470,7 @@ function ShellChrome({
                 onNavigate={closeSidebar}
                 onToggle={() => toggleNavigationGroup(setAdminMenuOpen)}
                 open={adminMenuOpen}
+                prefetch={prefetch}
               />
             )}
           </div>
@@ -505,12 +514,14 @@ function ShellChrome({
           </div>
           <GlobalContentSearch />
           <div className="topbar-page-context sr-only">
-            <h1>{headerTitle || "Koras"}</h1>
+            {pathname.startsWith("/aprendizaje/rutas/") || pathname.startsWith("/aprendizaje/sesiones/")
+              ? <p>{headerTitle || "Koras"}</p>
+              : <h1>{headerTitle || "Koras"}</h1>}
             {headerSubtitle && <p>{headerSubtitle}</p>}
             {showBreadcrumbs && <p>Ruta actual: {breadcrumbs?.join(" / ")}</p>}
           </div>
           <div className="topbar-actions">
-            <Link className="topbar-guide-home" href="/dashboard" aria-label="Ir al inicio" title="Ir al inicio">
+            <Link className="topbar-guide-home" href="/dashboard" prefetch={prefetch} aria-label="Ir al inicio" title="Ir al inicio">
               <House aria-hidden="true" size={22} />
             </Link>
             <div className="topbar-popover-wrap topbar-notification-wrap">
@@ -563,9 +574,9 @@ function ShellChrome({
                           )}
                         </span>
                       </div>
-                      {showContentManagement && <Link href="/panel/contenido" onClick={() => setProfileOpen(false)}>Administrar contenido</Link>}
-                      {showRoleManagement && <Link href="/panel/administracion/roles" onClick={() => setProfileOpen(false)}>Administrar roles</Link>}
-                      <Link href="/dashboard/seguridad" onClick={() => setProfileOpen(false)}>Seguridad de la cuenta</Link>
+                      {showContentManagement && <Link href="/panel/contenido" prefetch={prefetch} onClick={() => setProfileOpen(false)}>Administrar contenido</Link>}
+                      {showRoleManagement && <Link href="/panel/administracion/roles" prefetch={prefetch} onClick={() => setProfileOpen(false)}>Administrar roles</Link>}
+                      <Link href="/dashboard/seguridad" prefetch={prefetch} onClick={() => setProfileOpen(false)}>Seguridad de la cuenta</Link>
                       <button
                         className="profile-sign-out"
                         disabled={isSigningOut}
@@ -592,10 +603,10 @@ function ShellChrome({
         </header>
         {children}
         <nav className="mobile-primary-nav" aria-label="Navegación móvil">
-          <Link className={activeKey === "dashboard" ? "is-active" : ""} href="/dashboard" aria-current={activeKey === "dashboard" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+          <Link className={activeKey === "dashboard" ? "is-active" : ""} href="/dashboard" prefetch={prefetch} aria-current={activeKey === "dashboard" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
             <House aria-hidden="true" size={24} weight={activeKey === "dashboard" ? "fill" : "regular"} /><span>Inicio</span>
           </Link>
-          <Link className={activeKey === "guides" ? "is-active" : ""} href="/guias" aria-current={activeKey === "guides" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+          <Link className={activeKey === "guides" ? "is-active" : ""} href="/guias" prefetch={prefetch} aria-current={activeKey === "guides" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
             <BookOpen aria-hidden="true" size={24} weight={activeKey === "guides" ? "fill" : "regular"} /><span>Guías</span>
           </Link>
           <div className="mobile-materials-nav" ref={mobileMaterialsRef}>
@@ -603,13 +614,13 @@ function ShellChrome({
               <GraduationCap aria-hidden="true" size={25} weight={materialsActive || mobileMaterialsOpen ? "fill" : "regular"} /><span>Materiales</span>
             </button>
             {mobileMaterialsOpen && <div className="mobile-materials-menu" id="mobile-materials-menu">
-              <Link href="/asignaturas" onClick={() => setMobileMaterialsOpen(false)}><GraduationCap size={21} aria-hidden="true" />Materias</Link>
-              <Link href="/guias" onClick={() => setMobileMaterialsOpen(false)}><BookOpen size={21} aria-hidden="true" />Guías</Link>
-              <Link href="/asignaturas?tipo=quiz" onClick={() => setMobileMaterialsOpen(false)}><ClipboardText size={21} aria-hidden="true" />Cuestionarios</Link>
-              <Link href="/asignaturas?tipo=flashcards" onClick={() => setMobileMaterialsOpen(false)}><CardsThree size={21} aria-hidden="true" />Flashcards</Link>
+              <Link href="/asignaturas" prefetch={prefetch} onClick={() => setMobileMaterialsOpen(false)}><GraduationCap size={21} aria-hidden="true" />Materias</Link>
+              <Link href="/guias" prefetch={prefetch} onClick={() => setMobileMaterialsOpen(false)}><BookOpen size={21} aria-hidden="true" />Guías</Link>
+              <Link href="/asignaturas?tipo=quiz" prefetch={prefetch} onClick={() => setMobileMaterialsOpen(false)}><ClipboardText size={21} aria-hidden="true" />Cuestionarios</Link>
+              <Link href="/asignaturas?tipo=flashcards" prefetch={prefetch} onClick={() => setMobileMaterialsOpen(false)}><CardsThree size={21} aria-hidden="true" />Flashcards</Link>
             </div>}
           </div>
-          {guidedLearningEnabled && <Link className={activeKey === "learning" ? "is-active" : ""} href="/aprendizaje" aria-current={activeKey === "learning" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
+          {guidedLearningEnabled && <Link className={activeKey === "learning" ? "is-active" : ""} href="/aprendizaje" prefetch={prefetch} aria-current={activeKey === "learning" ? "page" : undefined} onClick={() => setMobileMaterialsOpen(false)}>
             <Path aria-hidden="true" size={25} weight={activeKey === "learning" ? "fill" : "regular"} /><span>Rutas de<br />aprendizaje</span>
           </Link>}
         </nav>

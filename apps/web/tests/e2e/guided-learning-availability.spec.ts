@@ -200,6 +200,62 @@ test("F07 correlates the retry and preserves the deep link on expired identity",
   expect(results.violations.map(item => ({ id: item.id, targets: item.nodes.map(node => node.target) }))).toEqual([]);
 });
 
+test("F07 recovers identity on the same page and stops automatic retries after four attempts", async ({ page }, info) => {
+  test.skip(process.env.F07_BASELINE === "true");
+  await actor(page, info.project.name === "mobile" ? "student-36" : "student-35");
+  await page.clock.install({ time: new Date("2026-10-04T12:00:00Z") });
+  const ready = await (await page.request.get(`${api}/__test/ready`)).json();
+  const enrollment = await page.request.post("/api/v2/guided-learning/enrollments", {
+    data: { pathId: ready.fixtures.small.pathId }, headers: { "idempotency-key": crypto.randomUUID() },
+  });
+  expect(enrollment.status()).toBe(200);
+  const path = "/aprendizaje/rutas/t035-small?leccion=unit&pestana=resources";
+  const failed = page.getByRole("heading", { name: "No pudimos verificar tu sesión" });
+  const retry = page.getByRole("link", { name: "Reintentar", exact: true });
+  const automatic = page.getByRole("status").filter({ hasText: "Koraz volverá a intentar" });
+  const reference = page.getByText(/^Referencia: [\w-]+$/);
+  const outage = (value: "timeout" | "service") =>
+    page.context().addCookies([{ name: "f02_access", value, domain: "127.0.0.1", path: "/" }]);
+  const recover = () => page.context().clearCookies({ name: "f02_access" });
+  const counts = async () => (await (await page.request.get(`${api}/__test/counts`)).json());
+  const before = await counts();
+
+  await outage("timeout");
+  await page.goto(path);
+  await expect(failed).toBeVisible();
+  await expect(page.getByText(/El servidor tardó demasiado/)).toBeVisible();
+  await expect(automatic).toBeVisible();
+  await recover();
+  await page.clock.fastForward(4_000);
+  await expect(failed).toHaveCount(0);
+  await expect(page.getByRole("tab", { name: "Recursos" })).toHaveAttribute("aria-selected", "true");
+  expect(new URL(page.url()).pathname + new URL(page.url()).search).toBe(path);
+
+  await page.waitForLoadState("networkidle");
+  await outage("service");
+  const prefetched: string[] = [];
+  page.on("request", request => {
+    if (request.headers()["next-router-prefetch"]) prefetched.push(new URL(request.url()).pathname);
+  });
+  await page.reload();
+  await expect(failed).toBeVisible();
+  let previousReference = await reference.textContent();
+  for (const delay of [4_000, 8_000, 16_000, 32_000]) {
+    await page.clock.fastForward(delay);
+    await expect(reference).not.toHaveText(previousReference!);
+    previousReference = await reference.textContent();
+  }
+  await expect(automatic).toHaveCount(0);
+  await page.clock.fastForward(60_000);
+  await expect(reference).toHaveText(previousReference!);
+  await expect(retry).toBeVisible();
+  expect(prefetched).toEqual([]);
+  await recover();
+  await retry.click();
+  await expect(page.getByRole("tab", { name: "Recursos" })).toHaveAttribute("aria-selected", "true");
+  expect(await counts()).toEqual(before);
+});
+
 test("F07 measures cold and warm catalog navigation with request and payload budgets", async ({ page }, info) => {
   await installBrowserTiming(page);
   const name = info.project.name === "mobile" ? "student-38" : "student-37";

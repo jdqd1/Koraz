@@ -15,7 +15,7 @@ import { buildApp } from "../../src/app.js";
 import { readEnvironment } from "../../src/config.js";
 import { createPostgresGuidedLearningProvider } from "../../src/providers/postgres-guided-learning.js";
 import { seedReviewCenter } from "./review-center-fixture.js";
-import { seedLearningNavigation } from "./learning-navigation-fixture.js";
+import { navigationVideoFile, navigationVideoKey, seedLearningNavigation, seedLearningVideo } from "./learning-navigation-fixture.js";
 
 export async function createGuidedV2Server() {
   if(process.env.NODE_ENV!=="test" || process.env.KORAZ_GUIDED_V2_TEST_SERVER!=="true") throw new Error("Explicit T035 test server required");
@@ -25,6 +25,14 @@ export async function createGuidedV2Server() {
   let clock=new Date("2026-10-04T12:00:00Z");
   const now=()=>clock;
   const assetStorage={bucket:"test-assets",createDownloadUrl:async()=>"https://127.0.0.1:41036/fixture.png"};
+  const videoDownloadPath = process.env.KORAZ_LEARNING_VIDEO_TESTS === "true" ? `/${navigationVideoKey}?ticket=${randomUUID()}` : null;
+  const videoStorage = videoDownloadPath ? {
+    bucket: "test-assets",
+    async createDownloadUrl({ key }: { key: string }) {
+      if (key !== navigationVideoKey) throw new Error("Unknown synthetic video");
+      return `https://127.0.0.1:41036${videoDownloadPath}`;
+    },
+  } : undefined;
   const actors=new Map<string,{id:string;name:string;email:string}>();
   for(let n=1;n<=40;n++){
     const token=n===1?"editor":`student-${n}`;
@@ -136,6 +144,17 @@ export async function createGuidedV2Server() {
     }
     const seeded = await seedLearningNavigation(db, id(1), users, now);
     fixtures.navigation = { pathId: seeded.path.id, slug: seeded.path.slug, versionId: seeded.path.version.id, objectives: 30, activities: 3 };
+    if (videoStorage) {
+      const videoLearners: string[] = [];
+      for (const [index, profile] of ["desktop", "mobile"].entries()) {
+        const token = `f08-video-${profile}`;
+        const actor = { id: id(152 + index), name: "Alumno de video", email: `${token}@example.test` };
+        actors.set(token, actor);
+        videoLearners.push(actor.id);
+        await db.pool.query("insert into auth_users(id,name,email) values($1,$2,$3)", [actor.id, actor.name, actor.email]);
+      }
+      await seedLearningVideo(db, id(1), seeded.topicId, videoLearners, now);
+    }
   }
   for (const [index, token] of ["f03-desktop", "f03-mobile"].entries()) {
     const actor = { id: id(110 + index), name: "Alumno de repaso", email: `${token}@example.test` };
@@ -161,7 +180,7 @@ export async function createGuidedV2Server() {
   }
   const app=await buildApp(readEnvironment({NODE_ENV:"test",HOST:"127.0.0.1",PORT:"41035",DATABASE_URL:db.url,DATABASE_MIGRATIONS_ENABLED:"false",GUIDED_LEARNING_ENABLED:"true",GUIDED_LEARNING_MAP_ENABLED:"true",GUIDED_LEARNING_V2_ENABLED:"true",GUIDED_LEARNING_V2_NEW_ENROLLMENTS:"true",WEB_ORIGINS:"http://127.0.0.1:31035"}),{
     identityProvider:{getUser:async r=>actors.get(/(?:^|;\s*)t035=([^;]+)/.exec(r.cookie??"")?.[1]??"")??null,revokeSessions:async()=>{}},
-    guidedLearningProvider: createPostgresGuidedLearningProvider(db.database, { clock: now }),
+    guidedLearningProvider: createPostgresGuidedLearningProvider(db.database, { clock: now, assetStorage: videoStorage }),
     guidedLearningV2Provider:learner,guidedLearningV2EditorProvider:editor,learningMapProvider:map,
   });
   application=app;
@@ -246,17 +265,34 @@ export async function createGuidedV2Server() {
   });
   let closed=false;
   const close=async()=>{if(closed)return;closed=true;await app.close();await db.close();};
-  return {app,db,fixtures,bindings,counts,close};
+  return {app,db,fixtures,bindings,counts,close,videoDownloadPath};
   } catch(error){await application?.close();await db.close();throw error;}
 }
 
 if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
   const harness=await createGuidedV2Server();
+  const video = harness.videoDownloadPath ? await readFile(navigationVideoFile) : null;
   // Public synthetic key/certificate are fixture data, never deployment credentials.
   const media=createServer({key:await readFile(new URL("guided-v2-tls-key.pem",import.meta.url)),cert:await readFile(new URL("guided-v2-tls-cert.pem",import.meta.url))},(request,response)=>{
     if (request.url === "/fixture.png") {
       response.writeHead(200, { "Content-Type": "image/png", "Cache-Control": "no-store" });
       response.end(guidedV2Image);
+      return;
+    }
+    if (video && request.url === harness.videoDownloadPath) {
+      const range = /^bytes=(\d+)-(\d*)$/.exec(request.headers.range ?? "");
+      const start = range ? Number(range[1]) : 0;
+      const end = range?.[2] ? Math.min(Number(range[2]), video.length - 1) : video.length - 1;
+      if (start > end) {
+        response.writeHead(416, { "Content-Range": `bytes */${video.length}` }).end();
+        return;
+      }
+      response.writeHead(range ? 206 : 200, {
+        "Content-Type": "video/webm", "Cache-Control": "no-store", "Accept-Ranges": "bytes",
+        "Content-Length": end - start + 1,
+        ...(range ? { "Content-Range": `bytes ${start}-${end}/${video.length}` } : {}),
+      });
+      response.end(video.subarray(start, end + 1));
       return;
     }
     if (process.env.F07_WEBKIT !== "true") { response.writeHead(404).end(); return; }

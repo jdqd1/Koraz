@@ -120,7 +120,8 @@ describe("diagnostic admission to a selected objective", () => {
     const before = (await get()).json().state;
     expect(before.maintenance.placements.find((item: { objectiveKey: string }) => item.objectiveKey === "last")).toMatchObject({ status: "available", prerequisiteKeys: ["middle", "core"] });
     expect((await begin({ kind: "activity", key: "last-learn" })).statusCode).toBe(409);
-    const start = await begin({ kind: "assessment", key: "diagnosis", objectiveKey: "last" });
+    const diagnostic = { kind: "assessment", key: "diagnosis", objectiveKey: "last" } as const;
+    const start = await begin(diagnostic);
     expect(start.statusCode, start.body).toBe(200);
     let attempt = start.json().attempt;
     expect(attempt.placement).toMatchObject({ objectiveKey: "last", status: "pending" });
@@ -161,6 +162,15 @@ describe("diagnostic admission to a selected objective", () => {
       expect(reloaded.json().state).toEqual(state);
     } finally { await restarted.close(); }
     expect((await begin({ kind: "activity", key: "last-learn" })).statusCode).toBe(correct ? 200 : 409);
+    if (!correct) {
+      const retryAt = clock.getTime() + 600_000;
+      clock = new Date(retryAt - 1);
+      expect((await begin(diagnostic)).statusCode).toBe(409);
+      clock = new Date(retryAt);
+      const retry = await begin(diagnostic);
+      expect(retry.statusCode, retry.body).toBe(200);
+      expect(retry.json().attempt.attemptId).not.toBe(attempt.attemptId);
+    }
   });
   it("refuses missing diagnostic coverage, foreign objectives and reserved assessments", async () => {
     const offer = (await get()).json().state.maintenance.placements.find((item: { objectiveKey: string }) => item.objectiveKey === "uncovered");

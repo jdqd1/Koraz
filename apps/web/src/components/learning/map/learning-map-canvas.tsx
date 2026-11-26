@@ -169,6 +169,7 @@ export default function LearningMapCanvas({
   const originNode = useMemo<OriginNode>(() => (
     {
       id: ORIGIN_ID, type: "origin", position: layout.origin,
+      initialWidth: layout.originWidth, initialHeight: layout.originHeight,
       style: { width: layout.originWidth, height: layout.originHeight, pointerEvents: "all" },
       data: { title: root ? "Mis rutas" : level.containerSummary.title, root, onBack },
       draggable: false, selectable: false, focusable: false,
@@ -177,6 +178,8 @@ export default function LearningMapCanvas({
   const itemNodes = useMemo(() => level.items.map((item, index): FlowMapNode => ({
       id: item.occurrenceId, type: item.kind, position: layout.positions[item.occurrenceId]!,
       className: styles.diagramChild,
+      // A returning node can render before its ResizeObserver reports dimensions.
+      initialWidth: layout.cardWidth, initialHeight: layout.cardHeight,
       style: { width: layout.cardWidth, height: layout.cardHeight, pointerEvents: "all", "--appear-delay": `${Math.min(index, 3) * 16}ms` } as CSSProperties,
       draggable: false, selectable: false, focusable: false,
       data: { item, iconColor: iconColors[item.occurrenceId], mobile: compact,

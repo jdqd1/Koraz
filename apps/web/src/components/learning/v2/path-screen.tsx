@@ -35,14 +35,15 @@ export function V2PathScreen({ path, state, focusUnit, returnTo, context, notice
   const safe = safeLearningOrigin(returnTo);
   return <RouteDetailLayout title={path.title} summary={path.summary} topic={path.topicLabel} coverKey={path.coverKey} unitCount={path.units.length} origin={safe} engine="guided-v2" overview={<>
       <RouteNextStep path={path} state={confirmed} returnTo={safe} />
-      {confirmed ? <section className={styles.progress} aria-label="Tu progreso"><h2>Tu progreso</h2><RouteSignals state={confirmed} appearance="overview" /><LearningPoints path={path} state={confirmed} returnTo={safe} /></section> : null}
+      {confirmed ? <section className={styles.progress} aria-label="Tu progreso"><h2>Tu progreso</h2><RouteSignals state={confirmed} appearance="overview" /></section> : null}
     </>}>
     {notice ? <p role="status">{notice}</p> : null}
-    {confirmed?.maintenance?.diagnostic.assessmentKey && confirmed.maintenance.diagnostic.status !== "completed" ? <DiagnosticPanel path={path} state={confirmed} /> : null}
-    <section className={styles.units} aria-labelledby="v2-units-title"><div className={styles.sectionHeading}><h2 id="v2-units-title">Unidades de la ruta</h2><span>{path.units.length}</span></div>
+    <section className={styles.units} aria-labelledby="v2-units-title"><h2 className={styles.sectionHeading} id="v2-units-title">Unidades de la ruta</h2>
       <RouteContent path={path} state={confirmed} focusUnit={focusUnit} returnTo={safe} context={context} />
     </section>
     {confirmed ? <>
+      {confirmed.maintenance?.diagnostic.assessmentKey && confirmed.maintenance.diagnostic.status !== "completed" ? <DiagnosticPanel path={path} state={confirmed} /> : null}
+      <LearningPoints path={path} state={confirmed} returnTo={safe} />
       {confirmed.availability !== "maintenance" ? <details className={styles.versions}><summary><h2>Repaso y comprobaciones</h2><CaretDown size={18} aria-hidden /></summary><div className={styles.versionBody}><RouteMaintenance path={path} state={confirmed} /></div></details> : null}
       <details className={styles.versions}><summary><h2>Versiones e historial</h2><CaretDown size={18} aria-hidden /></summary><div className={styles.versionBody}>
         <V2Upgrade key={confirmed.enrollmentId} enrollmentId={confirmed.enrollmentId} expectedVersion={confirmed.rowVersion} disabled={path.availability === "maintenance" || confirmed.availability === "maintenance"} />

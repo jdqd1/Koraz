@@ -43,7 +43,44 @@ export async function createRealAuthHarness(){
     for(const table of learnerTables)data[table]=(await h.db.pool.query(`select coalesce(jsonb_agg(to_jsonb(t) order by to_jsonb(t)::text),'[]'::jsonb) as rows from ${table} t`)).rows[0].rows;
     return data;
   }
-  let closed=false;const close=async()=>{if(closed)return;closed=true;await app.close();await auth.close();await h.close();};
+
+  let coldStart: { ready: Promise<void>; release: () => void; identityAbortsMs: number[] } | undefined;
+  function finishColdStart() {
+    const startup = coldStart;
+    coldStart = undefined;
+    startup?.release();
+    return startup?.identityAbortsMs ?? [];
+  }
+  app.addHook('onRequest', async (request, reply) => {
+    const startup = coldStart;
+    if (!startup || request.url.startsWith('/__test/')) return;
+
+    const started = performance.now();
+    await new Promise<void>(resolve => {
+      const onClose = () => {
+        if (request.url === '/v1/auth/me' && !reply.raw.writableEnded) {
+          startup.identityAbortsMs.push(Math.round(performance.now() - started));
+        }
+        resolve();
+      };
+      reply.raw.once('close', onClose);
+      void startup.ready.then(() => {
+        reply.raw.off('close', onClose);
+        resolve();
+      });
+    });
+    if (reply.raw.destroyed) reply.hijack();
+  });
+  app.post('/__test/cold-start', async () => {
+    assert.equal(coldStart, undefined);
+    let release!: () => void;
+    const ready = new Promise<void>(resolve => { release = resolve; });
+    coldStart = { ready, release, identityAbortsMs: [] };
+    return { warming: true };
+  });
+  app.post('/__test/warm', async () => ({ identityAbortsMs: finishColdStart() }));
+
+  let closed=false;const close=async()=>{if(closed)return;closed=true;finishColdStart();await app.close();await auth.close();await h.close();};
   app.get('/__test/ready',async()=>({testOnly:true,realBetterAuth:true,database:h.db.name,pathId:h.fixtures.small!.pathId}));
   app.post('/__test/signup',signUp);
   app.post('/__test/expire',async request=>expire((request.body as {userId:string}).userId,2));

@@ -4,7 +4,7 @@
 .content :is(button, a, summary):focus-visible { outline: 3px solid #80baff; outline-offset: 3px; }
 .tabs { position: sticky; top: 0; z-index: 3; display: flex; gap: 4px; padding: 4px; margin-bottom: 20px; background: #ececf0; border-radius: 12px; }
 .tabs button { flex: 1; min-height: 44px; padding: 9px 16px; border: 0; border-radius: 9px; color: #626267; font: inherit; font-size: .88rem; font-weight: 600; background: transparent; cursor: pointer; }
-:global(.learning-path-detail) .tabs { top: calc(var(--topbar-height, 72px) + 8px); }
+:global(.learning-path-detail) .tabs { top: calc(var(--topbar-height, 72px) + 8px); margin-bottom: 12px; }
 .tabs button { scroll-margin-block: 6rem; }
 .tabs [aria-selected="true"] { color: #1d1d1f; background: #fff; box-shadow: 0 1px 4px rgb(0 0 0 / 8%); }
 :global([data-panel-scroll]) .tabs::before { position: absolute; top: -20px; left: 0; right: 0; height: 20px; background: #fff; box-shadow: -20px 0 #fff, 20px 0 #fff; content: ""; }
@@ -17,6 +17,10 @@
 .unit > summary::-webkit-details-marker, .help > summary::-webkit-details-marker { display: none; }
 .unit > summary:focus-visible { outline-offset: -4px; }
 .unit > summary:hover { background: #fafafa; }
+@media (max-width: 700px) {
+  :global(.learning-path-detail) .tabs { margin-bottom: 8px; }
+  :global(.learning-path-detail) .unit > summary { min-height: 68px; padding: 11px 14px; }
+}
 .unitNumber { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #f0f0f3; color: #626267; font-size: .85rem; font-weight: 600; }
 .unit[open] .unitNumber { background: #eaf2fd; color: #0066cc; }
 .unitNumber[data-done="true"] { background: #eaf5ed; color: #287a45; }

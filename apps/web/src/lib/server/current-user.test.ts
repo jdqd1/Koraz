@@ -23,6 +23,7 @@ describe("F02 identity recovery", () => {
       mocks.request.mockResolvedValue(response);
       expect(await getCurrentUser()).toMatchObject({
         status: "unavailable", reason, reference: expect.stringMatching(/^[\w-]+$/),
+        retryable: reason !== "invalid_response",
       });
       expect(log).toHaveBeenCalledTimes(reason === "invalid_response" ? 1 : 2);
       expect(mocks.request).toHaveBeenCalledTimes(reason === "invalid_response" ? 1 : 2);
@@ -40,7 +41,7 @@ describe("F02 identity recovery", () => {
 
   it("keeps a denied identity distinct and never retries permissions", async () => {
     mocks.request.mockResolvedValue({ status: 403, body: { error: "forbidden" } });
-    expect(await getCurrentUser()).toMatchObject({ status: "unavailable", reason: "forbidden" });
+    expect(await getCurrentUser()).toMatchObject({ status: "unavailable", reason: "forbidden", retryable: false });
     expect(mocks.request).toHaveBeenCalledOnce();
   });
 

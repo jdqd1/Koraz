@@ -38,18 +38,19 @@ export function PlatformFrame({ children }: { children: ReactNode }) {
   return isPlatformPath(pathname) ? <AuthenticatedFrame>{children}</AuthenticatedFrame> : children;
 }
 
-/** Verified server session data, never user-supplied roles or an authorization gate. */
-export function AuthenticatedShellSession({ features, roles, viewer }: ShellSession) {
+/** Reflect the server's session verification in the persistent chrome. */
+export function AuthenticatedShellSession({ session }: { session: ShellSession | null }) {
   const setSession = useContext(SessionBridge);
   useLayoutEffect(() => {
-    setSession?.((previous) =>
-      previous?.viewer.email === viewer.email &&
-      previous.roles.join() === roles.join() &&
-      previous.features.guidedLearning === features.guidedLearning &&
-      previous.features.guidedLearningMap === features.guidedLearningMap
+    setSession?.((previous) => {
+      if (!session) return null;
+      return previous?.viewer.email === session.viewer.email &&
+        previous.roles.join() === session.roles.join() &&
+        previous.features.guidedLearning === session.features.guidedLearning &&
+        previous.features.guidedLearningMap === session.features.guidedLearningMap
         ? previous
-        : { features, roles, viewer },
-    );
-  }, [features, roles, setSession, viewer]);
+        : session;
+    });
+  }, [session, setSession]);
   return null;
 }

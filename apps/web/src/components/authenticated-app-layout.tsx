@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getSafeNextPath } from "@/lib/auth/validation";
 import { AccessProvider } from "./access-context";
+import { AuthenticatedSessionRecovery } from "./authenticated-session-recovery";
 import { AuthenticatedShellSession } from "./platform-frame";
 import { InteractiveTermEditorBridge } from "./interactive-term-editor-bridge";
 import { UserTimeZoneSync } from "./user-time-zone";
@@ -26,7 +27,9 @@ export async function AuthenticatedAppLayout({
       forbidden: "Tu cuenta no tiene permiso para acceder a esta área. Si esperabas tener acceso, comparte la referencia con soporte.",
     };
     return <main className="page-shell"><h1>No pudimos verificar tu sesión</h1>
+      <AuthenticatedShellSession session={null} />
       <p>{explanation[current.reason]}</p>
+      {current.retryable ? <AuthenticatedSessionRecovery /> : null}
       <a className="button button-primary" href="">Reintentar</a>
       <details><summary>Detalles del problema</summary><p>Referencia: {current.reference}</p></details></main>;
   }
@@ -41,9 +44,7 @@ export async function AuthenticatedAppLayout({
     <AccessProvider roles={current.roles}>
       <UserTimeZoneSync key={current.user.id} userId={current.user.id} />
       <AuthenticatedShellSession
-        features={current.features}
-        roles={current.roles}
-        viewer={{ email: current.user.email }}
+        session={{ features: current.features, roles: current.roles, viewer: { email: current.user.email } }}
       />
       <InteractiveTermEditorBridge />
       {children}

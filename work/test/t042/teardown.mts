@@ -10,7 +10,8 @@ export default async function teardown(){
   for(let n=0;n<30;n++){
     await new Promise(resolve=>setTimeout(resolve,250));
     try{await fetch(root+'/__test/ready',{signal:AbortSignal.timeout(500)});}catch{
-      await writeFile(new URL(`../../../docs/aprendizaje-guiado/v2/evidencias/T042/${process.env.T042_AUTH_RUN==='true'?'auth':'mobile'}-cleanup.json`,import.meta.url),JSON.stringify({database:ready.database,stopped:true},null,2)+'\n');return;
+      const report = process.env.T042_CLEANUP_OUTPUT_FILE ?? new URL(`../../../docs/aprendizaje-guiado/v2/evidencias/T042/${process.env.T042_AUTH_RUN==='true'?'auth':'mobile'}-cleanup.json`,import.meta.url);
+      await writeFile(report,JSON.stringify({database:ready.database,stopped:true},null,2)+'\n');return;
     }
   }
   throw new Error('Disposable fixture did not finish cooperative cleanup');

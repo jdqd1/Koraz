@@ -13,7 +13,7 @@ export function RouteDetailLayout({ title, summary, topic, coverKey, unitCount, 
   const back = safeLearningOrigin(origin);
   return <article className={`learning-main learning-path-detail ${styles.screen}`} data-engine-version={engine}>
     <Link className={styles.back} href={back ?? "/aprendizaje?tab=rutas"}><ArrowLeft aria-hidden size={18} />{back?.startsWith("/aprendizaje/mapa") ? "Volver al mapa" : back ? "Volver al aprendizaje" : "Todas las rutas"}</Link>
-    <header className={styles.header}><div className={styles.heading}><h1>{title}</h1><div className={styles.metadata}><span>{topic}</span><span>{unitCount} unidades</span></div><details className={styles.about}><summary>Acerca de esta ruta <CaretDown size={14} aria-hidden /></summary><p>{summary}</p></details></div><div className={styles.cover}><Image alt="" fill priority sizes="(max-width: 600px) 88px, 144px" src={covers[coverKey]} /></div></header>
+    <header className={styles.header}><div className={styles.heading}><h1>{title}</h1><div className={styles.metadata}><span>{topic}</span><span>{unitCount} {unitCount === 1 ? "unidad" : "unidades"}</span></div><details className={styles.about}><summary>Acerca de esta ruta <CaretDown size={14} aria-hidden /></summary><p>{summary}</p></details></div><div className={styles.cover}><Image alt="" fill priority sizes="(max-width: 700px) 72px, 108px" src={covers[coverKey]} /></div></header>
     <div className={styles.overview}>{overview}</div>
     {children}
   </article>;
