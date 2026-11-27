@@ -195,6 +195,7 @@ export async function createGuidedV2Server() {
     const path = request.url.split("?")[0]!;
     if (fault === "identity-once" && path === "/v1/auth/me" && !injected.has(actor)
       || fault === "catalog" && path === "/v2/guided-learning/paths"
+      || fault === "path" && path === "/v2/guided-learning/paths/t035-small"
       || fault === "resource" && /^\/v1\/guided-learning\/paths\/[^/]+\/resources\//.test(path)
       || fault === "attempt" && /^\/v1\/guided-learning\/attempts\/[^/]+$/.test(path)
       || fault === "progress" && /^\/v1\/guided-learning\/enrollments\/[^/]+\/progress$/.test(path)

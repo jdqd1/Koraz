@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 
 const retryDelaysMs = [4_000, 8_000, 16_000, 32_000] as const;
 
-export function AuthenticatedSessionRecovery() {
+export function AutomaticPageRetry() {
   const router = useRouter();
   const [attempt, setAttempt] = useState(0);
   const [pending, startTransition] = useTransition();

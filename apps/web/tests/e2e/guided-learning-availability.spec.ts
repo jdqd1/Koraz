@@ -161,6 +161,20 @@ test("F07 preserves resource section, attempt and catalog context across tempora
   await expect(page.locator('[id^="actividad-"]:focus')).toHaveCount(1);
 });
 
+test("F10 recovers a route read after identity is available", async ({ page }, info) => {
+  test.skip(process.env.F07_BASELINE === "true");
+  await actor(page, "f06-" + info.project.name);
+  const route = "/aprendizaje/rutas/t035-small?leccion=unit&actividad=study-1&pestana=resources#actividad-study-1";
+  await fault(page, "path");
+  await page.goto(route);
+  await expect(page.getByRole("heading", { name: "No pudimos abrir esta ruta" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: "Koraz volverá a intentar" })).toBeVisible();
+  await restore(page);
+  await expect(page.getByRole("tab", { name: "Recursos", selected: true })).toBeVisible();
+  await expect(page.getByRole("tabpanel", { name: "Recursos" })).toBeVisible();
+  await expect(page).toHaveURL(new URL(route, "http://127.0.0.1:31035").toString());
+});
+
 test("F07 correlates the retry and preserves the deep link on expired identity", async ({ page }, info) => {
   test.skip(process.env.F07_BASELINE === "true");
   const name = info.project.name === "mobile" ? "student-36" : "student-35";

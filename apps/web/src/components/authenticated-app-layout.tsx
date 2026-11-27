@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { getCurrentUser } from "@/lib/server/current-user";
 import { getSafeNextPath } from "@/lib/auth/validation";
 import { AccessProvider } from "./access-context";
-import { AuthenticatedSessionRecovery } from "./authenticated-session-recovery";
+import { AutomaticPageRetry } from "./automatic-page-retry";
 import { AuthenticatedShellSession } from "./platform-frame";
 import { InteractiveTermEditorBridge } from "./interactive-term-editor-bridge";
 import { UserTimeZoneSync } from "./user-time-zone";
@@ -29,7 +29,7 @@ export async function AuthenticatedAppLayout({
     return <main className="page-shell"><h1>No pudimos verificar tu sesión</h1>
       <AuthenticatedShellSession session={null} />
       <p>{explanation[current.reason]}</p>
-      {current.retryable ? <AuthenticatedSessionRecovery /> : null}
+      {current.retryable ? <AutomaticPageRetry /> : null}
       <a className="button button-primary" href="">Reintentar</a>
       <details><summary>Detalles del problema</summary><p>Referencia: {current.reference}</p></details></main>;
   }

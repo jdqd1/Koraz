@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AutomaticPageRetry } from "@/components/automatic-page-retry";
 import { LearningPathScreen } from "@/components/learning/learning-path-screen";
 import { getLearningProgress, getLearningUpgradePreview, getLearningV2State } from "@/lib/server/guided-learning-api";
 import { getPathForEngine } from "@/components/learning/v2/server";
@@ -15,7 +16,14 @@ export default async function LearningPathPage({ params, searchParams }: { param
   const result = await getPathForEngine(slug);
   if (result.status === "not_found") notFound();
   if (result.status !== "ready") {
-    return <main className="learning-main"><section className="learning-empty" role="alert"><div><h1>No pudimos abrir esta ruta</h1><p>{result.status === "forbidden" ? "Tu cuenta no tiene acceso a esta ruta." : result.status === "unauthorized" ? "Vuelve a iniciar sesión con la misma cuenta." : "Tu progreso se conserva. Reintenta para continuar en el mismo lugar."}</p></div>{result.status === "forbidden" ? <Link className="learning-secondary-button" href="/aprendizaje?tab=rutas">Volver a las rutas</Link> : <a className="learning-secondary-button" href="">Reintentar</a>}</section></main>;
+    return <main className="learning-main"><section className="learning-empty" role="alert">
+      <div>
+        <h1>No pudimos abrir esta ruta</h1>
+        <p>{result.status === "forbidden" ? "Tu cuenta no tiene acceso a esta ruta." : result.status === "unauthorized" ? "Vuelve a iniciar sesión con la misma cuenta." : "Tu progreso se conserva. Puedes reintentar en el mismo lugar."}</p>
+        {result.status === "unavailable" ? <AutomaticPageRetry /> : null}
+      </div>
+      {result.status === "forbidden" ? <Link className="learning-secondary-button" href="/aprendizaje?tab=rutas">Volver a las rutas</Link> : <a className="learning-secondary-button" href="">Reintentar</a>}
+    </section></main>;
   }
   if (result.engineVersion === "guided-v2") {
     const state = result.path.enrollmentId ? await getLearningV2State(result.path.enrollmentId) : null;
